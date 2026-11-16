@@ -1,0 +1,355 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "IONP-H01",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "某溶液可能含有 Na^+、K^+、NH4^+、CO3^2-、SO4^2- 中的一种或几种。进行如下实验：①取原溶液做焰色试验，透过蓝色钴玻璃观察到紫色火焰；②另取原溶液加入足量 NaOH 溶液并加热，产生使湿润红色石蕊试纸变蓝的气体；③另取原溶液滴加足量 BaCl2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解。判断溶液中一定存在、一定不存在与不能确定的离子。",
+      "given": {
+        "candidateSpecies": ["Na^+", "K^+", "NH4^+", "CO3^2-", "SO4^2-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "紫色火焰", "reagents": ["焰色试验", "蓝色钴玻璃"], "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰" },
+          { "step": 2, "from": "溶液", "to": "碱性气体", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "加足量 NaOH 溶液并加热，产生使湿润红色石蕊试纸变蓝的气体" },
+          { "step": 3, "from": "溶液", "to": "白色沉淀不溶", "reagents": ["BaCl2", "HNO3"], "phenomenon": "滴加足量 BaCl2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["一定存在的离子", "一定不存在的离子", "不能确定的离子"] },
+      "expected": {
+        "equations": [
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "NH4^+ + OH^- =△= NH3↑ + H2O"
+        ],
+        "composition": { "Na^+": "Maybe", "K^+": "Must", "NH4^+": "Must", "CO3^2-": "Maybe", "SO4^2-": "Must" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IONP-H01-D1",
+          "description": "BaSO4 难溶，漏标 ↓",
+          "equation": "Ba^2+ + SO4^2- = BaSO4",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        },
+        {
+          "id": "IONP-H01-D2",
+          "description": "配平错误：氢原子不守恒（左边 9 个 H，右边 8 个 H）",
+          "equation": "2NH4^+ + OH^- =△= 2NH3↑ + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子检验）与第二章'钠及其化合物'（焰色试验）",
+      "tags": ["离子粉末推断", "溶液连续操作", "焰色反应", "铵根检验", "必要性判定"]
+    },
+    {
+      "id": "IONP-H02",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "某溶液可能含有 NH4^+、K^+、CO3^2-、SO4^2-、Cl^- 中的一种或几种。进行如下实验：①加入足量稀硝酸，产生气体；②向①所得溶液中加入 Ba(NO3)2 溶液，无明显沉淀；③向②所得溶液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀；④另取原溶液加入足量 NaOH 溶液并加热，无明显现象；⑤取原溶液做焰色试验，透过蓝色钴玻璃观察到紫色火焰。判断溶液中一定存在、一定不存在与不能确定的离子。",
+      "given": {
+        "candidateSpecies": ["NH4^+", "K^+", "CO3^2-", "SO4^2-", "Cl^-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "气体", "reagents": ["HNO3"], "phenomenon": "加入足量稀硝酸，产生气体" },
+          { "step": 2, "from": "①所得溶液", "to": "无沉淀", "reagents": ["Ba(NO3)2"], "phenomenon": "无明显沉淀" },
+          { "step": 3, "from": "②所得溶液", "to": "白色沉淀", "reagents": ["AgNO3", "HNO3"], "phenomenon": "产生白色沉淀（不溶于稀硝酸）" },
+          { "step": 4, "from": "溶液", "to": "无现象", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "加足量 NaOH 溶液并加热，无明显现象" },
+          { "step": 5, "from": "溶液", "to": "紫色火焰", "reagents": ["焰色试验", "蓝色钴玻璃"], "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["一定存在的离子", "一定不存在的离子", "不能确定的离子"] },
+      "expected": {
+        "equations": [
+          "CO3^2- + 2H^+ = H2O + CO2↑",
+          "Ag^+ + Cl^- = AgCl↓"
+        ],
+        "composition": { "NH4^+": "MustNot", "K^+": "Must", "CO3^2-": "Must", "SO4^2-": "MustNot", "Cl^-": "Must" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IONP-H02-D1",
+          "description": "电荷不守恒：左边净电荷 -1，右边 0",
+          "equation": "CO3^2- + H^+ = H2O + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "IONP-H02-D2",
+          "description": "AgCl 难溶，漏标 ↓",
+          "equation": "Ag^+ + Cl^- = AgCl",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子检验综合）；《必修第二册》第五章'氮及其化合物'（铵根检验）",
+      "tags": ["离子粉末推断", "溶液连续操作", "负证据排除", "焰色反应"]
+    },
+    {
+      "id": "IONP-H03",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "某溶液可能含有 NH4^+、Cu^2+、K^+、SO4^2-、Cl^- 中的一种或几种。进行如下实验：①加入足量 NaOH 溶液并加热，产生刺激性气味气体，该气体使湿润红色石蕊试纸变蓝；②另取原溶液加入足量 NaOH 溶液，产生蓝色沉淀；③向②所得滤液中加入 Ba(NO3)2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解；④向③所得滤液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解。判断溶液中一定存在、一定不存在与不能确定的离子。",
+      "given": {
+        "candidateSpecies": ["NH4^+", "Cu^2+", "K^+", "SO4^2-", "Cl^-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "碱性气体", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "加足量 NaOH 溶液并加热，产生刺激性气味气体使湿润红色石蕊试纸变蓝" },
+          { "step": 2, "from": "溶液", "to": "蓝色沉淀", "reagents": ["NaOH"], "phenomenon": "加足量 NaOH 溶液，产生蓝色沉淀" },
+          { "step": 3, "from": "②的滤液", "to": "白色沉淀不溶", "reagents": ["Ba(NO3)2", "HNO3"], "phenomenon": "滴加足量 Ba(NO3)2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" },
+          { "step": 4, "from": "③的滤液", "to": "白色沉淀不溶", "reagents": ["AgNO3", "HNO3"], "phenomenon": "滴加足量 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["一定存在的离子", "一定不存在的离子", "不能确定的离子"] },
+      "expected": {
+        "equations": [
+          "NH4^+ + OH^- =△= NH3↑ + H2O",
+          "Cu^2+ + 2OH^- = Cu(OH)2↓",
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "Ag^+ + Cl^- = AgCl↓"
+        ],
+        "composition": { "NH4^+": "Must", "Cu^2+": "Must", "K^+": "Maybe", "SO4^2-": "Must", "Cl^-": "Must" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IONP-H03-D1",
+          "description": "配平错误：氢氧根系数应为 2",
+          "equation": "Cu^2+ + OH^- = Cu(OH)2↓",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "IONP-H03-D2",
+          "description": "AgCl 难溶，漏标 ↓",
+          "equation": "Ag^+ + Cl^- = AgCl",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子检验）；第三章'铁及其化合物'（氢氧化物沉淀颜色）",
+      "tags": ["离子粉末推断", "溶液连续操作", "沉淀颜色指示", "足量试剂消耗"]
+    },
+    {
+      "id": "IONP-H04",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "某溶液可能含有 Na^+、K^+、NO3^-、CO3^2-、SO4^2-、Cl^- 中的一种或几种。进行如下实验：①加入稀硝酸，无明显现象；②加入 Ba(NO3)2 溶液，无明显现象；③加入 AgNO3 溶液和稀硝酸，无明显现象。有同学据以上操作得出'溶液中一定存在 Na^+'的结论，请判断该结论是否成立，并说明各离子的存在情况。",
+      "given": {
+        "candidateSpecies": ["Na^+", "K^+", "NO3^-", "CO3^2-", "SO4^2-", "Cl^-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "无现象", "reagents": ["HNO3"], "phenomenon": "加入稀硝酸，无明显现象" },
+          { "step": 2, "from": "溶液", "to": "无现象", "reagents": ["Ba(NO3)2"], "phenomenon": "加入 Ba(NO3)2 溶液，无明显现象" },
+          { "step": 3, "from": "溶液", "to": "无现象", "reagents": ["AgNO3", "HNO3"], "phenomenon": "加入 AgNO3 溶液和稀硝酸，无明显现象" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["一定存在的离子", "一定不存在的离子", "不能确定的离子"] },
+      "expected": {
+        "equations": [],
+        "composition": { "Na^+": "Maybe", "K^+": "Maybe", "NO3^-": "Maybe", "CO3^2-": "MustNot", "SO4^2-": "MustNot", "Cl^-": "MustNot" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验"]
+        }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子检验的局限：全部为负证据时无法确定阳离子）",
+      "tags": ["离子粉末推断", "边界", "负证据", "如实欠定"]
+    },
+    {
+      "id": "IONP-H05",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "白色粉末 X 可能含有 K2CO3、Na2SO4、BaCl2、KNO3 中的一种或几种。进行如下实验：①取 X 溶于水，产生白色沉淀；②向沉淀中加入足量稀盐酸，沉淀部分溶解并产生气体；③取 X 做焰色试验，透过蓝色钴玻璃观察到紫色火焰；④向②所得滤液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解。判断 X 的成分。",
+      "given": {
+        "candidateSpecies": ["K2CO3", "Na2SO4", "BaCl2", "KNO3"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "白色沉淀", "reagents": ["H2O"], "phenomenon": "溶于水，产生白色沉淀" },
+          { "step": 2, "from": "白色沉淀", "to": "沉淀部分溶解", "reagents": ["HCl"], "phenomenon": "加入足量稀盐酸，沉淀部分溶解并产生气体" },
+          { "step": 3, "from": "X", "to": "紫色火焰", "reagents": ["焰色试验", "蓝色钴玻璃"], "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰" },
+          { "step": 4, "from": "②所得滤液", "to": "白色沉淀不溶", "reagents": ["AgNO3", "HNO3"], "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["X 的成分"] },
+      "expected": {
+        "equations": [
+          "Ba^2+ + CO3^2- = BaCO3↓",
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "BaCO3 + 2H^+ = Ba^2+ + H2O + CO2↑",
+          "Ag^+ + Cl^- = AgCl↓"
+        ],
+        "composition": { "K2CO3": "Must", "Na2SO4": "Must", "BaCl2": "Must", "KNO3": "Maybe" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IONP-H05-D1",
+          "description": "BaCO3 难溶，漏标 ↓",
+          "equation": "Ba^2+ + CO3^2- = BaCO3",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        },
+        {
+          "id": "IONP-H05-D2",
+          "description": "误认为 BaSO4 溶于酸：H2SO4 是强酸，离子方程式中应拆写",
+          "equation": "BaSO4 + 2H^+ = Ba^2+ + H2SO4",
+          "expectValid": false,
+          "expectFailChecks": ["强电解质拆写"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子反应）与第二章'钠及其化合物'（焰色试验）",
+      "tags": ["离子粉末推断", "固体粉末混合物", "沉淀酸溶分类", "焰色反应"]
+    },
+    {
+      "id": "IONP-H06",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "白色粉末 X 可能含有 CaCl2、Na2CO3、Na2SO4、KCl 中的一种或几种。进行如下实验：①取 X 溶于水，产生白色沉淀，过滤；②向沉淀中加入足量稀硝酸，沉淀全部溶解并产生气体；③向①的滤液中滴加足量稀硝酸，产生气体；④向③所得溶液中滴加 Ba(NO3)2 溶液，无明显沉淀。判断 X 的成分。",
+      "given": {
+        "candidateSpecies": ["CaCl2", "Na2CO3", "Na2SO4", "KCl"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "白色沉淀", "reagents": ["H2O"], "phenomenon": "溶于水，产生白色沉淀" },
+          { "step": 2, "from": "白色沉淀", "to": "沉淀全部溶解", "reagents": ["HNO3"], "phenomenon": "加入足量稀硝酸，沉淀全部溶解并产生气体" },
+          { "step": 3, "from": "①的滤液", "to": "气体", "reagents": ["HNO3"], "phenomenon": "滴加足量稀硝酸，产生气体" },
+          { "step": 4, "from": "③所得溶液", "to": "无沉淀", "reagents": ["Ba(NO3)2"], "phenomenon": "滴加 Ba(NO3)2 溶液，无明显沉淀" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["X 的成分"] },
+      "expected": {
+        "equations": [
+          "Ca^2+ + CO3^2- = CaCO3↓",
+          "CaCO3 + 2H^+ = Ca^2+ + H2O + CO2↑",
+          "CO3^2- + 2H^+ = H2O + CO2↑"
+        ],
+        "composition": { "CaCl2": "Must", "Na2CO3": "Must", "Na2SO4": "MustNot", "KCl": "Maybe" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IONP-H06-D1",
+          "description": "电荷不守恒：左边净电荷 +1，右边 +2",
+          "equation": "CaCO3 + H^+ = Ca^2+ + H2O + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "IONP-H06-D2",
+          "description": "CaCO3 难溶，漏标 ↓",
+          "equation": "Ca^2+ + CO3^2- = CaCO3",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子反应与沉淀溶解）",
+      "tags": ["离子粉末推断", "固体粉末混合物", "沉淀酸溶分类", "负证据排除"]
+    },
+    {
+      "id": "IONP-H07",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "白色粉末 X 可能含有 Na2CO3、Na2SO4、BaCl2、KNO3 中的一种或几种。进行如下实验：①取 X 溶于水，产生白色沉淀；②向沉淀中加入足量稀硝酸，沉淀部分溶解并产生气体；③取 X 做焰色试验，透过蓝色钴玻璃观察到紫色火焰；④向②所得滤液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解。判断 X 的成分。",
+      "given": {
+        "candidateSpecies": ["Na2CO3", "Na2SO4", "BaCl2", "KNO3"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "白色沉淀", "reagents": ["H2O"], "phenomenon": "溶于水，产生白色沉淀" },
+          { "step": 2, "from": "白色沉淀", "to": "沉淀部分溶解", "reagents": ["HNO3"], "phenomenon": "加入足量稀硝酸，沉淀部分溶解并产生气体" },
+          { "step": 3, "from": "X", "to": "紫色火焰", "reagents": ["焰色试验", "蓝色钴玻璃"], "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰" },
+          { "step": 4, "from": "②所得滤液", "to": "白色沉淀不溶", "reagents": ["AgNO3", "HNO3"], "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["X 的成分"] },
+      "expected": {
+        "equations": [
+          "Ba^2+ + CO3^2- = BaCO3↓",
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "BaCO3 + 2H^+ = Ba^2+ + H2O + CO2↑",
+          "Ag^+ + Cl^- = AgCl↓"
+        ],
+        "composition": { "Na2CO3": "Must", "Na2SO4": "Must", "BaCl2": "Must", "KNO3": "Must" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IONP-H07-D1",
+          "description": "BaSO4 难溶，漏标 ↓",
+          "equation": "Ba^2+ + SO4^2- = BaSO4",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        },
+        {
+          "id": "IONP-H07-D2",
+          "description": "电荷不守恒：左边净电荷 +1，右边 +2",
+          "equation": "BaCO3 + H^+ = Ba^2+ + H2O + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子反应）；《选择性必修1》第三章'沉淀溶解平衡'（钡盐沉淀）",
+      "tags": ["离子粉末推断", "固体粉末混合物", "焰色反应", "全部确定"]
+    },
+    {
+      "id": "IONP-H08",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "白色粉末 X 可能含有 Na2CO3、K2SO4、BaCl2、NaCl 中的一种或几种。进行如下实验：①取 X 做焰色试验，透过蓝色钴玻璃观察到紫色火焰；②取 X 溶于水，产生白色沉淀，过滤；③向沉淀中加入足量稀硝酸，沉淀部分溶解并产生气体；④向②的滤液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解。判断 X 的成分。",
+      "given": {
+        "candidateSpecies": ["Na2CO3", "K2SO4", "BaCl2", "NaCl"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "紫色火焰", "reagents": ["焰色试验", "蓝色钴玻璃"], "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰" },
+          { "step": 2, "from": "X", "to": "白色沉淀", "reagents": ["H2O"], "phenomenon": "溶于水，产生白色沉淀" },
+          { "step": 3, "from": "白色沉淀", "to": "沉淀部分溶解", "reagents": ["HNO3"], "phenomenon": "加入足量稀硝酸，沉淀部分溶解并产生气体" },
+          { "step": 4, "from": "②的滤液", "to": "白色沉淀不溶", "reagents": ["AgNO3", "HNO3"], "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["X 的成分"] },
+      "expected": {
+        "equations": [
+          "Ba^2+ + CO3^2- = BaCO3↓",
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "BaCO3 + 2H^+ = Ba^2+ + H2O + CO2↑",
+          "Ag^+ + Cl^- = AgCl↓"
+        ],
+        "composition": { "Na2CO3": "Must", "K2SO4": "Must", "BaCl2": "Must", "NaCl": "Maybe" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IONP-H08-D1",
+          "description": "BaCO3 难溶，漏标 ↓",
+          "equation": "Ba^2+ + CO3^2- = BaCO3",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        },
+        {
+          "id": "IONP-H08-D2",
+          "description": "AgCl 难溶，漏标 ↓",
+          "equation": "Ag^+ + Cl^- = AgCl",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质及其变化'（离子反应综合应用）",
+      "tags": ["离子粉末推断", "固体粉末混合物", "焰色反应", "Maybe 语义"]
+    }
+  ]
+}

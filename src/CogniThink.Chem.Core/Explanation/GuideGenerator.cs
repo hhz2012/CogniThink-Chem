@@ -133,6 +133,12 @@ public static class GuideGenerator
                 level.Prompts.Add("把无法解释某一步现象的候选划掉；注意试剂本身会不会引入干扰离子。");
                 break;
 
+            case ProblemCategory.IonPowderIdentification:
+                level.Prompts.Add("先分清推断对象：是溶液的连续操作，还是固体粉末的分步溶解与现象？每一步操作证明了什么、又排除了什么？");
+                level.Prompts.Add("对「无明显现象」的步骤：逐一检查哪些候选若存在就一定会与该步试剂反应——能反应的都要排除；对正向现象再反问：去掉某个成分后，这一步现象还能被其余确定成分完全解释吗？");
+                level.Prompts.Add("注意试剂本身引入的离子会不会污染后续检验；无法由任何一步现象证明的候选，应如实归入「不能确定」。");
+                break;
+
             case ProblemCategory.ProcessInference:
                 level.Prompts.Add("从最有特征的现象（颜色、气体、沉淀）入手，先锁定链中最确定的那个物质。");
                 level.Prompts.Add("再沿转化链逐个验证：每一步的反应物与产物是否都能在候选中找到对应？");
@@ -164,10 +170,22 @@ public static class GuideGenerator
                 level.Prompts.Add("遇到两种弱过程粒子比大小（如 NaHCO3 中 c(CO3^2-) 与 c(OH^-)）：先问自己现有守恒关系能否判定；若需解联立平衡才能比较，应如实承认条件不足，不要凭印象下结论。");
                 break;
 
+            case ProblemCategory.OrganicInference:
+                level.Prompts.Add("先找特征反应：哪些步骤的试剂与条件（溴水、银氨溶液、新制氢氧化铜、浓硫酸/浓硝酸、光照取代、催化加氢等）在课内只对应一类官能团？由此锁定链中最确定的物质。");
+                level.Prompts.Add("沿转化链逐个验证：把候选有机物代入每一步，反应物组合与条件能否在课内有机反应中找到完全吻合的条目？产物是否也落在候选集内？");
+                level.Prompts.Add("注意同分异构与连锁取代的陷阱：一种条件可能对应多条候选路径，检查是否存在第二种赋值也能解释全部步骤；若有，如实承认条件不足。");
+                break;
+
             case ProblemCategory.IndustrialProcess:
                 level.Prompts.Add("先通读整个流程，把步骤分成两类：发生化学转化的步骤（原料→中间产物→产品）与纯操作步骤（过滤、洗涤、灼烧、结晶、循环）。转化链从最有特征的现象或最确定的试剂入手锁定各步物质。");
                 level.Prompts.Add("对每个操作步骤问自己：它在除杂、沉淀转化、pH 调控还是分离提纯的哪个环节起作用？除杂原则（不引入新杂质、不减少主体物质）如何约束试剂的加入顺序与用量？");
                 level.Prompts.Add("涉及沉淀与 pH 的步骤，回到溶度积判据：沉淀向更难溶的方向转化；控制 pH 使杂质离子沉淀完全而主体离子不沉淀。写目的时先回忆对应规则条目，再用自己的话复述判据。");
+                break;
+
+            case ProblemCategory.ExperimentalInquiry:
+                level.Prompts.Add("先弄清本题问的是哪一类探究：气体的检验还是验满？基本操作的目的与判据？滴定误差分析？还是由现象反推结论？每一类在教材中都有固定表述模板，先回忆对应条目再作答。");
+                level.Prompts.Add("检验与验满别混淆：检验回答「瓶内是什么」，验满证明「已集满到瓶口」——操作位置与判断现象各不相同。写答案时按「操作—现象—结论」三段完整表述。");
+                level.Prompts.Add("误差分析先回到操作原理：这一步做与不做改变了哪个量（浓度 c 还是体积 V）？仪器刻度方向会不会让读数偏差放大？由改变量推出结果偏高还是偏低。");
                 break;
         }
 

@@ -63,6 +63,7 @@ public static class BenchmarkVerifier
         VerifyElectrodes(problem, result);
         VerifyEquilibrium(problem, result);
         VerifyProcessFlow(problem, result);
+        VerifyExperiment(problem, result);
 
         return result;
     }
@@ -331,7 +332,7 @@ public static class BenchmarkVerifier
     /// </summary>
     private static void VerifyProcessFlow(ProblemSpec problem, BenchmarkResult result)
     {
-        if (problem.Category != ProblemCategory.IndustrialProcess)
+        if (problem.Category is not (ProblemCategory.IndustrialProcess or ProblemCategory.OrganicInference))
         {
             return;
         }
@@ -375,6 +376,23 @@ public static class BenchmarkVerifier
                 {
                     result.Mismatches.Add($"purposes 步骤号 \"{stepNumber}\" 的关键词为空");
                 }
+            }
+        }
+    }
+
+    /// <summary>实验探究结构自检：结论逐条非空白（边界欠定样例 conclusions 为空，天然通过）。</summary>
+    private static void VerifyExperiment(ProblemSpec problem, BenchmarkResult result)
+    {
+        if (problem.Category != ProblemCategory.ExperimentalInquiry || problem.Expected.Experiment is not { } answer)
+        {
+            return;
+        }
+
+        for (var i = 0; i < answer.Conclusions.Count; i++)
+        {
+            if (string.IsNullOrWhiteSpace(answer.Conclusions[i]))
+            {
+                result.Mismatches.Add($"experiment.conclusions[{i}] 为空白");
             }
         }
     }

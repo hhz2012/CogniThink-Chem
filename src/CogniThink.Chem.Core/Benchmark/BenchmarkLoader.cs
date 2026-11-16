@@ -24,7 +24,10 @@ public static class BenchmarkLoader
             [ProblemCategory.Electrochemistry] = "hard-electrochemistry.json",
             [ProblemCategory.ChemicalEquilibrium] = "hard-equilibrium.json",
             [ProblemCategory.AqueousIonEquilibrium] = "hard-aqueous-equilibrium.json",
-            [ProblemCategory.IndustrialProcess] = "hard-process-flow.json"
+            [ProblemCategory.IndustrialProcess] = "hard-process-flow.json",
+            [ProblemCategory.IonPowderIdentification] = "hard-ion-powder.json",
+            [ProblemCategory.OrganicInference] = "hard-organic.json",
+            [ProblemCategory.ExperimentalInquiry] = "hard-experiment.json"
         };
 
     /// <summary>加载全部类别的题目（按文件名排序，类别内保持文件顺序）。</summary>
@@ -53,10 +56,12 @@ public static class BenchmarkLoader
     /// 返回问题描述列表（空 = 全部合格）。规则：
     /// <list type="bullet">
     /// <item>id 全局唯一且非空；problemText、source 非空。</item>
-    /// <item>各类别必备字段：产物推断需 given.species + equations；成分推断需 candidateSpecies + steps + composition；
+    /// <item>各类别必备字段：产物推断需 given.species + equations；成分推断与离子粉末推断需 candidateSpecies + steps + composition；
     /// 过程推断需 steps + substanceMap + equations；离子共存需 species + verdict；计算题需 numericFacts + calc + numericAnswer；
     /// 电化学需 cell + electrodes；化学平衡需 equilibrium.equation + expected.equilibrium；
-    /// 水溶液离子平衡需 solution.solutes + expected.aqueous；工业流程需 steps +（purposes 或 substanceMap）。</item>
+    /// 水溶液离子平衡需 solution.solutes + expected.aqueous；工业流程需 steps +（purposes 或 substanceMap）；
+    /// 有机推断需 candidateSpecies + steps + substanceMap + equations（tags 含"边界"的如实欠定样例豁免后两项）；
+    /// 实验探究需 experiment.mode（tags 含"边界"的如实欠定样例豁免 conclusions）。</item>
     /// <item>干扰项：id 唯一、equation 非空；预期被捕获（expectValid=false）时必须给出 expectFailChecks。</item>
     /// </list>
     /// </summary>
@@ -104,6 +109,7 @@ public static class BenchmarkLoader
                     break;
 
                 case ProblemCategory.SubstanceIdentification:
+                case ProblemCategory.IonPowderIdentification:
                     if (problem.Given.CandidateSpecies.Count == 0)
                     {
                         issues.Add($"{where}：成分推断必须给出 given.candidateSpecies（可能物质列表）");
@@ -218,6 +224,47 @@ public static class BenchmarkLoader
                     if (problem.Expected.Purposes is not { Count: > 0 } && problem.Expected.SubstanceMap is not { Count: > 0 })
                     {
                         issues.Add($"{where}：工业流程必须给出 expected.purposes 或 expected.substanceMap");
+                    }
+
+                    break;
+
+                case ProblemCategory.OrganicInference:
+                    if (problem.Given.CandidateSpecies.Count == 0)
+                    {
+                        issues.Add($"{where}：有机推断必须给出 given.candidateSpecies（候选有机物列表）");
+                    }
+
+                    if (problem.Given.Steps.Count == 0)
+                    {
+                        issues.Add($"{where}：有机推断必须给出 given.steps（转化步骤）");
+                    }
+
+                    // 边界样例（tags 含"边界"，如实欠定）允许缺省 substanceMap/equations
+                    if (!problem.Tags.Contains("边界"))
+                    {
+                        if (problem.Expected.SubstanceMap is not { Count: > 0 })
+                        {
+                            issues.Add($"{where}：有机推断必须给出 expected.substanceMap");
+                        }
+
+                        if (problem.Expected.Equations.Count == 0)
+                        {
+                            issues.Add($"{where}：有机推断必须给出 expected.equations");
+                        }
+                    }
+
+                    break;
+
+                case ProblemCategory.ExperimentalInquiry:
+                    if (problem.Given.Experiment is not { } exp || exp.Mode.Length == 0)
+                    {
+                        issues.Add($"{where}：实验探究必须给出 given.experiment.mode（探究模式）");
+                    }
+
+                    // 边界样例（tags 含"边界"，如实欠定）允许缺省 conclusions
+                    if (!problem.Tags.Contains("边界") && problem.Expected.Experiment is not { Conclusions.Count: > 0 })
+                    {
+                        issues.Add($"{where}：实验探究必须给出 expected.experiment.conclusions（实验结论）");
                     }
 
                     break;

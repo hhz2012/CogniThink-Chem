@@ -1,0 +1,308 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "ORG-H01",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是植物生长调节剂（果实催熟剂）。A 与水在催化剂、加热、加压条件下反应生成 B；B 在 Cu 作催化剂并加热时发生催化氧化生成 C；C 继续与氧气在催化剂、加热条件下反应生成 D；D 与 B 在浓硫酸、加热条件下反应，液面上方出现有香味的无色油状液体 E。确定 A～E 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C2H4", "C2H5OH", "CH3CHO", "CH3COOH", "CH3COOCH2CH3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["H2O"], "conditions": ["催化剂", "△", "加压"] },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["O2"], "conditions": ["Cu", "△"] },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["O2"], "conditions": ["催化剂", "△"] },
+          { "step": 4, "from": "D", "to": "E", "reagents": ["B"], "conditions": ["浓H2SO4", "△"], "phenomenon": "液面上方出现有香味的无色油状液体" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "E", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C2H4", "B": "C2H5OH", "C": "CH3CHO", "D": "CH3COOH", "E": "CH3COOCH2CH3" },
+        "equations": [
+          "C2H4 + H2O =催化剂,△,加压= C2H5OH",
+          "2C2H5OH + O2 =Cu,△= 2CH3CHO + 2H2O",
+          "2CH3CHO + O2 =催化剂,△= 2CH3COOH",
+          "CH3COOH + C2H5OH ⇌ CH3COOCH2CH3 + H2O"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H01-D1",
+          "description": "乙醇催化氧化未配平：氧原子不守恒",
+          "equation": "C2H5OH + O2 =Cu,△= CH3CHO + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "ORG-H01-D2",
+          "description": "酯化反应漏写产物水",
+          "equation": "CH3COOH + C2H5OH = CH3COOCH2CH3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "反应库一致性"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第七章'有机化合物'、《选择性必修3·有机化学基础》第三章'烃的衍生物'（乙烯—乙醇—乙醛—乙酸—酯转化链，高考有机推断典型题型）",
+      "tags": ["有机推断", "转化链", "乙醇乙酸"]
+    },
+    {
+      "id": "ORG-H02",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是葡萄糖，在催化剂作用下发酵生成 B 和二氧化碳；B 经铜催化氧化（加热）生成 C；C 与银氨溶液在水浴加热条件下反应，试管内壁形成光亮的银镜，生成 D。确定 A～D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C6H12O6", "C2H5OH", "CH3CHO", "CH3COONH4", "CH3COOH"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "conditions": ["催化剂"] },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["O2"], "conditions": ["Cu", "△"] },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["Ag(NH3)2OH"], "conditions": ["水浴", "△"], "phenomenon": "试管内壁形成光亮的银镜" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C6H12O6", "B": "C2H5OH", "C": "CH3CHO", "D": "CH3COONH4" },
+        "equations": [
+          "C6H12O6 =催化剂= 2C2H5OH + 2CO2↑",
+          "2C2H5OH + O2 =Cu,△= 2CH3CHO + 2H2O",
+          "CH3CHO + 2Ag(NH3)2OH =水浴,△= CH3COONH4 + 2Ag↓ + 3NH3 + H2O"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H02-D1",
+          "description": "葡萄糖发酵未配平：碳、氢、氧均不守恒",
+          "equation": "C6H12O6 =催化剂= C2H5OH + CO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第七章'有机化合物'、《选择性必修3·有机化学基础》第三章'烃的衍生物'（葡萄糖发酵与银镜反应，高考有机推断典型题型）",
+      "tags": ["有机推断", "转化链", "糖类银镜反应"]
+    },
+    {
+      "id": "ORG-H03",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是常见的液态烃，不能使溴水因反应褪色。A 与液溴在 FeBr3 催化下反应生成 B，导管口出现白雾；A 与浓硝酸在浓硫酸催化、水浴加热下反应生成 C；A 与氢气在 Ni 催化、加热下加成生成 D。确定 A～D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C6H6", "C6H5Br", "C6H5NO2", "C6H12"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["Br2"], "conditions": ["FeBr3"], "phenomenon": "导管口出现白雾" },
+          { "step": 2, "from": "A", "to": "C", "reagents": ["HNO3"], "conditions": ["浓H2SO4", "水浴", "△"] },
+          { "step": 3, "from": "A", "to": "D", "reagents": ["H2"], "conditions": ["Ni", "△"] }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C6H6", "B": "C6H5Br", "C": "C6H5NO2", "D": "C6H12" },
+        "equations": [
+          "C6H6 + Br2 =FeBr3= C6H5Br + HBr",
+          "C6H6 + HNO3 =浓H2SO4,水浴,△= C6H5NO2 + H2O",
+          "C6H6 + 3H2 =Ni,△= C6H12"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H03-D1",
+          "description": "苯的溴代漏写产物溴化氢：氢、溴不守恒",
+          "equation": "C6H6 + Br2 =FeBr3= C6H5Br",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "反应库一致性"]
+        }
+      ],
+      "source": "人教版《选择性必修3·有机化学基础》第二章'烃'（苯的溴代、硝化与加氢，高考有机推断典型题型）",
+      "tags": ["有机推断", "苯的性质", "取代反应"]
+    },
+    {
+      "id": "ORG-H04",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是卤代烃。A 与 NaOH 的水溶液共热生成 B；A 与 NaOH 的醇溶液共热发生消去反应，产生使溴水褪色的气体 C；C 与溴水反应生成 D；C 与氢气在 Ni 催化、加热下加成生成 E。确定 A～E 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C2H5Br", "C2H5OH", "C2H4", "C2H4Br2", "C2H6"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["NaOH"], "conditions": ["水溶液", "△"] },
+          { "step": 2, "from": "A", "to": "C", "reagents": ["NaOH"], "conditions": ["醇溶液", "△"], "phenomenon": "产生使溴水褪色的气体" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["Br2"] },
+          { "step": 4, "from": "C", "to": "E", "reagents": ["H2"], "conditions": ["Ni", "△"] }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "E", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C2H5Br", "B": "C2H5OH", "C": "C2H4", "D": "C2H4Br2", "E": "C2H6" },
+        "equations": [
+          "C2H5Br + NaOH =水溶液,△= C2H5OH + NaBr",
+          "C2H5Br + NaOH =醇溶液,△= C2H4↑ + NaBr + H2O",
+          "C2H4 + Br2 = C2H4Br2",
+          "C2H4 + H2 =Ni,△= C2H6"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H04-D1",
+          "description": "乙烯与溴误写成取代反应（应为加成，且 C2H3Br 超纲）",
+          "equation": "C2H4 + Br2 = C2H3Br + HBr",
+          "expectValid": false,
+          "expectFailChecks": ["白名单校验", "反应库一致性"]
+        }
+      ],
+      "source": "人教版《选择性必修3·有机化学基础》第三章'烃的衍生物'（卤代烃水解与消去、乙烯的加成，高考有机推断典型题型）",
+      "tags": ["有机推断", "卤代烃", "消去反应"]
+    },
+    {
+      "id": "ORG-H05",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "具有香味的液体 D 是常见酯类。D 在浓硫酸催化、加热下与水反应生成 A 和乙醇；A 与 NaOH 溶液反应生成 B；D 与 NaOH 溶液共热（油层消失）生成 B 和 C。确定 A～D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["CH3COOCH2CH3", "CH3COOH", "CH3COONa", "C2H5OH"],
+        "steps": [
+          { "step": 1, "from": "D", "to": "A", "reagents": ["H2O"], "conditions": ["浓H2SO4", "△"] },
+          { "step": 2, "from": "A", "to": "B", "reagents": ["NaOH"] },
+          { "step": 3, "from": "D", "to": "C", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "油层消失" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "CH3COOH", "B": "CH3COONa", "C": "C2H5OH", "D": "CH3COOCH2CH3" },
+        "equations": [
+          "CH3COOCH2CH3 + H2O ⇌ CH3COOH + C2H5OH",
+          "CH3COOH + NaOH = CH3COONa + H2O",
+          "CH3COOCH2CH3 + NaOH =△= CH3COONa + C2H5OH"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H05-D1",
+          "description": "酯的碱性水解漏写产物乙醇",
+          "equation": "CH3COOCH2CH3 + NaOH =△= CH3COONa",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "反应库一致性"]
+        }
+      ],
+      "source": "人教版《选择性必修3·有机化学基础》第三章'烃的衍生物'（乙酸乙酯的水解，高考有机推断典型题型）",
+      "tags": ["有机推断", "酯类水解", "乙酸"]
+    },
+    {
+      "id": "ORG-H06",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是酒的主要成分。A 经铜催化氧化（加热）生成 B；B 继续与氧气在催化剂、加热条件下反应生成 C；B 与新制氢氧化铜、NaOH 溶液共热，产生砖红色沉淀，同时生成 D。确定 A～D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C2H5OH", "CH3CHO", "CH3COOH", "CH3COONa"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["Cu", "△"] },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["O2"], "conditions": ["催化剂", "△"] },
+          { "step": 3, "from": "B", "to": "D", "reagents": ["Cu(OH)2", "NaOH"], "conditions": ["△"], "phenomenon": "产生砖红色沉淀" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C2H5OH", "B": "CH3CHO", "C": "CH3COOH", "D": "CH3COONa" },
+        "equations": [
+          "2C2H5OH + O2 =Cu,△= 2CH3CHO + 2H2O",
+          "2CH3CHO + O2 =催化剂,△= 2CH3COOH",
+          "CH3CHO + 2Cu(OH)2 + NaOH =△= CH3COONa + Cu2O↓ + 3H2O"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H06-D1",
+          "description": "乙醛催化氧化未配平：氧原子不守恒",
+          "equation": "CH3CHO + O2 =催化剂,△= CH3COOH",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第七章'有机化合物'、《选择性必修3·有机化学基础》第三章'烃的衍生物'（乙醇—乙醛—乙酸转化与新制氢氧化铜检验，高考有机推断典型题型）",
+      "tags": ["有机推断", "醛基检验", "乙醇乙醛"]
+    },
+    {
+      "id": "ORG-H07",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是最简单的有机物。A 与氯气在光照下发生取代反应生成 B，气体颜色变浅、瓶壁出现油状液滴；B 继续与氯气在光照下取代生成 C；C 继续与氯气在光照下取代生成 D；D 再与氯气在光照下取代生成 E。确定 A～E 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["CH4", "CH3Cl", "CH2Cl2", "CHCl3", "CCl4"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["Cl2"], "conditions": ["光照"], "phenomenon": "气体颜色变浅，瓶壁出现油状液滴" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["Cl2"], "conditions": ["光照"] },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["Cl2"], "conditions": ["光照"] },
+          { "step": 4, "from": "D", "to": "E", "reagents": ["Cl2"], "conditions": ["光照"] }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "E", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "CH4", "B": "CH3Cl", "C": "CH2Cl2", "D": "CHCl3", "E": "CCl4" },
+        "equations": [
+          "CH4 + Cl2 =光照= CH3Cl + HCl",
+          "CH3Cl + Cl2 =光照= CH2Cl2 + HCl",
+          "CH2Cl2 + Cl2 =光照= CHCl3 + HCl",
+          "CHCl3 + Cl2 =光照= CCl4 + HCl"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H07-D1",
+          "description": "甲烷一氯代漏写产物氯化氢：氢、氯不守恒",
+          "equation": "CH4 + Cl2 =光照= CH3Cl",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "反应库一致性"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第七章'有机化合物'（甲烷与氯气的连锁取代，高考有机推断典型题型）",
+      "tags": ["有机推断", "连锁取代", "甲烷"]
+    },
+    {
+      "id": "ORG-H08",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "无色气体 A 可能是甲烷、乙烷、乙烯、乙炔中的一种；A 能使溴水褪色，反应产物记为 D；A 与氢气在 Ni 催化、加热下加成生成 B。仅凭以上信息能否唯一确定 A？请说明理由。",
+      "given": {
+        "candidateSpecies": ["CH4", "C2H6", "C2H4", "C2H2", "C2H4Br2", "C2H2Br4"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "D", "reagents": ["Br2"], "phenomenon": "溴水褪色" },
+          { "step": 2, "from": "A", "to": "B", "reagents": ["H2"], "conditions": ["Ni", "△"] }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "D", "能否唯一确定"] },
+      "expected": {
+        "equations": [],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验"]
+        }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第二册》第七章'有机化合物'（乙烯与乙炔均能使溴水褪色并加氢，证据不足时的如实欠定边界样例）",
+      "tags": ["有机推断", "边界", "双解", "如实欠定"]
+    }
+  ]
+}

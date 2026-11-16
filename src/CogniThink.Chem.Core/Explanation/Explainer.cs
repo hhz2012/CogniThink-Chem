@@ -142,6 +142,7 @@ public sealed class Explainer
                 return $"结论：{verdict}{reasons}";
 
             case ProblemCategory.SubstanceIdentification:
+            case ProblemCategory.IonPowderIdentification:
                 var groups = new[]
                 {
                     ("一定存在", CompositionVerdict.Must),
@@ -164,6 +165,7 @@ public sealed class Explainer
                 return parts.Count > 0 ? string.Join("；", parts) : $"无法判定：{solution.Message}";
 
             case ProblemCategory.ProcessInference:
+            case ProblemCategory.OrganicInference:
                 if (solution.SubstanceMap.Count == 0)
                 {
                     return $"无法确定转化链：{solution.Message}";
@@ -265,6 +267,14 @@ public sealed class Explainer
                     : "";
                 return flowMap + flowPurposes + flowEquations;
 
+            case ProblemCategory.ExperimentalInquiry:
+                if (solution.Experiment is { Conclusions.Count: > 0 })
+                {
+                    return "实验结论：" + string.Join("；", solution.Experiment.Conclusions);
+                }
+
+                return $"无法给出实验结论：{solution.Message}";
+
             default:
                 return solution.Message;
         }
@@ -284,6 +294,9 @@ public sealed class Explainer
             case ProblemCategory.ChemicalEquilibrium: return "化学平衡";
             case ProblemCategory.AqueousIonEquilibrium: return "水溶液离子平衡";
             case ProblemCategory.IndustrialProcess: return "工业流程综合";
+            case ProblemCategory.IonPowderIdentification: return "离子粉末推断";
+            case ProblemCategory.OrganicInference: return "有机推断";
+            case ProblemCategory.ExperimentalInquiry: return "实验探究";
             default: return category.ToString();
         }
     }

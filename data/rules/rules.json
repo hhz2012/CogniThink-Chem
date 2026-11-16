@@ -637,6 +637,326 @@
       "source": "人教版《必修第二册》第八章'化学与可持续发展'工业流程基本操作，分句给出各操作的判据与目的",
       "conflictGroup": "process-operation-purpose",
       "tests": []
+    },
+    {
+      "id": "EXP-001",
+      "name": "O2 的检验（带火星木条）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["gas_test"] },
+        { "key": "gas", "values": ["O2"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_test_O2", "object": "glowing_splint_reignites_in_bottle", "display": "O2 的检验方法：将带火星的木条伸入集气瓶内，木条复燃，证明瓶内气体是 O2" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'气体检验（高考气体验验典型题型）",
+      "conflictGroup": "exp-gas-test-o2",
+      "tests": []
+    },
+    {
+      "id": "EXP-002",
+      "name": "O2 的验满",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["gas_full_test"] },
+        { "key": "gas", "values": ["O2"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_full_test_O2", "object": "burning_splint_reignites_at_mouth", "display": "O2 的验满方法：将燃着的木条放在集气瓶口，木条复燃，证明 O2 已收集满至瓶口" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'气体验满（高考气体验验典型题型）",
+      "conflictGroup": "exp-gas-full-o2",
+      "tests": []
+    },
+    {
+      "id": "EXP-003",
+      "name": "CO2 的检验（澄清石灰水）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["gas_test"] },
+        { "key": "gas", "values": ["CO2"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_test_CO2", "object": "limewater_turns_turbid", "display": "CO2 的检验方法：向集气瓶中加入少量澄清石灰水并振荡，石灰水变浑浊，证明该气体是 CO2" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'气体检验（高考气体验验典型题型）",
+      "conflictGroup": "exp-gas-test-co2",
+      "tests": []
+    },
+    {
+      "id": "EXP-004",
+      "name": "CO2 的验满（燃着木条）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["gas_full_test"] },
+        { "key": "gas", "values": ["CO2"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_full_test_CO2", "object": "burning_splint_extinguishes_at_mouth", "display": "CO2 的验满方法：将燃着的木条放在集气瓶口，木条熄灭，证明 CO2 已收集满至瓶口" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'气体验满（高考气体验验典型题型）",
+      "conflictGroup": "exp-gas-full-co2",
+      "tests": []
+    },
+    {
+      "id": "EXP-005",
+      "name": "NH3 的检验（湿润红色石蕊试纸）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["gas_test"] },
+        { "key": "gas", "values": ["NH3"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_test_NH3", "object": "wet_red_litmus_turns_blue", "display": "NH3 的检验方法：将湿润的红色石蕊试纸靠近瓶口，试纸变蓝，证明该气体是 NH3（中学唯一常见碱性气体）" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第二册》第五章'氮及其化合物'氨气的检验",
+      "conflictGroup": "exp-gas-test-nh3",
+      "tests": []
+    },
+    {
+      "id": "EXP-006",
+      "name": "NH3 的验满（浓盐酸玻璃棒）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["gas_full_test"] },
+        { "key": "gas", "values": ["NH3"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_full_test_NH3", "object": "glass_rod_with_conc_HCl_white_smoke_at_mouth", "display": "NH3 的验满方法：将蘸有浓盐酸的玻璃棒靠近集气瓶口，产生大量白烟，证明 NH3 已收集满至瓶口" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第二册》第五章'氮及其化合物'氨气与浓盐酸反应（NH3 + HCl = NH4Cl，白烟）",
+      "conflictGroup": "exp-gas-full-nh3",
+      "tests": []
+    },
+    {
+      "id": "EXP-007",
+      "name": "H2 的验纯（点燃听声）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-07",
+      "preconditions": [
+        { "key": "task", "values": ["gas_full_test"] },
+        { "key": "gas", "values": ["H2"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_full_test_H2", "object": "ignite_listen_pop_or_hiss", "display": "H2 的验纯（可燃性气体收集满与否实质先验纯）：用排水法收集一试管气体，移近火焰点燃，听到尖锐的爆鸣声表明 H2 不纯，听到轻微的'噗'声表明 H2 已纯" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'实验安全：点燃可燃性气体前必须验纯",
+      "conflictGroup": "exp-gas-full-h2",
+      "tests": []
+    },
+    {
+      "id": "EXP-008",
+      "name": "Cl2 的检验（湿润淀粉KI试纸）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["gas_test"] },
+        { "key": "gas", "values": ["Cl2"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "gas_test_Cl2", "object": "wet_starch_KI_paper_turns_blue", "display": "Cl2 的检验方法：将湿润的淀粉碘化钾试纸靠近瓶口，试纸变蓝（Cl2 置换出 I2 使淀粉变蓝），证明该气体是 Cl2" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第二章'氯及其化合物'氯气的检验",
+      "conflictGroup": "exp-gas-test-cl2",
+      "tests": []
+    },
+    {
+      "id": "EXP-009",
+      "name": "装置气密性检查（微热法）",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-01",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["airtightness_check"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_airtightness_check", "object": "micro_heat_bubbles_and_water_column", "display": "检查装置气密性的目的与做法（微热法）：制气前须确保装置不漏气——先将导管末端浸入水中，再用手紧握（微热）试管，导管口有气泡冒出，松开手冷却后导管内回升一段稳定的水柱，证明装置气密性良好" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'装置气密性的检查",
+      "conflictGroup": "exp-op-airtightness",
+      "tests": []
+    },
+    {
+      "id": "EXP-010",
+      "name": "焰色试验的目的",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["flame_test"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_flame_test", "object": "detect_na_yellow_k_purple_cobalt_glass", "display": "焰色试验的目的：检验物质中所含的 Na、K 等金属元素——铂丝蘸取试样灼烧，火焰呈黄色为含 Na；观察 K 的焰色须透过蓝色钴玻璃滤去 Na 黄光的干扰，看到紫色为含 K" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第二章'钠及其化合物'焰色试验，呼应 EXPT-004",
+      "conflictGroup": "exp-op-flame-test",
+      "tests": []
+    },
+    {
+      "id": "EXP-011",
+      "name": "沉淀洗涤完全的检验",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-04",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["precipitate_wash_check"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_precipitate_wash_check", "object": "last_rinse_plus_precipitant_no_phenomenon", "display": "检验沉淀是否洗涤完全的目的与做法：确认沉淀表面吸附的可溶性杂质离子已除净——取少量最后一次的洗涤液，加入能与待检杂质离子产生特征反应的试剂（如沉淀剂），若无明显现象，证明沉淀已洗涤干净" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'从实验学化学'粗盐提纯与沉淀的洗涤（高考实验探究高频考点）",
+      "conflictGroup": "exp-op-wash-check",
+      "tests": []
+    },
+    {
+      "id": "EXP-012",
+      "name": "蒸发结晶的判据与目的",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-04",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["evaporative_crystallization"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_evaporative_crystallization", "object": "for_solubility_insensitive_to_temperature", "display": "蒸发结晶的判据与目的：蒸发溶剂获得可溶性固体，适用于溶解度受温度影响小的物质（如 NaCl）——边加热边搅拌，蒸发至大量晶体析出时停止加热，用余热蒸干" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'从实验学化学'蒸发与结晶，呼应 PROC-004",
+      "conflictGroup": "exp-op-evap-cryst",
+      "tests": []
+    },
+    {
+      "id": "EXP-013",
+      "name": "蒸发浓缩冷却结晶的判据与目的",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-04",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["cooling_crystallization"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_cooling_crystallization", "object": "for_solubility_sensitive_to_temperature", "display": "蒸发浓缩、冷却结晶的判据与目的：浓缩得热饱和溶液后降温析晶，适用于溶解度随温度变化大的物质（如 KNO3，含结晶水的晶体亦用此法）——KNO3 中混有少量 NaCl 时，蒸发浓缩、冷却结晶、过滤即可提纯 KNO3" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'从实验学化学'结晶方法的选择（KNO3 与 NaCl 的分离，高考高频考点），呼应 PROC-004",
+      "conflictGroup": "exp-op-cool-cryst",
+      "tests": []
+    },
+    {
+      "id": "EXP-014",
+      "name": "蒸馏的判据与目的",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-04",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["distillation"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_distillation", "object": "for_liquids_with_boiling_point_difference", "display": "蒸馏的判据与目的：分离互溶但沸点相差较大的液体混合物（或除去难挥发、不挥发杂质）——温度计水银球位于蒸馏烧瓶支管口处，冷凝水从下端进、上端出，加热前须加入碎瓷片防暴沸" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'从实验学化学'蒸馏与萃取",
+      "conflictGroup": "exp-op-distillation",
+      "tests": []
+    },
+    {
+      "id": "EXP-015",
+      "name": "萃取的判据与目的",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-04",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["extraction"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_extraction", "object": "solute_more_soluble_in_immiscible_extractant", "display": "萃取的判据与目的：利用溶质在萃取剂中的溶解度远大于在水中的溶解度、且萃取剂与水互不相溶，把溶质从水中转移到萃取剂里（如用 CCl4 萃取碘水中的 I2）；萃取后配合分液——下层液体从分液漏斗下口放出，上层液体从上口倒出" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'从实验学化学'萃取与分液",
+      "conflictGroup": "exp-op-extraction",
+      "tests": []
+    },
+    {
+      "id": "EXP-016",
+      "name": "洗气除杂的判据与目的",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-02",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["gas_washing"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "operation_gas_washing", "object": "long_in_short_out_reagent_only_absorbs_impurity", "display": "洗气（气体除杂净化）的判据与目的：混合气体通过盛液体试剂的洗气瓶除去杂质——洗气瓶内试剂只吸收杂质、不与目标气体反应，气体从长导管进、短导管出（'长进短出'）" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'气体的净化与干燥，呼应 PROC-001 除杂原则",
+      "conflictGroup": "exp-op-gas-washing",
+      "tests": []
+    },
+    {
+      "id": "EXP-017",
+      "name": "装标准液的滴定管未润洗的误差",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-05",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["buret_not_rinsed_with_standard"] }
+      ],
+      "conclusion": { "predicate": "error", "subject": "titration_error_buret_not_rinsed_with_standard", "object": "reads_high", "display": "误差分析：盛装标准液的滴定管用蒸馏水洗净后未用标准液润洗，残留的水稀释标准液使其浓度减小，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "人教版《选择性必修1·化学反应原理》第三章'酸碱中和滴定'误差分析",
+      "conflictGroup": "exp-err-buret-standard",
+      "tests": []
+    },
+    {
+      "id": "EXP-018",
+      "name": "装待测液的滴定管未润洗的误差",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-05",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["buret_not_rinsed_with_analyte"] }
+      ],
+      "conclusion": { "predicate": "error", "subject": "titration_error_buret_not_rinsed_with_analyte", "object": "reads_low", "display": "误差分析：盛装待测液的滴定管用蒸馏水洗净后未用待测液润洗，待测液被稀释浓度减小，中和定量标准液时消耗待测液体积偏大，测得待测液浓度偏低" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "人教版《选择性必修1·化学反应原理》第三章'酸碱中和滴定'误差分析",
+      "conflictGroup": "exp-err-buret-analyte",
+      "tests": []
+    },
+    {
+      "id": "EXP-019",
+      "name": "锥形瓶用待测液润洗的误差",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-05",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["conical_flask_rinsed_with_analyte"] }
+      ],
+      "conclusion": { "predicate": "error", "subject": "titration_error_conical_flask_rinsed_with_analyte", "object": "reads_high", "display": "误差分析：锥形瓶用待测液润洗，瓶壁额外附着待测液使瓶内待测溶质的物质的量增多，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "人教版《选择性必修1·化学反应原理》第三章'酸碱中和滴定'误差分析",
+      "conflictGroup": "exp-err-flask-rinse",
+      "tests": []
+    },
+    {
+      "id": "EXP-020",
+      "name": "滴定终点仰视读数的误差",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-05",
+      "preconditions": [
+        { "key": "task", "values": ["operation_purpose"] },
+        { "key": "operation", "values": ["read_final_upward"] }
+      ],
+      "conclusion": { "predicate": "error", "subject": "titration_error_read_final_upward", "object": "reads_high", "display": "误差分析：滴定管刻度自上而下增大，终点时仰视读数使读数比实际液面位置偏大，算得消耗标准液体积偏大，测得待测液浓度偏高（俯视读数则偏低）" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "人教版《选择性必修1·化学反应原理》第三章'酸碱中和滴定'滴定管读数与误差分析",
+      "conflictGroup": "exp-err-read-upward",
+      "tests": []
     }
   ]
 }

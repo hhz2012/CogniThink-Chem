@@ -1,0 +1,234 @@
+{
+  "version": "1.0",
+  "note": "实验探究类难题（Hard）。三模式：气体验验/验满（gas_test/gas_full_test）、操作目的与滴定误差（operation_purpose）、现象→结论（phenomenon_conclusion）。expected.experiment.conclusions 与 ExperimentEngine 逐字输出一致；结论全部溯源 rules.json EXP-* 条目与 phenomena.json PH-* 条目。",
+  "items": [
+    {
+      "id": "EXP-H01",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "实验室收集了两瓶无色气体，一瓶可能是 O2，另一瓶可能是 CO2。分别给出检验这两瓶气体的方法、预期现象与结论，并写出 CO2 检验原理的化学方程式。",
+      "given": {
+        "experiment": {
+          "mode": "gas_test",
+          "targets": ["O2", "CO2"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["O2 的检验方法与现象", "CO2 的检验方法与现象"] },
+      "expected": {
+        "equations": ["CO2 + Ca(OH)2 = CaCO3↓ + H2O"],
+        "experiment": {
+          "conclusions": [
+            "O2 的检验方法：将带火星的木条伸入集气瓶内，木条复燃，证明瓶内气体是 O2",
+            "CO2 的检验方法：向集气瓶中加入少量澄清石灰水并振荡，石灰水变浑浊，证明该气体是 CO2"
+          ]
+        },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "EXP-H01-D1",
+          "description": "检验原理式写错：产物误写为 Ca(HCO3)2 且系数直写违反元素守恒（检验应用 CO2 + Ca(OH)2 = CaCO3↓ + H2O；该物种组合虽可配平为 CO2 过量反应，但作检验原理式不当）",
+          "equation": "CO2 + Ca(OH)2 = Ca(HCO3)2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'与第二章'氯及其化合物'、《必修第二册》第五章（气体验验，高考实验探究典型题型）",
+      "tags": ["实验探究", "气体验验", "O2", "CO2"]
+    },
+    {
+      "id": "EXP-H02",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "用向上排空气法制取 O2 和 CO2 时，集满后都需验满。分别写出这两种气体的验满方法、现象与结论。有同学把检验操作（向瓶内加试剂）当成验满，请辨析。",
+      "given": {
+        "experiment": {
+          "mode": "gas_full_test",
+          "targets": ["O2", "CO2"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["O2 的验满", "CO2 的验满"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": [
+            "O2 的验满方法：将燃着的木条放在集气瓶口，木条复燃，证明 O2 已收集满至瓶口",
+            "CO2 的验满方法：将燃着的木条放在集气瓶口，木条熄灭，证明 CO2 已收集满至瓶口"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "EXP-H02-D1",
+          "description": "边界样例：把检验（瓶内加澄清石灰水）的原理式误当作验满答案——方程式本身形式正确、校验器放行，'验满与检验混淆'属概念错误，不由方程式校验器捕获",
+          "equation": "CO2 + Ca(OH)2 = CaCO3↓ + H2O",
+          "expectValid": true
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'气体验满（高考气体验验易混辨析题型）",
+      "tags": ["实验探究", "气体验满", "概念辨析"]
+    },
+    {
+      "id": "EXP-H03",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "实验室分别收集了一瓶 NH3 和一瓶 Cl2。选择合适的试纸或试剂，写出检验这两种气体的方法、现象与结论，并写出 Cl2 检验原理中置换反应的化学方程式。",
+      "given": {
+        "experiment": {
+          "mode": "gas_test",
+          "targets": ["NH3", "Cl2"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["NH3 的检验", "Cl2 的检验"] },
+      "expected": {
+        "equations": ["Cl2 + 2KI = 2KCl + I2"],
+        "experiment": {
+          "conclusions": [
+            "NH3 的检验方法：将湿润的红色石蕊试纸靠近瓶口，试纸变蓝，证明该气体是 NH3（中学唯一常见碱性气体）",
+            "Cl2 的检验方法：将湿润的淀粉碘化钾试纸靠近瓶口，试纸变蓝（Cl2 置换出 I2 使淀粉变蓝），证明该气体是 Cl2"
+          ]
+        },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "EXP-H03-D1",
+          "description": "置换方程式按学生系数直写违反元素守恒（正确系数应为 2KI 与 2KCl）；另有学生把 Cl2 的检验错用红色石蕊试纸（试纸选错，属操作错误，不由方程式校验器捕获）",
+          "equation": "Cl2 + KI = KCl + I2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'氯及其化合物'、《必修第二册》第五章'氮及其化合物'（气体检验，高考实验探究典型题型）",
+      "tags": ["实验探究", "气体验验", "NH3", "Cl2"]
+    },
+    {
+      "id": "EXP-H04",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "实验基本操作考查：① 制取气体组装好装置后、加入药品前，必须先检查装置气密性；② 沉淀洗涤后需检验是否洗涤完全。分别说明这两个操作的目的与具体做法（含现象判据）。",
+      "given": {
+        "experiment": {
+          "mode": "operation_purpose",
+          "operations": ["airtightness_check", "precipitate_wash_check"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["气密性检查的目的与做法", "沉淀洗涤完全检验的目的与做法"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": [
+            "检查装置气密性的目的与做法（微热法）：制气前须确保装置不漏气——先将导管末端浸入水中，再用手紧握（微热）试管，导管口有气泡冒出，松开手冷却后导管内回升一段稳定的水柱，证明装置气密性良好",
+            "检验沉淀是否洗涤完全的目的与做法：确认沉淀表面吸附的可溶性杂质离子已除净——取少量最后一次的洗涤液，加入能与待检杂质离子产生特征反应的试剂（如沉淀剂），若无明显现象，证明沉淀已洗涤干净"
+          ]
+        }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第一章'化学实验基础'（气密性检查与沉淀洗涤，高考实验探究高频考点）",
+      "tags": ["实验探究", "基本操作", "气密性检查", "沉淀洗涤"]
+    },
+    {
+      "id": "EXP-H05",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "分离提纯方法的选择：① 提纯混有少量 NaCl 的 KNO3；② 分离互溶但沸点相差较大的液体混合物；③ 用 CCl4 从碘水中提取碘。分别说明所选方法的目的与判据（适用对象与关键操作要点）。",
+      "given": {
+        "experiment": {
+          "mode": "operation_purpose",
+          "operations": ["cooling_crystallization", "distillation", "extraction"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["冷却结晶", "蒸馏", "萃取"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": [
+            "蒸发浓缩、冷却结晶的判据与目的：浓缩得热饱和溶液后降温析晶，适用于溶解度随温度变化大的物质（如 KNO3，含结晶水的晶体亦用此法）——KNO3 中混有少量 NaCl 时，蒸发浓缩、冷却结晶、过滤即可提纯 KNO3",
+            "蒸馏的判据与目的：分离互溶但沸点相差较大的液体混合物（或除去难挥发、不挥发杂质）——温度计水银球位于蒸馏烧瓶支管口处，冷凝水从下端进、上端出，加热前须加入碎瓷片防暴沸",
+            "萃取的判据与目的：利用溶质在萃取剂中的溶解度远大于在水中的溶解度、且萃取剂与水互不相溶，把溶质从水中转移到萃取剂里（如用 CCl4 萃取碘水中的 I2）；萃取后配合分液——下层液体从分液漏斗下口放出，上层液体从上口倒出"
+          ]
+        }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第一章'从实验学化学'混合物的分离与提纯（高考分离方法选择高频考点）",
+      "tags": ["实验探究", "分离提纯", "结晶", "蒸馏", "萃取"]
+    },
+    {
+      "id": "EXP-H06",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "酸碱中和滴定（标准液滴定待测液，待测液置于锥形瓶中）误差分析：① 盛装标准液的滴定管用蒸馏水洗净后未用标准液润洗；② 锥形瓶用待测液润洗后装入待测液。分别分析这两种错误操作使测得的待测液浓度偏高还是偏低，并说明理由。",
+      "given": {
+        "experiment": {
+          "mode": "operation_purpose",
+          "operations": ["buret_not_rinsed_with_standard", "conical_flask_rinsed_with_analyte"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["滴定管未润洗标准液", "锥形瓶用待测液润洗"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": [
+            "误差分析：盛装标准液的滴定管用蒸馏水洗净后未用标准液润洗，残留的水稀释标准液使其浓度减小，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高",
+            "误差分析：锥形瓶用待测液润洗，瓶壁额外附着待测液使瓶内待测溶质的物质的量增多，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高"
+          ]
+        }
+      },
+      "distractors": [],
+      "source": "人教版《选择性必修1·化学反应原理》第三章'酸碱中和滴定'误差分析（高考定量实验高频考点）",
+      "tags": ["实验探究", "滴定误差", "定量实验"]
+    },
+    {
+      "id": "EXP-H07",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "一瓶气体可能为 Cl2、NH3、CO2、O2、H2 中的一种。观察到该气体为黄绿色气体，据此推断该气体是什么。",
+      "given": {
+        "experiment": {
+          "mode": "phenomenon_conclusion",
+          "phenomena": ["黄绿色气体"],
+          "candidateSpecies": ["Cl2", "NH3", "CO2", "O2", "H2"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["该气体的成分"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": ["该气体为 Cl2"]
+        }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'氯及其化合物'（特征颜色气体判断，高考现象→结论推断题型）",
+      "tags": ["实验探究", "现象推断", "特征现象"]
+    },
+    {
+      "id": "EXP-H08",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "某无色气体可能是 CO2 或 SO2 中的一种，将其通入澄清石灰水，石灰水变浑浊。有同学据此断定该气体一定是 CO2。仅凭这一现象能否唯一确定？请给出引擎的如实判断。",
+      "given": {
+        "experiment": {
+          "mode": "phenomenon_conclusion",
+          "phenomena": ["通入澄清石灰水变浑浊"],
+          "candidateSpecies": ["CO2", "SO2"]
+        }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["该气体的成分"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": []
+        }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第一章'离子反应'与《必修第二册》第五章'硫及其化合物'（石灰水变浑浊为 CO2/SO2 共有现象，高考实验评价易错题型）",
+      "tags": ["实验探究", "现象推断", "边界", "多义欠定"]
+    }
+  ]
+}

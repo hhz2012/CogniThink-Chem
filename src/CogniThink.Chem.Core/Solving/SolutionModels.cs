@@ -17,6 +17,7 @@ namespace CogniThink.Chem.Core.Solving;
 /// <item>化学平衡：<see cref="Equilibrium"/>（三段式表 + 转化率/Kp/移动方向）。</item>
 /// <item>水溶液离子平衡：<see cref="Aqueous"/>（浓度顺序 + 守恒等式）。</item>
 /// <item>工业流程：<see cref="SubstanceMap"/> + <see cref="Purposes"/>（步骤号→操作目的）。</item>
+/// <item>实验探究：<see cref="Experiment"/>（逐询问对象的实验结论，溯源 EXP-*/PH-* 条目）。</item>
 /// </list>
 /// 铁律延续：<see cref="Status"/> 非 Solved 时答案字段不得被当作结论使用。
 /// </summary>
@@ -64,6 +65,9 @@ public sealed class Solution
 
     /// <summary>工业流程结论：步骤号 → 该步操作目的（推理链同步给出原理与方程式）。</summary>
     public Dictionary<string, string> Purposes { get; set; } = new();
+
+    /// <summary>实验探究结论：逐询问对象的实验结论（仅 Solved 时填充）。</summary>
+    public ExperimentAnswerSpec? Experiment { get; set; }
 
     /// <summary>求解步骤（每步可溯源到知识条目），讲解与引导由此渲染。</summary>
     public List<SolutionStep> Steps { get; set; } = new();

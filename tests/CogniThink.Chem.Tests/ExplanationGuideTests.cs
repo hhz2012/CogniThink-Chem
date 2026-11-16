@@ -153,7 +153,8 @@ public class ExplanationGuideTests
     [Fact]
     public void Guide_NeverLeaksCompositionOrNumericAnswers()
     {
-        foreach (var problem in Problems.Where(p => p.Category == ProblemCategory.SubstanceIdentification))
+        foreach (var problem in Problems.Where(p =>
+                     p.Category is ProblemCategory.SubstanceIdentification or ProblemCategory.IonPowderIdentification))
         {
             var solution = ProblemSolver.Solve(problem);
             var guide = GuideGenerator.Generate(solution, problem);

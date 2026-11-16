@@ -18,6 +18,9 @@ namespace CogniThink.Chem.Core.Solving;
 /// <item>化学平衡 → <see cref="EquilibriumEngine"/>（三段式 + 转化率/Kp + 扰动方向，全程有理数精确）。</item>
 /// <item>水溶液离子平衡 → <see cref="AqueousEquilibriumEngine"/>（电离/水解方向判定 + 三大守恒）。</item>
 /// <item>工业流程综合 → <see cref="ProcessFlowEngine"/>（转化链回溯赋值 + 每步目的/原理规则匹配）。</item>
+/// <item>离子粉末推断 → 复用 <see cref="IdentificationEngine"/>（溶液连续操作与粉末混合物分步现象同为成分判定）。</item>
+/// <item>有机推断 → <see cref="OrganicInferenceEngine"/>（有机转化链回溯赋值，限定 RX-OR-* 知识库）。</item>
+/// <item>实验探究 → <see cref="ExperimentEngine"/>（检验/验满、操作目的与滴定误差、现象→结论，溯源 EXP-*/PH-* 条目）。</item>
 /// </list>
 /// 铁律：求解器只做路由与汇总，全部结论仍来自知识驱动引擎；欠定/无解原样上抛，不猜。
 /// </summary>
@@ -49,6 +52,12 @@ public static class ProblemSolver
                 return SolveAqueousEquilibrium(problem, library);
             case ProblemCategory.IndustrialProcess:
                 return SolveProcessFlow(problem, library);
+            case ProblemCategory.IonPowderIdentification:
+                return SolveIdentification(problem, library);
+            case ProblemCategory.OrganicInference:
+                return SolveOrganic(problem, library);
+            case ProblemCategory.ExperimentalInquiry:
+                return SolveExperiment(problem);
             default:
                 throw new ArgumentOutOfRangeException(nameof(problem), problem.Category, "未知题目类别");
         }
@@ -175,6 +184,68 @@ public static class ProblemSolver
             .Select(r => r.Equation)
             .ToList();
         solution.Steps = ToSteps(infer.Steps);
+        return solution;
+    }
+
+    // -----------------------------------------------------------------------
+    // 有机推断
+    // -----------------------------------------------------------------------
+
+    private static Solution SolveOrganic(ProblemSpec problem, ReactionLibrary library)
+    {
+        var solution = NewSolution(problem);
+        var infer = OrganicInferenceEngine.Infer(new OrganicInferenceRequest
+        {
+            CandidateSpecies = problem.Given.CandidateSpecies.ToList(),
+            Medium = problem.Given.Medium ?? "",
+            Steps = problem.Given.Steps.Select(ToExperimentStep).ToList(),
+        }, library);
+
+        solution.Status = infer.Status;
+        solution.Message = infer.Message;
+        solution.SubstanceMap = new Dictionary<string, string>(infer.Assignment);
+        solution.Equations = infer.StepResults
+            .OrderBy(r => r.Step)
+            .Select(r => r.Equation)
+            .ToList();
+        solution.Steps = ToSteps(infer.Steps);
+        return solution;
+    }
+
+    // -----------------------------------------------------------------------
+    // 实验探究
+    // -----------------------------------------------------------------------
+
+    private static Solution SolveExperiment(ProblemSpec problem)
+    {
+        var solution = NewSolution(problem);
+        if (problem.Given.Experiment is not { } exp)
+        {
+            solution.Status = InferenceStatus.NoSolution;
+            solution.Message = "实验探究题缺少 given.experiment（探究模式与条件），引擎无法推断。";
+            return solution;
+        }
+
+        var infer = ExperimentEngine.Infer(new ExperimentInferenceRequest
+        {
+            Mode = exp.Mode,
+            Targets = exp.Targets.ToList(),
+            Operations = exp.Operations.ToList(),
+            Phenomena = exp.Phenomena.ToList(),
+            CandidateSpecies = exp.CandidateSpecies.ToList(),
+        });
+
+        solution.Status = infer.Status;
+        solution.Message = infer.Message;
+        solution.Steps = ToSteps(infer.Steps);
+        if (infer.Status == InferenceStatus.Solved)
+        {
+            solution.Experiment = new ExperimentAnswerSpec
+            {
+                Conclusions = infer.Conclusions.ToList(),
+            };
+        }
+
         return solution;
     }
 

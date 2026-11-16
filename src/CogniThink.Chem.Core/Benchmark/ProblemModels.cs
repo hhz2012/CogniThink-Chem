@@ -32,7 +32,19 @@ public enum ProblemCategory
     AqueousIonEquilibrium,
 
     /// <summary>工业流程综合推断：多步转化 + 操作目的。</summary>
-    IndustrialProcess
+    IndustrialProcess,
+
+    /// <summary>
+    /// 离子粉末推断：溶液连续操作判断离子存在/不存在/不能确定；
+    /// 固体粉末混合物分步现象推断组分（复用成分推断引擎，题面为离子/粉末语境）。
+    /// </summary>
+    IonPowderIdentification,
+
+    /// <summary>有机推断：转化链+特征反应定物质、写方程式（专用引擎，限定有机反应知识库）。</summary>
+    OrganicInference,
+
+    /// <summary>实验探究：气体验验/验满、基本操作目的与滴定误差分析、现象→结论（专用引擎，溯源 EXP-*/PH-* 条目）。</summary>
+    ExperimentalInquiry
 }
 
 /// <summary>难度（对应课内层次：基础/中档/难题）。</summary>
@@ -71,7 +83,16 @@ public enum AskType
     CompareConcentrations,
 
     /// <summary>流程各步物质与操作目的分析。</summary>
-    AnalyzeProcess
+    AnalyzeProcess,
+
+    /// <summary>离子/粉末成分三态判定（一定存在/一定不存在/不能确定）。</summary>
+    IdentifyIonPowder,
+
+    /// <summary>有机转化链各步物质与方程式推断。</summary>
+    InferOrganicChain,
+
+    /// <summary>实验探究：检验/验满方法、操作目的、误差分析与现象结论推断。</summary>
+    AnalyzeExperiment
 }
 
 /// <summary>成分推断结论：一定含 / 一定不含 / 可能含（无法确定）。</summary>
@@ -166,6 +187,28 @@ public sealed class GivenSpec
 
     /// <summary>溶液组成（水溶液离子平衡题）。</summary>
     public AqueousGivenSpec? Solution { get; set; }
+
+    /// <summary>实验探究条件（实验探究题）。</summary>
+    public ExperimentGivenSpec? Experiment { get; set; }
+}
+
+/// <summary>实验探究题的题给条件：按 <see cref="Mode"/> 启用对应字段（见 ExperimentEngine）。</summary>
+public sealed class ExperimentGivenSpec
+{
+    /// <summary>探究模式："gas_test" / "gas_full_test" / "operation_purpose" / "phenomenon_conclusion"。</summary>
+    public string Mode { get; set; } = "";
+
+    /// <summary>气体验验/验满的目标气体清单（L2 写法）。</summary>
+    public List<string> Targets { get; set; } = new();
+
+    /// <summary>操作代号清单（操作目的/误差分析模式）。</summary>
+    public List<string> Operations { get; set; } = new();
+
+    /// <summary>现象文本清单（现象→结论模式，与教材表述一致）。</summary>
+    public List<string> Phenomena { get; set; } = new();
+
+    /// <summary>候选物种（现象→结论模式，结论只允许落在候选交集内）。</summary>
+    public List<string> CandidateSpecies { get; set; } = new();
 }
 
 /// <summary>电化学装置描述：原电池（正负极）或电解池（阴阳极）。</summary>
@@ -387,8 +430,18 @@ public sealed class ExpectedSpec
     /// <summary>工业流程结论：各步操作目的关键词（步骤号 → 必须出现在该步推理中的关键词）。</summary>
     public Dictionary<string, string>? Purposes { get; set; }
 
+    /// <summary>实验探究结论：逐询问对象的实验结论（引擎逐字输出，边界题为空）。</summary>
+    public ExperimentAnswerSpec? Experiment { get; set; }
+
     /// <summary>对 <see cref="Equations"/> 中每条方程式的引擎预期。</summary>
     public EngineExpectation EngineExpectation { get; set; } = new();
+}
+
+/// <summary>实验探究答案：结论清单（与题给询问对象一一对应，全部溯源 EXP-*/PH-* 条目）。</summary>
+public sealed class ExperimentAnswerSpec
+{
+    /// <summary>实验结论（逐条，与引擎输出逐字一致）。</summary>
+    public List<string> Conclusions { get; set; } = new();
 }
 
 /// <summary>电极反应式答案：原电池填 Negative/Positive，电解池填 Anode/Cathode。</summary>

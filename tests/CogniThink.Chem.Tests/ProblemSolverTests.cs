@@ -7,7 +7,7 @@ using Xunit;
 namespace CogniThink.Chem.Tests;
 
 /// <summary>
-/// 端到端求解基准（"能解"）：求解器对全部 74 道基准题推导答案，
+/// 端到端求解基准（"能解"）：求解器对全部 98 道基准题推导答案，
 /// 断言推导结果与 expected 标准答案一致（此前引擎只会校验、现在能推导）。
 /// </summary>
 public class ProblemSolverTests
@@ -63,6 +63,7 @@ public class ProblemSolverTests
                 break;
 
             case ProblemCategory.SubstanceIdentification:
+            case ProblemCategory.IonPowderIdentification:
                 Assert.NotNull(expected.Composition);
                 Assert.Equal(expected.Composition!.Count, solution.Composition.Count);
                 foreach (var kv in expected.Composition!)
@@ -76,6 +77,7 @@ public class ProblemSolverTests
                 break;
 
             case ProblemCategory.ProcessInference:
+            case ProblemCategory.OrganicInference:
                 Assert.NotNull(expected.SubstanceMap);
                 Assert.Equal(expected.SubstanceMap!, solution.SubstanceMap);
                 Assert.Equal(expected.Equations, solution.Equations);
@@ -140,6 +142,12 @@ public class ProblemSolverTests
                 AssertSetEqual(expected.Aqueous.ConservationEquations, solution.Aqueous.ConservationEquations);
                 AssertSetEqual(expected.Equations, solution.Equations);
                 break;
+
+            case ProblemCategory.ExperimentalInquiry:
+                Assert.NotNull(expected.Experiment);
+                Assert.NotNull(solution.Experiment);
+                Assert.Equal(expected.Experiment!.Conclusions, solution.Experiment!.Conclusions);
+                break;
         }
 
         // 每个解都必须带可溯源的求解步骤（讲解/引导的原料）。
@@ -151,17 +159,22 @@ public class ProblemSolverTests
     public void SolveAll_CoversAllProblems()
     {
         var solutions = ProblemSolver.SolveAll(Problems);
-        Assert.Equal(74, solutions.Count);
-        // 69 题解出；PROD-004（陌生物质）按铁律拒答，ELEC-H06（熔融体系）、EQ-H08（无平衡信息）、
-        // AQ-H04（NaHCO3 全粒子排序需解联立平衡）、PROCF-H06（浸出液铁价态未记录）如实欠定。
-        Assert.Equal(69, solutions.Count(s => s.IsSolved));
+        Assert.Equal(98, solutions.Count);
+        // 90 题解出；PROD-004（陌生物质）按铁律拒答，ELEC-H06（熔融体系）、EQ-H08（无平衡信息）、
+        // AQ-H04（NaHCO3 全粒子排序需解联立平衡）、PROCF-H06（浸出液铁价态未记录）、
+        // IONP-H04（全负证据无法确定任何成分）、ORG-H08（乙烯/乙炔双解）、
+        // EXP-H08（石灰水变浑浊为 CO2/SO2 共有现象，多义）如实欠定。
+        Assert.Equal(90, solutions.Count(s => s.IsSolved));
         var unsolved = solutions.Where(s => !s.IsSolved).ToList();
-        Assert.Equal(5, unsolved.Count);
+        Assert.Equal(8, unsolved.Count);
         Assert.Equal(InferenceStatus.NoSolution, unsolved.Single(s => s.ProblemId == "PROD-004").Status);
         Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "ELEC-H06").Status);
         Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "EQ-H08").Status);
         Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "AQ-H04").Status);
         Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "PROCF-H06").Status);
+        Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "IONP-H04").Status);
+        Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "ORG-H08").Status);
+        Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "EXP-H08").Status);
     }
 
     [Fact]

@@ -7,7 +7,7 @@ namespace CogniThink.Chem.Tests;
 /// 标准测试集（推断类实际问题）基准测试。
 /// 语义：推断动作属于 LLM 层；本测试用题目中的标准答案（expected）代替 LLM 输出，
 /// 验证引擎对"标准答案放行、典型错解捕获、计算精确复算"的行为与预期一致。
-/// 数据源：data/benchmark/problems/*.json（66 题，8 类）。
+/// 数据源：data/benchmark/problems/*.json（98 题，12 类）。
 /// </summary>
 public class BenchmarkTests
 {
