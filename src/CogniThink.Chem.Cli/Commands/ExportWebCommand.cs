@@ -100,11 +100,17 @@ internal static class ExportWebCommand
                 explanation = new
                 {
                     explanation.AnswerSummary,
+                    explanation.OneLineOverview,
                     steps = explanation.Steps.Select(s => new
                     {
-                        s.Order, s.Text, s.Evidence, s.KnowledgeId, s.KnowledgeName, s.Source
+                        s.Order, s.Text, s.Evidence, s.KnowledgeId, s.KnowledgeName, s.Source,
+                        s.Why, s.IsKeyStep, s.Pitfall
                     }),
-                    explanation.References,
+                    explanation.Pitfalls,
+                    references = explanation.References.Select(r => new
+                    {
+                        r.Id, r.Name, r.TextbookRef, r.Summary, r.Pitfall
+                    }),
                     explanation.FullText,
                 },
                 guide = new
