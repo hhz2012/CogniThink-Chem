@@ -31,6 +31,22 @@ const EXP_MODE_TEXT = {
 
 const DIRECTION_TEXT = { forward: '正向移动', reverse: '逆向移动', noShift: '平衡不移动' };
 
+/* 电化学装置类型中文名 */
+const CELL_TYPE_TEXT = { galvanic: '原电池', electrolytic: '电解池' };
+
+/* 平衡题给信息种类中文名 */
+const EQ_KNOWN_TEXT = { conversion: '转化率', amountFraction: '平衡分数', moles: '平衡物质的量' };
+
+/* 平衡扰动种类中文名 */
+const DISTURB_TEXT = {
+  addSpecies: '加料',
+  compress: '缩小体积加压',
+  expand: '减压',
+  heatUp: '升温',
+  coolDown: '降温',
+  catalyst: '加催化剂',
+};
+
 const FACT_KIND = {
   Mass: '质量',
   Moles: '物质的量',
@@ -261,6 +277,7 @@ function givenHtml(p) {
     if (st.reagents.length) parts.push('加入 ' + st.reagents.map(chem).join('、'));
     if (st.conditions.length) parts.push('条件 ' + st.conditions.map(esc).join('、'));
     if (st.phenomenon) parts.push('现象：' + esc(st.phenomenon));
+    if (st.purpose) parts.push('操作：' + chem(st.purpose));
     return `<li>${parts.join('｜')}</li>`;
   }).join('');
   if (steps) rows.push(['过程步骤', `<ol class="given-steps">${steps}</ol>`]);
@@ -280,6 +297,72 @@ function givenHtml(p) {
     rows.push(['探究模式',
       esc(EXP_MODE_TEXT[ex.mode] || ex.mode) +
       (cells.length ? `<ul class="given-steps">${cells.map((c) => `<li>${c}</li>`).join('')}</ul>` : '')]);
+  }
+
+  /* 电化学装置（电化学题）：字段为空/缺省时不产生对应行 */
+  if (g.cell) {
+    const c = g.cell;
+    const cells = [];
+    cells.push('类型：' + esc(CELL_TYPE_TEXT[c.type] || c.type));
+    if (c.electrodes.length) cells.push('电极：' + c.electrodes.map(chem).join('、'));
+    if (c.electrolyte) cells.push('电解质：' + chem(c.electrolyte));
+    if (c.medium) {
+      cells.push('介质：' + (c.medium === 'acidic' ? '酸性' : c.medium === 'basic' ? '碱性' : esc(c.medium)));
+    }
+    if (c.overall) cells.push('总反应：' + chem(c.overall));
+    if (c.gasFeeds.length) cells.push('通入气体：' + c.gasFeeds.map(chem).join('、'));
+    rows.push(['电化学装置', `<ul class="given-steps">${cells.map((x) => `<li>${x}</li>`).join('')}</ul>`]);
+  }
+
+  /* 平衡体系（化学平衡综合题） */
+  if (g.equilibrium) {
+    const q = g.equilibrium;
+    const cells = [];
+    if (q.equation) cells.push('可逆反应：' + chem(q.equation));
+    if (q.container) {
+      cells.push('容器：' + esc(q.container === 'constantVolume' ? '恒温恒容'
+        : q.container === 'constantPressure' ? '恒温恒压' : q.container));
+    }
+    const initial = Object.keys(q.initial).sort().map((k) => `${chem(k)} ${esc(q.initial[k])} mol`);
+    if (initial.length) cells.push('起始投料：' + initial.join('、'));
+    if (q.known) {
+      const kn = q.known;
+      cells.push('题给平衡信息：' + chem(kn.species) + ' 的' + esc(EQ_KNOWN_TEXT[kn.kind] || kn.kind) +
+        ' = ' + esc(kn.value) + (kn.kind === 'moles' ? ' mol' : ''));
+    }
+    if (q.disturbance) {
+      const d = q.disturbance;
+      let txt = esc(DISTURB_TEXT[d.kind] || d.kind);
+      if (d.species) txt += '（' + chem(d.species) + '）';
+      if (d.thermal) {
+        txt += '，正反应' + esc(d.thermal === 'exothermic' ? '放热' : d.thermal === 'endothermic' ? '吸热' : d.thermal);
+      }
+      cells.push('扰动：' + txt);
+    }
+    if (q.totalPressure) cells.push('体系总压：' + esc(q.totalPressure));
+    if (q.fractionSpecies) cells.push('求摩尔分数物种：' + chem(q.fractionSpecies));
+    if (cells.length) rows.push(['平衡体系', `<ul class="given-steps">${cells.map((x) => `<li>${x}</li>`).join('')}</ul>`]);
+  }
+
+  /* 溶液组成（水溶液离子平衡题） */
+  if (g.solution) {
+    const a = g.solution;
+    const cells = [];
+    const solutes = a.solutes.map((x) => {
+      let t = chem(x.species);
+      if (x.concentration) t += ' ' + esc(x.concentration) + ' mol/L';
+      if (x.volumeLiters && x.volumeLiters !== '1') t += '，体积 ' + esc(x.volumeLiters) + ' L';
+      return t;
+    });
+    if (solutes.length) cells.push('溶质：' + solutes.join('、'));
+    if (a.ph) cells.push('题给 pH = ' + esc(a.ph));
+    if (a.note) cells.push('附加条件：' + esc(a.note));
+    if (a.orderSpecies.length) cells.push('待排序粒子：' + a.orderSpecies.map(chem).join('、'));
+    if (a.conversion) {
+      const cv = a.conversion;
+      cells.push('沉淀转化：' + chem(cv.original) + ' + ' + chem(cv.addedIon) + ' → ' + chem(cv.target));
+    }
+    if (cells.length) rows.push(['溶液组成', `<ul class="given-steps">${cells.map((x) => `<li>${x}</li>`).join('')}</ul>`]);
   }
 
   if (!rows.length) return '';

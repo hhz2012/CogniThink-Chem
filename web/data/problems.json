@@ -4,7 +4,7 @@
     "displayName": "化学伴思",
     "version": "0.1.0"
   },
-  "generatedAt": "2026-11-16 22:53:55",
+  "generatedAt": "2026-11-17 00:28:14",
   "knowledgeCount": 49,
   "total": 98,
   "categories": [
@@ -98,7 +98,27 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "CH3COONa",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              }
+            ],
+            "ph": null,
+            "note": "",
+            "orderSpecies": [
+              "Na^+",
+              "CH3COO^-",
+              "OH^-",
+              "H^+"
+            ],
+            "conversion": null
+          }
         }
       },
       "solution": {
@@ -339,7 +359,27 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "NH4Cl",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              }
+            ],
+            "ph": null,
+            "note": "",
+            "orderSpecies": [
+              "Cl^-",
+              "NH4^+",
+              "H^+",
+              "OH^-"
+            ],
+            "conversion": null
+          }
         }
       },
       "solution": {
@@ -581,7 +621,28 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "Na2CO3",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              }
+            ],
+            "ph": null,
+            "note": "",
+            "orderSpecies": [
+              "Na^+",
+              "CO3^2-",
+              "OH^-",
+              "HCO3^-",
+              "H^+"
+            ],
+            "conversion": null
+          }
         }
       },
       "solution": {
@@ -841,7 +902,29 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "NaHCO3",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              }
+            ],
+            "ph": null,
+            "note": "",
+            "orderSpecies": [
+              "Na^+",
+              "HCO3^-",
+              "CO3^2-",
+              "H2CO3",
+              "OH^-",
+              "H^+"
+            ],
+            "conversion": null
+          }
         }
       },
       "solution": {
@@ -1044,7 +1127,33 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "CH3COOH",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              },
+              {
+                "species": "CH3COONa",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              }
+            ],
+            "ph": null,
+            "note": "",
+            "orderSpecies": [
+              "CH3COO^-",
+              "Na^+",
+              "CH3COOH",
+              "H^+",
+              "OH^-"
+            ],
+            "conversion": null
+          }
         }
       },
       "solution": {
@@ -1322,7 +1431,32 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "CH3COOH",
+                "concentration": "0.1",
+                "volumeLiters": "0.02"
+              },
+              {
+                "species": "NaOH",
+                "concentration": "0.1",
+                "volumeLiters": "0.02"
+              }
+            ],
+            "ph": "7",
+            "note": "滴至 pH = 7 时停止（NaOH 实际用量略少于 20 mL，题给中性结论为准）",
+            "orderSpecies": [
+              "Na^+",
+              "CH3COO^-",
+              "H^+",
+              "OH^-"
+            ],
+            "conversion": null
+          }
         }
       },
       "solution": {
@@ -1566,7 +1700,28 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "Na2C2O4",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              }
+            ],
+            "ph": null,
+            "note": "",
+            "orderSpecies": [
+              "Na^+",
+              "C2O4^2-",
+              "OH^-",
+              "HC2O4^-",
+              "H^+"
+            ],
+            "conversion": null
+          }
         }
       },
       "solution": {
@@ -1824,7 +1979,26 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": {
+            "solutes": [
+              {
+                "species": "AgCl",
+                "concentration": "0.1",
+                "volumeLiters": "1"
+              }
+            ],
+            "ph": null,
+            "note": "",
+            "orderSpecies": [],
+            "conversion": {
+              "original": "AgCl",
+              "addedIon": "I^-",
+              "target": "AgI"
+            }
+          }
         }
       },
       "solution": {
@@ -1993,7 +2167,20 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "galvanic",
+            "electrodes": [
+              "Zn",
+              "Cu"
+            ],
+            "electrolyte": "CuSO4",
+            "medium": "acidic",
+            "overall": "Zn + Cu^2+ = Zn^2+ + Cu",
+            "gasFeeds": []
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -2186,7 +2373,23 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "galvanic",
+            "electrodes": [
+              "Pt",
+              "Pt"
+            ],
+            "electrolyte": "H2SO4",
+            "medium": "acidic",
+            "overall": "2H2 + O2 = 2H2O",
+            "gasFeeds": [
+              "H2",
+              "O2"
+            ]
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -2394,7 +2597,23 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "galvanic",
+            "electrodes": [
+              "Pt",
+              "Pt"
+            ],
+            "electrolyte": "KOH",
+            "medium": "basic",
+            "overall": "2H2 + O2 = 2H2O",
+            "gasFeeds": [
+              "H2",
+              "O2"
+            ]
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -2601,7 +2820,20 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "electrolytic",
+            "electrodes": [
+              "C",
+              "C"
+            ],
+            "electrolyte": "CuCl2",
+            "medium": "acidic",
+            "overall": "Cu^2+ + 2Cl^- = Cu + Cl2↑",
+            "gasFeeds": []
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -2779,7 +3011,20 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "electrolytic",
+            "electrodes": [
+              "C",
+              "Fe"
+            ],
+            "electrolyte": "NaCl",
+            "medium": "basic",
+            "overall": "2Cl^- + 2H2O = Cl2↑ + H2↑ + 2OH^-",
+            "gasFeeds": []
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -2971,7 +3216,20 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "electrolytic",
+            "electrodes": [
+              "C",
+              "C"
+            ],
+            "electrolyte": "Al2O3",
+            "medium": "",
+            "overall": "",
+            "gasFeeds": []
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -3081,7 +3339,22 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "galvanic",
+            "electrodes": [
+              "Fe",
+              "C"
+            ],
+            "electrolyte": "NaCl",
+            "medium": "basic",
+            "overall": "2Fe + O2 + 2H2O = 2Fe(OH)2",
+            "gasFeeds": [
+              "O2"
+            ]
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -3274,7 +3547,20 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": {
+            "type": "electrolytic",
+            "electrodes": [
+              "C",
+              "C"
+            ],
+            "electrolyte": "AgNO3",
+            "medium": "acidic",
+            "overall": "4Ag^+ + 2H2O = 4Ag + O2↑ + 4H^+",
+            "gasFeeds": []
+          },
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -3469,7 +3755,25 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "N2 + 3H2 ⇌ 2NH3",
+            "container": "constantVolume",
+            "initial": {
+              "N2": "1",
+              "H2": "3"
+            },
+            "known": {
+              "kind": "conversion",
+              "species": "N2",
+              "value": "1/3"
+            },
+            "disturbance": null,
+            "totalPressure": "10",
+            "fractionSpecies": "NH3"
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -3656,7 +3960,25 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "2SO2 + O2 ⇌ 2SO3",
+            "container": "constantPressure",
+            "initial": {
+              "SO2": "2",
+              "O2": "1"
+            },
+            "known": {
+              "kind": "amountFraction",
+              "species": "SO2",
+              "value": "1/3"
+            },
+            "disturbance": null,
+            "totalPressure": "1",
+            "fractionSpecies": "SO3"
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -3843,7 +4165,24 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "N2O4 ⇌ 2NO2",
+            "container": "constantVolume",
+            "initial": {
+              "N2O4": "1"
+            },
+            "known": {
+              "kind": "moles",
+              "species": "N2O4",
+              "value": "1/2"
+            },
+            "disturbance": null,
+            "totalPressure": "2",
+            "fractionSpecies": "NO2"
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -4023,7 +4362,28 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "N2O4 ⇌ 2NO2",
+            "container": "constantVolume",
+            "initial": {
+              "N2O4": "1"
+            },
+            "known": {
+              "kind": "conversion",
+              "species": "N2O4",
+              "value": "1/2"
+            },
+            "disturbance": {
+              "kind": "compress",
+              "species": "",
+              "thermal": ""
+            },
+            "totalPressure": null,
+            "fractionSpecies": null
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -4234,7 +4594,29 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "2SO2 + O2 ⇌ 2SO3",
+            "container": "constantVolume",
+            "initial": {
+              "SO2": "2",
+              "O2": "1"
+            },
+            "known": {
+              "kind": "conversion",
+              "species": "SO2",
+              "value": "1/2"
+            },
+            "disturbance": {
+              "kind": "heatUp",
+              "species": "",
+              "thermal": "exothermic"
+            },
+            "totalPressure": null,
+            "fractionSpecies": null
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -4450,7 +4832,29 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "N2 + 3H2 ⇌ 2NH3",
+            "container": "constantVolume",
+            "initial": {
+              "N2": "1",
+              "H2": "3"
+            },
+            "known": {
+              "kind": "conversion",
+              "species": "H2",
+              "value": "2/5"
+            },
+            "disturbance": {
+              "kind": "catalyst",
+              "species": "",
+              "thermal": ""
+            },
+            "totalPressure": null,
+            "fractionSpecies": null
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -4666,7 +5070,28 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "N2O4 ⇌ 2NO2",
+            "container": "constantVolume",
+            "initial": {
+              "N2O4": "1"
+            },
+            "known": {
+              "kind": "conversion",
+              "species": "N2O4",
+              "value": "1/3"
+            },
+            "disturbance": {
+              "kind": "addSpecies",
+              "species": "NO2",
+              "thermal": ""
+            },
+            "totalPressure": null,
+            "fractionSpecies": null
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -4873,7 +5298,21 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": {
+            "equation": "N2 + 3H2 ⇌ 2NH3",
+            "container": "constantVolume",
+            "initial": {
+              "N2": "1",
+              "H2": "3"
+            },
+            "known": null,
+            "disturbance": null,
+            "totalPressure": null,
+            "fractionSpecies": null
+          },
+          "solution": null
         }
       },
       "solution": {
@@ -4992,7 +5431,10 @@
             "operations": [],
             "phenomena": [],
             "candidateSpecies": []
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -5166,7 +5608,10 @@
             "operations": [],
             "phenomena": [],
             "candidateSpecies": []
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -5341,7 +5786,10 @@
             "operations": [],
             "phenomena": [],
             "candidateSpecies": []
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -5516,7 +5964,10 @@
             ],
             "phenomena": [],
             "candidateSpecies": []
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -5700,7 +6151,10 @@
             ],
             "phenomena": [],
             "candidateSpecies": []
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -5890,7 +6344,10 @@
             ],
             "phenomena": [],
             "candidateSpecies": []
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -6068,7 +6525,10 @@
               "O2",
               "H2"
             ]
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -6228,7 +6688,10 @@
               "CO2",
               "SO2"
             ]
-          }
+          },
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -6390,7 +6853,8 @@
                 "蓝色钴玻璃"
               ],
               "conditions": [],
-              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰"
+              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -6402,7 +6866,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "加足量 NaOH 溶液并加热，产生使湿润红色石蕊试纸变蓝的气体"
+              "phenomenon": "加足量 NaOH 溶液并加热，产生使湿润红色石蕊试纸变蓝的气体",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -6413,11 +6878,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "滴加足量 BaCl2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解"
+              "phenomenon": "滴加足量 BaCl2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -6622,7 +7091,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入足量稀硝酸，产生气体"
+              "phenomenon": "加入足量稀硝酸，产生气体",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -6632,7 +7102,8 @@
                 "Ba(NO3)2"
               ],
               "conditions": [],
-              "phenomenon": "无明显沉淀"
+              "phenomenon": "无明显沉淀",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -6643,7 +7114,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀（不溶于稀硝酸）"
+              "phenomenon": "产生白色沉淀（不溶于稀硝酸）",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -6655,7 +7127,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "加足量 NaOH 溶液并加热，无明显现象"
+              "phenomenon": "加足量 NaOH 溶液并加热，无明显现象",
+              "purpose": ""
             },
             {
               "step": 5,
@@ -6666,11 +7139,15 @@
                 "蓝色钴玻璃"
               ],
               "conditions": [],
-              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰"
+              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -6877,7 +7354,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "加足量 NaOH 溶液并加热，产生刺激性气味气体使湿润红色石蕊试纸变蓝"
+              "phenomenon": "加足量 NaOH 溶液并加热，产生刺激性气味气体使湿润红色石蕊试纸变蓝",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -6887,7 +7365,8 @@
                 "NaOH"
               ],
               "conditions": [],
-              "phenomenon": "加足量 NaOH 溶液，产生蓝色沉淀"
+              "phenomenon": "加足量 NaOH 溶液，产生蓝色沉淀",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -6898,7 +7377,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "滴加足量 Ba(NO3)2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解"
+              "phenomenon": "滴加足量 Ba(NO3)2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -6909,11 +7389,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "滴加足量 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解"
+              "phenomenon": "滴加足量 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -7127,7 +7611,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入稀硝酸，无明显现象"
+              "phenomenon": "加入稀硝酸，无明显现象",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -7137,7 +7622,8 @@
                 "Ba(NO3)2"
               ],
               "conditions": [],
-              "phenomenon": "加入 Ba(NO3)2 溶液，无明显现象"
+              "phenomenon": "加入 Ba(NO3)2 溶液，无明显现象",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -7148,11 +7634,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入 AgNO3 溶液和稀硝酸，无明显现象"
+              "phenomenon": "加入 AgNO3 溶液和稀硝酸，无明显现象",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -7316,7 +7806,8 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": "溶于水，产生白色沉淀"
+              "phenomenon": "溶于水，产生白色沉淀",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -7326,7 +7817,8 @@
                 "HCl"
               ],
               "conditions": [],
-              "phenomenon": "加入足量稀盐酸，沉淀部分溶解并产生气体"
+              "phenomenon": "加入足量稀盐酸，沉淀部分溶解并产生气体",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -7337,7 +7829,8 @@
                 "蓝色钴玻璃"
               ],
               "conditions": [],
-              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰"
+              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -7348,11 +7841,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解"
+              "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -7549,7 +8046,8 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": "溶于水，产生白色沉淀"
+              "phenomenon": "溶于水，产生白色沉淀",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -7559,7 +8057,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入足量稀硝酸，沉淀全部溶解并产生气体"
+              "phenomenon": "加入足量稀硝酸，沉淀全部溶解并产生气体",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -7569,7 +8068,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "滴加足量稀硝酸，产生气体"
+              "phenomenon": "滴加足量稀硝酸，产生气体",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -7579,11 +8079,15 @@
                 "Ba(NO3)2"
               ],
               "conditions": [],
-              "phenomenon": "滴加 Ba(NO3)2 溶液，无明显沉淀"
+              "phenomenon": "滴加 Ba(NO3)2 溶液，无明显沉淀",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -7734,7 +8238,8 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": "溶于水，产生白色沉淀"
+              "phenomenon": "溶于水，产生白色沉淀",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -7744,7 +8249,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入足量稀硝酸，沉淀部分溶解并产生气体"
+              "phenomenon": "加入足量稀硝酸，沉淀部分溶解并产生气体",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -7755,7 +8261,8 @@
                 "蓝色钴玻璃"
               ],
               "conditions": [],
-              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰"
+              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -7766,11 +8273,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解"
+              "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -7938,7 +8449,8 @@
                 "蓝色钴玻璃"
               ],
               "conditions": [],
-              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰"
+              "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -7948,7 +8460,8 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": "溶于水，产生白色沉淀"
+              "phenomenon": "溶于水，产生白色沉淀",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -7958,7 +8471,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入足量稀硝酸，沉淀部分溶解并产生气体"
+              "phenomenon": "加入足量稀硝酸，沉淀部分溶解并产生气体",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -7969,11 +8483,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解"
+              "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -8179,7 +8697,8 @@
                 "△",
                 "加压"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -8192,7 +8711,8 @@
                 "Cu",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -8205,7 +8725,8 @@
                 "催化剂",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -8218,11 +8739,15 @@
                 "浓H2SO4",
                 "△"
               ],
-              "phenomenon": "液面上方出现有香味的无色油状液体"
+              "phenomenon": "液面上方出现有香味的无色油状液体",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -8511,7 +9036,8 @@
               "conditions": [
                 "催化剂"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -8524,7 +9050,8 @@
                 "Cu",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -8537,11 +9064,15 @@
                 "水浴",
                 "△"
               ],
-              "phenomenon": "试管内壁形成光亮的银镜"
+              "phenomenon": "试管内壁形成光亮的银镜",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -8799,7 +9330,8 @@
               "conditions": [
                 "FeBr3"
               ],
-              "phenomenon": "导管口出现白雾"
+              "phenomenon": "导管口出现白雾",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -8813,7 +9345,8 @@
                 "水浴",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -8826,11 +9359,15 @@
                 "Ni",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -9079,7 +9616,8 @@
                 "水溶液",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -9092,7 +9630,8 @@
                 "醇溶液",
                 "△"
               ],
-              "phenomenon": "产生使溴水褪色的气体"
+              "phenomenon": "产生使溴水褪色的气体",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -9102,7 +9641,8 @@
                 "Br2"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -9115,11 +9655,15 @@
                 "Ni",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -9404,7 +9948,8 @@
                 "浓H2SO4",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -9414,7 +9959,8 @@
                 "NaOH"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -9426,11 +9972,15 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "油层消失"
+              "phenomenon": "油层消失",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -9683,7 +10233,8 @@
                 "Cu",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -9696,7 +10247,8 @@
                 "催化剂",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -9709,11 +10261,15 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "产生砖红色沉淀"
+              "phenomenon": "产生砖红色沉淀",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -9967,7 +10523,8 @@
               "conditions": [
                 "光照"
               ],
-              "phenomenon": "气体颜色变浅，瓶壁出现油状液滴"
+              "phenomenon": "气体颜色变浅，瓶壁出现油状液滴",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -9979,7 +10536,8 @@
               "conditions": [
                 "光照"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -9991,7 +10549,8 @@
               "conditions": [
                 "光照"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             },
             {
               "step": 4,
@@ -10003,11 +10562,15 @@
               "conditions": [
                 "光照"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -10285,7 +10848,8 @@
                 "Br2"
               ],
               "conditions": [],
-              "phenomenon": "溴水褪色"
+              "phenomenon": "溴水褪色",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -10298,11 +10862,15 @@
                 "Ni",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -10516,7 +11084,8 @@
                 "BaCl2(过量)"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀"
+              "phenomenon": "产生白色沉淀",
+              "purpose": "除杂：加过量BaCl2溶液除去Na2SO4"
             },
             {
               "step": 2,
@@ -10526,7 +11095,8 @@
                 "NaOH(过量)"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀"
+              "phenomenon": "产生白色沉淀",
+              "purpose": "除杂：加过量NaOH溶液除去MgCl2"
             },
             {
               "step": 3,
@@ -10536,7 +11106,8 @@
                 "Na2CO3(过量)"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀"
+              "phenomenon": "产生白色沉淀",
+              "purpose": "除杂：加过量Na2CO3溶液除去CaCl2"
             },
             {
               "step": 4,
@@ -10544,7 +11115,8 @@
               "to": "滤液",
               "reagents": [],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "固液分离：过滤除去BaSO4、CaCO3、Mg(OH)2沉淀"
             },
             {
               "step": 5,
@@ -10554,7 +11126,8 @@
                 "HCl(适量)"
               ],
               "conditions": [],
-              "phenomenon": "有无色气泡产生"
+              "phenomenon": "有无色气泡产生",
+              "purpose": "除杂：加适量盐酸除去滤液中过量的Na2CO3"
             },
             {
               "step": 6,
@@ -10564,11 +11137,15 @@
               "conditions": [
                 "蒸发"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "蒸发结晶：蒸发NaCl溶液获得精盐晶体"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -11010,7 +11587,8 @@
                 "Cl2"
               ],
               "conditions": [],
-              "phenomenon": "溶液呈橙黄色"
+              "phenomenon": "溶液呈橙黄色",
+              "purpose": "置换：通入Cl2将苦卤中的Br^-置换为Br2"
             },
             {
               "step": 2,
@@ -11020,7 +11598,8 @@
               "conditions": [
                 "热空气"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "吹出：利用Br2的挥发性用热空气将其吹出"
             },
             {
               "step": 3,
@@ -11030,7 +11609,8 @@
                 "SO2水溶液"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "吸收富集：SO2水溶液吸收Br2"
             },
             {
               "step": 4,
@@ -11041,7 +11621,8 @@
                 "Cl2",
                 "蒸馏"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "再氯化并蒸馏收集溴单质"
             },
             {
               "step": 5,
@@ -11051,11 +11632,15 @@
                 "NaOH"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "除杂：NaOH溶液吸收尾气中多余的Cl2防止污染"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -11363,7 +11948,8 @@
                 "Ca(OH)2(石灰乳)"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀"
+              "phenomenon": "产生白色沉淀",
+              "purpose": "沉淀富集：加石灰乳使Mg^2+沉淀为Mg(OH)2"
             },
             {
               "step": 2,
@@ -11371,7 +11957,8 @@
               "to": "纯净Mg(OH)2",
               "reagents": [],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "洗涤：洗去Mg(OH)2表面附着的可溶性杂质"
             },
             {
               "step": 3,
@@ -11381,7 +11968,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "灼烧：部分Mg(OH)2受热分解制耐火材料MgO"
             },
             {
               "step": 4,
@@ -11391,7 +11979,8 @@
                 "盐酸"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "酸溶：用盐酸溶解Mg(OH)2制MgCl2溶液"
             },
             {
               "step": 5,
@@ -11399,11 +11988,15 @@
               "to": "MgCl2·6H2O",
               "reagents": [],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "蒸发浓缩冷却结晶：从MgCl2溶液蒸发浓缩、冷却结晶获得带结晶水的MgCl2·6H2O晶体"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -11697,7 +12290,8 @@
                 "NaOH(过量)"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "除杂：Al2O3溶于过量NaOH而Fe2O3不溶，过滤分离"
             },
             {
               "step": 2,
@@ -11707,7 +12301,8 @@
                 "CO2(过量)"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "沉淀过滤后洗涤：洗去Al(OH)3表面附着的可溶性杂质"
             },
             {
               "step": 3,
@@ -11717,7 +12312,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "灼烧：使Al(OH)3分解为纯净Al2O3"
             },
             {
               "step": 4,
@@ -11728,11 +12324,15 @@
                 "通电",
                 "冰晶石"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "电解：电解熔融Al2O3冶炼金属铝"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -12023,7 +12623,8 @@
               "conditions": [
                 "高温"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "焙烧造气：黄铁矿高温焙烧产生SO2"
             },
             {
               "step": 2,
@@ -12036,7 +12637,8 @@
                 "催化剂",
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "催化氧化：SO2在接触室中被氧化为SO3"
             },
             {
               "step": 3,
@@ -12046,7 +12648,8 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "吸收：SO3与水化合生成硫酸"
             },
             {
               "step": 4,
@@ -12056,7 +12659,8 @@
                 "氨水"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "除杂：氨水吸收尾气中残余SO2防止污染"
             },
             {
               "step": 5,
@@ -12064,11 +12668,15 @@
               "to": "接触室",
               "reagents": [],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "循环利用：未反应的SO2与O2二次循环氧化吸收，提高原料利用率"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -12369,7 +12977,8 @@
                 "NaOH(过量)"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "除杂：过量NaOH溶解除去铝箔"
             },
             {
               "step": 2,
@@ -12380,7 +12989,8 @@
                 "H2O2"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "酸浸：LiCoO2在稀硫酸与H2O2作用下浸出Co^2+"
             },
             {
               "step": 3,
@@ -12390,7 +13000,8 @@
                 "NaOH(过量)"
               ],
               "conditions": [],
-              "phenomenon": "产生沉淀（颜色未记录）"
+              "phenomenon": "产生沉淀（颜色未记录）",
+              "purpose": "pH调控：加NaOH溶液沉淀浸出液中的铁离子"
             },
             {
               "step": 4,
@@ -12400,11 +13011,15 @@
                 "(NH4)2C2O4"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "沉淀转化：加草酸铵将Co^2+转化为更难溶的CoC2O4沉淀"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -12576,7 +13191,8 @@
                 "HCl"
               ],
               "conditions": [],
-              "phenomenon": "产生白色胶状沉淀"
+              "phenomenon": "产生白色胶状沉淀",
+              "purpose": "酸化：向硅酸钠溶液中加盐酸生成硅酸沉淀"
             },
             {
               "step": 2,
@@ -12584,7 +13200,8 @@
               "to": "纯净硅酸",
               "reagents": [],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "洗涤：洗去硅酸沉淀表面附着的可溶性杂质"
             },
             {
               "step": 3,
@@ -12594,7 +13211,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "灼烧：硅酸受热脱水生成SiO2"
             },
             {
               "step": 4,
@@ -12604,11 +13222,15 @@
                 "NaOH"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "循环利用：SiO2再溶于NaOH溶液回收制硅酸钠"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -12888,7 +13510,8 @@
                 "NaOH(适量)"
               ],
               "conditions": [],
-              "phenomenon": "产生红褐色沉淀"
+              "phenomenon": "产生红褐色沉淀",
+              "purpose": "pH调控：加NaOH调节pH使Fe^3+沉淀完全而Cu^2+不沉淀"
             },
             {
               "step": 2,
@@ -12896,7 +13519,8 @@
               "to": "纯净Fe(OH)3",
               "reagents": [],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "洗涤：洗去Fe(OH)3表面附着的可溶性盐"
             },
             {
               "step": 3,
@@ -12906,7 +13530,8 @@
                 "HCl"
               ],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "回收：Fe(OH)3溶于盐酸得FeCl3溶液回收铁元素"
             },
             {
               "step": 4,
@@ -12914,11 +13539,15 @@
               "to": "主工序",
               "reagents": [],
               "conditions": [],
-              "phenomenon": ""
+              "phenomenon": "",
+              "purpose": "循环利用：除铁后的含Cu^2+主体溶液返回主工序循环使用"
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -13196,7 +13825,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -13332,7 +13964,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -13468,7 +14103,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -13603,7 +14241,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -13739,7 +14380,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -13891,7 +14535,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -14019,7 +14666,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -14155,7 +14805,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -14315,7 +14968,8 @@
                 "HCl"
               ],
               "conditions": [],
-              "phenomenon": "固体溶解，溶液呈黄色"
+              "phenomenon": "固体溶解，溶液呈黄色",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -14325,7 +14979,8 @@
                 "NaOH"
               ],
               "conditions": [],
-              "phenomenon": "产生红褐色沉淀"
+              "phenomenon": "产生红褐色沉淀",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -14335,11 +14990,15 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "得到红棕色固体"
+              "phenomenon": "得到红棕色固体",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -14570,7 +15229,8 @@
               "conditions": [
                 "点燃"
               ],
-              "phenomenon": "生成淡黄色固体"
+              "phenomenon": "生成淡黄色固体",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -14580,7 +15240,8 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": "生成强碱和气体"
+              "phenomenon": "生成强碱和气体",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -14590,11 +15251,15 @@
                 "CO2(过量)"
               ],
               "conditions": [],
-              "phenomenon": "得到 D"
+              "phenomenon": "得到 D",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -14839,7 +15504,8 @@
               "conditions": [
                 "点燃"
               ],
-              "phenomenon": "剧烈燃烧"
+              "phenomenon": "剧烈燃烧",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -14849,7 +15515,8 @@
                 "HCl"
               ],
               "conditions": [],
-              "phenomenon": "固体溶解"
+              "phenomenon": "固体溶解",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -14859,11 +15526,15 @@
                 "NH3·H2O(足量)"
               ],
               "conditions": [],
-              "phenomenon": "白色胶状沉淀"
+              "phenomenon": "白色胶状沉淀",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -15107,7 +15778,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "表面变黑"
+              "phenomenon": "表面变黑",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -15117,7 +15789,8 @@
                 "H2SO4(稀)"
               ],
               "conditions": [],
-              "phenomenon": "固体溶解，溶液呈蓝色"
+              "phenomenon": "固体溶解，溶液呈蓝色",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -15127,11 +15800,15 @@
                 "NaOH"
               ],
               "conditions": [],
-              "phenomenon": "蓝色沉淀"
+              "phenomenon": "蓝色沉淀",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -15375,7 +16052,8 @@
               "conditions": [
                 "点燃"
               ],
-              "phenomenon": "燃烧生成气体"
+              "phenomenon": "燃烧生成气体",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -15385,7 +16063,8 @@
                 "Ca(OH)2"
               ],
               "conditions": [],
-              "phenomenon": "澄清石灰水变浑浊"
+              "phenomenon": "澄清石灰水变浑浊",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -15395,11 +16074,15 @@
               "conditions": [
                 "高温"
               ],
-              "phenomenon": "得到 D 和 B"
+              "phenomenon": "得到 D 和 B",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -15648,7 +16331,8 @@
               "conditions": [
                 "点燃"
               ],
-              "phenomenon": "安静燃烧，苍白色火焰"
+              "phenomenon": "安静燃烧，苍白色火焰",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -15658,11 +16342,15 @@
                 "AgNO3"
               ],
               "conditions": [],
-              "phenomenon": "白色沉淀"
+              "phenomenon": "白色沉淀",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -15884,7 +16572,8 @@
               "conditions": [
                 "点燃"
               ],
-              "phenomenon": "蓝紫色火焰，刺激性气味气体"
+              "phenomenon": "蓝紫色火焰，刺激性气味气体",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -15897,7 +16586,8 @@
                 "催化剂",
                 "△"
               ],
-              "phenomenon": "可逆氧化"
+              "phenomenon": "可逆氧化",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -15907,11 +16597,15 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": "生成强酸"
+              "phenomenon": "生成强酸",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -16154,7 +16848,8 @@
                 "B"
               ],
               "conditions": [],
-              "phenomenon": "溶液由浅绿色变为黄色"
+              "phenomenon": "溶液由浅绿色变为黄色",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -16164,11 +16859,15 @@
                 "NaOH"
               ],
               "conditions": [],
-              "phenomenon": "红褐色沉淀"
+              "phenomenon": "红褐色沉淀",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -16385,7 +17084,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -16535,7 +17237,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -16686,7 +17391,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -16835,7 +17543,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -16946,7 +17657,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -17097,7 +17811,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -17246,7 +17963,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -17381,7 +18101,10 @@
           "singleEntity": false,
           "steps": [],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -17523,7 +18246,10 @@
               "unit": "mL"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -17681,7 +18407,10 @@
               "unit": "g"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -17827,7 +18556,10 @@
               "unit": "g"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -17982,7 +18714,10 @@
               "unit": "mL"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -18161,7 +18896,10 @@
               "unit": "mL"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -18325,7 +19063,10 @@
               "unit": "g"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -18483,7 +19224,10 @@
               "unit": "个"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -18633,7 +19377,10 @@
               "unit": "mL"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -18792,7 +19539,10 @@
               "unit": "mol"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -18954,7 +19704,10 @@
               "unit": "mL"
             }
           ],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -19148,7 +19901,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "加入足量稀硝酸，产生气体"
+              "phenomenon": "加入足量稀硝酸，产生气体",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -19158,7 +19912,8 @@
                 "Ba(NO3)2"
               ],
               "conditions": [],
-              "phenomenon": "无明显沉淀"
+              "phenomenon": "无明显沉淀",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -19168,11 +19923,15 @@
                 "AgNO3"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀"
+              "phenomenon": "产生白色沉淀",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -19334,7 +20093,8 @@
                 "H2O"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀"
+              "phenomenon": "产生白色沉淀",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -19344,7 +20104,8 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "沉淀部分溶解并产生气体"
+              "phenomenon": "沉淀部分溶解并产生气体",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -19355,11 +20116,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀（不溶于稀硝酸）"
+              "phenomenon": "产生白色沉淀（不溶于稀硝酸）",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -19538,7 +20303,8 @@
                 "品红溶液"
               ],
               "conditions": [],
-              "phenomenon": "品红褪色"
+              "phenomenon": "品红褪色",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -19548,7 +20314,8 @@
                 "KMnO4(H^+)"
               ],
               "conditions": [],
-              "phenomenon": "酸性高锰酸钾褪色（除去 SO2）"
+              "phenomenon": "酸性高锰酸钾褪色（除去 SO2）",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -19558,11 +20325,15 @@
                 "Ca(OH)2"
               ],
               "conditions": [],
-              "phenomenon": "澄清石灰水变浑浊"
+              "phenomenon": "澄清石灰水变浑浊",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -19730,7 +20501,8 @@
                 "湿润红色石蕊试纸"
               ],
               "conditions": [],
-              "phenomenon": "试纸变蓝（碱性气体）"
+              "phenomenon": "试纸变蓝（碱性气体）",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -19740,11 +20512,15 @@
                 "HCl"
               ],
               "conditions": [],
-              "phenomenon": "产生大量白烟"
+              "phenomenon": "产生大量白烟",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -19892,11 +20668,15 @@
                 "H2SO4(稀)"
               ],
               "conditions": [],
-              "phenomenon": "固体溶解，产生无色气体，溶液呈浅绿色"
+              "phenomenon": "固体溶解，产生无色气体，溶液呈浅绿色",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -20043,7 +20823,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "产生气体使澄清石灰水变浑浊"
+              "phenomenon": "产生气体使澄清石灰水变浑浊",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -20055,11 +20836,15 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "无明显变化"
+              "phenomenon": "无明显变化",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -20226,11 +21011,15 @@
                 "H2SO4(稀)"
               ],
               "conditions": [],
-              "phenomenon": "固体溶解，溶液呈蓝色"
+              "phenomenon": "固体溶解，溶液呈蓝色",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {
@@ -20379,7 +21168,8 @@
               "conditions": [
                 "△"
               ],
-              "phenomenon": "产生使湿润红色石蕊试纸变蓝的气体"
+              "phenomenon": "产生使湿润红色石蕊试纸变蓝的气体",
+              "purpose": ""
             },
             {
               "step": 2,
@@ -20389,7 +21179,8 @@
                 "Ba(NO3)2"
               ],
               "conditions": [],
-              "phenomenon": "无明显沉淀"
+              "phenomenon": "无明显沉淀",
+              "purpose": ""
             },
             {
               "step": 3,
@@ -20400,11 +21191,15 @@
                 "HNO3"
               ],
               "conditions": [],
-              "phenomenon": "产生白色沉淀（不溶于稀硝酸）"
+              "phenomenon": "产生白色沉淀（不溶于稀硝酸）",
+              "purpose": ""
             }
           ],
           "numericFacts": [],
-          "experiment": null
+          "experiment": null,
+          "cell": null,
+          "equilibrium": null,
+          "solution": null
         }
       },
       "solution": {

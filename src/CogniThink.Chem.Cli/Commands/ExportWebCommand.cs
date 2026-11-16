@@ -59,7 +59,7 @@ internal static class ExportWebCommand
                         problem.Given.SingleEntity,
                         steps = problem.Given.Steps.Select(s => new
                         {
-                            s.Step, s.From, s.To, s.Reagents, s.Conditions, s.Phenomenon
+                            s.Step, s.From, s.To, s.Reagents, s.Conditions, s.Phenomenon, s.Purpose
                         }),
                         numericFacts = problem.Given.NumericFacts.Select(f => new
                         {
@@ -69,6 +69,10 @@ internal static class ExportWebCommand
                         {
                             ex.Mode, ex.Targets, ex.Operations, ex.Phenomena, ex.CandidateSpecies
                         } : null,
+                        // 电化学装置/平衡体系/溶液组成（整对象直接序列化，无值时为 null）
+                        problem.Given.Cell,
+                        problem.Given.Equilibrium,
+                        problem.Given.Solution,
                     },
                 },
                 solution = new
