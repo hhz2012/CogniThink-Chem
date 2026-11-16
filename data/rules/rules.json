@@ -1,0 +1,582 @@
+{
+  "version": "0.1",
+  "note": "规则库（声明式）。层级：Conservation(硬约束) / Principle / Structural / Conditional / Exception。发布要求：RuleSetValidator 无错误、冲突数为 0、回归全绿。",
+  "items": [
+    {
+      "id": "CONS-ELEC-001",
+      "name": "电子守恒",
+      "layer": "Conservation",
+      "knowledgeId": "KH-IN-03",
+      "preconditions": [{ "key": "task", "values": ["redox_balance"] }],
+      "conclusion": { "predicate": "conservation", "subject": "electron_transfer", "object": "balanced", "display": "氧化剂得电子总数 = 还原剂失电子总数" },
+      "gradeScope": "Required",
+      "evidence": "Conservation",
+      "source": "必修一·第一章",
+      "conflictGroup": "redox-balance",
+      "tests": []
+    },
+    {
+      "id": "CONS-CHARGE-001",
+      "name": "电荷守恒（离子方程式）",
+      "layer": "Conservation",
+      "knowledgeId": "KH-IN-02",
+      "preconditions": [{ "key": "task", "values": ["ionic_equation"] }],
+      "conclusion": { "predicate": "conservation", "subject": "charge", "object": "balanced", "display": "离子方程式两边电荷总数相等" },
+      "gradeScope": "Required",
+      "evidence": "Conservation",
+      "source": "必修一·第一章",
+      "conflictGroup": "ionic-balance",
+      "tests": []
+    },
+    {
+      "id": "RED-001",
+      "name": "金属活动性顺序置换",
+      "layer": "Structural",
+      "knowledgeId": "KH-IN-06",
+      "preconditions": [
+        { "key": "reaction_type", "values": ["metal_displacement"] },
+        { "key": "activity", "values": ["front_behind"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "metal_displacement", "object": "spontaneous", "display": "活动性强的金属能把活动性弱的金属从其盐溶液中置换出来" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第三章",
+      "conflictGroup": "redox-direction",
+      "tests": ["T-RED-001"]
+    },
+    {
+      "id": "RED-002",
+      "name": "强氧化剂与强还原剂反应方向",
+      "layer": "Principle",
+      "knowledgeId": "KH-IN-03",
+      "preconditions": [
+        { "key": "reaction_type", "values": ["redox"] },
+        { "key": "oxidant_strength", "values": ["stronger"] },
+        { "key": "reductant_strength", "values": ["stronger"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "redox_pair", "object": "forward", "display": "强氧化剂 + 强还原剂 → 弱氧化剂 + 弱还原剂" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第一章",
+      "conflictGroup": "redox-direction",
+      "tests": []
+    },
+    {
+      "id": "RED-003",
+      "name": "化合价升降与氧化还原角色",
+      "layer": "Principle",
+      "knowledgeId": "KH-IN-03",
+      "preconditions": [
+        { "key": "reaction_type", "values": ["redox"] },
+        { "key": "valence_change", "values": ["present"] }
+      ],
+      "conclusion": { "predicate": "classification", "subject": "valence_rise_species", "object": "reducing_agent", "display": "化合价升高的物质是还原剂（被氧化），降低的是氧化剂（被还原）" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第一章",
+      "conflictGroup": "redox-role",
+      "tests": []
+    },
+    {
+      "id": "RED-004",
+      "name": "电极电势比较氧化性强弱",
+      "layer": "Principle",
+      "knowledgeId": "KH-RP-08",
+      "preconditions": [
+        { "key": "task", "values": ["compare_oxidizing"] },
+        { "key": "data", "values": ["standard_potential"] }
+      ],
+      "conclusion": { "predicate": "strength", "subject": "oxidizing_ability", "object": "higher_potential_wins", "display": "标准电极电势越大，其氧化型氧化性越强" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "选择性必修1·第四章",
+      "conflictGroup": "redox-strength",
+      "tests": []
+    },
+    {
+      "id": "RED-005",
+      "name": "常温钝化（浓硫酸/浓硝酸与铁铝）",
+      "layer": "Conditional",
+      "knowledgeId": "KH-IN-08",
+      "preconditions": [
+        { "key": "metal", "values": ["Fe", "Al"] },
+        { "key": "acid", "values": ["concentrated_sulfuric", "concentrated_nitric"] },
+        { "key": "temperature", "values": ["room"], "defaultAssumption": "常温" }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "metal_acid", "object": "passivated", "display": "常温下浓硫酸、浓硝酸使铁、铝钝化（表面致密氧化膜）" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修二·第五章",
+      "conflictGroup": "metal-acid",
+      "tests": []
+    },
+    {
+      "id": "SOL-001",
+      "name": "复分解反应发生条件",
+      "layer": "Principle",
+      "knowledgeId": "KH-IN-02",
+      "preconditions": [
+        { "key": "reaction_type", "values": ["double_displacement"] },
+        { "key": "product", "values": ["precipitate", "gas", "weak_electrolyte"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "double_displacement", "object": "forward", "display": "生成沉淀、气体或弱电解质时复分解反应可以发生" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第一章",
+      "conflictGroup": "double-displacement",
+      "tests": []
+    },
+    {
+      "id": "SOL-002",
+      "name": "强酸制弱酸",
+      "layer": "Structural",
+      "knowledgeId": "KH-IN-02",
+      "preconditions": [
+        { "key": "reaction_type", "values": ["acid_salt"] },
+        { "key": "acid_strength", "values": ["stronger_than_product"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "strong_acid_makes_weak", "object": "forward", "display": "较强酸可以制取较弱酸（如盐酸制碳酸）" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第一章",
+      "conflictGroup": "acid-salt",
+      "tests": []
+    },
+    {
+      "id": "SOL-003",
+      "name": "溶度积判据",
+      "layer": "Principle",
+      "knowledgeId": "KH-RP-07",
+      "preconditions": [
+        { "key": "system", "values": ["precipitation"] },
+        { "key": "comparison", "values": ["Q_greater_than_Ksp"] }
+      ],
+      "conclusion": { "predicate": "direction", "subject": "precipitation", "object": "precipitate_forms", "display": "Q > Ksp 时生成沉淀；Q = Ksp 达平衡；Q < Ksp 不生成沉淀" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "选择性必修1·第三章",
+      "conflictGroup": "precipitation-direction",
+      "tests": []
+    },
+    {
+      "id": "SOL-004",
+      "name": "沉淀转化方向",
+      "layer": "Structural",
+      "knowledgeId": "KH-RP-07",
+      "preconditions": [
+        { "key": "system", "values": ["precipitation_conversion"] },
+        { "key": "ksp_relation", "values": ["product_more_insoluble"] }
+      ],
+      "conclusion": { "predicate": "direction", "subject": "precipitate_conversion", "object": "towards_less_soluble", "display": "沉淀转化向更难溶（Ksp 更小）的方向进行，K = Ksp(原)/Ksp(新)" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "选择性必修1·第三章",
+      "conflictGroup": "precipitate-conversion",
+      "tests": []
+    },
+    {
+      "id": "SOL-005",
+      "name": "同离子效应",
+      "layer": "Structural",
+      "knowledgeId": "KH-RP-07",
+      "preconditions": [
+        { "key": "system", "values": ["solubility_equilibrium"] },
+        { "key": "disturbance", "values": ["common_ion"] }
+      ],
+      "conclusion": { "predicate": "solubility", "subject": "common_ion_effect", "object": "decreased", "display": "加入含相同离子的电解质，难溶物溶解度降低" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "选择性必修1·第三章",
+      "conflictGroup": "solubility-shift",
+      "tests": []
+    },
+    {
+      "id": "SOL-006",
+      "name": "水解常数与酸性强弱",
+      "layer": "Structural",
+      "knowledgeId": "KH-RP-06",
+      "preconditions": [
+        { "key": "system", "values": ["hydrolysis"] },
+        { "key": "data", "values": ["Ka"] }
+      ],
+      "conclusion": { "predicate": "property", "subject": "hydrolysis_constant", "object": "Kh_equals_Kw_over_Ka", "display": "Kh = Kw / Ka，越弱越水解" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "选择性必修1·第三章",
+      "conflictGroup": "hydrolysis",
+      "tests": []
+    },
+    {
+      "id": "SOL-007",
+      "name": "三大守恒（电荷/物料/质子）",
+      "layer": "Conservation",
+      "knowledgeId": "KH-RP-06",
+      "preconditions": [{ "key": "task", "values": ["ion_concentration_compare"] }],
+      "conclusion": { "predicate": "conservation", "subject": "charge_material_proton", "object": "balanced", "display": "离子浓度比较必须满足电荷守恒、物料守恒与质子守恒" },
+      "gradeScope": "Elective",
+      "evidence": "Conservation",
+      "source": "选择性必修1·第三章",
+      "conflictGroup": "solution-conservation",
+      "tests": []
+    },
+    {
+      "id": "SOL-008",
+      "name": "难溶盐与氨水不反应（通则）",
+      "layer": "Structural",
+      "knowledgeId": "KH-RP-07",
+      "preconditions": [
+        { "key": "reagent", "values": ["ammonia"] },
+        { "key": "solute_type", "values": ["insoluble_salt"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "insoluble_salt+ammonia", "object": "no_reaction", "display": "难溶盐一般不与氨水发生明显反应" },
+      "exceptions": ["SOL-EXC-001"],
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修1·第三章",
+      "conflictGroup": "ammonia-dissolution",
+      "tests": []
+    },
+    {
+      "id": "SOL-EXC-001",
+      "name": "AgCl 在过量氨水中配位溶解",
+      "layer": "Exception",
+      "knowledgeId": "KH-RP-07",
+      "preconditions": [
+        { "key": "substance", "values": ["AgCl"] },
+        { "key": "reagent", "values": ["ammonia"] },
+        { "key": "concentration", "values": ["excess"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "AgCl+ammonia", "object": "dissolves_by_complexation", "display": "AgCl 与过量氨水生成 [Ag(NH3)2]+ 而溶解（沉淀-配位耦合）" },
+      "overrides": ["SOL-008"],
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修1·第三章",
+      "conflictGroup": "ammonia-dissolution",
+      "tests": ["T-SOL-AGCL"]
+    },
+    {
+      "id": "EQ-001",
+      "name": "勒夏特列原理",
+      "layer": "Principle",
+      "knowledgeId": "KH-RP-03",
+      "preconditions": [
+        { "key": "system", "values": ["equilibrium"] },
+        { "key": "disturbance", "values": ["concentration", "temperature", "pressure"] }
+      ],
+      "conclusion": { "predicate": "direction", "subject": "equilibrium_shift", "object": "counteract_disturbance", "display": "改变一个条件，平衡向减弱这种改变的方向移动" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修1·第二章",
+      "conflictGroup": "equilibrium-shift",
+      "tests": []
+    },
+    {
+      "id": "EQ-002",
+      "name": "平衡常数只受温度影响",
+      "layer": "Principle",
+      "knowledgeId": "KH-RP-03",
+      "preconditions": [
+        { "key": "task", "values": ["equilibrium_constant"] },
+        { "key": "variable", "values": ["temperature"] }
+      ],
+      "conclusion": { "predicate": "property", "subject": "equilibrium_constant", "object": "temperature_only", "display": "K 只与温度有关，与浓度、压强、催化剂无关" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "选择性必修1·第二章",
+      "conflictGroup": "equilibrium-constant",
+      "tests": []
+    },
+    {
+      "id": "EQ-003",
+      "name": "催化剂不改变平衡转化率",
+      "layer": "Principle",
+      "knowledgeId": "KH-RP-02",
+      "preconditions": [
+        { "key": "factor", "values": ["catalyst"] },
+        { "key": "task", "values": ["equilibrium_conversion"] }
+      ],
+      "conclusion": { "predicate": "property", "subject": "conversion", "object": "unchanged", "display": "催化剂同等程度加快正逆反应速率，不改变转化率" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修1·第二章",
+      "conflictGroup": "catalysis",
+      "tests": ["T-EQ-CATALYST"]
+    },
+    {
+      "id": "EXPT-001",
+      "name": "硫酸根检验的试剂顺序",
+      "layer": "Principle",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["identify_ion"] },
+        { "key": "ion", "values": ["SO4^2-"] },
+        { "key": "interference", "values": ["carbonate", "sulfite"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "sulfate_identification", "object": "acidify_with_HCl_then_BaCl2", "display": "先用盐酸酸化排除 CO3^2-/SO3^2- 干扰，再加 BaCl2，出现白色沉淀" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第二章",
+      "conflictGroup": "ion-test-order",
+      "tests": ["T-EXPT-SULFATE"]
+    },
+    {
+      "id": "EXPT-002",
+      "name": "氯离子检验",
+      "layer": "Principle",
+      "knowledgeId": "KH-EX-03",
+      "preconditions": [
+        { "key": "task", "values": ["identify_ion"] },
+        { "key": "ion", "values": ["Cl-"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "chloride_identification", "object": "AgNO3_with_dilute_HNO3", "display": "加稀硝酸酸化的 AgNO3 溶液，生成白色沉淀" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第二章",
+      "conflictGroup": "ion-test-order",
+      "tests": []
+    },
+    {
+      "id": "EXPT-003",
+      "name": "铁离子检验",
+      "layer": "Principle",
+      "knowledgeId": "KH-IN-06",
+      "preconditions": [
+        { "key": "task", "values": ["identify_ion"] },
+        { "key": "ion", "values": ["Fe3+"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "iron3_identification", "object": "KSCN_blood_red", "display": "加 KSCN 溶液变血红色" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第三章",
+      "conflictGroup": "ion-test-order",
+      "tests": []
+    },
+    {
+      "id": "EXPT-004",
+      "name": "焰色试验",
+      "layer": "Principle",
+      "knowledgeId": "KH-IN-04",
+      "preconditions": [
+        { "key": "task", "values": ["flame_test"] },
+        { "key": "metal", "values": ["Na", "K"] }
+      ],
+      "conclusion": { "predicate": "phenomenon", "subject": "flame_color", "object": "Na_yellow_K_purple", "display": "钠黄色；钾紫色（需透过蓝色钴玻璃滤去钠的黄光）" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第二章",
+      "conflictGroup": "flame-test",
+      "tests": []
+    },
+    {
+      "id": "EXPT-005",
+      "name": "铵根离子检验",
+      "layer": "Principle",
+      "knowledgeId": "KH-IN-09",
+      "preconditions": [
+        { "key": "task", "values": ["identify_ion"] },
+        { "key": "ion", "values": ["NH4+"] }
+      ],
+      "conclusion": { "predicate": "procedure", "subject": "ammonium_identification", "object": "NaOH_heat_red_litmus_blue", "display": "加 NaOH 并加热，产生使湿润红色石蕊试纸变蓝的气体" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修二·第五章",
+      "conflictGroup": "ion-test-order",
+      "tests": []
+    },
+    {
+      "id": "COND-001",
+      "name": "浓稀硝酸与铜的产物差异",
+      "layer": "Conditional",
+      "knowledgeId": "KH-IN-09",
+      "preconditions": [
+        { "key": "metal", "values": ["Cu"] },
+        { "key": "acid", "values": ["nitric_acid"] },
+        { "key": "concentration", "values": ["concentrated", "dilute"] }
+      ],
+      "conclusion": { "predicate": "product", "subject": "Cu+nitric_acid", "object": "NO2_if_concentrated_NO_if_dilute", "display": "铜与浓硝酸生成 NO2，与稀硝酸生成 NO" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修二·第五章",
+      "conflictGroup": "metal-acid",
+      "tests": ["T-COND-NITRIC"]
+    },
+    {
+      "id": "COND-002",
+      "name": "稀硫酸与铜不反应",
+      "layer": "Conditional",
+      "knowledgeId": "KH-IN-08",
+      "preconditions": [
+        { "key": "metal", "values": ["Cu"] },
+        { "key": "acid", "values": ["sulfuric_acid"] },
+        { "key": "concentration", "values": ["dilute", "concentrated"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "Cu+sulfuric_acid", "object": "no_reaction_if_dilute", "display": "稀硫酸与铜不反应；浓硫酸需加热才与铜反应" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修二·第五章",
+      "conflictGroup": "metal-acid",
+      "tests": []
+    },
+    {
+      "id": "STR-001",
+      "name": "同周期递变规律",
+      "layer": "Structural",
+      "knowledgeId": "KH-ST-02",
+      "preconditions": [{ "key": "trend", "values": ["period_left_to_right"] }],
+      "conclusion": { "predicate": "trend", "subject": "atomic_radius", "object": "decreases_nonmetallic_increases", "display": "同周期从左到右原子半径减小、非金属性增强" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修2·第一章",
+      "conflictGroup": "periodic-trend",
+      "tests": []
+    },
+    {
+      "id": "STR-002",
+      "name": "同主族递变规律",
+      "layer": "Structural",
+      "knowledgeId": "KH-ST-02",
+      "preconditions": [{ "key": "trend", "values": ["group_top_to_bottom"] }],
+      "conclusion": { "predicate": "trend", "subject": "metallic_character", "object": "increases", "display": "同主族从上到下金属性增强、非金属性减弱" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修2·第一章",
+      "conflictGroup": "periodic-trend",
+      "tests": []
+    },
+    {
+      "id": "STR-003",
+      "name": "构造原理填充顺序",
+      "layer": "Structural",
+      "knowledgeId": "KH-ST-01",
+      "preconditions": [{ "key": "task", "values": ["electron_configuration"] }],
+      "conclusion": { "predicate": "procedure", "subject": "aufbau_order", "object": "1s2s2p3s3p4s3d4p", "display": "电子按 1s→2s→2p→3s→3p→4s→3d→4p 顺序填充（注意 Cr、Cu 等例外）" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修2·第一章",
+      "conflictGroup": "electron-config",
+      "tests": []
+    },
+    {
+      "id": "BOND-001",
+      "name": "盐类通常由离子键构成",
+      "layer": "Structural",
+      "knowledgeId": "KH-ST-03",
+      "preconditions": [{ "key": "compound_class", "values": ["salt"] }],
+      "conclusion": { "predicate": "property", "subject": "salt_bonding", "object": "ionic", "display": "盐类通常含离子键，熔融态导电" },
+      "exceptions": ["BOND-EXC-001"],
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修2·第二章",
+      "conflictGroup": "bonding-class",
+      "tests": []
+    },
+    {
+      "id": "BOND-EXC-001",
+      "name": "AlCl3 为共价化合物",
+      "layer": "Exception",
+      "knowledgeId": "KH-ST-03",
+      "preconditions": [
+        { "key": "compound_class", "values": ["salt"] },
+        { "key": "substance", "values": ["AlCl3"] },
+        { "key": "state", "values": ["molten"] },
+        { "key": "conductivity", "values": ["nonconductive"] }
+      ],
+      "conclusion": { "predicate": "property", "subject": "AlCl3_bonding", "object": "covalent", "display": "AlCl3 熔融不导电，属共价化合物（升华而非熔融离子导电）" },
+      "overrides": ["BOND-001"],
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修2·第二章",
+      "conflictGroup": "bonding-class",
+      "tests": ["T-EXC-ALCL3"]
+    },
+    {
+      "id": "ACID-001",
+      "name": "氢卤酸为强酸（通则）",
+      "layer": "Structural",
+      "knowledgeId": "KH-IN-07",
+      "preconditions": [{ "key": "acid_family", "values": ["hydrohalic"] }],
+      "conclusion": { "predicate": "property", "subject": "hydrohalic_acid_strength", "object": "strong", "display": "氢卤酸（HCl、HBr、HI）为强酸，完全电离" },
+      "exceptions": ["ACID-EXC-001"],
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第二章",
+      "conflictGroup": "acid-strength",
+      "tests": []
+    },
+    {
+      "id": "ACID-EXC-001",
+      "name": "HF 是弱酸",
+      "layer": "Exception",
+      "knowledgeId": "KH-IN-07",
+      "preconditions": [{ "key": "acid", "values": ["HF"] }],
+      "conclusion": { "predicate": "property", "subject": "HF_strength", "object": "weak", "display": "HF 在水中部分电离，是弱酸（H-F 键牢固）" },
+      "overrides": ["ACID-001"],
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "必修一·第二章",
+      "conflictGroup": "acid-strength",
+      "tests": ["T-EXC-HF"]
+    },
+    {
+      "id": "ORG-001",
+      "name": "醛基的银镜反应",
+      "layer": "Structural",
+      "knowledgeId": "KH-OR-04",
+      "preconditions": [
+        { "key": "group", "values": ["aldehyde"] },
+        { "key": "reagent", "values": ["tollens"] }
+      ],
+      "conclusion": { "predicate": "reaction_direction", "subject": "aldehyde+tollens", "object": "silver_mirror", "display": "醛基被银氨溶液氧化，析出银镜" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修3·第三章",
+      "conflictGroup": "aldehyde-oxidation",
+      "tests": []
+    },
+    {
+      "id": "ORG-002",
+      "name": "酯的水解",
+      "layer": "Structural",
+      "knowledgeId": "KH-OR-05",
+      "preconditions": [
+        { "key": "group", "values": ["ester"] },
+        { "key": "medium", "values": ["acidic", "basic"] }
+      ],
+      "conclusion": { "predicate": "reaction_type", "subject": "ester", "object": "hydrolysis", "display": "酯在酸性或碱性条件下水解，碱性条件不可逆" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修3·第三章",
+      "conflictGroup": "ester-hydrolysis",
+      "tests": []
+    },
+    {
+      "id": "ORG-003",
+      "name": "苯环取代与烯烃加成",
+      "layer": "Structural",
+      "knowledgeId": "KH-OR-07",
+      "preconditions": [{ "key": "substrate", "values": ["benzene_ring", "alkene"] }],
+      "conclusion": { "predicate": "reaction_preference", "subject": "hydrocarbon", "object": "benzene_substitution_alkene_addition", "display": "苯环易取代、烯烃易加成（可用溴水/酸性 KMnO4 区分）" },
+      "gradeScope": "Elective",
+      "evidence": "Qualitative",
+      "source": "选择性必修3·第二章",
+      "conflictGroup": "hydrocarbon-reactivity",
+      "tests": []
+    },
+    {
+      "id": "THERMO-001",
+      "name": "盖斯定律",
+      "layer": "Principle",
+      "knowledgeId": "KH-RP-01",
+      "preconditions": [
+        { "key": "task", "values": ["enthalpy_calculation"] },
+        { "key": "method", "values": ["multiple_steps"] }
+      ],
+      "conclusion": { "predicate": "property", "subject": "enthalpy", "object": "state_function_path_independent", "display": "反应焓变只与始态终态有关，可对方程式线性组合" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "选择性必修1·第一章",
+      "conflictGroup": "thermochemistry",
+      "tests": []
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E395E025-C611-4BA4-9063-72F2DB2E5C2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogniThink.Chem.Core", "src\CogniThink.Chem.Core\CogniThink.Chem.Core.csproj", "{0D776BB3-B286-449C-8400-3EC5B6E889AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogniThink.Chem.Cli", "src\CogniThink.Chem.Cli\CogniThink.Chem.Cli.csproj", "{4EE5F9C1-8A0A-47F2-AE16-09F0A552618E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{8E1342DD-41CE-431A-81D6-A51C1A871073}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogniThink.Chem.Tests", "tests\CogniThink.Chem.Tests\CogniThink.Chem.Tests.csproj", "{27C0149D-6AEB-4E4B-85FA-3A97801F3C2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0D776BB3-B286-449C-8400-3EC5B6E889AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D776BB3-B286-449C-8400-3EC5B6E889AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D776BB3-B286-449C-8400-3EC5B6E889AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D776BB3-B286-449C-8400-3EC5B6E889AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EE5F9C1-8A0A-47F2-AE16-09F0A552618E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EE5F9C1-8A0A-47F2-AE16-09F0A552618E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EE5F9C1-8A0A-47F2-AE16-09F0A552618E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EE5F9C1-8A0A-47F2-AE16-09F0A552618E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27C0149D-6AEB-4E4B-85FA-3A97801F3C2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27C0149D-6AEB-4E4B-85FA-3A97801F3C2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27C0149D-6AEB-4E4B-85FA-3A97801F3C2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27C0149D-6AEB-4E4B-85FA-3A97801F3C2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0D776BB3-B286-449C-8400-3EC5B6E889AA} = {E395E025-C611-4BA4-9063-72F2DB2E5C2D}
+		{4EE5F9C1-8A0A-47F2-AE16-09F0A552618E} = {E395E025-C611-4BA4-9063-72F2DB2E5C2D}
+		{27C0149D-6AEB-4E4B-85FA-3A97801F3C2A} = {8E1342DD-41CE-431A-81D6-A51C1A871073}
+	EndGlobalSection
+EndGlobal

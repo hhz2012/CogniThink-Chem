@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>CogniThink.Chem.Core</RootNamespace>
+    <AssemblyName>CogniThink.Chem.Core</AssemblyName>
+    <Description>化学伴思领域模型与推理引擎（化学规则、世界模型、机理、推理、题库、引导）</Description>
+  </PropertyGroup>
+
+</Project>

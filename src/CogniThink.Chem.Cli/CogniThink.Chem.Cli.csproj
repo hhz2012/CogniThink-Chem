@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>CogniThink.Chem.Cli</RootNamespace>
+    <AssemblyName>CogniThink.Chem.Cli</AssemblyName>
+    <Description>演示与自检入口：规则仲裁、机理推演、题库回归</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CogniThink.Chem.Core\CogniThink.Chem.Core.csproj" />
+  </ItemGroup>
+
+</Project>

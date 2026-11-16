@@ -1,0 +1,83 @@
+{
+  "version": "0.1",
+  "note": "规则回归用例：给定事实上下文，期望得到指定裁决（Selected 需列出全部并列者）。每条规则另有自动激活冒烟用例，由回归器生成。",
+  "items": [
+    {
+      "id": "T-RED-001",
+      "ruleId": "RED-001",
+      "context": { "reaction_type": ["metal_displacement"], "activity": ["front_behind"] },
+      "expectedSelected": ["RED-001"],
+      "note": "活动性顺序置换"
+    },
+    {
+      "id": "T-EXC-ALCL3",
+      "ruleId": "BOND-EXC-001",
+      "context": {
+        "compound_class": ["salt"],
+        "substance": ["AlCl3"],
+        "state": ["molten"],
+        "conductivity": ["nonconductive"]
+      },
+      "expectedSelected": ["BOND-EXC-001"],
+      "note": "例外覆盖：AlCl3 共价性覆盖“盐类离子键”通则"
+    },
+    {
+      "id": "T-EXC-HF",
+      "ruleId": "ACID-EXC-001",
+      "context": { "acid_family": ["hydrohalic"], "acid": ["HF"] },
+      "expectedSelected": ["ACID-EXC-001"],
+      "note": "例外覆盖：HF 弱酸覆盖氢卤酸强酸通则"
+    },
+    {
+      "id": "T-SOL-AGCL",
+      "ruleId": "SOL-EXC-001",
+      "context": {
+        "substance": ["AgCl"],
+        "reagent": ["ammonia"],
+        "concentration": ["excess"],
+        "solute_type": ["insoluble_salt"]
+      },
+      "expectedSelected": ["SOL-EXC-001"],
+      "note": "例外覆盖：AgCl 配位溶解覆盖“难溶盐不与氨水反应”"
+    },
+    {
+      "id": "T-EXPT-SULFATE",
+      "ruleId": "EXPT-001",
+      "context": {
+        "task": ["identify_ion"],
+        "ion": ["SO4^2-"],
+        "interference": ["carbonate"]
+      },
+      "expectedSelected": ["EXPT-001"],
+      "note": "硫酸根检验需先酸化再加 BaCl2"
+    },
+    {
+      "id": "T-EXPT-CHLORIDE",
+      "ruleId": "EXPT-002",
+      "context": { "task": ["identify_ion"], "ion": ["Cl-"] },
+      "expectedSelected": ["EXPT-002"],
+      "note": "氯离子检验"
+    },
+    {
+      "id": "T-COND-NITRIC",
+      "ruleId": "COND-001",
+      "context": { "metal": ["Cu"], "acid": ["nitric_acid"], "concentration": ["concentrated"] },
+      "expectedSelected": ["COND-001"],
+      "note": "铜与硝酸的产物随浓度变化"
+    },
+    {
+      "id": "T-EQ-CATALYST",
+      "ruleId": "EQ-003",
+      "context": { "factor": ["catalyst"], "task": ["equilibrium_conversion"] },
+      "expectedSelected": ["EQ-003"],
+      "note": "催化剂不改变转化率"
+    },
+    {
+      "id": "T-STR-PERIOD",
+      "ruleId": "STR-001",
+      "context": { "trend": ["period_left_to_right"] },
+      "expectedSelected": ["STR-001"],
+      "note": "同周期递变"
+    }
+  ]
+}
