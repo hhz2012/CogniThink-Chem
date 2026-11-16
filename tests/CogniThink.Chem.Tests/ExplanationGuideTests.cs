@@ -142,10 +142,13 @@ public class ExplanationGuideTests
         {
             var solution = ProblemSolver.Solve(problem);
             var guide = GuideGenerator.Generate(solution, problem);
-            // 单字符物质（如 "C"）与设问标签重合，无法做子串断言，跳过。
-            foreach (var substance in problem.Expected.SubstanceMap!.Values.Where(v => v.Length >= 2))
+            // 过程推断的候选物种已在题面给出，真正的答案是"标签→物质"的对应关系
+            // （答案小结格式为 "A 是 Fe2O3"）。因此检查 "{label} 是 " 赋值模式不出现，
+            // 而不是检查物质名不出现（否则会误伤知识点摘要中合法出现的化学式，如 Na）。
+            foreach (var label in problem.Expected.SubstanceMap!.Keys)
             {
-                Assert.DoesNotContain(substance, guide.FullText);
+                Assert.DoesNotContain($"{label} 是 ", guide.FullText);
+                Assert.DoesNotContain($"是 {label}", guide.FullText);
             }
         }
     }
@@ -153,14 +156,18 @@ public class ExplanationGuideTests
     [Fact]
     public void Guide_NeverLeaksCompositionOrNumericAnswers()
     {
+        // 成分推断的候选物种已在题面 Given.CandidateSpecies 给出，本身不是秘密；
+        // 真正的答案是"一定存在/一定不存在"的判定。判定在答案小结中以"一定存在：X"
+        // （冒号）形式出现；题面设问中的"一定存在的离子"用"的"而非冒号，不判定。
+        var verdictPhrases = new[] { "一定存在：", "一定不存在：", "可能存在：" };
         foreach (var problem in Problems.Where(p =>
                      p.Category is ProblemCategory.SubstanceIdentification or ProblemCategory.IonPowderIdentification))
         {
             var solution = ProblemSolver.Solve(problem);
             var guide = GuideGenerator.Generate(solution, problem);
-            foreach (var species in problem.Expected.Composition!.Keys)
+            foreach (var phrase in verdictPhrases)
             {
-                Assert.DoesNotContain(species, guide.FullText);
+                Assert.DoesNotContain(phrase, guide.FullText);
             }
         }
 

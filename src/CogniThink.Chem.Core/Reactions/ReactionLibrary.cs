@@ -25,11 +25,13 @@ public sealed class ReactionLibrary
     private ReactionLibrary(IEnumerable<ReactionEntry> entries)
     {
         _entries = entries.ToList();
+        _byId = new Dictionary<string, ReactionEntry>(StringComparer.Ordinal);
         _byReactantSet = new Dictionary<string, List<ReactionEntry>>(StringComparer.Ordinal);
         _bySpecies = new Dictionary<string, List<ReactionEntry>>(StringComparer.Ordinal);
 
         foreach (var entry in _entries)
         {
+            _byId[entry.Id] = entry;
             var reactantKey = ReactantSetKey(entry.Reactants);
             if (!_byReactantSet.TryGetValue(reactantKey, out var byReactant))
             {
@@ -79,11 +81,17 @@ public sealed class ReactionLibrary
         return new ReactionLibrary(entries);
     }
 
+    private readonly Dictionary<string, ReactionEntry> _byId;
+
     /// <summary>条目总数。</summary>
     public int Count => _entries.Count;
 
     /// <summary>全部条目。</summary>
     public IReadOnlyCollection<ReactionEntry> All => _entries;
+
+    /// <summary>按条目编号检索（如 "RX-IN-ION-005"）；未找到返回 false。</summary>
+    public bool TryGet(string id, out ReactionEntry entry) =>
+        _byId.TryGetValue(id, out entry!);
 
     /// <summary>
     /// 按反应物集合精确检索（顺序无关）。返回所有反应物集匹配的条目（可能因条件不同而多条）。
