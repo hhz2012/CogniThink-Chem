@@ -12,9 +12,10 @@ namespace CogniThink.Chem.Core.Inference;
 /// <list type="bullet">
 /// <item>单一实体（SingleEntity）：待测对象是候选中的"某一种"，
 /// 逐一检验每个候选能否解释全部证据，唯一一致者 Must、其余 MustNot。</item>
-/// <item>混合成分：候选可能共存，逐步累积证据——正证据（反应+现象吻合）→ Must，
-/// 负证据（应反应而无现象）→ MustNot，现象直接指示 → Must，
-/// 指示离子已有其他 Must 提供者 → 本候选降为 Maybe。</item>
+/// <item>混合成分：候选可能共存，逐步累积证据——负证据（应反应而无现象）→ MustNot；
+/// 正证据（反应+现象吻合、现象直接指示）只说明候选"可解释"现象，
+/// 经必要性判定后才定 Must：仅当去掉该候选后某步现象无法被其余确定成分
+/// 完全解释时才是"一定存在"，否则降为 Maybe（可能存在）。</item>
 /// </list>
 /// 证据手段：知识库反应检索（分子/离子双模式）、现象库关键词匹配、
 /// 候选间相互反应（溶解成淀）、沉淀酸溶分类（部分溶/全溶/不溶）、
@@ -206,6 +207,11 @@ public static class IdentificationEngine
         var consumed = new HashSet<string>(StringComparer.Ordinal);
         var precipitates = new List<PrecipitateRecord>();
         var equations = new List<ReactionEntry>();
+        // 必要性判定素材：每步模式 C 中"候选 → 其命中条目实际解释的现象片段"，
+        // 以及 Must 结论由正证据（而非沉淀提供者）引入的候选集合与证据方程式作者。
+        var stepEvidences = new List<Dictionary<string, HashSet<string>>>();
+        var mustByEvidence = new HashSet<string>(StringComparer.Ordinal);
+        var equationAuthors = new List<(ReactionEntry Entry, string Author)>();
 
         foreach (var step in request.Steps)
         {
@@ -235,6 +241,8 @@ public static class IdentificationEngine
             // 本步开始前的 Must 快照：提供者降级时区分"此前已确定的提供者"与"本步新判定的提供者"
             var mustBefore = candidates.Where(c => verdict[c] == CompositionVerdict.Must).ToHashSet(StringComparer.Ordinal);
             var stepMust = new List<string>();
+            var segments = SplitSegments(step.Phenomenon).ToList();
+            var covMap = new Dictionary<string, HashSet<string>>(StringComparer.Ordinal);
             foreach (var candidate in candidates)
             {
                 if (verdict[candidate] == CompositionVerdict.MustNot || consumed.Contains(candidate))
@@ -270,9 +278,17 @@ public static class IdentificationEngine
                     .ToList();
                 if (aligned.Count > 0)
                 {
+                    var entry = aligned[0].Entry;
+                    if (verdict[candidate] != CompositionVerdict.Must)
+                    {
+                        mustByEvidence.Add(candidate);
+                    }
+
                     verdict[candidate] = CompositionVerdict.Must;
                     stepMust.Add(candidate);
-                    equations.Add(aligned[0].Entry);
+                    equations.Add(entry);
+                    equationAuthors.Add((entry, candidate));
+                    covMap[candidate] = CoveredSegments(candidate, entry, segments, phenomena);
                     if (excess)
                     {
                         consumed.Add(candidate);
@@ -282,21 +298,32 @@ public static class IdentificationEngine
                     {
                         Description = $"第 {step.Step} 步：{candidate} 与 {string.Join("、", reagentSpecies)} 反应，"
                             + $"与现象「{step.Phenomenon}」吻合，判定存在。",
-                        Evidence = aligned[0].Entry.Equation,
-                        KnowledgeId = aligned[0].Entry.KnowledgeId,
-                        Source = aligned[0].Entry.Source
+                        Evidence = entry.Equation,
+                        KnowledgeId = entry.KnowledgeId,
+                        Source = entry.Source
                     });
                 }
                 else if (ReactionMatcher.ExplainsIndication(candidate, indicated))
                 {
+                    if (verdict[candidate] != CompositionVerdict.Must)
+                    {
+                        mustByEvidence.Add(candidate);
+                    }
+
                     verdict[candidate] = CompositionVerdict.Must;
                     stepMust.Add(candidate);
+                    covMap[candidate] = CoveredSegments(candidate, null, segments, phenomena);
                     result.Steps.Add(new InferenceStep
                     {
                         Description = $"第 {step.Step} 步：现象「{step.Phenomenon}」直接指示 {candidate}。",
                         Source = "IdentificationEngine"
                     });
                 }
+            }
+
+            if (covMap.Count > 0)
+            {
+                stepEvidences.Add(covMap);
             }
 
             // 提供者降级：本步指示的离子若已有其他 Must 候选提供，则本步新判 Must 的提供者降为 Maybe
@@ -332,6 +359,18 @@ public static class IdentificationEngine
             }
         }
 
+        ApplyNecessity(candidates, verdict, mustByEvidence, stepEvidences, result);
+
+        // 被降为 Maybe 的候选不再是结论成分，其证据方程式随之撤下
+        // （同一方程式若仍由其他 Must 候选提供则保留）。
+        var stillAuthored = equationAuthors
+            .Where(a => verdict[a.Author] == CompositionVerdict.Must)
+            .Select(a => a.Entry.Id)
+            .ToHashSet(StringComparer.Ordinal);
+        equations.RemoveAll(e =>
+            equationAuthors.Any(a => a.Entry.Id == e.Id && verdict[a.Author] != CompositionVerdict.Must)
+            && !stillAuthored.Contains(e.Id));
+
         foreach (var candidate in candidates.Where(c => verdict[c] == CompositionVerdict.Unknown))
         {
             verdict[candidate] = CompositionVerdict.Maybe;
@@ -345,6 +384,146 @@ public static class IdentificationEngine
             ? $"确定存在 {must} 种成分，其余按证据给出排除或存疑判定。"
             : "现有证据不足以确定任何成分。";
         return result;
+    }
+
+    /// <summary>
+    /// 必要性判定：正证据只说明候选"可解释"某步现象，不说明其"一定存在"。
+    /// 逐步检查：若把某候选从其 Must 集合中去掉后，各步现象的片段仍能被
+    /// 其余确定成分完全覆盖，则该候选不是必需成分，降为 Maybe。
+    /// 仅对由模式 C 正证据引入的 Must 生效（沉淀提供者的必要性由沉淀组成约束保证）；
+    /// 所有片段都无法被任何候选解释的步骤不构成必要性约束。
+    /// </summary>
+    private static void ApplyNecessity(
+        List<string> candidates,
+        Dictionary<string, CompositionVerdict> verdict,
+        HashSet<string> mustByEvidence,
+        List<Dictionary<string, HashSet<string>>> stepEvidences,
+        IdentificationResult result)
+    {
+        var active = candidates.Where(c => mustByEvidence.Contains(c) && verdict[c] == CompositionVerdict.Must).ToList();
+        if (active.Count == 0)
+        {
+            return;
+        }
+
+        var required = stepEvidences
+            .Select(cov => cov.Values.SelectMany(s => s).ToHashSet(StringComparer.Ordinal))
+            .ToList();
+
+        foreach (var candidate in active)
+        {
+            if (verdict[candidate] != CompositionVerdict.Must)
+            {
+                continue;
+            }
+
+            var trial = candidates
+                .Where(c => c != candidate && verdict[c] == CompositionVerdict.Must)
+                .ToHashSet(StringComparer.Ordinal);
+            var explained = true;
+            for (var i = 0; i < stepEvidences.Count; i++)
+            {
+                if (required[i].Count == 0)
+                {
+                    continue;
+                }
+
+                var covered = new HashSet<string>(StringComparer.Ordinal);
+                foreach (var (provider, segments) in stepEvidences[i])
+                {
+                    if (!trial.Contains(provider))
+                    {
+                        continue;
+                    }
+
+                    foreach (var segment in segments)
+                    {
+                        covered.Add(segment);
+                    }
+                }
+
+                if (!required[i].All(covered.Contains))
+                {
+                    explained = false;
+                    break;
+                }
+            }
+
+            if (explained)
+            {
+                verdict[candidate] = CompositionVerdict.Maybe;
+                result.Steps.Add(new InferenceStep
+                {
+                    Description = $"去掉 {candidate} 后各步现象仍可被其余确定成分完全解释，"
+                        + $"{candidate} 只是可解释而非必需成分，降为可能存在。",
+                    Source = "IdentificationEngine"
+                });
+            }
+        }
+    }
+
+    /// <summary>
+    /// 候选在本步现象中实际解释的片段集合（按片段而非全文匹配，
+    /// 供必要性判定区分"完全解释"与"部分解释"）。
+    /// </summary>
+    private static HashSet<string> CoveredSegments(
+        string candidate,
+        ReactionEntry? entry,
+        List<string> segments,
+        List<PhenomenonEntry> phenomena)
+    {
+        var covered = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var segment in segments)
+        {
+            var indicated = ReactionMatcher.PhenomenaIndicated(segment, phenomena);
+            if (entry is null)
+            {
+                if (ReactionMatcher.ExplainsIndication(candidate, indicated))
+                {
+                    covered.Add(segment);
+                }
+            }
+            else if (EntryCoversSegment(candidate, entry, segment, indicated))
+            {
+                covered.Add(segment);
+            }
+        }
+
+        return covered;
+    }
+
+    /// <summary>条目能否解释单个现象片段：条目现象分段命中、沉淀/产气标签对应、
+    /// 条目产物被该片段指示、或该片段直接指示候选。</summary>
+    private static bool EntryCoversSegment(
+        string candidate,
+        ReactionEntry entry,
+        string segment,
+        HashSet<string> segmentIndicated)
+    {
+        foreach (var entrySegment in SplitSegments(entry.Phenomenon))
+        {
+            if (ReactionMatcher.PhenomenonHit(entrySegment, segment))
+            {
+                return true;
+            }
+        }
+
+        if (entry.Tags.Contains("沉淀") && (segment.Contains("沉淀") || segment.Contains("浑浊")))
+        {
+            return true;
+        }
+
+        if (entry.Tags.Contains("产气") && (segment.Contains("气体") || segment.Contains("气泡")))
+        {
+            return true;
+        }
+
+        if (segmentIndicated.Any(i => ReactionMatcher.ContainsProduct(entry, i)))
+        {
+            return true;
+        }
+
+        return ReactionMatcher.ExplainsIndication(candidate, segmentIndicated);
     }
 
     /// <summary>模式 A：沉淀 + 酸 → 部分溶解/全部溶解/不溶解，反推沉淀组成与提供者。</summary>
