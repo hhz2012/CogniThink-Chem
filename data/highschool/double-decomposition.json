@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "source": "人教版《化学·必修第一册》'离子反应'：复分解反应发生的条件",
+  "conditions": [
+    {
+      "name": "生成沉淀",
+      "description": "生成难溶物质（沉淀），如 BaSO4、AgCl、CaCO3"
+    },
+    {
+      "name": "放出气体",
+      "description": "生成易挥发物质（气体），如 CO2、SO2、NH3"
+    },
+    {
+      "name": "生成弱电解质",
+      "description": "生成水等弱电解质，如中和反应生成 H2O"
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "COEX-001",
+      "category": "IonCoexistence",
+      "difficulty": "Basic",
+      "problemText": "在酸性溶液中，K^+、Na^+、SO4^2-、CO3^2- 能否大量共存？若能，说明理由；若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["K^+", "Na^+", "SO4^2-", "CO3^2-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["CO3^2- + 2H^+ = H2O + CO2↑"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-001-D1",
+          "description": "电荷不守恒：左边净电荷 -1，右边 0",
+          "equation": "CO3^2- + H^+ = H2O + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'（离子共存）",
+      "tags": ["离子共存", "酸性介质", "弱酸根"]
+    },
+    {
+      "id": "COEX-002",
+      "category": "IonCoexistence",
+      "difficulty": "Basic",
+      "problemText": "在强碱性溶液中，NH4^+、Na^+、Cl^-、NO3^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["NH4^+", "Na^+", "Cl^-", "NO3^-"], "medium": "basic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["NH4^+ + OH^- = NH3·H2O"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-002-D1",
+          "description": "NH4OH 不存在（应写 NH3·H2O）：不在白名单",
+          "equation": "NH4^+ + OH^- = NH4OH",
+          "expectValid": false,
+          "expectFailChecks": ["白名单校验"],
+          "expectRiskTag": "超纲风险"
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'（铵根与碱反应）",
+      "tags": ["离子共存", "碱性介质", "铵根"]
+    },
+    {
+      "id": "COEX-003",
+      "category": "IonCoexistence",
+      "difficulty": "Medium",
+      "problemText": "在碱性溶液中，Na^+、K^+、HCO3^-、Cl^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Na^+", "K^+", "HCO3^-", "Cl^-"], "medium": "basic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["HCO3^- + OH^- = CO3^2- + H2O"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-003-D1",
+          "description": "产物臆造 H2：氧不守恒（应生成 H2O）",
+          "equation": "HCO3^- + OH^- = CO3^2- + H2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'；选择性必修第一册'水溶液中的离子反应与平衡'（酸式酸根与碱反应）",
+      "tags": ["离子共存", "碱性介质", "酸式酸根"]
+    },
+    {
+      "id": "COEX-004",
+      "category": "IonCoexistence",
+      "difficulty": "Basic",
+      "problemText": "在酸性溶液中，Ba^2+、K^+、SO4^2-、Cl^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Ba^2+", "K^+", "SO4^2-", "Cl^-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["Ba^2+ + SO4^2- = BaSO4↓"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-004-D1",
+          "description": "BaSO4 难溶，漏标 ↓",
+          "equation": "Ba^2+ + SO4^2- = BaSO4",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'（生成沉淀不能共存）",
+      "tags": ["离子共存", "沉淀"]
+    },
+    {
+      "id": "COEX-005",
+      "category": "IonCoexistence",
+      "difficulty": "Medium",
+      "problemText": "在酸性溶液中，Ca^2+、K^+、CO3^2-、NO3^- 能否大量共存？若不能，写出所有相关反应的离子方程式。",
+      "given": { "species": ["Ca^2+", "K^+", "CO3^2-", "NO3^-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["Ca^2+ + CO3^2- = CaCO3↓", "CO3^2- + 2H^+ = H2O + CO2↑"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-005-D1",
+          "description": "CaCO3 难溶，漏标 ↓",
+          "equation": "Ca^2+ + CO3^2- = CaCO3",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'（沉淀与气体双重不共存）",
+      "tags": ["离子共存", "沉淀", "气体"]
+    },
+    {
+      "id": "COEX-006",
+      "category": "IonCoexistence",
+      "difficulty": "Medium",
+      "problemText": "在强碱性溶液中，Na^+、K^+、ClO^-、Cl^- 能否大量共存？说明理由。",
+      "given": { "species": ["Na^+", "K^+", "ClO^-", "Cl^-"], "medium": "basic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由"] },
+      "expected": {
+        "equations": [],
+        "verdict": "Coexist",
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [
+        {
+          "id": "COEX-006-D1",
+          "description": "错误理由：碱性溶液中 ClO^- 与 Cl^- 可以共存（酸性条件下才归中生成 Cl2）；该'理由方程式'电荷不守恒，被引擎捕获",
+          "equation": "ClO^- + Cl^- = Cl2",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'氯及其化合物'（次氯酸盐在碱性条件下稳定）",
+      "tags": ["离子共存", "碱性介质", "归中反应语境"]
+    },
+    {
+      "id": "COEX-007",
+      "category": "IonCoexistence",
+      "difficulty": "Hard",
+      "problemText": "在酸性溶液中，Fe^2+、K^+、MnO4^-、SO4^2- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Fe^2+", "K^+", "MnO4^-", "SO4^2-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["5Fe^2+ + MnO4^- + 8H^+ = 5Fe^3+ + Mn^2+ + 4H2O"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-007-D1",
+          "description": "电子转移不相等（Fe 失 1，Mn 得 5）：电荷也不守恒",
+          "equation": "Fe^2+ + MnO4^- + 8H^+ = Fe^3+ + Mn^2+ + 4H2O",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'、选择性必修第一册'氧化还原反应'（高锰酸钾氧化亚铁离子）",
+      "tags": ["离子共存", "氧化还原", "酸性高锰酸钾"]
+    },
+    {
+      "id": "COEX-008",
+      "category": "IonCoexistence",
+      "difficulty": "Hard",
+      "problemText": "在碱性溶液中，Na^+、Ca^2+、Cl^-、HCO3^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Na^+", "Ca^2+", "Cl^-", "HCO3^-"], "medium": "basic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["Ca^2+ + HCO3^- + OH^- = CaCO3↓ + H2O"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-008-D1",
+          "description": "水的系数错误：氢不守恒",
+          "equation": "Ca^2+ + HCO3^- + OH^- = CaCO3↓ + 2H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'综合（酸式酸根与碱、沉淀剂的两步反应合并书写）",
+      "tags": ["离子共存", "碱性介质", "合并书写"]
+    }
+  ]
+}

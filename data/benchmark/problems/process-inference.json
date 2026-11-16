@@ -1,0 +1,351 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "PROC-001",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "A 是一种红棕色固体。A 与盐酸反应得到黄色溶液 B；向 B 中加入 NaOH 溶液产生红褐色沉淀 C；加热 C 又得到 A。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Fe2O3", "FeCl3", "Fe(OH)3", "HCl", "NaOH"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["HCl"], "phenomenon": "固体溶解，溶液呈黄色" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["NaOH"], "phenomenon": "产生红褐色沉淀" },
+          { "step": 3, "from": "C", "to": "A", "conditions": ["△"], "phenomenon": "得到红棕色固体" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "Fe2O3 + 6HCl = 2FeCl3 + 3H2O",
+          "FeCl3 + 3NaOH = Fe(OH)3↓ + 3NaCl",
+          "2Fe(OH)3 =△= Fe2O3 + 3H2O"
+        ],
+        "substanceMap": { "A": "Fe2O3", "B": "FeCl3", "C": "Fe(OH)3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-001-D1",
+          "description": "氯不守恒（化合价错误：Fe 为 +3 价需 6 个 HCl）",
+          "equation": "Fe2O3 + 3HCl = 2FeCl3 + 3H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-001-D2",
+          "description": "未配平：氯、氧均不守恒",
+          "equation": "FeCl3 + NaOH = Fe(OH)3↓ + NaCl",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'（转化关系图）",
+      "tags": ["转化链", "铁的化合物"]
+    },
+    {
+      "id": "PROC-002",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "A 是一种焰色试验呈黄色的金属。A 在氧气中点燃生成淡黄色固体 B；B 与水反应生成强碱 C 和一种气体；向 C 的溶液中通入过量 CO2 得到 D。确定 A、B、C、D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Na", "Na2O2", "Na2O", "NaOH", "NaHCO3", "Na2CO3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["点燃"], "phenomenon": "生成淡黄色固体" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["H2O"], "phenomenon": "生成强碱和气体" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["CO2(过量)"], "phenomenon": "得到 D" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "2Na + O2 =点燃= Na2O2",
+          "2Na2O2 + 2H2O = 4NaOH + O2↑",
+          "NaOH + CO2 = NaHCO3"
+        ],
+        "substanceMap": { "A": "Na", "B": "Na2O2", "C": "NaOH", "D": "NaHCO3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-002-D1",
+          "description": "钠不守恒（且点燃条件下产物应为 Na2O2）",
+          "equation": "Na + O2 =点燃= Na2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-002-D2",
+          "description": "氧不守恒",
+          "equation": "Na2O2 + H2O = 2NaOH + O2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'钠及其化合物'（钠与过氧化钠转化链）",
+      "tags": ["转化链", "钠的化合物", "歧化反应"]
+    },
+    {
+      "id": "PROC-003",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "A 是一种耐腐蚀、用途广泛的金属。A 在氧气中点燃生成 B；B 溶于盐酸得到 C；向 C 的溶液中加入足量氨水，产生白色胶状沉淀 D。确定 A、B、C、D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Al", "Al2O3", "AlCl3", "Al(OH)3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["点燃"], "phenomenon": "剧烈燃烧" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["HCl"], "phenomenon": "固体溶解" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["NH3·H2O(足量)"], "phenomenon": "白色胶状沉淀" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "4Al + 3O2 =点燃= 2Al2O3",
+          "Al2O3 + 6HCl = 2AlCl3 + 3H2O",
+          "AlCl3 + 3NH3·H2O = Al(OH)3↓ + 3NH4Cl"
+        ],
+        "substanceMap": { "A": "Al", "B": "Al2O3", "C": "AlCl3", "D": "Al(OH)3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-003-D1",
+          "description": "氯不守恒",
+          "equation": "Al2O3 + 3HCl = 2AlCl3 + 3H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-003-D2",
+          "description": "未配平：氯左 3 右 1",
+          "equation": "AlCl3 + NH3·H2O = Al(OH)3↓ + NH4Cl",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'金属材料'（铝及其化合物转化，止于课内 Al(OH)3）",
+      "tags": ["转化链", "铝的化合物", "结晶水写法"]
+    },
+    {
+      "id": "PROC-004",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "A 是一种紫红色金属。A 在空气中加热生成黑色固体 B；B 溶于稀硫酸得到蓝色溶液 C；向 C 中加入 NaOH 溶液产生蓝色沉淀 D。确定 A、B、C、D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Cu", "CuO", "CuSO4", "Cu(OH)2"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "conditions": ["△"], "phenomenon": "表面变黑" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["H2SO4(稀)"], "phenomenon": "固体溶解，溶液呈蓝色" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["NaOH"], "phenomenon": "蓝色沉淀" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "2Cu + O2 =△= 2CuO",
+          "CuO + H2SO4 = CuSO4 + H2O",
+          "CuSO4 + 2NaOH = Cu(OH)2↓ + Na2SO4"
+        ],
+        "substanceMap": { "A": "Cu", "B": "CuO", "C": "CuSO4", "D": "Cu(OH)2" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-004-D1",
+          "description": "边界样例：Cu 在金属活动性顺序中位于 H 之后，不能置换稀硫酸中的氢。形式守恒且电子守恒，引擎不判断反应可行性，由 LLM 层结合活动性顺序判断",
+          "equation": "Cu + H2SO4 = CuSO4 + H2↑",
+          "expectValid": true
+        },
+        {
+          "id": "PROC-004-D2",
+          "description": "未配平：钠左 1 右 2",
+          "equation": "CuSO4 + NaOH = Cu(OH)2↓ + Na2SO4",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁金属材料'背景、第八章'金属矿物的开发利用'（铜的转化链）",
+      "tags": ["转化链", "铜的化合物", "活动性顺序", "边界样例"]
+    },
+    {
+      "id": "PROC-005",
+      "category": "ProcessInference",
+      "difficulty": "Basic",
+      "problemText": "A 是一种固体单质，在氧气中点燃生成气体 B；将 B 通入澄清石灰水产生白色沉淀 C；高温煅烧 C 得到 D 和 B。确定 A、B、C、D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C", "CO2", "CaCO3", "CaO"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["点燃"], "phenomenon": "燃烧生成气体" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["Ca(OH)2"], "phenomenon": "澄清石灰水变浑浊" },
+          { "step": 3, "from": "C", "to": "D", "conditions": ["高温"], "phenomenon": "得到 D 和 B" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "C + O2 =点燃= CO2",
+          "CO2 + Ca(OH)2 = CaCO3↓ + H2O",
+          "CaCO3 =高温= CaO + CO2↑"
+        ],
+        "substanceMap": { "A": "C", "B": "CO2", "C": "CaCO3", "D": "CaO" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-005-D1",
+          "description": "氧不守恒",
+          "equation": "2C + O2 =点燃= 2CO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-005-D2",
+          "description": "产物臆造 H2O2：氧不守恒",
+          "equation": "CO2 + Ca(OH)2 = CaCO3↓ + H2O2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'物质的转化'（碳及其化合物转化链）",
+      "tags": ["转化链", "碳的化合物"]
+    },
+    {
+      "id": "PROC-006",
+      "category": "ProcessInference",
+      "difficulty": "Hard",
+      "problemText": "A 是一种黄绿色气体。A 在氢气中点燃生成气体 B，B 的水溶液呈酸性；向 B 的溶液中加入 AgNO3 溶液，产生白色沉淀 C。确定 A、B、C 并写出各步反应的化学方程式/离子方程式。",
+      "given": {
+        "candidateSpecies": ["Cl2", "HCl", "AgCl"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["H2"], "conditions": ["点燃"], "phenomenon": "安静燃烧，苍白色火焰" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["AgNO3"], "phenomenon": "白色沉淀" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "equations": ["H2 + Cl2 =点燃= 2HCl", "Ag^+ + Cl^- = AgCl↓"],
+        "substanceMap": { "A": "Cl2", "B": "HCl", "C": "AgCl" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-006-D1",
+          "description": "AgCl 难溶，漏标 ↓",
+          "equation": "Ag^+ + Cl^- = AgCl",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        },
+        {
+          "id": "PROC-006-D2",
+          "description": "未配平：氯左 2 右 1",
+          "equation": "H2 + Cl2 = HCl",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'氯及其化合物'（氯气性质与氯离子检验）",
+      "tags": ["转化链", "氯的化合物", "状态符号"]
+    },
+    {
+      "id": "PROC-007",
+      "category": "ProcessInference",
+      "difficulty": "Hard",
+      "problemText": "A 是一种黄色固体单质。A 在氧气中点燃生成有刺激性气味的气体 B；B 在催化剂、加热条件下被氧化为 C；C 与水化合生成强酸 D。确定 A、B、C、D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["S", "SO2", "SO3", "H2SO4"],
+        "conditions": ["点燃", "催化剂,△"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["点燃"], "phenomenon": "蓝紫色火焰，刺激性气味气体" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["O2"], "conditions": ["催化剂", "△"], "phenomenon": "可逆氧化" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["H2O"], "phenomenon": "生成强酸" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": ["S + O2 =点燃= SO2", "2SO2 + O2 ⇌ 2SO3", "SO3 + H2O = H2SO4"],
+        "substanceMap": { "A": "S", "B": "SO2", "C": "SO3", "D": "H2SO4" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-007-D1",
+          "description": "混淆 SO2 与 SO3：氧不守恒（SO2 与水化合应生成 H2SO3）",
+          "equation": "SO2 + H2O = H2SO4",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-007-D2",
+          "description": "硫在氧气中燃烧生成 SO2 而非 SO3：氧不守恒",
+          "equation": "S + O2 =点燃= SO3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'硫及其化合物'（工业制硫酸原理）",
+      "tags": ["转化链", "硫的化合物", "可逆反应"]
+    },
+    {
+      "id": "PROC-008",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "溶液 A 呈浅绿色。向 A 中通入常见单质气体 B，溶液变为黄色（C）；向 C 中加入 NaOH 溶液，产生红褐色沉淀 D。确定 A、B、C、D 并写出各步反应的化学方程式/离子方程式。",
+      "given": {
+        "candidateSpecies": ["FeCl2", "Cl2", "FeCl3", "Fe(OH)3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "C", "reagents": ["B"], "phenomenon": "溶液由浅绿色变为黄色" },
+          { "step": 2, "from": "C", "to": "D", "reagents": ["NaOH"], "phenomenon": "红褐色沉淀" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": ["2FeCl2 + Cl2 = 2FeCl3", "FeCl3 + 3NaOH = Fe(OH)3↓ + 3NaCl"],
+        "substanceMap": { "A": "FeCl2", "B": "Cl2", "C": "FeCl3", "D": "Fe(OH)3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-008-D1",
+          "description": "电荷不守恒：左 +2，右 +1（电子转移也不相等）",
+          "equation": "Fe^2+ + Cl2 = Fe^3+ + 2Cl^-",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "PROC-008-D2",
+          "description": "未配平：氯左 4 右 3",
+          "equation": "FeCl2 + Cl2 = FeCl3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'（Fe^2+/Fe^3+ 相互转化）",
+      "tags": ["转化链", "铁三角", "电荷守恒"]
+    }
+  ]
+}

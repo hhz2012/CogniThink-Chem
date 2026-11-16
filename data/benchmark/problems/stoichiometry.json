@@ -1,0 +1,258 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "CALC-001",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "500 mL NaOH 溶液中含有 0.5 mol NaOH，该溶液的物质的量浓度是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Moles", "species": "NaOH", "value": "0.5", "unit": "mol" },
+          { "kind": "SolutionVolume", "value": "500", "unit": "mL" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["NaOH 的物质的量浓度"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "1", "unit": "mol/L", "species": "NaOH" },
+        "calc": { "op": "MolarConcentration", "moles": "1/2", "solutionVolumeLiters": "1/2" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量浓度'（c = n/V）",
+      "tags": ["物质的量浓度", "纯计算"]
+    },
+    {
+      "id": "CALC-002",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "10.6 g Na2CO3 的物质的量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Mass", "species": "Na2CO3", "value": "10.6", "unit": "g" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["Na2CO3 的物质的量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "1/10", "unit": "mol", "species": "Na2CO3" },
+        "calc": { "op": "MolesFromMass", "species": "Na2CO3", "massGrams": "10.6" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量'（n = m/M，M(Na2CO3) = 106 g/mol）",
+      "tags": ["摩尔质量", "纯计算"]
+    },
+    {
+      "id": "CALC-003",
+      "category": "StoichiometryCalc",
+      "difficulty": "Medium",
+      "problemText": "10.6 g Na2CO3 与足量稀盐酸完全反应，计算标准状况下生成 CO2 的体积。",
+      "given": {
+        "conditions": ["足量稀盐酸", "标准状况"],
+        "numericFacts": [
+          { "kind": "Mass", "species": "Na2CO3", "value": "10.6", "unit": "g" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["CO2 的标准状况体积"] },
+      "expected": {
+        "equations": ["Na2CO3 + 2HCl = 2NaCl + H2O + CO2↑"],
+        "numericAnswer": { "value": "2.24", "unit": "L", "species": "CO2" },
+        "calc": { "op": "GasVolumeFromMass", "species": "Na2CO3", "massGrams": "10.6" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "CALC-003-D1",
+          "description": "方程式未配平（Na、Cl、H 均不守恒），计算依据错误",
+          "equation": "Na2CO3 + HCl = NaCl + H2O + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'物质的量'综合（质量→物质的量→气体体积，Vm = 22.4 L/mol）",
+      "tags": ["气体摩尔体积", "化学计量"]
+    },
+    {
+      "id": "CALC-004",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "取 100 mL 2 mol/L 的 H2SO4 溶液，加水稀释至 500 mL。稀释后溶液的物质的量浓度是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Concentration", "species": "H2SO4", "value": "2", "unit": "mol/L" },
+          { "kind": "SolutionVolume", "value": "100", "unit": "mL" },
+          { "kind": "SolutionVolume", "value": "500", "unit": "mL" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["稀释后 H2SO4 的物质的量浓度"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "2/5", "unit": "mol/L", "species": "H2SO4" },
+        "calc": { "op": "Dilution", "concentration1": "2", "volume1Liters": "1/10", "volume2Liters": "1/2" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量浓度'（稀释定律 c1V1 = c2V2）",
+      "tags": ["稀释定律", "纯计算"]
+    },
+    {
+      "id": "CALC-005",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "250 mL 0.2 mol/L NaCl 溶液中含有 NaCl 的物质的量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Concentration", "species": "NaCl", "value": "0.2", "unit": "mol/L" },
+          { "kind": "SolutionVolume", "value": "250", "unit": "mL" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["NaCl 的物质的量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "1/20", "unit": "mol", "species": "NaCl" },
+        "calc": { "op": "MolesFromConcentration", "concentration": "1/5", "solutionVolumeLiters": "1/4" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量浓度'（n = cV）",
+      "tags": ["物质的量", "纯计算"]
+    },
+    {
+      "id": "CALC-006",
+      "category": "StoichiometryCalc",
+      "difficulty": "Medium",
+      "problemText": "6.5 g 锌与足量稀硫酸完全反应，实际收集到氢气 0.18 g。求本次实验氢气的产率。",
+      "given": {
+        "numericFacts": [
+          { "kind": "Mass", "species": "Zn", "value": "6.5", "unit": "g" },
+          { "kind": "ActualYieldMass", "species": "H2", "value": "0.18", "unit": "g" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["H2 的产率"] },
+      "expected": {
+        "equations": ["Zn + H2SO4 = ZnSO4 + H2↑"],
+        "numericAnswer": { "value": "9/10", "unit": "比率", "species": "H2" },
+        "calc": { "op": "YieldRatio", "actualMassGrams": "9/50", "theoreticalMassGrams": "1/5" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "CALC-006-D1",
+          "description": "氢气系数错误：氢不守恒",
+          "equation": "Zn + H2SO4 = ZnSO4 + 2H2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第六章'化学反应的速率与限度'（产率 = 实际产量/理论产量；M(Zn) = 65 g/mol）",
+      "tags": ["产率", "理论产量"]
+    },
+    {
+      "id": "CALC-007",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "1.204×10^24 个水分子的物质的量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "ParticleCount", "species": "H2O", "value": "1.204×10^24", "unit": "个" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["H2O 的物质的量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "2", "unit": "mol", "species": "H2O" },
+        "calc": { "op": "MolesFromParticles", "particleMantissa": "1.204", "particleExponent": 24 },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量'（n = N/NA，NA ≈ 6.02×10^23 mol^-1）",
+      "tags": ["阿伏加德罗常数", "纯计算"]
+    },
+    {
+      "id": "CALC-008",
+      "category": "StoichiometryCalc",
+      "difficulty": "Medium",
+      "problemText": "200 mL 0.5 mol/L Al2(SO4)3 溶液中含有 SO4^2- 的物质的量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Concentration", "species": "Al2(SO4)3", "value": "0.5", "unit": "mol/L" },
+          { "kind": "SolutionVolume", "value": "200", "unit": "mL" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["SO4^2- 的物质的量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "3/10", "unit": "mol", "species": "SO4^2-" },
+        "calc": { "op": "IonMolesFromSolute", "concentration": "1/2", "solutionVolumeLiters": "1/5", "ionSubscript": "3" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'与'物质的量浓度'综合（电离出的离子数目）",
+      "tags": ["电离", "离子物质的量", "纯计算"]
+    },
+    {
+      "id": "CALC-009",
+      "category": "StoichiometryCalc",
+      "difficulty": "Hard",
+      "problemText": "0.5 mol 胆矾（CuSO4·5H2O）的质量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Moles", "species": "CuSO4·5H2O", "value": "0.5", "unit": "mol" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["CuSO4·5H2O 的质量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "124.75", "unit": "g", "species": "CuSO4·5H2O" },
+        "calc": { "op": "MassFromMoles", "moles": "1/2", "species": "CuSO4·5H2O" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量'（结晶水合物的摩尔质量，M = 249.5 g/mol）",
+      "tags": ["结晶水合物", "摩尔质量", "纯计算"]
+    },
+    {
+      "id": "CALC-010",
+      "category": "StoichiometryCalc",
+      "difficulty": "Hard",
+      "problemText": "将 100 mL 1 mol/L 盐酸与 100 mL 1 mol/L NaOH 溶液混合，恰好完全反应（混合后溶液体积按两者之和计算）。求混合溶液中 NaCl 的物质的量浓度。",
+      "given": {
+        "numericFacts": [
+          { "kind": "Concentration", "species": "HCl", "value": "1", "unit": "mol/L" },
+          { "kind": "SolutionVolume", "value": "100", "unit": "mL" },
+          { "kind": "Concentration", "species": "NaOH", "value": "1", "unit": "mol/L" },
+          { "kind": "SolutionVolume", "value": "100", "unit": "mL" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["混合溶液中 NaCl 的物质的量浓度"] },
+      "expected": {
+        "equations": ["HCl + NaOH = NaCl + H2O"],
+        "numericAnswer": { "value": "1/2", "unit": "mol/L", "species": "NaCl" },
+        "calc": { "op": "MolarConcentration", "moles": "1/10", "solutionVolumeLiters": "1/5" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "CALC-010-D1",
+          "description": "水的系数错误：氢不守恒",
+          "equation": "HCl + NaOH = NaCl + 2H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'物质的量浓度'综合（中和反应与混合液浓度）",
+      "tags": ["中和反应", "混合溶液", "化学计量"]
+    }
+  ]
+}

@@ -19,14 +19,18 @@ public sealed class Species
     private static readonly Regex CaretCharge = new(@"\^(?<n>\d*)(?<sign>[+-])$", RegexOptions.Compiled);
     private static readonly Regex BareCharge = new(@"(?<n>\d*)(?<sign>[+-])$", RegexOptions.Compiled);
 
-    private Species(string formula, IReadOnlyDictionary<string, int> elements, int charge)
+    private Species(string formula, string body, IReadOnlyDictionary<string, int> elements, int charge)
     {
         Formula = formula;
+        Body = body;
         Elements = elements;
         Charge = charge;
     }
 
     public string Formula { get; }
+
+    /// <summary>去掉电荷标注后的化学式主体（"SO4^2-" → "SO4"），ToString 基于它重建电荷后缀。</summary>
+    public string Body { get; }
 
     public IReadOnlyDictionary<string, int> Elements { get; }
 
@@ -77,8 +81,17 @@ public sealed class Species
         }
 
         var elements = ParseBody(body, text);
-        return new Species(text.Trim(), elements, charge);
+        return new Species(text.Trim(), body, elements, charge);
     }
+
+    /// <summary>
+    /// 由已合并的元素计数直接构造物种（供水合物等需要跨 "·" 合并的解析使用）。
+    /// </summary>
+    /// <param name="formula">显示用化学式原文。</param>
+    /// <param name="elements">元素计数（调用方负责合并完成）。</param>
+    /// <param name="charge">净电荷。</param>
+    public static Species FromElements(string formula, IReadOnlyDictionary<string, int> elements, int charge) =>
+        new(formula, formula, new Dictionary<string, int>(elements, StringComparer.Ordinal), charge);
 
     private static bool IsSingleElement(string text) =>
         Regex.IsMatch(text, "^[A-Z][a-z]?$");
@@ -174,9 +187,9 @@ public sealed class Species
 
     public override string ToString() => Charge switch
     {
-        0 => Formula,
-        1 => $"{Formula}^+",
-        -1 => $"{Formula}^-",
-        _ => $"{Formula}^{Math.Abs(Charge)}{(Charge > 0 ? "+" : "-")}"
+        0 => Body,
+        1 => $"{Body}^+",
+        -1 => $"{Body}^-",
+        _ => $"{Body}^{System.Math.Abs(Charge)}{(Charge > 0 ? "+" : "-")}"
     };
 }

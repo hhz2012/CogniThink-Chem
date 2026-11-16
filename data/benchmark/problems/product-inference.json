@@ -1,0 +1,265 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "PROD-001",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "钠在氯气中燃烧，产生大量白烟。写出该反应的化学方程式。",
+      "given": { "species": ["Na", "Cl2"], "conditions": ["点燃"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["2Na + Cl2 =点燃= 2NaCl"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-001-D1",
+          "description": "未配平：氯原子左右不等",
+          "equation": "Na + Cl2 = NaCl",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROD-001-D2",
+          "description": "化合价错误：Na 只有 +1 价，NaCl2 不存在。形式守恒但物质不存在，由白名单捕获",
+          "equation": "Na + Cl2 = NaCl2",
+          "expectValid": false,
+          "expectFailChecks": ["白名单校验"],
+          "expectRiskTag": "超纲风险"
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'钠及其化合物'、'氯及其化合物'",
+      "tags": ["化合反应", "氧化还原", "白名单捕获"]
+    },
+    {
+      "id": "PROD-002",
+      "category": "ProductInference",
+      "difficulty": "Medium",
+      "problemText": "铜与浓硫酸在加热条件下反应。写出该反应的化学方程式。",
+      "given": { "species": ["Cu", "H2SO4"], "conditions": ["△,浓"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["Cu + 2H2SO4 =△,浓= CuSO4 + SO2↑ + 2H2O"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-002-D1",
+          "description": "漏写 SO2：硫元素不守恒",
+          "equation": "Cu + H2SO4 =△= CuSO4 + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROD-002-D2",
+          "description": "配平错误：硫原子左 4 右 5",
+          "equation": "Cu + 4H2SO4 =△= CuSO4 + 4SO2↑ + 4H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'硫酸的性质'",
+      "tags": ["氧化还原", "浓硫酸"]
+    },
+    {
+      "id": "PROD-003",
+      "category": "ProductInference",
+      "difficulty": "Medium",
+      "problemText": "铁与水蒸气在高温下反应。写出该反应的化学方程式。",
+      "given": { "species": ["Fe", "H2O"], "conditions": ["高温"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["3Fe + 4H2O =高温= Fe3O4 + 4H2"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-003-D1",
+          "description": "边界样例：产物应为 Fe3O4 而非 Fe2O3。形式守恒，引擎不预测产物，正误由 LLM 层依据教材知识判断",
+          "equation": "2Fe + 3H2O =高温= Fe2O3 + 3H2",
+          "expectValid": true
+        },
+        {
+          "id": "PROD-003-D2",
+          "description": "氢原子不守恒",
+          "equation": "3Fe + 4H2O =高温= Fe3O4 + 2H2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'",
+      "tags": ["氧化还原", "水蒸气", "边界样例"]
+    },
+    {
+      "id": "PROD-004",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "物质 Xy 是题设的未知物质。某同学猜测它在氧气中燃烧生成 XyO2。请说明引擎对该反应能做哪些校验、不能做什么。",
+      "given": { "species": ["Xy", "O2"], "conditions": ["点燃"] },
+      "question": { "ask": "WriteProducts", "targets": ["校验结论"] },
+      "expected": {
+        "equations": ["Xy + O2 =点燃= XyO2"],
+        "engineExpectation": {
+          "isValid": false,
+          "riskTag": "超纲风险",
+          "mustPass": ["配平"],
+          "mustFail": ["白名单校验"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-004-D1",
+          "description": "换一种猜测产物，同样超出白名单，引擎只做形式校验",
+          "equation": "2Xy + 3O2 = 2XyO3",
+          "expectValid": false,
+          "expectFailChecks": ["白名单校验"],
+          "expectRiskTag": "超纲风险"
+        }
+      ],
+      "source": "引擎职责边界设计用例（铁律：陌生物质标记超纲风险，绝不预测产物）",
+      "tags": ["超纲干扰", "职责边界"]
+    },
+    {
+      "id": "PROD-005",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "石灰石（主要成分 CaCO3）高温煅烧分解。写出该反应的化学方程式。",
+      "given": { "species": ["CaCO3"], "conditions": ["高温"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["CaCO3 =高温= CaO + CO2↑"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-005-D1",
+          "description": "氧原子不守恒（产物应为 CO2）",
+          "equation": "CaCO3 =高温= CaO + CO↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROD-005-D2",
+          "description": "误写为生成单质钙：形式守恒，但只有钙得电子、无失电子物种，电子不守恒被氧化还原分析捕获",
+          "equation": "CaCO3 =高温= Ca + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["氧化还原分析"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第六章'化学反应与能量'相关工业背景；必修第一册'物质的转化'",
+      "tags": ["分解反应", "电子守恒捕获"]
+    },
+    {
+      "id": "PROD-006",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "铝箔在氧气中剧烈燃烧。写出该反应的化学方程式。",
+      "given": { "species": ["Al", "O2"], "conditions": ["点燃"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["4Al + 3O2 =点燃= 2Al2O3"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-006-D1",
+          "description": "氧原子不守恒",
+          "equation": "2Al + 3O2 =点燃= Al2O3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROD-006-D2",
+          "description": "氧化铝化学式错误（应为 Al2O3）：AlO2 不在白名单，由白名单捕获",
+          "equation": "Al + O2 =点燃= AlO2",
+          "expectValid": false,
+          "expectFailChecks": ["白名单校验"],
+          "expectRiskTag": "超纲风险"
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'金属材料'（铝的性质）",
+      "tags": ["化合反应", "氧化还原", "白名单捕获"]
+    },
+    {
+      "id": "PROD-007",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "将一小块钠投入滴有酚酞的水中。写出该反应的化学方程式。",
+      "given": { "species": ["Na", "H2O"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["2Na + 2H2O = 2NaOH + H2↑"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-007-D1",
+          "description": "氢原子不守恒",
+          "equation": "Na + H2O = NaOH + H2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROD-007-D2",
+          "description": "边界样例：常温下钠与水反应生成 NaOH 而非 Na2O。形式守恒且电子守恒，引擎不预测产物，由 LLM 层判断",
+          "equation": "2Na + H2O = Na2O + H2↑",
+          "expectValid": true
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'钠及其化合物'",
+      "tags": ["氧化还原", "置换", "边界样例"]
+    },
+    {
+      "id": "PROD-008",
+      "category": "ProductInference",
+      "difficulty": "Hard",
+      "problemText": "过氧化钠与水反应。写出该反应的化学方程式，并标出电子转移情况。",
+      "given": { "species": ["Na2O2", "H2O"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式", "电子转移"] },
+      "expected": {
+        "equations": ["2Na2O2 + 2H2O = 4NaOH + O2↑"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-008-D1",
+          "description": "氧原子不守恒",
+          "equation": "Na2O2 + H2O = 2NaOH + O2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROD-008-D2",
+          "description": "氧气系数错误：氧原子左 6 右 8",
+          "equation": "2Na2O2 + 2H2O = 4NaOH + 2O2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'钠及其化合物'（过氧化钠，歧化反应）",
+      "tags": ["歧化反应", "氧化还原", "过氧化钠"]
+    }
+  ]
+}

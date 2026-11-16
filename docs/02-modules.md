@@ -107,7 +107,7 @@
 | 输出 | 知识条目集合、覆盖矩阵、缺口清单（无规则/无题目的主干点） |
 | 依赖 | M0 |
 | 不负责 | 规则内容、题目内容 |
-| 接口契约 | 已实现：`TryGet(id, out KnowledgeItem)` / `GetRequired(id)`、`Search(string? keyword, KnowledgeModule? module)`、`DirectPrerequisites(id)` / `PrerequisiteChain(id)`、`ModuleCoverage()`；未实现：`CoverageReport()`（"主干无规则/无用例"缺口报表，T1-9） |
+| 接口契约 | 已实现：`TryGet(id, out KnowledgeItem)` / `GetRequired(id)`、`Search(string? keyword, KnowledgeModule? module)`、`DirectPrerequisites(id)` / `PrerequisiteChain(id)`、`ModuleCoverage()`、`Validate() → ValidationReport`（名称、教材出处、前置引用一致性校验）；未实现：`CoverageReport()`（"主干无规则/无用例"缺口报表，T1-9） |
 | 验收要点 | 主干知识点 100% 有条目且带教材出处；任一条目可反查规则与题目 |
 | 决策关联 | D3（建议：人教版 2019）：`textbookRef` 必填；若切换版本，只需补"版本差异表"并调整该字段，不改结构 |
 

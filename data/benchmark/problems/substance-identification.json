@@ -1,0 +1,334 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "IDENT-001",
+      "category": "SubstanceIdentification",
+      "difficulty": "Medium",
+      "problemText": "某溶液可能含有 CO3^2-、SO4^2-、Cl^- 中的一种或几种。进行如下实验：①加入足量稀硝酸，产生气体；②向①所得溶液中加入 Ba(NO3)2 溶液，无明显沉淀；③向②所得溶液中加入 AgNO3 溶液，产生白色沉淀。判断溶液中一定存在、一定不存在的离子。",
+      "given": {
+        "candidateSpecies": ["CO3^2-", "SO4^2-", "Cl^-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "气体", "reagents": ["HNO3"], "phenomenon": "加入足量稀硝酸，产生气体" },
+          { "step": 2, "from": "①所得溶液", "to": "无沉淀", "reagents": ["Ba(NO3)2"], "phenomenon": "无明显沉淀" },
+          { "step": 3, "from": "②所得溶液", "to": "白色沉淀", "reagents": ["AgNO3"], "phenomenon": "产生白色沉淀" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["一定存在的离子", "一定不存在的离子"] },
+      "expected": {
+        "equations": ["CO3^2- + 2H^+ = H2O + CO2↑", "Ag^+ + Cl^- = AgCl↓"],
+        "composition": { "CO3^2-": "Must", "SO4^2-": "MustNot", "Cl^-": "Must" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-001-D1",
+          "description": "电荷不守恒：左边净电荷 -1，右边 0",
+          "equation": "CO3^2- + H^+ = H2O + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "IDENT-001-D2",
+          "description": "AgCl 难溶，漏标 ↓",
+          "equation": "Ag^+ + Cl^- = AgCl",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'（离子检验综合）",
+      "tags": ["离子检验", "电荷守恒", "状态符号"]
+    },
+    {
+      "id": "IDENT-002",
+      "category": "SubstanceIdentification",
+      "difficulty": "Hard",
+      "problemText": "白色粉末 X 可能含有 Na2CO3、Na2SO4、BaCl2、NaCl 中的一种或几种。进行如下实验：①将 X 溶于水，产生白色沉淀；②向沉淀中加入足量稀硝酸，沉淀部分溶解并产生气体；③向①的滤液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀。判断 X 的成分。",
+      "given": {
+        "candidateSpecies": ["Na2CO3", "Na2SO4", "BaCl2", "NaCl"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "白色沉淀", "reagents": ["H2O"], "phenomenon": "产生白色沉淀" },
+          { "step": 2, "from": "白色沉淀", "to": "沉淀部分溶解", "reagents": ["HNO3"], "phenomenon": "沉淀部分溶解并产生气体" },
+          { "step": 3, "from": "①的滤液", "to": "白色沉淀", "reagents": ["AgNO3", "HNO3"], "phenomenon": "产生白色沉淀（不溶于稀硝酸）" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["X 的成分"] },
+      "expected": {
+        "equations": [
+          "Ba^2+ + CO3^2- = BaCO3↓",
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "BaCO3 + 2H^+ = Ba^2+ + H2O + CO2↑",
+          "Ag^+ + Cl^- = AgCl↓"
+        ],
+        "composition": { "Na2CO3": "Must", "Na2SO4": "Must", "BaCl2": "Must", "NaCl": "Maybe" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-002-D1",
+          "description": "误认为 BaSO4 溶于酸：H2SO4 是强酸，离子方程式中应拆写",
+          "equation": "BaSO4 + 2H^+ = Ba^2+ + H2SO4",
+          "expectValid": false,
+          "expectFailChecks": ["强电解质拆写"]
+        },
+        {
+          "id": "IDENT-002-D2",
+          "description": "BaCO3 难溶，漏标 ↓",
+          "equation": "Ba^2+ + CO3^2- = BaCO3",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'离子反应'综合应用（沉淀溶解与离子检验）",
+      "tags": ["成分推断", "沉淀溶解", "Maybe 语义"]
+    },
+    {
+      "id": "IDENT-003",
+      "category": "SubstanceIdentification",
+      "difficulty": "Hard",
+      "problemText": "某无色气体可能含有 SO2、CO2 中的一种或两种。将气体依次通过：①品红溶液（褪色）；②酸性 KMnO4 溶液（褪色）；③澄清石灰水（变浑浊）。判断气体成分，并写出②中反应的离子方程式。",
+      "given": {
+        "candidateSpecies": ["SO2", "CO2"],
+        "medium": "acidic",
+        "steps": [
+          { "step": 1, "from": "气体", "to": "品红褪色", "reagents": ["品红溶液"], "phenomenon": "品红褪色" },
+          { "step": 2, "from": "气体", "to": "KMnO4 褪色", "reagents": ["KMnO4(H^+)"], "phenomenon": "酸性高锰酸钾褪色（除去 SO2）" },
+          { "step": 3, "from": "尾气", "to": "石灰水变浑浊", "reagents": ["Ca(OH)2"], "phenomenon": "澄清石灰水变浑浊" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["气体成分", "②的离子方程式"] },
+      "expected": {
+        "equations": [
+          "5SO2 + 2MnO4^- + 2H2O = 5SO4^2- + 2Mn^2+ + 4H^+",
+          "CO2 + Ca(OH)2 = CaCO3↓ + H2O"
+        ],
+        "composition": { "SO2": "Must", "CO2": "Must" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-003-D1",
+          "description": "电荷不守恒：左边净电荷 -1，右边 +2（电子转移也不相等）",
+          "equation": "SO2 + MnO4^- + H2O = SO4^2- + Mn^2+ + 2H^+",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "IDENT-003-D2",
+          "description": "边界样例：CaCO3 应标 ↓，但该式为分子方程式（不含离子），引擎状态符号检查仅作用于离子方程式",
+          "equation": "CO2 + Ca(OH)2 = CaCO3 + H2O",
+          "expectValid": true
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'硫及其化合物'（SO2 与 CO2 的鉴别）",
+      "tags": ["气体鉴别", "离子方程式配平", "边界样例"]
+    },
+    {
+      "id": "IDENT-004",
+      "category": "SubstanceIdentification",
+      "difficulty": "Basic",
+      "problemText": "气体 A 能使湿润的红色石蕊试纸变蓝；A 与氯化氢气体相遇产生大量白烟。判断 A 并写出白烟反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["NH3", "HCl", "CO2", "SO2"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "试纸变蓝", "reagents": ["湿润红色石蕊试纸"], "phenomenon": "试纸变蓝（碱性气体）" },
+          { "step": 2, "from": "A", "to": "白烟", "reagents": ["HCl"], "phenomenon": "产生大量白烟" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["A 的化学式", "化学方程式"] },
+      "expected": {
+        "equations": ["NH3 + HCl = NH4Cl"],
+        "composition": { "NH3": "Must", "HCl": "MustNot", "CO2": "MustNot", "SO2": "MustNot" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-004-D1",
+          "description": "白烟反应是气相反应，不应写成离子形式：一旦出现离子，HCl 按强酸被标'应拆'",
+          "equation": "NH3 + HCl = NH4^+ + Cl^-",
+          "expectValid": false,
+          "expectFailChecks": ["强电解质拆写"]
+        },
+        {
+          "id": "IDENT-004-D2",
+          "description": "氯化铵化学式错误（NH4Cl2 不存在）：氯不守恒且不在白名单",
+          "equation": "NH3 + HCl = NH4Cl2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'氮及其化合物'（氨的性质与检验）",
+      "tags": ["气体检验", "氨", "拆写语境"]
+    },
+    {
+      "id": "IDENT-005",
+      "category": "SubstanceIdentification",
+      "difficulty": "Medium",
+      "problemText": "金属 X 能溶于稀硫酸，产生无色气体，所得溶液呈浅绿色。判断 X 并写出反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Fe", "Zn", "Mg", "Cu"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "浅绿色溶液", "reagents": ["H2SO4(稀)"], "phenomenon": "固体溶解，产生无色气体，溶液呈浅绿色" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["X 的化学式", "化学方程式"] },
+      "expected": {
+        "equations": ["Fe + H2SO4 = FeSO4 + H2↑"],
+        "composition": { "Fe": "Must", "Zn": "MustNot", "Mg": "MustNot", "Cu": "MustNot" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-005-D1",
+          "description": "边界样例：Fe 与稀硫酸反应生成 Fe^2+（浅绿色）而非 Fe^3+。形式守恒且电子守恒，引擎不判断产物合理性，由 LLM 层依据'浅绿色溶液'现象判断",
+          "equation": "2Fe + 3H2SO4 = Fe2(SO4)3 + 3H2↑",
+          "expectValid": true
+        },
+        {
+          "id": "IDENT-005-D2",
+          "description": "铁元素不守恒",
+          "equation": "Fe + H2SO4 = Fe2(SO4)3 + H2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'（Fe^2+ 溶液呈浅绿色）",
+      "tags": ["金属推断", "现象证据", "边界样例"]
+    },
+    {
+      "id": "IDENT-006",
+      "category": "SubstanceIdentification",
+      "difficulty": "Medium",
+      "problemText": "白色固体样品 A、B 已知分别是 Na2CO3 和 NaHCO3 中的一种。分别加热，将产生的气体通入澄清石灰水：A 产生的气体使石灰水变浑浊，B 无明显变化。判断 A 的成分并写出 A 分解的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Na2CO3", "NaHCO3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "石灰水变浑浊", "reagents": ["Ca(OH)2"], "conditions": ["△"], "phenomenon": "产生气体使澄清石灰水变浑浊" },
+          { "step": 2, "from": "B", "to": "无变化", "reagents": ["Ca(OH)2"], "conditions": ["△"], "phenomenon": "无明显变化" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["A 的成分", "分解方程式"] },
+      "expected": {
+        "equations": ["2NaHCO3 =△= Na2CO3 + H2O + CO2↑", "CO2 + Ca(OH)2 = CaCO3↓ + H2O"],
+        "composition": { "NaHCO3": "Must", "Na2CO3": "MustNot" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-006-D1",
+          "description": "漏写 H2O：氢元素不守恒",
+          "equation": "2NaHCO3 =△= Na2CO3 + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "IDENT-006-D2",
+          "description": "边界样例：Na2CO3 受热不分解（课内结论）。形式守恒，引擎不判断反应能否发生，由 LLM 层依据教材知识判断",
+          "equation": "Na2CO3 =△= Na2O + CO2↑",
+          "expectValid": true
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'钠及其化合物'（碳酸钠与碳酸氢钠的热稳定性）",
+      "tags": ["热稳定性", "边界样例"]
+    },
+    {
+      "id": "IDENT-007",
+      "category": "SubstanceIdentification",
+      "difficulty": "Medium",
+      "problemText": "黑色固体 X 可能是 C、CuO、Fe3O4、MnO2 中的一种。向其中加入足量稀硫酸，固体溶解，得到蓝色溶液。判断 X 并写出反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C", "CuO", "Fe3O4", "MnO2"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "蓝色溶液", "reagents": ["H2SO4(稀)"], "phenomenon": "固体溶解，溶液呈蓝色" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["X 的化学式", "化学方程式"] },
+      "expected": {
+        "equations": ["CuO + H2SO4 = CuSO4 + H2O"],
+        "composition": { "CuO": "Must", "C": "MustNot", "Fe3O4": "MustNot", "MnO2": "MustNot" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-007-D1",
+          "description": "氧元素不守恒",
+          "equation": "CuO + H2SO4 = CuSO4 + H2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "IDENT-007-D2",
+          "description": "硫元素不守恒",
+          "equation": "Fe3O4 + H2SO4 = FeSO4 + Fe2(SO4)3 + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'、第八章'金属矿物的开发利用'背景（物质鉴别）",
+      "tags": ["物质鉴别", "溶液颜色"]
+    },
+    {
+      "id": "IDENT-008",
+      "category": "SubstanceIdentification",
+      "difficulty": "Hard",
+      "problemText": "氮肥 X 可能是 NH4Cl、NH4NO3、(NH4)2SO4 中的一种。进行如下实验：①取 X 与 NaOH 溶液混合加热，产生使湿润红色石蕊试纸变蓝的气体；②向①反应后的溶液中加入 Ba(NO3)2 溶液，无明显沉淀；③向②所得溶液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀。判断 X 并写出相关反应的化学方程式/离子方程式。",
+      "given": {
+        "candidateSpecies": ["NH4Cl", "NH4NO3", "(NH4)2SO4"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "碱性气体", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "产生使湿润红色石蕊试纸变蓝的气体" },
+          { "step": 2, "from": "①的溶液", "to": "无沉淀", "reagents": ["Ba(NO3)2"], "phenomenon": "无明显沉淀" },
+          { "step": 3, "from": "②的溶液", "to": "白色沉淀", "reagents": ["AgNO3", "HNO3"], "phenomenon": "产生白色沉淀（不溶于稀硝酸）" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["X 的化学式", "相关方程式"] },
+      "expected": {
+        "equations": ["NH4Cl + NaOH =△= NaCl + NH3↑ + H2O", "Ag^+ + Cl^- = AgCl↓"],
+        "composition": { "NH4Cl": "Must", "NH4NO3": "MustNot", "(NH4)2SO4": "MustNot" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "IDENT-008-D1",
+          "description": "NH4OH 不存在（应写 NH3↑ + H2O 或 NH3·H2O）：不在白名单",
+          "equation": "NH4Cl + NaOH = NaCl + NH4OH",
+          "expectValid": false,
+          "expectFailChecks": ["白名单校验"],
+          "expectRiskTag": "超纲风险"
+        },
+        {
+          "id": "IDENT-008-D2",
+          "description": "BaSO4 漏标 ↓（假设 X 为硫酸铵时的检验反应，测试状态符号）",
+          "equation": "SO4^2- + Ba^2+ = BaSO4",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'氮及其化合物'（铵根离子与酸根离子检验）",
+      "tags": ["铵盐检验", "白名单捕获", "状态符号"]
+    }
+  ]
+}
