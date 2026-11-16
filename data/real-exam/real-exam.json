@@ -481,6 +481,147 @@
       },
       "source": "高考真题改编（接触法制硫酸·沸腾炉/接触室/吸收塔与尾气循环，全国卷非金属元素化工流程题高频考点）",
       "tags": ["高考真题", "工业流程", "接触法制硫酸", "尾气与循环"]
+    },
+    {
+      "id": "IONP-RE1",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·未知液离子连续操作推断）某无色透明溶液可能含有 Na^+、K^+、NH4^+、CO3^2-、SO4^2-、Cl^- 中的一种或几种。进行如下实验：①取少量溶液加入足量稀硝酸，产生气体；②向①所得溶液中加入 Ba(NO3)2 溶液，无明显沉淀；③向②所得溶液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解；④另取少量原溶液加入足量 NaOH 溶液并加热，无明显现象。判断溶液中一定存在、一定不存在与不能确定的离子。",
+      "given": {
+        "candidateSpecies": ["Na^+", "K^+", "NH4^+", "CO3^2-", "SO4^2-", "Cl^-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "气体", "reagents": ["HNO3"], "phenomenon": "加入足量稀硝酸，产生气体" },
+          { "step": 2, "from": "①所得溶液", "to": "无沉淀", "reagents": ["Ba(NO3)2"], "phenomenon": "加入 Ba(NO3)2 溶液，无明显沉淀" },
+          { "step": 3, "from": "②所得溶液", "to": "白色沉淀", "reagents": ["AgNO3", "HNO3"], "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" },
+          { "step": 4, "from": "溶液", "to": "无现象", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "加足量 NaOH 溶液并加热，无明显现象" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["一定存在的离子", "一定不存在的离子", "不能确定的离子"] },
+      "expected": {
+        "composition": { "Na^+": "Maybe", "K^+": "Maybe", "NH4^+": "MustNot", "CO3^2-": "Must", "SO4^2-": "MustNot", "Cl^-": "Must" },
+        "equations": ["CO3^2- + 2H^+ = H2O + CO2↑", "Ag^+ + Cl^- = AgCl↓"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "高考真题改编（未知溶液中离子连续操作推断：加酸产气、硫酸根与氯离子检验顺序、负证据排除，全国卷/选考离子推断选择题高频考点）",
+      "tags": ["高考真题", "离子粉末推断", "溶液连续操作", "负证据排除"]
+    },
+    {
+      "id": "IONP-RE2",
+      "category": "IonPowderIdentification",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·白色粉末成分推断）白色粉末 X 可能含有 K2CO3、Na2SO4、BaCl2、NaCl 中的一种或几种。进行如下实验：①取少量 X 溶于水，产生白色沉淀；②向沉淀中加入足量稀硝酸，沉淀部分溶解并产生气体；③向②所得滤液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解。判断 X 的成分。",
+      "given": {
+        "candidateSpecies": ["K2CO3", "Na2SO4", "BaCl2", "NaCl"],
+        "steps": [
+          { "step": 1, "from": "X", "to": "白色沉淀", "reagents": ["H2O"], "phenomenon": "溶于水，产生白色沉淀" },
+          { "step": 2, "from": "白色沉淀", "to": "沉淀部分溶解", "reagents": ["HNO3"], "phenomenon": "加入足量稀硝酸，沉淀部分溶解并产生气体" },
+          { "step": 3, "from": "②所得滤液", "to": "白色沉淀不溶", "reagents": ["AgNO3", "HNO3"], "phenomenon": "加入 AgNO3 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" }
+        ]
+      },
+      "question": { "ask": "IdentifyIonPowder", "targets": ["X 的成分"] },
+      "expected": {
+        "composition": { "K2CO3": "Must", "Na2SO4": "Must", "BaCl2": "Must", "NaCl": "Maybe" },
+        "equations": ["Ba^2+ + CO3^2- = BaCO3↓", "Ba^2+ + SO4^2- = BaSO4↓", "BaCO3 + 2H^+ = Ba^2+ + H2O + CO2↑", "Ag^+ + Cl^- = AgCl↓"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "高考真题改编（固体粉末混合物分步现象推断：沉淀部分溶于酸的组成判断与氯离子检验，全国卷粉末成分推断选择题高频考点）",
+      "tags": ["高考真题", "离子粉末推断", "固体粉末混合物", "沉淀酸溶分类"]
+    },
+    {
+      "id": "ORG-RE1",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·乙醇—乙酸转化链）A 是酒的主要成分。A 在 Cu 作催化剂并加热时被 O2 氧化生成 B；B 继续与氧气在催化剂、加热条件下反应生成 C；C 与 A 在浓硫酸、加热条件下反应生成具有香味的酯类物质 D。确定 A～D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C2H5OH", "CH3CHO", "CH3COOH", "CH3COOCH2CH3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["Cu", "△"] },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["O2"], "conditions": ["催化剂", "△"] },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["A"], "conditions": ["浓H2SO4", "△"], "phenomenon": "生成具有香味的酯类物质" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C2H5OH", "B": "CH3CHO", "C": "CH3COOH", "D": "CH3COOCH2CH3" },
+        "equations": [
+          "2C2H5OH + O2 =Cu,△= 2CH3CHO + 2H2O",
+          "2CH3CHO + O2 =催化剂,△= 2CH3COOH",
+          "CH3COOH + C2H5OH ⇌ CH3COOCH2CH3 + H2O"
+        ],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平"] }
+      },
+      "source": "高考真题改编（乙醇的催化氧化、乙醛氧化与酯化反应转化链，全国卷/北京卷有机推断选择题高频考点）",
+      "tags": ["高考真题", "有机推断", "转化链", "乙醇乙酸", "酯化反应"]
+    },
+    {
+      "id": "ORG-RE2",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·苯的性质转化）A 是常见的液态烃，不能使溴水因反应褪色。A 与液溴在 FeBr3 催化下反应生成 B，导管口出现白雾；A 与浓硝酸在浓硫酸催化、水浴加热条件下反应生成 C；A 与氢气在 Ni 催化、加热条件下加成生成 D。确定 A～D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C6H6", "C6H5Br", "C6H5NO2", "C6H12"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["Br2"], "conditions": ["FeBr3"], "phenomenon": "导管口出现白雾" },
+          { "step": 2, "from": "A", "to": "C", "reagents": ["HNO3"], "conditions": ["浓H2SO4", "水浴", "△"] },
+          { "step": 3, "from": "A", "to": "D", "reagents": ["H2"], "conditions": ["Ni", "△"] }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C6H6", "B": "C6H5Br", "C": "C6H5NO2", "D": "C6H12" },
+        "equations": [
+          "C6H6 + Br2 =FeBr3= C6H5Br + HBr",
+          "C6H6 + HNO3 =浓H2SO4,水浴,△= C6H5NO2 + H2O",
+          "C6H6 + 3H2 =Ni,△= C6H12"
+        ],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平"] }
+      },
+      "source": "高考真题改编（苯的溴代、硝化与催化加氢，全国卷有机化学基础选择题高频考点）",
+      "tags": ["高考真题", "有机推断", "苯的性质", "取代反应"]
+    },
+    {
+      "id": "EXP-RE1",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·气体验验）实验室收集了两瓶无色气体，一瓶可能是 CO2，另一瓶可能是 NH3。分别给出检验这两种气体的方法、预期现象与结论。",
+      "given": {
+        "experiment": { "mode": "gas_test", "targets": ["CO2", "NH3"] }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["CO2 的检验方法与现象", "NH3 的检验方法与现象"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": [
+            "CO2 的检验方法：向集气瓶中加入少量澄清石灰水并振荡，石灰水变浑浊，证明该气体是 CO2",
+            "NH3 的检验方法：将湿润的红色石蕊试纸靠近瓶口，试纸变蓝，证明该气体是 NH3（中学唯一常见碱性气体）"
+          ]
+        },
+        "engineExpectation": { "isValid": true, "mustPass": [] }
+      },
+      "source": "高考真题改编（CO2 与 NH3 的特征检验：澄清石灰水变浑浊、湿润红色石蕊试纸变蓝，全国卷/选考实验基础选择题高频考点）",
+      "tags": ["高考真题", "实验探究", "气体验验", "CO2", "NH3"]
+    },
+    {
+      "id": "EXP-RE2",
+      "category": "ExperimentalInquiry",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·分离提纯方法的选择）① 分离互溶但沸点相差较大的液体混合物；② 用 CCl4 从碘水中提取碘。分别说明所选分离方法的目的与判据（适用对象与关键操作要点）。",
+      "given": {
+        "experiment": { "mode": "operation_purpose", "operations": ["distillation", "extraction"] }
+      },
+      "question": { "ask": "AnalyzeExperiment", "targets": ["蒸馏", "萃取分液"] },
+      "expected": {
+        "equations": [],
+        "experiment": {
+          "conclusions": [
+            "蒸馏的判据与目的：分离互溶但沸点相差较大的液体混合物（或除去难挥发、不挥发杂质）——温度计水银球位于蒸馏烧瓶支管口处，冷凝水从下端进、上端出，加热前须加入碎瓷片防暴沸",
+            "萃取的判据与目的：利用溶质在萃取剂中的溶解度远大于在水中的溶解度、且萃取剂与水互不相溶，把溶质从水中转移到萃取剂里（如用 CCl4 萃取碘水中的 I2）；萃取后配合分液——下层液体从分液漏斗下口放出，上层液体从上口倒出"
+          ]
+        },
+        "engineExpectation": { "isValid": true, "mustPass": [] }
+      },
+      "source": "高考真题改编（蒸馏与萃取分液的适用判据与操作要点，全国卷/北京卷混合物分离提纯选择题高频考点）",
+      "tags": ["高考真题", "实验探究", "分离提纯", "蒸馏", "萃取"]
     }
   ]
 }

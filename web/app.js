@@ -18,6 +18,17 @@ const COEXIST_TEXT = {
 
 const COMPOSITION_LABEL = { Must: '一定存在', MustNot: '一定不存在', Maybe: '可能存在' };
 
+/* 离子粉末推断三态结论表列名（高考表述） */
+const IONP_LABEL = { Must: '一定存在', MustNot: '一定不存在', Maybe: '不能确定' };
+
+/* 实验探究模式中文名 */
+const EXP_MODE_TEXT = {
+  gas_test: '气体验验',
+  gas_full_test: '气体验满',
+  operation_purpose: '操作目的与误差分析',
+  phenomenon_conclusion: '现象→结论',
+};
+
 const DIRECTION_TEXT = { forward: '正向移动', reverse: '逆向移动', noShift: '平衡不移动' };
 
 const FACT_KIND = {
@@ -259,6 +270,18 @@ function givenHtml(p) {
   ).join('');
   if (facts) rows.push(['已知数据', `<ul class="given-steps">${facts}</ul>`]);
 
+  if (g.experiment) {
+    const ex = g.experiment;
+    const cells = [];
+    if (ex.targets.length) cells.push('询问对象：' + ex.targets.map(chem).join('、'));
+    if (ex.operations.length) cells.push('操作代号：' + ex.operations.map(esc).join('、'));
+    if (ex.phenomena.length) cells.push('观察现象：' + ex.phenomena.map(esc).join('、'));
+    if (ex.candidateSpecies.length) cells.push('候选物种：' + ex.candidateSpecies.map(chem).join('、'));
+    rows.push(['探究模式',
+      esc(EXP_MODE_TEXT[ex.mode] || ex.mode) +
+      (cells.length ? `<ul class="given-steps">${cells.map((c) => `<li>${c}</li>`).join('')}</ul>` : '')]);
+  }
+
   if (!rows.length) return '';
   return `
   <details class="given">
@@ -412,6 +435,49 @@ function answerHtml(s, category) {
           </div>
           ${purposes}
         </div>` + eqBlock('转化链方程式', s.equations);
+    }
+
+    case 'IonPowderIdentification': {
+      const cols = ['Must', 'MustNot', 'Maybe'].map((k) => {
+        const list = Object.keys(s.composition || {}).filter((x) => s.composition[x] === k);
+        return `
+          <div class="ionp-col">
+            <h5 class="comp-label comp-${k}">${IONP_LABEL[k]}</h5>
+            <div class="ionp-badges">
+              ${list.length
+                ? list.map((x) => `<span class="ionp-badge b-${k}">${chem(x)}</span>`).join('')
+                : '<span class="ionp-none">—</span>'}
+            </div>
+          </div>`;
+      }).join('');
+      return `<div class="answer-block"><div class="ionp-grid">${cols}</div></div>` +
+        eqBlock('证据方程式', s.equations);
+    }
+
+    case 'OrganicInference': {
+      const keys = Object.keys(s.substanceMap || {}).sort((a, b) => a.localeCompare(b, 'en'));
+      const chain = keys.length
+        ? `<div class="org-chain">${keys.map((k) =>
+            `<span class="org-node"><b>${esc(k)}</b><i>${chem(s.substanceMap[k])}</i></span>`
+          ).join('<span class="org-arrow">→</span>')}</div>`
+        : '';
+      return `<div class="answer-block">${chain}</div>` + eqBlock('各步方程式', s.equations);
+    }
+
+    case 'ExperimentalInquiry': {
+      const cons = (s.experiment && s.experiment.conclusions) || [];
+      const items = cons.map((c) => {
+        const i = c.indexOf('：');
+        const label = i > 0 ? c.slice(0, i) : '实验结论';
+        const body = i > 0 ? c.slice(i + 1) : c;
+        return `
+          <div class="exp-item">
+            <h5>${chem(label)}</h5>
+            <p>${chem(body)}</p>
+          </div>`;
+      }).join('');
+      return `<div class="answer-block"><div class="exp-list">${items}</div></div>` +
+        eqBlock('原理方程式', s.equations);
     }
 
     default:

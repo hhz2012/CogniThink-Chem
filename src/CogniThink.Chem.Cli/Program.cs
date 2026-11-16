@@ -195,6 +195,10 @@ static int RunExportWeb(string? outputDir)
                     {
                         f.Kind, f.Species, f.Value, f.Unit
                     }),
+                    experiment = problem.Given.Experiment is { } ex ? new
+                    {
+                        ex.Mode, ex.Targets, ex.Operations, ex.Phenomena, ex.CandidateSpecies
+                    } : null,
                 },
             },
             solution = new
@@ -213,6 +217,7 @@ static int RunExportWeb(string? outputDir)
                 solution.Equilibrium,
                 solution.Aqueous,
                 solution.Purposes,
+                solution.Experiment,
                 steps = solution.Steps.Select(s => new
                 {
                     s.Order, s.Description, s.Evidence, s.KnowledgeId, s.Source
@@ -517,6 +522,58 @@ static (bool Ok, List<string> Detail) CompareWithStandardAnswer(ProblemSpec prob
                 ok &= hit;
             }
 
+            break;
+        }
+        case ProblemCategory.IonPowderIdentification:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+                break;
+            }
+
+            var got = solution.Composition.ToDictionary(kv => kv.Key, kv => kv.Value.ToString(), StringComparer.Ordinal);
+            var want = expected.Composition?.ToDictionary(kv => kv.Key, kv => kv.Value.ToString(), StringComparer.Ordinal)
+                       ?? new Dictionary<string, string>(StringComparer.Ordinal);
+            var same = got.Count == want.Count && want.All(kv => got.TryGetValue(kv.Key, out var v) && v == kv.Value);
+            detail.Add($"  成分结论：引擎={{{string.Join("，", got.Select(kv => $"{kv.Key}:{kv.Value}"))}}}");
+            detail.Add($"  　　　　　标准={{{string.Join("，", want.Select(kv => $"{kv.Key}:{kv.Value}"))}}}　{(same ? "一致" : "不一致")}");
+            ok &= same;
+            break;
+        }
+        case ProblemCategory.OrganicInference:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+                break;
+            }
+
+            var got = solution.SubstanceMap;
+            var want = expected.SubstanceMap ?? new Dictionary<string, string>();
+            var same = got.Count == want.Count && want.All(kv => got.TryGetValue(kv.Key, out var v) && v == kv.Value);
+            detail.Add($"  物质对应：引擎={{{string.Join("，", got.Select(kv => $"{kv.Key}:{kv.Value}"))}}}");
+            detail.Add($"  　　　　　标准={{{string.Join("，", want.Select(kv => $"{kv.Key}:{kv.Value}"))}}}　{(same ? "一致" : "不一致")}");
+            ok &= same;
+            break;
+        }
+        case ProblemCategory.ExperimentalInquiry:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+                break;
+            }
+
+            var got = solution.Experiment?.Conclusions ?? new List<string>();
+            var want = expected.Experiment?.Conclusions ?? new List<string>();
+            var same = got.Count == want.Count && got.SequenceEqual(want, StringComparer.Ordinal);
+            detail.Add($"  实验结论：引擎={{{string.Join("；", got)}}}");
+            detail.Add($"  　　　　　标准={{{string.Join("；", want)}}}　{(same ? "一致" : "不一致")}");
+            ok &= same;
             break;
         }
         default:
