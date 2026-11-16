@@ -38,6 +38,14 @@ public static class ProcessFlowEngine
     /// <summary>推断入口：转化链赋值 + 每步目的/原理节点。</summary>
     public static ProcessFlowResult Infer(ProcessFlowRequest request, ReactionLibrary? library = null)
     {
+        // 一次性读入规则库建 id→Rule 字典，供各步目的匹配复用（重复 id 取首条，
+        // 与原按 id FirstOrDefault 查找语义一致），避免每遇新规则 id 全量重读 rules.json。
+        var rules = new Dictionary<string, Rule?>(StringComparer.Ordinal);
+        foreach (var rule in ChemDataLoader.LoadRules(DataRoot.Resolve()))
+        {
+            rules.TryAdd(rule.Id, rule);
+        }
+
         var result = new ProcessFlowResult();
         if (request.Steps.Count == 0)
         {
@@ -93,7 +101,6 @@ public static class ProcessFlowEngine
         result.StepResults.AddRange(chain.StepResults);
 
         // 3. 为每一步追加"目的/原理"节点（按操作类型匹配流程规则，原文引用）。
-        var rules = new Dictionary<string, Rule?>(StringComparer.Ordinal);
         foreach (var step in request.Steps)
         {
             var hit = ClassifyPurpose(step.Step, step.Purpose, rules);
@@ -145,7 +152,8 @@ public static class ProcessFlowEngine
         }
 
         var hit0 = distinctHits[0];
-        var rule = LoadRule(rules, hit0.RuleId);
+        // id 不存在时 rule 为 null，与原 LoadRule 缓存缺失条目的行为一致（Purpose 如实留空）。
+        rules.TryGetValue(hit0.RuleId, out var rule);
         if (rule is null)
         {
             return (
@@ -194,17 +202,6 @@ public static class ProcessFlowEngine
     /// <summary>把 PROC-004 的判据原文按"；"拆成逐操作分句（机械拆分，不改写）。</summary>
     private static IEnumerable<string> SplitClauses(string display) =>
         display.Split('；', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
-    private static Rule? LoadRule(Dictionary<string, Rule?> cache, string ruleId)
-    {
-        if (!cache.TryGetValue(ruleId, out var rule))
-        {
-            rule = ChemDataLoader.LoadRules(DataRoot.Resolve()).FirstOrDefault(r => r.Id == ruleId);
-            cache[ruleId] = rule;
-        }
-
-        return rule;
-    }
 
     /// <summary>单一大写字母视为字母标签（与 ProcessInferenceEngine 约定一致）。</summary>
     private static bool IsLabelToken(string text) =>

@@ -280,26 +280,9 @@ public sealed class Explainer
         }
     }
 
-    /// <summary>题目类别的中文名称。</summary>
-    public static string CategoryName(ProblemCategory category)
-    {
-        switch (category)
-        {
-            case ProblemCategory.ProductInference: return "产物推断";
-            case ProblemCategory.SubstanceIdentification: return "成分推断";
-            case ProblemCategory.ProcessInference: return "过程推断";
-            case ProblemCategory.IonCoexistence: return "离子共存";
-            case ProblemCategory.StoichiometryCalc: return "定量计算";
-            case ProblemCategory.Electrochemistry: return "电化学";
-            case ProblemCategory.ChemicalEquilibrium: return "化学平衡";
-            case ProblemCategory.AqueousIonEquilibrium: return "水溶液离子平衡";
-            case ProblemCategory.IndustrialProcess: return "工业流程综合";
-            case ProblemCategory.IonPowderIdentification: return "离子粉末推断";
-            case ProblemCategory.OrganicInference: return "有机推断";
-            case ProblemCategory.ExperimentalInquiry: return "实验探究";
-            default: return category.ToString();
-        }
-    }
+    /// <summary>题目类别的中文名称（委托 <see cref="CategoryCatalog"/> 唯一维护点；未知类别回退枚举名）。</summary>
+    public static string CategoryName(ProblemCategory category) =>
+        CategoryCatalog.All.TryGetValue(category, out var info) ? info.Name : category.ToString();
 
     private static string RenderFullText(Solution solution, Explanation explanation)
     {

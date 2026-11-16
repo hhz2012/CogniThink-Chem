@@ -12,23 +12,9 @@ public static class BenchmarkLoader
     /// <summary>测试集相对数据根目录的子路径。</summary>
     public const string RelativeDirectory = "benchmark/problems";
 
-    /// <summary>类别 → 文件名映射（文件名即类别的 kebab-case）。</summary>
+    /// <summary>类别 → 文件名映射（委托 <see cref="CategoryCatalog"/> 唯一维护点；未知类别索引时与原实现一致抛 KeyNotFoundException）。</summary>
     public static readonly IReadOnlyDictionary<ProblemCategory, string> CategoryFiles =
-        new Dictionary<ProblemCategory, string>
-        {
-            [ProblemCategory.ProductInference] = "product-inference.json",
-            [ProblemCategory.SubstanceIdentification] = "substance-identification.json",
-            [ProblemCategory.ProcessInference] = "process-inference.json",
-            [ProblemCategory.IonCoexistence] = "ion-coexistence.json",
-            [ProblemCategory.StoichiometryCalc] = "stoichiometry.json",
-            [ProblemCategory.Electrochemistry] = "hard-electrochemistry.json",
-            [ProblemCategory.ChemicalEquilibrium] = "hard-equilibrium.json",
-            [ProblemCategory.AqueousIonEquilibrium] = "hard-aqueous-equilibrium.json",
-            [ProblemCategory.IndustrialProcess] = "hard-process-flow.json",
-            [ProblemCategory.IonPowderIdentification] = "hard-ion-powder.json",
-            [ProblemCategory.OrganicInference] = "hard-organic.json",
-            [ProblemCategory.ExperimentalInquiry] = "hard-experiment.json"
-        };
+        CategoryCatalog.All.ToDictionary(kv => kv.Key, kv => kv.Value.FileName);
 
     /// <summary>加载全部类别的题目（按文件名排序，类别内保持文件顺序）。</summary>
     /// <param name="dataRoot">数据根目录；null 时按 <see cref="DataRoot.Resolve"/> 定位。</param>
