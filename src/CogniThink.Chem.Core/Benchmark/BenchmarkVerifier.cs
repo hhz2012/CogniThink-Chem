@@ -43,8 +43,8 @@ public sealed class BenchmarkResult
 
 /// <summary>
 /// 基准验证器：对单题执行"标准答案引擎校验 + 干扰项捕获校验 + 计算题精确复算"。
-/// 职责边界：推断（猜产物/成分/过程）属于 LLM 层；离线测试中 expected 字段即标准答案，
-/// 本验证器只确认引擎对标准答案与典型错解的行为符合预期。
+/// 离线测试中 expected 字段即标准答案，本验证器确认引擎对标准答案与典型错解的行为符合预期；
+/// 端到端"推导答案"由 Solving.ProblemSolver 承担（见 ProblemSolverTests）。
 /// </summary>
 public static class BenchmarkVerifier
 {

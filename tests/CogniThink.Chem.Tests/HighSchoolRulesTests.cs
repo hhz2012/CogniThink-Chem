@@ -74,7 +74,7 @@ public class HighSchoolRulesTests
     [InlineData("CO2", true)]         // 气体/氧化物
     [InlineData("NH3·H2O", true)]     // 一水合氨
     [InlineData("Xy2O3", false)]      // 陌生物质
-    [InlineData("C6H12O6", false)]    // 葡萄糖（未收录，超纲风险）
+    [InlineData("C6H12O6", true)]     // 葡萄糖（substances.json 课内有机物清单收录）
     public void WhitelistGuard_NeutralSpecies(string formula, bool expectedKnown)
     {
         var (known, tag) = WhitelistGuard.Check(Formula(formula));

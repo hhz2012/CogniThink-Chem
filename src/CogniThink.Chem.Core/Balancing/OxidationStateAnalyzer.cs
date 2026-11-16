@@ -185,6 +185,22 @@ public static class OxidationStateAnalyzer
             }
         }
 
+        // 有机卤化物扩展：含碳的中性分子中卤素恒为 -1，即使含氧（如三溴苯酚 C6H3OBr3）。
+        // 仅作用于含碳中性分子；含氧无机卤物种（HClO 等）不受影响，仍走原有路径。
+        if (species.Charge == 0 && species.Elements.ContainsKey("C"))
+        {
+            foreach (var (element, count) in species.Elements)
+            {
+                if (element is not ("Cl" or "Br" or "I") || states.ContainsKey(element))
+                {
+                    continue;
+                }
+
+                states[element] = new List<(Rational, int)> { (new Rational(-1), count) };
+                knownSum += new Rational(-1) * new Rational(count);
+            }
+        }
+
         var unknowns = species.Elements.Keys.Where(e => !states.ContainsKey(e)).ToList();
         if (unknowns.Count == 0)
         {

@@ -127,6 +127,63 @@ public sealed class ActivitySeriesData
     public List<string> Series { get; set; } = new();
 }
 
+/// <summary>
+/// 课内补充物质清单（substances.json）：收纳不落入溶解性表/电解质/氧化物/气体/单质
+/// 其它分类的课内物质，主要是有机物与少数无机物（H2O2、酸式盐等）。
+/// 仅用于扩充白名单与推断检索，不参与溶解性/电解质判断。
+/// </summary>
+public sealed class SubstanceInventoryData
+{
+    public string Version { get; set; } = "";
+
+    public string Source { get; set; } = "";
+
+    /// <summary>课内有机物（分子式或结构简式主体），如 "C2H5OH"、"CH3CHO"、"C6H6"。</summary>
+    public List<string> Organics { get; set; } = new();
+
+    /// <summary>其它课内无机物（不属于氧化物/酸/碱/盐溶解性表者），如 "H2O2"、"Ca(HCO3)2"。</summary>
+    public List<string> OtherInorganics { get; set; } = new();
+}
+
+/// <summary>
+/// 特征现象索引（phenomena.json）：现象关键词 → 指示物种。
+/// 供成分推断（IDENT 类）把实验现象证据映射为候选物种，也供讲解引用。
+/// 推断引擎只做关键词匹配与候选交集，绝不猜测索引之外的物种。
+/// </summary>
+public sealed class PhenomenaData
+{
+    public string Version { get; set; } = "";
+
+    public string Source { get; set; } = "";
+
+    public List<PhenomenonEntry> Items { get; set; } = new();
+}
+
+/// <summary>单条特征现象条目。</summary>
+public sealed class PhenomenonEntry
+{
+    /// <summary>编号，如 "PH-001"。</summary>
+    public string Id { get; set; } = "";
+
+    /// <summary>现象关键词（对题面现象文本做子串匹配），如 "血红色"。</summary>
+    public string Keyword { get; set; } = "";
+
+    /// <summary>现象完整描述（教材表述），供讲解。</summary>
+    public string Description { get; set; } = "";
+
+    /// <summary>现象指示的物种（L2 写法）；多个表示并列候选，由推断引擎与题目候选取交集。</summary>
+    public List<string> Species { get; set; } = new();
+
+    /// <summary>产生该现象所需试剂/语境（可为空），如 "KSCN 溶液"。</summary>
+    public string Reagent { get; set; } = "";
+
+    /// <summary>归属知识点 id。</summary>
+    public string KnowledgeId { get; set; } = "";
+
+    /// <summary>教材出处。</summary>
+    public string Source { get; set; } = "";
+}
+
 /// <summary>复分解反应发生条件（double-decomposition.json）。</summary>
 public sealed class DoubleDecompositionData
 {

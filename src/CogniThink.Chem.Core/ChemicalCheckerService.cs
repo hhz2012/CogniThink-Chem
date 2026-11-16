@@ -1,4 +1,5 @@
 using CogniThink.Chem.Core.Balancing;
+using CogniThink.Chem.Core.Chemistry;
 using CogniThink.Chem.Core.Common;
 using CogniThink.Chem.Core.Ionic;
 using CogniThink.Chem.Core.Parsing;
@@ -39,10 +40,11 @@ public sealed class CheckRequest
 
 /// <summary>
 /// 化学伴思统一校验入口。串行管线：
-/// 白名单校验 → 守恒校验 → 配平校验 → 离子规则校验（拆写/状态符号）→ 氧化还原分析 → 官能团校验。
-/// 核心铁律：
+/// 白名单校验 → 守恒校验 → 配平校验 → 离子规则校验（拆写/状态符号）→ 氧化还原分析 → 反应库一致性 → 官能团校验。
+/// 核心铁律（知识驱动确定性推断）：
 /// <list type="bullet">
-/// <item>引擎只做确定性校验，绝不预测产物、绝不推断未知反应。</item>
+/// <item>反应知识库有记录的反应物组合，其产物正确性按知识库条目对照（反应库一致性）；
+/// 知识库未收录的组合只做形式校验，绝不臆造产物。</item>
 /// <item>白名单外物质标记 <see cref="RiskTags.OutOfScope"/>，后续仅做形式校验。</item>
 /// <item>所有数值计算走有理数，无浮点误差。</item>
 /// </list>
@@ -88,6 +90,7 @@ public static class ChemicalCheckerService
             }
 
             CheckRedox(parsed, request.Medium, report);
+            CheckReactionLibraryConsistency(parsed, report);
         }
 
         if (!string.IsNullOrWhiteSpace(request.Smiles))
@@ -193,6 +196,73 @@ public static class ChemicalCheckerService
             ? $"（{analysis.FailReason}）"
             : "";
         report.AddPass("氧化还原分析", $"转移电子数 {analysis.ElectronsTransferred}，电子守恒{note}");
+    }
+
+    /// <summary>
+    /// 反应库一致性：用课内反应知识库对照"同一反应物组合"的产物记录（知识驱动的产物判错）。
+    /// 规则：
+    /// <list type="bullet">
+    /// <item>知识库无该反应物组合的任何条目 → 不判（保持"库外不推断"边界），记通过并注明。</item>
+    /// <item>有条目且方程式产物集与任一条目产物集一致（忽略系数与状态符号）→ 通过。</item>
+    /// <item>有条目但产物集与全部条目均不一致 → 判错（如 Fe+H2O(高温) 误写 Fe2O3，应为 Fe3O4）。</item>
+    /// </list>
+    /// 条件差异（浓稀/过量）不做强制对照：只要产物与任一条目一致即放行，避免误伤条件变体。
+    /// </summary>
+    private static void CheckReactionLibraryConsistency(ParsedEquation parsed, CheckReport report)
+    {
+        var library = Reactions.ReactionLibrary.Default.Value;
+        var reactants = parsed.Left.Select(t => t.Species.ToString()).ToList();
+        var hits = library.FindByReactants(reactants);
+        if (hits.Count == 0)
+        {
+            report.AddPass("反应库一致性", "该反应物组合在课内知识库中无条目，不做产物一致性判定");
+            return;
+        }
+
+        var productSet = new HashSet<string>(
+            parsed.Right.Select(t => t.Species.ToString()), StringComparer.Ordinal);
+        var matched = hits.FirstOrDefault(e => ProductSetMatches(e.Products, productSet));
+        if (matched is not null)
+        {
+            report.AddPass("反应库一致性", $"产物与知识库条目 {matched.Id}（{matched.Name}）一致");
+            return;
+        }
+
+        var recorded = string.Join("；", hits.Select(h => $"{h.Id}：{h.Equation}"));
+        report.AddFail(
+            "反应库一致性",
+            $"产物与课内知识库矛盾。该反应物组合的记录为：{recorded}",
+            RiskTags.KnowledgeConflict);
+    }
+
+    /// <summary>条目产物集与方程式产物集比较（归一化后按集合相等，忽略系数与状态符号）。</summary>
+    private static bool ProductSetMatches(List<string> entryProducts, HashSet<string> equationProducts)
+    {
+        var normalized = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var product in entryProducts)
+        {
+            normalized.Add(NormalizeForComparison(product));
+        }
+
+        return normalized.SetEquals(equationProducts);
+    }
+
+    private static string NormalizeForComparison(string formula)
+    {
+        var trimmed = formula.Trim().Replace(" ", "");
+        if (trimmed.Contains('·'))
+        {
+            return trimmed;
+        }
+
+        try
+        {
+            return Species.Parse(trimmed).ToString();
+        }
+        catch (FormulaException)
+        {
+            return trimmed;
+        }
     }
 
     /// <summary>

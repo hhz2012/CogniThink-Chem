@@ -165,9 +165,11 @@
       "distractors": [
         {
           "id": "PROC-004-D1",
-          "description": "边界样例：Cu 在金属活动性顺序中位于 H 之后，不能置换稀硫酸中的氢。形式守恒且电子守恒，引擎不判断反应可行性，由 LLM 层结合活动性顺序判断",
+          "description": "学生误区：误记 Cu 能置换硫酸中的氢（Cu 位于 H 之后不能）。引擎经反应库一致性判错（RX-IN-CU-006 记录 Cu 仅与浓硫酸加热反应生成 SO2）",
           "equation": "Cu + H2SO4 = CuSO4 + H2↑",
-          "expectValid": true
+          "expectValid": false,
+          "expectFailChecks": ["反应库一致性"],
+          "expectRiskTag": "知识库矛盾"
         },
         {
           "id": "PROC-004-D2",

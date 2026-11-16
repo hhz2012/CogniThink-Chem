@@ -72,6 +72,11 @@ public static class WhitelistGuard
         set.UnionWith(ions.Gases);
         set.UnionWith(ions.ElementalNonmetals);
 
+        // 课内补充物质（有机物 + 其它无机物），见 substances.json
+        var substances = store.Query<SubstanceInventoryData>("substances");
+        set.UnionWith(substances.Organics);
+        set.UnionWith(substances.OtherInorganics);
+
         // 活动性顺序中的金属单质（排除参照位 H）
         foreach (var element in series.Series.Where(e => e != "H"))
         {

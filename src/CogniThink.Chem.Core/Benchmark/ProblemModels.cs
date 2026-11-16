@@ -1,8 +1,9 @@
 namespace CogniThink.Chem.Core.Benchmark;
 
 /// <summary>
-/// 题目类别。推断动作（猜产物/猜成分/猜过程）属于 LLM 层；
-/// 引擎只校验候选答案（方程式/理由方程式/数值），本枚举用于测试集分类与路由。
+/// 题目类别。引擎按类别路由到对应的知识驱动推断引擎（见 Solving.ProblemSolver）：
+/// 产物/成分/过程推断与离子共存由反应知识库推导，定量计算由有理数引擎精确复算；
+/// 本枚举用于测试集分类与路由。
 /// </summary>
 public enum ProblemCategory
 {
@@ -121,6 +122,12 @@ public sealed class GivenSpec
     /// <summary>可能物质列表（成分推断/过程推断的候选集）。</summary>
     public List<string> CandidateSpecies { get; set; } = new();
 
+    /// <summary>
+    /// 成分推断模式标记：true = 待测对象是候选中的"某一种"（单一实体，须唯一解释全部证据）；
+    /// false（缺省）= 混合成分（可能含多种）。由题面语义显式标注，求解器不做猜测。
+    /// </summary>
+    public bool SingleEntity { get; set; }
+
     /// <summary>反应过程/实验步骤序列（成分推断/过程推断）。</summary>
     public List<StepSpec> Steps { get; set; } = new();
 
@@ -230,9 +237,9 @@ public sealed class EngineExpectation
 
 /// <summary>
 /// 干扰项：学生典型错解。
-/// 高中适用边界说明：引擎只做形式/守恒/白名单校验，部分"化学上错误但形式守恒"的错解
-/// （如 Fe 与稀硫酸误写为生成 Fe^3+）引擎无法捕获——此类边界样例 <see cref="ExpectValid"/> 置 true，
-/// 并在 <see cref="Description"/> 标注"边界样例：引擎职责外，由 LLM 层判断"。
+/// 引擎捕获范围：形式/守恒/白名单/拆写校验 + 反应库一致性（产物与课内知识库矛盾）。
+/// 仍有少数边界样例超出引擎判定范围（如知识库未收录该反应物组合时不判产物正误），
+/// 此类样例 <see cref="ExpectValid"/> 置 true，并在 <see cref="Description"/> 标注"边界样例"。
 /// </summary>
 public sealed class DistractorSpec
 {

@@ -35,6 +35,9 @@ public static class RiskTags
     /// <summary>氧化还原分析失败或电子转移不守恒。</summary>
     public const string RedoxError = "氧化还原错误";
 
+    /// <summary>与课内反应知识库条目矛盾（同一反应物组合的产物记录不一致）。</summary>
+    public const string KnowledgeConflict = "知识库矛盾";
+
     /// <summary>分子结构/官能团校验问题。</summary>
     public const string StructureError = "结构错误";
 

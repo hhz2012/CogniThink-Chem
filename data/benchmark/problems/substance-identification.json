@@ -139,6 +139,7 @@
       "problemText": "气体 A 能使湿润的红色石蕊试纸变蓝；A 与氯化氢气体相遇产生大量白烟。判断 A 并写出白烟反应的化学方程式。",
       "given": {
         "candidateSpecies": ["NH3", "HCl", "CO2", "SO2"],
+        "singleEntity": true,
         "steps": [
           { "step": 1, "from": "A", "to": "试纸变蓝", "reagents": ["湿润红色石蕊试纸"], "phenomenon": "试纸变蓝（碱性气体）" },
           { "step": 2, "from": "A", "to": "白烟", "reagents": ["HCl"], "phenomenon": "产生大量白烟" }
@@ -179,6 +180,7 @@
       "problemText": "金属 X 能溶于稀硫酸，产生无色气体，所得溶液呈浅绿色。判断 X 并写出反应的化学方程式。",
       "given": {
         "candidateSpecies": ["Fe", "Zn", "Mg", "Cu"],
+        "singleEntity": true,
         "steps": [
           { "step": 1, "from": "X", "to": "浅绿色溶液", "reagents": ["H2SO4(稀)"], "phenomenon": "固体溶解，产生无色气体，溶液呈浅绿色" }
         ]
@@ -195,9 +197,11 @@
       "distractors": [
         {
           "id": "IDENT-005-D1",
-          "description": "边界样例：Fe 与稀硫酸反应生成 Fe^2+（浅绿色）而非 Fe^3+。形式守恒且电子守恒，引擎不判断产物合理性，由 LLM 层依据'浅绿色溶液'现象判断",
+          "description": "学生误区：误记 Fe 与稀硫酸反应生成 Fe^3+（应为 Fe^2+，浅绿色溶液）。引擎经反应库一致性判错（RX-IN-FE-005 记录产物为 FeSO4）",
           "equation": "2Fe + 3H2SO4 = Fe2(SO4)3 + 3H2↑",
-          "expectValid": true
+          "expectValid": false,
+          "expectFailChecks": ["反应库一致性"],
+          "expectRiskTag": "知识库矛盾"
         },
         {
           "id": "IDENT-005-D2",
@@ -217,6 +221,7 @@
       "problemText": "白色固体样品 A、B 已知分别是 Na2CO3 和 NaHCO3 中的一种。分别加热，将产生的气体通入澄清石灰水：A 产生的气体使石灰水变浑浊，B 无明显变化。判断 A 的成分并写出 A 分解的化学方程式。",
       "given": {
         "candidateSpecies": ["Na2CO3", "NaHCO3"],
+        "singleEntity": true,
         "steps": [
           { "step": 1, "from": "A", "to": "石灰水变浑浊", "reagents": ["Ca(OH)2"], "conditions": ["△"], "phenomenon": "产生气体使澄清石灰水变浑浊" },
           { "step": 2, "from": "B", "to": "无变化", "reagents": ["Ca(OH)2"], "conditions": ["△"], "phenomenon": "无明显变化" }
@@ -256,6 +261,7 @@
       "problemText": "黑色固体 X 可能是 C、CuO、Fe3O4、MnO2 中的一种。向其中加入足量稀硫酸，固体溶解，得到蓝色溶液。判断 X 并写出反应的化学方程式。",
       "given": {
         "candidateSpecies": ["C", "CuO", "Fe3O4", "MnO2"],
+        "singleEntity": true,
         "steps": [
           { "step": 1, "from": "X", "to": "蓝色溶液", "reagents": ["H2SO4(稀)"], "phenomenon": "固体溶解，溶液呈蓝色" }
         ]
@@ -295,6 +301,7 @@
       "problemText": "氮肥 X 可能是 NH4Cl、NH4NO3、(NH4)2SO4 中的一种。进行如下实验：①取 X 与 NaOH 溶液混合加热，产生使湿润红色石蕊试纸变蓝的气体；②向①反应后的溶液中加入 Ba(NO3)2 溶液，无明显沉淀；③向②所得溶液中加入 AgNO3 溶液和稀硝酸，产生白色沉淀。判断 X 并写出相关反应的化学方程式/离子方程式。",
       "given": {
         "candidateSpecies": ["NH4Cl", "NH4NO3", "(NH4)2SO4"],
+        "singleEntity": true,
         "steps": [
           { "step": 1, "from": "X", "to": "碱性气体", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "产生使湿润红色石蕊试纸变蓝的气体" },
           { "step": 2, "from": "①的溶液", "to": "无沉淀", "reagents": ["Ba(NO3)2"], "phenomenon": "无明显沉淀" },

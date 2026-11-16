@@ -2,8 +2,12 @@ using System.Text.RegularExpressions;
 
 namespace CogniThink.Chem.Core.Chemistry;
 
-/// <summary>化学式解析异常。</summary>
-public sealed class FormulaException : Exception
+/// <summary>
+/// 化学式解析异常。继承 <see cref="FormatException"/>：
+/// 语义上就是"输入文本不是合法化学式"，与格式解析失败同类，
+/// 使既有 <c>catch (FormatException)</c> 的防御点（解析回退、白名单回退）统一生效。
+/// </summary>
+public sealed class FormulaException : FormatException
 {
     public FormulaException(string message) : base(message)
     {

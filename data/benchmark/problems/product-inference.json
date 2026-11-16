@@ -85,9 +85,11 @@
       "distractors": [
         {
           "id": "PROD-003-D1",
-          "description": "边界样例：产物应为 Fe3O4 而非 Fe2O3。形式守恒，引擎不预测产物，正误由 LLM 层依据教材知识判断",
+          "description": "学生误区：误记 Fe 与 H2O(高温) 的铁产物为 Fe2O3（应为 Fe3O4）。引擎经反应库一致性判错（RX-IN-FE-002）",
           "equation": "2Fe + 3H2O =高温= Fe2O3 + 3H2",
-          "expectValid": true
+          "expectValid": false,
+          "expectFailChecks": ["反应库一致性"],
+          "expectRiskTag": "知识库矛盾"
         },
         {
           "id": "PROD-003-D2",
@@ -220,9 +222,11 @@
         },
         {
           "id": "PROD-007-D2",
-          "description": "边界样例：常温下钠与水反应生成 NaOH 而非 Na2O。形式守恒且电子守恒，引擎不预测产物，由 LLM 层判断",
+          "description": "学生误区：误记常温下钠与水反应生成 Na2O（应为 NaOH）。引擎经反应库一致性判错（RX-IN-NA-004）",
           "equation": "2Na + H2O = Na2O + H2↑",
-          "expectValid": true
+          "expectValid": false,
+          "expectFailChecks": ["反应库一致性"],
+          "expectRiskTag": "知识库矛盾"
         }
       ],
       "source": "人教版《化学·必修第一册》第二章'钠及其化合物'",
