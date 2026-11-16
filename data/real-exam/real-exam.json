@@ -25,8 +25,8 @@
       "question": { "ask": "JudgeCoexistence", "targets": ["共存判断"] },
       "expected": {
         "verdict": "NotCoexist",
-        "equations": [],
-        "engineExpectation": { "isValid": true, "mustPass": [] }
+        "equations": ["Fe^3+ + 6CN^- = [Fe(CN)6]^3-"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平"] }
       },
       "source": "2024年1月浙江省普通高校招生选考科目考试 化学 第6题B项",
       "tags": ["高考真题", "离子共存", "络合反应"]

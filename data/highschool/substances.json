@@ -20,6 +20,7 @@
     "FeS2", "Cu2S", "CuFeS2",
     "H3PO4", "NaH2PO4", "Na2HPO4",
     "AlN", "Si3N4", "SiC",
-    "Na2FeO4"
+    "Na2FeO4",
+    "HCN"
   ]
 }

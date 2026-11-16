@@ -101,7 +101,8 @@ public static class OxidationStateAnalyzer
             ["ClO"] = (-1, new[] { ("Cl", Rational.One, 1), ("O", new Rational(-2), 1) }),
             ["PO4"] = (-3, new[] { ("P", new Rational(5), 1), ("O", new Rational(-2), 4) }),
             ["SiO3"] = (-2, new[] { ("Si", new Rational(4), 1), ("O", new Rational(-2), 3) }),
-            ["AlO2"] = (-1, new[] { ("Al", new Rational(3), 1), ("O", new Rational(-2), 2) })
+            ["AlO2"] = (-1, new[] { ("Al", new Rational(3), 1), ("O", new Rational(-2), 2) }),
+            ["CN"] = (-1, new[] { ("C", new Rational(2), 1), ("N", new Rational(-3), 1) })
         };
 
     private static readonly string[] IonGroupsByLength =
@@ -345,7 +346,7 @@ public static class OxidationStateAnalyzer
         while (pos < end)
         {
             var ch = body[pos];
-            if (ch == '(')
+            if (ch == '(' || ch == '[')
             {
                 var close = FindMatchingParen(body, pos, end);
                 if (close < 0)
@@ -425,14 +426,16 @@ public static class OxidationStateAnalyzer
 
     private static int FindMatchingParen(string body, int open, int end)
     {
+        var openChar = body[open];
+        var closeChar = openChar == '[' ? ']' : ')';
         var depth = 0;
         for (var i = open; i < end; i++)
         {
-            if (body[i] == '(')
+            if (body[i] == openChar || body[i] == '(' || body[i] == '[')
             {
                 depth++;
             }
-            else if (body[i] == ')')
+            else if (body[i] == closeChar || body[i] == ')' || body[i] == ']')
             {
                 depth--;
                 if (depth == 0)
