@@ -1,0 +1,184 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "COEX-RE1",
+      "category": "IonCoexistence",
+      "difficulty": "Medium",
+      "problemText": "（2024·浙江1月选考 第6题A项改编）在溶液中，H^+、I^-、Ba^2+、NO3^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["H^+", "I^-", "Ba^2+", "NO3^-"] },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "verdict": "NotCoexist",
+        "equations": ["6I^- + 2NO3^- + 8H^+ = 3I2 + 2NO↑ + 4H2O"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "2024年1月浙江省普通高校招生选考科目考试 化学 第6题A项",
+      "tags": ["高考真题", "离子共存", "氧化还原", "硝酸"]
+    },
+    {
+      "id": "COEX-RE2",
+      "category": "IonCoexistence",
+      "difficulty": "Hard",
+      "problemText": "（2024·浙江1月选考 第6题B项改编）在溶液中，Fe^3+、K^+、CN^-、Cl^- 能否大量共存？若不能，说明理由。",
+      "given": { "species": ["Fe^3+", "K^+", "CN^-", "Cl^-"] },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断"] },
+      "expected": {
+        "verdict": "NotCoexist",
+        "equations": [],
+        "engineExpectation": { "isValid": true, "mustPass": [] }
+      },
+      "source": "2024年1月浙江省普通高校招生选考科目考试 化学 第6题B项",
+      "tags": ["高考真题", "离子共存", "络合反应"]
+    },
+    {
+      "id": "COEX-RE3",
+      "category": "IonCoexistence",
+      "difficulty": "Medium",
+      "problemText": "（2024·浙江1月选考 第6题C项改编）在溶液中，Na^+、SiO3^2-、Br^-、Ca^2+ 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Na^+", "SiO3^2-", "Br^-", "Ca^2+"] },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "verdict": "NotCoexist",
+        "equations": ["Ca^2+ + SiO3^2- = CaSiO3↓"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "2024年1月浙江省普通高校招生选考科目考试 化学 第6题C项",
+      "tags": ["高考真题", "离子共存", "沉淀"]
+    },
+    {
+      "id": "COEX-RE4",
+      "category": "IonCoexistence",
+      "difficulty": "Medium",
+      "problemText": "（2024·浙江1月选考 第6题D项·正确答案）在溶液中，NH4^+、SO4^2-、CH3COO^-、HCO3^- 能否大量共存？",
+      "given": { "species": ["NH4^+", "SO4^2-", "CH3COO^-", "HCO3^-"] },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断"] },
+      "expected": {
+        "verdict": "Coexist",
+        "equations": [],
+        "engineExpectation": { "isValid": true, "mustPass": [] }
+      },
+      "source": "2024年1月浙江省普通高校招生选考科目考试 化学 第6题D项",
+      "tags": ["高考真题", "离子共存", "弱酸根"]
+    },
+    {
+      "id": "PROD-RE1",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "过氧化钠用作呼吸面具的供氧剂。写出过氧化钠与二氧化碳反应的化学方程式。",
+      "given": { "species": ["Na2O2", "CO2"] },
+      "question": { "ask": "WriteProducts", "targets": ["化学方程式"] },
+      "expected": {
+        "equations": ["2Na2O2 + 2CO2 = 2Na2CO3 + O2"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平"] }
+      },
+      "source": "高考真题高频考点（Na2O2 供氧剂，如 2023 全国卷实验综合）",
+      "tags": ["高考真题", "产物推断", "钠及其化合物", "呼吸面具"]
+    },
+    {
+      "id": "PROD-RE2",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "向 FeCl2 溶液加入几滴氯水，再加入 1 滴 KSCN 溶液，溶液变红，说明 Cl2 可将 Fe^2+ 氧化。写出 FeCl2 溶液与氯水反应的离子方程式。",
+      "given": { "species": ["Fe^2+", "Cl2"] },
+      "question": { "ask": "WriteProducts", "targets": ["离子方程式"] },
+      "expected": {
+        "equations": ["2Fe^2+ + Cl2 = 2Fe^3+ + 2Cl^-"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平"] }
+      },
+      "source": "高考真题（十年高考真题·铁及其化合物实验探究，Fe^2+ 与氯水）",
+      "tags": ["高考真题", "产物推断", "铁及其化合物", "氧化还原"]
+    },
+    {
+      "id": "IDENT-RE1",
+      "category": "SubstanceIdentification",
+      "difficulty": "Hard",
+      "problemText": "（2022·全国乙卷 第3题改编）某白色粉末样品可能含有 Na2S2O3、Na2SO3、Na2CO3、Na2SO4 中的一种或几种。取少量样品：①溶于水，得到无色透明溶液；②向①的溶液中滴加过量稀盐酸，溶液变浑浊，有刺激性气体逸出；③取②的上层清液，滴加 BaCl2 溶液，有沉淀生成。判断样品中一定存在与不能确定的成分。",
+      "given": {
+        "candidateSpecies": ["S2O3^2-", "SO3^2-", "CO3^2-", "SO4^2-"],
+        "steps": [
+          { "step": 1, "from": "无色透明溶液", "to": "浑浊+刺激性气体", "reagents": ["HCl"], "phenomenon": "滴加过量稀盐酸，溶液变浑浊，有刺激性气体逸出" },
+          { "step": 2, "from": "上层清液", "to": "白色沉淀", "reagents": ["BaCl2"], "phenomenon": "滴加 BaCl2 溶液，有沉淀生成" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["一定存在的成分", "不能确定的成分"] },
+      "expected": {
+        "composition": { "S2O3^2-": "Must", "SO4^2-": "Must", "SO3^2-": "Maybe", "CO3^2-": "Maybe" },
+        "equations": ["S2O3^2- + 2H^+ = S↓ + SO2↑ + H2O", "Ba^2+ + SO4^2- = BaSO4↓"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "2022年普通高等学校招生全国统一考试（全国乙卷）化学 第3题",
+      "tags": ["高考真题", "成分推断", "硫及其化合物", "实验探究"]
+    },
+    {
+      "id": "PROC-RE1",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "A 是目前使用量最大的金属。A 在 Cl2 中燃烧生成 B；向 B 的溶液中加入 A 得到 C；向 C 的溶液中通入 Cl2 又得到 B。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Fe", "FeCl2", "FeCl3", "Cl2"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["Cl2"], "conditions": ["点燃"], "phenomenon": "产生棕褐色烟" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["Fe"], "phenomenon": "溶液由黄色变浅绿色" },
+          { "step": 3, "from": "C", "to": "B", "reagents": ["Cl2"], "phenomenon": "溶液由浅绿色变黄色" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "Fe", "B": "FeCl3", "C": "FeCl2" },
+        "equations": [
+          "2Fe + 3Cl2 =点燃= 2FeCl3",
+          "Fe + 2FeCl3 = 3FeCl2",
+          "2FeCl2 + Cl2 = 2FeCl3"
+        ],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平"] }
+      },
+      "source": "高考真题（铁及其化合物转化，Fe/Fe^2+/Fe^3+ 三角关系）",
+      "tags": ["高考真题", "过程推断", "铁及其化合物"]
+    },
+    {
+      "id": "CALC-RE1",
+      "category": "StoichiometryCalc",
+      "difficulty": "Medium",
+      "problemText": "（2023·全国新课标卷 实验题改编）由安息香（C14H12O2，M=212 g/mol）氧化制二苯乙二酮（M=210 g/mol）。实验中 2.0 g 安息香完全反应理论上可制得 1.98 g 二苯乙二酮，实际得到产物 1.6 g。计算本实验的产率（用小数表示）。",
+      "given": {
+        "numericFacts": [
+          { "kind": "Mass", "species": "C14H12O2", "value": "2.0", "unit": "g" },
+          { "kind": "Mass", "species": "二苯乙二酮", "value": "1.98", "unit": "g" },
+          { "kind": "ActualYieldMass", "species": "二苯乙二酮", "value": "1.6", "unit": "g" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["产率"] },
+      "expected": {
+        "calc": { "op": "YieldRatio", "actualMassGrams": "1.6", "theoreticalMassGrams": "1.98" },
+        "numericAnswer": { "value": "80/99", "unit": "比率", "species": "二苯乙二酮" },
+        "equations": [],
+        "engineExpectation": { "isValid": true, "mustPass": [] }
+      },
+      "source": "2023年普通高等学校招生全国统一考试（新课标卷）化学 实验题（产率计算）",
+      "tags": ["高考真题", "定量计算", "产率", "实验"]
+    },
+    {
+      "id": "CALC-RE2",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "（2024·广东卷 实验题改编）实验室需配制 250 mL 0.1 mol/L 的 NaOH 溶液，用 5 mol/L 的 NaOH 浓溶液稀释配制，需量取该浓溶液的体积为多少 mL？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Concentration", "species": "浓 NaOH", "value": "5", "unit": "mol/L" },
+          { "kind": "Concentration", "species": "稀 NaOH", "value": "0.1", "unit": "mol/L" },
+          { "kind": "SolutionVolume", "value": "1/4", "unit": "L" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["需量取浓溶液体积"] },
+      "expected": {
+        "calc": { "op": "DilutionVolume", "concentration1": "5", "concentration": "1/10", "volume2Liters": "1/4" },
+        "numericAnswer": { "value": "1/200", "unit": "L", "species": "NaOH" },
+        "equations": [],
+        "engineExpectation": { "isValid": true, "mustPass": [] }
+      },
+      "source": "2024年广东省普通高中学业水平选择考 化学 实验题（溶液配制）",
+      "tags": ["高考真题", "定量计算", "稀释", "溶液配制"]
+    }
+  ]
+}

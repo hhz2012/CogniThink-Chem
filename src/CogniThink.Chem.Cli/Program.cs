@@ -27,8 +27,13 @@ if (args.Length > 0 && args[0] == "--export-web")
     return RunExportWeb(args.Length > 1 ? args[1] : null);
 }
 
+if (args.Length > 0 && args[0] == "--verify-real")
+{
+    return RunVerifyReal();
+}
+
 Console.WriteLine($"{ModuleInfo.DisplayName} ({ModuleInfo.Name}) v{ModuleInfo.Version}");
-Console.WriteLine("命令：--demo（统一校验演示）　--solve（五类题 解+讲+引导 演示）　--export-web [输出目录]（导出前端网页数据）");
+Console.WriteLine("命令：--demo（统一校验演示）　--solve（五类题 解+讲+引导 演示）　--export-web [输出目录]（导出前端网页数据）　--verify-real（真题求解验证）");
 return 0;
 
 /// <summary>
@@ -244,4 +249,130 @@ static int RunExportWeb(string? outputDir)
     }
 
     return 0;
+}
+
+/// <summary>
+/// 真题验证：加载 data/real-exam/real-exam.json（高考真题改编），
+/// 用推断引擎逐题求解，与真题标准答案逐字段比对（结论/方程式/成分/对应关系/精确数值），
+/// 输出 PASS/FAIL 报告。FAIL 即暴露知识库覆盖缺口或引擎能力边界，如实呈现、不粉饰。
+/// </summary>
+static int RunVerifyReal()
+{
+    var dataRoot = DataRoot.Resolve();
+    var repoRoot = Path.GetDirectoryName(dataRoot)!;
+    var file = Path.Combine(repoRoot, "data", "real-exam", "real-exam.json");
+    var problems = ChemDataLoader.ReadItems<ProblemSpec>(file);
+
+    var pass = 0;
+    var fail = 0;
+    foreach (var problem in problems)
+    {
+        var solution = ProblemSolver.Solve(problem);
+        var (ok, detail) = CompareWithStandardAnswer(problem, solution);
+        if (ok)
+        {
+            pass++;
+        }
+        else
+        {
+            fail++;
+        }
+
+        Console.WriteLine($"{(ok ? "PASS" : "FAIL")} [{problem.Id}] {Explainer.CategoryName(problem.Category)}｜难度 {problem.Difficulty}");
+        Console.WriteLine($"  题目：{problem.ProblemText}");
+        Console.WriteLine($"  出处：{problem.Source}");
+        Console.WriteLine($"  引擎：{(solution.IsSolved ? "已解出" : solution.Status.ToString())}　{solution.Message}");
+        foreach (var line in detail)
+        {
+            Console.WriteLine($"  {line}");
+        }
+
+        Console.WriteLine();
+    }
+
+    Console.WriteLine(new string('=', 60));
+    Console.WriteLine($"真题验证汇总：{pass} PASS / {fail} FAIL（共 {problems.Count} 题）");
+    return fail == 0 ? 0 : 1;
+}
+
+/// <summary>引擎结论 vs 真题标准答案逐字段比对，返回（是否一致，差异明细）。</summary>
+static (bool Ok, List<string> Detail) CompareWithStandardAnswer(ProblemSpec problem, Solution solution)
+{
+    var detail = new List<string>();
+    var expected = problem.Expected;
+    var ok = true;
+
+    switch (problem.Category)
+    {
+        case ProblemCategory.IonCoexistence:
+        {
+            var got = solution.Coexistence?.ToString() ?? "(无结论)";
+            var want = expected.Verdict?.ToString() ?? "(无)";
+            var same = string.Equals(got, want, StringComparison.Ordinal);
+            detail.Add($"  共存结论：引擎={got}　标准={want}　{(same ? "一致" : "不一致")}");
+            ok &= same;
+            break;
+        }
+        case ProblemCategory.SubstanceIdentification:
+        {
+            var got = solution.Composition.ToDictionary(kv => kv.Key, kv => kv.Value.ToString(), StringComparer.Ordinal);
+            var want = expected.Composition?.ToDictionary(kv => kv.Key, kv => kv.Value.ToString(), StringComparer.Ordinal)
+                       ?? new Dictionary<string, string>(StringComparer.Ordinal);
+            var same = got.Count == want.Count && want.All(kv => got.TryGetValue(kv.Key, out var v) && v == kv.Value);
+            detail.Add($"  成分结论：引擎={{{string.Join("，", got.Select(kv => $"{kv.Key}:{kv.Value}"))}}}");
+            detail.Add($"  　　　　　标准={{{string.Join("，", want.Select(kv => $"{kv.Key}:{kv.Value}"))}}}　{(same ? "一致" : "不一致")}");
+            ok &= same;
+            break;
+        }
+        case ProblemCategory.ProcessInference:
+        {
+            var got = solution.SubstanceMap;
+            var want = expected.SubstanceMap ?? new Dictionary<string, string>();
+            var same = got.Count == want.Count && want.All(kv => got.TryGetValue(kv.Key, out var v) && v == kv.Value);
+            detail.Add($"  物质对应：引擎={{{string.Join("，", got.Select(kv => $"{kv.Key}:{kv.Value}"))}}}");
+            detail.Add($"  　　　　　标准={{{string.Join("，", want.Select(kv => $"{kv.Key}:{kv.Value}"))}}}　{(same ? "一致" : "不一致")}");
+            ok &= same;
+            break;
+        }
+        case ProblemCategory.StoichiometryCalc:
+        {
+            var want = expected.NumericAnswer;
+            if (want is null)
+            {
+                detail.Add("  标准答案缺少数值结论，无法比对。");
+                ok = false;
+            }
+            else
+            {
+                var wantValue = CogniThink.Chem.Core.Math.Rational.Parse(want.Value);
+                var same = solution.NumericValue is { } v && v == wantValue
+                           && string.Equals(solution.NumericUnit, want.Unit, StringComparison.Ordinal);
+                detail.Add($"  数值结论：引擎={solution.NumericValue?.ToString() ?? "(无)"} {solution.NumericUnit}　标准={want.Value} {want.Unit}　{(same ? "一致" : "不一致")}");
+                ok &= same;
+            }
+
+            break;
+        }
+        default:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+            }
+
+            break;
+        }
+    }
+
+    if (expected.Equations.Count > 0 || solution.Equations.Count > 0)
+    {
+        var sameEq = new HashSet<string>(solution.Equations, StringComparer.Ordinal)
+            .SetEquals(expected.Equations);
+        detail.Add($"  方程式：引擎={{{string.Join("；", solution.Equations)}}}");
+        detail.Add($"  　　　　标准={{{string.Join("；", expected.Equations)}}}　{(sameEq ? "一致" : "不一致")}");
+        ok &= sameEq;
+    }
+
+    return (ok, detail);
 }

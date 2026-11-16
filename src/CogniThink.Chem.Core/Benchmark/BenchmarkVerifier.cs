@@ -199,6 +199,12 @@ public static class BenchmarkVerifier
                     Need(spec.Volume1Liters, "volume1Liters"),
                     Need(spec.Volume2Liters, "volume2Liters"));
 
+            case CalcOp.DilutionVolume:
+                // V1 = c2·V2 / c1（真题常问"需量取浓溶液多少 mL"）。
+                return Need(spec.Concentration, "concentration")
+                       * Need(spec.Volume2Liters, "volume2Liters")
+                       / Need(spec.Concentration1, "concentration1");
+
             case CalcOp.MolesFromConcentration:
                 return MoleCalculator.MolesFromConcentration(
                     Need(spec.Concentration, "concentration"), Need(spec.SolutionVolumeLiters, "solutionVolumeLiters"));

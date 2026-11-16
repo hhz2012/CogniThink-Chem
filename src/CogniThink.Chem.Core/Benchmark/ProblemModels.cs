@@ -345,6 +345,9 @@ public enum CalcOp
     /// <summary>c2 = c1·V1 / V2。</summary>
     Dilution,
 
+    /// <summary>V1 = c2·V2 / c1（由目标浓度与体积反求所需浓溶液体积）。</summary>
+    DilutionVolume,
+
     /// <summary>n = c·V。</summary>
     MolesFromConcentration,
 

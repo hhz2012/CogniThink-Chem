@@ -284,6 +284,7 @@ public static class ProblemSolver
             case CalcOp.GasVolumeFromMass: return "V = (m / M) × 22.4 L/mol";
             case CalcOp.MolesFromGasVolume: return "n = V / 22.4 L/mol";
             case CalcOp.Dilution: return "c2 = c1 × V1 / V2";
+            case CalcOp.DilutionVolume: return "V1 = c2 × V2 / c1";
             case CalcOp.MolesFromConcentration: return "n = c × V";
             case CalcOp.YieldRatio: return "产率 = 实际产量 / 理论产量";
             case CalcOp.MolesFromParticles: return "n = N / NA";
@@ -302,6 +303,7 @@ public static class ProblemSolver
             case CalcOp.MassFromMoles:
                 return "g";
             case CalcOp.GasVolumeFromMass:
+            case CalcOp.DilutionVolume:
                 return "L";
             case CalcOp.YieldRatio:
                 return "比率";
