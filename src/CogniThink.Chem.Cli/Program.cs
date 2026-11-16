@@ -18,8 +18,7 @@ if (args.Length > 0 && args[0] == "--demo")
 
 if (args.Length > 0 && args[0] == "--solve")
 {
-    RunSolveDemo();
-    return 0;
+    return RunSolveDemo(args.Length > 1 ? args[1] : null);
 }
 
 if (args.Length > 0 && args[0] == "--export-web")
@@ -33,7 +32,7 @@ if (args.Length > 0 && args[0] == "--verify-real")
 }
 
 Console.WriteLine($"{ModuleInfo.DisplayName} ({ModuleInfo.Name}) v{ModuleInfo.Version}");
-Console.WriteLine("命令：--demo（统一校验演示）　--solve（五类题 解+讲+引导 演示）　--export-web [输出目录]（导出前端网页数据）　--verify-real（真题求解验证）");
+Console.WriteLine("命令：--demo（统一校验演示）　--solve [题目ID]（解+讲+引导 演示，可指定全量基准题库中的单题）　--export-web [输出目录]（导出前端网页数据）　--verify-real（真题求解验证）");
 return 0;
 
 /// <summary>
@@ -81,19 +80,37 @@ static void RunDemo()
 }
 
 /// <summary>
-/// 求解演示（"能解、能讲、能指导学生思考"）：五类题各选一题，
-/// 打印"推断/计算 → 解 → 讲解 → 引导"全链路。
+/// 求解演示（"能解、能讲、能指导学生思考"）：
+/// 指定题目 ID 时从全量基准题库（含九类）检索并只输出该题；
+/// 未指定时五类题各选一题，打印"推断/计算 → 解 → 讲解 → 引导"全链路。
 /// </summary>
-static void RunSolveDemo()
+static int RunSolveDemo(string? singleId)
 {
-    var demoIds = new[] { "PROD-003", "IDENT-006", "PROC-001", "COEX-001", "CALC-003" };
     var problems = BenchmarkLoader.LoadAll();
     var knowledge = ChemDataLoader.LoadKnowledge(DataRoot.Resolve());
     var explainer = new Explainer(knowledge);
 
-    foreach (var id in demoIds)
+    List<ProblemSpec> selected;
+    if (!string.IsNullOrWhiteSpace(singleId))
     {
-        var problem = problems.Single(p => p.Id == id);
+        var problem = problems.FirstOrDefault(p =>
+            string.Equals(p.Id, singleId.Trim(), StringComparison.OrdinalIgnoreCase));
+        if (problem is null)
+        {
+            Console.WriteLine($"未找到题目 ID \"{singleId}\"：--solve 从全量基准题库（{problems.Count} 题、九类题型）中检索。");
+            return 1;
+        }
+
+        selected = new List<ProblemSpec> { problem };
+    }
+    else
+    {
+        var demoIds = new[] { "PROD-003", "IDENT-006", "PROC-001", "COEX-001", "CALC-003" };
+        selected = demoIds.Select(id => problems.Single(p => p.Id == id)).ToList();
+    }
+
+    foreach (var problem in selected)
+    {
         var solution = ProblemSolver.Solve(problem);
         var explanation = explainer.Explain(solution);
         var guide = GuideGenerator.Generate(solution, problem, knowledge);
@@ -122,6 +139,8 @@ static void RunSolveDemo()
         Console.WriteLine(guide.FullText);
         Console.WriteLine();
     }
+
+    return 0;
 }
 
 /// <summary>
@@ -190,6 +209,10 @@ static int RunExportWeb(string? outputDir)
                 numericValue = solution.NumericValue?.ToString(),
                 solution.NumericUnit,
                 solution.NumericSpecies,
+                solution.Electrodes,
+                solution.Equilibrium,
+                solution.Aqueous,
+                solution.Purposes,
                 steps = solution.Steps.Select(s => new
                 {
                     s.Order, s.Description, s.Evidence, s.KnowledgeId, s.Source
@@ -349,6 +372,149 @@ static (bool Ok, List<string> Detail) CompareWithStandardAnswer(ProblemSpec prob
                            && string.Equals(solution.NumericUnit, want.Unit, StringComparison.Ordinal);
                 detail.Add($"  数值结论：引擎={solution.NumericValue?.ToString() ?? "(无)"} {solution.NumericUnit}　标准={want.Value} {want.Unit}　{(same ? "一致" : "不一致")}");
                 ok &= same;
+            }
+
+            break;
+        }
+        case ProblemCategory.Electrochemistry:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+                break;
+            }
+
+            var got = solution.Electrodes;
+            var want = expected.Electrodes;
+            foreach (var (label, g, w) in new (string Label, string? Got, string? Want)[]
+            {
+                ("负极", got?.Negative, want?.Negative),
+                ("正极", got?.Positive, want?.Positive),
+                ("阳极", got?.Anode, want?.Anode),
+                ("阴极", got?.Cathode, want?.Cathode),
+            })
+            {
+                if (string.IsNullOrWhiteSpace(g) && string.IsNullOrWhiteSpace(w))
+                {
+                    continue;
+                }
+
+                var same = string.Equals(g ?? "", w ?? "", StringComparison.Ordinal);
+                detail.Add($"  {label}电极式：引擎={g ?? "(无)"}　标准={w ?? "(无)"}　{(same ? "一致" : "不一致")}");
+                ok &= same;
+            }
+
+            break;
+        }
+        case ProblemCategory.ChemicalEquilibrium:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+                break;
+            }
+
+            var got = solution.Equilibrium;
+            var want = expected.Equilibrium;
+            if (got is null || want is null)
+            {
+                detail.Add("  三段式结论缺失，无法比对。");
+                ok = false;
+                break;
+            }
+
+            var tableSame = got.Table.Count == want.Table.Count
+                            && want.Table.All(wr => got.Table.Any(gr =>
+                                gr.Species == wr.Species && gr.Start == wr.Start
+                                && gr.Change == wr.Change && gr.End == wr.End));
+            detail.Add($"  三段式：引擎={{{string.Join("；", got.Table.Select(r => $"{r.Species} 起始{r.Start} 转化{r.Change} 平衡{r.End}"))}}}");
+            detail.Add($"  　　　　标准={{{string.Join("；", want.Table.Select(r => $"{r.Species} 起始{r.Start} 转化{r.Change} 平衡{r.End}"))}}}　{(tableSame ? "一致" : "不一致")}");
+            ok &= tableSame;
+
+            foreach (var (label, g, w) in new (string Label, string? Got, string? Want)[]
+            {
+                ("转化率", got.ConversionSpecies is null ? null : $"{got.ConversionSpecies} {got.Conversion}", want.ConversionSpecies is null ? null : $"{want.ConversionSpecies} {want.Conversion}"),
+                ("摩尔分数", got.FractionSpecies is null ? null : $"{got.FractionSpecies} {got.Fraction}", want.FractionSpecies is null ? null : $"{want.FractionSpecies} {want.Fraction}"),
+                ("K 值", got.KValue, want.KValue),
+                ("移动方向", got.Direction, want.Direction),
+            })
+            {
+                if (string.IsNullOrWhiteSpace(g) && string.IsNullOrWhiteSpace(w))
+                {
+                    continue;
+                }
+
+                var same = string.Equals(g ?? "", w ?? "", StringComparison.Ordinal);
+                detail.Add($"  {label}：引擎={g ?? "(无)"}　标准={w ?? "(无)"}　{(same ? "一致" : "不一致")}");
+                ok &= same;
+            }
+
+            break;
+        }
+        case ProblemCategory.AqueousIonEquilibrium:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+                break;
+            }
+
+            var got = solution.Aqueous;
+            var want = expected.Aqueous;
+            if (got is null || want is null)
+            {
+                detail.Add("  水溶液结论缺失，无法比对。");
+                ok = false;
+                break;
+            }
+
+            if (want.Order.Count > 0 || got.Order.Count > 0)
+            {
+                var same = got.Order.SequenceEqual(want.Order, StringComparer.Ordinal);
+                detail.Add($"  浓度顺序：引擎={string.Join(" > ", got.Order)}");
+                detail.Add($"  　　　　　标准={string.Join(" > ", want.Order)}　{(same ? "一致" : "不一致")}");
+                ok &= same;
+            }
+
+            if (want.ConservationEquations.Count > 0 || got.ConservationEquations.Count > 0)
+            {
+                var same = new HashSet<string>(got.ConservationEquations, StringComparer.Ordinal)
+                    .SetEquals(want.ConservationEquations);
+                detail.Add($"  守恒等式：引擎={{{string.Join("；", got.ConservationEquations)}}}");
+                detail.Add($"  　　　　　标准={{{string.Join("；", want.ConservationEquations)}}}　{(same ? "一致" : "不一致")}");
+                ok &= same;
+            }
+
+            break;
+        }
+        case ProblemCategory.IndustrialProcess:
+        {
+            if (!solution.IsSolved)
+            {
+                detail.Add($"  引擎未解出：{solution.Message}");
+                ok = false;
+                break;
+            }
+
+            var got = solution.SubstanceMap;
+            var want = expected.SubstanceMap ?? new Dictionary<string, string>();
+            if (want.Count > 0 || got.Count > 0)
+            {
+                var same = got.Count == want.Count && want.All(kv => got.TryGetValue(kv.Key, out var v) && v == kv.Value);
+                detail.Add($"  物质对应：引擎={{{string.Join("，", got.Select(kv => $"{kv.Key}:{kv.Value}"))}}}");
+                detail.Add($"  　　　　　标准={{{string.Join("，", want.Select(kv => $"{kv.Key}:{kv.Value}"))}}}　{(same ? "一致" : "不一致")}");
+                ok &= same;
+            }
+
+            foreach (var (stepNumber, keyword) in expected.Purposes ?? new Dictionary<string, string>())
+            {
+                var actual = solution.Purposes.TryGetValue(stepNumber, out var p) ? p : "(缺)";
+                var hit = actual.Contains(keyword, StringComparison.Ordinal);
+                detail.Add($"  步骤{stepNumber}目的：引擎={actual}　标准须含\"{keyword}\"　{(hit ? "一致" : "不一致")}");
+                ok &= hit;
             }
 
             break;

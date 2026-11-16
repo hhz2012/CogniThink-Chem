@@ -18,6 +18,8 @@ const COEXIST_TEXT = {
 
 const COMPOSITION_LABEL = { Must: '一定存在', MustNot: '一定不存在', Maybe: '可能存在' };
 
+const DIRECTION_TEXT = { forward: '正向移动', reverse: '逆向移动', noShift: '平衡不移动' };
+
 const FACT_KIND = {
   Mass: '质量',
   Moles: '物质的量',
@@ -335,6 +337,82 @@ function answerHtml(s, category) {
           <b>${esc(s.numericValue)}</b><span>${esc(s.numericUnit)}</span>
           ${s.numericSpecies ? `<i>（${chem(s.numericSpecies)}）</i>` : ''}
         </div>`;
+
+    case 'Electrochemistry': {
+      const el = s.electrodes || {};
+      const cells = [['负极', el.negative], ['正极', el.positive],
+        ['阳极', el.anode], ['阴极', el.cathode]]
+        .filter(([, v]) => v)
+        .map(([label, v]) => `
+          <div class="electrode-cell">
+            <h5>${esc(label)}</h5>
+            <p class="mono">${chem(v)}</p>
+          </div>`).join('');
+      return `
+        <div class="answer-block">
+          <div class="electrode-grid">${cells}</div>
+        </div>` + eqBlock('总反应', s.equations);
+    }
+
+    case 'ChemicalEquilibrium': {
+      const q = s.equilibrium || {};
+      const rows = (q.table || []).map((r) => `
+        <tr>
+          <td>${chem(r.species)}</td>
+          <td>${esc(r.start)}</td>
+          <td>${esc(r.change)}</td>
+          <td>${esc(r.end)}</td>
+        </tr>`).join('');
+      const concl = [];
+      if (q.conversion) concl.push(`${chem(q.conversionSpecies)} 转化率 <b>${esc(q.conversion)}</b>`);
+      if (q.fraction) concl.push(`${chem(q.fractionSpecies)} 摩尔分数 <b>${esc(q.fraction)}</b>`);
+      if (q.kValue) concl.push(`Kp = <b>${esc(q.kValue)}</b>`);
+      if (q.direction) concl.push(`扰动后平衡 <b>${esc(DIRECTION_TEXT[q.direction] || q.direction)}</b>`);
+      return `
+        <div class="answer-block">
+          <div class="eq-table-wrap">
+            <table class="eq-table">
+              <thead><tr><th>三段式（mol）</th><th>起始</th><th>转化</th><th>平衡</th></tr></thead>
+              <tbody>${rows}</tbody>
+            </table>
+          </div>
+          ${concl.length ? `<div class="eq-concl">${concl.map((c) => `<span>${c}</span>`).join('')}</div>` : ''}
+        </div>` + eqBlock('可逆反应', s.equations);
+    }
+
+    case 'AqueousIonEquilibrium': {
+      const a = s.aqueous || {};
+      const chain = (a.order || []).length
+        ? `<div class="answer-block"><div class="order-chain">${a.order.map(chem).join('<span class="order-gt">&gt;</span>')}</div></div>`
+        : '';
+      const cons = (a.conservationEquations || []).length
+        ? `
+        <div class="eq-block">
+          <h5>守恒关系</h5>
+          <ul>${a.conservationEquations.map((c) => `<li>${chem(c)}</li>`).join('')}</ul>
+        </div>`
+        : '';
+      return chain + cons + eqBlock('弱过程方程', s.equations);
+    }
+
+    case 'IndustrialProcess': {
+      const map = Object.keys(s.substanceMap || {}).sort().map((k) =>
+        `<span class="map-item">${esc(k)} → ${chem(s.substanceMap[k])}</span>`).join('');
+      const purposes = Object.keys(s.purposes || {}).sort().map((n) =>
+        `
+          <div class="comp-row">
+            <span class="comp-label comp-Must">第 ${esc(n)} 步目的</span>
+            <span class="comp-list purpose-text">${esc(s.purposes[n])}</span>
+          </div>`).join('');
+      return `
+        <div class="answer-block">
+          <div class="comp-row">
+            <span class="comp-label comp-Must">物质对应</span>
+            <span class="comp-list">${map}</span>
+          </div>
+          ${purposes}
+        </div>` + eqBlock('转化链方程式', s.equations);
+    }
 
     default:
       return '';

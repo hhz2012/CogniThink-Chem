@@ -244,6 +244,243 @@
       },
       "source": "2024年广东省普通高中学业水平选择考 化学 实验题（溶液配制）",
       "tags": ["高考真题", "定量计算", "稀释", "溶液配制"]
+    },
+    {
+      "id": "ELEC-RE1",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·氯碱工业）用石墨作阳极、铁作阴极电解饱和食盐水（氯碱工业，介质记为碱性），总反应为 2Cl^- + 2H2O = Cl2↑ + H2↑ + 2OH^-。写出阳极和阴极的电极反应式。",
+      "given": {
+        "medium": "basic",
+        "cell": {
+          "type": "electrolytic",
+          "electrodes": ["C", "Fe"],
+          "electrolyte": "NaCl",
+          "medium": "basic",
+          "overall": "2Cl^- + 2H2O = Cl2↑ + H2↑ + 2OH^-",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["阳极电极反应式", "阴极电极反应式"] },
+      "expected": {
+        "equations": ["2Cl^- + 2H2O = Cl2↑ + H2↑ + 2OH^-"],
+        "electrodes": {
+          "anode": "2Cl^- = Cl2 + 2e^-",
+          "cathode": "2H2O + 2e^- = H2 + 2OH^-"
+        }
+      },
+      "source": "高考真题改编（氯碱工业电解饱和食盐水·电极反应式，全国卷化工生产与电化学综合题高频考点）",
+      "tags": ["高考真题", "电化学", "电解池", "氯碱工业"]
+    },
+    {
+      "id": "ELEC-RE2",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·碱性氢氧燃料电池）氢氧燃料电池以铂为电极、KOH 溶液为电解质（碱性介质），负极通入 H2、正极通入 O2，总反应为 2H2 + O2 = 2H2O。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "basic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Pt", "Pt"],
+          "electrolyte": "KOH",
+          "medium": "basic",
+          "overall": "2H2 + O2 = 2H2O",
+          "gasFeeds": ["H2", "O2"]
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["2H2 + O2 = 2H2O"],
+        "electrodes": {
+          "negative": "2H2 + 4OH^- = 4H2O + 4e^-",
+          "positive": "O2 + 2H2O + 4e^- = 4OH^-"
+        }
+      },
+      "source": "高考真题改编（碱性氢氧燃料电池电极反应式，全国卷/北京卷电化学选择题高频考点）",
+      "tags": ["高考真题", "电化学", "原电池", "燃料电池"]
+    },
+    {
+      "id": "EQ-RE1",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·工业合成氨平衡）恒温恒容密闭容器中发生可逆反应 N2 + 3H2 ⇌ 2NH3。起始充入 1 mol N2 和 3 mol H2，平衡时 N2 的转化率为 1/3，体系总压为 10 atm。列出三段式求平衡组成，并计算 NH3 的摩尔分数与 Kp（分压 = 摩尔分数 × 总压）。",
+      "given": {
+        "equilibrium": {
+          "equation": "N2 + 3H2 ⇌ 2NH3",
+          "container": "constantVolume",
+          "initial": { "N2": "1", "H2": "3" },
+          "known": { "kind": "conversion", "species": "N2", "value": "1/3" },
+          "totalPressure": "10",
+          "fractionSpecies": "NH3"
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "N2 转化率", "NH3 摩尔分数", "Kp"] },
+      "expected": {
+        "equations": ["N2 + 3H2 ⇌ 2NH3"],
+        "equilibrium": {
+          "table": [
+            { "species": "N2", "start": "1", "change": "-1/3", "end": "2/3" },
+            { "species": "H2", "start": "3", "change": "-1", "end": "2" },
+            { "species": "NH3", "start": "0", "change": "2/3", "end": "2/3" }
+          ],
+          "conversionSpecies": "N2",
+          "conversion": "1/3",
+          "fractionSpecies": "NH3",
+          "fraction": "1/5",
+          "kValue": "1/108",
+          "direction": null
+        }
+      },
+      "source": "高考真题改编（工业合成氨·三段式与 Kp 计算，全国卷化学反应原理综合题高频考点）",
+      "tags": ["高考真题", "化学平衡", "三段式", "Kp", "合成氨"]
+    },
+    {
+      "id": "EQ-RE2",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·SO2 催化氧化）恒温恒压密闭容器中发生可逆反应 2SO2 + O2 ⇌ 2SO3（SO2 催化氧化）。起始充入 2 mol SO2 和 1 mol O2，平衡时 SO2 的物质的量分数为 1/3，体系总压为 1 atm。列出三段式，求 SO2 的转化率、SO3 的摩尔分数与 Kp。",
+      "given": {
+        "equilibrium": {
+          "equation": "2SO2 + O2 ⇌ 2SO3",
+          "container": "constantPressure",
+          "initial": { "SO2": "2", "O2": "1" },
+          "known": { "kind": "amountFraction", "species": "SO2", "value": "1/3" },
+          "totalPressure": "1",
+          "fractionSpecies": "SO3"
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "SO2 转化率", "SO3 摩尔分数", "Kp"] },
+      "expected": {
+        "equations": ["2SO2 + O2 ⇌ 2SO3"],
+        "equilibrium": {
+          "table": [
+            { "species": "SO2", "start": "2", "change": "-6/5", "end": "4/5" },
+            { "species": "O2", "start": "1", "change": "-3/5", "end": "2/5" },
+            { "species": "SO3", "start": "0", "change": "6/5", "end": "6/5" }
+          ],
+          "conversionSpecies": "SO2",
+          "conversion": "3/5",
+          "fractionSpecies": "SO3",
+          "fraction": "1/2",
+          "kValue": "27/2",
+          "direction": null
+        }
+      },
+      "source": "高考真题改编（接触室中 SO2 催化氧化·平衡分数与 Kp，全国卷化工生产原理题高频考点）",
+      "tags": ["高考真题", "化学平衡", "三段式", "Kp", "SO2催化氧化"]
+    },
+    {
+      "id": "AQ-RE1",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·CH3COONa 溶液粒子浓度比较）0.1 mol/L CH3COONa 溶液中，写出电荷守恒、物料守恒与质子守恒表达式，并将 c(Na^+)、c(CH3COO^-)、c(OH^-)、c(H^+) 按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "CH3COONa", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["Na^+", "CH3COO^-", "OH^-", "H^+"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["三大守恒", "粒子浓度排序"] },
+      "expected": {
+        "equations": ["CH3COO^- + H2O ⇌ CH3COOH + OH^-", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(Na^+)", "c(CH3COO^-)", "c(OH^-)", "c(H^+)"],
+          "conservationEquations": [
+            "c(Na^+) + c(H^+) = c(CH3COO^-) + c(OH^-)",
+            "c(Na^+) = c(CH3COOH) + c(CH3COO^-)",
+            "c(OH^-) = c(H^+) + c(CH3COOH)"
+          ]
+        }
+      },
+      "source": "高考真题改编（强碱弱酸盐溶液三大守恒与粒子浓度大小比较，全国卷/选考水溶液离子平衡选择题高频考点）",
+      "tags": ["高考真题", "水溶液离子平衡", "盐类水解", "三大守恒"]
+    },
+    {
+      "id": "AQ-RE2",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·NH4Cl 溶液粒子浓度比较）0.1 mol/L NH4Cl 溶液中，写出电荷守恒、物料守恒与质子守恒表达式，并将 c(Cl^-)、c(NH4^+)、c(H^+)、c(OH^-) 按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "NH4Cl", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["Cl^-", "NH4^+", "H^+", "OH^-"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["三大守恒", "粒子浓度排序"] },
+      "expected": {
+        "equations": ["NH4^+ + H2O ⇌ NH3·H2O + H^+", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(Cl^-)", "c(NH4^+)", "c(H^+)", "c(OH^-)"],
+          "conservationEquations": [
+            "c(NH4^+) + c(H^+) = c(Cl^-) + c(OH^-)",
+            "c(Cl^-) = c(NH3·H2O) + c(NH4^+)",
+            "c(H^+) = c(OH^-) + c(NH3·H2O)"
+          ]
+        }
+      },
+      "source": "高考真题改编（强酸弱碱盐溶液酸性成因与粒子浓度排序，全国卷水溶液离子平衡选择题高频考点）",
+      "tags": ["高考真题", "水溶液离子平衡", "盐类水解", "酸性溶液"]
+    },
+    {
+      "id": "PROCF-RE1",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·粗盐提纯）粗盐中含有 Na2SO4、MgCl2、CaCl2 等可溶性杂质。提纯流程：将粗盐溶解后，先加过量 BaCl2 溶液，再加过量 NaOH 溶液与过量 Na2CO3 溶液，过滤；向滤液中加适量盐酸，最后蒸发结晶得到精盐。设 A 为杂质 Na2SO4、B 为杂质 MgCl2、C 为杂质 CaCl2：步骤①A 与 BaCl2 反应生成沉淀 D；步骤②B 与 NaOH 反应生成沉淀 E；步骤③C 与 Na2CO3 反应生成沉淀 F；过滤后步骤⑤滤液中过量的 G（Na2CO3）与适量盐酸反应生成最终产品 H。确定 D～H 各步物质并写出①②③⑤的化学方程式，同时说明各除杂步骤与蒸发结晶的目的。",
+      "given": {
+        "candidateSpecies": ["Na2SO4", "MgCl2", "CaCl2", "Na2CO3", "BaSO4", "Mg(OH)2", "CaCO3", "NaCl"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "D", "reagents": ["BaCl2(过量)"], "phenomenon": "产生白色沉淀", "purpose": "除杂：加过量BaCl2溶液除去Na2SO4" },
+          { "step": 2, "from": "B", "to": "E", "reagents": ["NaOH(过量)"], "phenomenon": "产生白色沉淀", "purpose": "除杂：加过量NaOH溶液除去MgCl2" },
+          { "step": 3, "from": "C", "to": "F", "reagents": ["Na2CO3(过量)"], "phenomenon": "产生白色沉淀", "purpose": "除杂：加过量Na2CO3溶液除去CaCl2" },
+          { "step": 4, "from": "悬浊液", "to": "滤液", "purpose": "固液分离：过滤除去BaSO4、CaCO3、Mg(OH)2沉淀" },
+          { "step": 5, "from": "G", "to": "H", "reagents": ["HCl(适量)"], "phenomenon": "有无色气泡产生", "purpose": "除杂：加适量盐酸除去滤液中过量的Na2CO3" },
+          { "step": 6, "from": "滤液", "to": "精盐", "conditions": ["蒸发"], "purpose": "蒸发结晶：蒸发NaCl溶液获得精盐晶体" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["D~H物质", "①②③⑤方程式", "除杂与结晶目的"] },
+      "expected": {
+        "equations": [
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "Mg^2+ + 2OH^- = Mg(OH)2↓",
+          "Ca^2+ + CO3^2- = CaCO3↓",
+          "Na2CO3 + 2HCl = 2NaCl + H2O + CO2↑"
+        ],
+        "substanceMap": { "A": "Na2SO4", "B": "MgCl2", "C": "CaCl2", "D": "BaSO4", "E": "Mg(OH)2", "F": "CaCO3", "G": "Na2CO3", "H": "NaCl" },
+        "purposes": { "1": "不引入新杂质", "2": "不引入新杂质", "3": "不引入新杂质", "5": "不引入新杂质", "6": "蒸发结晶" }
+      },
+      "source": "高考真题改编（粗盐中可溶性杂质去除·除杂顺序与目的，全国卷/北京卷实验与化工流程题高频考点）",
+      "tags": ["高考真题", "工业流程", "粗盐提纯", "除杂原则"]
+    },
+    {
+      "id": "PROCF-RE2",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·接触法制硫酸）接触法制硫酸（原料为黄铁矿）：①沸腾炉中黄铁矿高温焙烧造气得到 SO2 炉气（A，焙烧方程式超出本知识库覆盖，如实不推断）；②接触室中 A 与 O2 在催化剂、△ 条件下生成 SO3（B）；③吸收塔中 B 与水化合生成硫酸（C）；④尾气用氨水吸收残余 SO2 后达标排放；⑤未反应的 SO2、O2 二次循环氧化吸收。确定 A、B、C 并写出②③的化学方程式，说明④⑤操作的目的。",
+      "given": {
+        "candidateSpecies": ["SO2", "SO3", "H2SO4"],
+        "steps": [
+          { "step": 1, "from": "黄铁矿", "to": "SO2炉气", "conditions": ["高温"], "purpose": "焙烧造气：黄铁矿高温焙烧产生SO2" },
+          { "step": 2, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["催化剂", "△"], "purpose": "催化氧化：SO2在接触室中被氧化为SO3" },
+          { "step": 3, "from": "B", "to": "C", "reagents": ["H2O"], "purpose": "吸收：SO3与水化合生成硫酸" },
+          { "step": 4, "from": "尾气", "to": "达标气体", "reagents": ["氨水"], "purpose": "除杂：氨水吸收尾气中残余SO2防止污染" },
+          { "step": 5, "from": "转化器出口气体", "to": "接触室", "purpose": "循环利用：未反应的SO2与O2二次循环氧化吸收，提高原料利用率" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["A、B、C物质", "②③方程式", "尾气处理与循环目的"] },
+      "expected": {
+        "equations": [
+          "2SO2 + O2 ⇌ 2SO3",
+          "SO3 + H2O = H2SO4"
+        ],
+        "substanceMap": { "A": "SO2", "B": "SO3", "C": "H2SO4" },
+        "purposes": { "4": "不引入新杂质", "5": "循环利用" }
+      },
+      "source": "高考真题改编（接触法制硫酸·沸腾炉/接触室/吸收塔与尾气循环，全国卷非金属元素化工流程题高频考点）",
+      "tags": ["高考真题", "工业流程", "接触法制硫酸", "尾气与循环"]
     }
   ]
 }
