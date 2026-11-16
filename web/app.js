@@ -579,41 +579,80 @@ function eqBlock(title, equations) {
 
 /* 讲：逐步讲解 + 知识点溯源 */
 function explainHtml(e) {
+  const overview = e.oneLineOverview ? `
+    <div class="overview">
+      <span class="overview-tag">一句话总览</span>
+      <p>${esc(e.oneLineOverview)}</p>
+    </div>` : '';
+
+  const pitfalls = (e.pitfalls && e.pitfalls.length) ? `
+    <div class="pitfall-block">
+      <h4>⚠ 易错点</h4>
+      <ul>${e.pitfalls.map((p) => `<li>${chem(p)}</li>`).join('')}</ul>
+    </div>` : '';
+
   const refs = e.references.length ? `
-    <h4>引用知识点（溯源）</h4>
-    <ul class="refs">
+    <h4>📚 知识点卡片（点击展开要点与误区）</h4>
+    <div class="refs">
       ${e.references.map((r) => `
-        <li><b>${esc(r.name)}</b><span class="mono">${esc(r.id)}</span><span>${esc(r.textbookRef)}</span></li>`).join('')}
-    </ul>` : '';
+        <details class="ref-card">
+          <summary><b>${esc(r.name)}</b><span class="mono">${esc(r.id)}</span><span>${esc(r.textbookRef)}</span></summary>
+          ${r.summary ? `<div class="ref-summary"><b>要点：</b>${chem(r.summary)}</div>` : ''}
+          ${r.pitfall ? `<div class="ref-pitfall"><b>易错：</b>${chem(r.pitfall)}</div>` : ''}
+        </details>`).join('')}
+    </div>` : '';
 
   return `
     <p class="panel-note">讲解由引擎依据求解步骤与知识库自动生成，全部结论可溯源到教材知识点。</p>
+    ${overview}
     <ol class="steps">
       ${e.steps.map((st) => `
-        <li>
-          <div class="step-body">${chem(st.text)}</div>
+        <li class="${st.isKeyStep ? 'key-step' : ''}">
+          <div class="step-body">
+            ${st.isKeyStep ? '<span class="key-badge" title="解题突破口">🔑</span>' : ''}
+            ${chem(st.text)}
+          </div>
+          ${st.why ? `<details class="why"><summary>为什么</summary><p>${chem(st.why)}</p></details>` : ''}
           ${st.evidence ? `<div class="chips"><span class="chip mono">${esc(st.evidence)}</span></div>` : ''}
         </li>`).join('')}
     </ol>
+    ${pitfalls}
     ${refs}`;
 }
 
-/* 引导：分级启发提问（伴思模式） */
+/* 引导：分级启发提问（伴思模式，逐级解锁） */
 function guideHtml(g) {
   return `
     <p class="panel-note guide-note">
       伴思模式：只引导、不给答案——以下提问不包含任何结论，请按级思考，自己推出答案。
     </p>
+    <div class="guide-toolbar">
+      <button class="guide-expand-btn" onclick="toggleAllGuideLevels(this)">全部展开</button>
+    </div>
     <div class="levels">
-      ${g.levels.map((lv) => `
-        <div class="level">
-          <div class="level-head">
+      ${g.levels.map((lv, i) => {
+        const open = i === 0 ? 'open' : '';
+        const lock = i === 0 ? '' : '<span class="lock-icon">🔒</span>';
+        return `
+        <details class="level" ${open}>
+          <summary class="level-head">
             <span class="level-no">${lv.level}</span>
             <h5>${esc(lv.title)}</h5>
-          </div>
+            ${lock}
+          </summary>
           <ul>${lv.prompts.map((p) => `<li>${chem(p)}</li>`).join('')}</ul>
-        </div>`).join('')}
+        </details>`;
+      }).join('')}
     </div>`;
+}
+
+/* 引导面板：全部展开/收起切换 */
+function toggleAllGuideLevels(btn) {
+  const panel = btn.closest('.panel') || document;
+  const details = panel.querySelectorAll('.level');
+  const allOpen = Array.from(details).every((d) => d.open);
+  details.forEach((d) => { d.open = !allOpen; });
+  btn.textContent = allOpen ? '全部展开' : '全部收起';
 }
 
 /* ---------- 错误提示 ---------- */
