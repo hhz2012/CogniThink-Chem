@@ -3,7 +3,7 @@
   "source": "人教版《化学·必修第一册》'电解质的电离'；《选择性必修第一册》'水溶液中的离子反应与平衡'；必修第一册'离子反应'（氧化物不拆）",
   "strongAcids": ["HCl", "H2SO4", "HNO3", "HBr", "HI", "HClO4"],
   "strongBases": ["NaOH", "KOH", "Ba(OH)2", "Ca(OH)2"],
-  "weakElectrolytes": ["CH3COOH", "H2CO3", "HClO", "HF", "H2SO3", "H2S", "NH3·H2O", "H2O", "H2SiO3"],
+  "weakElectrolytes": ["CH3COOH", "H2CO3", "HClO", "HF", "H2SO3", "H2S", "NH3·H2O", "H2O", "H2SiO3", "H2C2O4"],
   "commonOxides": ["Na2O", "Na2O2", "K2O", "CaO", "BaO", "MgO", "Al2O3", "CuO", "FeO", "Fe2O3", "Fe3O4", "ZnO", "SiO2", "MnO2", "CO2", "SO2", "SO3", "NO", "NO2", "CO"],
   "weakAcidRadicalConjugates": {
     "CH3COO^-": ["CH3COOH"],
@@ -16,6 +16,8 @@
     "HSO3^-": ["H2SO3", "SO2"],
     "F^-": ["HF"],
     "SiO3^2-": ["H2SiO3"],
-    "AlO2^-": ["Al(OH)3"]
+    "AlO2^-": ["Al(OH)3"],
+    "C2O4^2-": ["H2C2O4", "HC2O4^-"],
+    "HC2O4^-": ["H2C2O4"]
   }
 }

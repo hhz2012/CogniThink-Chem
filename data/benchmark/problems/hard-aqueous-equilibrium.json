@@ -1,0 +1,301 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "AQ-H01",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "0.1 mol/L CH3COONa 溶液中，写出电荷守恒、物料守恒与质子守恒表达式，并将 c(Na^+)、c(CH3COO^-)、c(OH^-)、c(H^+) 按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "CH3COONa", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["Na^+", "CH3COO^-", "OH^-", "H^+"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["三大守恒", "粒子浓度排序"] },
+      "expected": {
+        "equations": ["CH3COO^- + H2O ⇌ CH3COOH + OH^-", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(Na^+)", "c(CH3COO^-)", "c(OH^-)", "c(H^+)"],
+          "conservationEquations": [
+            "c(Na^+) + c(H^+) = c(CH3COO^-) + c(OH^-)",
+            "c(Na^+) = c(CH3COOH) + c(CH3COO^-)",
+            "c(OH^-) = c(H^+) + c(CH3COOH)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H01-D1",
+          "description": "把水解与电离混写成一个式子，在醋酸电离式右边多写 OH^-，元素与电荷均不守恒",
+          "equation": "CH3COOH ⇌ CH3COO^- + H^+ + OH^-",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["盐类水解", "三大守恒", "强碱弱酸盐"]
+    },
+    {
+      "id": "AQ-H02",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "0.1 mol/L NH4Cl 溶液中，写出电荷守恒、物料守恒与质子守恒表达式，并将 c(Cl^-)、c(NH4^+)、c(H^+)、c(OH^-) 按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "NH4Cl", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["Cl^-", "NH4^+", "H^+", "OH^-"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["三大守恒", "粒子浓度排序"] },
+      "expected": {
+        "equations": ["NH4^+ + H2O ⇌ NH3·H2O + H^+", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(Cl^-)", "c(NH4^+)", "c(H^+)", "c(OH^-)"],
+          "conservationEquations": [
+            "c(NH4^+) + c(H^+) = c(Cl^-) + c(OH^-)",
+            "c(Cl^-) = c(NH3·H2O) + c(NH4^+)",
+            "c(H^+) = c(OH^-) + c(NH3·H2O)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H02-D1",
+          "description": "铵根水解方程式把 H^+ 系数写成 2，元素与电荷均不守恒",
+          "equation": "NH4^+ + H2O ⇌ NH3·H2O + 2H^+",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["盐类水解", "强酸弱碱盐", "酸性溶液"]
+    },
+    {
+      "id": "AQ-H03",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "0.1 mol/L Na2CO3 溶液中，写出电荷守恒、物料守恒与质子守恒表达式，并将 c(Na^+)、c(CO3^2-)、c(OH^-)、c(HCO3^-)、c(H^+) 按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "Na2CO3", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["Na^+", "CO3^2-", "OH^-", "HCO3^-", "H^+"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["三大守恒", "分步水解", "粒子浓度排序"] },
+      "expected": {
+        "equations": ["CO3^2- + H2O ⇌ HCO3^- + OH^-", "HCO3^- + H2O ⇌ H2CO3 + OH^-", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(Na^+)", "c(CO3^2-)", "c(OH^-)", "c(HCO3^-)", "c(H^+)"],
+          "conservationEquations": [
+            "c(Na^+) + c(H^+) = 2c(CO3^2-) + c(HCO3^-) + c(OH^-)",
+            "c(Na^+) = 2[c(H2CO3) + c(HCO3^-) + c(CO3^2-)]",
+            "c(OH^-) = c(H^+) + c(HCO3^-) + 2c(H2CO3)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H03-D1",
+          "description": "多元弱酸根水解跳步：把 CO3^2- 一步写成直接生成 H2CO3，元素与电荷均不守恒",
+          "equation": "CO3^2- + H2O ⇌ H2CO3 + OH^-",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["多元弱酸盐", "分步水解", "质子守恒"]
+    },
+    {
+      "id": "AQ-H04",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "0.1 mol/L NaHCO3 溶液中，写出电荷守恒、物料守恒与质子守恒表达式，判断溶液酸碱性（比较 HCO3^- 的水解 Kh 与电离 Ka2），并将 c(Na^+)、c(HCO3^-)、c(CO3^2-)、c(H2CO3)、c(OH^-)、c(H^+) 全部按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "NaHCO3", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["Na^+", "HCO3^-", "CO3^2-", "H2CO3", "OH^-", "H^+"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["三大守恒", "水解与电离竞争", "全部粒子排序"] },
+      "expected": {
+        "equations": [],
+        "aqueous": {
+          "order": [],
+          "conservationEquations": [
+            "c(Na^+) + c(H^+) = 2c(CO3^2-) + c(HCO3^-) + c(OH^-)",
+            "c(Na^+) = c(H2CO3) + c(HCO3^-) + c(CO3^2-)",
+            "c(H^+) + c(H2CO3) = c(OH^-) + c(CO3^2-)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H04-D1",
+          "description": "HCO3^- 水解方程式把 OH^- 系数误写为 2，元素与电荷均不守恒",
+          "equation": "HCO3^- + H2O ⇌ H2CO3 + 2OH^-",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["边界", "酸式盐", "水解与电离竞争", "如实欠定"]
+    },
+    {
+      "id": "AQ-H05",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "浓度均为 0.1 mol/L 的 CH3COOH 与 CH3COONa 溶液等体积混合，比较电离程度（Ka）与水解程度（Kh = Kw/Ka）判断酸碱性，写出电荷守恒与物料守恒，并将 c(CH3COO^-)、c(Na^+)、c(CH3COOH)、c(H^+)、c(OH^-) 按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "CH3COOH", "concentration": "0.1", "volumeLiters": "1" },
+            { "species": "CH3COONa", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["CH3COO^-", "Na^+", "CH3COOH", "H^+", "OH^-"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["缓冲体系", "电离与水解竞争", "粒子浓度排序"] },
+      "expected": {
+        "equations": ["CH3COOH ⇌ CH3COO^- + H^+", "CH3COO^- + H2O ⇌ CH3COOH + OH^-", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(CH3COO^-)", "c(Na^+)", "c(CH3COOH)", "c(H^+)", "c(OH^-)"],
+          "conservationEquations": [
+            "c(Na^+) + c(H^+) = c(CH3COO^-) + c(OH^-)",
+            "[c(CH3COOH) + c(CH3COO^-)] = 2c(Na^+)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H05-D1",
+          "description": "把缓冲体系中醋酸根的水解式多写一个 H^+ 在右侧，元素与电荷均不守恒",
+          "equation": "CH3COO^- + H2O ⇌ CH3COOH + OH^- + H^+",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["缓冲溶液", "电离大于水解", "物料守恒"]
+    },
+    {
+      "id": "AQ-H06",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "用 0.1 mol/L NaOH 溶液滴定 20 mL 0.1 mol/L CH3COOH 溶液，当滴至 pH = 7（中性）时停止。写出此时溶液的电荷守恒表达式，并比较 c(Na^+)、c(CH3COO^-)、c(H^+)、c(OH^-) 的大小关系。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "CH3COOH", "concentration": "0.1", "volumeLiters": "0.02" },
+            { "species": "NaOH", "concentration": "0.1", "volumeLiters": "0.02" }
+          ],
+          "ph": "7",
+          "note": "滴至 pH = 7 时停止（NaOH 实际用量略少于 20 mL，题给中性结论为准）",
+          "orderSpecies": ["Na^+", "CH3COO^-", "H^+", "OH^-"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["滴定终点判断", "电荷守恒"] },
+      "expected": {
+        "equations": ["CH3COOH ⇌ CH3COO^- + H^+", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(Na^+) = c(CH3COO^-)", "c(H^+) = c(OH^-)"],
+          "conservationEquations": [
+            "c(Na^+) + c(H^+) = c(CH3COO^-) + c(OH^-)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H06-D1",
+          "description": "误认为中性时醋酸根水解式右侧还有多余 H^+，元素与电荷均不守恒",
+          "equation": "CH3COO^- + H2O ⇌ CH3COOH + OH^- + H^+",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["酸碱中和滴定", "电荷守恒", "中性判据"]
+    },
+    {
+      "id": "AQ-H07",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "0.1 mol/L Na2C2O4（草酸钠）溶液中，写出电荷守恒、物料守恒与质子守恒表达式，并将 c(Na^+)、c(C2O4^2-)、c(OH^-)、c(HC2O4^-)、c(H^+) 按由大到小排序。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "Na2C2O4", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "orderSpecies": ["Na^+", "C2O4^2-", "OH^-", "HC2O4^-", "H^+"]
+        }
+      },
+      "question": { "ask": "CompareConcentrations", "targets": ["三大守恒", "分步水解", "粒子浓度排序"] },
+      "expected": {
+        "equations": ["C2O4^2- + H2O ⇌ HC2O4^- + OH^-", "HC2O4^- + H2O ⇌ H2C2O4 + OH^-", "H2O ⇌ H^+ + OH^-"],
+        "aqueous": {
+          "order": ["c(Na^+)", "c(C2O4^2-)", "c(OH^-)", "c(HC2O4^-)", "c(H^+)"],
+          "conservationEquations": [
+            "c(Na^+) + c(H^+) = 2c(C2O4^2-) + c(HC2O4^-) + c(OH^-)",
+            "c(Na^+) = 2[c(H2C2O4) + c(HC2O4^-) + c(C2O4^2-)]",
+            "c(OH^-) = c(H^+) + c(HC2O4^-) + 2c(H2C2O4)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H07-D1",
+          "description": "草酸根水解式右侧同时写 OH^- 与 H^+，元素与电荷均不守恒",
+          "equation": "C2O4^2- + H2O ⇌ HC2O4^- + OH^- + H^+",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["多元弱酸盐", "分步水解", "质子守恒"]
+    },
+    {
+      "id": "AQ-H08",
+      "category": "AqueousIonEquilibrium",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'",
+      "problemText": "向 AgCl 白色沉淀悬浊液中加入 KI 溶液，沉淀转为黄色（AgI）。写出转化方程式，用 Ksp(AgCl) 与 Ksp(AgI) 表达转化平衡常数 K 并判断转化能否发生（K = Ksp(原)/Ksp(新)）。",
+      "given": {
+        "solution": {
+          "solutes": [
+            { "species": "AgCl", "concentration": "0.1", "volumeLiters": "1" }
+          ],
+          "conversion": { "original": "AgCl", "addedIon": "I^-", "target": "AgI" }
+        }
+      },
+      "question": { "ask": "WriteProducts", "targets": ["沉淀转化方程式", "K 表达式与方向判断"] },
+      "expected": {
+        "equations": ["AgCl + I^- = AgI↓ + Cl^-"],
+        "aqueous": {
+          "order": [],
+          "conservationEquations": [
+            "Ksp(AgCl) = c(Ag^+)·c(Cl^-)",
+            "Ksp(AgI) = c(Ag^+)·c(I^-)"
+          ]
+        }
+      },
+      "distractors": [
+        {
+          "id": "AQ-H08-D1",
+          "description": "转化方程式右侧多写游离 Ag^+，银元素与电荷均不守恒",
+          "equation": "AgCl + I^- = AgI↓ + Cl^- + Ag^+",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "tags": ["沉淀转化", "溶度积", "Ksp 比较"]
+    }
+  ]
+}

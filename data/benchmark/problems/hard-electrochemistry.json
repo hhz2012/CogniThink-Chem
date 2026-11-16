@@ -1,0 +1,297 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "ELEC-H01",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "锌片和铜片用导线连接后插入硫酸铜溶液中构成原电池（溶液视为酸性介质），总反应为 Zn + Cu^2+ = Zn^2+ + Cu。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Zn", "Cu"],
+          "electrolyte": "CuSO4",
+          "medium": "acidic",
+          "overall": "Zn + Cu^2+ = Zn^2+ + Cu",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["Zn + Cu^2+ = Zn^2+ + Cu"],
+        "electrodes": {
+          "negative": "Zn = Zn^2+ + 2e^-",
+          "positive": "Cu^2+ + 2e^- = Cu"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H01-D1",
+          "description": "负极式电子数写错（失 1 个电子），电荷不守恒",
+          "equation": "Zn = Zn^2+ + e^-",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒", "氧化还原分析"]
+        },
+        {
+          "id": "ELEC-H01-D2",
+          "description": "误把铜作负极氧化：该半反应本身电荷守恒，但铜在该装置中不发生氧化（与总反应矛盾）",
+          "equation": "Cu = Cu^2+ + 2e^-",
+          "expectValid": false,
+          "expectFailChecks": ["氧化还原分析"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'原电池'（铜锌原电池）",
+      "tags": ["电化学", "原电池", "电极反应式", "活动性顺序"]
+    },
+    {
+      "id": "ELEC-H02",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "氢氧燃料电池以铂为电极、稀硫酸为电解质溶液（酸性介质），负极通入 H2、正极通入 O2，总反应为 2H2 + O2 = 2H2O。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Pt", "Pt"],
+          "electrolyte": "H2SO4",
+          "medium": "acidic",
+          "overall": "2H2 + O2 = 2H2O",
+          "gasFeeds": ["H2", "O2"]
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["2H2 + O2 = 2H2O"],
+        "electrodes": {
+          "negative": "2H2 = 4H^+ + 4e^-",
+          "positive": "O2 + 4H^+ + 4e^- = 2H2O"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H02-D1",
+          "description": "正极式漏写电子项：电荷不守恒且无得电子过程",
+          "equation": "O2 + 4H^+ = 2H2O",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒", "氧化还原分析"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'燃料电池'（酸性氢氧燃料电池）",
+      "tags": ["电化学", "原电池", "燃料电池", "酸性介质", "减法推半反应"]
+    },
+    {
+      "id": "ELEC-H03",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "氢氧燃料电池以铂为电极、KOH 溶液为电解质（碱性介质），负极通入 H2、正极通入 O2，总反应为 2H2 + O2 = 2H2O。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "basic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Pt", "Pt"],
+          "electrolyte": "KOH",
+          "medium": "basic",
+          "overall": "2H2 + O2 = 2H2O",
+          "gasFeeds": ["H2", "O2"]
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["2H2 + O2 = 2H2O"],
+        "electrodes": {
+          "negative": "2H2 + 4OH^- = 4H2O + 4e^-",
+          "positive": "O2 + 2H2O + 4e^- = 4OH^-"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H03-D1",
+          "description": "负极式漏写电子项：电荷不守恒且无失电子过程",
+          "equation": "2H2 + 4OH^- = 4H2O",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒", "氧化还原分析"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'燃料电池'（碱性氢氧燃料电池）",
+      "tags": ["电化学", "原电池", "燃料电池", "碱性介质", "减法推半反应"]
+    },
+    {
+      "id": "ELEC-H04",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "用石墨电极电解氯化铜溶液（酸性介质），总反应为 Cu^2+ + 2Cl^- = Cu + Cl2↑。写出阳极和阴极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "electrolytic",
+          "electrodes": ["C", "C"],
+          "electrolyte": "CuCl2",
+          "medium": "acidic",
+          "overall": "Cu^2+ + 2Cl^- = Cu + Cl2↑",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["阳极电极反应式", "阴极电极反应式"] },
+      "expected": {
+        "equations": ["Cu^2+ + 2Cl^- = Cu + Cl2↑"],
+        "electrodes": {
+          "anode": "2Cl^- = Cl2 + 2e^-",
+          "cathode": "Cu^2+ + 2e^- = Cu"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H04-D1",
+          "description": "总反应氯离子系数漏写：元素与电荷均不守恒",
+          "equation": "Cu^2+ + Cl^- = Cu + Cl2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'电解原理'（电解氯化铜溶液）",
+      "tags": ["电化学", "电解池", "电极反应式", "惰性电极"]
+    },
+    {
+      "id": "ELEC-H05",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "用石墨作阳极、铁作阴极电解饱和食盐水（氯碱工业，介质记为碱性），总反应为 2Cl^- + 2H2O = Cl2↑ + H2↑ + 2OH^-。写出阳极和阴极的电极反应式。",
+      "given": {
+        "medium": "basic",
+        "cell": {
+          "type": "electrolytic",
+          "electrodes": ["C", "Fe"],
+          "electrolyte": "NaCl",
+          "medium": "basic",
+          "overall": "2Cl^- + 2H2O = Cl2↑ + H2↑ + 2OH^-",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["阳极电极反应式", "阴极电极反应式"] },
+      "expected": {
+        "equations": ["2Cl^- + 2H2O = Cl2↑ + H2↑ + 2OH^-"],
+        "electrodes": {
+          "anode": "2Cl^- = Cl2 + 2e^-",
+          "cathode": "2H2O + 2e^- = H2 + 2OH^-"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H05-D1",
+          "description": "总反应未配平：氯、氢原子数左右不等",
+          "equation": "Cl^- + H2O = Cl2↑ + H2↑ + OH^-",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'电解原理的应用'（氯碱工业）",
+      "tags": ["电化学", "电解池", "电极反应式", "碱性介质", "减法推半反应"]
+    },
+    {
+      "id": "ELEC-H06",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "用石墨电极电解熔融氧化铝制取金属铝。写出阳极和阴极的电极反应式。",
+      "given": {
+        "medium": "",
+        "cell": {
+          "type": "electrolytic",
+          "electrodes": ["C", "C"],
+          "electrolyte": "Al2O3",
+          "medium": "",
+          "overall": "",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["阳极电极反应式", "阴极电极反应式"] },
+      "expected": {
+        "equations": [],
+        "electrodes": {}
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H06-D1",
+          "description": "熔融电解总反应未配平：氧原子数左右不等（元素守恒失败）",
+          "equation": "Al2O3 =通电= 2Al + O2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'电解原理的应用'（熔融氧化铝电解）",
+      "tags": ["电化学", "电解池", "熔融体系", "边界"]
+    },
+    {
+      "id": "ELEC-H07",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "钢铁在潮湿空气中发生吸氧腐蚀，铁与碳构成原电池、水膜作电解质（介质记为碱性），总反应为 2Fe + O2 + 2H2O = 2Fe(OH)2。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "basic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Fe", "C"],
+          "electrolyte": "NaCl",
+          "medium": "basic",
+          "overall": "2Fe + O2 + 2H2O = 2Fe(OH)2",
+          "gasFeeds": ["O2"]
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["2Fe + O2 + 2H2O = 2Fe(OH)2"],
+        "electrodes": {
+          "negative": "Fe + 2OH^- = Fe(OH)2 + 2e^-",
+          "positive": "O2 + 2H2O + 4e^- = 4OH^-"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H07-D1",
+          "description": "总反应未配平：氧原子数左右不等",
+          "equation": "Fe + O2 + H2O = Fe(OH)2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'金属的电化学腐蚀与防护'（吸氧腐蚀）",
+      "tags": ["电化学", "原电池", "吸氧腐蚀", "碱性介质"]
+    },
+    {
+      "id": "ELEC-H08",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "用石墨电极电解硝酸银溶液（酸性介质），总反应为 4Ag^+ + 2H2O = 4Ag + O2↑ + 4H^+。写出阳极和阴极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "electrolytic",
+          "electrodes": ["C", "C"],
+          "electrolyte": "AgNO3",
+          "medium": "acidic",
+          "overall": "4Ag^+ + 2H2O = 4Ag + O2↑ + 4H^+",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["阳极电极反应式", "阴极电极反应式"] },
+      "expected": {
+        "equations": ["4Ag^+ + 2H2O = 4Ag + O2↑ + 4H^+"],
+        "electrodes": {
+          "anode": "2H2O = O2 + 4H^+ + 4e^-",
+          "cathode": "Ag^+ + e^- = Ag"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H08-D1",
+          "description": "总反应未配平：氧、氢原子数左右不等",
+          "equation": "Ag^+ + H2O = Ag + O2↑ + H^+",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'电解原理'（电解硝酸银溶液）",
+      "tags": ["电化学", "电解池", "电极反应式", "酸性介质", "减法推半反应"]
+    }
+  ]
+}

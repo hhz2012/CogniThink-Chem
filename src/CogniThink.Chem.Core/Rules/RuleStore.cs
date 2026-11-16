@@ -184,6 +184,84 @@ public sealed class PhenomenonEntry
     public string Source { get; set; } = "";
 }
 
+/// <summary>
+/// 电离平衡常数与溶度积数据（acid-constants.json，25 ℃）。
+/// 数值一律 mantissa×10^exponent 精确存储（<see cref="ConstantSpec"/>），
+/// 引擎比较走 <see cref="Rational"/>，不引入浮点。
+/// </summary>
+public sealed class AcidConstantsData
+{
+    public string Version { get; set; } = "";
+
+    /// <summary>教材来源标注。</summary>
+    public string Source { get; set; } = "";
+
+    /// <summary>水的离子积 Kw。</summary>
+    public ConstantSpec Kw { get; set; } = new();
+
+    /// <summary>酸的电离常数。键："CH3COOH"（一元）或 "H2CO3:Ka1"/"H2CO3:Ka2"（多元分步）。</summary>
+    public Dictionary<string, ConstantSpec> Ka { get; set; } = new(StringComparer.Ordinal);
+
+    /// <summary>碱的电离常数。键为碱分子式，如 "NH3·H2O"。</summary>
+    public Dictionary<string, ConstantSpec> Kb { get; set; } = new(StringComparer.Ordinal);
+
+    /// <summary>难溶电解质溶度积。键为化学式主体，如 "AgCl"。</summary>
+    public Dictionary<string, ConstantSpec> Ksp { get; set; } = new(StringComparer.Ordinal);
+
+    /// <summary>多元弱酸共轭阶梯：酸名 → 由多质子到少质子的物种序列（如 H2CO3 → HCO3^- → CO3^2-）。</summary>
+    public Dictionary<string, List<string>> AcidLadders { get; set; } = new(StringComparer.Ordinal);
+
+    /// <summary>弱碱共轭阶梯：碱名 → [碱分子, 共轭酸阳离子]（如 NH3·H2O → NH4^+）。</summary>
+    public Dictionary<string, List<string>> BaseLadders { get; set; } = new(StringComparer.Ordinal);
+
+    /// <summary>溶度积表达式（讲解/守恒栏用）：化学式主体 → "Ksp(AgCl) = c(Ag^+)·c(Cl^-)"。</summary>
+    public Dictionary<string, string> KspExpressions { get; set; } = new(StringComparer.Ordinal);
+}
+
+/// <summary>精确常数规格：mantissa × 10^exponent（如 1.75×10^-5）。</summary>
+public sealed class ConstantSpec
+{
+    /// <summary>尾数（精确小数字符串，<see cref="CogniThink.Chem.Core.Math.Rational.Parse"/> 可解析）。</summary>
+    public string Mantissa { get; set; } = "";
+
+    /// <summary>10 的指数（可为负）。</summary>
+    public int Exponent { get; set; }
+
+    /// <summary>
+    /// 转为精确有理数值（高中 Ka/Kb/Kw 量级安全；极端指数如 10^-50 会溢出 long，
+    /// 此类比较请改用 <see cref="Ratio"/> 先约指数差）。
+    /// </summary>
+    public CogniThink.Chem.Core.Math.Rational ToRational()
+    {
+        var value = CogniThink.Chem.Core.Math.Rational.Parse(Mantissa);
+        var ten = new CogniThink.Chem.Core.Math.Rational(10);
+        for (var i = 0; i < System.Math.Abs(Exponent); i++)
+        {
+            value = Exponent > 0 ? checked(value * ten) : checked(value / ten);
+        }
+
+        return value;
+    }
+
+    /// <summary>
+    /// 精确求商 a/b：先合并 10 的指数差再运算，避免中间量溢出
+    /// （如 Ksp(AgCl)/Ksp(AgI)：指数差 7，直接相除会得到 10^34 量级分母）。
+    /// </summary>
+    public static CogniThink.Chem.Core.Math.Rational Ratio(ConstantSpec a, ConstantSpec b)
+    {
+        var value = CogniThink.Chem.Core.Math.Rational.Parse(a.Mantissa)
+            / CogniThink.Chem.Core.Math.Rational.Parse(b.Mantissa);
+        var ten = new CogniThink.Chem.Core.Math.Rational(10);
+        var diff = a.Exponent - b.Exponent;
+        for (var i = 0; i < System.Math.Abs(diff); i++)
+        {
+            value = diff > 0 ? checked(value * ten) : checked(value / ten);
+        }
+
+        return value;
+    }
+}
+
 /// <summary>复分解反应发生条件（double-decomposition.json）。</summary>
 public sealed class DoubleDecompositionData
 {

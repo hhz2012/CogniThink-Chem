@@ -1,0 +1,333 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "PROCF-H01",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·必修第一册》第一章'从实验学化学'实验：粗盐中可溶性杂质的去除",
+      "problemText": "粗盐中含有 Na2SO4、MgCl2、CaCl2 等可溶性杂质。提纯流程：将粗盐溶解后，先加过量 BaCl2 溶液，再加过量 NaOH 溶液与过量 Na2CO3 溶液，过滤；向滤液中加适量盐酸，最后蒸发结晶得到精盐。设 A 为杂质 Na2SO4、B 为杂质 MgCl2、C 为杂质 CaCl2：步骤①A 与 BaCl2 反应生成沉淀 D；步骤②B 与 NaOH 反应生成沉淀 E；步骤③C 与 Na2CO3 反应生成沉淀 F；过滤后步骤⑤滤液中过量的 G（Na2CO3）与适量盐酸反应生成最终产品 H。确定 D～H 各步物质并写出①②③⑤的化学方程式，同时说明各除杂步骤与蒸发结晶的目的。",
+      "given": {
+        "candidateSpecies": ["Na2SO4", "MgCl2", "CaCl2", "Na2CO3", "BaSO4", "Mg(OH)2", "CaCO3", "NaCl"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "D", "reagents": ["BaCl2(过量)"], "phenomenon": "产生白色沉淀", "purpose": "除杂：加过量BaCl2溶液除去Na2SO4" },
+          { "step": 2, "from": "B", "to": "E", "reagents": ["NaOH(过量)"], "phenomenon": "产生白色沉淀", "purpose": "除杂：加过量NaOH溶液除去MgCl2" },
+          { "step": 3, "from": "C", "to": "F", "reagents": ["Na2CO3(过量)"], "phenomenon": "产生白色沉淀", "purpose": "除杂：加过量Na2CO3溶液除去CaCl2" },
+          { "step": 4, "from": "悬浊液", "to": "滤液", "purpose": "固液分离：过滤除去BaSO4、CaCO3、Mg(OH)2沉淀" },
+          { "step": 5, "from": "G", "to": "H", "reagents": ["HCl(适量)"], "phenomenon": "有无色气泡产生", "purpose": "除杂：加适量盐酸除去滤液中过量的Na2CO3" },
+          { "step": 6, "from": "滤液", "to": "精盐", "conditions": ["蒸发"], "purpose": "蒸发结晶：蒸发NaCl溶液获得精盐晶体" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["D~H物质", "①②③⑤方程式", "除杂与结晶目的"] },
+      "expected": {
+        "equations": [
+          "Ba^2+ + SO4^2- = BaSO4↓",
+          "Mg^2+ + 2OH^- = Mg(OH)2↓",
+          "Ca^2+ + CO3^2- = CaCO3↓",
+          "Na2CO3 + 2HCl = 2NaCl + H2O + CO2↑"
+        ],
+        "substanceMap": { "A": "Na2SO4", "B": "MgCl2", "C": "CaCl2", "D": "BaSO4", "E": "Mg(OH)2", "F": "CaCO3", "G": "Na2CO3", "H": "NaCl" },
+        "purposes": { "1": "不引入新杂质", "2": "不引入新杂质", "3": "不引入新杂质", "5": "不引入新杂质", "6": "蒸发结晶" }
+      },
+      "distractors": [
+        {
+          "id": "PROCF-H01-D1",
+          "description": "盐酸除过量Na2CO3的方程式未配平（氯、钠不守恒）",
+          "equation": "Na2CO3 + HCl = NaCl + H2O + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROCF-H01-D2",
+          "description": "镁离子沉淀方程式漏写系数，电荷与氢均不守恒",
+          "equation": "Mg^2+ + OH^- = Mg(OH)2↓",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "PROCF-H01-D3",
+          "description": "用Ba(NO3)2代替BaCl2除SO4^2-：方程式守恒成立、检查器放行，但引入新杂质NaNO3，违反除杂原则（PROC-001）",
+          "equation": "Ba(NO3)2 + Na2SO4 = BaSO4↓ + 2NaNO3",
+          "expectValid": true
+        }
+      ],
+      "tags": ["工业流程", "粗盐提纯", "除杂原则"]
+    },
+    {
+      "id": "PROCF-H02",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·必修第二册》第八章'化学与可持续发展'海水资源利用；《选择性必修1》卤素置换",
+      "problemText": "从海水苦卤（含 KBr 等溴化物）中提取溴的流程：①向苦卤中通入 Cl2 置换出溴单质（A 为 KBr，生成 B）；②热空气将 Br2 吹出；③用 SO2 水溶液吸收富集；④再氯化并蒸馏得工业溴；⑤尾气中多余的 Cl2（C）用 NaOH 溶液吸收（生成 D），防止污染。确定 B、D 并写出①⑤的化学方程式，说明⑤的目的。",
+      "given": {
+        "candidateSpecies": ["KBr", "Br2", "Cl2", "NaClO"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["Cl2"], "phenomenon": "溶液呈橙黄色", "purpose": "置换：通入Cl2将苦卤中的Br^-置换为Br2" },
+          { "step": 2, "from": "橙黄色溶液", "to": "含Br2的热空气", "conditions": ["热空气"], "purpose": "吹出：利用Br2的挥发性用热空气将其吹出" },
+          { "step": 3, "from": "含Br2的气体", "to": "吸收液", "reagents": ["SO2水溶液"], "purpose": "吸收富集：SO2水溶液吸收Br2" },
+          { "step": 4, "from": "吸收液", "to": "工业溴", "conditions": ["Cl2", "蒸馏"], "purpose": "再氯化并蒸馏收集溴单质" },
+          { "step": 5, "from": "C", "to": "D", "reagents": ["NaOH"], "purpose": "除杂：NaOH溶液吸收尾气中多余的Cl2防止污染" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["B、D物质", "①⑤方程式", "尾气吸收目的"] },
+      "expected": {
+        "equations": [
+          "Cl2 + 2KBr = 2KCl + Br2",
+          "Cl2 + 2NaOH = NaCl + NaClO + H2O"
+        ],
+        "substanceMap": { "A": "KBr", "B": "Br2", "C": "Cl2", "D": "NaClO" },
+        "purposes": { "5": "不引入新杂质" }
+      },
+      "distractors": [
+        {
+          "id": "PROCF-H02-D1",
+          "description": "氯气置换溴化钾未配平（钾、溴不守恒）",
+          "equation": "Cl2 + KBr = KCl + Br2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROCF-H02-D2",
+          "description": "把置换方向写反（氧化性 Br2 > I2，应为 Br2 置换 I^-）：离子方程式守恒成立、检查器放行，但概念错误",
+          "equation": "I2 + 2Br^- = Br2 + 2I^-",
+          "expectValid": true
+        }
+      ],
+      "tags": ["工业流程", "海水提溴", "氧化置换"]
+    },
+    {
+      "id": "PROCF-H03",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·必修第二册》第八章'化学与可持续发展'海水资源的开发利用",
+      "problemText": "海水提镁的简化流程：①向海水（以 MgCl2 代表 A）中加入石灰乳 Ca(OH)2，沉淀出 Mg(OH)2（B）；②过滤并洗涤沉淀；③部分 Mg(OH)2 受热分解（△）制得耐火材料 MgO（C）；④其余 Mg(OH)2 用盐酸溶解得 MgCl2 溶液；⑤蒸发浓缩、冷却结晶获得 MgCl2·6H2O 晶体（电解制镁工序超出本知识库覆盖，如实不推断）。确定 B、C 并写出①③的化学方程式，说明②③⑤操作的目的。",
+      "given": {
+        "candidateSpecies": ["MgCl2", "Mg(OH)2", "MgO"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["Ca(OH)2(石灰乳)"], "phenomenon": "产生白色沉淀", "purpose": "沉淀富集：加石灰乳使Mg^2+沉淀为Mg(OH)2" },
+          { "step": 2, "from": "Mg(OH)2悬浊液", "to": "纯净Mg(OH)2", "purpose": "洗涤：洗去Mg(OH)2表面附着的可溶性杂质" },
+          { "step": 3, "from": "B", "to": "C", "conditions": ["△"], "purpose": "灼烧：部分Mg(OH)2受热分解制耐火材料MgO" },
+          { "step": 4, "from": "Mg(OH)2", "to": "MgCl2溶液", "reagents": ["盐酸"], "purpose": "酸溶：用盐酸溶解Mg(OH)2制MgCl2溶液" },
+          { "step": 5, "from": "MgCl2溶液", "to": "MgCl2·6H2O", "purpose": "蒸发浓缩冷却结晶：从MgCl2溶液蒸发浓缩、冷却结晶获得带结晶水的MgCl2·6H2O晶体" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["B、C物质", "①③方程式", "沉淀洗涤灼烧结晶目的"] },
+      "expected": {
+        "equations": [
+          "Mg^2+ + 2OH^- = Mg(OH)2↓",
+          "Mg(OH)2 =△= MgO + H2O"
+        ],
+        "substanceMap": { "A": "MgCl2", "B": "Mg(OH)2", "C": "MgO" },
+        "purposes": { "2": "可溶性杂质", "3": "灼烧", "5": "带结晶水的晶体" }
+      },
+      "distractors": [
+        {
+          "id": "PROCF-H03-D1",
+          "description": "镁离子沉淀方程式漏写系数，电荷与氢不守恒",
+          "equation": "Mg^2+ + OH^- = Mg(OH)2↓",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "PROCF-H03-D2",
+          "description": "把'灼烧Mg(OH)2'与'蒸发结晶MgCl2溶液'混淆：MgCO3分解方程式守恒成立、检查器放行，但并非本流程步骤③的反应",
+          "equation": "MgCO3 =△= MgO + CO2↑",
+          "expectValid": true
+        }
+      ],
+      "tags": ["工业流程", "海水提镁", "沉淀与结晶"]
+    },
+    {
+      "id": "PROCF-H04",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·必修第二册》第八章'化学与可持续发展'金属矿物的开发利用",
+      "problemText": "铝土矿（主要成分 Al2O3，含 Fe2O3 杂质）冶炼铝的流程：①铝土矿用过量 NaOH 溶液碱溶，Al2O3 溶解而 Fe2O3 不溶，过滤分离（除杂）；②滤液通入 CO2 析出 Al(OH)3，过滤并洗涤；③纯净 Al(OH)3（A）受热分解（△）得 Al2O3（B）；④电解熔融 Al2O3（冰晶石助熔）得金属铝（C）。确定 A、B、C 并写出③④的化学方程式，说明①②③操作的目的。",
+      "given": {
+        "candidateSpecies": ["Al(OH)3", "Al2O3", "Al"],
+        "steps": [
+          { "step": 1, "from": "铝土矿", "to": "偏铝酸钠溶液", "reagents": ["NaOH(过量)"], "purpose": "除杂：Al2O3溶于过量NaOH而Fe2O3不溶，过滤分离" },
+          { "step": 2, "from": "偏铝酸钠溶液", "to": "Al(OH)3", "reagents": ["CO2(过量)"], "purpose": "沉淀过滤后洗涤：洗去Al(OH)3表面附着的可溶性杂质" },
+          { "step": 3, "from": "A", "to": "B", "conditions": ["△"], "purpose": "灼烧：使Al(OH)3分解为纯净Al2O3" },
+          { "step": 4, "from": "B", "to": "C", "conditions": ["通电", "冰晶石"], "purpose": "电解：电解熔融Al2O3冶炼金属铝" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["A、B、C物质", "③④方程式", "碱溶洗涤灼烧目的"] },
+      "expected": {
+        "equations": [
+          "2Al(OH)3 =△= Al2O3 + 3H2O",
+          "2Al2O3 =通电,冰晶石= 4Al + 3O2↑"
+        ],
+        "substanceMap": { "A": "Al(OH)3", "B": "Al2O3", "C": "Al" },
+        "purposes": { "1": "不引入新杂质", "2": "可溶性杂质", "3": "灼烧" }
+      },
+      "distractors": [
+        {
+          "id": "PROCF-H04-D1",
+          "description": "氢氧化铝分解未配平（氢、氧不守恒）",
+          "equation": "Al(OH)3 =△= Al2O3 + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROCF-H04-D2",
+          "description": "电解氧化铝未配平（氧不守恒）",
+          "equation": "Al2O3 =通电= Al + O2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "tags": ["工业流程", "铝土矿炼铝", "两性氧化物"]
+    },
+    {
+      "id": "PROCF-H05",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·必修第二册》第六章'化工生产中的重要非金属元素'硫酸工业",
+      "problemText": "接触法制硫酸（原料为黄铁矿）：①沸腾炉中黄铁矿高温焙烧造气得到 SO2 炉气（A，焙烧方程式超出本知识库覆盖，如实不推断）；②接触室中 A 与 O2 在催化剂、△ 条件下生成 SO3（B）；③吸收塔中 B 与水化合生成硫酸（C）；④尾气用氨水吸收残余 SO2 后达标排放；⑤未反应的 SO2、O2 二次循环氧化吸收。确定 A、B、C 并写出②③的化学方程式，说明④⑤操作的目的。",
+      "given": {
+        "candidateSpecies": ["SO2", "SO3", "H2SO4"],
+        "steps": [
+          { "step": 1, "from": "黄铁矿", "to": "SO2炉气", "conditions": ["高温"], "purpose": "焙烧造气：黄铁矿高温焙烧产生SO2" },
+          { "step": 2, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["催化剂", "△"], "purpose": "催化氧化：SO2在接触室中被氧化为SO3" },
+          { "step": 3, "from": "B", "to": "C", "reagents": ["H2O"], "purpose": "吸收：SO3与水化合生成硫酸" },
+          { "step": 4, "from": "尾气", "to": "达标气体", "reagents": ["氨水"], "purpose": "除杂：氨水吸收尾气中残余SO2防止污染" },
+          { "step": 5, "from": "转化器出口气体", "to": "接触室", "purpose": "循环利用：未反应的SO2与O2二次循环氧化吸收，提高原料利用率" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["A、B、C物质", "②③方程式", "尾气处理与循环目的"] },
+      "expected": {
+        "equations": [
+          "2SO2 + O2 ⇌ 2SO3",
+          "SO3 + H2O = H2SO4"
+        ],
+        "substanceMap": { "A": "SO2", "B": "SO3", "C": "H2SO4" },
+        "purposes": { "4": "不引入新杂质", "5": "循环利用" }
+      },
+      "distractors": [
+        {
+          "id": "PROCF-H05-D1",
+          "description": "SO2催化氧化未配平（氧不守恒）",
+          "equation": "SO2 + O2 =催化剂,△= SO3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROCF-H05-D2",
+          "description": "把可逆反应写成完全反应，且把未反应的 O2 直接写进产物，氧不守恒",
+          "equation": "2SO2 + O2 = 2SO3 + O2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "tags": ["工业流程", "接触法制硫酸", "尾气与循环"]
+    },
+    {
+      "id": "PROCF-H06",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·必修第二册》第八章'化学与可持续发展'自然资源的开发利用（废旧金属回收）",
+      "problemText": "废旧锂电池回收流程：①正极片（含铝箔）用过量 NaOH 溶液碱浸溶解除去铝箔；②碱浸渣用稀硫酸与 H2O2 酸浸，LiCoO2 转化为含 Co^2+ 的浸出液；③向浸出液中加 NaOH 溶液调节 pH 沉淀铁离子（A 为铁离子，生成沉淀 B），题面未记录沉淀颜色；④除铁后的溶液加草酸铵，将 Co^2+ 转化为更难溶的 CoC2O4 沉淀回收钴。请推断 A、B 并写出③的方程式。",
+      "given": {
+        "candidateSpecies": ["Fe^2+", "Fe^3+", "Fe(OH)2", "Fe(OH)3"],
+        "steps": [
+          { "step": 1, "from": "正极片(含铝箔)", "to": "碱浸液", "reagents": ["NaOH(过量)"], "purpose": "除杂：过量NaOH溶解除去铝箔" },
+          { "step": 2, "from": "碱浸渣", "to": "浸出液", "reagents": ["稀H2SO4", "H2O2"], "purpose": "酸浸：LiCoO2在稀硫酸与H2O2作用下浸出Co^2+" },
+          { "step": 3, "from": "A", "to": "B", "reagents": ["NaOH(过量)"], "phenomenon": "产生沉淀（颜色未记录）", "purpose": "pH调控：加NaOH溶液沉淀浸出液中的铁离子" },
+          { "step": 4, "from": "除铁后液", "to": "CoC2O4", "reagents": ["(NH4)2C2O4"], "purpose": "沉淀转化：加草酸铵将Co^2+转化为更难溶的CoC2O4沉淀" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["A、B物质", "③方程式", "各步目的"] },
+      "expected": {
+        "equations": [],
+        "purposes": { "4": "更难溶" }
+      },
+      "distractors": [],
+      "tags": ["工业流程", "废旧锂电池回收", "边界", "如实欠定"]
+    },
+    {
+      "id": "PROCF-H07",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·必修第二册》第六章'化工生产中的重要非金属元素'硅与硅酸盐",
+      "problemText": "以硅酸钠为原料制取二氧化硅并循环利用的流程：①硅酸钠溶液（A）中加入盐酸，生成硅酸沉淀（B）；②过滤并洗涤硅酸；③硅酸受热分解（△）得 SiO2（C）；④C 再溶于 NaOH 溶液回收制硅酸钠，实现循环。确定 A、B、C 并写出①③的化学方程式，说明②③④操作的目的。",
+      "given": {
+        "candidateSpecies": ["Na2SiO3", "H2SiO3", "SiO2"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["HCl"], "phenomenon": "产生白色胶状沉淀", "purpose": "酸化：向硅酸钠溶液中加盐酸生成硅酸沉淀" },
+          { "step": 2, "from": "硅酸悬浊液", "to": "纯净硅酸", "purpose": "洗涤：洗去硅酸沉淀表面附着的可溶性杂质" },
+          { "step": 3, "from": "B", "to": "C", "conditions": ["△"], "purpose": "灼烧：硅酸受热脱水生成SiO2" },
+          { "step": 4, "from": "SiO2", "to": "硅酸钠", "reagents": ["NaOH"], "purpose": "循环利用：SiO2再溶于NaOH溶液回收制硅酸钠" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["A、B、C物质", "①③方程式", "洗涤灼烧循环目的"] },
+      "expected": {
+        "equations": [
+          "Na2SiO3 + 2HCl = 2NaCl + H2SiO3↓",
+          "H2SiO3 =△= SiO2 + H2O"
+        ],
+        "substanceMap": { "A": "Na2SiO3", "B": "H2SiO3", "C": "SiO2" },
+        "purposes": { "2": "可溶性杂质", "3": "灼烧", "4": "循环利用" }
+      },
+      "distractors": [
+        {
+          "id": "PROCF-H07-D1",
+          "description": "硅酸钠与盐酸反应未配平（氯、氢不守恒）",
+          "equation": "Na2SiO3 + HCl = NaCl + H2SiO3↓",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROCF-H07-D2",
+          "description": "硅酸分解产物水系数写错（氢不守恒）",
+          "equation": "H2SiO3 =△= SiO2 + 2H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "tags": ["工业流程", "硅及其化合物", "循环利用"]
+    },
+    {
+      "id": "PROCF-H08",
+      "category": "IndustrialProcess",
+      "difficulty": "Hard",
+      "source": "人教版《化学·选择性必修1》第三章'水溶液中的离子反应与平衡'沉淀溶解平衡的应用",
+      "problemText": "某电镀废液含 Cu^2+（主体离子）与少量 Fe^3+（杂质离子），除铁回收流程：①加适量 NaOH 溶液调节 pH，使 Fe^3+（A）沉淀完全而 Cu^2+ 不沉淀，生成 Fe(OH)3（B）；②过滤并洗涤沉淀；③Fe(OH)3 溶于盐酸得 FeCl3 溶液（C）回收铁元素；④除铁后的含 Cu^2+ 主体溶液返回主工序循环使用。确定 A、B、C 并写出①③的化学方程式，说明①②④操作的目的。",
+      "given": {
+        "candidateSpecies": ["Fe^3+", "Cu^2+", "Fe(OH)3", "FeCl3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["NaOH(适量)"], "phenomenon": "产生红褐色沉淀", "purpose": "pH调控：加NaOH调节pH使Fe^3+沉淀完全而Cu^2+不沉淀" },
+          { "step": 2, "from": "Fe(OH)3悬浊液", "to": "纯净Fe(OH)3", "purpose": "洗涤：洗去Fe(OH)3表面附着的可溶性盐" },
+          { "step": 3, "from": "B", "to": "C", "reagents": ["HCl"], "purpose": "回收：Fe(OH)3溶于盐酸得FeCl3溶液回收铁元素" },
+          { "step": 4, "from": "除铁后滤液", "to": "主工序", "purpose": "循环利用：除铁后的含Cu^2+主体溶液返回主工序循环使用" }
+        ]
+      },
+      "question": { "ask": "AnalyzeProcess", "targets": ["A、B、C物质", "①③方程式", "pH调控洗涤循环目的"] },
+      "expected": {
+        "equations": [
+          "Fe^3+ + 3OH^- = Fe(OH)3↓",
+          "Fe(OH)3 + 3HCl = FeCl3 + 3H2O"
+        ],
+        "substanceMap": { "A": "Fe^3+", "B": "Fe(OH)3", "C": "FeCl3" },
+        "purposes": { "1": "沉淀完全", "2": "可溶性杂质", "4": "循环利用" }
+      },
+      "distractors": [
+        {
+          "id": "PROCF-H08-D1",
+          "description": "铁离子沉淀方程式氢氧根系数错误，电荷不守恒",
+          "equation": "Fe^3+ + OH^- = Fe(OH)3↓",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        },
+        {
+          "id": "PROCF-H08-D2",
+          "description": "氢氧化铁溶解于盐酸未配平（氯、氢不守恒）",
+          "equation": "Fe(OH)3 + HCl = FeCl3 + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "tags": ["工业流程", "除杂pH调控", "母液循环利用"]
+    }
+  ]
+}

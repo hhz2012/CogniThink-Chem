@@ -1,5 +1,7 @@
+using CogniThink.Chem.Core.Balancing;
 using CogniThink.Chem.Core.Common;
 using CogniThink.Chem.Core.Math;
+using CogniThink.Chem.Core.Parsing;
 using CogniThink.Chem.Core.Stoichiometry;
 
 namespace CogniThink.Chem.Core.Benchmark;
@@ -58,6 +60,9 @@ public static class BenchmarkVerifier
         VerifyExpectedEquations(problem, result);
         VerifyDistractors(problem, result);
         VerifyCalc(problem, result);
+        VerifyElectrodes(problem, result);
+        VerifyEquilibrium(problem, result);
+        VerifyProcessFlow(problem, result);
 
         return result;
     }
@@ -223,6 +228,171 @@ public static class BenchmarkVerifier
 
             default:
                 throw new ArgumentOutOfRangeException(nameof(spec), spec.Op, "未知计算类型");
+        }
+    }
+
+    /// <summary>
+    /// 电极反应式校验：expected.electrodes 每个非空项过 HalfReaction 模式统一入口，
+    /// 要求整体有效且"电子守恒"检查项通过（介质取 given.cell.medium，缺省回退 given.medium）。
+    /// </summary>
+    private static void VerifyElectrodes(ProblemSpec problem, BenchmarkResult result)
+    {
+        if (problem.Expected.Electrodes is not { } electrodes)
+        {
+            return;
+        }
+
+        var medium = problem.Given.Cell is { } cell && !string.IsNullOrWhiteSpace(cell.Medium)
+            ? cell.Medium
+            : problem.Given.Medium ?? "";
+        var entries = new (string Label, string? Equation)[]
+        {
+            ("负极", electrodes.Negative),
+            ("正极", electrodes.Positive),
+            ("阳极", electrodes.Anode),
+            ("阴极", electrodes.Cathode),
+        };
+
+        foreach (var (label, equation) in entries)
+        {
+            if (string.IsNullOrWhiteSpace(equation))
+            {
+                continue;
+            }
+
+            var report = ChemicalCheckerService.Check(new CheckRequest
+            {
+                Equation = equation,
+                Mode = EquationMode.HalfReaction,
+                Medium = medium,
+            });
+            if (!report.IsValid || !report.CheckItems.Any(i => i.CheckName == "电子守恒" && i.Passed))
+            {
+                result.Mismatches.Add(
+                    $"电极反应式 {label} \"{equation}\"：未通过半反应校验（电子守恒）。{report.FailureSummary()}");
+            }
+        }
+    }
+
+    /// <summary>
+    /// 化学平衡答案结构自检：expected.equilibrium 非空时校验
+    /// 三段式行数与方程式物种数一致（表非空时）、全部数值字符串可被 Rational 精确解析、
+    /// 移动方向取值合法。结论比对由 ProblemSolverTests 端到端承担，此处不重复实现推导。
+    /// </summary>
+    private static void VerifyEquilibrium(ProblemSpec problem, BenchmarkResult result)
+    {
+        if (problem.Expected.Equilibrium is not { } answer)
+        {
+            return;
+        }
+
+        if (answer.Table.Count > 0 && problem.Given.Equilibrium is { } given
+            && EquationParser.TryParse(given.Equation, out var parsed, out _)
+            && EquationBalancer.Balance(parsed!) is { Success: true })
+        {
+            var speciesCount = parsed!.AllTerms.Select(t => t.Species.ToString()).Distinct(StringComparer.Ordinal).Count();
+            if (answer.Table.Count != speciesCount)
+            {
+                result.Mismatches.Add(
+                    $"三段式行数 {answer.Table.Count} 与方程式物种数 {speciesCount} 不一致");
+            }
+        }
+
+        foreach (var row in answer.Table)
+        {
+            foreach (var (label, value) in new[] { ("start", row.Start), ("change", row.Change), ("end", row.End) })
+            {
+                if (!IsRationalString(value))
+                {
+                    result.Mismatches.Add($"三段式 {row.Species} 的 {label} \"{value}\" 不是精确有理数字符串");
+                }
+            }
+        }
+
+        foreach (var (label, value) in new[] { ("conversion", answer.Conversion), ("fraction", answer.Fraction), ("kValue", answer.KValue) })
+        {
+            if (value is not null && !IsRationalString(value))
+            {
+                result.Mismatches.Add($"{label} \"{value}\" 不是精确有理数字符串");
+            }
+        }
+
+        if (answer.Direction is not null and not ("forward" or "reverse" or "noShift"))
+        {
+            result.Mismatches.Add($"移动方向 \"{answer.Direction}\" 非法（forward/reverse/noShift）");
+        }
+    }
+
+    /// <summary>
+    /// 工业流程结构自检（物质链 + 目的）：expected.substanceMap 非空时，标签必须是
+    /// 出现在 given.steps 转化链中的单字母，且各物质可被 FormulaParser 解析（化学式或离子写法）；
+    /// expected.purposes 非空时，键必须是 given.steps 中存在的步骤号且关键词非空。
+    /// 物质链与目的的结论比对由 ProblemSolverTests 端到端承担，此处不重复实现推导。
+    /// </summary>
+    private static void VerifyProcessFlow(ProblemSpec problem, BenchmarkResult result)
+    {
+        if (problem.Category != ProblemCategory.IndustrialProcess)
+        {
+            return;
+        }
+
+        if (problem.Expected.SubstanceMap is { Count: > 0 } map)
+        {
+            var stepLabels = new HashSet<string>(
+                problem.Given.Steps
+                    .SelectMany(s => new[] { s.From, s.To })
+                    .Where(label => label.Length == 1 && label[0] >= 'A' && label[0] <= 'Z'),
+                StringComparer.Ordinal);
+            foreach (var (label, species) in map)
+            {
+                if (label.Length != 1 || label[0] < 'A' || label[0] > 'Z')
+                {
+                    result.Mismatches.Add($"substanceMap 标签 \"{label}\" 不是单一大写字母");
+                }
+                else if (!stepLabels.Contains(label))
+                {
+                    result.Mismatches.Add($"substanceMap 标签 \"{label}\" 未出现在 given.steps 转化链中");
+                }
+
+                if (!FormulaParser.TryParse(species, out _, out _))
+                {
+                    result.Mismatches.Add($"substanceMap 物质 \"{species}\" 无法解析为有效物种");
+                }
+            }
+        }
+
+        if (problem.Expected.Purposes is { Count: > 0 } purposes)
+        {
+            var stepNumbers = problem.Given.Steps.Select(s => s.Step.ToString()).ToHashSet(StringComparer.Ordinal);
+            foreach (var (stepNumber, keyword) in purposes)
+            {
+                if (!stepNumbers.Contains(stepNumber))
+                {
+                    result.Mismatches.Add($"purposes 步骤号 \"{stepNumber}\" 在 given.steps 中不存在");
+                }
+
+                if (string.IsNullOrWhiteSpace(keyword))
+                {
+                    result.Mismatches.Add($"purposes 步骤号 \"{stepNumber}\" 的关键词为空");
+                }
+            }
+        }
+    }
+
+    private static bool IsRationalString(string value)
+    {
+        try
+        {
+            _ = Rational.Parse(value);
+            return true;
+        }
+        catch (FormatException)
+        {
+            return false;
+        }
+        catch (ArgumentException)
+        {
+            return false;
         }
     }
 

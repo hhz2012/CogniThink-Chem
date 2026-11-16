@@ -1,0 +1,328 @@
+{
+  "version": "1.0",
+  "items": [
+    {
+      "id": "EQ-H01",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 N2 + 3H2 ⇌ 2NH3。起始充入 1 mol N2 和 3 mol H2，平衡时 N2 的转化率为 1/3，体系总压为 10 atm。列出三段式求平衡组成，并计算 NH3 的摩尔分数与 Kp（分压 = 摩尔分数 × 总压，Kp = 生成物分压计量数次幂之积 / 反应物分压计量数次幂之积）。",
+      "given": {
+        "equilibrium": {
+          "equation": "N2 + 3H2 ⇌ 2NH3",
+          "container": "constantVolume",
+          "initial": { "N2": "1", "H2": "3" },
+          "known": { "kind": "conversion", "species": "N2", "value": "1/3" },
+          "totalPressure": "10",
+          "fractionSpecies": "NH3"
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "N2 转化率", "NH3 摩尔分数", "Kp"] },
+      "expected": {
+        "equations": ["N2 + 3H2 ⇌ 2NH3"],
+        "equilibrium": {
+          "table": [
+            { "species": "N2", "start": "1", "change": "-1/3", "end": "2/3" },
+            { "species": "H2", "start": "3", "change": "-1", "end": "2" },
+            { "species": "NH3", "start": "0", "change": "2/3", "end": "2/3" }
+          ],
+          "conversionSpecies": "N2",
+          "conversion": "1/3",
+          "fractionSpecies": "NH3",
+          "fraction": "1/5",
+          "kValue": "1/108",
+          "direction": null
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H01-D1",
+          "description": "方程式未配平即列三段式：把计量数当作分子式角标（H2 系数漏乘），元素不守恒，转化量与平衡量随之全错",
+          "equation": "N2 + H2 ⇌ 2NH3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "转化率", "Kp", "合成氨"]
+    },
+    {
+      "id": "EQ-H02",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒压密闭容器中发生可逆反应 2SO2 + O2 ⇌ 2SO3（SO2 催化氧化）。起始充入 2 mol SO2 和 1 mol O2，平衡时 SO2 的物质的量分数为 1/3，体系总压为 1 atm。列出三段式，求 SO2 的转化率、SO3 的摩尔分数与 Kp。",
+      "given": {
+        "equilibrium": {
+          "equation": "2SO2 + O2 ⇌ 2SO3",
+          "container": "constantPressure",
+          "initial": { "SO2": "2", "O2": "1" },
+          "known": { "kind": "amountFraction", "species": "SO2", "value": "1/3" },
+          "totalPressure": "1",
+          "fractionSpecies": "SO3"
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "SO2 转化率", "SO3 摩尔分数", "Kp"] },
+      "expected": {
+        "equations": ["2SO2 + O2 ⇌ 2SO3"],
+        "equilibrium": {
+          "table": [
+            { "species": "SO2", "start": "2", "change": "-6/5", "end": "4/5" },
+            { "species": "O2", "start": "1", "change": "-3/5", "end": "2/5" },
+            { "species": "SO3", "start": "0", "change": "6/5", "end": "6/5" }
+          ],
+          "conversionSpecies": "SO2",
+          "conversion": "3/5",
+          "fractionSpecies": "SO3",
+          "fraction": "1/2",
+          "kValue": "27/2",
+          "direction": null
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H02-D1",
+          "description": "分数漏总物质的量变化的典型配套错误：反应前后气体分子数改变（Δν≠0），仍按起始总量 3 mol 算分数，并写出未配平的方程式（氧不守恒）",
+          "equation": "SO2 + O2 ⇌ SO3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "平衡分数", "Kp", "SO2催化氧化"]
+    },
+    {
+      "id": "EQ-H03",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 N2O4 ⇌ 2NO2。起始充入 1 mol N2O4，平衡时 N2O4 为 1/2 mol，体系总压为 2 atm。列出三段式，求 N2O4 的转化率、NO2 的摩尔分数与 Kp。",
+      "given": {
+        "equilibrium": {
+          "equation": "N2O4 ⇌ 2NO2",
+          "container": "constantVolume",
+          "initial": { "N2O4": "1" },
+          "known": { "kind": "moles", "species": "N2O4", "value": "1/2" },
+          "totalPressure": "2",
+          "fractionSpecies": "NO2"
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "N2O4 转化率", "NO2 摩尔分数", "Kp"] },
+      "expected": {
+        "equations": ["N2O4 ⇌ 2NO2"],
+        "equilibrium": {
+          "table": [
+            { "species": "N2O4", "start": "1", "change": "-1/2", "end": "1/2" },
+            { "species": "NO2", "start": "0", "change": "1", "end": "1" }
+          ],
+          "conversionSpecies": "N2O4",
+          "conversion": "1/2",
+          "fractionSpecies": "NO2",
+          "fraction": "2/3",
+          "kValue": "8/3",
+          "direction": null
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H03-D1",
+          "description": "转化量与平衡量混淆的典型配套错误：把 NO2 的平衡量 1 mol 当作转化量按 1:1 计量写式，方程式未配平（氧不守恒）",
+          "equation": "N2O4 ⇌ NO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "平衡量", "Kp", "N2O4分解"]
+    },
+    {
+      "id": "EQ-H04",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 N2O4 ⇌ 2NO2。起始充入 1 mol N2O4，平衡时 N2O4 的转化率为 1/2。列出三段式并求 N2O4 的摩尔分数；保持温度不变迅速缩小容器体积增大压强，判断平衡移动方向，并说明平衡常数 K 是否变化。",
+      "given": {
+        "equilibrium": {
+          "equation": "N2O4 ⇌ 2NO2",
+          "container": "constantVolume",
+          "initial": { "N2O4": "1" },
+          "known": { "kind": "conversion", "species": "N2O4", "value": "1/2" },
+          "disturbance": { "kind": "compress" }
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "N2O4 摩尔分数", "加压后移动方向", "K 的变化"] },
+      "expected": {
+        "equations": ["N2O4 ⇌ 2NO2"],
+        "equilibrium": {
+          "table": [
+            { "species": "N2O4", "start": "1", "change": "-1/2", "end": "1/2" },
+            { "species": "NO2", "start": "0", "change": "1", "end": "1" }
+          ],
+          "conversionSpecies": "N2O4",
+          "conversion": "1/2",
+          "fractionSpecies": "N2O4",
+          "fraction": "1/3",
+          "kValue": null,
+          "direction": "reverse"
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H04-D1",
+          "description": "加压方向判反：误以为加压使平衡向气体分子数增多方向移动，并写出未配平的方程式（氮不守恒）",
+          "equation": "2N2O4 ⇌ 2NO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "压强扰动", "勒夏特列"]
+    },
+    {
+      "id": "EQ-H05",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 2SO2 + O2 ⇌ 2SO3，正反应为放热反应。起始充入 2 mol SO2 和 1 mol O2，平衡时 SO2 的转化率为 1/2。列出三段式并求 SO2 的摩尔分数；其他条件不变升高温度，判断平衡移动方向，并说明平衡常数 K 如何变化。",
+      "given": {
+        "equilibrium": {
+          "equation": "2SO2 + O2 ⇌ 2SO3",
+          "container": "constantVolume",
+          "initial": { "SO2": "2", "O2": "1" },
+          "known": { "kind": "conversion", "species": "SO2", "value": "1/2" },
+          "disturbance": { "kind": "heatUp", "thermal": "exothermic" }
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "SO2 摩尔分数", "升温后移动方向", "K 的变化"] },
+      "expected": {
+        "equations": ["2SO2 + O2 ⇌ 2SO3"],
+        "equilibrium": {
+          "table": [
+            { "species": "SO2", "start": "2", "change": "-1", "end": "1" },
+            { "species": "O2", "start": "1", "change": "-1/2", "end": "1/2" },
+            { "species": "SO3", "start": "0", "change": "1", "end": "1" }
+          ],
+          "conversionSpecies": "SO2",
+          "conversion": "1/2",
+          "fractionSpecies": "SO2",
+          "fraction": "2/5",
+          "kValue": null,
+          "direction": "reverse"
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H05-D1",
+          "description": "误认为升温使放热反应速率减慢而判错方向，且方程式未配平（硫、氧不守恒）",
+          "equation": "2SO2 + O2 ⇌ SO3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "温度扰动", "放热反应", "K只随温度变化"]
+    },
+    {
+      "id": "EQ-H06",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 N2 + 3H2 ⇌ 2NH3。起始充入 1 mol N2 和 3 mol H2，平衡时 H2 的转化率为 2/5。列出三段式并求 H2 的摩尔分数；其他条件不变再加入高效催化剂，判断平衡是否移动，转化率与平衡常数 K 是否变化。",
+      "given": {
+        "equilibrium": {
+          "equation": "N2 + 3H2 ⇌ 2NH3",
+          "container": "constantVolume",
+          "initial": { "N2": "1", "H2": "3" },
+          "known": { "kind": "conversion", "species": "H2", "value": "2/5" },
+          "disturbance": { "kind": "catalyst" }
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "H2 摩尔分数", "加催化剂后是否移动", "K 的变化"] },
+      "expected": {
+        "equations": ["N2 + 3H2 ⇌ 2NH3"],
+        "equilibrium": {
+          "table": [
+            { "species": "N2", "start": "1", "change": "-2/5", "end": "3/5" },
+            { "species": "H2", "start": "3", "change": "-6/5", "end": "9/5" },
+            { "species": "NH3", "start": "0", "change": "4/5", "end": "4/5" }
+          ],
+          "conversionSpecies": "H2",
+          "conversion": "2/5",
+          "fractionSpecies": "H2",
+          "fraction": "9/16",
+          "kValue": null,
+          "direction": "noShift"
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H06-D1",
+          "description": "误认为催化剂使平衡正向移动（等同增大转化率），并写出未配平的方程式（氢不守恒）",
+          "equation": "N2 + 3H2 ⇌ NH3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "催化剂", "平衡不移动"]
+    },
+    {
+      "id": "EQ-H07",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 N2O4 ⇌ 2NO2。起始充入 1 mol N2O4，平衡时 N2O4 的转化率为 1/3。列出三段式并求 N2O4 的摩尔分数；保持体积不变瞬间充入少量 NO2，判断平衡移动方向，并说明平衡常数 K 是否变化。",
+      "given": {
+        "equilibrium": {
+          "equation": "N2O4 ⇌ 2NO2",
+          "container": "constantVolume",
+          "initial": { "N2O4": "1" },
+          "known": { "kind": "conversion", "species": "N2O4", "value": "1/3" },
+          "disturbance": { "kind": "addSpecies", "species": "NO2" }
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "N2O4 摩尔分数", "加料后移动方向", "K 的变化"] },
+      "expected": {
+        "equations": ["N2O4 ⇌ 2NO2"],
+        "equilibrium": {
+          "table": [
+            { "species": "N2O4", "start": "1", "change": "-1/3", "end": "2/3" },
+            { "species": "NO2", "start": "0", "change": "2/3", "end": "2/3" }
+          ],
+          "conversionSpecies": "N2O4",
+          "conversion": "1/3",
+          "fractionSpecies": "N2O4",
+          "fraction": "1/2",
+          "kValue": null,
+          "direction": "reverse"
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H07-D1",
+          "description": "加料方向判反：误认为增大生成物浓度平衡仍正向移动，并把 NO2 误写成 NO（方程式氧不守恒）",
+          "equation": "N2O4 ⇌ 2NO",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "浓度扰动", "勒夏特列"]
+    },
+    {
+      "id": "EQ-H08",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "某小组研究可逆反应 N2 + 3H2 ⇌ 2NH3，恒温恒容下起始充入 1 mol N2 和 3 mol H2，仅得到\"平衡时各物质的量随温度变化的曲线图\"的文字描述（三条曲线此消彼长），未给出任何转化率、平衡量或平衡分数的具体数值。请列出三段式并求平衡组成。",
+      "given": {
+        "equilibrium": {
+          "equation": "N2 + 3H2 ⇌ 2NH3",
+          "container": "constantVolume",
+          "initial": { "N2": "1", "H2": "3" },
+          "known": null
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "平衡组成"] },
+      "expected": {
+        "equations": [],
+        "equilibrium": {}
+      },
+      "distractors": [],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "图像信息不足", "边界"]
+    }
+  ]
+}

@@ -7,7 +7,7 @@ using Xunit;
 namespace CogniThink.Chem.Tests;
 
 /// <summary>
-/// 端到端求解基准（"能解"）：求解器对全部 42 道基准题推导答案，
+/// 端到端求解基准（"能解"）：求解器对全部 74 道基准题推导答案，
 /// 断言推导结果与 expected 标准答案一致（此前引擎只会校验、现在能推导）。
 /// </summary>
 public class ProblemSolverTests
@@ -25,6 +25,17 @@ public class ProblemSolverTests
         var problem = ById(caseId);
         var solution = ProblemSolver.Solve(problem);
         var expected = problem.Expected;
+
+        // 边界用例（tags 含"边界"，如熔融体系电化学、无平衡信息的平衡题）：引擎必须如实上抛欠定，不得臆造结论。
+        if (problem.Tags.Contains("边界"))
+        {
+            Assert.Equal(InferenceStatus.Underdetermined, solution.Status);
+            Assert.Null(solution.Electrodes);
+            Assert.Null(solution.Equilibrium);
+            Assert.Null(solution.Aqueous);
+            Assert.False(string.IsNullOrWhiteSpace(solution.Message));
+            return;
+        }
 
         // PROD-004 为陌生物质（Xy）边界用例：知识库无记录，引擎必须拒答而非臆造。
         if (problem.Category == ProblemCategory.ProductInference && !expected.EngineExpectation.IsValid)
@@ -75,6 +86,60 @@ public class ProblemSolverTests
                 Assert.NotNull(solution.NumericValue);
                 Assert.Equal(Rational.Parse(expected.NumericAnswer!.Value), solution.NumericValue);
                 break;
+
+            case ProblemCategory.Electrochemistry:
+                Assert.NotNull(expected.Electrodes);
+                Assert.NotNull(solution.Electrodes);
+                Assert.Equal(expected.Electrodes!.Negative, solution.Electrodes!.Negative);
+                Assert.Equal(expected.Electrodes.Positive, solution.Electrodes.Positive);
+                Assert.Equal(expected.Electrodes.Anode, solution.Electrodes.Anode);
+                Assert.Equal(expected.Electrodes.Cathode, solution.Electrodes.Cathode);
+                AssertSetEqual(expected.Equations, solution.Equations);
+                break;
+
+            case ProblemCategory.ChemicalEquilibrium:
+                Assert.NotNull(expected.Equilibrium);
+                Assert.NotNull(solution.Equilibrium);
+                var want = expected.Equilibrium!;
+                var got = solution.Equilibrium!;
+                Assert.Equal(want.Table.Count, got.Table.Count);
+                for (var i = 0; i < want.Table.Count; i++)
+                {
+                    Assert.Equal(want.Table[i].Species, got.Table[i].Species);
+                    Assert.Equal(want.Table[i].Start, got.Table[i].Start);
+                    Assert.Equal(want.Table[i].Change, got.Table[i].Change);
+                    Assert.Equal(want.Table[i].End, got.Table[i].End);
+                }
+
+                Assert.Equal(want.ConversionSpecies, got.ConversionSpecies);
+                Assert.Equal(want.Conversion, got.Conversion);
+                Assert.Equal(want.FractionSpecies, got.FractionSpecies);
+                Assert.Equal(want.Fraction, got.Fraction);
+                Assert.Equal(want.KValue, got.KValue);
+                Assert.Equal(want.Direction, got.Direction);
+                AssertSetEqual(expected.Equations, solution.Equations);
+                break;
+
+            case ProblemCategory.IndustrialProcess:
+                Assert.NotNull(expected.SubstanceMap);
+                Assert.Equal(expected.SubstanceMap!, solution.SubstanceMap);
+                Assert.Equal(expected.Equations, solution.Equations);
+                foreach (var (stepNumber, keyword) in expected.Purposes ?? new Dictionary<string, string>())
+                {
+                    Assert.True(solution.Purposes.TryGetValue(stepNumber, out var actual),
+                        $"{caseId}: 步骤 {stepNumber} 缺少目的输出");
+                    Assert.Contains(keyword, actual);
+                }
+
+                break;
+
+            case ProblemCategory.AqueousIonEquilibrium:
+                Assert.NotNull(expected.Aqueous);
+                Assert.NotNull(solution.Aqueous);
+                Assert.Equal(expected.Aqueous!.Order, solution.Aqueous!.Order);
+                AssertSetEqual(expected.Aqueous.ConservationEquations, solution.Aqueous.ConservationEquations);
+                AssertSetEqual(expected.Equations, solution.Equations);
+                break;
         }
 
         // 每个解都必须带可溯源的求解步骤（讲解/引导的原料）。
@@ -83,15 +148,20 @@ public class ProblemSolverTests
     }
 
     [Fact]
-    public void SolveAll_Covers42Problems()
+    public void SolveAll_CoversAllProblems()
     {
         var solutions = ProblemSolver.SolveAll(Problems);
-        Assert.Equal(42, solutions.Count);
-        // 41 题解出；PROD-004（陌生物质）按铁律拒答。
-        Assert.Equal(41, solutions.Count(s => s.IsSolved));
-        var refused = solutions.Single(s => !s.IsSolved);
-        Assert.Equal("PROD-004", refused.ProblemId);
-        Assert.Equal(InferenceStatus.NoSolution, refused.Status);
+        Assert.Equal(74, solutions.Count);
+        // 69 题解出；PROD-004（陌生物质）按铁律拒答，ELEC-H06（熔融体系）、EQ-H08（无平衡信息）、
+        // AQ-H04（NaHCO3 全粒子排序需解联立平衡）、PROCF-H06（浸出液铁价态未记录）如实欠定。
+        Assert.Equal(69, solutions.Count(s => s.IsSolved));
+        var unsolved = solutions.Where(s => !s.IsSolved).ToList();
+        Assert.Equal(5, unsolved.Count);
+        Assert.Equal(InferenceStatus.NoSolution, unsolved.Single(s => s.ProblemId == "PROD-004").Status);
+        Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "ELEC-H06").Status);
+        Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "EQ-H08").Status);
+        Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "AQ-H04").Status);
+        Assert.Equal(InferenceStatus.Underdetermined, unsolved.Single(s => s.ProblemId == "PROCF-H06").Status);
     }
 
     [Fact]

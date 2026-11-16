@@ -85,6 +85,7 @@
     "Ca3(PO4)2": "Insoluble",
     "Na3PO4": "Soluble",
     "CH3COONa": "Soluble",
-    "NaClO": "Soluble"
+    "NaClO": "Soluble",
+    "Na2C2O4": "Soluble"
   }
 }

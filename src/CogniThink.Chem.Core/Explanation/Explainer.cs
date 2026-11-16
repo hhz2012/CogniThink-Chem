@@ -182,6 +182,89 @@ public sealed class Explainer
                     ? $"{value} {solution.NumericUnit}".Trim()
                     : $"无法计算：{solution.Message}";
 
+            case ProblemCategory.Electrochemistry:
+                var electrodeParts = new List<string>();
+                if (solution.Electrodes is { } el)
+                {
+                    if (!string.IsNullOrWhiteSpace(el.Negative)) electrodeParts.Add($"负极：{el.Negative}");
+                    if (!string.IsNullOrWhiteSpace(el.Positive)) electrodeParts.Add($"正极：{el.Positive}");
+                    if (!string.IsNullOrWhiteSpace(el.Anode)) electrodeParts.Add($"阳极：{el.Anode}");
+                    if (!string.IsNullOrWhiteSpace(el.Cathode)) electrodeParts.Add($"阴极：{el.Cathode}");
+                }
+
+                return electrodeParts.Count > 0
+                    ? string.Join("；", electrodeParts)
+                    : $"无法给出电极反应式：{solution.Message}";
+
+            case ProblemCategory.ChemicalEquilibrium:
+                if (solution.Equilibrium is not { } eq)
+                {
+                    return $"无法求解平衡：{solution.Message}";
+                }
+
+                var eqParts = new List<string>();
+                if (eq.Conversion is not null)
+                {
+                    eqParts.Add($"{eq.ConversionSpecies} 转化率：{eq.Conversion}");
+                }
+
+                if (eq.Fraction is not null)
+                {
+                    eqParts.Add($"{eq.FractionSpecies} 平衡摩尔分数：{eq.Fraction}");
+                }
+
+                if (eq.KValue is not null)
+                {
+                    eqParts.Add($"Kp = {eq.KValue}");
+                }
+
+                eqParts.Add(eq.Direction switch
+                {
+                    "forward" => "扰动后平衡正向移动",
+                    "reverse" => "扰动后平衡逆向移动",
+                    "noShift" => "扰动后平衡不移动",
+                    _ => "无扰动，平衡状态即最终结论",
+                });
+                return "平衡结论：" + string.Join("；", eqParts);
+
+            case ProblemCategory.AqueousIonEquilibrium:
+                if (solution.Aqueous is not { } aq)
+                {
+                    return $"无法判定粒子浓度关系：{solution.Message}";
+                }
+
+                var aqParts = new List<string>();
+                if (aq.Order.Count > 0)
+                {
+                    aqParts.Add("浓度由大到小：" + string.Join(" > ", aq.Order));
+                }
+
+                if (aq.ConservationEquations.Count > 0)
+                {
+                    aqParts.Add("守恒关系：" + string.Join("；", aq.ConservationEquations));
+                }
+
+                return aqParts.Count > 0 ? string.Join("。", aqParts) : solution.Message;
+
+            case ProblemCategory.IndustrialProcess:
+                if (solution.SubstanceMap.Count == 0)
+                {
+                    return $"无法推断工业流程：{solution.Message}";
+                }
+
+                var flowMap = string.Join("，", solution.SubstanceMap
+                    .OrderBy(kv => kv.Key, StringComparer.Ordinal)
+                    .Select(kv => $"{kv.Key} 是 {kv.Value}"));
+                var flowPurposes = solution.Purposes.Count > 0
+                    ? "；各步目的：" + string.Join("；", solution.Purposes
+                        .OrderBy(kv => int.TryParse(kv.Key, out var n) ? n : int.MaxValue)
+                        .Select(kv => $"第{kv.Key}步 {kv.Value}"))
+                    : "";
+                var flowEquations = solution.Equations.Count > 0
+                    ? "；转化链方程式：" + string.Join("；", solution.Equations)
+                    : "";
+                return flowMap + flowPurposes + flowEquations;
+
             default:
                 return solution.Message;
         }
@@ -197,6 +280,10 @@ public sealed class Explainer
             case ProblemCategory.ProcessInference: return "过程推断";
             case ProblemCategory.IonCoexistence: return "离子共存";
             case ProblemCategory.StoichiometryCalc: return "定量计算";
+            case ProblemCategory.Electrochemistry: return "电化学";
+            case ProblemCategory.ChemicalEquilibrium: return "化学平衡";
+            case ProblemCategory.AqueousIonEquilibrium: return "水溶液离子平衡";
+            case ProblemCategory.IndustrialProcess: return "工业流程综合";
             default: return category.ToString();
         }
     }

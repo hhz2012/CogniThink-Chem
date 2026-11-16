@@ -20,7 +20,11 @@ public static class BenchmarkLoader
             [ProblemCategory.SubstanceIdentification] = "substance-identification.json",
             [ProblemCategory.ProcessInference] = "process-inference.json",
             [ProblemCategory.IonCoexistence] = "ion-coexistence.json",
-            [ProblemCategory.StoichiometryCalc] = "stoichiometry.json"
+            [ProblemCategory.StoichiometryCalc] = "stoichiometry.json",
+            [ProblemCategory.Electrochemistry] = "hard-electrochemistry.json",
+            [ProblemCategory.ChemicalEquilibrium] = "hard-equilibrium.json",
+            [ProblemCategory.AqueousIonEquilibrium] = "hard-aqueous-equilibrium.json",
+            [ProblemCategory.IndustrialProcess] = "hard-process-flow.json"
         };
 
     /// <summary>加载全部类别的题目（按文件名排序，类别内保持文件顺序）。</summary>
@@ -50,7 +54,9 @@ public static class BenchmarkLoader
     /// <list type="bullet">
     /// <item>id 全局唯一且非空；problemText、source 非空。</item>
     /// <item>各类别必备字段：产物推断需 given.species + equations；成分推断需 candidateSpecies + steps + composition；
-    /// 过程推断需 steps + substanceMap + equations；离子共存需 species + verdict；计算题需 numericFacts + calc + numericAnswer。</item>
+    /// 过程推断需 steps + substanceMap + equations；离子共存需 species + verdict；计算题需 numericFacts + calc + numericAnswer；
+    /// 电化学需 cell + electrodes；化学平衡需 equilibrium.equation + expected.equilibrium；
+    /// 水溶液离子平衡需 solution.solutes + expected.aqueous；工业流程需 steps +（purposes 或 substanceMap）。</item>
     /// <item>干扰项：id 唯一、equation 非空；预期被捕获（expectValid=false）时必须给出 expectFailChecks。</item>
     /// </list>
     /// </summary>
@@ -160,6 +166,58 @@ public static class BenchmarkLoader
                     if (problem.Expected.NumericAnswer is null)
                     {
                         issues.Add($"{where}：计算题必须给出 expected.numericAnswer");
+                    }
+
+                    break;
+
+                case ProblemCategory.Electrochemistry:
+                    if (problem.Given.Cell is not { } cell || cell.Electrodes.Count == 0)
+                    {
+                        issues.Add($"{where}：电化学必须给出 given.cell（装置类型与电极）");
+                    }
+
+                    if (problem.Expected.Electrodes is null)
+                    {
+                        issues.Add($"{where}：电化学必须给出 expected.electrodes（电极反应式）");
+                    }
+
+                    break;
+
+                case ProblemCategory.ChemicalEquilibrium:
+                    if (problem.Given.Equilibrium is not { } eq || eq.Equation.Length == 0)
+                    {
+                        issues.Add($"{where}：化学平衡必须给出 given.equilibrium.equation（可逆反应）");
+                    }
+
+                    if (problem.Expected.Equilibrium is null)
+                    {
+                        issues.Add($"{where}：化学平衡必须给出 expected.equilibrium（三段式与结论）");
+                    }
+
+                    break;
+
+                case ProblemCategory.AqueousIonEquilibrium:
+                    if (problem.Given.Solution is not { } sol || sol.Solutes.Count == 0)
+                    {
+                        issues.Add($"{where}：水溶液离子平衡必须给出 given.solution.solutes（溶质与用量）");
+                    }
+
+                    if (problem.Expected.Aqueous is not { } aq || (aq.Order.Count == 0 && aq.ConservationEquations.Count == 0))
+                    {
+                        issues.Add($"{where}：水溶液离子平衡必须给出 expected.aqueous（浓度顺序或守恒等式）");
+                    }
+
+                    break;
+
+                case ProblemCategory.IndustrialProcess:
+                    if (problem.Given.Steps.Count == 0)
+                    {
+                        issues.Add($"{where}：工业流程必须给出 given.steps（各步操作）");
+                    }
+
+                    if (problem.Expected.Purposes is not { Count: > 0 } && problem.Expected.SubstanceMap is not { Count: > 0 })
+                    {
+                        issues.Add($"{where}：工业流程必须给出 expected.purposes 或 expected.substanceMap");
                     }
 
                     break;

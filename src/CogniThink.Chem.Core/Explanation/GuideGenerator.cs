@@ -145,6 +145,30 @@ public static class GuideGenerator
                 level.Prompts.Add($"先确定计算路线（{formula}），再检查每个已知量的单位是否需要换算（如 mL→L）。");
                 level.Prompts.Add("代入数值时用分数精确运算，最后检查结果的量纲与数值是否合理。");
                 break;
+
+            case ProblemCategory.Electrochemistry:
+                level.Prompts.Add("先判断装置类型：这是原电池还是电解池？两种装置的电极名称（正负极/阴阳极）分别对应氧化反应还是还原反应？");
+                level.Prompts.Add("写出装置的总反应，标出化合价升高与降低的元素：失电子的一极发生氧化反应，你能据此确定该极的电极反应式吗？");
+                level.Prompts.Add("另一极的电极反应式可由总反应减去已知半反应得到——先按电子守恒确定倍数，再移项，最后检查介质（酸性补 H^+、碱性补 OH^-）下各物种是否合理。");
+                break;
+
+            case ProblemCategory.ChemicalEquilibrium:
+                level.Prompts.Add("先把可逆反应配平，写出三段式框架：起始、转化、平衡三行各物种的量如何用同一转化进度 x 与计量数 ν 表示？");
+                level.Prompts.Add("题给的平衡信息（转化率 / 某物种平衡量 / 某物种平衡分数）能列出一个关于 x 的一元一次方程吗？注意转化量 = |ν|·x，别把转化量与平衡量混淆。");
+                level.Prompts.Add("求平衡分数时分母是平衡时总物质的量——反应前后气体分子数变化（Δν）会改变总量，别忘了计入；判断移动方向回到勒夏特列原理：改变条件，平衡向减弱这种改变的方向移动。");
+                break;
+
+            case ProblemCategory.AqueousIonEquilibrium:
+                level.Prompts.Add("先写出溶液中全部电离与水解方程：哪些溶质完全电离？哪些离子发生水解（越弱越水解，Kh = Kw/Ka）？水解或电离竞争后溶液显酸性还是碱性？");
+                level.Prompts.Add("列出三大守恒：电荷守恒（阳离子所带正电荷总浓度 = 阴离子所带负电荷总浓度）、物料守恒（某元素各种存在形态的总量比）、质子守恒（得失质子数相等）。浓度排序时完全电离的粒子一般大于弱过程产生的粒子。");
+                level.Prompts.Add("遇到两种弱过程粒子比大小（如 NaHCO3 中 c(CO3^2-) 与 c(OH^-)）：先问自己现有守恒关系能否判定；若需解联立平衡才能比较，应如实承认条件不足，不要凭印象下结论。");
+                break;
+
+            case ProblemCategory.IndustrialProcess:
+                level.Prompts.Add("先通读整个流程，把步骤分成两类：发生化学转化的步骤（原料→中间产物→产品）与纯操作步骤（过滤、洗涤、灼烧、结晶、循环）。转化链从最有特征的现象或最确定的试剂入手锁定各步物质。");
+                level.Prompts.Add("对每个操作步骤问自己：它在除杂、沉淀转化、pH 调控还是分离提纯的哪个环节起作用？除杂原则（不引入新杂质、不减少主体物质）如何约束试剂的加入顺序与用量？");
+                level.Prompts.Add("涉及沉淀与 pH 的步骤，回到溶度积判据：沉淀向更难溶的方向转化；控制 pH 使杂质离子沉淀完全而主体离子不沉淀。写目的时先回忆对应规则条目，再用自己的话复述判据。");
+                break;
         }
 
         return level;

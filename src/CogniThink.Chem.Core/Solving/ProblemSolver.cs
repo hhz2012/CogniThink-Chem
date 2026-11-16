@@ -14,6 +14,10 @@ namespace CogniThink.Chem.Core.Solving;
 /// <item>成分推断 → <see cref="IdentificationEngine"/>（约束传播；模式由 given.singleEntity 标注）。</item>
 /// <item>过程推断 → <see cref="ProcessInferenceEngine"/>（转化链回溯赋值）。</item>
 /// <item>定量计算 → 复用 <see cref="BenchmarkVerifier.ComputeCalc"/> 的精确有理复算。</item>
+/// <item>电化学 → <see cref="ElectrochemEngine"/>（装置判定 + 离子-电子法拆解半反应）。</item>
+/// <item>化学平衡 → <see cref="EquilibriumEngine"/>（三段式 + 转化率/Kp + 扰动方向，全程有理数精确）。</item>
+/// <item>水溶液离子平衡 → <see cref="AqueousEquilibriumEngine"/>（电离/水解方向判定 + 三大守恒）。</item>
+/// <item>工业流程综合 → <see cref="ProcessFlowEngine"/>（转化链回溯赋值 + 每步目的/原理规则匹配）。</item>
 /// </list>
 /// 铁律：求解器只做路由与汇总，全部结论仍来自知识驱动引擎；欠定/无解原样上抛，不猜。
 /// </summary>
@@ -37,6 +41,14 @@ public static class ProblemSolver
                 return SolveProcess(problem, library);
             case ProblemCategory.StoichiometryCalc:
                 return SolveCalc(problem);
+            case ProblemCategory.Electrochemistry:
+                return SolveElectrochem(problem, library);
+            case ProblemCategory.ChemicalEquilibrium:
+                return SolveEquilibrium(problem);
+            case ProblemCategory.AqueousIonEquilibrium:
+                return SolveAqueousEquilibrium(problem, library);
+            case ProblemCategory.IndustrialProcess:
+                return SolveProcessFlow(problem, library);
             default:
                 throw new ArgumentOutOfRangeException(nameof(problem), problem.Category, "未知题目类别");
         }
@@ -209,6 +221,177 @@ public static class ProblemSolver
 
         solution.Status = InferenceStatus.Solved;
         solution.Message = $"计算完成：{value} {solution.NumericUnit}".Trim();
+        return solution;
+    }
+
+    // -----------------------------------------------------------------------
+    // 电化学
+    // -----------------------------------------------------------------------
+
+    private static Solution SolveElectrochem(ProblemSpec problem, ReactionLibrary library)
+    {
+        var solution = NewSolution(problem);
+        if (problem.Given.Cell is not { } cell)
+        {
+            solution.Status = InferenceStatus.NoSolution;
+            solution.Message = "电化学题缺少 given.cell（装置类型与电极），引擎无法推断。";
+            return solution;
+        }
+
+        var infer = ElectrochemEngine.Infer(new ElectrochemRequest
+        {
+            Type = cell.Type,
+            Electrodes = cell.Electrodes.ToList(),
+            Electrolyte = cell.Electrolyte,
+            Medium = cell.Medium,
+            Overall = cell.Overall,
+            GasFeeds = cell.GasFeeds.ToList(),
+        }, library);
+
+        solution.Status = infer.Status;
+        solution.Message = infer.Message;
+        if (infer.Status == InferenceStatus.Solved)
+        {
+            solution.Electrodes = infer.Electrodes;
+            solution.Equations = new List<string> { infer.OverallEquation };
+        }
+
+        solution.Steps = ToSteps(infer.Steps);
+        return solution;
+    }
+
+    // -----------------------------------------------------------------------
+    // 化学平衡
+    // -----------------------------------------------------------------------
+
+    private static Solution SolveEquilibrium(ProblemSpec problem)
+    {
+        var solution = NewSolution(problem);
+        if (problem.Given.Equilibrium is not { } eq)
+        {
+            solution.Status = InferenceStatus.NoSolution;
+            solution.Message = "化学平衡题缺少 given.equilibrium（可逆反应体系），引擎无法推断。";
+            return solution;
+        }
+
+        var infer = EquilibriumEngine.Infer(new EquilibriumRequest
+        {
+            Equation = eq.Equation,
+            Container = eq.Container,
+            Initial = eq.Initial.ToDictionary(kv => kv.Key, kv => Rational.Parse(kv.Value), StringComparer.Ordinal),
+            Known = eq.Known is null
+                ? null
+                : new EquilibriumKnownFact
+                {
+                    Kind = eq.Known.Kind,
+                    Species = eq.Known.Species,
+                    Value = Rational.Parse(eq.Known.Value),
+                },
+            Disturbance = eq.Disturbance is null
+                ? null
+                : new EquilibriumDisturbance
+                {
+                    Kind = eq.Disturbance.Kind,
+                    Species = eq.Disturbance.Species,
+                    Thermal = eq.Disturbance.Thermal,
+                },
+            TotalPressure = eq.TotalPressure is null ? null : Rational.Parse(eq.TotalPressure),
+            FractionSpecies = eq.FractionSpecies ?? "",
+        });
+
+        solution.Status = infer.Status;
+        solution.Message = infer.Message;
+        if (infer.Status == InferenceStatus.Solved)
+        {
+            solution.Equilibrium = infer.Answer;
+            solution.Equations = new List<string> { infer.BalancedEquation };
+        }
+
+        solution.Steps = ToSteps(infer.Steps);
+        return solution;
+    }
+
+    // -----------------------------------------------------------------------
+    // 水溶液离子平衡
+    // -----------------------------------------------------------------------
+
+    private static Solution SolveAqueousEquilibrium(ProblemSpec problem, ReactionLibrary library)
+    {
+        var solution = NewSolution(problem);
+        if (problem.Given.Solution is not { } aqueous)
+        {
+            solution.Status = InferenceStatus.NoSolution;
+            solution.Message = "水溶液离子平衡题缺少 given.solution（溶质组成），引擎无法推断。";
+            return solution;
+        }
+
+        var infer = AqueousEquilibriumEngine.Infer(new AqueousRequest
+        {
+            Solutes = aqueous.Solutes.ToList(),
+            Ph = aqueous.Ph ?? "",
+            Note = aqueous.Note,
+            OrderSpecies = aqueous.OrderSpecies.ToList(),
+            Conversion = aqueous.Conversion,
+        }, library);
+
+        solution.Status = infer.Status;
+        solution.Message = infer.Message;
+        if (infer.Status == InferenceStatus.Solved)
+        {
+            solution.Aqueous = new AqueousAnswerSpec
+            {
+                Order = infer.Order.ToList(),
+                ConservationEquations = infer.ConservationEquations.ToList(),
+            };
+            solution.Equations = infer.Equations.ToList();
+        }
+
+        solution.Steps = ToSteps(infer.Steps);
+        return solution;
+    }
+
+    // -----------------------------------------------------------------------
+    // 工业流程综合
+    // -----------------------------------------------------------------------
+
+    private static Solution SolveProcessFlow(ProblemSpec problem, ReactionLibrary library)
+    {
+        var solution = NewSolution(problem);
+        if (problem.Given.Steps.Count == 0)
+        {
+            solution.Status = InferenceStatus.NoSolution;
+            solution.Message = "工业流程题缺少 given.steps（流程步骤），引擎无法推断。";
+            return solution;
+        }
+
+        var infer = ProcessFlowEngine.Infer(new ProcessFlowRequest
+        {
+            CandidateSpecies = problem.Given.CandidateSpecies.ToList(),
+            Steps = problem.Given.Steps.Select(s => new ProcessFlowStep
+            {
+                Step = s.Step,
+                From = s.From,
+                To = s.To,
+                Reagents = s.Reagents.ToList(),
+                Conditions = s.Conditions.ToList(),
+                Phenomenon = s.Phenomenon,
+                Purpose = s.Purpose,
+            }).ToList(),
+        }, library);
+
+        solution.Status = infer.Status;
+        solution.Message = infer.Message;
+        if (infer.Status == InferenceStatus.Solved)
+        {
+            solution.SubstanceMap = new Dictionary<string, string>(infer.Assignment);
+            solution.Purposes = new Dictionary<string, string>(infer.PurposeMap);
+            solution.Equations = infer.StepResults
+                .OrderBy(r => r.Step)
+                .Select(r => r.Equation)
+                .ToList();
+        }
+
+        solution.Steps = ToSteps(infer.Steps);
         return solution;
     }
 

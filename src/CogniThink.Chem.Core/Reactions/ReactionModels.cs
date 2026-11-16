@@ -92,5 +92,29 @@ public sealed class ReactionEntry
     /// <summary>细分标签（如 "氧化还原"、"放热"、"取代"、"加成"），供检索与讲解。</summary>
     public List<string> Tags { get; set; } = new();
 
+    /// <summary>
+    /// 电化学（ELC）条目的结构化电极半反应：半反应原先只写在 <see cref="Phenomenon"/> 文本里，
+    /// 本字段将其结构化以便引擎步骤直接溯源。写法约定：原电池 Negative=负极、Positive=正极；
+    /// 电解池 Negative=阴极（接电源负极）、Positive=阳极（接电源正极），语义一致。
+    /// 仅对教材文本中明确写出电极式的条目填写；旧数据无此字段时反序列化为 null，不受影响。
+    /// </summary>
+    public ElectrodeHalfReactions? HalfReactions { get; set; }
+
+    /// <summary>
+    /// 热化学（THM）条目的反应热精确字符串值（如 "-571.6 kJ/mol"，状态注记随教材原文保留），
+    /// 与 <see cref="Phenomenon"/> 中的 ΔH 文本一致，供结构化溯源。无明确数值的条目为 null。
+    /// </summary>
+    public string? DeltaH { get; set; }
+
     public override string ToString() => $"{Id} {Name}";
+}
+
+/// <summary>电极半反应的结构化写法（L2 物种写法，含 e^-）。</summary>
+public sealed class ElectrodeHalfReactions
+{
+    /// <summary>负极（原电池）/ 阴极（电解池）电极反应式。</summary>
+    public string Negative { get; set; } = "";
+
+    /// <summary>正极（原电池）/ 阳极（电解池）电极反应式。</summary>
+    public string Positive { get; set; } = "";
 }

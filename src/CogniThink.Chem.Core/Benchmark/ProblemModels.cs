@@ -20,7 +20,19 @@ public enum ProblemCategory
     IonCoexistence,
 
     /// <summary>定量计算：摩尔/浓度/气体体积/产率等，引擎用有理数精确复算。</summary>
-    StoichiometryCalc
+    StoichiometryCalc,
+
+    /// <summary>电化学：电极反应式、电解产物、离子移动方向。</summary>
+    Electrochemistry,
+
+    /// <summary>化学平衡综合：三段式、转化率、Kp、平衡移动方向。</summary>
+    ChemicalEquilibrium,
+
+    /// <summary>水溶液中的离子平衡：粒子浓度大小比较、三大守恒。</summary>
+    AqueousIonEquilibrium,
+
+    /// <summary>工业流程综合推断：多步转化 + 操作目的。</summary>
+    IndustrialProcess
 }
 
 /// <summary>难度（对应课内层次：基础/中档/难题）。</summary>
@@ -47,7 +59,19 @@ public enum AskType
     JudgeCoexistence,
 
     /// <summary>数值计算。</summary>
-    Calculate
+    Calculate,
+
+    /// <summary>写电极反应式（正负极/阴阳极）。</summary>
+    WriteElectrodeEquations,
+
+    /// <summary>平衡三段式、转化率、Kp 与移动方向计算。</summary>
+    EquilibriumCalculation,
+
+    /// <summary>粒子浓度大小比较与守恒等式。</summary>
+    CompareConcentrations,
+
+    /// <summary>流程各步物质与操作目的分析。</summary>
+    AnalyzeProcess
 }
 
 /// <summary>成分推断结论：一定含 / 一定不含 / 可能含（无法确定）。</summary>
@@ -133,6 +157,136 @@ public sealed class GivenSpec
 
     /// <summary>定量事实（计算题）。</summary>
     public List<NumericFact> NumericFacts { get; set; } = new();
+
+    /// <summary>电化学装置（电化学题）。</summary>
+    public CellSpec? Cell { get; set; }
+
+    /// <summary>平衡体系（化学平衡综合题）。</summary>
+    public EquilibriumGivenSpec? Equilibrium { get; set; }
+
+    /// <summary>溶液组成（水溶液离子平衡题）。</summary>
+    public AqueousGivenSpec? Solution { get; set; }
+}
+
+/// <summary>电化学装置描述：原电池（正负极）或电解池（阴阳极）。</summary>
+public sealed class CellSpec
+{
+    /// <summary>"galvanic"（原电池）/ "electrolytic"（电解池）。</summary>
+    public string Type { get; set; } = "galvanic";
+
+    /// <summary>
+    /// 电极材料（L2 写法）。原电池按题给顺序 [较活泼, 较不活泼]；
+    /// 电解池按 [阳极, 阴极]。惰性电极写 "C" 或 "Pt"。
+    /// </summary>
+    public List<string> Electrodes { get; set; } = new();
+
+    /// <summary>电解质溶液/熔融物（L2 写法），如 "H2SO4"、"CuCl2"、"NaCl"。</summary>
+    public string Electrolyte { get; set; } = "";
+
+    /// <summary>介质："acidic" / "basic"（决定电极式的 H^+/OH^- 配平方式）。</summary>
+    public string Medium { get; set; } = "";
+
+    /// <summary>
+    /// 总反应（可空）。给出时引擎以此拆解半反应；
+    /// 为空时按电极+电解质检索知识库 ELC 条目，检索不到则如实上抛欠定。
+    /// </summary>
+    public string Overall { get; set; } = "";
+
+    /// <summary>通入气体燃料/氧化剂（燃料电池用），如 ["H2"]、["O2"]。</summary>
+    public List<string> GasFeeds { get; set; } = new();
+}
+
+/// <summary>化学平衡题的题给体系。</summary>
+public sealed class EquilibriumGivenSpec
+{
+    /// <summary>可逆反应方程式（L2 写法，可用 = 或 ⇌，未配平亦可）。</summary>
+    public string Equation { get; set; } = "";
+
+    /// <summary>容器："constantVolume"（恒温恒容，缺省）/ "constantPressure"（恒温恒压）。</summary>
+    public string Container { get; set; } = "constantVolume";
+
+    /// <summary>起始投料：物种 → 物质的量（mol，字符串精确值）。</summary>
+    public Dictionary<string, string> Initial { get; set; } = new();
+
+    /// <summary>题给平衡信息（见 <see cref="EquilibriumKnownSpec.Kind"/>）。</summary>
+    public EquilibriumKnownSpec? Known { get; set; }
+
+    /// <summary>平衡后施加的扰动（可空）。</summary>
+    public DisturbanceSpec? Disturbance { get; set; }
+
+    /// <summary>体系总压（Kp 计算用，字符串精确值，单位 atm 或 kPa 由题目文字说明）。</summary>
+    public string? TotalPressure { get; set; }
+
+    /// <summary>要求摩尔分数的物种（题问物种）；缺省时取 known 物种。</summary>
+    public string? FractionSpecies { get; set; }
+}
+
+/// <summary>题给平衡信息：kind = conversion（某反应物转化率）/ amountFraction（某组分平衡体积/物质的量分数）/ moles（某组分平衡物质的量）。</summary>
+public sealed class EquilibriumKnownSpec
+{
+    public string Kind { get; set; } = "";
+
+    /// <summary>相关物种。</summary>
+    public string Species { get; set; } = "";
+
+    /// <summary>精确值（"1/2"、"0.4"、"2"）。</summary>
+    public string Value { get; set; } = "";
+}
+
+/// <summary>平衡扰动：kind = addSpecies（加料）/ compress（缩小体积加压）/ expand（减压）/ heatUp（升温）/ coolDown（降温）/ catalyst（加催化剂）。</summary>
+public sealed class DisturbanceSpec
+{
+    public string Kind { get; set; } = "";
+
+    /// <summary>addSpecies 时的物种。</summary>
+    public string Species { get; set; } = "";
+
+    /// <summary>正反应热符号（heatUp/coolDown 须给："exothermic" 放热 / "endothermic" 吸热）。</summary>
+    public string Thermal { get; set; } = "";
+}
+
+/// <summary>水溶液题的组成：单一溶质，或两种溶质混合（等体积混合/恰好中和等）。</summary>
+public sealed class AqueousGivenSpec
+{
+    /// <summary>溶质清单（L2 写法 + 浓度/体积）。</summary>
+    public List<SoluteSpec> Solutes { get; set; } = new();
+
+    /// <summary>题给 pH（可空，用于需要 Ka 才能定序的精确判定）。</summary>
+    public string? Ph { get; set; }
+
+    /// <summary>题给附加条件（如"恰好中和"、"pH=7"、"等体积混合"）。</summary>
+    public string Note { get; set; } = "";
+
+    /// <summary>要求比较浓度的粒子清单（L2 离子写法；空 = 不排序，如沉淀转化题）。</summary>
+    public List<string> OrderSpecies { get; set; } = new();
+
+    /// <summary>沉淀转化条件（可空；给出时走 Ksp 转化路径）。</summary>
+    public AqueousConversionSpec? Conversion { get; set; }
+}
+
+/// <summary>沉淀转化题条件：原沉淀 + 加入离子 → 目标沉淀。</summary>
+public sealed class AqueousConversionSpec
+{
+    /// <summary>原沉淀化学式主体（如 "AgCl"）。</summary>
+    public string Original { get; set; } = "";
+
+    /// <summary>加入的离子（如 "I^-"）。</summary>
+    public string AddedIon { get; set; } = "";
+
+    /// <summary>转化目标沉淀（如 "AgI"）。</summary>
+    public string Target { get; set; } = "";
+}
+
+/// <summary>一种溶质及其用量。</summary>
+public sealed class SoluteSpec
+{
+    public string Species { get; set; } = "";
+
+    /// <summary>物质的量浓度（mol/L，字符串精确值）。</summary>
+    public string Concentration { get; set; } = "";
+
+    /// <summary>体积（L，字符串精确值；缺省 "1"）。</summary>
+    public string VolumeLiters { get; set; } = "1";
 }
 
 /// <summary>一步反应过程或实验操作。</summary>
@@ -153,6 +307,12 @@ public sealed class StepSpec
 
     /// <summary>实验现象。</summary>
     public string Phenomenon { get; set; } = "";
+
+    /// <summary>
+    /// 本步操作目的（工业流程题）：如 "除去 Fe^3+ 杂质"、"将 Br^- 氧化为 Br2"。
+    /// 引擎据此匹配流程目的规则（PROC-*）并输出"目的—原理—方程式"推理节点。
+    /// </summary>
+    public string Purpose { get; set; } = "";
 }
 
 /// <summary>定量事实。数值一律用字符串精确表示（Rational.Parse 可解析："10.6"、"1/2"）。</summary>
@@ -215,8 +375,84 @@ public sealed class ExpectedSpec
     /// <summary>离子共存结论。</summary>
     public CoexistVerdict? Verdict { get; set; }
 
+    /// <summary>电化学结论：电极反应式（按装置类型只填对应两项）。</summary>
+    public ElectrodeEquationsSpec? Electrodes { get; set; }
+
+    /// <summary>化学平衡结论：三段式表 + 转化率/分数/Kp/移动方向。</summary>
+    public EquilibriumAnswerSpec? Equilibrium { get; set; }
+
+    /// <summary>水溶液离子平衡结论：粒子浓度顺序 + 守恒等式。</summary>
+    public AqueousAnswerSpec? Aqueous { get; set; }
+
+    /// <summary>工业流程结论：各步操作目的关键词（步骤号 → 必须出现在该步推理中的关键词）。</summary>
+    public Dictionary<string, string>? Purposes { get; set; }
+
     /// <summary>对 <see cref="Equations"/> 中每条方程式的引擎预期。</summary>
     public EngineExpectation EngineExpectation { get; set; } = new();
+}
+
+/// <summary>电极反应式答案：原电池填 Negative/Positive，电解池填 Anode/Cathode。</summary>
+public sealed class ElectrodeEquationsSpec
+{
+    /// <summary>负极（氧化，失电子）。</summary>
+    public string? Negative { get; set; }
+
+    /// <summary>正极（还原，得电子）。</summary>
+    public string? Positive { get; set; }
+
+    /// <summary>阳极（氧化，失电子）。</summary>
+    public string? Anode { get; set; }
+
+    /// <summary>阴极（还原，得电子）。</summary>
+    public string? Cathode { get; set; }
+}
+
+/// <summary>化学平衡答案。</summary>
+public sealed class EquilibriumAnswerSpec
+{
+    /// <summary>三段式行：物种 + 起始/转化/平衡量（mol，精确字符串）。</summary>
+    public List<EquilibriumRowSpec> Table { get; set; } = new();
+
+    /// <summary>转化率对应的物种与其转化率（精确字符串，如 "1/3"）。</summary>
+    public string? ConversionSpecies { get; set; }
+
+    public string? Conversion { get; set; }
+
+    /// <summary>某组分的平衡物质的量（分数）；Species 与 Value。</summary>
+    public string? FractionSpecies { get; set; }
+
+    public string? Fraction { get; set; }
+
+    /// <summary>Kp 或 Kc 表达式值（精确字符串）。</summary>
+    public string? KValue { get; set; }
+
+    /// <summary>平衡移动方向："forward" / "reverse" / "noShift"（无扰动时为空）。</summary>
+    public string? Direction { get; set; }
+}
+
+/// <summary>三段式的一行。</summary>
+public sealed class EquilibriumRowSpec
+{
+    public string Species { get; set; } = "";
+
+    public string Start { get; set; } = "";
+
+    public string Change { get; set; } = "";
+
+    public string End { get; set; } = "";
+}
+
+/// <summary>水溶液离子平衡答案。</summary>
+public sealed class AqueousAnswerSpec
+{
+    /// <summary>
+    /// 粒子浓度由大到小的顺序（如 ["c(Na^+)","c(CH3COO^-)","c(OH^-)","c(H^+)"]），
+    /// 引擎按"完全电离 > 弱过程 + 守恒式"链推出同序结论。
+    /// </summary>
+    public List<string> Order { get; set; } = new();
+
+    /// <summary>必须写出的守恒等式（电荷/物料/质子，L2 写法）。</summary>
+    public List<string> ConservationEquations { get; set; } = new();
 }
 
 /// <summary>引擎对标准方程式的预期校验结果（逐条方程式适用）。</summary>

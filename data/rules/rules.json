@@ -577,6 +577,66 @@
       "source": "选择性必修1·第一章",
       "conflictGroup": "thermochemistry",
       "tests": []
+    },
+    {
+      "id": "PROC-001",
+      "name": "除杂原则",
+      "layer": "Structural",
+      "knowledgeId": "KH-EX-04",
+      "preconditions": [
+        { "key": "process_operation", "values": ["impurity_removal"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "impurity_removal", "object": "no_new_impurity_no_loss", "display": "除杂原则：所加试剂只与杂质反应，不引入新杂质、不减少主体物质，过量试剂在后续步骤中易于除去" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《必修第一册》第一章'从实验学化学'实验：粗盐中不可溶性及可溶性杂质的去除",
+      "conflictGroup": "process-impurity-removal",
+      "tests": []
+    },
+    {
+      "id": "PROC-002",
+      "name": "沉淀转化方向",
+      "layer": "Structural",
+      "knowledgeId": "KH-RP-07",
+      "preconditions": [
+        { "key": "process_operation", "values": ["precipitate_conversion"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "precipitate_conversion", "object": "towards_less_soluble", "display": "沉淀转化方向：沉淀向更难溶（Ksp 更小）的方向转化（依据 SOL-004：K = Ksp(原)/Ksp(新) > 1 时转化可行）" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "人教版《选择性必修1·化学反应原理》第三章'水溶液中的离子反应与平衡'第四节，呼应 SOL-004",
+      "conflictGroup": "process-precipitate-conversion",
+      "tests": []
+    },
+    {
+      "id": "PROC-003",
+      "name": "控制pH除杂",
+      "layer": "Structural",
+      "knowledgeId": "KH-RP-07",
+      "preconditions": [
+        { "key": "process_operation", "values": ["ph_control"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "ph_control_removal", "object": "impurity_precipitates_main_ion_stays", "display": "控制 pH 除杂：调节 pH 使杂质离子（如 Fe^3+）水解生成氢氧化物沉淀完全，而主体离子（如 Cu^2+）不沉淀（沉淀完全与否的判据依据 SOL-003/Ksp）" },
+      "gradeScope": "Elective",
+      "evidence": "Quantitative",
+      "source": "人教版《选择性必修1·化学反应原理》第三章'水溶液中的离子反应与平衡'第四节，应用 SOL-003 溶度积判据",
+      "conflictGroup": "process-ph-control",
+      "tests": []
+    },
+    {
+      "id": "PROC-004",
+      "name": "常见操作目的",
+      "layer": "Structural",
+      "knowledgeId": "KH-IN-12",
+      "preconditions": [
+        { "key": "process_operation", "values": ["evaporative_cooling_crystallization", "evaporative_crystallization", "calcination", "washing", "recycling"] }
+      ],
+      "conclusion": { "predicate": "operation_principle", "subject": "process_operation_purpose", "object": "per_operation_purpose", "display": "蒸发浓缩冷却结晶：适用于溶解度随温度变化大的物质，获得带结晶水的晶体；蒸发结晶：适用于溶解度受温度影响小的物质（如 NaCl），蒸发至大量晶体析出；灼烧：除去可燃性或挥发性杂质，使氢氧化物或含氧酸盐转化为稳定氧化物；洗涤：除去晶体表面附着的可溶性杂质；循环利用：提高原料利用率、减少排放与污染" },
+      "gradeScope": "Required",
+      "evidence": "Qualitative",
+      "source": "人教版《必修第二册》第八章'化学与可持续发展'工业流程基本操作，分句给出各操作的判据与目的",
+      "conflictGroup": "process-operation-purpose",
+      "tests": []
     }
   ]
 }
