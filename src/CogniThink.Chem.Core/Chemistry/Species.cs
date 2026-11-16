@@ -84,6 +84,13 @@ public sealed class Species
             throw new FormulaException($"缺少化学式主体：{text}");
         }
 
+        // 电子伪物种：电极反应式中的 e^-（"Zn - 2e^- = Zn^2+"）。
+        // 它没有原子组成，只带 -1 电荷，因此元素计数为空集，守恒校验中仅计入电荷项。
+        if (body == "e" && charge == -1)
+        {
+            return new Species(text.Trim(), "e", new Dictionary<string, int>(StringComparer.Ordinal), -1);
+        }
+
         var elements = ParseBody(body, text);
         return new Species(text.Trim(), body, elements, charge);
     }

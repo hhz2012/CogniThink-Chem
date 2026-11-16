@@ -17,7 +17,13 @@ public enum EquationMode
     Molecular,
 
     /// <summary>强制按离子方程式：追加离子拆写与状态符号规则。</summary>
-    Ionic
+    Ionic,
+
+    /// <summary>
+    /// 电极反应式（半反应）：只跑白名单/守恒/配平，并校验电子项存在；
+    /// 跳过离子拆写、半反应拆解与反应库一致性（三者都以完整反应为对象，不适用于半反应）。
+    /// </summary>
+    HalfReaction
 }
 
 /// <summary>
@@ -84,13 +90,20 @@ public static class ChemicalCheckerService
             CheckWhitelist(parsed, report);
             CheckConservation(parsed, report);
             CheckBalancing(parsed, report);
-            if (ShouldRunIonicRules(request, parsed))
+            if (request.Mode == EquationMode.HalfReaction)
             {
-                MergeIonicRules(parsed, report);
+                CheckHalfReactionElectron(parsed, report);
             }
+            else
+            {
+                if (ShouldRunIonicRules(request, parsed))
+                {
+                    MergeIonicRules(parsed, report);
+                }
 
-            CheckRedox(parsed, request.Medium, report);
-            CheckReactionLibraryConsistency(parsed, report);
+                CheckRedox(parsed, request.Medium, report);
+                CheckReactionLibraryConsistency(parsed, report);
+            }
         }
 
         if (!string.IsNullOrWhiteSpace(request.Smiles))
@@ -142,6 +155,31 @@ public static class ChemicalCheckerService
         }
 
         report.AddFail("配平", result.FailReason ?? "无法配平", result.RiskTag);
+    }
+
+    /// <summary>
+    /// 半反应（电极反应式）专属校验：必须含电子项，且电子只出现在一侧。
+    /// 元素与电荷守恒由通用检查项负责（电子按 -1 电荷计入）。
+    /// </summary>
+    private static void CheckHalfReactionElectron(ParsedEquation parsed, CheckReport report)
+    {
+        var left = parsed.Left.Where(t => t.Species.Body == "e").ToList();
+        var right = parsed.Right.Where(t => t.Species.Body == "e").ToList();
+        if (left.Count > 0 && right.Count > 0)
+        {
+            report.AddFail("电子守恒", "电子项同时出现在方程式两侧，电极反应式只应有一侧得失电子", RiskTags.RedoxError);
+            return;
+        }
+
+        if (left.Count == 0 && right.Count == 0)
+        {
+            report.AddFail("电子守恒", "电极反应式缺少电子项 e^-", RiskTags.RedoxError);
+            return;
+        }
+
+        var electrons = left.Count > 0 ? left.Sum(t => t.Coefficient) : right.Sum(t => t.Coefficient);
+        // 电子在反应物侧 = 得电子（还原，阴极/正极）；在生成物侧 = 失电子（氧化，阳极/负极）
+        report.AddPass("电子守恒", $"{(left.Count > 0 ? "得" : "失")} {electrons} 个电子");
     }
 
     /// <summary>是否执行离子规则：显式 Ionic 模式，或 Auto 模式且方程式含离子。</summary>

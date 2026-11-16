@@ -158,6 +158,9 @@ public static class EquationParser
             (leftText, rightText) = (sides[0], sides[1]);
         }
 
+        // 电极反应式的"减电子"写法归一化（见 NormalizeElectronSide）
+        (leftText, rightText) = NormalizeElectronSide(leftText, rightText);
+
         return new ParsedEquation(
             text.Trim(),
             ParseTerms(leftText, text),
@@ -165,6 +168,35 @@ public static class EquationParser
             condition,
             reversible);
     }
+
+    private static readonly Regex ElectronMinus = new(@"\s*-\s*(?<coef>\d*)e\^-\s*", RegexOptions.Compiled);
+
+    /// <summary>
+    /// 电极反应式的"减电子"写法归一化：把 "Zn - 2e^- = Zn^2+" 中的电子项移到对侧成为加项
+    /// （等价于 "Zn = Zn^2+ + 2e^-"），使半反应与普通方程式共用同一条守恒/配平校验管线。
+    /// 两侧都可能出现减电子写法（如阴极误写成 "Cu^2+ - 2e^- = Cu" 也需能解析后判错）。
+    /// </summary>
+    private static (string Left, string Right) NormalizeElectronSide(string left, string right)
+    {
+        var onLeft = ElectronMinus.Match(left);
+        if (onLeft.Success)
+        {
+            left = ElectronMinus.Replace(left, " ", 1);
+            right = right.TrimEnd() + " + " + ElectronTerm(onLeft.Groups["coef"].Value);
+        }
+
+        var onRight = ElectronMinus.Match(right);
+        if (onRight.Success)
+        {
+            right = ElectronMinus.Replace(right, " ", 1);
+            left = left.TrimEnd() + " + " + ElectronTerm(onRight.Groups["coef"].Value);
+        }
+
+        return (left, right);
+    }
+
+    private static string ElectronTerm(string coefficient) =>
+        $"{(coefficient.Length == 0 ? "1" : coefficient)}e^-";
 
     /// <summary>安全解析入口。</summary>
     public static bool TryParse(string text, out ParsedEquation? equation, out string? error)

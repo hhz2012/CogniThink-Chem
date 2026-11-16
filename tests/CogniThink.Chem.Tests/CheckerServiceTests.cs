@@ -154,4 +154,62 @@ public class CheckerServiceTests
         Assert.False(report.IsValid);
         Assert.Equal(RiskTags.ParseError, report.RiskTag);
     }
+
+    [Fact]
+    public void HalfReaction_ElectronMinusNotation_PassesConservation()
+    {
+        var report = ChemicalCheckerService.Check(new CheckRequest
+        {
+            Equation = "Zn - 2e^- = Zn^2+",
+            Mode = EquationMode.HalfReaction
+        });
+
+        Assert.True(report.IsValid, report.FailureSummary());
+        Assert.Contains(report.CheckItems, i => i.CheckName == "元素与电荷守恒" && i.Passed);
+        Assert.Contains(report.CheckItems, i => i.CheckName == "电子守恒" && i.Passed && i.Detail.Contains("失 2"));
+        // 半反应模式跳过以完整反应为对象的检查项
+        Assert.DoesNotContain(report.CheckItems, i => i.CheckName == "反应库一致性");
+        Assert.DoesNotContain(report.CheckItems, i => i.CheckName == "强电解质拆写");
+    }
+
+    [Fact]
+    public void HalfReaction_MissingElectron_Fails()
+    {
+        var report = ChemicalCheckerService.Check(new CheckRequest
+        {
+            Equation = "Cu^2+ = Cu",
+            Mode = EquationMode.HalfReaction
+        });
+
+        Assert.False(report.IsValid);
+        Assert.Contains(report.CheckItems, i => i.CheckName == "电子守恒" && !i.Passed);
+    }
+
+    [Fact]
+    public void HalfReaction_ChargeNotBalanced_Fails()
+    {
+        var report = ChemicalCheckerService.Check(new CheckRequest
+        {
+            Equation = "Cu^2+ + e^- = Cu",
+            Mode = EquationMode.HalfReaction
+        });
+
+        Assert.False(report.IsValid);
+        Assert.Contains(report.CheckItems, i => i.CheckName == "电荷守恒" && !i.Passed);
+    }
+
+    [Fact]
+    public void HalfReaction_ReductionMiswrittenWithMinusElectron_FailsCharge()
+    {
+        var report = ChemicalCheckerService.Check(new CheckRequest
+        {
+            Equation = "Cu^2+ - 2e^- = Cu",
+            Mode = EquationMode.HalfReaction
+        });
+
+        // 归一化后等价于 Cu^2+ = Cu + 2e^-：左 +2、右 -2，电荷不守恒——
+        // 正是"得电子却写成减电子"的高考典型错解，必须判错。
+        Assert.False(report.IsValid);
+        Assert.Contains(report.CheckItems, i => i.CheckName == "电荷守恒" && !i.Passed);
+    }
 }
