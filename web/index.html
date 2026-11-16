@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>化学伴思 · 知识驱动解题演示 | CogniThink-Chem</title>
+<meta name="description" content="CogniThink-Chem 化学伴思：知识驱动的高中化学解题引擎。五类题的解题过程、讲解与引导均由推断引擎真实运行生成，全部结论可溯源。" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<header class="hero">
+  <div class="container">
+    <p class="hero-eyebrow">CogniThink-Chem · 知识驱动 · 全部结论可溯源</p>
+    <h1>化学伴思<span class="hero-sub">能解 · 能讲 · 能引导学生思考</span></h1>
+    <p class="hero-desc">
+      覆盖五类高中化学题：产物推断、成分推断、过程推断、离子共存、定量计算。
+      每道题的解题过程、逐步讲解与分级引导均由推断引擎真实运行生成，不依赖人工撰写。
+    </p>
+    <div class="stats" id="stats"></div>
+  </div>
+</header>
+
+<nav class="toolbar">
+  <div class="container toolbar-inner">
+    <div class="cat-tabs" id="catTabs"></div>
+    <input id="searchBox" class="search" type="search" placeholder="搜索题号或关键词…" />
+  </div>
+</nav>
+
+<main class="container">
+  <section id="listView">
+    <div class="grid" id="problemGrid"></div>
+    <p class="empty" id="emptyTip" hidden>没有匹配的题目。</p>
+  </section>
+
+  <section id="detailView" hidden></section>
+
+  <p class="notice" id="loadingTip">正在加载题目数据…</p>
+  <div class="notice error" id="errorTip" hidden></div>
+</main>
+
+<footer class="footer">
+  <div class="container" id="footerInfo"></div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
