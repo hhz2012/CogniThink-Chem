@@ -388,9 +388,11 @@ public static class IdentificationEngine
 
     /// <summary>
     /// 必要性判定：正证据只说明候选"可解释"某步现象，不说明其"一定存在"。
-    /// 逐步检查：若把某候选从其 Must 集合中去掉后，各步现象的片段仍能被
-    /// 其余确定成分完全覆盖，则该候选不是必需成分，降为 Maybe。
-    /// 仅对由模式 C 正证据引入的 Must 生效（沉淀提供者的必要性由沉淀组成约束保证）；
+    /// 对每个由模式 C 正证据引入的 Must 候选独立检查：把它从"与全部证据相容的成分集合"
+    /// 中去掉后，若各步现象的片段仍能被其余成员完全覆盖，则它不是必需成分，降为 Maybe。
+    /// 判定基准固定为降级前的 Must 全集（逐个独立检验，不受其他候选降级顺序影响——
+    /// 如 CO3^2- 与 HCO3^- 都能单独解释产生气泡时，二者都应降为 Maybe 而非留下其一）。
+    /// 沉淀提供者（模式 A/B）的必要性由沉淀组成约束保证，不参与降级；
     /// 所有片段都无法被任何候选解释的步骤不构成必要性约束。
     /// </summary>
     private static void ApplyNecessity(
@@ -400,7 +402,8 @@ public static class IdentificationEngine
         List<Dictionary<string, HashSet<string>>> stepEvidences,
         IdentificationResult result)
     {
-        var active = candidates.Where(c => mustByEvidence.Contains(c) && verdict[c] == CompositionVerdict.Must).ToList();
+        var baseline = candidates.Where(c => verdict[c] == CompositionVerdict.Must).ToHashSet(StringComparer.Ordinal);
+        var active = candidates.Where(c => mustByEvidence.Contains(c) && baseline.Contains(c)).ToList();
         if (active.Count == 0)
         {
             return;
@@ -412,14 +415,8 @@ public static class IdentificationEngine
 
         foreach (var candidate in active)
         {
-            if (verdict[candidate] != CompositionVerdict.Must)
-            {
-                continue;
-            }
-
-            var trial = candidates
-                .Where(c => c != candidate && verdict[c] == CompositionVerdict.Must)
-                .ToHashSet(StringComparer.Ordinal);
+            var trial = new HashSet<string>(baseline, StringComparer.Ordinal);
+            trial.Remove(candidate);
             var explained = true;
             for (var i = 0; i < stepEvidences.Count; i++)
             {
@@ -454,7 +451,7 @@ public static class IdentificationEngine
                 verdict[candidate] = CompositionVerdict.Maybe;
                 result.Steps.Add(new InferenceStep
                 {
-                    Description = $"去掉 {candidate} 后各步现象仍可被其余确定成分完全解释，"
+                    Description = $"去掉 {candidate} 后各步现象仍可被其余可能成分完全解释，"
                         + $"{candidate} 只是可解释而非必需成分，降为可能存在。",
                     Source = "IdentificationEngine"
                 });
@@ -492,14 +489,22 @@ public static class IdentificationEngine
         return covered;
     }
 
-    /// <summary>条目能否解释单个现象片段：条目现象分段命中、沉淀/产气标签对应、
-    /// 条目产物被该片段指示、或该片段直接指示候选。</summary>
+    /// <summary>条目能否解释单个现象片段。</summary>
     private static bool EntryCoversSegment(
         string candidate,
         ReactionEntry entry,
         string segment,
         HashSet<string> segmentIndicated)
     {
+        // 片段带判别性指示物种时，只有"产物被该片段指示"或"候选自身被指示"才算覆盖：
+        // 如「刺激性气味气体」指示 SO2/NH3/HCl/NO2，能把放出 SO2 的 SO3^2-
+        // 与只放出 CO2 的 CO3^2- 区分开（泛化的产气/沉淀标签不足以区分二者）。
+        if (segmentIndicated.Count > 0)
+        {
+            return segmentIndicated.Any(i => ReactionMatcher.ContainsProduct(entry, i))
+                || ReactionMatcher.ExplainsIndication(candidate, segmentIndicated);
+        }
+
         foreach (var entrySegment in SplitSegments(entry.Phenomenon))
         {
             if (ReactionMatcher.PhenomenonHit(entrySegment, segment))

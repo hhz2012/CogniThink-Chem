@@ -111,6 +111,71 @@
       "tags": ["高考真题", "成分推断", "硫及其化合物", "实验探究"]
     },
     {
+      "id": "IDENT-RE2",
+      "category": "SubstanceIdentification",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·SO3^2- 与 CO3^2- 的鉴别）某无色溶液可能含有 Na2SO3、Na2CO3、Na2SO4、NaCl 中的一种或几种。①取少量溶液滴加过量稀盐酸，产生刺激性气味气体；②取①所得溶液滴加 BaCl2 溶液，无明显现象；③另取少量原溶液滴加 AgNO3 溶液和稀硝酸，产生白色沉淀。判断一定存在、一定不存在与不能确定的成分。",
+      "given": {
+        "candidateSpecies": ["SO3^2-", "CO3^2-", "SO4^2-", "Cl^-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "刺激性气体", "reagents": ["HCl"], "phenomenon": "滴加过量稀盐酸，产生刺激性气味气体" },
+          { "step": 2, "from": "①所得溶液", "to": "无现象", "reagents": ["BaCl2"], "phenomenon": "滴加 BaCl2 溶液，无明显现象" },
+          { "step": 3, "from": "原溶液", "to": "白色沉淀", "reagents": ["AgNO3", "HNO3"], "phenomenon": "滴加 AgNO3 溶液和稀硝酸，产生白色沉淀（不溶于稀硝酸）" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["一定存在的成分", "一定不存在的成分", "不能确定的成分"] },
+      "expected": {
+        "composition": { "SO3^2-": "Must", "CO3^2-": "Maybe", "SO4^2-": "MustNot", "Cl^-": "Must" },
+        "equations": ["SO3^2- + 2H^+ = H2O + SO2↑", "Ag^+ + Cl^- = AgCl↓"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "高考真题改编（考点：刺激性气味气体 SO2 与无色 CO2 的鉴别、SO4^2-/Cl^- 的检验顺序）",
+      "tags": ["高考真题", "成分推断", "必要性判定", "硫及其化合物"]
+    },
+    {
+      "id": "IDENT-RE3",
+      "category": "SubstanceIdentification",
+      "difficulty": "Medium",
+      "problemText": "（高考真题改编·Na2CO3 与 NaHCO3 的不能确定）某溶液可能含有 Na2CO3、NaHCO3、Na2SO4 中的一种或几种。①取少量溶液滴加足量稀盐酸，产生气泡；②向①所得溶液中滴加 BaCl2 溶液，产生白色沉淀。判断样品中一定存在与不能确定的成分。",
+      "given": {
+        "candidateSpecies": ["CO3^2-", "HCO3^-", "SO4^2-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "气泡", "reagents": ["HCl"], "phenomenon": "滴加足量稀盐酸，产生气泡" },
+          { "step": 2, "from": "①所得溶液", "to": "白色沉淀", "reagents": ["BaCl2"], "phenomenon": "滴加 BaCl2 溶液，产生白色沉淀" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["一定存在的成分", "不能确定的成分"] },
+      "expected": {
+        "composition": { "CO3^2-": "Maybe", "HCO3^-": "Maybe", "SO4^2-": "Must" },
+        "equations": ["Ba^2+ + SO4^2- = BaSO4↓"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "高考真题改编（考点：CO3^2- 与 HCO3^- 遇酸均放出 CO2，无法单独确定）",
+      "tags": ["高考真题", "成分推断", "必要性判定", "钠及其化合物"]
+    },
+    {
+      "id": "IDENT-RE4",
+      "category": "SubstanceIdentification",
+      "difficulty": "Hard",
+      "problemText": "（高考真题改编·NH4^+、SO4^2- 与焰色反应综合）某无色溶液可能含有 NH4^+、K^+、CO3^2-、SO4^2- 中的一种或几种。①取少量溶液滴加足量 BaCl2 溶液和稀硝酸，产生白色沉淀且沉淀不溶解；②另取少量溶液加足量 NaOH 溶液并加热，产生使湿润红色石蕊试纸变蓝的气体；③另取溶液做焰色试验，透过蓝色钴玻璃观察到紫色火焰。判断样品中一定存在与不能确定的成分。",
+      "given": {
+        "candidateSpecies": ["NH4^+", "K^+", "CO3^2-", "SO4^2-"],
+        "steps": [
+          { "step": 1, "from": "溶液", "to": "白色沉淀不溶", "reagents": ["BaCl2", "HNO3"], "phenomenon": "滴加足量 BaCl2 溶液和稀硝酸，产生白色沉淀，沉淀不溶解" },
+          { "step": 2, "from": "溶液", "to": "碱性气体", "reagents": ["NaOH"], "conditions": ["△"], "phenomenon": "加足量 NaOH 溶液并加热，产生使湿润红色石蕊试纸变蓝的气体" },
+          { "step": 3, "from": "溶液", "to": "紫色火焰", "reagents": ["焰色试验", "蓝色钴玻璃"], "phenomenon": "透过蓝色钴玻璃焰色试验，观察到紫色火焰" }
+        ]
+      },
+      "question": { "ask": "IdentifySubstances", "targets": ["一定存在的成分", "不能确定的成分"] },
+      "expected": {
+        "composition": { "NH4^+": "Must", "K^+": "Must", "CO3^2-": "Maybe", "SO4^2-": "Must" },
+        "equations": ["Ba^2+ + SO4^2- = BaSO4↓", "NH4^+ + OH^- =△= NH3↑ + H2O"],
+        "engineExpectation": { "isValid": true, "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"] }
+      },
+      "source": "高考真题改编（考点：不溶于稀硝酸的钡盐沉淀、铵根检验、钾的焰色反应需蓝色钴玻璃）",
+      "tags": ["高考真题", "成分推断", "必要性判定", "焰色反应", "铵根检验"]
+    },
+    {
       "id": "PROC-RE1",
       "category": "ProcessInference",
       "difficulty": "Medium",
