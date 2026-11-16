@@ -45,4 +45,10 @@ public sealed class KnowledgeItem
     public List<string> Rules { get; set; } = new();
 
     public List<string> Questions { get; set; } = new();
+
+    /// <summary>一句话要点（供讲解/引导直接取用，不含结论）。</summary>
+    public string Summary { get; set; } = "";
+
+    /// <summary>常见误区（学生易错点，用于讲解"易错点"块与引导提醒）。</summary>
+    public string Pitfall { get; set; } = "";
 }
