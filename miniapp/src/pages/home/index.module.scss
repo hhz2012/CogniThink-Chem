@@ -1,0 +1,200 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 130rpx;
+}
+
+.hero {
+  position: relative;
+  background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
+  padding: 60rpx 32rpx 48rpx;
+  overflow: hidden;
+}
+
+.heroBg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+}
+
+.float1 { position: absolute; top: 20rpx; right: 80rpx; font-size: 80rpx; }
+.float2 { position: absolute; top: 120rpx; right: 40rpx; font-size: 60rpx; }
+.float3 { position: absolute; bottom: 20rpx; left: 40rpx; font-size: 70rpx; }
+
+.heroInner { position: relative; z-index: 1; }
+
+.heroEyebrow {
+  display: block;
+  color: #5eead4;
+  font-size: $font-size-xs;
+  letter-spacing: 4rpx;
+  margin-bottom: 12rpx;
+}
+
+.heroTitle {
+  display: block;
+  color: #fff;
+  font-size: 56rpx;
+  font-weight: $font-weight-bold;
+  line-height: 1.2;
+}
+
+.heroSub {
+  display: block;
+  color: #94a3b8;
+  font-size: $font-size-md;
+  margin-top: 8rpx;
+}
+
+.stats {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 32rpx;
+}
+
+.stat {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: $radius-md;
+  padding: 16rpx;
+  text-align: center;
+}
+
+.statNum {
+  display: block;
+  color: #5eead4;
+  font-size: 40rpx;
+  font-weight: $font-weight-bold;
+}
+
+.statLabel {
+  display: block;
+  color: #cbd5e1;
+  font-size: $font-size-xs;
+  margin-top: 4rpx;
+}
+
+.body {
+  height: calc(100vh - 360rpx);
+  padding: 24rpx 32rpx 0;
+}
+
+.chapterList {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.chapterCard {
+  background: #fff;
+  border-radius: $radius-lg;
+  border-left: 6rpx solid;
+  padding: 24rpx;
+  box-shadow: $shadow-card;
+}
+
+.chapterHead {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.chapterIcon {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.chapterInfo { flex: 1; min-width: 0; }
+
+.chapterName {
+  display: block;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.chapterDesc {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: 2rpx;
+}
+
+.chapterBadge {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.progressBar {
+  height: 8rpx;
+  background: $color-divider;
+  border-radius: $radius-round;
+  margin: 16rpx 0 20rpx;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: $radius-round;
+  transition: width $transition-base;
+}
+
+.levelGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14rpx;
+}
+
+.levelBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 18rpx 12rpx;
+  background: $color-bg-page;
+  border-radius: $radius-md;
+  border: 2rpx solid transparent;
+  transition: all $transition-fast;
+}
+
+.levelBtn:active {
+  transform: scale(0.96);
+  border-color: $color-primary;
+}
+
+.solved {
+  background: $color-primary-soft;
+}
+
+.levelNum {
+  font-size: 32rpx;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}
+
+.levelTitle {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: 6rpx;
+  text-align: center;
+}
+
+.chapterDone {
+  margin-top: 16rpx;
+  text-align: center;
+  color: $color-warning;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.bottomPad {
+  height: 40rpx;
+}

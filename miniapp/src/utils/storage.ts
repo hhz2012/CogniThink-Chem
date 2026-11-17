@@ -1,0 +1,58 @@
+import Taro from '@tarojs/taro'
+import { UserProgress, Thought } from '../types/chem'
+
+const STORAGE_KEY = 'chem-challenge-progress-v1'
+
+export const THOUGHT_META: Record<Thought, { label: string; icon: string; color: string }> = {
+  Conservation: { label: '守恒思想', icon: '⚖️', color: '#dc2626' },
+  Structure: { label: '结构决定性质', icon: '🔬', color: '#ea580c' },
+  Equilibrium: { label: '动态平衡', icon: '🔄', color: '#2563eb' },
+  Classification: { label: '分类比较', icon: '🗂️', color: '#16a34a' },
+  ModelCognition: { label: '证据推理·模型认知', icon: '🧩', color: '#7c3aed' },
+}
+
+export const defaultProgress: UserProgress = {
+  solvedIds: [],
+  thoughtCounts: { Conservation: 0, Structure: 0, Equilibrium: 0, Classification: 0, ModelCognition: 0 },
+  inspirations: 10,
+}
+
+export function loadProgress(): UserProgress {
+  try {
+    const raw = Taro.getStorageSync(STORAGE_KEY)
+    if (raw) return { ...defaultProgress, ...raw }
+  } catch (_) {
+    // ignore
+  }
+  return { ...defaultProgress }
+}
+
+export function saveProgress(p: UserProgress): void {
+  Taro.setStorageSync(STORAGE_KEY, p)
+}
+
+export function resetProgress(): void {
+  Taro.setStorageSync(STORAGE_KEY, defaultProgress)
+}
+
+export function markSolved(p: UserProgress, challengeId: string, thought: Thought): UserProgress {
+  if (p.solvedIds.includes(challengeId)) return p
+  const next: UserProgress = {
+    ...p,
+    solvedIds: [...p.solvedIds, challengeId],
+    thoughtCounts: {
+      ...p.thoughtCounts,
+      [thought]: p.thoughtCounts[thought] + 1,
+    },
+    inspirations: p.inspirations + 2, // 答对奖励 2 灵感值
+  }
+  saveProgress(next)
+  return next
+}
+
+export function consumeInspiration(p: UserProgress): UserProgress | null {
+  if (p.inspirations <= 0) return null
+  const next = { ...p, inspirations: p.inspirations - 1 }
+  saveProgress(next)
+  return next
+}

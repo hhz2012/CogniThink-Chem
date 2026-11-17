@@ -98,4 +98,10 @@ public sealed class SolutionStep
 
     /// <summary>教材出处（可为空）。</summary>
     public string Source { get; set; } = "";
+
+    /// <summary>
+    /// 本步使用的化学思想（守恒/结构/平衡/分类/模型认知）。
+    /// 引擎可显式指定；未指定时由 ProblemSolver 按证据兜底推断，保证每步都有标签。
+    /// </summary>
+    public string Thought { get; set; } = "";
 }

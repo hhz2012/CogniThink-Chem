@@ -1,0 +1,392 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.body {
+  height: 100vh;
+  padding: 24rpx 32rpx 0;
+}
+
+.problemCard {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 28rpx;
+  box-shadow: $shadow-card;
+  border-top: 6rpx solid $color-primary;
+}
+
+.problemHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.problemTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.problemText {
+  display: block;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  line-height: 1.7;
+}
+
+.optionList {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+  margin-top: 24rpx;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  background: #fff;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  padding: 22rpx 20rpx;
+  transition: all $transition-fast;
+}
+
+.option:active {
+  transform: scale(0.98);
+}
+
+.option.selected {
+  border-color: $color-primary;
+  background: $color-primary-soft;
+}
+
+.option.correct {
+  border-color: $color-success;
+  background: #dcfce7;
+}
+
+.option.wrongOpt {
+  border-color: $color-error;
+  background: #fee2e2;
+}
+
+.optionCircle {
+  width: 48rpx;
+  height: 48rpx;
+  border-radius: 50%;
+  background: $color-bg-page;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-secondary;
+  flex-shrink: 0;
+}
+
+.option.selected .optionCircle {
+  background: $color-primary;
+  color: #fff;
+}
+
+.option.correct .optionCircle {
+  background: $color-success;
+  color: #fff;
+}
+
+.option.wrongOpt .optionCircle {
+  background: $color-error;
+  color: #fff;
+}
+
+.optionText {
+  flex: 1;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+}
+
+.optionMark {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+}
+
+.option.correct .optionMark { color: $color-success; }
+.option.wrongOpt .optionMark { color: $color-error; }
+
+.submitBtn {
+  margin-top: 28rpx;
+  height: $button-height-lg;
+  background: linear-gradient(135deg, $color-primary-light, $color-primary);
+  color: #fff;
+  border-radius: $radius-button;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  box-shadow: 0 6rpx 20rpx rgba(15, 118, 110, 0.3);
+}
+
+.submitBtn:active { opacity: 0.85; }
+
+.resultBox {
+  margin-top: 24rpx;
+  background: #fff;
+  border: 2rpx solid;
+  border-radius: $radius-lg;
+  padding: 24rpx;
+}
+
+.resultTitle {
+  display: block;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  margin-bottom: 12rpx;
+}
+
+.explanation {
+  display: block;
+  font-size: $font-size-md;
+  color: $color-text-primary;
+  line-height: 1.7;
+}
+
+.thoughtReward {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  margin-top: 16rpx;
+  padding-top: 16rpx;
+  border-top: 1px dashed $color-border;
+  font-size: $font-size-sm;
+}
+
+.conservation {
+  margin-top: 20rpx;
+  background: #fff;
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+}
+
+.conservationHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18rpx 20rpx;
+  background: #f0fdfa;
+  color: $color-primary-dark;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+}
+
+.conservationBody {
+  padding: 16rpx 20rpx;
+}
+
+.conservationItem {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.8;
+}
+
+.conservationTip {
+  display: block;
+  margin-top: 10rpx;
+  padding: 12rpx 14rpx;
+  background: #f0fdfa;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+  color: $color-primary-dark;
+}
+
+.guideSection {
+  margin-top: 28rpx;
+}
+
+.guideHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.guideTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.guideSub {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.guideLegend {
+  display: flex;
+  gap: 10rpx;
+  margin-bottom: 14rpx;
+}
+
+.legend {
+  padding: 4rpx 14rpx;
+  border-radius: $radius-round;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+}
+
+.ly-knowledge { background: #fef3c7; color: #92400e; }
+.ly-application { background: #dbeafe; color: #1e40af; }
+.ly-ability { background: #ede9fe; color: #6d28d9; }
+
+.guideList {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.guideLevel {
+  background: #fff;
+  border-radius: $radius-md;
+  overflow: hidden;
+  box-shadow: $shadow-card;
+  border-left: 4rpx solid;
+}
+
+.guideLevel.ly-knowledge { border-left-color: #f59e0b; }
+.guideLevel.ly-application { border-left-color: #3b82f6; }
+.guideLevel.ly-ability { border-left-color: #8b5cf6; }
+
+.guideLevelHead {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 18rpx 20rpx;
+}
+
+.levelNo {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: $color-bg-page;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  flex-shrink: 0;
+}
+
+.levelTitle {
+  flex: 1;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.layerBadge {
+  padding: 3rpx 12rpx;
+  border-radius: $radius-round;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  flex-shrink: 0;
+}
+
+.lb-knowledge { background: #fef3c7; color: #92400e; }
+.lb-application { background: #dbeafe; color: #1e40af; }
+.lb-ability { background: #ede9fe; color: #6d28d9; }
+
+.guideBody {
+  padding: 0 20rpx 20rpx;
+}
+
+.promptList {
+  background: $color-bg-page;
+  border-radius: $radius-sm;
+  padding: 14rpx 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.prompt {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.7;
+  margin-bottom: 6rpx;
+}
+
+.prompt:last-child { margin-bottom: 0; }
+
+.knowledgeCard {
+  background: linear-gradient(135deg, #fffbeb, #fff);
+  border: 1px solid #fde68a;
+  border-radius: $radius-sm;
+  padding: 14rpx 16rpx;
+  margin-bottom: 12rpx;
+}
+
+.kcardHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kcardName {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: #92400e;
+}
+
+.kcardRef {
+  font-size: $font-size-xs;
+  color: #b45309;
+  background: #fef3c7;
+  padding: 2rpx 10rpx;
+  border-radius: $radius-xs;
+}
+
+.kcardSummary {
+  display: block;
+  font-size: $font-size-sm;
+  color: #78350f;
+  margin-top: 8rpx;
+  line-height: 1.6;
+}
+
+.hintArea { margin-top: 4rpx; }
+
+.hintBtn {
+  display: inline-block;
+  padding: 10rpx 22rpx;
+  border: 1px dashed #d1d5db;
+  background: #f8fafc;
+  color: $color-text-secondary;
+  border-radius: $radius-sm;
+  font-size: $font-size-sm;
+}
+
+.hintBtn:active {
+  border-color: $color-primary;
+  color: $color-primary;
+  background: $color-primary-soft;
+}
+
+.hintText {
+  display: block;
+  padding: 12rpx 16rpx;
+  background: #f0fdfa;
+  border: 1px solid #99f6e4;
+  border-radius: $radius-sm;
+  color: #115e59;
+  font-size: $font-size-sm;
+  line-height: 1.65;
+}
+
+.bottomPad { height: 60rpx; }

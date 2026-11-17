@@ -21,6 +21,28 @@ public enum InferenceStatus
 }
 
 /// <summary>
+/// 化学思想（五大化学学科思想）：给每条推理步骤打上"这一步用了哪个化学思想"的标签，
+/// 让学生在看「解」时能感知策略层，是从"能解"走向"能讲、能引导"的关键。
+/// </summary>
+public enum ChemicalThought
+{
+    /// <summary>守恒思想：元素/质量、电荷、电子（得失）守恒。</summary>
+    Conservation,
+
+    /// <summary>结构决定性质：组成/结构→性质→用途。</summary>
+    Structure,
+
+    /// <summary>动态平衡思想：可逆过程的移动规律（平衡、电离、水解、溶解）。</summary>
+    Equilibrium,
+
+    /// <summary>分类比较思想：分门别类、找共性差异。</summary>
+    Classification,
+
+    /// <summary>证据推理与模型认知：由证据建模型、由模型推结论。</summary>
+    ModelCognition,
+}
+
+/// <summary>
 /// 单条推理步骤：记录"依据什么、推出什么"，是讲解（能讲）与引导（能指导思考）的原料。
 /// </summary>
 public sealed class InferenceStep
@@ -36,6 +58,12 @@ public sealed class InferenceStep
 
     /// <summary>教材出处（可为空）。</summary>
     public string Source { get; set; } = "";
+
+    /// <summary>
+    /// 本步使用的化学思想（可为空，由上层 ProblemSolver 按证据兜底推断）。
+    /// 引擎可显式赋值；留空时走兜底映射。
+    /// </summary>
+    public ChemicalThought? Thought { get; set; }
 }
 
 // ---------------------------------------------------------------------------

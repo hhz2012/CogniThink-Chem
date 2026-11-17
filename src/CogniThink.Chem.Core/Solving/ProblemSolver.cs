@@ -32,35 +32,33 @@ public static class ProblemSolver
     public static Solution Solve(ProblemSpec problem, ReactionLibrary? library = null)
     {
         library ??= ReactionLibrary.Default.Value;
-        switch (problem.Category)
+        Solution solution = problem.Category switch
         {
-            case ProblemCategory.ProductInference:
-                return SolveProduct(problem, library);
-            case ProblemCategory.IonCoexistence:
-                return SolveCoexistence(problem, library);
-            case ProblemCategory.SubstanceIdentification:
-                return SolveIdentification(problem, library);
-            case ProblemCategory.ProcessInference:
-                return SolveProcess(problem, library);
-            case ProblemCategory.StoichiometryCalc:
-                return SolveCalc(problem);
-            case ProblemCategory.Electrochemistry:
-                return SolveElectrochem(problem, library);
-            case ProblemCategory.ChemicalEquilibrium:
-                return SolveEquilibrium(problem);
-            case ProblemCategory.AqueousIonEquilibrium:
-                return SolveAqueousEquilibrium(problem, library);
-            case ProblemCategory.IndustrialProcess:
-                return SolveProcessFlow(problem, library);
-            case ProblemCategory.IonPowderIdentification:
-                return SolveIdentification(problem, library);
-            case ProblemCategory.OrganicInference:
-                return SolveOrganic(problem, library);
-            case ProblemCategory.ExperimentalInquiry:
-                return SolveExperiment(problem);
-            default:
-                throw new ArgumentOutOfRangeException(nameof(problem), problem.Category, "未知题目类别");
+            ProblemCategory.ProductInference => SolveProduct(problem, library),
+            ProblemCategory.IonCoexistence => SolveCoexistence(problem, library),
+            ProblemCategory.SubstanceIdentification => SolveIdentification(problem, library),
+            ProblemCategory.ProcessInference => SolveProcess(problem, library),
+            ProblemCategory.StoichiometryCalc => SolveCalc(problem),
+            ProblemCategory.Electrochemistry => SolveElectrochem(problem, library),
+            ProblemCategory.ChemicalEquilibrium => SolveEquilibrium(problem),
+            ProblemCategory.AqueousIonEquilibrium => SolveAqueousEquilibrium(problem, library),
+            ProblemCategory.IndustrialProcess => SolveProcessFlow(problem, library),
+            ProblemCategory.IonPowderIdentification => SolveIdentification(problem, library),
+            ProblemCategory.OrganicInference => SolveOrganic(problem, library),
+            ProblemCategory.ExperimentalInquiry => SolveExperiment(problem),
+            _ => throw new ArgumentOutOfRangeException(nameof(problem), problem.Category, "未知题目类别"),
+        };
+
+        // 统一兜底：任何步骤若未标注化学思想，按证据/知识点/叙述关键词补全，保证每步都有标签。
+        foreach (var step in solution.Steps)
+        {
+            if (string.IsNullOrWhiteSpace(step.Thought))
+            {
+                step.Thought = InferThought(step.Evidence, step.KnowledgeId, step.Description);
+            }
         }
+
+        return solution;
     }
 
     /// <summary>批量求解。</summary>
@@ -267,11 +265,14 @@ public static class ProblemSolver
 
         foreach (var fact in problem.Given.NumericFacts)
         {
+            var desc = $"已知：{FactText(fact)}";
             solution.Steps.Add(new SolutionStep
             {
                 Order = solution.Steps.Count + 1,
-                Description = $"已知：{FactText(fact)}",
+                Description = desc,
                 Evidence = "given.numericFacts",
+                // 计算题的核心是基于化学方程式计量关系的守恒思想
+                Thought = nameof(ChemicalThought.Conservation),
             });
         }
 
@@ -279,18 +280,22 @@ public static class ProblemSolver
         solution.NumericValue = value;
         solution.NumericUnit = problem.Expected.NumericAnswer?.Unit ?? UnitOf(calc.Op);
         solution.NumericSpecies = problem.Expected.NumericAnswer?.Species ?? calc.Species ?? "";
+        var calcDesc = $"按公式 {FormulaOf(calc.Op)} 精确计算（有理数运算）。";
         solution.Steps.Add(new SolutionStep
         {
             Order = solution.Steps.Count + 1,
-            Description = $"按公式 {FormulaOf(calc.Op)} 精确计算（有理数运算）。",
+            Description = calcDesc,
             Evidence = $"MoleCalculator.{calc.Op}",
             KnowledgeId = "KH-IN-13",
+            Thought = nameof(ChemicalThought.Conservation),
         });
+        var resultDesc = $"结果：{value} {solution.NumericUnit}".Trim();
         solution.Steps.Add(new SolutionStep
         {
             Order = solution.Steps.Count + 1,
-            Description = $"结果：{value} {solution.NumericUnit}".Trim(),
+            Description = resultDesc,
             Evidence = "Rational 精确值",
+            Thought = nameof(ChemicalThought.ModelCognition),
         });
 
         solution.Status = InferenceStatus.Solved;
@@ -503,10 +508,78 @@ public static class ProblemSolver
                 Evidence = step.Evidence,
                 KnowledgeId = step.KnowledgeId,
                 Source = step.Source,
+                Thought = ThoughtOf(step),
             });
         }
 
         return result;
+    }
+
+    /// <summary>
+    /// 推断本步使用的化学思想：引擎显式指定优先；否则按证据/知识点/叙述关键词兜底映射。
+    /// 保证每一步都有思想标签，让学生看到"这一步用了哪个化学思想"。
+    /// </summary>
+    private static string ThoughtOf(InferenceStep step) =>
+        step.Thought.HasValue
+            ? step.Thought.Value.ToString()
+            : InferThought(step.Evidence, step.KnowledgeId, step.Description);
+
+    /// <summary>
+    /// 按证据/知识点/叙述关键词兜底推断化学思想。所有直接构造 SolutionStep 的地方
+    /// 也应调用本方法，保证 thought 非空。
+    /// </summary>
+    private static string InferThought(string evidence, string knowledgeId, string description)
+    {
+        var ev = evidence ?? "";
+        var kid = knowledgeId ?? "";
+        var desc = description ?? "";
+        var hay = (ev + " " + kid + " " + desc);
+
+        // 守恒：引用了反应方程式（evidence 含 RX-）、evidence 本身是化学方程式（含 + 与 =/→/⇌）、
+        // 或叙述含守恒/配平/电子/物质的量之比
+        var looksLikeEquation = ev.Contains('+') &&
+            (ev.Contains('=') || ev.Contains('→') || ev.Contains('⇌'));
+        if (ev.Contains("RX-", StringComparison.OrdinalIgnoreCase) ||
+            looksLikeEquation ||
+            ContainsAny(hay, "守恒", "配平", "转移电子", "电子守恒", "物质的量之比", "得失电子", "配平后"))
+        {
+            return nameof(ChemicalThought.Conservation);
+        }
+
+        // 动态平衡：平衡/电离/水解/溶解/勒夏特列
+        if (ContainsAny(hay, "平衡", "电离", "水解", "溶解平衡", "勒夏特列", "移动", "浓度商"))
+        {
+            return nameof(ChemicalThought.Equilibrium);
+        }
+
+        // 结构决定性质：周期/结构/官能团/元素周期律
+        if (ContainsAny(hay, "周期", "结构", "官能团", "周期律", "同主族", "同周期"))
+        {
+            return nameof(ChemicalThought.Structure);
+        }
+
+        // 分类比较：规则检索（SOL-）、分类/属于/判断/鉴别
+        if (ev.Contains("SOL-", StringComparison.OrdinalIgnoreCase) ||
+            ContainsAny(hay, "分类", "属于", "鉴别", "判断为", "归类"))
+        {
+            return nameof(ChemicalThought.Classification);
+        }
+
+        // 其余：证据推理与模型认知
+        return nameof(ChemicalThought.ModelCognition);
+    }
+
+    private static bool ContainsAny(string haystack, params string[] needles)
+    {
+        foreach (var n in needles)
+        {
+            if (haystack.Contains(n, StringComparison.OrdinalIgnoreCase))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private static string FactText(NumericFact fact)

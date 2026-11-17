@@ -6,6 +6,36 @@ using CogniThink.Chem.Core.Solving;
 
 namespace CogniThink.Chem.Core.Explanation;
 
+/// <summary>认知层级：决定该层是直接给知识点、提示方向，还是反问逼学生思考。</summary>
+public enum CognitiveLayer
+{
+    /// <summary>知识点（陈述性）：直接给，学生只需记忆。</summary>
+    Knowledge,
+    /// <summary>知识运用（程序性）：给方向，让学生选怎么用。</summary>
+    Application,
+    /// <summary>能力（策略性）：只反问，让学生自己想策略。</summary>
+    Ability,
+}
+
+/// <summary>互动模式：本层默认以哪种话术呈现。</summary>
+public enum InteractionMode
+{
+    /// <summary>反问：提出启发式问题，不给答案。</summary>
+    Probe,
+    /// <summary>提示：给出方向线索，不给完整步骤。</summary>
+    Hint,
+    /// <summary>告知：直接呈现知识点卡片。</summary>
+    Reveal,
+}
+
+/// <summary>知识点卡片（reveal 层用）：陈述性知识，直接给。</summary>
+public sealed class GuideKnowledgeCard
+{
+    public string Name { get; set; } = "";
+    public string? Summary { get; set; }
+    public string? TextbookRef { get; set; }
+}
+
 /// <summary>一级引导（苏格拉底式提问的一个层次）。</summary>
 public sealed class GuideLevel
 {
@@ -16,6 +46,18 @@ public sealed class GuideLevel
 
     /// <summary>本层的引导问题序列。</summary>
     public List<string> Prompts { get; set; } = new();
+
+    /// <summary>认知层级：知识点 / 知识运用 / 能力。</summary>
+    public CognitiveLayer CognitiveLayer { get; set; } = CognitiveLayer.Ability;
+
+    /// <summary>默认互动模式：反问 / 提示 / 告知。</summary>
+    public InteractionMode Interaction { get; set; } = InteractionMode.Probe;
+
+    /// <summary>降级提示：学生卡住两轮后揭示的方向线索（可选）。</summary>
+    public string? Hint { get; set; }
+
+    /// <summary>知识点卡片：陈述层直接呈现（可选）。</summary>
+    public GuideKnowledgeCard? KnowledgeCard { get; set; }
 }
 
 /// <summary>
@@ -76,6 +118,9 @@ public static class GuideGenerator
         {
             Level = 1,
             Title = "审题分类",
+            CognitiveLayer = CognitiveLayer.Ability,
+            Interaction = InteractionMode.Probe,
+            Hint = "先找题眼中的「特征现象」（颜色、沉淀、气体、焰色）或「特征数据」（定量比、pH、转化率），它们往往是突破口。",
             Prompts =
             {
                 $"这是一道{Explainer.CategoryName(problem.Category)}题。先问自己：题目到底要求什么？（{targets}）",
@@ -88,7 +133,14 @@ public static class GuideGenerator
     /// <summary>第 2 步：建立模型——选定本题的标准解法范式。</summary>
     private static GuideLevel BuildStep2(ProblemSpec problem)
     {
-        var level = new GuideLevel { Level = 2, Title = "建立模型" };
+        var level = new GuideLevel
+        {
+            Level = 2,
+            Title = "建立模型",
+            CognitiveLayer = CognitiveLayer.Ability,
+            Interaction = InteractionMode.Probe,
+            Hint = "想一想这道题对应的「标准解法范式」——推断题找转化链、计算题走物质的量、平衡题列三段式、电化学拆半反应。",
+        };
         level.Prompts.Add(problem.Category switch
         {
             ProblemCategory.ProductInference => "范式：反应库检索。把反应物+条件与课内反应条目逐一比对。",
@@ -106,10 +158,17 @@ public static class GuideGenerator
         return level;
     }
 
-    /// <summary>第 3 步：知识检索——激活解题所需的课内知识点。</summary>
+    /// <summary>第 3 步：知识检索——激活解题所需的课内知识点（陈述层，直接给）。</summary>
     private static GuideLevel BuildStep3(Solution solution, KnowledgeBase knowledge)
     {
-        var level = new GuideLevel { Level = 3, Title = "知识检索" };
+        var level = new GuideLevel
+        {
+            Level = 3,
+            Title = "知识检索",
+            CognitiveLayer = CognitiveLayer.Knowledge,
+            Interaction = InteractionMode.Reveal,
+            Hint = "这些是课内学过的规律，先默写出来，再决定用哪一条切入。",
+        };
         var seen = new HashSet<string>(StringComparer.Ordinal);
         foreach (var step in solution.Steps)
         {
@@ -124,6 +183,12 @@ public static class GuideGenerator
                     ? $"要点：{item.Summary}"
                     : "回想这条规律的内容与适用条件。";
                 level.Prompts.Add($"知识点「{item.Name}」（{item.Id}，{item.TextbookRef}）。{summary}");
+                level.KnowledgeCard ??= new GuideKnowledgeCard
+                {
+                    Name = item.Name,
+                    Summary = item.Summary,
+                    TextbookRef = item.TextbookRef,
+                };
             }
         }
 
@@ -138,7 +203,14 @@ public static class GuideGenerator
     /// <summary>第 4 步：规则应用——按类别用题给已知条件驱动推理（不含具体结论）。</summary>
     private static GuideLevel BuildStep4(ProblemSpec problem)
     {
-        var level = new GuideLevel { Level = 4, Title = "规则应用" };
+        var level = new GuideLevel
+        {
+            Level = 4,
+            Title = "规则应用",
+            CognitiveLayer = CognitiveLayer.Application,
+            Interaction = InteractionMode.Hint,
+            Hint = "把第 3 步的知识点套到本题的具体条件上：每一步推理都要能说出「依据的是哪条规则」。",
+        };
         var g = problem.Given;
         switch (problem.Category)
         {
@@ -273,7 +345,14 @@ public static class GuideGenerator
     /// <summary>第 5 步：精确求解——设未知量、列方程、代入计算（不给最终数值）。</summary>
     private static GuideLevel BuildStep5(Solution solution, ProblemSpec problem)
     {
-        var level = new GuideLevel { Level = 5, Title = "精确求解" };
+        var level = new GuideLevel
+        {
+            Level = 5,
+            Title = "精确求解",
+            CognitiveLayer = CognitiveLayer.Application,
+            Interaction = InteractionMode.Hint,
+            Hint = "把第 4 步的推理落实为计算或推导：设未知量→列方程→代入求解，注意单位与有效数字。",
+        };
 
         if (problem.Category == ProblemCategory.StoichiometryCalc && problem.Expected.Calc is { } calc)
         {
@@ -313,7 +392,14 @@ public static class GuideGenerator
     /// <summary>第 6 步：守恒校验——检查原子/电荷/质量/电子守恒。</summary>
     private static GuideLevel BuildStep6(Solution solution, ProblemSpec problem, KnowledgeBase knowledge, ReactionLibrary reactions)
     {
-        var level = new GuideLevel { Level = 6, Title = "守恒校验" };
+        var level = new GuideLevel
+        {
+            Level = 6,
+            Title = "守恒校验",
+            CognitiveLayer = CognitiveLayer.Ability,
+            Interaction = InteractionMode.Probe,
+            Hint = "任何化学结论都必须经得起守恒检验：原子守恒、电荷守恒、电子（得失）守恒，三者缺一不可。",
+        };
         level.Prompts.Add("最后做守恒检查：你的结论是否满足原子守恒、电荷守恒、质量守恒？");
 
         if (problem.Category == ProblemCategory.Electrochemistry)
@@ -387,10 +473,31 @@ public static class GuideGenerator
         };
         foreach (var level in guide.Levels)
         {
-            lines.Add($"◆ 第 {level.Level} 步·{level.Title}");
+            var layerText = level.CognitiveLayer switch
+            {
+                CognitiveLayer.Knowledge => "知识点",
+                CognitiveLayer.Application => "知识运用",
+                _ => "能力",
+            };
+            var interText = level.Interaction switch
+            {
+                InteractionMode.Hint => "提示",
+                InteractionMode.Reveal => "告知",
+                _ => "反问",
+            };
+            lines.Add($"◆ 第 {level.Level} 步·{level.Title}（{layerText}·{interText}）");
             foreach (var prompt in level.Prompts)
             {
                 lines.Add($"  - {prompt}");
+            }
+            if (!string.IsNullOrWhiteSpace(level.Hint))
+            {
+                lines.Add($"  💡 提示：{level.Hint}");
+            }
+            if (level.KnowledgeCard is not null)
+            {
+                lines.Add($"  📖 知识点卡片：{level.KnowledgeCard.Name}" +
+                          (string.IsNullOrWhiteSpace(level.KnowledgeCard.Summary) ? "" : $"（{level.KnowledgeCard.Summary}）"));
             }
         }
 

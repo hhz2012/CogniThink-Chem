@@ -539,6 +539,15 @@ function solveHtml(s, category, given) {
     </ol>`;
 }
 
+/* 化学思想（五大）标签映射 */
+const THOUGHT_META = {
+  Conservation:  { label: '守恒思想',   icon: '⚖️', cls: 'th-conservation' },
+  Structure:     { label: '结构决定性质', icon: '🔬', cls: 'th-structure' },
+  Equilibrium:   { label: '动态平衡',   icon: '🔄', cls: 'th-equilibrium' },
+  Classification:{ label: '分类比较',   icon: '🗂️', cls: 'th-classification' },
+  ModelCognition:{ label: '证据推理·模型认知', icon: '🧩', cls: 'th-model' },
+};
+
 function stepHtml(st) {
   // 按 evidence 归类：空=引擎推理、RX-*/化学方程式=反应方程式、SOL-*/电解质=规则、其余=检索
   const ev = st.evidence || '';
@@ -550,8 +559,12 @@ function stepHtml(st) {
   else if (/^SOL[-_]/.test(ev)) { stepType = 'rule'; typeLabel = '规则'; }
   else if (/electrolytes|hydrol|规则/i.test(ev)) { stepType = 'rule'; typeLabel = '规则'; }
 
+  // 化学思想标签（后端已兜底推断，默认 ModelCognition）
+  const thought = st.thought && THOUGHT_META[st.thought] ? THOUGHT_META[st.thought] : THOUGHT_META.ModelCognition;
+
   const chips = [];
   chips.push(`<span class="chip chip-type chip-type-${stepType}">${esc(typeLabel)}</span>`);
+  chips.push(`<span class="chip chip-thought ${thought.cls}" title="本步使用的化学思想">${thought.icon} ${esc(thought.label)}</span>`);
   if (st.evidence) chips.push(`<span class="chip mono">${esc(st.evidence)}</span>`);
   if (st.knowledgeId) chips.push(`<span class="chip chip-k mono">${esc(st.knowledgeId)}</span>`);
   if (st.source) chips.push(`<span class="chip chip-src">${esc(st.source)}</span>`);
@@ -1890,27 +1903,61 @@ function explainHtml(e) {
     ${refs}`;
 }
 
-/* 引导：分级启发提问（伴思模式，逐级解锁） */
+/* 引导：分级启发提问（伴思模式，逐级解锁）
+   每层标注「认知层级」与「互动模式」，并支持 反问→提示→知识点 的逐级降级展开。 */
 function guideHtml(g) {
+  const layerMeta = {
+    Knowledge:   { label: '知识点', icon: '📖', cls: 'ly-knowledge', desc: '陈述性知识，直接给' },
+    Application: { label: '知识运用', icon: '🛠️', cls: 'ly-application', desc: '给方向，自己选怎么用' },
+    Ability:     { label: '能力', icon: '🧠', cls: 'ly-ability', desc: '只反问，自己想策略' },
+  };
+  const interMeta = {
+    Probe:  { label: '反问', cls: 'im-probe' },
+    Hint:   { label: '提示', cls: 'im-hint' },
+    Reveal: { label: '告知', cls: 'im-reveal' },
+  };
   return `
     <p class="panel-note guide-note">
-      伴思模式：只引导、不给答案——按「审题分类→建立模型→知识检索→规则应用→精确求解→守恒校验」六步框架逐级思考，自己推出答案。
+      伴思模式：只引导、不给答案——按「审题分类→建立模型→知识检索→规则应用→精确求解→守恒校验」六步框架逐级思考。
+      每层标注认知层级（<b>知识点 / 知识运用 / 能力</b>）：知识点直接给，知识运用给方向，能力只反问。卡住时点「💡 给我提示」逐级降级。
     </p>
     <div class="guide-toolbar">
       <button class="guide-expand-btn" onclick="toggleAllGuideLevels(this)">全部展开</button>
+      <span class="guide-legend">
+        <span class="legend-chip ly-knowledge">📖 知识点</span>
+        <span class="legend-chip ly-application">🛠️ 知识运用</span>
+        <span class="legend-chip ly-ability">🧠 能力</span>
+      </span>
     </div>
     <div class="levels">
       ${g.levels.map((lv, i) => {
         const open = i === 0 ? 'open' : '';
-        const lock = i === 0 ? '' : '<span class="lock-icon">🔒</span>';
+        const lm = layerMeta[lv.cognitiveLayer] || layerMeta.Ability;
+        const im = interMeta[lv.interaction] || interMeta.Probe;
+        const hintBlock = lv.hint ? `
+          <div class="guide-hint">
+            <button type="button" class="hint-toggle" onclick="toggleGuideHint(this)">💡 给我提示</button>
+            <div class="hint-body" hidden>${esc(lv.hint)}</div>
+          </div>` : '';
+        const cardBlock = lv.knowledgeCard ? `
+          <div class="guide-kcard">
+            <div class="kcard-head">
+              <span class="kcard-name">${esc(lv.knowledgeCard.name || '')}</span>
+              ${lv.knowledgeCard.textbookRef ? `<span class="kcard-ref">${esc(lv.knowledgeCard.textbookRef)}</span>` : ''}
+            </div>
+            ${lv.knowledgeCard.summary ? `<p class="kcard-summary">${esc(lv.knowledgeCard.summary)}</p>` : ''}
+          </div>` : '';
         return `
-        <details class="level" ${open}>
+        <details class="level level-${lm.cls}" ${open}>
           <summary class="level-head">
             <span class="level-no">${lv.level}</span>
             <h5>${esc(lv.title)}</h5>
-            ${lock}
+            <span class="layer-badge ${lm.cls}" title="${esc(lm.desc)}">${lm.icon} ${lm.label}</span>
+            <span class="inter-badge ${im.cls}">${im.label}</span>
           </summary>
           <ul>${lv.prompts.map((p) => `<li>${chem(p)}</li>`).join('')}</ul>
+          ${cardBlock}
+          ${hintBlock}
         </details>`;
       }).join('')}
     </div>`;
@@ -1923,6 +1970,19 @@ function toggleAllGuideLevels(btn) {
   const allOpen = Array.from(details).every((d) => d.open);
   details.forEach((d) => { d.open = !allOpen; });
   btn.textContent = allOpen ? '全部展开' : '全部收起';
+}
+
+/* 引导：单步提示的展开/收起 */
+function toggleGuideHint(btn) {
+  const body = btn.nextElementSibling;
+  const show = body.hasAttribute('hidden');
+  if (show) {
+    body.removeAttribute('hidden');
+    btn.textContent = '收起提示';
+  } else {
+    body.setAttribute('hidden', '');
+    btn.textContent = '💡 给我提示';
+  }
 }
 
 /* ---------- 知识库浏览页 ---------- */

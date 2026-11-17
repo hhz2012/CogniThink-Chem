@@ -1,0 +1,21 @@
+@use '@/styles/variables.scss' as *;
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  border: 1px solid;
+  border-radius: $radius-round;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+}
+
+.sm {
+  padding: 4rpx 14rpx;
+  font-size: $font-size-xs;
+}
+
+.md {
+  padding: 6rpx 18rpx;
+  font-size: $font-size-sm;
+}

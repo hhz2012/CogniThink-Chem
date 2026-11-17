@@ -1,0 +1,46 @@
+@use '@/styles/variables.scss' as *;
+
+.tabbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 110rpx;
+  display: flex;
+  background: #fff;
+  border-top: 1px solid $color-divider;
+  box-shadow: 0 -2rpx 12rpx rgba(0, 0, 0, 0.04);
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 100;
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4rpx;
+  transition: all $transition-fast;
+}
+
+.icon {
+  font-size: 40rpx;
+  opacity: 0.5;
+}
+
+.label {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.active {
+  .icon {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  .label {
+    color: $color-primary;
+    font-weight: $font-weight-semibold;
+  }
+}

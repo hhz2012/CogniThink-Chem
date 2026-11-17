@@ -26,3 +26,15 @@ Thumbs.db
 ## 预览时解包的 HTML 分享包（压缩包仍保留在 .trae-html-share-packages/ 下）
 /interaction-design-explain-guide/
 
+## Taro 小程序预览服务缓存
+.pai/
+miniapp/.pai/
+
+## Taro 小程序构建产物与依赖
+miniapp/node_modules/
+miniapp/dist/
+miniapp/.temp/
+miniapp/.cache/
+miniapp/types/miniapp.d.ts
+
+

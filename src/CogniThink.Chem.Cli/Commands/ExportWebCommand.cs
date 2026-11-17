@@ -112,7 +112,7 @@ internal static class ExportWebCommand
                     solution.Experiment,
                     steps = solution.Steps.Select(s => new
                     {
-                        s.Order, s.Description, s.Evidence, s.KnowledgeId, s.Source
+                        s.Order, s.Description, s.Evidence, s.KnowledgeId, s.Source, s.Thought
                     }),
                 },
                 explanation = new

@@ -1,0 +1,147 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: 130rpx;
+}
+
+.header {
+  background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
+  padding: 48rpx 32rpx 24rpx;
+}
+
+.title {
+  display: block;
+  color: #fff;
+  font-size: 44rpx;
+  font-weight: $font-weight-bold;
+}
+
+.subtitle {
+  display: block;
+  color: #94a3b8;
+  font-size: $font-size-sm;
+  margin-top: 8rpx;
+}
+
+.catScroll {
+  background: #fff;
+  padding: 16rpx 0;
+  white-space: nowrap;
+  border-bottom: 1px solid $color-divider;
+}
+
+.catBar {
+  display: inline-flex;
+  gap: 12rpx;
+  padding: 0 32rpx;
+}
+
+.catTab {
+  display: inline-flex;
+  padding: 10rpx 22rpx;
+  border-radius: $radius-round;
+  background: $color-bg-page;
+  border: 1px solid $color-border;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  flex-shrink: 0;
+}
+
+.catTab.active {
+  color: #fff;
+  background: $color-primary;
+  border-color: $color-primary;
+}
+
+.body {
+  height: calc(100vh - 260rpx);
+  padding: 20rpx 32rpx 0;
+}
+
+.chapterGroup {
+  margin-bottom: 28rpx;
+}
+
+.chapterHeader {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 14rpx 18rpx;
+  border-radius: $radius-md;
+  margin-bottom: 12rpx;
+}
+
+.chapterIcon {
+  font-size: 28rpx;
+}
+
+.chapterName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+}
+
+.challengeList {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.challengeCard {
+  background: #fff;
+  border-radius: $radius-md;
+  padding: 20rpx;
+  box-shadow: $shadow-card;
+  transition: all $transition-fast;
+}
+
+.challengeCard:active {
+  transform: scale(0.98);
+}
+
+.challengeTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.challengeTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.solvedTag {
+  font-size: $font-size-xs;
+  color: $color-success;
+  background: #dcfce7;
+  padding: 2rpx 12rpx;
+  border-radius: $radius-round;
+}
+
+.challengeText {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  margin: 8rpx 0 12rpx;
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.challengeFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.more {
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.bottomPad { height: 40rpx; }
