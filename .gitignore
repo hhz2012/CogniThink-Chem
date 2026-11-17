@@ -22,3 +22,7 @@ Thumbs.db
 ## Local scratch
 .tmp/
 *.log
+
+## 预览时解包的 HTML 分享包（压缩包仍保留在 .trae-html-share-packages/ 下）
+/interaction-design-explain-guide/
+
