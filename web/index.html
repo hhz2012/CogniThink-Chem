@@ -11,36 +11,107 @@
 </head>
 <body>
 <header class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="hero-mesh"></span>
+    <span class="hero-orb hero-orb-1"></span>
+    <span class="hero-orb hero-orb-2"></span>
+    <span class="hero-orb hero-orb-3"></span>
+  </div>
+
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <p class="hero-eyebrow"><span class="hero-dot"></span>CogniThink-Chem · 知识驱动 · 全部结论可溯源</p>
+      <h1>化学伴思<span class="hero-sub">能解 · 能讲 · 能引导学生思考</span></h1>
+      <p class="hero-desc">
+        覆盖五类高中化学题：产物推断、成分推断、过程推断、离子共存、定量计算。
+        每道题的解题过程、逐步讲解与分级引导均由推断引擎真实运行生成，不依赖人工撰写。
+      </p>
+      <div class="hero-actions">
+        <a class="hero-cta" href="#viz">✨ 浏览可视化效果</a>
+        <a class="hero-cta hero-cta-ghost" href="#knowledge">📚 查阅知识库</a>
+      </div>
+      <div class="stats" id="stats"></div>
+    </div>
+
+    <aside class="hero-board" aria-hidden="true">
+      <div class="board-head">
+        <span class="board-live"></span>
+        <span>推断引擎 · 实时运行</span>
+        <span class="board-id">PROC-001</span>
+      </div>
+      <ol class="board-steps">
+        <li>
+          <span class="board-tag tg-eq">方程式</span>
+          <span class="board-text">Cu + 2H<sub>2</sub>SO<sub>4</sub>(浓) → CuSO<sub>4</sub> + SO<sub>2</sub>↑ + 2H<sub>2</sub>O</span>
+        </li>
+        <li>
+          <span class="board-tag tg-rule">规则</span>
+          <span class="board-text">浓硫酸具有强氧化性，加热条件下与铜反应</span>
+        </li>
+        <li>
+          <span class="board-tag tg-look">检索</span>
+          <span class="board-text">SO<sub>2</sub> 能使品红溶液褪色，加热后颜色复原</span>
+        </li>
+      </ol>
+      <div class="board-verdict"><span>✓</span> 结论：A 为 Cu，B 为 CuSO<sub>4</sub></div>
+      <div class="board-foot">解 · 讲 · 引导 · 每一步均可溯源</div>
+    </aside>
+  </div>
+
   <div class="container">
-    <p class="hero-eyebrow">CogniThink-Chem · 知识驱动 · 全部结论可溯源</p>
-    <h1>化学伴思<span class="hero-sub">能解 · 能讲 · 能引导学生思考</span></h1>
-    <p class="hero-desc">
-      覆盖五类高中化学题：产物推断、成分推断、过程推断、离子共存、定量计算。
-      每道题的解题过程、逐步讲解与分级引导均由推断引擎真实运行生成，不依赖人工撰写。
-    </p>
-    <div class="stats" id="stats"></div>
-    <a class="hero-cta" href="#viz">✨ 浏览可视化效果</a>
+    <div class="entry-strip">
+      <a class="entry-card" href="#/">
+        <span class="entry-icon">📝</span>
+        <h3>五类题型题库</h3>
+        <p>产物、成分、过程、离子共存与定量计算，逐题给出真实求解结果。</p>
+        <span class="entry-arrow">进入题库 →</span>
+      </a>
+      <a class="entry-card" href="#viz">
+        <span class="entry-icon">✨</span>
+        <h3>可视化效果</h3>
+        <p>装置图、转化链、冲突图与浓度曲线，全部由题目数据实时绘制。</p>
+        <span class="entry-arrow">查看图示 →</span>
+      </a>
+      <a class="entry-card" href="#knowledge">
+        <span class="entry-icon">📚</span>
+        <h3>知识库</h3>
+        <p>方程、规则与概念卡片，解题每一步都引用可查的知识条目。</p>
+        <span class="entry-arrow">浏览知识 →</span>
+      </a>
+      <a class="entry-card" href="#qa">
+        <span class="entry-icon">❓</span>
+        <h3>知识问答</h3>
+        <p>输入化学问题或关键词，按知识条目检索答案与相关规则。</p>
+        <span class="entry-arrow">开始提问 →</span>
+      </a>
+    </div>
   </div>
 </header>
 
-<nav class="main-nav">
-  <div class="container nav-inner">
-    <button class="nav-btn active" data-view="problems">📝 题目</button>
-    <button class="nav-btn" data-view="viz">✨ 可视化</button>
-    <button class="nav-btn" data-view="knowledge">📚 知识库</button>
-    <button class="nav-btn" data-view="qa">❓ 问答</button>
-  </div>
-</nav>
+<div class="sticky-head">
+  <nav class="main-nav">
+    <div class="container nav-inner">
+      <button class="nav-btn active" data-view="problems">📝 题目</button>
+      <button class="nav-btn" data-view="viz">✨ 可视化</button>
+      <button class="nav-btn" data-view="knowledge">📚 知识库</button>
+      <button class="nav-btn" data-view="qa">❓ 问答</button>
+    </div>
+  </nav>
 
-<nav class="toolbar">
-  <div class="container toolbar-inner">
-    <div class="cat-tabs" id="catTabs"></div>
-    <input id="searchBox" class="search" type="search" placeholder="搜索题号或关键词…" />
-  </div>
-</nav>
+  <nav class="toolbar">
+    <div class="container toolbar-inner">
+      <div class="cat-tabs" id="catTabs"></div>
+      <input id="searchBox" class="search" type="search" placeholder="搜索题号或关键词…" />
+    </div>
+  </nav>
+</div>
 
 <main class="container">
   <section id="listView">
+    <div class="list-head">
+      <h2>题目列表</h2>
+      <p>点击任一题目，查看解题过程、逐步讲解与分级引导</p>
+    </div>
     <div class="grid" id="problemGrid"></div>
     <p class="empty" id="emptyTip" hidden>没有匹配的题目。</p>
   </section>
