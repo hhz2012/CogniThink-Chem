@@ -864,6 +864,493 @@ main { padding: 28px 20px 60px; }
 
 .exp-item p { margin: 0; font-size: 14.5px; line-height: 1.6; }
 
+/* ==================== 可视化组件 ==================== */
+
+.viz-block {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin: 10px 0;
+  background: var(--surface-muted);
+}
+
+.viz-block h5 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cat-color, var(--brand-dark));
+}
+
+.viz-caption {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* —— 电化学装置图 SVG —— */
+.elec-diagram { overflow-x: auto; }
+.elec-svg { width: 100%; max-width: 640px; height: auto; display: block; }
+.elec-svg text { font-family: inherit; }
+
+/* —— 转化链流程图 —— */
+.flow-chart {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  border: 2px solid var(--cat-color, var(--brand));
+  border-radius: 10px;
+  padding: 6px 14px;
+  background: #fff;
+  min-width: 70px;
+}
+
+.flow-node-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cat-color, var(--brand-dark));
+}
+
+.flow-node-subst { font-size: 14px; }
+.flow-node-pending { font-size: 11px; color: var(--muted); }
+
+.flow-arrow {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.flow-edge-note {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+  padding: 4px 8px;
+  background: var(--cat-soft, var(--brand-soft));
+  border-radius: 4px;
+}
+
+.flow-purposes {
+  margin-top: 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.flow-purpose {
+  font-size: 13px;
+  padding: 4px 8px;
+  background: #fff;
+  border-radius: 4px;
+  border-left: 3px solid var(--cat-color, var(--brand));
+}
+
+/* —— 粒子浓度柱状图 —— */
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 16px;
+  height: 180px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.bar-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+.bar-label {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+
+.bar {
+  width: 36px;
+  background: linear-gradient(180deg, var(--cat-color, var(--brand)) 0%, var(--cat-soft, var(--brand-soft)) 100%);
+  border-radius: 6px 6px 0 0;
+  min-height: 20px;
+}
+
+/* —— 离子共存冲突图 —— */
+.coex-graph {
+  padding: 14px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.coex-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.coex-node-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.coex-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 18px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 2px solid;
+}
+
+.coex-conflict {
+  background: #fee2e2;
+  border-color: #dc2626;
+  color: #b91c1c;
+  animation: coex-pulse 1.5s ease-in-out infinite;
+}
+
+.coex-safe {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #15803d;
+}
+
+.coex-ok-node {
+  background: #dcfce7;
+  border-color: #16a34a;
+  color: #15803d;
+}
+
+@keyframes coex-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(220, 38, 38, 0); }
+}
+
+.coex-node-reason {
+  font-size: 10px;
+  color: var(--muted);
+  text-align: center;
+  max-width: 80px;
+}
+
+.coex-verdict {
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.coex-ok-text { color: #15803d; }
+
+.coex-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.legend-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+/* —— 摩尔计算关系图 —— */
+.mole-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.mole-center {
+  border: 3px solid var(--brand);
+  border-radius: 12px;
+  padding: 10px 24px;
+  background: var(--brand-soft);
+}
+
+.mole-ring {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.mole-node {
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #fff;
+  text-align: center;
+}
+
+.mole-node.mole-hl {
+  border-color: var(--brand);
+  background: var(--brand-soft);
+  box-shadow: 0 0 0 2px var(--brand-soft);
+}
+
+.mole-node-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--brand-dark);
+}
+
+.mole-node-formula {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* —— 原子守恒校验 —— */
+.atom-balance {
+  margin-bottom: 12px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+.ab-eq {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.ab-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.ab-table th,
+.ab-table td {
+  border: 1px solid var(--border);
+  padding: 4px 10px;
+  text-align: center;
+}
+
+.ab-table th {
+  background: var(--surface-muted);
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.ab-ok td { color: #15803d; }
+.ab-fail td { color: #b91c1c; }
+
+.ab-verdict {
+  margin: 6px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.ab-ok-text { color: #15803d; }
+.ab-fail-text { color: #b91c1c; }
+
+/* —— 化学平衡三段式增强 —— */
+.eq-change-neg {
+  color: #b91c1c;
+  background: #fef2f2;
+  font-weight: 600;
+}
+
+.eq-change-pos {
+  color: #15803d;
+  background: #f0fdf4;
+  font-weight: 600;
+}
+
+.eq-direction-arrow {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cat-color, var(--brand-dark));
+  margin: 6px 0;
+  padding: 4px;
+  background: var(--cat-soft, var(--brand-soft));
+  border-radius: 6px;
+}
+
+.eq-dir { color: var(--cat-color, var(--brand-dark)); }
+
+/* —— 浓度-时间图 —— */
+.ct-chart {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.ct-chart svg {
+  width: 100%;
+  max-width: 540px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.ct-chart svg text { font-family: inherit; }
+
+.ct-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  justify-content: center;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.ct-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.ct-legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* —— 实验装置图 —— */
+.apparatus-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.apparatus-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+}
+
+.apparatus-item svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.apparatus-item svg text { font-family: inherit; }
+
+.apparatus-label {
+  margin: 8px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--cat-color, var(--brand-dark));
+}
+
+/* —— 3D 分子结构查看器 —— */
+.mol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.mol-card {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mol-card-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--cat-soft, var(--brand-soft));
+  border-bottom: 1px solid var(--border);
+}
+
+.mol-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cat-color, var(--brand-dark));
+}
+
+.mol-formula {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.mol-viewer {
+  width: 100%;
+  height: 200px;
+  background: #fafafa;
+  cursor: grab;
+}
+
+.mol-viewer:active { cursor: grabbing; }
+
+.mol-controls {
+  display: flex;
+  gap: 6px;
+  padding: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.mol-btn {
+  flex: 1;
+  padding: 4px 8px;
+  font-size: 12px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.mol-btn:hover {
+  background: var(--cat-soft, var(--brand-soft));
+}
+
+.mol-error {
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+  padding: 40px 0;
+}
+
 /* ---------- 响应式 ---------- */
 
 @media (max-width: 640px) {

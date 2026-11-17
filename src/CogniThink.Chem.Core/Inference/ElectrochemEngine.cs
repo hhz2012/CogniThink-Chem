@@ -93,7 +93,7 @@ public static class ElectrochemEngine
                 ? "装置为原电池：发生氧化反应（失电子）的一极为负极，发生还原反应（得电子）的一极为正极。"
                 : "装置为电解池：与电源正极相连、发生氧化反应（失电子）的一极为阳极，发生还原反应（得电子）的一极为阴极。",
             Evidence = $"given.cell.type={request.Type}",
-            KnowledgeId = "RED-004",
+            KnowledgeId = RedRule.Value?.KnowledgeId ?? "",
             Source = RedRule.Value?.Source ?? "",
         });
 
@@ -285,7 +285,7 @@ public static class ElectrochemEngine
                     Description = $"活动性核对：{oxidizedMaterial}（第 {posOx + 1} 位）位于 {other}（第 {posOther + 1} 位）之前，"
                                   + "活泼金属失电子作负极，与题给总反应一致。",
                     Evidence = $"activity-series：{oxidizedMaterial}#{posOx + 1} < {other}#{posOther + 1}",
-                    KnowledgeId = "RED-004",
+                    KnowledgeId = RedRule.Value?.KnowledgeId ?? "",
                     Source = RedRule.Value?.Source ?? "",
                 });
             }
@@ -320,7 +320,7 @@ public static class ElectrochemEngine
         {
             Description = $"{oxidName}式 ×{scaleOx} 与{redName}式 ×{scaleRed} 相加后电子项恰好消去、与总反应逐项一致，电子守恒闭合。",
             Evidence = $"{scaleOx}×({oxidation.Expression}) + {scaleRed}×({reduction.Expression}) ≡ {overall}",
-            KnowledgeId = "CONS-ELEC-001",
+            KnowledgeId = ElectronConsRule.Value?.KnowledgeId ?? "",
             Source = ElectronConsRule.Value?.Source ?? "",
         });
 

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>化学可视化效果演示 · CogniThink-Chem</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; background: #f8fafc; }
+    /* 侧边栏导航 */
+    .demo-sidebar {
+      position: fixed; top: 0; left: 0; width: 230px; height: 100vh;
+      background: #fff; border-right: 1px solid #e2e8f0;
+      padding: 20px 0; overflow-y: auto; z-index: 100;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.04);
+    }
+    .demo-sidebar .sidebar-title {
+      padding: 0 20px 16px; border-bottom: 1px solid #f1f5f9; margin-bottom: 12px;
+    }
+    .demo-sidebar .sidebar-title h1 { font-size: 15px; color: #0f172a; margin: 0 0 4px; }
+    .demo-sidebar .sidebar-title p { font-size: 11px; color: #94a3b8; margin: 0; }
+    .demo-nav { list-style: none; margin: 0; padding: 0 8px; }
+    .demo-nav li a {
+      display: block; padding: 8px 14px; margin: 2px 0; border-radius: 8px;
+      color: #475569; text-decoration: none; font-size: 13px; line-height: 1.4;
+      transition: all 0.15s ease; border-left: 3px solid transparent;
+    }
+    .demo-nav li a:hover { background: #f1f5f9; color: #0f172a; }
+    .demo-nav li a.active {
+      background: #eff6ff; color: #2563eb; font-weight: 600;
+      border-left-color: #2563eb;
+    }
+    .demo-nav .nav-num { display: inline-block; width: 22px; color: #94a3b8; font-weight: 600; }
+    .demo-nav li a.active .nav-num { color: #2563eb; }
+    /* 主内容区 */
+    .demo-main { margin-left: 230px; padding: 24px 32px; max-width: 1100px; }
+    .demo-header { text-align: center; margin-bottom: 32px; }
+    .demo-header h1 { color: #1e293b; margin: 0 0 8px; font-size: 26px; }
+    .demo-header p { color: #64748b; margin: 0; }
+    .demo-section {
+      background: #fff; border-radius: 12px; padding: 20px 24px; margin-bottom: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08); scroll-margin-top: 24px;
+    }
+    .demo-section h2 { color: #0f172a; font-size: 18px; margin: 0 0 4px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; }
+    .demo-section .demo-desc { color: #94a3b8; font-size: 13px; margin: 0 0 16px; }
+    .demo-sub { color: #475569; font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+    .demo-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    /* 移动端：侧边栏变为顶部横向滚动条 */
+    @media (max-width: 900px) {
+      .demo-sidebar {
+        position: sticky; top: 0; width: 100%; height: auto;
+        padding: 10px 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      .demo-sidebar .sidebar-title { display: none; }
+      .demo-nav { display: flex; overflow-x: auto; padding: 0; gap: 4px; white-space: nowrap; }
+      .demo-nav li a { border-left: none; border-bottom: 3px solid transparent; padding: 6px 12px; }
+      .demo-nav li a.active { border-left: none; border-bottom-color: #2563eb; }
+      .demo-main { margin-left: 0; padding: 16px; }
+    }
+    @media (max-width: 768px) { .demo-grid-2 { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- 侧边栏导航 -->
+<aside class="demo-sidebar">
+  <div class="sidebar-title">
+    <h1>🧪 可视化演示</h1>
+    <p>CogniThink-Chem · 9 种组件</p>
+  </div>
+  <ul class="demo-nav" id="demoNav">
+    <li><a href="#sec-electrochem"><span class="nav-num">1</span>电化学装置图</a></li>
+    <li><a href="#sec-flow"><span class="nav-num">2</span>转化链流程图</a></li>
+    <li><a href="#sec-conc-bars"><span class="nav-num">3</span>浓度柱状图</a></li>
+    <li><a href="#sec-coexist"><span class="nav-num">4</span>离子共存图</a></li>
+    <li><a href="#sec-mole"><span class="nav-num">5</span>摩尔换算图</a></li>
+    <li><a href="#sec-balance"><span class="nav-num">6</span>原子守恒校验</a></li>
+    <li><a href="#sec-conc-time"><span class="nav-num">7</span>浓度-时间图</a></li>
+    <li><a href="#sec-apparatus"><span class="nav-num">8</span>实验装置图</a></li>
+    <li><a href="#sec-molecule"><span class="nav-num">9</span>分子 3D 结构</a></li>
+  </ul>
+</aside>
+
+<div class="demo-main">
+  <div class="demo-header">
+    <h1>🧪 化学可视化效果演示</h1>
+    <p>CogniThink-Chem · 全部 9 种可视化组件集中展示</p>
+  </div>
+
+  <div id="demo-root"></div>
+</div>
+
+<script src="app.js"></script>
+<script>
+/* ============================================================
+   演示数据 —— 模拟各类题型的真实解题输出
+   ============================================================ */
+
+// 1. 电化学装置图 —— 原电池（锌铜原电池）
+const galvanicCell = {
+  type: 'galvanic',
+  electrodes: ['Zn', 'Cu'],
+  electrolyte: '稀 H₂SO₄',
+  medium: 'acidic'
+};
+const galvanicElectrodes = {
+  negative: 'Zn - 2e⁻ → Zn²⁺',
+  positive: '2H⁺ + 2e⁻ → H₂↑'
+};
+
+// 1b. 电解池（电解饱和食盐水）
+const electrolyticCell = {
+  type: 'electrolytic',
+  electrodes: ['石墨(阳极)', 'Fe(阴极)'],
+  electrolyte: '饱和 NaCl 溶液',
+  medium: 'neutral'
+};
+const electrolyticElectrodes = {
+  anode: '2Cl⁻ - 2e⁻ → Cl₂↑',
+  cathode: '2H₂O + 2e⁻ → H₂↑ + 2OH⁻'
+};
+
+// 2. 转化链流程图 —— 有机推断
+const flowSteps = [
+  { from: 'A', to: 'B', reagents: ['H₂O'], conditions: ['催化剂'], phenomenon: '加成反应' },
+  { from: 'B', to: 'C', reagents: ['O₂'], conditions: ['Cu/△'], phenomenon: '催化氧化' },
+  { from: 'C', to: 'D', reagents: ['O₂'], conditions: ['催化剂'], phenomenon: '氧化' },
+  { from: 'D', to: 'E', reagents: ['B'], conditions: ['浓H₂SO₄/△'], phenomenon: '酯化' }
+];
+const flowSubstanceMap = { A: 'C₂H₄', B: 'C₂H₅OH', C: 'CH₃CHO', D: 'CH₃COOH', E: 'CH₃COOC₂H₅' };
+const flowPurposes = { '1': '乙烯水化制乙醇', '2': '乙醇氧化为乙醛', '3': '乙醛氧化为乙酸', '4': '乙酸与乙醇酯化' };
+
+// 3. 粒子浓度柱状图 —— 碳酸钠溶液中离子浓度排序
+const concOrder = ['Na⁺', 'CO₃²⁻', 'OH⁻', 'HCO₃⁻', 'H⁺'];
+
+// 4. 离子共存冲突图 —— 有冲突
+const coexConflicts = [
+  { ions: ['Ba²⁺', 'SO₄²⁻'], reason: '生成沉淀' },
+  { ions: ['Fe³⁺', 'SCN⁻'], reason: '生成弱电解质' },
+  { ions: ['MnO₄⁻', 'Fe²⁺'], reason: '发生氧化还原反应' }
+];
+const coexSpecies = ['Na⁺', 'Ba²⁺', 'Fe³⁺', 'Fe²⁺', 'SO₄²⁻', 'SCN⁻', 'MnO₄⁻', 'Cl⁻'];
+const coexMedium = 'acidic';
+
+// 4b. 离子共存 —— 无冲突（能共存）
+const coexSpeciesOk = ['Na⁺', 'K⁺', 'NO₃⁻', 'SO₄²⁻', 'Cl⁻'];
+
+// 5. 摩尔计算关系图
+const moleValue = '0.5';
+const moleUnit = 'mol/L';
+const moleSpecies = 'NaCl';
+
+// 6. 原子守恒校验
+const balanceEquations = ['2H₂ + O₂ → 2H₂O', 'Fe + CuSO₄ → FeSO₄ + Cu', '2Al + 3H₂SO₄ → Al₂(SO₄)₃ + 3H₂↑'];
+
+// 7. 浓度-时间图（化学平衡三段式）
+const equilibriumData = {
+  table: [
+    { species: 'N₂', start: '1.0', change: '-0.2', end: '0.8' },
+    { species: 'H₂', start: '3.0', change: '-0.6', end: '2.4' },
+    { species: 'NH₃', start: '0', change: '+0.4', end: '0.4' }
+  ],
+  direction: 'forward'
+};
+
+// 8. 实验装置图 —— 多个装置
+const experimentData = {
+  operations: ['蒸馏', '萃取分液', '过滤', '蒸发结晶', '滴定', '气密性检查', '气体制备']
+};
+
+// 9. 分子 3D 结构 —— 来自 RDKit 生成的真实 molblock
+const molBlocks = {
+  'A': "\n     RDKit          2D\n\n  2  1  0  0  0  0  0  0  0  0999 V2000\n    0.7570    0.7570    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    0.7570    2.2710    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  2  0\nM  END\n",
+  'B': "\n     RDKit          2D\n\n  3  2  0  0  0  0  0  0  0  0999 V2000\n    0.7570    0.7570    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    0.7570    2.2710    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    2.0682    3.0280    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0\n  2  3  1  0\nM  END\n",
+  'C': "\n     RDKit          2D\n\n  3  2  0  0  0  0  0  0  0  0999 V2000\n    0.7570    0.7570    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    0.7570    2.2710    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    2.0682    3.0280    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0\n  2  3  2  0\nM  END\n",
+  'D': "\n     RDKit          2D\n\n  4  3  0  0  0  0  0  0  0  0999 V2000\n    2.0682    0.7570    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    2.0682    2.2710    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    3.3793    3.0280    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n    0.7570    3.0280    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0\n  2  3  2  0\n  2  4  1  0\nM  END\n",
+  'E': "\n     RDKit          2D\n\n  6  5  0  0  0  0  0  0  0  0999 V2000\n    6.0017    3.0280    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    4.6905    2.2710    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    3.3793    3.0280    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n    2.0682    2.2710    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    0.7570    3.0280    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    2.0682    0.7570    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0\n  2  3  1  0\n  3  4  1  0\n  4  5  1  0\n  4  6  2  0\nM  END\n"
+};
+const molSubstanceMap = { A: 'C₂H₄', B: 'C₂H₅OH', C: 'CH₃CHO', D: 'CH₃COOH', E: 'CH₃COOC₂H₅' };
+
+/* ============================================================
+   渲染所有可视化
+   ============================================================ */
+const root = document.getElementById('demo-root');
+
+root.innerHTML = `
+  <div class="demo-section" id="sec-electrochem">
+    <h2>1️⃣ 电化学装置示意图</h2>
+    <p class="demo-desc">原电池 / 电解池：电极、电子流向、离子移向、电极反应式</p>
+    <div class="demo-grid-2">
+      <div>
+        <div class="demo-sub">原电池（锌铜稀硫酸）</div>
+        ${electrochemDiagramHtml(galvanicCell, galvanicElectrodes)}
+      </div>
+      <div>
+        <div class="demo-sub">电解池（电解饱和食盐水）</div>
+        ${electrochemDiagramHtml(electrolyticCell, electrolyticElectrodes)}
+      </div>
+    </div>
+  </div>
+
+  <div class="demo-section" id="sec-flow">
+    <h2>2️⃣ 转化链流程图</h2>
+    <p class="demo-desc">有机推断：A→B→C→D→E 转化链，标注试剂/条件/现象及每步目的</p>
+    ${processFlowHtml(flowSteps, flowSubstanceMap, flowPurposes)}
+  </div>
+
+  <div class="demo-section" id="sec-conc-bars">
+    <h2>3️⃣ 粒子浓度定性柱状图</h2>
+    <p class="demo-desc">Na₂CO₃ 溶液中各粒子浓度由大到小排序的相对高度示意</p>
+    ${concentrationBarsHtml(concOrder)}
+  </div>
+
+  <div class="demo-section" id="sec-coexist">
+    <h2>4️⃣ 离子共存冲突图</h2>
+    <p class="demo-desc">有冲突时按冲突类型着色节点；无冲突时显示"能大量共存"</p>
+    <div class="demo-sub">存在冲突的情况</div>
+    ${coexistenceGraphHtml(coexConflicts, coexSpecies, coexMedium)}
+    <div class="demo-sub">无冲突（能共存）的情况</div>
+    ${coexistenceGraphHtml([], coexSpeciesOk, 'acidic')}
+  </div>
+
+  <div class="demo-section" id="sec-mole">
+    <h2>5️⃣ 物质的量换算关系图</h2>
+    <p class="demo-desc">以 n 为中心，辐射连接 m、N、V、c，高亮本题涉及的换算路径</p>
+    ${moleRelationHtml(moleValue, moleUnit, moleSpecies)}
+  </div>
+
+  <div class="demo-section" id="sec-balance">
+    <h2>6️⃣ 方程式配平·原子守恒校验</h2>
+    <p class="demo-desc">逐方程式统计左右各元素原子数，验证配平正确性</p>
+    ${atomBalanceHtml(balanceEquations)}
+  </div>
+
+  <div class="demo-section" id="sec-conc-time">
+    <h2>7️⃣ 浓度-时间图（化学平衡）</h2>
+    <p class="demo-desc">由三段式起始/平衡浓度拟合浓度随时间变化曲线，标注扰动点</p>
+    ${concentrationTimeHtml(equilibriumData)}
+  </div>
+
+  <div class="demo-section" id="sec-apparatus">
+    <h2>8️⃣ 实验装置示意图</h2>
+    <p class="demo-desc">SVG 装置库：蒸馏、萃取分液、过滤、蒸发结晶、滴定、气密性、气体制备</p>
+    ${experimentApparatusHtml(experimentData, '蒸馏 萃取 过滤 蒸发 滴定 气密性 气体')}
+  </div>
+
+  <div class="demo-section" id="sec-molecule">
+    <h2>9️⃣ 分子 3D 结构可视化（RDKit + 3Dmol.js）</h2>
+    <p class="demo-desc">由 RDKit 生成 molblock，3Dmol.js 渲染球棍模型，可拖拽旋转</p>
+    ${moleculeViewerHtml(molBlocks, molSubstanceMap)}
+  </div>
+`;
+
+// 初始化 3D 分子查看器（需在 DOM 渲染后执行）
+setTimeout(initMoleculeViewers, 100);
+
+/* 滚动高亮：当前可见章节对应的导航项 */
+const navLinks = document.querySelectorAll('.demo-nav a');
+const sectionIds = Array.from(navLinks).map(a => a.getAttribute('href').slice(1));
+
+function updateActiveNav() {
+  const scrollPos = window.scrollY + 120;
+  let activeId = sectionIds[0];
+  for (const id of sectionIds) {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop <= scrollPos) activeId = id;
+  }
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + activeId);
+  });
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+updateActiveNav();
+</script>
+
+</body>
+</html>

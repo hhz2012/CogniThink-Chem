@@ -30,6 +30,7 @@ public static class CoexistenceEngine
             {
                 Description = "酸性介质：把 H^+ 并入待判离子组。",
                 Evidence = "介质条件",
+                KnowledgeId = "KH-IN-02",
             });
         }
         else if (request.Medium == "basic")
@@ -40,6 +41,7 @@ public static class CoexistenceEngine
             {
                 Description = "碱性介质：把 OH^- 并入待判离子组。",
                 Evidence = "介质条件",
+                KnowledgeId = "KH-IN-02",
             });
         }
 
@@ -119,6 +121,7 @@ public static class CoexistenceEngine
             {
                 Description = $"对全部 {ions.Count} 个离子的 2~3 元子集在知识库中检索，未发现任何反应。",
                 Evidence = "ReactionLibrary.FindByReactants",
+                KnowledgeId = "KH-IN-02",
             });
         }
 

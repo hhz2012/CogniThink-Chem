@@ -4,6 +4,7 @@ using CogniThink.Chem.Core;
 using CogniThink.Chem.Core.Benchmark;
 using CogniThink.Chem.Core.Data;
 using CogniThink.Chem.Core.Explanation;
+using CogniThink.Chem.Core.Molecules;
 using CogniThink.Chem.Core.Solving;
 
 namespace CogniThink.Chem.Cli.Commands;
@@ -37,6 +38,13 @@ internal static class ExportWebCommand
             var solution = ProblemSolver.Solve(problem);
             var explanation = explainer.Explain(solution);
             var guide = GuideGenerator.Generate(solution, problem, knowledge);
+
+            // 为 substanceMap 中的物质生成 2D molblock（前端 3Dmol 渲染用）
+            foreach (var (label, formula) in solution.SubstanceMap)
+            {
+                var mb = MoleculeStructureService.GetMolBlock(formula);
+                if (mb is not null) solution.MolBlocks[label] = mb;
+            }
 
             records.Add(new
             {
@@ -83,7 +91,14 @@ internal static class ExportWebCommand
                     solution.Equations,
                     solution.Composition,
                     solution.SubstanceMap,
+                    solution.MolBlocks,
                     coexistence = solution.Coexistence?.ToString(),
+                    conflicts = solution.Conflicts.Select(c => new
+                    {
+                        ions = c.InvolvedIons,
+                        c.Reason,
+                        equation = c.Reaction?.Equation ?? "",
+                    }),
                     numericValue = solution.NumericValue?.ToString(),
                     solution.NumericUnit,
                     solution.NumericSpecies,

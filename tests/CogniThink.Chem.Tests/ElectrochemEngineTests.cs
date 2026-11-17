@@ -62,7 +62,7 @@ public class ElectrochemEngineTests
         Assert.Contains("熔融体系不适用水溶液离子-电子法机械拆解", result.Message);
         // 装置判定步骤保留（结论仍可溯源）。
         Assert.Single(result.Steps);
-        Assert.Equal("RED-004", result.Steps[0].KnowledgeId);
+        Assert.Equal("KH-RP-08", result.Steps[0].KnowledgeId);
     }
 
     [Fact]
@@ -96,7 +96,7 @@ public class ElectrochemEngineTests
                 result.Steps.Where(s => !string.IsNullOrWhiteSpace(s.KnowledgeId)),
                 s => Assert.False(string.IsNullOrWhiteSpace(s.Source)));
             // 电子守恒闭合步骤必须存在且溯源到 CONS-ELEC-001。
-            Assert.Contains(result.Steps, s => s.KnowledgeId == "CONS-ELEC-001");
+            Assert.Contains(result.Steps, s => s.KnowledgeId == "KH-IN-03");
         }
     }
 

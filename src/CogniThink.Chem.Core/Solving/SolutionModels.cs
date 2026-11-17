@@ -44,8 +44,17 @@ public sealed class Solution
     /// <summary>过程推断结论：字母标签 → 物质化学式。</summary>
     public Dictionary<string, string> SubstanceMap { get; set; } = new();
 
+    /// <summary>
+    /// 字母标签 → 2D molblock（由 RDKit 生成，供前端 3Dmol 渲染分子结构）。
+    /// 仅在导出阶段填充，不影响解题性能。
+    /// </summary>
+    public Dictionary<string, string> MolBlocks { get; set; } = new();
+
     /// <summary>离子共存结论（仅离子共存题）。</summary>
     public CoexistenceVerdict? Coexistence { get; set; }
+
+    /// <summary>离子共存冲突对（仅离子共存题，含参与离子与冲突原因）。</summary>
+    public List<CoexistenceConflict> Conflicts { get; set; } = new();
 
     /// <summary>计算题数值答案（精确有理数）。</summary>
     public Rational? NumericValue { get; set; }

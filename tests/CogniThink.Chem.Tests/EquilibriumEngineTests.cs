@@ -88,7 +88,7 @@ public class EquilibriumEngineTests
         // 加压向气体分子数减小方向移动：逆向；未给总压则 Kp 如实不计算。
         Assert.Equal("reverse", result.Answer.Direction);
         Assert.Null(result.Answer.KValue);
-        var ruleStep = Assert.Single(result.Steps, s => s.KnowledgeId == "EQ-001");
+        var ruleStep = result.Steps.First(s => s.KnowledgeId == "KH-RP-03");
         Assert.False(string.IsNullOrWhiteSpace(ruleStep.Source));
         Assert.Contains("平衡常数 K 不变", string.Join("\n", result.Steps.Select(s => s.Description)));
     }
@@ -106,7 +106,7 @@ public class EquilibriumEngineTests
         Assert.Equal("2/5", result.Answer!.Fraction);
         // 放热反应升温向吸热（逆）方向移动，K 减小（EQ-002 判据）。
         Assert.Equal("reverse", result.Answer.Direction);
-        var kRuleStep = Assert.Single(result.Steps, s => s.KnowledgeId == "EQ-002");
+        var kRuleStep = result.Steps.First(s => s.KnowledgeId == "KH-RP-03");
         Assert.False(string.IsNullOrWhiteSpace(kRuleStep.Source));
     }
 
@@ -123,7 +123,7 @@ public class EquilibriumEngineTests
         Assert.Equal("9/16", result.Answer!.Fraction);
         // 催化剂只改速率不改平衡：不移动（EQ-003 判据）。
         Assert.Equal("noShift", result.Answer.Direction);
-        var catStep = Assert.Single(result.Steps, s => s.KnowledgeId == "EQ-003");
+        var catStep = Assert.Single(result.Steps, s => s.KnowledgeId == "KH-RP-02");
         Assert.False(string.IsNullOrWhiteSpace(catStep.Source));
     }
 

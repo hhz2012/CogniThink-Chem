@@ -108,7 +108,9 @@ public static class ProblemSolver
             ? InferenceStatus.Underdetermined
             : InferenceStatus.Solved;
         solution.Message = judge.Message;
-        solution.Equations = MaximalConflicts(judge.Conflicts)
+        var maximal = MaximalConflicts(judge.Conflicts);
+        solution.Conflicts = maximal;
+        solution.Equations = maximal
             .Where(c => c.Reaction is not null)
             .Select(c => c.Reaction!.Equation)
             .ToList();
@@ -282,6 +284,7 @@ public static class ProblemSolver
             Order = solution.Steps.Count + 1,
             Description = $"按公式 {FormulaOf(calc.Op)} 精确计算（有理数运算）。",
             Evidence = $"MoleCalculator.{calc.Op}",
+            KnowledgeId = "KH-IN-13",
         });
         solution.Steps.Add(new SolutionStep
         {

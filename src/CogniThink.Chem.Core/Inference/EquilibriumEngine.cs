@@ -151,6 +151,8 @@ public static class EquilibriumEngine
             Description = $"方程式解析与配平：\"{request.Equation}\" → 配平式 {balanced}；"
                           + $"计量数 ν（反应物取负、生成物取正）：{string.Join("，", order.Select(k => $"{k}={nu[k]}"))}。",
             Evidence = balanced,
+            KnowledgeId = LeChatRule.Value?.KnowledgeId ?? "",
+            Source = LeChatRule.Value?.Source ?? "",
         });
 
         // 2. 起始投料：未给的物种按 0；投料物种必须在方程式中。
@@ -288,6 +290,8 @@ public static class EquilibriumEngine
                 _ => $"由 {known.Species} 的平衡分数 {known.Value} 解一元一次方程定转化进度：x = {x} mol。",
             },
             Evidence = $"given.equilibrium.known={known.Kind}({known.Species})={known.Value}",
+            KnowledgeId = LeChatRule.Value?.KnowledgeId ?? "",
+            Source = LeChatRule.Value?.Source ?? "",
         });
 
         // 4. 三段式表：起始 / 转化(ν·x，负号表示减少) / 平衡。
@@ -315,6 +319,8 @@ public static class EquilibriumEngine
                 $"{r.Species} 起始 {r.Start}，转化 {r.Change}，平衡 {r.End}"))
                 + $"；平衡总物质的量 = {totalEnd} mol。",
             Evidence = $"x = {x}，ν·x 逐物种列表",
+            KnowledgeId = LeChatRule.Value?.KnowledgeId ?? "",
+            Source = LeChatRule.Value?.Source ?? "",
         });
 
         // 5. 结论：转化率 / 摩尔分数 / Kp。
@@ -399,6 +405,8 @@ public static class EquilibriumEngine
             Evidence = conversionSpecies is not null
                 ? $"ν·x = {nuS * x}，start = {start[known.Species]}，totalEnd = {totalEnd}"
                 : $"totalEnd = {totalEnd}",
+            KnowledgeId = LeChatRule.Value?.KnowledgeId ?? "",
+            Source = LeChatRule.Value?.Source ?? "",
         });
 
         // 6. 扰动：定性判移动方向（不重算新平衡）。
@@ -466,7 +474,7 @@ public static class EquilibriumEngine
                                   + $"{(direction == "noShift" ? "压强改变不使平衡移动" : $"平衡向气体分子数减小的方向移动，即{DirectionText(direction)}")}。"
                                   + "（" + (LeChatRule.Value?.Conclusion.Display ?? "改变一个条件，平衡向减弱这种改变的方向移动") + "）",
                     Evidence = $"given.equilibrium.disturbance={disturbance.Kind}，Δν={deltaNu}",
-                    KnowledgeId = "EQ-001",
+                    KnowledgeId = LeChatRule.Value?.KnowledgeId ?? "",
                     Source = LeChatRule.Value?.Source ?? "",
                 });
                 AddKUnchangedStep(result, "温度不变");
@@ -490,7 +498,7 @@ public static class EquilibriumEngine
                                   + $"平衡{DirectionText(direction)}以消耗加入的该物种。"
                                   + $"（{LeChatRule.Value?.Conclusion.Display ?? "改变一个条件，平衡向减弱这种改变的方向移动"}）",
                     Evidence = $"given.equilibrium.disturbance=addSpecies({disturbance.Species})，ν={nuAdded}",
-                    KnowledgeId = "EQ-001",
+                    KnowledgeId = LeChatRule.Value?.KnowledgeId ?? "",
                     Source = LeChatRule.Value?.Source ?? "",
                 });
                 AddKUnchangedStep(result, "温度不变");
@@ -516,7 +524,7 @@ public static class EquilibriumEngine
                                   + $"平衡向{(heating ? "吸热" : "放热")}方向移动，即{DirectionText(direction)}。"
                                   + $"（{LeChatRule.Value?.Conclusion.Display ?? "改变一个条件，平衡向减弱这种改变的方向移动"}）",
                     Evidence = $"given.equilibrium.disturbance={disturbance.Kind}，thermal={disturbance.Thermal}",
-                    KnowledgeId = "EQ-001",
+                    KnowledgeId = LeChatRule.Value?.KnowledgeId ?? "",
                     Source = LeChatRule.Value?.Source ?? "",
                 });
                 var kChange = (heating && exothermic) || (!heating && !exothermic) ? "减小" : "增大";
@@ -525,7 +533,7 @@ public static class EquilibriumEngine
                     Description = $"平衡常数只随温度变化：{(heating ? "升温" : "降温")}使 K {kChange}。"
                                   + $"（{KTempRule.Value?.Conclusion.Display ?? "K 只与温度有关，与浓度、压强、催化剂无关"}）",
                     Evidence = $"given.equilibrium.disturbance={disturbance.Kind}",
-                    KnowledgeId = "EQ-002",
+                    KnowledgeId = KTempRule.Value?.KnowledgeId ?? "",
                     Source = KTempRule.Value?.Source ?? "",
                 });
                 return true;
@@ -539,7 +547,7 @@ public static class EquilibriumEngine
                     Description = $"扰动分析（加入催化剂）：催化剂同等程度加快正、逆反应速率，平衡不移动、转化率不变。"
                                   + $"（{CatalystRule.Value?.Conclusion.Display ?? "催化剂同等程度加快正逆反应速率，不改变转化率"}）",
                     Evidence = "given.equilibrium.disturbance=catalyst",
-                    KnowledgeId = "EQ-003",
+                    KnowledgeId = CatalystRule.Value?.KnowledgeId ?? "",
                     Source = CatalystRule.Value?.Source ?? "",
                 });
                 AddKUnchangedStep(result, "温度不变");
@@ -560,7 +568,7 @@ public static class EquilibriumEngine
             Description = $"{reason}，平衡常数 K 不变。"
                           + $"（{KTempRule.Value?.Conclusion.Display ?? "K 只与温度有关，与浓度、压强、催化剂无关"}）",
             Evidence = "given.equilibrium.disturbance",
-            KnowledgeId = "EQ-002",
+            KnowledgeId = KTempRule.Value?.KnowledgeId ?? "",
             Source = KTempRule.Value?.Source ?? "",
         });
     }
