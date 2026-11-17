@@ -253,6 +253,114 @@
       ],
       "source": "人教版《化学·必修第一册》第二章'物质的量浓度'综合（中和反应与混合液浓度）",
       "tags": ["中和反应", "混合溶液", "化学计量"]
+    },
+    {
+      "id": "CALC-011",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "2 mol H2SO4 的质量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Moles", "species": "H2SO4", "value": "2", "unit": "mol" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["H2SO4 的质量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "196", "unit": "g", "species": "H2SO4" },
+        "calc": { "op": "MassFromMoles", "moles": "2", "species": "H2SO4" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量'（m = nM，M(H2SO4) = 98 g/mol）",
+      "tags": ["摩尔质量", "纯计算"]
+    },
+    {
+      "id": "CALC-012",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "5.6 g 铁的物质的量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Mass", "species": "Fe", "value": "5.6", "unit": "g" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["Fe 的物质的量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "1/10", "unit": "mol", "species": "Fe" },
+        "calc": { "op": "MolesFromMass", "species": "Fe", "massGrams": "5.6" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量'（n = m/M，M(Fe) = 56 g/mol）",
+      "tags": ["摩尔质量", "纯计算"]
+    },
+    {
+      "id": "CALC-013",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "将 0.1 mol NaCl 溶于水配成 200 mL 溶液，该溶液的物质的量浓度是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Moles", "species": "NaCl", "value": "0.1", "unit": "mol" },
+          { "kind": "SolutionVolume", "value": "200", "unit": "mL" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["NaCl 的物质的量浓度"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "1/2", "unit": "mol/L", "species": "NaCl" },
+        "calc": { "op": "MolarConcentration", "moles": "1/10", "solutionVolumeLiters": "1/5" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量浓度'（c = n/V）",
+      "tags": ["物质的量浓度", "纯计算"]
+    },
+    {
+      "id": "CALC-014",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "取 50 mL 1 mol/L 的 NaCl 溶液，加水稀释至 200 mL。稀释后溶液的物质的量浓度是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "Concentration", "species": "NaCl", "value": "1", "unit": "mol/L" },
+          { "kind": "SolutionVolume", "value": "50", "unit": "mL" },
+          { "kind": "SolutionVolume", "value": "200", "unit": "mL" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["稀释后 NaCl 的物质的量浓度"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "1/4", "unit": "mol/L", "species": "NaCl" },
+        "calc": { "op": "Dilution", "concentration1": "1", "volume1Liters": "1/20", "volume2Liters": "1/5" },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量浓度'（稀释定律 c1V1 = c2V2）",
+      "tags": ["稀释定律", "纯计算"]
+    },
+    {
+      "id": "CALC-015",
+      "category": "StoichiometryCalc",
+      "difficulty": "Basic",
+      "problemText": "6.02×10^22 个氧原子的物质的量是多少？",
+      "given": {
+        "numericFacts": [
+          { "kind": "ParticleCount", "species": "O", "value": "6.02×10^22", "unit": "个" }
+        ]
+      },
+      "question": { "ask": "Calculate", "targets": ["O 原子的物质的量"] },
+      "expected": {
+        "equations": [],
+        "numericAnswer": { "value": "1/10", "unit": "mol", "species": "O" },
+        "calc": { "op": "MolesFromParticles", "particleMantissa": "6.02", "particleExponent": 22 },
+        "engineExpectation": { "isValid": true }
+      },
+      "distractors": [],
+      "source": "人教版《化学·必修第一册》第二章'物质的量'（n = N/NA）",
+      "tags": ["阿伏加德罗常数", "纯计算"]
     }
   ]
 }

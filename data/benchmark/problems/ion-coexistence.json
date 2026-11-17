@@ -214,6 +214,141 @@
       ],
       "source": "人教版《化学·必修第一册》第二章'离子反应'综合（酸式酸根与碱、沉淀剂的两步反应合并书写）",
       "tags": ["离子共存", "碱性介质", "合并书写"]
+    },
+    {
+      "id": "COEX-009",
+      "category": "IonCoexistence",
+      "difficulty": "Hard",
+      "problemText": "在酸性溶液中，Fe^3+、K^+、I^-、SO4^2- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Fe^3+", "K^+", "I^-", "SO4^2-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["2Fe^3+ + 2I^- = 2Fe^2+ + I2"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-009-D1",
+          "description": "元素不守恒：I 左 1 右 2",
+          "equation": "Fe^3+ + I^- = Fe^2+ + I2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'（铁离子氧化性）",
+      "tags": ["离子共存", "氧化还原", "铁离子碘离子"]
+    },
+    {
+      "id": "COEX-010",
+      "category": "IonCoexistence",
+      "difficulty": "Basic",
+      "problemText": "在酸性溶液中，Ag^+、K^+、NO3^-、Cl^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Ag^+", "K^+", "NO3^-", "Cl^-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["Ag^+ + Cl^- = AgCl↓"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-010-D1",
+          "description": "AgCl 难溶，漏标 ↓",
+          "equation": "Ag^+ + Cl^- = AgCl",
+          "expectValid": false,
+          "expectFailChecks": ["状态符号"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'离子反应'（氯离子检验）",
+      "tags": ["离子共存", "沉淀", "银离子"]
+    },
+    {
+      "id": "COEX-011",
+      "category": "IonCoexistence",
+      "difficulty": "Basic",
+      "problemText": "在强碱性溶液中，Na^+、K^+、Mg^2+、Cl^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Na^+", "K^+", "Mg^2+", "Cl^-"], "medium": "basic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["Mg^2+ + 2OH^- = Mg(OH)2↓"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-011-D1",
+          "description": "电荷不守恒：左 0，右 -2",
+          "equation": "Mg^2+ + OH^- = Mg(OH)2↓",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'金属及其化合物'（镁离子与碱反应）",
+      "tags": ["离子共存", "碱性介质", "沉淀"]
+    },
+    {
+      "id": "COEX-012",
+      "category": "IonCoexistence",
+      "difficulty": "Medium",
+      "problemText": "在酸性溶液中，Na^+、K^+、S^2-、Cl^- 能否大量共存？若不能，写出相关反应的离子方程式。",
+      "given": { "species": ["Na^+", "K^+", "S^2-", "Cl^-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["S^2- + 2H^+ = H2S↑"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-012-D1",
+          "description": "电荷不守恒：左 -2，右 0",
+          "equation": "S^2- + H^+ = H2S↑",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'硫及其化合物'（硫离子与酸反应）",
+      "tags": ["离子共存", "酸性介质", "气体"]
+    },
+    {
+      "id": "COEX-013",
+      "category": "IonCoexistence",
+      "difficulty": "Hard",
+      "problemText": "在酸性溶液中，Fe^3+、Na^+、S^2-、Cl^- 能否大量共存？若不能，写出所有相关反应的离子方程式。",
+      "given": { "species": ["Fe^3+", "Na^+", "S^2-", "Cl^-"], "medium": "acidic" },
+      "question": { "ask": "JudgeCoexistence", "targets": ["共存判断", "理由方程式"] },
+      "expected": {
+        "equations": ["2Fe^3+ + S^2- = 2Fe^2+ + S↓", "S^2- + 2H^+ = H2S↑"],
+        "verdict": "NotCoexist",
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析", "状态符号"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "COEX-013-D1",
+          "description": "电荷不守恒：左 +4，右 +2",
+          "equation": "Fe^3+ + S^2- = Fe^2+ + S↓",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'（铁离子与硫离子氧化还原）",
+      "tags": ["离子共存", "氧化还原", "沉淀"]
     }
   ]
 }

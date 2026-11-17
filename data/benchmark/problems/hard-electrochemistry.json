@@ -292,6 +292,150 @@
       ],
       "source": "人教版《化学·选择性必修1》第四章'电解原理'（电解硝酸银溶液）",
       "tags": ["电化学", "电解池", "电极反应式", "酸性介质", "减法推半反应"]
+    },
+    {
+      "id": "ELEC-H09",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "铁片和铜片用导线连接后插入硫酸铜溶液中构成原电池（酸性介质），总反应为 Fe + Cu^2+ = Fe^2+ + Cu。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Fe", "Cu"],
+          "electrolyte": "CuSO4",
+          "medium": "acidic",
+          "overall": "Fe + Cu^2+ = Fe^2+ + Cu",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["Fe + Cu^2+ = Fe^2+ + Cu"],
+        "electrodes": {
+          "negative": "Fe = Fe^2+ + 2e^-",
+          "positive": "Cu^2+ + 2e^- = Cu"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H09-D1",
+          "description": "负极式电子数写错（失 3 个电子生成 Fe^3+），与总反应矛盾",
+          "equation": "Fe = Fe^3+ + 3e^-",
+          "expectValid": false,
+          "expectFailChecks": ["氧化还原分析"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'原电池'（铁铜原电池）",
+      "tags": ["电化学", "原电池", "电极反应式", "活动性顺序"]
+    },
+    {
+      "id": "ELEC-H10",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "铝片和银片用导线连接后插入硝酸银溶液中构成原电池（酸性介质），总反应为 Al + 3Ag^+ = Al^3+ + 3Ag。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Al", "Ag"],
+          "electrolyte": "AgNO3",
+          "medium": "acidic",
+          "overall": "Al + 3Ag^+ = Al^3+ + 3Ag",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["Al + 3Ag^+ = Al^3+ + 3Ag"],
+        "electrodes": {
+          "negative": "Al = Al^3+ + 3e^-",
+          "positive": "Ag^+ + e^- = Ag"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H10-D1",
+          "description": "正极式电子数写错（得 2 个电子），电荷不守恒",
+          "equation": "Ag^+ + 2e^- = Ag",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒", "氧化还原分析"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'原电池'（铝银原电池）",
+      "tags": ["电化学", "原电池", "电极反应式", "活动性顺序"]
+    },
+    {
+      "id": "ELEC-H11",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "用石墨电极电解稀盐酸（酸性介质），总反应为 2H^+ + 2Cl^- = H2↑ + Cl2↑。写出阳极和阴极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "electrolytic",
+          "electrodes": ["C", "C"],
+          "electrolyte": "HCl",
+          "medium": "acidic",
+          "overall": "2H^+ + 2Cl^- = H2↑ + Cl2↑",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["阳极电极反应式", "阴极电极反应式"] },
+      "expected": {
+        "equations": ["2H^+ + 2Cl^- = H2↑ + Cl2↑"],
+        "electrodes": {
+          "anode": "2Cl^- = Cl2 + 2e^-",
+          "cathode": "2H^+ + 2e^- = H2"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H11-D1",
+          "description": "总反应氯离子系数漏写：元素与电荷均不守恒",
+          "equation": "H^+ + Cl^- = H2↑ + Cl2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'电解原理'（电解稀盐酸）",
+      "tags": ["电化学", "电解池", "电极反应式", "惰性电极"]
+    },
+    {
+      "id": "ELEC-H12",
+      "category": "Electrochemistry",
+      "difficulty": "Hard",
+      "problemText": "锌片和银片用导线连接后插入硝酸银溶液中构成原电池（酸性介质），总反应为 Zn + 2Ag^+ = Zn^2+ + 2Ag。写出负极和正极的电极反应式。",
+      "given": {
+        "medium": "acidic",
+        "cell": {
+          "type": "galvanic",
+          "electrodes": ["Zn", "Ag"],
+          "electrolyte": "AgNO3",
+          "medium": "acidic",
+          "overall": "Zn + 2Ag^+ = Zn^2+ + 2Ag",
+          "gasFeeds": []
+        }
+      },
+      "question": { "ask": "WriteElectrodeEquations", "targets": ["负极电极反应式", "正极电极反应式"] },
+      "expected": {
+        "equations": ["Zn + 2Ag^+ = Zn^2+ + 2Ag"],
+        "electrodes": {
+          "negative": "Zn = Zn^2+ + 2e^-",
+          "positive": "Ag^+ + e^- = Ag"
+        }
+      },
+      "distractors": [
+        {
+          "id": "ELEC-H12-D1",
+          "description": "正极式电子数写错（得 1 个电子配 2 个 Ag^+），电荷不守恒",
+          "equation": "2Ag^+ + e^- = 2Ag",
+          "expectValid": false,
+          "expectFailChecks": ["电荷守恒", "氧化还原分析"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第四章'原电池'（锌银原电池）",
+      "tags": ["电化学", "原电池", "电极反应式", "活动性顺序"]
     }
   ]
 }

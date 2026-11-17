@@ -7,7 +7,7 @@ using Xunit;
 namespace CogniThink.Chem.Tests;
 
 /// <summary>
-/// 端到端求解基准（"能解"）：求解器对全部 98 道基准题推导答案，
+/// 端到端求解基准（"能解"）：求解器对全部 103 道基准题推导答案，
 /// 断言推导结果与 expected 标准答案一致（此前引擎只会校验、现在能推导）。
 /// </summary>
 public class ProblemSolverTests
@@ -159,12 +159,12 @@ public class ProblemSolverTests
     public void SolveAll_CoversAllProblems()
     {
         var solutions = ProblemSolver.SolveAll(Problems);
-        Assert.Equal(98, solutions.Count);
-        // 90 题解出；PROD-004（陌生物质）按铁律拒答，ELEC-H06（熔融体系）、EQ-H08（无平衡信息）、
+        Assert.Equal(130, solutions.Count);
+        // 122 题解出；PROD-004（陌生物质）按铁律拒答，ELEC-H06（熔融体系）、EQ-H08（无平衡信息）、
         // AQ-H04（NaHCO3 全粒子排序需解联立平衡）、PROCF-H06（浸出液铁价态未记录）、
         // IONP-H04（全负证据无法确定任何成分）、ORG-H08（乙烯/乙炔双解）、
         // EXP-H08（石灰水变浑浊为 CO2/SO2 共有现象，多义）如实欠定。
-        Assert.Equal(90, solutions.Count(s => s.IsSolved));
+        Assert.Equal(122, solutions.Count(s => s.IsSolved));
         var unsolved = solutions.Where(s => !s.IsSolved).ToList();
         Assert.Equal(8, unsolved.Count);
         Assert.Equal(InferenceStatus.NoSolution, unsolved.Single(s => s.ProblemId == "PROD-004").Status);

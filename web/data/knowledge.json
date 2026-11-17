@@ -1,0 +1,1474 @@
+{
+  "version": "1.0",
+  "generatedAt": "2026-11-17 11:43:41",
+  "items": [
+    {
+      "id": "KH-IN-01",
+      "name": "物质分类与胶体",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第一章",
+      "prerequisites": [],
+      "summary": "按组成与性质对物质分类；胶体是分散质粒径 1~100 nm 的分散系，有丁达尔效应。",
+      "pitfall": "胶体不带电，是胶粒带电；丁达尔效应是鉴别方法不是定义；渗析可提纯胶体。",
+      "rules": []
+    },
+    {
+      "id": "KH-IN-02",
+      "name": "离子反应与离子方程式",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第一章",
+      "prerequisites": [
+        "KH-IN-01"
+      ],
+      "summary": "有离子参加或生成的反应；离子方程式书写：写、拆、删、查。",
+      "pitfall": "难溶物、弱电解质、气体、氧化物、单质不拆；电荷守恒与原子守恒都要查。",
+      "rules": [
+        {
+          "id": "CONS-CHARGE-001",
+          "name": "电荷守恒（离子方程式）",
+          "layer": "Conservation",
+          "display": "离子方程式两边电荷总数相等"
+        },
+        {
+          "id": "SOL-001",
+          "name": "复分解反应发生条件",
+          "layer": "Principle",
+          "display": "生成沉淀、气体或弱电解质时复分解反应可以发生"
+        },
+        {
+          "id": "SOL-002",
+          "name": "强酸制弱酸",
+          "layer": "Structural",
+          "display": "较强酸可以制取较弱酸（如盐酸制碳酸）"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-03",
+      "name": "氧化还原基本概念",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第一章",
+      "prerequisites": [
+        "KH-IN-01"
+      ],
+      "summary": "有电子转移即化合价升降的反应；口诀：升失氧、降得还。",
+      "pitfall": "氧化剂本身被还原，还原剂本身被氧化；得电子总数等于失电子总数。",
+      "rules": [
+        {
+          "id": "CONS-ELEC-001",
+          "name": "电子守恒",
+          "layer": "Conservation",
+          "display": "氧化剂得电子总数 = 还原剂失电子总数"
+        },
+        {
+          "id": "RED-002",
+          "name": "强氧化剂与强还原剂反应方向",
+          "layer": "Principle",
+          "display": "强氧化剂 + 强还原剂 → 弱氧化剂 + 弱还原剂"
+        },
+        {
+          "id": "RED-003",
+          "name": "化合价升降与氧化还原角色",
+          "layer": "Principle",
+          "display": "化合价升高的物质是还原剂（被氧化），降低的是氧化剂（被还原）"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-04",
+      "name": "钠及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第二章",
+      "prerequisites": [
+        "KH-IN-01"
+      ],
+      "summary": "Na 与水、氧气反应；Na2O2 是过氧化物，与 CO2、H2O 反应放 O2。",
+      "pitfall": "Na2O2 中 O 为 -1 价；Na 投入盐溶液先与水反应，不直接置换金属。",
+      "rules": [
+        {
+          "id": "EXPT-004",
+          "name": "焰色试验",
+          "layer": "Principle",
+          "display": "钠黄色；钾紫色（需透过蓝色钴玻璃滤去钠的黄光）"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-05",
+      "name": "镁铝及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第三章",
+      "prerequisites": [
+        "KH-IN-02"
+      ],
+      "summary": "Mg、Al 活泼金属；Al、Al2O3、Al(OH)3 均具两性。",
+      "pitfall": "Al(OH)3 不溶于弱碱氨水；Mg 能在 CO2 中燃烧（2Mg+CO2=2MgO+C）。",
+      "rules": []
+    },
+    {
+      "id": "KH-IN-06",
+      "name": "铁铜及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第三章",
+      "prerequisites": [
+        "KH-IN-03"
+      ],
+      "summary": "Fe 有 +2、+3 价，Fe2+ 与 Fe3+ 可相互转化；KSCN 遇 Fe3+ 变红。",
+      "pitfall": "Fe 与弱氧化剂（H+、Cu2+、S、I2）生成 Fe2+；Fe(OH)2 在空气中迅速变灰绿再变红褐。",
+      "rules": [
+        {
+          "id": "RED-001",
+          "name": "金属活动性顺序置换",
+          "layer": "Structural",
+          "display": "活动性强的金属能把活动性弱的金属从其盐溶液中置换出来"
+        },
+        {
+          "id": "EXPT-003",
+          "name": "铁离子检验",
+          "layer": "Principle",
+          "display": "加 KSCN 溶液变血红色"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-07",
+      "name": "氯与卤素",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第二章",
+      "prerequisites": [
+        "KH-IN-03"
+      ],
+      "summary": "Cl2 强氧化剂；卤素氧化性 F2>Cl2>Br2>I2。",
+      "pitfall": "Cl2 与水是可逆反应；新制氯水有漂白性是因为 HClO，不是 Cl2 本身。",
+      "rules": [
+        {
+          "id": "ACID-001",
+          "name": "氢卤酸为强酸（通则）",
+          "layer": "Structural",
+          "display": "氢卤酸（HCl、HBr、HI）为强酸，完全电离"
+        },
+        {
+          "id": "ACID-EXC-001",
+          "name": "HF 是弱酸",
+          "layer": "Exception",
+          "display": "HF 在水中部分电离，是弱酸（H-F 键牢固）"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-08",
+      "name": "硫及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修二·第五章",
+      "prerequisites": [
+        "KH-IN-03"
+      ],
+      "summary": "S 有 -2、0、+4、+6 价；SO2 漂白性可逆；浓 H2SO4 有强氧化性、吸水性、脱水性。",
+      "pitfall": "SO2 不能漂白石蕊试液（只变红）；浓硫酸吸水性是物理变化、脱水性是化学变化。",
+      "rules": [
+        {
+          "id": "RED-005",
+          "name": "常温钝化（浓硫酸/浓硝酸与铁铝）",
+          "layer": "Conditional",
+          "display": "常温下浓硫酸、浓硝酸使铁、铝钝化（表面致密氧化膜）"
+        },
+        {
+          "id": "COND-002",
+          "name": "稀硫酸与铜不反应",
+          "layer": "Conditional",
+          "display": "稀硫酸与铜不反应；浓硫酸需加热才与铜反应"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-09",
+      "name": "氮及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修二·第五章",
+      "prerequisites": [
+        "KH-IN-03"
+      ],
+      "summary": "N2 稳定；NH3 唯一碱性气体；HNO3 强氧化性；NO、NO2 相互转化。",
+      "pitfall": "浓、稀 HNO3 与活泼金属反应都不产生 H2；NO 遇空气变红棕色。",
+      "rules": [
+        {
+          "id": "EXPT-005",
+          "name": "铵根离子检验",
+          "layer": "Principle",
+          "display": "加 NaOH 并加热，产生使湿润红色石蕊试纸变蓝的气体"
+        },
+        {
+          "id": "COND-001",
+          "name": "浓稀硝酸与铜的产物差异",
+          "layer": "Conditional",
+          "display": "铜与浓硝酸生成 NO2，与稀硝酸生成 NO"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-10",
+      "name": "硅与无机非金属材料",
+      "module": "Inorganic",
+      "tier": "Extended",
+      "textbookRef": "必修二·第五章",
+      "prerequisites": [
+        "KH-IN-01"
+      ],
+      "summary": "Si 半导体；SiO2 酸性氧化物；硅酸盐材料：玻璃、水泥、陶瓷。",
+      "pitfall": "SiO2 不溶于水也不与水反应；HF 是唯一能与 SiO2 反应的酸。",
+      "rules": []
+    },
+    {
+      "id": "KH-IN-11",
+      "name": "金属冶炼与金属材料",
+      "module": "Inorganic",
+      "tier": "Extended",
+      "textbookRef": "必修二·第八章",
+      "prerequisites": [
+        "KH-IN-05"
+      ],
+      "summary": "按活泼性选冶炼法：电解法（K~Al）、热还原法（Zn~Cu）、热分解法（Hg、Ag）。",
+      "pitfall": "热还原常用焦炭、CO、H2、Al 作还原剂；Al 热还原用于高熔点金属。",
+      "rules": []
+    },
+    {
+      "id": "KH-IN-12",
+      "name": "化工工艺流程",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修二·第八章",
+      "prerequisites": [
+        "KH-IN-02",
+        "KH-IN-05"
+      ],
+      "summary": "原料预处理→核心反应→分离提纯→产品；关注除杂、循环利用与绿色化学。",
+      "pitfall": "除杂原则：不引入新杂质、不减少主体物质、过量试剂须在后续除去。",
+      "rules": [
+        {
+          "id": "PROC-004",
+          "name": "常见操作目的",
+          "layer": "Structural",
+          "display": "蒸发浓缩冷却结晶：适用于溶解度随温度变化大的物质，获得带结晶水的晶体；蒸发结晶：适用于溶解度受温度影响小的物质（如 NaCl），蒸发至大量晶体析出；灼烧：除去可燃性或挥发性杂质，使氢氧化物或含氧酸盐转化为稳定氧化物；洗涤：除去晶体表面附着的可溶性杂质；循环利用：提高原料利用率、减少排放与污染"
+        }
+      ]
+    },
+    {
+      "id": "KH-IN-13",
+      "name": "物质的量与化学计量",
+      "module": "Inorganic",
+      "tier": "Main",
+      "textbookRef": "必修一·第二章",
+      "prerequisites": [
+        "KH-IN-01"
+      ],
+      "summary": "n=m/M=N/NA=V/Vm=cV；各物质的量之比等于化学方程式计量数之比。",
+      "pitfall": "摩尔质量在数值上等于相对原子/分子质量但单位为 g/mol；气体摩尔体积 22.4 L/mol 仅适用于标准状况下的气体；结晶水合物的摩尔质量必须包含结晶水。",
+      "rules": []
+    },
+    {
+      "id": "KH-OR-01",
+      "name": "烃：烷、烯、炔与苯",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "必修二·第七章",
+      "prerequisites": [
+        "KH-ST-03"
+      ],
+      "summary": "烷烃取代、烯炔加成与加聚、苯可取代（溴代、硝化）也可加成。",
+      "pitfall": "苯不能使溴水因反应褪色（萃取是物理变化）；烷烃与溴水不反应。",
+      "rules": []
+    },
+    {
+      "id": "KH-OR-02",
+      "name": "卤代烃",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第三章",
+      "prerequisites": [
+        "KH-OR-01"
+      ],
+      "summary": "NaOH 水溶液水解（取代）得醇；NaOH 醇溶液加热消去得烯。",
+      "pitfall": "消去要求邻碳有 H；水溶液水解、醇溶液消去，条件不可混淆。",
+      "rules": []
+    },
+    {
+      "id": "KH-OR-03",
+      "name": "醇与酚",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第三章",
+      "prerequisites": [
+        "KH-OR-02"
+      ],
+      "summary": "醇羟基可置换、催化氧化、消去、酯化；酚弱酸性、与溴水白色沉淀、FeCl3 紫色。",
+      "pitfall": "醇不与 NaOH 反应而酚可以；酚的溴代只发生在邻、对位。",
+      "rules": []
+    },
+    {
+      "id": "KH-OR-04",
+      "name": "醛与羧酸",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第三章",
+      "prerequisites": [
+        "KH-OR-03"
+      ],
+      "summary": "醛基氧化（银镜、新制 Cu(OH)2）得羧酸、还原得醇；羧酸酯化（浓硫酸加热可逆）。",
+      "pitfall": "银镜反应需碱性、水浴加热；酯化是酸脱羟基醇脱氢。",
+      "rules": [
+        {
+          "id": "ORG-001",
+          "name": "醛基的银镜反应",
+          "layer": "Structural",
+          "display": "醛基被银氨溶液氧化，析出银镜"
+        }
+      ]
+    },
+    {
+      "id": "KH-OR-05",
+      "name": "酯与油脂",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第三章",
+      "prerequisites": [
+        "KH-OR-04"
+      ],
+      "summary": "酯水解：酸性可逆、碱性完全（皂化）；油脂是高级脂肪酸甘油酯。",
+      "pitfall": "油脂不是高分子化合物；皂化反应专指油脂在碱性条件下的水解。",
+      "rules": [
+        {
+          "id": "ORG-002",
+          "name": "酯的水解",
+          "layer": "Structural",
+          "display": "酯在酸性或碱性条件下水解，碱性条件不可逆"
+        }
+      ]
+    },
+    {
+      "id": "KH-OR-06",
+      "name": "同分异构体",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第一章",
+      "prerequisites": [
+        "KH-OR-01"
+      ],
+      "summary": "分子式相同结构不同；分碳链异构、位置异构、官能团异构。",
+      "pitfall": "先写碳链再移官能团防重复；利用对称性找等效氢。",
+      "rules": []
+    },
+    {
+      "id": "KH-OR-07",
+      "name": "有机反应类型",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第二章",
+      "prerequisites": [
+        "KH-OR-01"
+      ],
+      "summary": "取代、加成、消去、氧化、还原、酯化、水解、加聚、缩聚。",
+      "pitfall": "酯化属于取代反应；水解属于取代；加氢是还原、去氢是氧化。",
+      "rules": [
+        {
+          "id": "ORG-003",
+          "name": "苯环取代与烯烃加成",
+          "layer": "Structural",
+          "display": "苯环易取代、烯烃易加成（可用溴水/酸性 KMnO4 区分）"
+        }
+      ]
+    },
+    {
+      "id": "KH-OR-08",
+      "name": "有机合成路线",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第四章",
+      "prerequisites": [
+        "KH-OR-06",
+        "KH-OR-07"
+      ],
+      "summary": "逆合成分析法；引入官能团、构建碳架、必要时使用保护基。",
+      "pitfall": "易被氧化的官能团（如酚羟基、醛基）在氧化步骤前需保护。",
+      "rules": []
+    },
+    {
+      "id": "KH-OR-09",
+      "name": "糖类、蛋白质",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第四章",
+      "prerequisites": [
+        "KH-OR-04"
+      ],
+      "summary": "葡萄糖有还原性；蔗糖水解得葡萄糖+果糖；淀粉遇 I2 变蓝；蛋白质盐析可逆、变性不可逆。",
+      "pitfall": "淀粉遇碘单质变蓝而非碘离子；浓硝酸使含苯环蛋白质变黄。",
+      "rules": []
+    },
+    {
+      "id": "KH-OR-10",
+      "name": "高分子与单体判断",
+      "module": "Organic",
+      "tier": "Main",
+      "textbookRef": "选择性必修3·第五章",
+      "prerequisites": [
+        "KH-OR-07"
+      ],
+      "summary": "加聚（双键打开）、缩聚（脱小分子）；由聚合物结构反推单体。",
+      "pitfall": "缩聚产物主链含杂原子（O、N）；加聚产物主链通常全是碳。",
+      "rules": []
+    },
+    {
+      "id": "KH-RP-01",
+      "name": "反应热与盖斯定律",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第一章",
+      "prerequisites": [],
+      "summary": "ΔH=生成物总焓-反应物总焓；盖斯定律：反应热只与始态终态有关。",
+      "pitfall": "放热反应 ΔH 为负；热化学方程式必须标状态，计量数与 ΔH 对应。",
+      "rules": [
+        {
+          "id": "THERMO-001",
+          "name": "盖斯定律",
+          "layer": "Principle",
+          "display": "反应焓变只与始态终态有关，可对方程式线性组合"
+        }
+      ]
+    },
+    {
+      "id": "KH-RP-02",
+      "name": "化学反应速率",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第二章",
+      "prerequisites": [
+        "KH-RP-01"
+      ],
+      "summary": "v=Δc/Δt；浓度、温度、压强、催化剂、接触面积影响速率。",
+      "pitfall": "各物质速率之比等于计量数之比；固体、纯液体浓度视为常数，不写入速率式。",
+      "rules": [
+        {
+          "id": "EQ-003",
+          "name": "催化剂不改变平衡转化率",
+          "layer": "Principle",
+          "display": "催化剂同等程度加快正逆反应速率，不改变转化率"
+        }
+      ]
+    },
+    {
+      "id": "KH-RP-03",
+      "name": "化学平衡",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第二章",
+      "prerequisites": [
+        "KH-RP-02"
+      ],
+      "summary": "正逆速率相等、各组分浓度不变即平衡；勒夏特列原理：平衡向减弱改变的方向移动。",
+      "pitfall": "平衡时正逆速率相等但不为零；催化剂同等加快正逆反应，不移动平衡。",
+      "rules": [
+        {
+          "id": "EQ-001",
+          "name": "勒夏特列原理",
+          "layer": "Principle",
+          "display": "改变一个条件，平衡向减弱这种改变的方向移动"
+        },
+        {
+          "id": "EQ-002",
+          "name": "平衡常数只受温度影响",
+          "layer": "Principle",
+          "display": "K 只与温度有关，与浓度、压强、催化剂无关"
+        }
+      ]
+    },
+    {
+      "id": "KH-RP-04",
+      "name": "弱电解质电离",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第三章",
+      "prerequisites": [
+        "KH-RP-03"
+      ],
+      "summary": "弱酸弱碱部分电离；电离平衡；Ka、Kb 越大，酸、碱性越强。",
+      "pitfall": "稀释促进电离但离子浓度可能减小；多元弱酸分步电离且逐级减弱。",
+      "rules": []
+    },
+    {
+      "id": "KH-RP-05",
+      "name": "水的电离与 pH",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第三章",
+      "prerequisites": [
+        "KH-RP-04"
+      ],
+      "summary": "Kw=c(H+)·c(OH-)；pH=-lg c(H+)；酸碱抑制水电离，能水解的盐促进水电离。",
+      "pitfall": "Kw 只与温度有关；pH=7 不一定中性，需看温度。",
+      "rules": []
+    },
+    {
+      "id": "KH-RP-06",
+      "name": "盐类水解",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第三章",
+      "prerequisites": [
+        "KH-RP-05"
+      ],
+      "summary": "有弱才水解、越弱越水解、谁强显谁性；水解是中和反应的逆反应。",
+      "pitfall": "水解程度小，方程式用可逆号；双水解趋于完全时才用等号。",
+      "rules": [
+        {
+          "id": "SOL-006",
+          "name": "水解常数与酸性强弱",
+          "layer": "Structural",
+          "display": "Kh = Kw / Ka，越弱越水解"
+        },
+        {
+          "id": "SOL-007",
+          "name": "三大守恒（电荷/物料/质子）",
+          "layer": "Conservation",
+          "display": "离子浓度比较必须满足电荷守恒、物料守恒与质子守恒"
+        }
+      ]
+    },
+    {
+      "id": "KH-RP-07",
+      "name": "沉淀溶解平衡",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第三章",
+      "prerequisites": [
+        "KH-RP-04"
+      ],
+      "summary": "Ksp 溶度积；Q>Ksp 生成沉淀、Q=Ksp 饱和、Q<Ksp 溶解。",
+      "pitfall": "Ksp 只与温度有关；比较溶解度需看沉淀类型（AB 型与 AB2 型不能直接比 Ksp）。",
+      "rules": [
+        {
+          "id": "SOL-003",
+          "name": "溶度积判据",
+          "layer": "Principle",
+          "display": "Q > Ksp 时生成沉淀；Q = Ksp 达平衡；Q < Ksp 不生成沉淀"
+        },
+        {
+          "id": "SOL-004",
+          "name": "沉淀转化方向",
+          "layer": "Structural",
+          "display": "沉淀转化向更难溶（Ksp 更小）的方向进行，K = Ksp(原)/Ksp(新)"
+        },
+        {
+          "id": "SOL-005",
+          "name": "同离子效应",
+          "layer": "Structural",
+          "display": "加入含相同离子的电解质，难溶物溶解度降低"
+        },
+        {
+          "id": "SOL-008",
+          "name": "难溶盐与氨水不反应（通则）",
+          "layer": "Structural",
+          "display": "难溶盐一般不与氨水发生明显反应"
+        },
+        {
+          "id": "SOL-EXC-001",
+          "name": "AgCl 在过量氨水中配位溶解",
+          "layer": "Exception",
+          "display": "AgCl 与过量氨水生成 [Ag(NH3)2]+ 而溶解（沉淀-配位耦合）"
+        },
+        {
+          "id": "PROC-002",
+          "name": "沉淀转化方向",
+          "layer": "Structural",
+          "display": "沉淀转化方向：沉淀向更难溶（Ksp 更小）的方向转化（依据 SOL-004：K = Ksp(原)/Ksp(新) > 1 时转化可行）"
+        },
+        {
+          "id": "PROC-003",
+          "name": "控制pH除杂",
+          "layer": "Structural",
+          "display": "控制 pH 除杂：调节 pH 使杂质离子（如 Fe^3+）水解生成氢氧化物沉淀完全，而主体离子（如 Cu^2+）不沉淀（沉淀完全与否的判据依据 SOL-003/Ksp）"
+        }
+      ]
+    },
+    {
+      "id": "KH-RP-08",
+      "name": "原电池",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第四章",
+      "prerequisites": [
+        "KH-IN-03"
+      ],
+      "summary": "化学能转化为电能；负极氧化、正极还原；电子经外电路由负极流向正极。",
+      "pitfall": "阳离子向正极移动、阴离子向负极移动；负极通常是较活泼金属。",
+      "rules": [
+        {
+          "id": "RED-004",
+          "name": "电极电势比较氧化性强弱",
+          "layer": "Principle",
+          "display": "标准电极电势越大，其氧化型氧化性越强"
+        }
+      ]
+    },
+    {
+      "id": "KH-RP-09",
+      "name": "电解池",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第四章",
+      "prerequisites": [
+        "KH-RP-08"
+      ],
+      "summary": "电能转化为化学能；阳极氧化、阴极还原；按放电顺序判断产物。",
+      "pitfall": "阳极若为活性电极则电极本身放电；原电池正负极不等同于电解池阴阳极。",
+      "rules": []
+    },
+    {
+      "id": "KH-RP-10",
+      "name": "金属腐蚀与防护",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第四章",
+      "prerequisites": [
+        "KH-RP-08"
+      ],
+      "summary": "分化学腐蚀与电化学腐蚀（析氢、吸氧）；牺牲阳极法、外加电流法防护。",
+      "pitfall": "吸氧腐蚀在中性、弱酸性中最普遍；牺牲阳极法用比被保护金属更活泼的金属。",
+      "rules": []
+    },
+    {
+      "id": "KH-EX-01",
+      "name": "基本实验操作",
+      "module": "Experiment",
+      "tier": "Main",
+      "textbookRef": "必修一·第一章",
+      "prerequisites": [],
+      "summary": "药品取用、加热、过滤、蒸发、洗涤、气密性检查等基本操作的规范。",
+      "pitfall": "闻气体用扇闻法；浓硫酸稀释要酸入水；加热前试管外壁须擦干。",
+      "rules": [
+        {
+          "id": "EXP-009",
+          "name": "装置气密性检查（微热法）",
+          "layer": "Structural",
+          "display": "检查装置气密性的目的与做法（微热法）：制气前须确保装置不漏气——先将导管末端浸入水中，再用手紧握（微热）试管，导管口有气泡冒出，松开手冷却后导管内回升一段稳定的水柱，证明装置气密性良好"
+        }
+      ]
+    },
+    {
+      "id": "KH-EX-02",
+      "name": "气体制备与净化",
+      "module": "Experiment",
+      "tier": "Main",
+      "textbookRef": "必修一·第二章",
+      "prerequisites": [
+        "KH-EX-01"
+      ],
+      "summary": "发生装置→除杂→干燥→收集→尾气处理；按反应条件选发生装置。",
+      "pitfall": "除杂在前、干燥在后；有毒气体尾气必须处理并防倒吸。",
+      "rules": [
+        {
+          "id": "EXP-016",
+          "name": "洗气除杂的判据与目的",
+          "layer": "Structural",
+          "display": "洗气（气体除杂净化）的判据与目的：混合气体通过盛液体试剂的洗气瓶除去杂质——洗气瓶内试剂只吸收杂质、不与目标气体反应，气体从长导管进、短导管出（'长进短出'）"
+        }
+      ]
+    },
+    {
+      "id": "KH-EX-03",
+      "name": "物质检验与鉴别",
+      "module": "Experiment",
+      "tier": "Main",
+      "textbookRef": "必修一·第二章",
+      "prerequisites": [
+        "KH-EX-01",
+        "KH-IN-02"
+      ],
+      "summary": "常见离子、气体的检验；答题模板：取样→操作→现象→结论。",
+      "pitfall": "检验 Cl- 需加稀 HNO3 排除 CO3^2-；检验 SO4^2- 先加盐酸排除 Ag+、SO3^2-、CO3^2-。",
+      "rules": [
+        {
+          "id": "EXPT-001",
+          "name": "硫酸根检验的试剂顺序",
+          "layer": "Principle",
+          "display": "先用盐酸酸化排除 CO3^2-/SO3^2- 干扰，再加 BaCl2，出现白色沉淀"
+        },
+        {
+          "id": "EXPT-002",
+          "name": "氯离子检验",
+          "layer": "Principle",
+          "display": "加稀硝酸酸化的 AgNO3 溶液，生成白色沉淀"
+        },
+        {
+          "id": "EXP-001",
+          "name": "O2 的检验（带火星木条）",
+          "layer": "Structural",
+          "display": "O2 的检验方法：将带火星的木条伸入集气瓶内，木条复燃，证明瓶内气体是 O2"
+        },
+        {
+          "id": "EXP-002",
+          "name": "O2 的验满",
+          "layer": "Structural",
+          "display": "O2 的验满方法：将燃着的木条放在集气瓶口，木条复燃，证明 O2 已收集满至瓶口"
+        },
+        {
+          "id": "EXP-003",
+          "name": "CO2 的检验（澄清石灰水）",
+          "layer": "Structural",
+          "display": "CO2 的检验方法：向集气瓶中加入少量澄清石灰水并振荡，石灰水变浑浊，证明该气体是 CO2"
+        },
+        {
+          "id": "EXP-004",
+          "name": "CO2 的验满（燃着木条）",
+          "layer": "Structural",
+          "display": "CO2 的验满方法：将燃着的木条放在集气瓶口，木条熄灭，证明 CO2 已收集满至瓶口"
+        },
+        {
+          "id": "EXP-005",
+          "name": "NH3 的检验（湿润红色石蕊试纸）",
+          "layer": "Structural",
+          "display": "NH3 的检验方法：将湿润的红色石蕊试纸靠近瓶口，试纸变蓝，证明该气体是 NH3（中学唯一常见碱性气体）"
+        },
+        {
+          "id": "EXP-006",
+          "name": "NH3 的验满（浓盐酸玻璃棒）",
+          "layer": "Structural",
+          "display": "NH3 的验满方法：将蘸有浓盐酸的玻璃棒靠近集气瓶口，产生大量白烟，证明 NH3 已收集满至瓶口"
+        },
+        {
+          "id": "EXP-008",
+          "name": "Cl2 的检验（湿润淀粉KI试纸）",
+          "layer": "Structural",
+          "display": "Cl2 的检验方法：将湿润的淀粉碘化钾试纸靠近瓶口，试纸变蓝（Cl2 置换出 I2 使淀粉变蓝），证明该气体是 Cl2"
+        },
+        {
+          "id": "EXP-010",
+          "name": "焰色试验的目的",
+          "layer": "Structural",
+          "display": "焰色试验的目的：检验物质中所含的 Na、K 等金属元素——铂丝蘸取试样灼烧，火焰呈黄色为含 Na；观察 K 的焰色须透过蓝色钴玻璃滤去 Na 黄光的干扰，看到紫色为含 K"
+        }
+      ]
+    },
+    {
+      "id": "KH-EX-04",
+      "name": "分离与提纯",
+      "module": "Experiment",
+      "tier": "Main",
+      "textbookRef": "必修一·第一章",
+      "prerequisites": [
+        "KH-EX-01"
+      ],
+      "summary": "过滤、蒸发、蒸馏、萃取分液、结晶、升华；物理法与化学法结合。",
+      "pitfall": "除杂不引入新杂质；萃取剂与原溶剂不互溶且对溶质溶解度差异大。",
+      "rules": [
+        {
+          "id": "PROC-001",
+          "name": "除杂原则",
+          "layer": "Structural",
+          "display": "除杂原则：所加试剂只与杂质反应，不引入新杂质、不减少主体物质，过量试剂在后续步骤中易于除去"
+        },
+        {
+          "id": "EXP-011",
+          "name": "沉淀洗涤完全的检验",
+          "layer": "Structural",
+          "display": "检验沉淀是否洗涤完全的目的与做法：确认沉淀表面吸附的可溶性杂质离子已除净——取少量最后一次的洗涤液，加入能与待检杂质离子产生特征反应的试剂（如沉淀剂），若无明显现象，证明沉淀已洗涤干净"
+        },
+        {
+          "id": "EXP-012",
+          "name": "蒸发结晶的判据与目的",
+          "layer": "Structural",
+          "display": "蒸发结晶的判据与目的：蒸发溶剂获得可溶性固体，适用于溶解度受温度影响小的物质（如 NaCl）——边加热边搅拌，蒸发至大量晶体析出时停止加热，用余热蒸干"
+        },
+        {
+          "id": "EXP-013",
+          "name": "蒸发浓缩冷却结晶的判据与目的",
+          "layer": "Structural",
+          "display": "蒸发浓缩、冷却结晶的判据与目的：浓缩得热饱和溶液后降温析晶，适用于溶解度随温度变化大的物质（如 KNO3，含结晶水的晶体亦用此法）——KNO3 中混有少量 NaCl 时，蒸发浓缩、冷却结晶、过滤即可提纯 KNO3"
+        },
+        {
+          "id": "EXP-014",
+          "name": "蒸馏的判据与目的",
+          "layer": "Structural",
+          "display": "蒸馏的判据与目的：分离互溶但沸点相差较大的液体混合物（或除去难挥发、不挥发杂质）——温度计水银球位于蒸馏烧瓶支管口处，冷凝水从下端进、上端出，加热前须加入碎瓷片防暴沸"
+        },
+        {
+          "id": "EXP-015",
+          "name": "萃取的判据与目的",
+          "layer": "Structural",
+          "display": "萃取的判据与目的：利用溶质在萃取剂中的溶解度远大于在水中的溶解度、且萃取剂与水互不相溶，把溶质从水中转移到萃取剂里（如用 CCl4 萃取碘水中的 I2）；萃取后配合分液——下层液体从分液漏斗下口放出，上层液体从上口倒出"
+        }
+      ]
+    },
+    {
+      "id": "KH-EX-05",
+      "name": "定量实验与误差分析",
+      "module": "Experiment",
+      "tier": "Main",
+      "textbookRef": "选择性必修1·第三章",
+      "prerequisites": [
+        "KH-EX-01",
+        "KH-RP-05"
+      ],
+      "summary": "一定物质的量浓度溶液配制、中和滴定；误差分析看 c 或 V 的偏差。",
+      "pitfall": "滴定管俯视仰视读数对结果影响要具体分析；锥形瓶不能润洗，滴定管必须润洗。",
+      "rules": [
+        {
+          "id": "EXP-017",
+          "name": "装标准液的滴定管未润洗的误差",
+          "layer": "Structural",
+          "display": "误差分析：盛装标准液的滴定管用蒸馏水洗净后未用标准液润洗，残留的水稀释标准液使其浓度减小，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高"
+        },
+        {
+          "id": "EXP-018",
+          "name": "装待测液的滴定管未润洗的误差",
+          "layer": "Structural",
+          "display": "误差分析：盛装待测液的滴定管用蒸馏水洗净后未用待测液润洗，待测液被稀释浓度减小，中和定量标准液时消耗待测液体积偏大，测得待测液浓度偏低"
+        },
+        {
+          "id": "EXP-019",
+          "name": "锥形瓶用待测液润洗的误差",
+          "layer": "Structural",
+          "display": "误差分析：锥形瓶用待测液润洗，瓶壁额外附着待测液使瓶内待测溶质的物质的量增多，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高"
+        },
+        {
+          "id": "EXP-020",
+          "name": "滴定终点仰视读数的误差",
+          "layer": "Structural",
+          "display": "误差分析：滴定管刻度自上而下增大，终点时仰视读数使读数比实际液面位置偏大，算得消耗标准液体积偏大，测得待测液浓度偏高（俯视读数则偏低）"
+        }
+      ]
+    },
+    {
+      "id": "KH-EX-06",
+      "name": "探究实验与方案评价",
+      "module": "Experiment",
+      "tier": "Main",
+      "textbookRef": "必修一·第二章",
+      "prerequisites": [
+        "KH-EX-03"
+      ],
+      "summary": "提出假设→设计实验→预期现象→结论；控制变量、设置对照。",
+      "pitfall": "方案评价看科学性、安全性、简约性、环保性；对照实验须只有一个变量。",
+      "rules": []
+    },
+    {
+      "id": "KH-EX-07",
+      "name": "实验安全与环保",
+      "module": "Experiment",
+      "tier": "Main",
+      "textbookRef": "必修一·第一章",
+      "prerequisites": [
+        "KH-EX-01"
+      ],
+      "summary": "防爆炸、防倒吸、防污染、防中毒；三废处理与绿色化学。",
+      "pitfall": "可燃性气体点燃前必须验纯；有毒气体尾气必须吸收处理。",
+      "rules": [
+        {
+          "id": "EXP-007",
+          "name": "H2 的验纯（点燃听声）",
+          "layer": "Structural",
+          "display": "H2 的验纯（可燃性气体收集满与否实质先验纯）：用排水法收集一试管气体，移近火焰点燃，听到尖锐的爆鸣声表明 H2 不纯，听到轻微的'噗'声表明 H2 已纯"
+        }
+      ]
+    },
+    {
+      "id": "KH-EX-08",
+      "name": "减压蒸馏与色谱简介",
+      "module": "Experiment",
+      "tier": "Extended",
+      "textbookRef": "选择性必修3·第一章",
+      "prerequisites": [
+        "KH-EX-04"
+      ],
+      "summary": "减压蒸馏降低沸点用于热敏物质；色谱利用吸附能力差异分离。",
+      "pitfall": "减压蒸馏先抽气再加热；色谱分离取决于流动相与固定相的选择。",
+      "rules": []
+    },
+    {
+      "id": "KH-ST-01",
+      "name": "原子结构与核外电子排布",
+      "module": "Structure",
+      "tier": "Main",
+      "textbookRef": "选择性必修2·第一章",
+      "prerequisites": [],
+      "summary": "能层、能级、轨道；遵循泡利原理、洪特规则、能量最低原理。",
+      "pitfall": "洪特规则特例：全满、半满、全空更稳定；电子排布式可写简化式。",
+      "rules": [
+        {
+          "id": "STR-003",
+          "name": "构造原理填充顺序",
+          "layer": "Structural",
+          "display": "电子按 1s→2s→2p→3s→3p→4s→3d→4p 顺序填充（注意 Cr、Cu 等例外）"
+        }
+      ]
+    },
+    {
+      "id": "KH-ST-02",
+      "name": "元素周期律",
+      "module": "Structure",
+      "tier": "Main",
+      "textbookRef": "选择性必修2·第一章",
+      "prerequisites": [
+        "KH-ST-01"
+      ],
+      "summary": "同周期左→右金属性减弱、非金属性增强；同族上→下金属性增强。",
+      "pitfall": "比较最高价氧化物对应水化物的酸碱性；O、F 无正化合价。",
+      "rules": [
+        {
+          "id": "STR-001",
+          "name": "同周期递变规律",
+          "layer": "Structural",
+          "display": "同周期从左到右原子半径减小、非金属性增强"
+        },
+        {
+          "id": "STR-002",
+          "name": "同主族递变规律",
+          "layer": "Structural",
+          "display": "同主族从上到下金属性增强、非金属性减弱"
+        }
+      ]
+    },
+    {
+      "id": "KH-ST-03",
+      "name": "化学键",
+      "module": "Structure",
+      "tier": "Main",
+      "textbookRef": "选择性必修2·第二章",
+      "prerequisites": [
+        "KH-ST-01"
+      ],
+      "summary": "离子键（活泼金属+活泼非金属）、共价键（非金属间）、金属键。",
+      "pitfall": "含金属元素不一定是离子键（如 AlCl3 是共价）；铵盐是离子化合物。",
+      "rules": [
+        {
+          "id": "BOND-001",
+          "name": "盐类通常由离子键构成",
+          "layer": "Structural",
+          "display": "盐类通常含离子键，熔融态导电"
+        },
+        {
+          "id": "BOND-EXC-001",
+          "name": "AlCl3 为共价化合物",
+          "layer": "Exception",
+          "display": "AlCl3 熔融不导电，属共价化合物（升华而非熔融离子导电）"
+        }
+      ]
+    },
+    {
+      "id": "KH-ST-04",
+      "name": "分子空间构型与杂化",
+      "module": "Structure",
+      "tier": "Main",
+      "textbookRef": "选择性必修2·第二章",
+      "prerequisites": [
+        "KH-ST-03"
+      ],
+      "summary": "VSEPR 模型；sp、sp2、sp3 杂化；价层电子对数=σ键数+孤对电子数。",
+      "pitfall": "孤对电子排斥力大于成键对；判断空间构型要先算价层电子对数。",
+      "rules": []
+    },
+    {
+      "id": "KH-ST-05",
+      "name": "分子间作用力与氢键",
+      "module": "Structure",
+      "tier": "Main",
+      "textbookRef": "选择性必修2·第二章",
+      "prerequisites": [
+        "KH-ST-03"
+      ],
+      "summary": "范德华力（分子量越大越强）；氢键（N、O、F 与 H 之间）；影响熔沸点与溶解度。",
+      "pitfall": "氢键是分子间作用力不是化学键；H2O 沸点反常高正是因为氢键。",
+      "rules": []
+    },
+    {
+      "id": "KH-ST-06",
+      "name": "晶体类型与晶胞计算",
+      "module": "Structure",
+      "tier": "Main",
+      "textbookRef": "选择性必修2·第三章",
+      "prerequisites": [
+        "KH-ST-03",
+        "KH-ST-05"
+      ],
+      "summary": "离子、分子、原子、金属晶体；晶胞均摊法；配位数。",
+      "pitfall": "均摊法：顶点 1/8、棱 1/4、面 1/2、体内 1；原子晶体熔点高、硬度大。",
+      "rules": []
+    },
+    {
+      "id": "KH-ST-07",
+      "name": "配合物",
+      "module": "Structure",
+      "tier": "Extended",
+      "textbookRef": "选择性必修2·第三章",
+      "prerequisites": [
+        "KH-ST-03"
+      ],
+      "summary": "中心离子（提供空轨道）+ 配体（提供孤对电子）；配位键；配位数。",
+      "pitfall": "配体必须有孤对电子；Fe3+ 与 CN-、SCN- 形成配离子，因此不能大量共存。",
+      "rules": []
+    },
+    {
+      "id": "KH-ST-08",
+      "name": "波谱简单判读（红外、核磁）",
+      "module": "Structure",
+      "tier": "Extended",
+      "textbookRef": "选择性必修3·第一章",
+      "prerequisites": [
+        "KH-OR-01"
+      ],
+      "summary": "红外光谱判断官能团种类；核磁共振氢谱判断氢的种类与个数比。",
+      "pitfall": "等效氢只出一个峰；峰面积之比等于氢原子个数之比。",
+      "rules": []
+    },
+    {
+      "id": "KH-HT-01",
+      "name": "手性碳与对映异构",
+      "module": "Organic",
+      "tier": "Extended",
+      "textbookRef": "选择性必修3·第二章",
+      "prerequisites": [
+        "KH-OR-06"
+      ],
+      "summary": "手性碳连四个不同基团；对映异构体互为镜像且不能重合。",
+      "pitfall": "有手性碳不一定有手性（内消旋体）；碳碳双键、环还可能产生顺反异构。",
+      "rules": []
+    }
+  ],
+  "rules": [
+    {
+      "id": "CONS-ELEC-001",
+      "name": "电子守恒",
+      "knowledgeId": "KH-IN-03",
+      "layer": "Conservation",
+      "display": "氧化剂得电子总数 = 还原剂失电子总数"
+    },
+    {
+      "id": "CONS-CHARGE-001",
+      "name": "电荷守恒（离子方程式）",
+      "knowledgeId": "KH-IN-02",
+      "layer": "Conservation",
+      "display": "离子方程式两边电荷总数相等"
+    },
+    {
+      "id": "RED-001",
+      "name": "金属活动性顺序置换",
+      "knowledgeId": "KH-IN-06",
+      "layer": "Structural",
+      "display": "活动性强的金属能把活动性弱的金属从其盐溶液中置换出来"
+    },
+    {
+      "id": "RED-002",
+      "name": "强氧化剂与强还原剂反应方向",
+      "knowledgeId": "KH-IN-03",
+      "layer": "Principle",
+      "display": "强氧化剂 + 强还原剂 → 弱氧化剂 + 弱还原剂"
+    },
+    {
+      "id": "RED-003",
+      "name": "化合价升降与氧化还原角色",
+      "knowledgeId": "KH-IN-03",
+      "layer": "Principle",
+      "display": "化合价升高的物质是还原剂（被氧化），降低的是氧化剂（被还原）"
+    },
+    {
+      "id": "RED-004",
+      "name": "电极电势比较氧化性强弱",
+      "knowledgeId": "KH-RP-08",
+      "layer": "Principle",
+      "display": "标准电极电势越大，其氧化型氧化性越强"
+    },
+    {
+      "id": "RED-005",
+      "name": "常温钝化（浓硫酸/浓硝酸与铁铝）",
+      "knowledgeId": "KH-IN-08",
+      "layer": "Conditional",
+      "display": "常温下浓硫酸、浓硝酸使铁、铝钝化（表面致密氧化膜）"
+    },
+    {
+      "id": "SOL-001",
+      "name": "复分解反应发生条件",
+      "knowledgeId": "KH-IN-02",
+      "layer": "Principle",
+      "display": "生成沉淀、气体或弱电解质时复分解反应可以发生"
+    },
+    {
+      "id": "SOL-002",
+      "name": "强酸制弱酸",
+      "knowledgeId": "KH-IN-02",
+      "layer": "Structural",
+      "display": "较强酸可以制取较弱酸（如盐酸制碳酸）"
+    },
+    {
+      "id": "SOL-003",
+      "name": "溶度积判据",
+      "knowledgeId": "KH-RP-07",
+      "layer": "Principle",
+      "display": "Q > Ksp 时生成沉淀；Q = Ksp 达平衡；Q < Ksp 不生成沉淀"
+    },
+    {
+      "id": "SOL-004",
+      "name": "沉淀转化方向",
+      "knowledgeId": "KH-RP-07",
+      "layer": "Structural",
+      "display": "沉淀转化向更难溶（Ksp 更小）的方向进行，K = Ksp(原)/Ksp(新)"
+    },
+    {
+      "id": "SOL-005",
+      "name": "同离子效应",
+      "knowledgeId": "KH-RP-07",
+      "layer": "Structural",
+      "display": "加入含相同离子的电解质，难溶物溶解度降低"
+    },
+    {
+      "id": "SOL-006",
+      "name": "水解常数与酸性强弱",
+      "knowledgeId": "KH-RP-06",
+      "layer": "Structural",
+      "display": "Kh = Kw / Ka，越弱越水解"
+    },
+    {
+      "id": "SOL-007",
+      "name": "三大守恒（电荷/物料/质子）",
+      "knowledgeId": "KH-RP-06",
+      "layer": "Conservation",
+      "display": "离子浓度比较必须满足电荷守恒、物料守恒与质子守恒"
+    },
+    {
+      "id": "SOL-008",
+      "name": "难溶盐与氨水不反应（通则）",
+      "knowledgeId": "KH-RP-07",
+      "layer": "Structural",
+      "display": "难溶盐一般不与氨水发生明显反应"
+    },
+    {
+      "id": "SOL-EXC-001",
+      "name": "AgCl 在过量氨水中配位溶解",
+      "knowledgeId": "KH-RP-07",
+      "layer": "Exception",
+      "display": "AgCl 与过量氨水生成 [Ag(NH3)2]+ 而溶解（沉淀-配位耦合）"
+    },
+    {
+      "id": "EQ-001",
+      "name": "勒夏特列原理",
+      "knowledgeId": "KH-RP-03",
+      "layer": "Principle",
+      "display": "改变一个条件，平衡向减弱这种改变的方向移动"
+    },
+    {
+      "id": "EQ-002",
+      "name": "平衡常数只受温度影响",
+      "knowledgeId": "KH-RP-03",
+      "layer": "Principle",
+      "display": "K 只与温度有关，与浓度、压强、催化剂无关"
+    },
+    {
+      "id": "EQ-003",
+      "name": "催化剂不改变平衡转化率",
+      "knowledgeId": "KH-RP-02",
+      "layer": "Principle",
+      "display": "催化剂同等程度加快正逆反应速率，不改变转化率"
+    },
+    {
+      "id": "EXPT-001",
+      "name": "硫酸根检验的试剂顺序",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Principle",
+      "display": "先用盐酸酸化排除 CO3^2-/SO3^2- 干扰，再加 BaCl2，出现白色沉淀"
+    },
+    {
+      "id": "EXPT-002",
+      "name": "氯离子检验",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Principle",
+      "display": "加稀硝酸酸化的 AgNO3 溶液，生成白色沉淀"
+    },
+    {
+      "id": "EXPT-003",
+      "name": "铁离子检验",
+      "knowledgeId": "KH-IN-06",
+      "layer": "Principle",
+      "display": "加 KSCN 溶液变血红色"
+    },
+    {
+      "id": "EXPT-004",
+      "name": "焰色试验",
+      "knowledgeId": "KH-IN-04",
+      "layer": "Principle",
+      "display": "钠黄色；钾紫色（需透过蓝色钴玻璃滤去钠的黄光）"
+    },
+    {
+      "id": "EXPT-005",
+      "name": "铵根离子检验",
+      "knowledgeId": "KH-IN-09",
+      "layer": "Principle",
+      "display": "加 NaOH 并加热，产生使湿润红色石蕊试纸变蓝的气体"
+    },
+    {
+      "id": "COND-001",
+      "name": "浓稀硝酸与铜的产物差异",
+      "knowledgeId": "KH-IN-09",
+      "layer": "Conditional",
+      "display": "铜与浓硝酸生成 NO2，与稀硝酸生成 NO"
+    },
+    {
+      "id": "COND-002",
+      "name": "稀硫酸与铜不反应",
+      "knowledgeId": "KH-IN-08",
+      "layer": "Conditional",
+      "display": "稀硫酸与铜不反应；浓硫酸需加热才与铜反应"
+    },
+    {
+      "id": "STR-001",
+      "name": "同周期递变规律",
+      "knowledgeId": "KH-ST-02",
+      "layer": "Structural",
+      "display": "同周期从左到右原子半径减小、非金属性增强"
+    },
+    {
+      "id": "STR-002",
+      "name": "同主族递变规律",
+      "knowledgeId": "KH-ST-02",
+      "layer": "Structural",
+      "display": "同主族从上到下金属性增强、非金属性减弱"
+    },
+    {
+      "id": "STR-003",
+      "name": "构造原理填充顺序",
+      "knowledgeId": "KH-ST-01",
+      "layer": "Structural",
+      "display": "电子按 1s→2s→2p→3s→3p→4s→3d→4p 顺序填充（注意 Cr、Cu 等例外）"
+    },
+    {
+      "id": "BOND-001",
+      "name": "盐类通常由离子键构成",
+      "knowledgeId": "KH-ST-03",
+      "layer": "Structural",
+      "display": "盐类通常含离子键，熔融态导电"
+    },
+    {
+      "id": "BOND-EXC-001",
+      "name": "AlCl3 为共价化合物",
+      "knowledgeId": "KH-ST-03",
+      "layer": "Exception",
+      "display": "AlCl3 熔融不导电，属共价化合物（升华而非熔融离子导电）"
+    },
+    {
+      "id": "ACID-001",
+      "name": "氢卤酸为强酸（通则）",
+      "knowledgeId": "KH-IN-07",
+      "layer": "Structural",
+      "display": "氢卤酸（HCl、HBr、HI）为强酸，完全电离"
+    },
+    {
+      "id": "ACID-EXC-001",
+      "name": "HF 是弱酸",
+      "knowledgeId": "KH-IN-07",
+      "layer": "Exception",
+      "display": "HF 在水中部分电离，是弱酸（H-F 键牢固）"
+    },
+    {
+      "id": "ORG-001",
+      "name": "醛基的银镜反应",
+      "knowledgeId": "KH-OR-04",
+      "layer": "Structural",
+      "display": "醛基被银氨溶液氧化，析出银镜"
+    },
+    {
+      "id": "ORG-002",
+      "name": "酯的水解",
+      "knowledgeId": "KH-OR-05",
+      "layer": "Structural",
+      "display": "酯在酸性或碱性条件下水解，碱性条件不可逆"
+    },
+    {
+      "id": "ORG-003",
+      "name": "苯环取代与烯烃加成",
+      "knowledgeId": "KH-OR-07",
+      "layer": "Structural",
+      "display": "苯环易取代、烯烃易加成（可用溴水/酸性 KMnO4 区分）"
+    },
+    {
+      "id": "THERMO-001",
+      "name": "盖斯定律",
+      "knowledgeId": "KH-RP-01",
+      "layer": "Principle",
+      "display": "反应焓变只与始态终态有关，可对方程式线性组合"
+    },
+    {
+      "id": "PROC-001",
+      "name": "除杂原则",
+      "knowledgeId": "KH-EX-04",
+      "layer": "Structural",
+      "display": "除杂原则：所加试剂只与杂质反应，不引入新杂质、不减少主体物质，过量试剂在后续步骤中易于除去"
+    },
+    {
+      "id": "PROC-002",
+      "name": "沉淀转化方向",
+      "knowledgeId": "KH-RP-07",
+      "layer": "Structural",
+      "display": "沉淀转化方向：沉淀向更难溶（Ksp 更小）的方向转化（依据 SOL-004：K = Ksp(原)/Ksp(新) > 1 时转化可行）"
+    },
+    {
+      "id": "PROC-003",
+      "name": "控制pH除杂",
+      "knowledgeId": "KH-RP-07",
+      "layer": "Structural",
+      "display": "控制 pH 除杂：调节 pH 使杂质离子（如 Fe^3+）水解生成氢氧化物沉淀完全，而主体离子（如 Cu^2+）不沉淀（沉淀完全与否的判据依据 SOL-003/Ksp）"
+    },
+    {
+      "id": "PROC-004",
+      "name": "常见操作目的",
+      "knowledgeId": "KH-IN-12",
+      "layer": "Structural",
+      "display": "蒸发浓缩冷却结晶：适用于溶解度随温度变化大的物质，获得带结晶水的晶体；蒸发结晶：适用于溶解度受温度影响小的物质（如 NaCl），蒸发至大量晶体析出；灼烧：除去可燃性或挥发性杂质，使氢氧化物或含氧酸盐转化为稳定氧化物；洗涤：除去晶体表面附着的可溶性杂质；循环利用：提高原料利用率、减少排放与污染"
+    },
+    {
+      "id": "EXP-001",
+      "name": "O2 的检验（带火星木条）",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "O2 的检验方法：将带火星的木条伸入集气瓶内，木条复燃，证明瓶内气体是 O2"
+    },
+    {
+      "id": "EXP-002",
+      "name": "O2 的验满",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "O2 的验满方法：将燃着的木条放在集气瓶口，木条复燃，证明 O2 已收集满至瓶口"
+    },
+    {
+      "id": "EXP-003",
+      "name": "CO2 的检验（澄清石灰水）",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "CO2 的检验方法：向集气瓶中加入少量澄清石灰水并振荡，石灰水变浑浊，证明该气体是 CO2"
+    },
+    {
+      "id": "EXP-004",
+      "name": "CO2 的验满（燃着木条）",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "CO2 的验满方法：将燃着的木条放在集气瓶口，木条熄灭，证明 CO2 已收集满至瓶口"
+    },
+    {
+      "id": "EXP-005",
+      "name": "NH3 的检验（湿润红色石蕊试纸）",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "NH3 的检验方法：将湿润的红色石蕊试纸靠近瓶口，试纸变蓝，证明该气体是 NH3（中学唯一常见碱性气体）"
+    },
+    {
+      "id": "EXP-006",
+      "name": "NH3 的验满（浓盐酸玻璃棒）",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "NH3 的验满方法：将蘸有浓盐酸的玻璃棒靠近集气瓶口，产生大量白烟，证明 NH3 已收集满至瓶口"
+    },
+    {
+      "id": "EXP-007",
+      "name": "H2 的验纯（点燃听声）",
+      "knowledgeId": "KH-EX-07",
+      "layer": "Structural",
+      "display": "H2 的验纯（可燃性气体收集满与否实质先验纯）：用排水法收集一试管气体，移近火焰点燃，听到尖锐的爆鸣声表明 H2 不纯，听到轻微的'噗'声表明 H2 已纯"
+    },
+    {
+      "id": "EXP-008",
+      "name": "Cl2 的检验（湿润淀粉KI试纸）",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "Cl2 的检验方法：将湿润的淀粉碘化钾试纸靠近瓶口，试纸变蓝（Cl2 置换出 I2 使淀粉变蓝），证明该气体是 Cl2"
+    },
+    {
+      "id": "EXP-009",
+      "name": "装置气密性检查（微热法）",
+      "knowledgeId": "KH-EX-01",
+      "layer": "Structural",
+      "display": "检查装置气密性的目的与做法（微热法）：制气前须确保装置不漏气——先将导管末端浸入水中，再用手紧握（微热）试管，导管口有气泡冒出，松开手冷却后导管内回升一段稳定的水柱，证明装置气密性良好"
+    },
+    {
+      "id": "EXP-010",
+      "name": "焰色试验的目的",
+      "knowledgeId": "KH-EX-03",
+      "layer": "Structural",
+      "display": "焰色试验的目的：检验物质中所含的 Na、K 等金属元素——铂丝蘸取试样灼烧，火焰呈黄色为含 Na；观察 K 的焰色须透过蓝色钴玻璃滤去 Na 黄光的干扰，看到紫色为含 K"
+    },
+    {
+      "id": "EXP-011",
+      "name": "沉淀洗涤完全的检验",
+      "knowledgeId": "KH-EX-04",
+      "layer": "Structural",
+      "display": "检验沉淀是否洗涤完全的目的与做法：确认沉淀表面吸附的可溶性杂质离子已除净——取少量最后一次的洗涤液，加入能与待检杂质离子产生特征反应的试剂（如沉淀剂），若无明显现象，证明沉淀已洗涤干净"
+    },
+    {
+      "id": "EXP-012",
+      "name": "蒸发结晶的判据与目的",
+      "knowledgeId": "KH-EX-04",
+      "layer": "Structural",
+      "display": "蒸发结晶的判据与目的：蒸发溶剂获得可溶性固体，适用于溶解度受温度影响小的物质（如 NaCl）——边加热边搅拌，蒸发至大量晶体析出时停止加热，用余热蒸干"
+    },
+    {
+      "id": "EXP-013",
+      "name": "蒸发浓缩冷却结晶的判据与目的",
+      "knowledgeId": "KH-EX-04",
+      "layer": "Structural",
+      "display": "蒸发浓缩、冷却结晶的判据与目的：浓缩得热饱和溶液后降温析晶，适用于溶解度随温度变化大的物质（如 KNO3，含结晶水的晶体亦用此法）——KNO3 中混有少量 NaCl 时，蒸发浓缩、冷却结晶、过滤即可提纯 KNO3"
+    },
+    {
+      "id": "EXP-014",
+      "name": "蒸馏的判据与目的",
+      "knowledgeId": "KH-EX-04",
+      "layer": "Structural",
+      "display": "蒸馏的判据与目的：分离互溶但沸点相差较大的液体混合物（或除去难挥发、不挥发杂质）——温度计水银球位于蒸馏烧瓶支管口处，冷凝水从下端进、上端出，加热前须加入碎瓷片防暴沸"
+    },
+    {
+      "id": "EXP-015",
+      "name": "萃取的判据与目的",
+      "knowledgeId": "KH-EX-04",
+      "layer": "Structural",
+      "display": "萃取的判据与目的：利用溶质在萃取剂中的溶解度远大于在水中的溶解度、且萃取剂与水互不相溶，把溶质从水中转移到萃取剂里（如用 CCl4 萃取碘水中的 I2）；萃取后配合分液——下层液体从分液漏斗下口放出，上层液体从上口倒出"
+    },
+    {
+      "id": "EXP-016",
+      "name": "洗气除杂的判据与目的",
+      "knowledgeId": "KH-EX-02",
+      "layer": "Structural",
+      "display": "洗气（气体除杂净化）的判据与目的：混合气体通过盛液体试剂的洗气瓶除去杂质——洗气瓶内试剂只吸收杂质、不与目标气体反应，气体从长导管进、短导管出（'长进短出'）"
+    },
+    {
+      "id": "EXP-017",
+      "name": "装标准液的滴定管未润洗的误差",
+      "knowledgeId": "KH-EX-05",
+      "layer": "Structural",
+      "display": "误差分析：盛装标准液的滴定管用蒸馏水洗净后未用标准液润洗，残留的水稀释标准液使其浓度减小，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高"
+    },
+    {
+      "id": "EXP-018",
+      "name": "装待测液的滴定管未润洗的误差",
+      "knowledgeId": "KH-EX-05",
+      "layer": "Structural",
+      "display": "误差分析：盛装待测液的滴定管用蒸馏水洗净后未用待测液润洗，待测液被稀释浓度减小，中和定量标准液时消耗待测液体积偏大，测得待测液浓度偏低"
+    },
+    {
+      "id": "EXP-019",
+      "name": "锥形瓶用待测液润洗的误差",
+      "knowledgeId": "KH-EX-05",
+      "layer": "Structural",
+      "display": "误差分析：锥形瓶用待测液润洗，瓶壁额外附着待测液使瓶内待测溶质的物质的量增多，滴定至终点消耗标准液体积偏大，测得待测液浓度偏高"
+    },
+    {
+      "id": "EXP-020",
+      "name": "滴定终点仰视读数的误差",
+      "knowledgeId": "KH-EX-05",
+      "layer": "Structural",
+      "display": "误差分析：滴定管刻度自上而下增大，终点时仰视读数使读数比实际液面位置偏大，算得消耗标准液体积偏大，测得待测液浓度偏高（俯视读数则偏低）"
+    }
+  ]
+}

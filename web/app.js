@@ -58,8 +58,10 @@ const FACT_KIND = {
 };
 
 let DATA = null;
+let KB = null;
 let activeCategory = 'All';
 let keyword = '';
+let activeView = 'problems';
 
 init();
 
@@ -68,11 +70,19 @@ async function init() {
   if (!document.getElementById('loadingTip')) return;
 
   try {
-    const res = await fetch('data/problems.json');
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    DATA = await res.json();
+    const [problemsRes, knowledgeRes] = await Promise.all([
+      fetch('data/problems.json'),
+      fetch('data/knowledge.json'),
+    ]);
+    if (!problemsRes.ok) throw new Error('problems.json HTTP ' + problemsRes.status);
+    DATA = await problemsRes.json();
+    if (knowledgeRes.ok) {
+      KB = await knowledgeRes.json();
+    } else {
+      KB = { items: [], rules: [] };
+    }
   } catch (err) {
-    showError('加载 data/problems.json 失败（' + err.message +
+    showError('加载数据失败（' + err.message +
       '）。请通过 HTTP 服务访问本页（如在仓库根目录运行 python -m http.server 后打开 /web/），或直接访问 GitHub Pages。');
     return;
   }
@@ -84,8 +94,15 @@ async function init() {
 
   document.getElementById('searchBox').addEventListener('input', (e) => {
     keyword = e.target.value.trim().toLowerCase();
-    renderList();
+    if (activeView === 'knowledge') renderKnowledgeList();
+    else renderList();
   });
+
+  // 主导航：题目 / 知识库 / 问答
+  document.querySelectorAll('.nav-btn').forEach((btn) => {
+    btn.addEventListener('click', () => switchView(btn.dataset.view));
+  });
+
   window.addEventListener('hashchange', route);
   route();
 }
@@ -145,17 +162,45 @@ function renderFooter() {
     ` · 数据生成于 ${DATA.generatedAt} · 全部解题过程、讲解与引导由知识驱动推断引擎真实运行生成`;
 }
 
-/* ---------- 列表视图 ---------- */
+/* ---------- 视图切换 ---------- */
+
+function switchView(view) {
+  activeView = view;
+  document.querySelectorAll('.nav-btn').forEach((b) =>
+    b.classList.toggle('active', b.dataset.view === view));
+  document.getElementById('listView').hidden = view !== 'problems';
+  document.getElementById('detailView').hidden = true;
+  document.getElementById('vizView').hidden = view !== 'viz';
+  document.getElementById('knowledgeView').hidden = view !== 'knowledge';
+  document.getElementById('qaView').hidden = view !== 'qa';
+  document.querySelector('.toolbar').style.display = (view === 'problems' || view === 'knowledge') ? '' : 'none';
+  document.getElementById('catTabs').style.display = view === 'problems' ? '' : 'none';
+
+  if (view === 'problems') {
+    location.hash = '';
+    showList();
+  } else if (view === 'viz') {
+    location.hash = '#viz';
+    renderVizGallery();
+  } else if (view === 'knowledge') {
+    location.hash = '#knowledge';
+    renderKnowledgePage();
+  } else if (view === 'qa') {
+    location.hash = '#qa';
+    renderQAPanel();
+  }
+}
 
 function route() {
   if (!DATA) return;
-  const id = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
-  const rec = id ? DATA.problems.find((r) => r.problem.id === id) : null;
-  if (rec) {
-    showDetail(rec);
-  } else {
-    showList();
-  }
+  const hash = location.hash.replace(/^#\/?/, '');
+  if (hash === 'knowledge') { switchView('knowledge'); return; }
+  if (hash === 'qa') { switchView('qa'); return; }
+  if (hash === 'viz') { switchView('viz'); return; }
+  switchView('problems');
+  const rec = hash ? DATA.problems.find((r) => r.problem.id === hash) : null;
+  if (rec) showDetail(rec);
+  else showList();
 }
 
 function showList() {
@@ -197,6 +242,109 @@ function cardHtml(r) {
       <span class="more">查看 解 / 讲 / 引导 →</span>
     </div>
   </a>`;
+}
+
+/* ---------- 可视化效果一览 ---------- */
+
+/* 汇总各类可视化：直接从真实题目数据实时渲染，作为演示入口 */
+function vizCatalog() {
+  const byId = (id) => DATA.problems.find((r) => r.problem.id === id) || null;
+  const items = [];
+  const add = (rec, title, desc, html) => {
+    if (rec && html) items.push({ rec, title, desc, html });
+  };
+
+  const elec = byId('ELEC-H01');
+  if (elec) {
+    add(elec, '电化学装置图', '电极材料、电子流向、离子迁移与半反应',
+      electrochemDiagramHtml(elec.problem.given.cell, elec.solution.electrodes));
+  }
+
+  const proc = byId('PROC-001');
+  if (proc) {
+    let html = processFlowHtml(proc.problem.given.steps, proc.solution.substanceMap, null);
+    if (typeof $3Dmol !== 'undefined') {
+      html += moleculeViewerHtml(proc.solution.molBlocks, proc.solution.substanceMap);
+    }
+    add(proc, '转化链 + 3D 分子', 'A→B→C 转化关系与可拖拽旋转的分子结构', html);
+  }
+
+  const coex = byId('COEX-001');
+  if (coex) {
+    add(coex, '离子共存冲突图', '冲突离子对按原因着色，中心给出共存结论',
+      coexistenceGraphHtml(coex.solution.conflicts, coex.problem.given.species, coex.problem.given.medium));
+  }
+
+  const calc = byId('CALC-001');
+  if (calc) {
+    add(calc, '物质的量换算关系', 'n 与 m / N / V / c 的换算路径',
+      moleRelationHtml(calc.solution.numericValue, calc.solution.numericUnit, calc.solution.numericSpecies));
+  }
+
+  const eq = byId('EQ-H01');
+  if (eq) {
+    add(eq, '浓度-时间曲线', '各物种指数趋近平衡的过程示意',
+      concentrationTimeHtml(eq.solution.equilibrium));
+  }
+
+  const aq = byId('AQ-H01');
+  if (aq) {
+    add(aq, '粒子浓度相对大小', '按浓度由大到小排序的柱状图',
+      concentrationBarsHtml(aq.solution.aqueous?.order));
+  }
+
+  const exp = byId('EXP-H05');
+  if (exp) {
+    add(exp, '实验装置示意图', '蒸馏、萃取分液等装置结构',
+      experimentApparatusHtml(exp.problem.given.experiment, ''));
+  }
+
+  if (proc) {
+    add(proc, '原子守恒校验', '逐元素核对方程式两侧原子数',
+      atomBalanceHtml(proc.solution.equations.slice(0, 1)));
+  }
+
+  return items;
+}
+
+function renderVizGallery() {
+  const view = document.getElementById('vizView');
+  const items = vizCatalog();
+  view.innerHTML = `
+    <div class="viz-hero">
+      <h2>可视化效果一览</h2>
+      <p>图示均由题目数据与推断结果实时生成${typeof $3Dmol !== 'undefined' ? '，分子结构支持拖拽旋转' : ''}。点击卡片可进入对应题目。</p>
+    </div>
+    <div class="viz-gallery">
+      ${items.map((it) => `
+        <article class="viz-card">
+          <header class="viz-card-head">
+            <h3>${esc(it.title)}</h3>
+            <p>${esc(it.desc)}</p>
+          </header>
+          <div class="viz-card-body">${it.html}</div>
+          <a class="viz-card-foot" href="#/${esc(it.rec.problem.id)}" data-open="${esc(it.rec.problem.id)}">
+            ${esc(it.rec.problem.categoryName)} · ${esc(it.rec.problem.id)}<span>查看题目 →</span>
+          </a>
+        </article>`).join('')}
+    </div>`;
+  // 从展示页进入题目详情（避免 hash 跳转把详情页重置回列表）
+  view.querySelectorAll('[data-open]').forEach((a) => {
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const rec = DATA.problems.find((r) => r.problem.id === a.dataset.open);
+      if (!rec) return;
+      activeView = 'problems';
+      document.querySelectorAll('.nav-btn').forEach((b) =>
+        b.classList.toggle('active', b.dataset.view === 'problems'));
+      document.getElementById('vizView').hidden = true;
+      history.replaceState(null, '', '#/' + encodeURIComponent(rec.problem.id));
+      showDetail(rec);
+      window.scrollTo({ top: 0 });
+    });
+  });
+  setTimeout(initMoleculeViewers, 60);
+  window.scrollTo({ top: 0 });
 }
 
 /* ---------- 详情视图 ---------- */
@@ -392,12 +540,23 @@ function solveHtml(s, category, given) {
 }
 
 function stepHtml(st) {
+  // 按 evidence 归类：空=引擎推理、RX-*/化学方程式=反应方程式、SOL-*/电解质=规则、其余=检索
+  const ev = st.evidence || '';
+  let stepType = 'lookup';
+  let typeLabel = '检索';
+  const isEquation = /[=→⇌≡↑↓]/.test(ev) && !/^given\./.test(ev) && !/ChemicalCheckerService/.test(ev);
+  if (!ev) { stepType = 'reasoning'; typeLabel = '推理'; }
+  else if (/^RX[-_]/.test(ev) || isEquation) { stepType = 'reaction'; typeLabel = '方程式'; }
+  else if (/^SOL[-_]/.test(ev)) { stepType = 'rule'; typeLabel = '规则'; }
+  else if (/electrolytes|hydrol|规则/i.test(ev)) { stepType = 'rule'; typeLabel = '规则'; }
+
   const chips = [];
+  chips.push(`<span class="chip chip-type chip-type-${stepType}">${esc(typeLabel)}</span>`);
   if (st.evidence) chips.push(`<span class="chip mono">${esc(st.evidence)}</span>`);
   if (st.knowledgeId) chips.push(`<span class="chip chip-k mono">${esc(st.knowledgeId)}</span>`);
   if (st.source) chips.push(`<span class="chip chip-src">${esc(st.source)}</span>`);
   return `
-    <li>
+    <li class="step-timeline step-type-${stepType}">
       <div class="step-body">${chem(st.description)}</div>
       ${chips.length ? `<div class="chips">${chips.join('')}</div>` : ''}
     </li>`;
@@ -613,6 +772,150 @@ function eqBlock(title, equations) {
 
 /* ==================== 可视化函数 ==================== */
 
+/* 化学式 → SVG tspan（SVG 中无法用 sub/sup，改用 baseline-shift 还原上下标） */
+function chemSvg(s) {
+  return chem(s)
+    .replace(/<sup>/g, '<tspan baseline-shift="super" font-size="0.72em">')
+    .replace(/<sub>/g, '<tspan baseline-shift="sub" font-size="0.72em">')
+    .replace(/<\/sup>/g, '</tspan>')
+    .replace(/<\/sub>/g, '</tspan>');
+}
+
+/* 估算文本宽度（中文按 1em，西文按 0.56em），用于自适应药丸/卡片宽度 */
+function svgTextWidth(s, fontSize) {
+  const plain = String(s).replace(/<[^>]+>/g, '');
+  let w = 0;
+  for (const ch of plain) {
+    w += /[\u3000-\u303f\u4e00-\u9fa5\uff00-\uffef]/.test(ch) ? fontSize : fontSize * 0.56;
+  }
+  return w;
+}
+
+/* 通用 SVG 资源：玻璃/液体/金属渐变 + 柔和阴影 + 辉光 + 彩色箭头。prefix 避免同页多图 id 冲突 */
+function svgCommonDefs(p) {
+  const marker = (name, color) => `
+    <marker id="${p}-${name}" markerWidth="9" markerHeight="9" refX="7.5" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="${color}"/>
+    </marker>`;
+  return `
+  <defs>
+    <!-- 卡片底：极浅的斜向光晕 -->
+    <linearGradient id="${p}-panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.55" stop-color="#fbfdff"/>
+      <stop offset="1" stop-color="#f2f8fd"/>
+    </linearGradient>
+    <!-- 玻璃：对角渐变 + 冷色边缘 -->
+    <linearGradient id="${p}-glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.32" stop-color="#f6fbfe"/>
+      <stop offset="0.6" stop-color="#e8f5fc"/>
+      <stop offset="0.85" stop-color="#d8ecf8"/>
+      <stop offset="1" stop-color="#c6e2f2"/>
+    </linearGradient>
+    <!-- 玻璃反光条（多条高光带） -->
+    <linearGradient id="${p}-sheen" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.28" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="0.42" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="0.72" stop-color="#ffffff" stop-opacity="0.55"/>
+      <stop offset="0.85" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0.35"/>
+    </linearGradient>
+    <!-- 液体：上浅下深，模拟溶液厚度 -->
+    <linearGradient id="${p}-liquid" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a5e3fb" stop-opacity="0.5"/>
+      <stop offset="0.35" stop-color="#4cc5f2" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#0284c7" stop-opacity="0.82"/>
+    </linearGradient>
+    <!-- 液面反光 -->
+    <radialGradient id="${p}-liquidHi" cx="0.32" cy="0.06" r="0.85">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="0.45" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- 金属：多段明暗形成柱面高光 -->
+    <linearGradient id="${p}-metal-warm" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#7c2d12"/>
+      <stop offset="0.1" stop-color="#ea580c"/>
+      <stop offset="0.3" stop-color="#fdba74"/>
+      <stop offset="0.46" stop-color="#fff7ed"/>
+      <stop offset="0.62" stop-color="#fb923c"/>
+      <stop offset="0.86" stop-color="#c2410c"/>
+      <stop offset="1" stop-color="#7c2d12"/>
+    </linearGradient>
+    <linearGradient id="${p}-metal-cool" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#475569"/>
+      <stop offset="0.1" stop-color="#94a3b8"/>
+      <stop offset="0.3" stop-color="#e2e8f0"/>
+      <stop offset="0.46" stop-color="#ffffff"/>
+      <stop offset="0.62" stop-color="#cbd5e1"/>
+      <stop offset="0.86" stop-color="#64748b"/>
+      <stop offset="1" stop-color="#475569"/>
+    </linearGradient>
+    <!-- 铁架台：金属杆竖向渐变 -->
+    <linearGradient id="${p}-stand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#64748b"/>
+      <stop offset="0.35" stop-color="#cbd5e1"/>
+      <stop offset="0.55" stop-color="#94a3b8"/>
+      <stop offset="1" stop-color="#475569"/>
+    </linearGradient>
+    <!-- 火焰：外橙内白 -->
+    <linearGradient id="${p}-flame" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#ea580c"/>
+      <stop offset="0.4" stop-color="#f59e0b"/>
+      <stop offset="0.72" stop-color="#fde047"/>
+      <stop offset="1" stop-color="#fefce8"/>
+    </linearGradient>
+    <radialGradient id="${p}-flameGlow" cx="0.5" cy="0.72" r="0.62">
+      <stop offset="0" stop-color="#fbbf24" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#fbbf24" stop-opacity="0"/>
+    </radialGradient>
+    <!-- 柔和投影 -->
+    <filter id="${p}-shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.14"/>
+    </filter>
+    <!-- 内阴影：让玻璃器皿有厚度 -->
+    <filter id="${p}-inner" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"/>
+      <feOffset in="b" dy="3" result="o"/>
+      <feComposite in="SourceAlpha" in2="o" operator="out" result="ring"/>
+      <feFlood flood-color="#0c4a6e" flood-opacity="0.22" result="c"/>
+      <feComposite in="c" in2="ring" operator="in" result="shade"/>
+      <feMerge><feMergeNode in="SourceGraphic"/><feMergeNode in="shade"/></feMerge>
+    </filter>
+    <!-- 辉光 -->
+    <filter id="${p}-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="3" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- 细微颗粒纹理 -->
+    <filter id="${p}-grain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" stitchTiles="stitch" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0" result="g"/>
+      <feComponentTransfer in="g"><feFuncA type="linear" slope="0.06"/></feComponentTransfer>
+    </filter>
+    ${marker('arr-blue', '#3b82f6')}
+    ${marker('arr-red', '#dc2626')}
+    ${marker('arr-amber', '#f59e0b')}
+    ${marker('arr-green', '#10b981')}
+    ${marker('arr-slate', '#64748b')}
+  </defs>`;
+}
+
+/* 由离散点生成平滑三次贝塞尔路径（水平切线，适合指数型趋近曲线） */
+function smoothLinePath(pts) {
+  if (!pts.length) return '';
+  let d = `M ${pts[0][0].toFixed(1)} ${pts[0][1].toFixed(1)}`;
+  for (let i = 1; i < pts.length; i++) {
+    const [x0, y0] = pts[i - 1];
+    const [x1, y1] = pts[i];
+    const dx = (x1 - x0) / 3;
+    d += ` C ${(x0 + dx).toFixed(1)} ${y0.toFixed(1)}, ${(x1 - dx).toFixed(1)} ${y1.toFixed(1)}, ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+  }
+  return d;
+}
+
 /* 1. 电化学装置图（SVG）：原电池/电解池，标注电极、电子流向、离子移向 */
 function electrochemDiagramHtml(cell, electrodes) {
   if (!cell) return '';
@@ -621,70 +924,93 @@ function electrochemDiagramHtml(cell, electrodes) {
   const redLabel = galvanic ? '正极' : '阴极';
   const oxEq = galvanic ? electrodes?.negative : electrodes?.anode;
   const redEq = galvanic ? electrodes?.positive : electrodes?.cathode;
-  const oxMat = cell.electrodes?.[0] || '电极';
-  const redMat = cell.electrodes?.[1] || '电极';
+  const oxMat = (cell.electrodes?.[0] || '电极').slice(0, 8);
+  const redMat = (cell.electrodes?.[1] || '电极').slice(0, 8);
   const electrolyte = cell.electrolyte || '电解质溶液';
   const medium = cell.medium === 'acidic' ? '酸性' : cell.medium === 'basic' ? '碱性' : '';
+  const p = 'elec';
+
+  // 半反应放在图下方（HTML 中可用上下标），避免长方程式在 SVG 内溢出
+  const eqRow = (oxEq || redEq) ? `
+    <div class="elec-eq-row">
+      ${oxEq ? `<div class="elec-eq elec-eq-ox"><span class="elec-eq-tag">${oxLabel}·氧化</span><span class="elec-eq-formula">${chem(oxEq)}</span></div>` : ''}
+      ${redEq ? `<div class="elec-eq elec-eq-red"><span class="elec-eq-tag">${redLabel}·还原</span><span class="elec-eq-formula">${chem(redEq)}</span></div>` : ''}
+    </div>` : '';
 
   return `
   <div class="viz-block">
     <h5>🔋 装置示意图</h5>
     <div class="elec-diagram">
-      <svg viewBox="0 0 640 260" class="elec-svg" xmlns="http://www.w3.org/2000/svg">
-        <!-- 外电路导线 -->
-        <line x1="140" y1="70" x2="500" y2="70" stroke="#475569" stroke-width="3"/>
-        <!-- 电子流向箭头（外电路） -->
-        <g class="elec-electron-flow">
-          <line x1="200" y1="70" x2="440" y2="70" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#arrowGold)"/>
-          <text x="320" y="58" text-anchor="middle" fill="#d97706" font-size="12" font-weight="600">e⁻ 外电路流向</text>
-        </g>
+      <svg viewBox="0 0 640 300" class="elec-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="电化学装置示意图">
+        ${svgCommonDefs(p)}
         <defs>
-          <marker id="arrowGold" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <path d="M0,0 L8,4 L0,8 Z" fill="#f59e0b"/>
-          </marker>
-          <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <path d="M0,0 L8,4 L0,8 Z" fill="#3b82f6"/>
-          </marker>
-          <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-            <path d="M0,0 L8,4 L0,8 Z" fill="#10b981"/>
-          </marker>
+          <clipPath id="${p}-beaker"><rect x="154" y="130" width="332" height="144" rx="13"/></clipPath>
         </defs>
+        <rect x="1" y="1" width="638" height="298" rx="18" fill="url(#${p}-panel)" stroke="#e2e8f0"/>
+        <rect x="1" y="1" width="638" height="298" rx="18" filter="url(#${p}-grain)" opacity="0.5"/>
 
-        <!-- 左电极 -->
-        <rect x="100" y="70" width="80" height="150" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-        <text x="140" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">${esc(oxLabel)}</text>
-        <text x="140" y="100" text-anchor="middle" font-size="12" fill="#78350f">${esc(oxMat)}</text>
-        <text x="140" y="120" text-anchor="middle" font-size="11" fill="#92400e">（氧化·失电子）</text>
-        ${oxEq ? `<text x="140" y="155" text-anchor="middle" font-size="10" fill="#78350f">${chem(oxEq).replace(/<[^>]+>/g, '')}</text>` : ''}
+        <!-- 外电路导线 -->
+        <path d="M 200 96 L 200 56 Q 200 44 212 44 L 298 44" fill="none" stroke="#475569" stroke-width="3.5" stroke-linecap="round"/>
+        <path d="M 342 44 L 428 44 Q 440 44 440 56 L 440 96" fill="none" stroke="#475569" stroke-width="3.5" stroke-linecap="round"/>
+        ${galvanic ? `
+          <circle cx="320" cy="44" r="21" fill="#ffffff" stroke="#475569" stroke-width="3"/>
+          <text x="320" y="50" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">A</text>
+          <text x="320" y="17" text-anchor="middle" font-size="10.5" fill="#64748b">电流表</text>
+        ` : `
+          <rect x="290" y="28" width="60" height="32" rx="7" fill="#1f2937"/>
+          <text x="320" y="49" text-anchor="middle" font-size="11.5" font-weight="700" fill="#fbbf24">直流电源</text>
+          <text x="282" y="21" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">＋</text>
+          <text x="358" y="21" text-anchor="middle" font-size="13" font-weight="700" fill="#2563eb">－</text>
+        `}
 
-        <!-- 右电极 -->
-        <rect x="460" y="70" width="80" height="150" rx="8" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-        <text x="500" y="55" text-anchor="middle" font-size="13" font-weight="700" fill="#1e3a8a">${esc(redLabel)}</text>
-        <text x="500" y="100" text-anchor="middle" font-size="12" fill="#1e40af">${esc(redMat)}</text>
-        <text x="500" y="120" text-anchor="middle" font-size="11" fill="#1e3a8a">（还原·得电子）</text>
-        ${redEq ? `<text x="500" y="155" text-anchor="middle" font-size="10" fill="#1e40af">${chem(redEq).replace(/<[^>]+>/g, '')}</text>` : ''}
+        <!-- 电子流动（动画虚线） -->
+        <line class="elec-flow" x1="216" y1="44" x2="292" y2="44" stroke="#f59e0b" stroke-width="2.4" marker-end="url(#${p}-arr-amber)"/>
+        <line class="elec-flow" x1="348" y1="44" x2="424" y2="44" stroke="#f59e0b" stroke-width="2.4" marker-end="url(#${p}-arr-amber)"/>
+        <text x="320" y="76" text-anchor="middle" font-size="10.5" font-weight="600" fill="#b45309">e⁻ 外电路流向：${oxLabel} → ${redLabel}</text>
 
-        <!-- 电解质溶液（中间容器） -->
-        <rect x="180" y="130" width="280" height="90" rx="6" fill="#f0fdfa" stroke="#0d9488" stroke-width="2"/>
-        <text x="320" y="155" text-anchor="middle" font-size="13" font-weight="600" fill="#115e59">${esc(electrolyte)}${medium ? '（' + medium + '）' : ''}</text>
+        <!-- 烧杯与电解质溶液 -->
+        <rect x="150" y="126" width="340" height="152" rx="16" fill="url(#${p}-glass)" stroke="#94a3b8" stroke-width="2.5" filter="url(#${p}-inner)"/>
+        <g clip-path="url(#${p}-beaker)">
+          <rect x="154" y="172" width="332" height="102" fill="url(#${p}-liquid)"/>
+          <ellipse cx="320" cy="172" rx="166" ry="5" fill="#e0f2fe" opacity="0.65"/>
+          <rect x="154" y="172" width="332" height="102" fill="url(#${p}-liquidHi)"/>
+          <path d="M 176 246 q 40 -6 80 0 t 80 0" fill="none" stroke="#e0f2fe" stroke-width="1.4" opacity="0.5"/>
+          <path d="M 300 258 q 40 -6 80 0" fill="none" stroke="#e0f2fe" stroke-width="1.2" opacity="0.35"/>
+        </g>
+        <rect x="160" y="134" width="7" height="128" rx="3.5" fill="url(#${p}-sheen)" opacity="0.85"/>
+        <rect x="462" y="140" width="5" height="112" rx="2.5" fill="#ffffff" opacity="0.4"/>
+        <text x="320" y="204" text-anchor="middle" font-size="13" font-weight="600" fill="#0c4a6e">${esc(electrolyte)}${medium ? '（' + medium + '）' : ''}</text>
+
+        <!-- 电极 -->
+        <rect x="186" y="96" width="28" height="164" rx="9" fill="url(#${p}-metal-cool)" stroke="#475569" stroke-width="1.2" filter="url(#${p}-shadow)"/>
+        <rect x="426" y="96" width="28" height="164" rx="9" fill="url(#${p}-metal-warm)" stroke="#9a3412" stroke-width="1.2" filter="url(#${p}-shadow)"/>
+        <rect x="190" y="102" width="5" height="150" rx="2.5" fill="#ffffff" opacity="0.55"/>
+        <rect x="430" y="102" width="5" height="150" rx="2.5" fill="#ffffff" opacity="0.6"/>
+        <text x="200" y="178" text-anchor="middle" dominant-baseline="central" font-size="11.5" font-weight="700" fill="#1e293b" transform="rotate(-90 200 178)">${esc(oxMat)}</text>
+        <text x="440" y="178" text-anchor="middle" dominant-baseline="central" font-size="11.5" font-weight="700" fill="#7c2d12" transform="rotate(-90 440 178)">${esc(redMat)}</text>
 
         <!-- 离子移向（内电路） -->
-        <text x="250" y="190" text-anchor="middle" font-size="11" fill="#2563eb">阳离子 →</text>
-        <text x="390" y="190" text-anchor="middle" font-size="11" fill="#dc2626">← 阴离子</text>
-        <line x1="210" y1="200" x2="290" y2="200" stroke="#3b82f6" stroke-width="2" marker-end="url(#arrowBlue)"/>
-        <line x1="430" y1="200" x2="350" y2="200" stroke="#dc2626" stroke-width="2" marker-end="url(#arrowGreen)"/>
+        <text x="248" y="228" text-anchor="middle" font-size="11" fill="#1d4ed8">阳离子</text>
+        <line x1="214" y1="242" x2="288" y2="242" stroke="#3b82f6" stroke-width="2.4" marker-end="url(#${p}-arr-blue)"/>
+        <text x="392" y="228" text-anchor="middle" font-size="11" fill="#b91c1c">阴离子</text>
+        <line x1="426" y1="242" x2="352" y2="242" stroke="#dc2626" stroke-width="2.4" marker-end="url(#${p}-arr-red)"/>
 
-        ${galvanic ? '' : `
-          <!-- 电源符号（电解池） -->
-          <rect x="295" y="20" width="50" height="24" rx="4" fill="#1f2937"/>
-          <text x="320" y="37" text-anchor="middle" font-size="13" font-weight="700" fill="#fbbf24">DC</text>
-          <text x="295" y="46" text-anchor="middle" font-size="11" fill="#dc2626">+</text>
-          <text x="345" y="46" text-anchor="middle" font-size="11" fill="#2563eb">−</text>
-          <line x1="305" y1="44" x2="140" y2="70" stroke="#dc2626" stroke-width="2"/>
-          <line x1="335" y1="44" x2="500" y2="70" stroke="#2563eb" stroke-width="2"/>
-        `}
+        <!-- 电极角色标注（虚线引出） -->
+        <line x1="128" y1="163" x2="184" y2="163" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <line x1="512" y1="163" x2="456" y2="163" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 3"/>
+        <g filter="url(#${p}-shadow)">
+          <rect x="16" y="144" width="112" height="38" rx="11" fill="#fff7ed" stroke="#fb923c" stroke-width="1.6"/>
+          <text x="72" y="160" text-anchor="middle" font-size="12.5" font-weight="700" fill="#9a3412">${oxLabel}</text>
+          <text x="72" y="174" text-anchor="middle" font-size="9.5" fill="#b45309">氧化 · 失电子</text>
+        </g>
+        <g filter="url(#${p}-shadow)">
+          <rect x="512" y="144" width="112" height="38" rx="11" fill="#eff6ff" stroke="#60a5fa" stroke-width="1.6"/>
+          <text x="568" y="160" text-anchor="middle" font-size="12.5" font-weight="700" fill="#1e40af">${redLabel}</text>
+          <text x="568" y="174" text-anchor="middle" font-size="9.5" fill="#2563eb">还原 · 得电子</text>
+        </g>
       </svg>
-      <p class="viz-caption">${galvanic ? '原电池：负极氧化失电子，正极还原得电子；电子经外电路由负极流向正极，阳离子向正极移动。' : '电解池：阳极（接电源+）氧化，阴极（接电源−）还原；电子由阳极经外电路流向阴极。'}</p>
+      ${eqRow}
+      <p class="viz-caption">${galvanic ? '原电池：负极氧化失电子，正极还原得电子；电子经外电路由负极流向正极，阳离子向正极移动、阴离子向负极移动。' : '电解池：阳极（接电源正极）氧化，阴极（接电源负极）还原；电子由阳极经外电路流向阴极。'}</p>
     </div>
   </div>`;
 }
@@ -736,132 +1062,273 @@ function processFlowHtml(steps, substanceMap, purposes) {
   </div>`;
 }
 
-/* 3. 粒子浓度定性柱状图 */
+/* 3. 粒子浓度定性柱状图（SVG：渐变柱 + 排序标记） */
 function concentrationBarsHtml(order) {
   if (!order || !order.length) return '';
   const n = order.length;
-  const maxH = 140;
+  const barW = 46;
+  const gap = 30;
+  const plotW = n * barW + (n - 1) * gap;
+  const W = Math.max(380, plotW + 120);
+  const H = 268;
+  const baseY = 208;
+  const topY = 44;
+  const usable = baseY - topY;
+  const x0 = (W - plotW) / 2;
+
+  const grid = [0, 0.25, 0.5, 0.75, 1].map((f) => {
+    const y = baseY - usable * f;
+    return `<line x1="${(x0 - 18).toFixed(1)}" y1="${y.toFixed(1)}" x2="${(x0 + plotW + 18).toFixed(1)}" y2="${y.toFixed(1)}"
+      stroke="#eef2f7" stroke-width="1" ${f === 0 ? 'stroke="#cbd5e1" stroke-width="1.6"' : ''}/>`;
+  }).join('');
+
   const bars = order.map((sp, i) => {
-    const h = Math.max(20, maxH - i * (maxH / (n + 1)));
+    const h = Math.max(18, usable * 0.95 * (1 - i / (n + 0.4)));
+    const x = x0 + i * (barW + gap);
+    const y = baseY - h;
     return `
-      <div class="bar-col">
-        <div class="bar-label">${chem(sp)}</div>
-        <div class="bar-value"></div>
-        <div class="bar" style="height:${h}px"></div>
-      </div>`;
+      <g class="bar-g">
+        <rect x="${x.toFixed(1)}" y="${(y + 8).toFixed(1)}" width="${barW}" height="${h.toFixed(1)}" rx="9"
+          fill="#6366f1" opacity="${(0.16 - i * 0.015).toFixed(3)}"/>
+        <rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW}" height="${h.toFixed(1)}" rx="9"
+          fill="url(#bar-grad)" opacity="${(1 - i * 0.09).toFixed(2)}"/>
+        <rect x="${(x + 3).toFixed(1)}" y="${(y + 3).toFixed(1)}" width="${(barW - 6)}" height="${Math.min(h * 0.45, 42).toFixed(1)}" rx="7"
+          fill="url(#bar-gloss)" opacity="0.75"/>
+        <rect x="${(x + barW - 11).toFixed(1)}" y="${(y + 8).toFixed(1)}" width="5" height="${Math.max(h - 20, 10).toFixed(1)}" rx="2.5"
+          fill="#ffffff" opacity="0.22"/>
+        <circle cx="${(x + barW / 2).toFixed(1)}" cy="${(y - 12).toFixed(1)}" r="9" fill="#eef2ff" stroke="#c7d2fe"/>
+        <text x="${(x + barW / 2).toFixed(1)}" y="${(y - 8.5).toFixed(1)}" text-anchor="middle" font-size="10" font-weight="700" fill="#4f46e5">${i + 1}</text>
+        <text x="${(x + barW / 2).toFixed(1)}" y="${baseY + 22}" text-anchor="middle" font-size="10.5" fill="#334155">${chemSvg(sp)}</text>
+      </g>`;
   }).join('');
 
   return `
   <div class="viz-block">
     <h5>📊 粒子浓度相对大小</h5>
     <div class="bar-chart">
-      ${bars}
+      <svg viewBox="0 0 ${W} ${H}" class="bar-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="粒子浓度相对大小柱状图">
+        <defs>
+          <linearGradient id="bar-grad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#a5b4fc"/>
+            <stop offset="0.55" stop-color="#818cf8"/>
+            <stop offset="1" stop-color="#6366f1"/>
+          </linearGradient>
+          <linearGradient id="bar-gloss" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+          </linearGradient>
+          <filter id="bar-shadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#4338ca" flood-opacity="0.18"/>
+          </filter>
+          <marker id="bar-axis" markerWidth="8" markerHeight="8" refX="4" refY="6" orient="auto">
+            <path d="M0,8 L4,0 L8,8 Z" fill="#cbd5e1"/>
+          </marker>
+        </defs>
+        ${grid}
+        <g filter="url(#bar-shadow)">${bars}</g>
+        <text x="16" y="22" font-size="10.5" fill="#94a3b8">相对浓度（由大到小）</text>
+        <line x1="${(x0 - 18).toFixed(1)}" y1="${baseY}" x2="${(x0 - 18).toFixed(1)}" y2="${(topY - 6).toFixed(1)}"
+          stroke="#cbd5e1" stroke-width="1.6" marker-end="url(#bar-axis)"/>
+      </svg>
     </div>
-    <p class="viz-caption">注：柱高为相对示意（由浓度由大到小排序得出），不代表真实浓度比。</p>
+    <p class="viz-caption">注：柱高为相对示意（按浓度由大到小排序），不代表真实浓度比。</p>
   </div>`;
 }
 
-/* 4. 离子共存冲突图 */
+/* 4. 离子共存冲突图（SVG 环形网络：节点环绕、冲突弧线着色） */
 function coexistenceGraphHtml(conflicts, species, medium) {
   if (!species || !species.length) return '';
   const allIons = [...species];
   if (medium === 'acidic' && !allIons.includes('H^+')) allIons.push('H^+');
   if (medium === 'basic' && !allIons.includes('OH^-')) allIons.push('OH^-');
 
-  const conflictColor = {
+  const reasonColor = {
     '生成沉淀': '#dc2626',
     '生成气体': '#ea580c',
     '发生氧化还原反应': '#7c3aed',
     '相互促进水解（双水解）': '#0891b2',
     '生成弱电解质': '#ca8a04',
   };
+  const legendItems = [
+    ['生成沉淀', '#dc2626'],
+    ['生成气体', '#ea580c'],
+    ['氧化还原', '#7c3aed'],
+    ['双水解', '#0891b2'],
+    ['弱电解质', '#ca8a04'],
+  ];
 
-  if (!conflicts || !conflicts.length) {
-    return `
-    <div class="viz-block">
-      <h5>🔗 离子共存关系图</h5>
-      <div class="coex-graph coex-ok">
-        <div class="coex-nodes">
-          ${allIons.map((ion) => `<span class="coex-node coex-ok-node">${chem(ion)}</span>`).join('')}
-        </div>
-        <p class="coex-verdict coex-ok-text">✓ 课内知识范围内无冲突，能大量共存</p>
-      </div>
-    </div>`;
-  }
-
-  // 邻接表：记录哪些离子对有冲突
-  const conflictPairs = new Set();
-  const ionReasons = {};
-  conflicts.forEach((c) => {
+  // 冲突对 → 原因（同一对只保留首个原因）
+  const pairMap = new Map();
+  (conflicts || []).forEach((c) => {
     const ions = c.ions || [];
     for (let i = 0; i < ions.length; i++) {
       for (let j = i + 1; j < ions.length; j++) {
-        const pair = [ions[i], ions[j]].sort().join('|');
-        conflictPairs.add(pair);
+        const key = [ions[i], ions[j]].sort().join('|');
+        if (!pairMap.has(key)) pairMap.set(key, { a: ions[i], b: ions[j], reason: c.reason || '' });
       }
     }
-    ions.forEach((ion) => {
-      if (!ionReasons[ion]) ionReasons[ion] = [];
-      if (c.reason && !ionReasons[ion].includes(c.reason)) ionReasons[ion].push(c.reason);
-    });
   });
 
-  const nodes = allIons.map((ion) => {
-    const hasConflict = conflictPairs.size > 0 && Array.from(conflictPairs).some((p) => p.includes(ion));
-    const reasons = ionReasons[ion] || [];
-    return `
-      <div class="coex-node-wrap" title="${reasons.join('；')}">
-        <span class="coex-node ${hasConflict ? 'coex-conflict' : 'coex-safe'}">${chem(ion)}</span>
-        ${hasConflict && reasons.length ? `<div class="coex-node-reason">${reasons.map(esc).join('<br>')}</div>` : ''}
-      </div>`;
+  const pairList = Array.from(pairMap.values());
+  const hasConflict = (ion) => pairList.some((pr) => pr.a === ion || pr.b === ion);
+  const reasonsOf = (ion) => Array.from(new Set(pairList.filter((pr) => pr.a === ion || pr.b === ion).map((pr) => pr.reason).filter(Boolean)));
+
+  // 环形（椭圆）布局
+  const n = allIons.length;
+  const W = 560;
+  const H = Math.max(320, 168 + n * 28);
+  const cx = W / 2;
+  const cy = H / 2;
+  const rx = W / 2 - 96;
+  const ry = H / 2 - 64;
+  const pos = {};
+  allIons.forEach((ion, i) => {
+    const ang = -Math.PI / 2 + (i * 2 * Math.PI) / n;
+    pos[ion] = { x: cx + rx * Math.cos(ang), y: cy + ry * Math.sin(ang) };
+  });
+
+  const edges = pairList.map((pr) => {
+    const A = pos[pr.a], B = pos[pr.b];
+    if (!A || !B) return '';
+    const mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2;
+    const qx = cx + (mx - cx) * 0.42;
+    const qy = cy + (my - cy) * 0.42;
+    const color = reasonColor[pr.reason] || '#94a3b8';
+    return `<path d="M ${A.x.toFixed(1)} ${A.y.toFixed(1)} Q ${qx.toFixed(1)} ${qy.toFixed(1)} ${B.x.toFixed(1)} ${B.y.toFixed(1)}"
+      fill="none" stroke="${color}" stroke-width="2.2" stroke-linecap="round" opacity="0.5">
+      <title>${esc(pr.a)} 与 ${esc(pr.b)}：${esc(pr.reason || '不能大量共存')}</title>
+    </path>`;
   }).join('');
+
+  const nodes = allIons.map((ion) => {
+    const { x, y } = pos[ion];
+    const bad = hasConflict(ion);
+    const w = Math.max(54, svgTextWidth(ion, 12) + 26);
+    const h = 32;
+    return `
+      <g class="coex-node-g">
+        <title>${esc(reasonsOf(ion).join('；') || '无冲突')}</title>
+        <rect x="${(x - w / 2).toFixed(1)}" y="${(y - h / 2).toFixed(1)}" width="${w.toFixed(1)}" height="${h}" rx="${h / 2}"
+          fill="${bad ? '#fef2f2' : '#f0fdf4'}" stroke="${bad ? '#dc2626' : '#16a34a'}" stroke-width="2" filter="url(#coex-shadow)"/>
+        <rect x="${(x - w / 2 + 6).toFixed(1)}" y="${(y - h / 2 + 3).toFixed(1)}" width="${Math.max(w - 22, 20).toFixed(1)}" height="6" rx="3"
+          fill="#ffffff" opacity="0.6"/>
+        <text x="${x.toFixed(1)}" y="${(y + 4.4).toFixed(1)}" text-anchor="middle" font-size="12" font-weight="700"
+          fill="${bad ? '#b91c1c' : '#15803d'}">${chemSvg(ion)}</text>
+      </g>`;
+  }).join('');
+
+  const verdict = pairList.length
+    ? `<rect x="${cx - 80}" y="${cy - 21}" width="160" height="42" rx="21" fill="#fff1f2" stroke="#fda4af"/>
+       <text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13" font-weight="700" fill="#be123c">⚠ 不能大量共存</text>`
+    : `<rect x="${cx - 80}" y="${cy - 21}" width="160" height="42" rx="21" fill="#f0fdf4" stroke="#86efac"/>
+       <text x="${cx}" y="${cy + 5}" text-anchor="middle" font-size="13" font-weight="700" fill="#15803d">✓ 能大量共存</text>`;
+
+  const legend = pairList.length ? `
+    <div class="coex-legend">
+      ${legendItems.map(([label, color]) => `
+        <span><span class="legend-dot" style="background:${color}"></span>${label}</span>`).join('')}
+    </div>` : '';
 
   return `
   <div class="viz-block">
-    <h5>🔗 离子共存关系图</h5>
+    <h5>🔗 离子共存冲突图</h5>
     <div class="coex-graph">
-      <div class="coex-nodes">${nodes}</div>
-      <div class="coex-legend">
-        <span><span class="legend-dot" style="background:#dc2626"></span>生成沉淀</span>
-        <span><span class="legend-dot" style="background:#ea580c"></span>生成气体</span>
-        <span><span class="legend-dot" style="background:#7c3aed"></span>氧化还原</span>
-        <span><span class="legend-dot" style="background:#0891b2"></span>双水解</span>
-        <span><span class="legend-dot" style="background:#ca8a04"></span>弱电解质</span>
-      </div>
+      <svg viewBox="0 0 ${W} ${H}" class="coex-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="离子共存冲突关系图">
+        <defs>
+          <linearGradient id="coex-panel" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#f4f9fe"/>
+          </linearGradient>
+          <radialGradient id="coex-glow" cx="0.5" cy="0.5" r="0.62">
+            <stop offset="0" stop-color="#eef2ff" stop-opacity="0.9"/>
+            <stop offset="1" stop-color="#eef2ff" stop-opacity="0"/>
+          </radialGradient>
+          <filter id="coex-shadow" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.16"/>
+          </filter>
+        </defs>
+        <rect x="1" y="1" width="${W - 2}" height="${H - 2}" rx="16" fill="url(#coex-panel)" stroke="#e2e8f0"/>
+        <ellipse cx="${cx}" cy="${cy}" rx="${rx + 40}" ry="${ry + 30}" fill="url(#coex-glow)"/>
+        ${edges}
+        ${nodes}
+        ${verdict}
+      </svg>
+      ${legend}
     </div>
   </div>`;
 }
 
-/* 5. 摩尔计算关系图 */
+/* 5. 摩尔计算关系图（SVG 放射状：中心 n 与四向换算卡片） */
 function moleRelationHtml(numericValue, numericUnit, numericSpecies) {
-  const highlight = {};
-  if (numericUnit) {
-    const u = numericUnit;
-    if (u.includes('g')) highlight.mass = true;
-    if (u.includes('mol')) highlight.mole = true;
-    if (u.includes('L')) highlight.gas = true;
-    if (u.includes('/L') || u.includes('mol/L')) highlight.conc = true;
-  }
+  const u = numericUnit || '';
+  const highlight = {
+    mass: u === 'g',
+    mole: u === 'mol',
+    gas: u === 'L',
+    conc: u === 'mol/L' || u === 'mol·L⁻¹',
+  };
 
-  const node = (key, label, formula, isHighlight) => `
-    <div class="mole-node ${isHighlight ? 'mole-hl' : ''}">
-      <div class="mole-node-label">${esc(label)}</div>
-      <div class="mole-node-formula mono">${esc(formula)}</div>
-    </div>`;
+  const W = 560;
+  const H = 330;
+  const cx = W / 2;
+  const cy = H / 2;
+
+  const cards = [
+    { key: 'mass', label: '质量 m', formula: 'm = n · M', x: 30, y: 26, anchor: [cx - 18, cy - 46] },
+    { key: 'gas', label: '气体体积 V', formula: 'V = n · Vₘ', x: 380, y: 26, anchor: [cx + 18, cy - 46] },
+    { key: 'mole', label: '物质的量 n', formula: 'n = m / M', x: 30, y: 248, anchor: [cx - 18, cy + 46] },
+    { key: 'conc', label: '浓度 c', formula: 'c = n / V', x: 380, y: 248, anchor: [cx + 18, cy + 46] },
+  ];
+
+  const cardHtml = cards.map((c) => {
+    const hl = highlight[c.key];
+    const cw = 150;
+    const ch = 56;
+    const [ax, ay] = c.anchor;
+    const startX = c.x + (c.x < cx ? cw : 0);
+    const startY = c.y + ch / 2;
+    return `
+      <g>
+        <line x1="${startX}" y1="${startY}" x2="${ax}" y2="${ay}"
+          stroke="${hl ? '#6366f1' : '#cbd5e1'}" stroke-width="${hl ? 2.2 : 1.6}"
+          stroke-dasharray="5 4" marker-end="url(#mole-arr)"/>
+        <rect x="${c.x}" y="${c.y}" width="${cw}" height="${ch}" rx="12"
+          fill="${hl ? '#eef2ff' : '#ffffff'}" stroke="${hl ? '#6366f1' : '#e2e8f0'}" stroke-width="${hl ? 2.2 : 1.5}"/>
+        <text x="${c.x + cw / 2}" y="${c.y + 22}" text-anchor="middle" font-size="12" font-weight="600" fill="#334155">${esc(c.label)}</text>
+        <text x="${c.x + cw / 2}" y="${c.y + 42}" text-anchor="middle" font-size="11.5" fill="${hl ? '#4338ca' : '#64748b'}">${esc(c.formula)}</text>
+      </g>`;
+  }).join('');
+
+  const centerValue = numericValue ? `${esc(numericValue)} ${esc(numericUnit || 'mol')}` : 'n = ?';
 
   return `
   <div class="viz-block">
     <h5>🧮 物质的量换算关系</h5>
     <div class="mole-diagram">
-      <div class="mole-center">
-        ${node('n', '物质的量 n', numericValue ? `${esc(numericValue)} ${esc(numericUnit || 'mol')}` : 'n = ?', true)}
-      </div>
-      <div class="mole-ring">
-        ${node('m', '质量 m', 'm = n·M', !!highlight.mass)}
-        ${node('N', '粒子数 N', 'N = n·Nₐ', false)}
-        ${node('V', '气体体积 V', 'V = n·Vₘ', !!highlight.gas)}
-        ${node('c', '浓度 c', 'c = n/V', !!highlight.conc)}
-      </div>
+      <svg viewBox="0 0 ${W} ${H}" class="mole-svg" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="物质的量换算关系图">
+        <defs>
+          <linearGradient id="mole-center-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#818cf8"/>
+            <stop offset="1" stop-color="#4f46e5"/>
+          </linearGradient>
+          <radialGradient id="mole-hi" cx="0.5" cy="0.3" r="0.7">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <marker id="mole-arr" markerWidth="8" markerHeight="8" refX="4" refY="6" orient="auto">
+            <path d="M0,8 L4,0 L8,8 Z" fill="#94a3b8"/>
+          </marker>
+          <filter id="mole-shadow" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#4338ca" flood-opacity="0.3"/>
+          </filter>
+        </defs>
+        ${cardHtml}
+        <circle cx="${cx}" cy="${cy}" r="54" fill="url(#mole-center-grad)" filter="url(#mole-shadow)"/>
+        <ellipse cx="${cx - 14}" cy="${cy - 24}" rx="30" ry="16" fill="url(#mole-hi)" opacity="0.55"/>
+        <circle cx="${cx}" cy="${cy}" r="54" fill="none" stroke="#ffffff" stroke-width="1.4" opacity="0.35"/>
+        <text x="${cx}" y="${cy - 10}" text-anchor="middle" font-size="11.5" font-weight="600" fill="#e0e7ff">物质的量 n</text>
+        <text x="${cx}" y="${cy + 14}" text-anchor="middle" font-size="17" font-weight="700" fill="#ffffff">${centerValue}</text>
+      </svg>
       ${numericSpecies ? `<p class="viz-caption">目标物种：${chem(numericSpecies)}</p>` : ''}
     </div>
   </div>`;
@@ -948,8 +1415,8 @@ function concentrationTimeHtml(equilibrium) {
 
   if (!series.length) return '';
 
-  const W = 520, H = 280;
-  const padL = 50, padR = 20, padT = 20, padB = 40;
+  const W = 560, H = 300;
+  const padL = 58, padR = 26, padT = 26, padB = 46;
   const plotW = W - padL - padR;
   const plotH = H - padT - padB;
 
@@ -962,40 +1429,45 @@ function concentrationTimeHtml(equilibrium) {
   const tEq = 100;
   const tDisturb = hasDisturbance ? 60 : -1;
 
-  // 生成平滑曲线点（每物种 20 个点，指数趋近平衡）
-  const palette = ['#2563eb', '#dc2626', '#16a34a', '#d97706', '#7c3aed', '#0891b2'];
+  // 生成平滑曲线（指数趋近平衡），导出三次贝塞尔路径
+  const palette = ['#6366f1', '#f43f5e', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4'];
   const pts = series.map((s, idx) => {
     const color = palette[idx % palette.length];
-    const points = [];
-    for (let t = 0; t <= tEq; t += 5) {
+    const raw = [];
+    for (let t = 0; t <= tEq; t += 4) {
       const frac = t / tEq;
       // 指数趋近：c(t) = end + (start - end) * exp(-k*t)，k 使 t=tEq 时接近 99%
       const k = -Math.log(0.01) / tEq;
       const c = s.end + (s.start - s.end) * Math.exp(-k * t);
-      const x = padL + (frac * plotW);
-      const y = padT + plotH - (c / yMax) * plotH;
-      points.push(`${x.toFixed(1)},${y.toFixed(1)}`);
+      raw.push([padL + frac * plotW, padT + plotH - (c / yMax) * plotH]);
     }
-    return { species: s.species, color, points: points.join(' ') };
+    return {
+      species: s.species,
+      color,
+      d: smoothLinePath(raw),
+      startDot: raw[0],
+      endDot: raw[raw.length - 1],
+    };
   });
 
-  // 坐标轴
+  // 网格与刻度
   const yTicks = 5;
   const yTickLines = Array.from({ length: yTicks + 1 }, (_, i) => {
     const v = (yMax / yTicks) * i;
     const y = padT + plotH - (v / yMax) * plotH;
-    return `<line x1="${padL}" y1="${y}" x2="${padL + plotW}" y2="${y}" stroke="#e2e8f0" stroke-width="1"/>
-            <text x="${padL - 8}" y="${y + 4}" text-anchor="end" font-size="10" fill="#94a3b8">${v.toFixed(1)}</text>`;
+    return `<line x1="${padL}" y1="${y.toFixed(1)}" x2="${padL + plotW}" y2="${y.toFixed(1)}" stroke="#eef2f7" stroke-width="1"/>
+            <text x="${padL - 9}" y="${(y + 4).toFixed(1)}" text-anchor="end" font-size="10" fill="#94a3b8">${v.toFixed(1)}</text>`;
   }).join('');
 
-  const xLabels = `<text x="${padL}" y="${H - padB + 20}" text-anchor="middle" font-size="11" fill="#64748b">0</text>
+  const xLabels = `<text x="${padL}" y="${H - padB + 20}" text-anchor="middle" font-size="10.5" fill="#94a3b8">0</text>
     <text x="${padL + plotW}" y="${H - padB + 20}" text-anchor="middle" font-size="11" fill="#64748b">t<tspan baseline-shift="sub" font-size="9">eq</tspan></text>
-    <text x="${padL + plotW / 2}" y="${H - 6}" text-anchor="middle" font-size="12" fill="#475569">时间 t</text>
-    <text x="14" y="${padT + plotH / 2}" text-anchor="middle" font-size="12" fill="#475569" transform="rotate(-90 14 ${padT + plotH / 2})">浓度 c</text>`;
+    <text x="${padL + plotW / 2}" y="${H - 8}" text-anchor="middle" font-size="12" fill="#475569">时间 t</text>
+    <text x="16" y="${padT + plotH / 2}" text-anchor="middle" font-size="12" fill="#475569" transform="rotate(-90 16 ${padT + plotH / 2})">浓度 c</text>`;
 
   const disturbLine = hasDisturbance ? `
-    <line x1="${padL + (tDisturb / tEq) * plotW}" y1="${padT}" x2="${padL + (tDisturb / tEq) * plotW}" y2="${padT + plotH}" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="5 4"/>
-    <text x="${padL + (tDisturb / tEq) * plotW}" y="${padT - 6}" text-anchor="middle" font-size="10" fill="#ef4444" font-weight="600">扰动</text>
+    <line x1="${(padL + (tDisturb / tEq) * plotW).toFixed(1)}" y1="${padT}" x2="${(padL + (tDisturb / tEq) * plotW).toFixed(1)}" y2="${padT + plotH}" stroke="#f43f5e" stroke-width="1.6" stroke-dasharray="5 4"/>
+    <rect x="${(padL + (tDisturb / tEq) * plotW - 20).toFixed(1)}" y="${padT - 22}" width="40" height="17" rx="8" fill="#fff1f2" stroke="#fda4af"/>
+    <text x="${(padL + (tDisturb / tEq) * plotW).toFixed(1)}" y="${padT - 10}" text-anchor="middle" font-size="9.5" font-weight="600" fill="#e11d48">扰动</text>
   ` : '';
 
   const legend = pts.map((p) => `
@@ -1005,17 +1477,33 @@ function concentrationTimeHtml(equilibrium) {
   `).join('');
 
   const paths = pts.map((p) => `
-    <polyline points="${p.points}" fill="none" stroke="${p.color}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="${p.d}" fill="none" stroke="${p.color}" stroke-width="6" stroke-linecap="round" opacity="0.16" filter="url(#ct-soft)"/>
+    <path class="ct-line" d="${p.d}" fill="none" stroke="${p.color}" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/>
+    <circle cx="${p.startDot[0].toFixed(1)}" cy="${p.startDot[1].toFixed(1)}" r="3.2" fill="#fff" stroke="${p.color}" stroke-width="2"/>
+    <circle cx="${p.endDot[0].toFixed(1)}" cy="${p.endDot[1].toFixed(1)}" r="3.6" fill="${p.color}"/>
   `).join('');
 
   return `
   <div class="viz-block">
     <h5>📈 浓度-时间示意图</h5>
     <div class="ct-chart">
-      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="浓度随时间变化示意图">
+        <defs>
+          <linearGradient id="ct-panel" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffffff"/>
+            <stop offset="1" stop-color="#f7fbff"/>
+          </linearGradient>
+          <filter id="ct-soft" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="4"/>
+          </filter>
+          <marker id="ct-arr" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto">
+            <path d="M0,0 L9,4.5 L0,9 Z" fill="#94a3b8"/>
+          </marker>
+        </defs>
+        <rect x="0" y="0" width="${W}" height="${H}" rx="12" fill="url(#ct-panel)"/>
         ${yTickLines}
-        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT + plotH}" stroke="#475569" stroke-width="1.5"/>
-        <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW}" y2="${padT + plotH}" stroke="#475569" stroke-width="1.5"/>
+        <line x1="${padL}" y1="${padT + plotH}" x2="${padL}" y2="${padT - 6}" stroke="#cbd5e1" stroke-width="1.6" marker-end="url(#ct-arr)"/>
+        <line x1="${padL}" y1="${padT + plotH}" x2="${padL + plotW + 10}" y2="${padT + plotH}" stroke="#cbd5e1" stroke-width="1.6" marker-end="url(#ct-arr)"/>
         ${disturbLine}
         ${paths}
         ${xLabels}
@@ -1057,60 +1545,98 @@ function experimentApparatusHtml(experiment, problemText) {
 const APPARATUS_SVG = {
   distillation: `
     <div class="apparatus-item">
-      <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="蒸馏装置示意图">
+        ${svgCommonDefs('apd')}
+        <defs><clipPath id="apd-body"><circle cx="150" cy="132" r="37"/></clipPath></defs>
         <!-- 铁架台 -->
-        <line x1="60" y1="20" x2="60" y2="200" stroke="#475569" stroke-width="3"/>
-        <line x1="30" y1="200" x2="90" y2="200" stroke="#475569" stroke-width="4"/>
+        <rect x="56" y="16" width="5" height="188" rx="2.5" fill="url(#apd-stand)"/>
+        <rect x="24" y="198" width="70" height="7" rx="3.5" fill="url(#apd-stand)"/>
+        <rect x="61" y="158" width="54" height="5" rx="2.5" fill="url(#apd-stand)"/>
         <!-- 蒸馏烧瓶 -->
-        <ellipse cx="150" cy="130" rx="45" ry="50" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
-        <rect x="138" y="70" width="24" height="30" fill="#dbeafe" stroke="#2563eb" stroke-width="2"/>
+        <g filter="url(#apd-shadow)">
+          <path d="M 139 64 L 139 96 L 134 96 A 40 40 0 1 0 166 96 L 161 96 L 161 64 Z"
+                fill="url(#apd-glass)" stroke="#60a5fa" stroke-width="2.2" stroke-linejoin="round"/>
+        </g>
+        <rect x="112" y="146" width="76" height="30" fill="url(#apd-liquid)" clip-path="url(#apd-body)" opacity="0.85"/>
+        <rect x="112" y="146" width="76" height="30" fill="url(#apd-liquidHi)" clip-path="url(#apd-body)" opacity="0.8"/>
+        <rect x="122" y="102" width="7" height="66" rx="3.5" fill="url(#apd-sheen)" clip-path="url(#apd-body)" opacity="0.9"/>
+        <rect x="164" y="120" width="4" height="46" rx="2" fill="#ffffff" opacity="0.45" clip-path="url(#apd-body)"/>
         <!-- 温度计 -->
-        <line x1="150" y1="40" x2="150" y2="85" stroke="#dc2626" stroke-width="2"/>
-        <circle cx="150" cy="40" r="5" fill="#dc2626"/>
-        <text x="170" y="50" font-size="10" fill="#475569">温度计</text>
-        <text x="170" y="62" font-size="9" fill="#92400e">水银球在支管口</text>
-        <!-- 支管口 -->
-        <line x1="195" y1="105" x2="240" y2="105" stroke="#2563eb" stroke-width="2"/>
+        <rect x="147.5" y="34" width="5" height="58" rx="2.5" fill="#fee2e2" stroke="#ef4444" stroke-width="1.1"/>
+        <circle cx="150" cy="34" r="5" fill="#ef4444"/>
+        <text x="166" y="48" font-size="10" fill="#334155">温度计</text>
+        <text x="166" y="60" font-size="8.5" fill="#b45309">水银球在支管口</text>
+        <!-- 支管 -->
+        <path d="M 161 92 L 234 92" stroke="#60a5fa" stroke-width="6" stroke-linecap="round"/>
+        <path d="M 161 92 L 234 92" stroke="#f0f9ff" stroke-width="2" stroke-linecap="round"/>
         <!-- 冷凝管 -->
-        <rect x="240" y="80" width="80" height="50" rx="6" fill="#f0fdfa" stroke="#0d9488" stroke-width="2"/>
-        <line x1="240" y1="105" x2="320" y2="105" stroke="#0d9488" stroke-width="1.5" stroke-dasharray="4 3"/>
-        <text x="255" y="72" font-size="9" fill="#0d9488">冷凝管</text>
-        <text x="325" y="90" font-size="8" fill="#2563eb">↓冷水</text>
-        <text x="325" y="120" font-size="8" fill="#dc2626">↑热水</text>
-        <!-- 锥形瓶接收 -->
-        <path d="M 330 140 L 320 175 L 350 175 Z" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-        <text x="315" y="190" font-size="9" fill="#475569">接收瓶</text>
+        <g filter="url(#apd-shadow)">
+          <rect x="228" y="72" width="106" height="42" rx="12" fill="url(#apd-glass)" stroke="#5eead4" stroke-width="2.2"/>
+        </g>
+        <path d="M 236 93 L 326 93" stroke="#99f6e4" stroke-width="7" stroke-linecap="round"/>
+        <path d="M 236 93 L 326 93" stroke="#f0fdfa" stroke-width="2" stroke-linecap="round"/>
+        <rect x="234" y="77" width="94" height="5" rx="2.5" fill="#ffffff" opacity="0.75"/>
+        <text x="246" y="66" font-size="9" fill="#0f766e">冷凝管</text>
+        <text x="336" y="86" font-size="8" fill="#2563eb">↓冷水</text>
+        <text x="336" y="122" font-size="8" fill="#dc2626">↑热水</text>
+        <!-- 接收瓶 -->
+        <g filter="url(#apd-shadow)">
+          <path d="M 324 138 L 314 176 L 354 176 L 344 138 Z" fill="url(#apd-glass)" stroke="#60a5fa" stroke-width="2"/>
+        </g>
+        <path d="M 317 166 L 351 166 L 353 175 L 315 175 Z" fill="url(#apd-liquid)" opacity="0.75"/>
+        <text x="304" y="194" font-size="9" fill="#334155">接收瓶</text>
         <!-- 酒精灯 -->
-        <path d="M 130 200 L 170 200 L 160 180 L 140 180 Z" fill="#f59e0b" stroke="#d97706" stroke-width="1.5"/>
-        <ellipse cx="150" cy="172" rx="12" ry="6" fill="#ef4444"/>
+        <circle cx="150" cy="158" r="34" fill="url(#apd-flameGlow)"/>
+        <path d="M 130 200 L 170 200 L 161 178 L 139 178 Z" fill="url(#apd-stand)" opacity="0.35"/>
+        <path d="M 130 200 L 170 200 L 161 178 L 139 178 Z" fill="#fde68a" stroke="#d97706" stroke-width="1.4"/>
+        <path d="M 132 198 L 150 198 L 150 180 L 140 180 Z" fill="#ffffff" opacity="0.4"/>
+        <path d="M 150 176 q -11 -15 0 -28 q 11 13 0 28 Z" fill="url(#apd-flame)" filter="url(#apd-glow)"/>
+        <path d="M 150 172 q -5 -8 0 -15 q 5 7 0 15 Z" fill="#fefce8" opacity="0.9"/>
+        <ellipse cx="150" cy="174" rx="7" ry="3" fill="#fbbf24"/>
+        <rect x="0" y="0" width="360" height="220" filter="url(#apd-grain)" opacity="0.4"/>
       </svg>
       <p class="apparatus-label">蒸馏装置</p>
     </div>`,
 
   extraction: `
     <div class="apparatus-item">
-      <svg viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 280 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="萃取分液装置示意图">
+        ${svgCommonDefs('ape')}
+        <defs><clipPath id="ape-cone"><path d="M 108 96 L 172 96 L 146 150 Q 140 158 134 150 Z"/></clipPath></defs>
         <!-- 铁架台 -->
-        <line x1="40" y1="20" x2="40" y2="220" stroke="#475569" stroke-width="3"/>
-        <line x1="15" y1="220" x2="65" y2="220" stroke="#475569" stroke-width="4"/>
-        <!-- 铁圈 -->
-        <line x1="40" y1="80" x2="180" y2="80" stroke="#475569" stroke-width="2"/>
+        <rect x="36" y="16" width="5" height="206" rx="2.5" fill="url(#ape-stand)"/>
+        <rect x="10" y="220" width="60" height="7" rx="3.5" fill="url(#ape-stand)"/>
+        <rect x="39" y="76" width="150" height="5" rx="2.5" fill="url(#ape-stand)"/>
         <!-- 分液漏斗 -->
-        <path d="M 140 40 L 140 60 L 110 130 L 110 170 L 130 170 L 130 185 L 130 185 L 130 170 L 150 170 L 150 185 L 150 170 L 170 170 L 170 130 L 140 60" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
-        <!-- 上层（有机相） -->
-        <path d="M 112 100 L 168 100 L 168 130 L 112 130 Z" fill="#fde68a" stroke="#d97706" stroke-width="1"/>
-        <text x="175" y="115" font-size="9" fill="#92400e">有机相(上层)</text>
-        <!-- 下层（水相） -->
-        <path d="M 112 130 L 168 130 L 168 168 L 112 168 Z" fill="#bae6fd" stroke="#0284c7" stroke-width="1"/>
-        <text x="175" y="150" font-size="9" fill="#0369a1">水相(下层)</text>
+        <g filter="url(#ape-shadow)">
+          <path d="M 106 94 L 174 94 L 146 150 Q 140 158 134 150 Z" fill="url(#ape-glass)" stroke="#60a5fa" stroke-width="2.2" stroke-linejoin="round"/>
+          <rect x="134" y="44" width="12" height="52" fill="url(#ape-glass)" stroke="#60a5fa" stroke-width="2.2"/>
+        </g>
+        <rect x="108" y="96" width="64" height="34" fill="#fde68a" opacity="0.9" clip-path="url(#ape-cone)"/>
+        <rect x="108" y="130" width="64" height="30" fill="#bae6fd" opacity="0.85" clip-path="url(#ape-cone)"/>
+        <rect x="108" y="96" width="64" height="64" fill="url(#ape-liquidHi)" clip-path="url(#ape-cone)" opacity="0.55"/>
+        <rect x="112" y="48" width="4" height="44" rx="2" fill="url(#ape-sheen)" opacity="0.9"/>
+        <rect x="117" y="102" width="5" height="44" rx="2.5" fill="#ffffff" opacity="0.5" clip-path="url(#ape-cone)"/>
+        <line x1="112" y1="130" x2="168" y2="130" stroke="#d97706" stroke-width="1.2" stroke-dasharray="3 2"/>
+        <text x="180" y="116" font-size="9" fill="#92400e">有机相（上层）</text>
+        <text x="180" y="148" font-size="9" fill="#0369a1">水相（下层）</text>
+        <text x="78" y="48" font-size="9" fill="#334155">分液漏斗</text>
         <!-- 活塞 -->
-        <rect x="120" y="170" width="40" height="8" fill="#475569"/>
+        <rect x="124" y="168" width="32" height="8" rx="3" fill="#64748b"/>
+        <circle cx="140" cy="172" r="7" fill="#94a3b8" stroke="#64748b"/>
         <!-- 漏斗颈 -->
-        <line x1="140" y1="178" x2="140" y2="195" stroke="#d97706" stroke-width="2"/>
+        <rect x="137" y="156" width="6" height="34" fill="url(#ape-glass)" stroke="#60a5fa" stroke-width="1.6"/>
+        <!-- 液滴 -->
+        <ellipse cx="140" cy="196" rx="2.6" ry="4.5" fill="#7dd3fc"/>
         <!-- 烧杯 -->
-        <path d="M 105 195 L 105 225 L 175 225 L 175 195" fill="none" stroke="#94a3b8" stroke-width="2"/>
-        <text x="115" y="218" font-size="9" fill="#475569">烧杯</text>
-        <text x="80" y="50" font-size="9" fill="#475569">分液漏斗</text>
+        <g filter="url(#ape-shadow)">
+          <path d="M 104 196 L 104 226 Q 104 230 108 230 L 172 230 Q 176 230 176 226 L 176 196" fill="url(#ape-glass)" stroke="#94a3b8" stroke-width="2"/>
+        </g>
+        <path d="M 106 214 L 174 214 L 174 226 Q 174 229 171 229 L 109 229 Q 106 229 106 226 Z" fill="url(#ape-liquid)" opacity="0.8"/>
+        <rect x="108" y="204" width="64" height="26" fill="url(#ape-liquidHi)" opacity="0.5"/>
+        <rect x="107" y="200" width="4" height="26" rx="2" fill="#ffffff" opacity="0.6"/>
+        <text x="112" y="210" font-size="9" fill="#334155">烧杯</text>
+        <rect x="0" y="0" width="280" height="240" filter="url(#ape-grain)" opacity="0.4"/>
       </svg>
       <p class="apparatus-label">萃取·分液装置</p>
     </div>`,
@@ -1368,7 +1894,7 @@ function explainHtml(e) {
 function guideHtml(g) {
   return `
     <p class="panel-note guide-note">
-      伴思模式：只引导、不给答案——以下提问不包含任何结论，请按级思考，自己推出答案。
+      伴思模式：只引导、不给答案——按「审题分类→建立模型→知识检索→规则应用→精确求解→守恒校验」六步框架逐级思考，自己推出答案。
     </p>
     <div class="guide-toolbar">
       <button class="guide-expand-btn" onclick="toggleAllGuideLevels(this)">全部展开</button>
@@ -1397,6 +1923,208 @@ function toggleAllGuideLevels(btn) {
   const allOpen = Array.from(details).every((d) => d.open);
   details.forEach((d) => { d.open = !allOpen; });
   btn.textContent = allOpen ? '全部展开' : '全部收起';
+}
+
+/* ---------- 知识库浏览页 ---------- */
+
+const MODULE_LABEL = {
+  Inorganic: '无机化学',
+  Organic: '有机化学',
+  ReactionPrinciples: '反应原理',
+  Experiment: '化学实验',
+  Structure: '物质结构',
+  Technology: '化学与技术',
+};
+
+function renderKnowledgePage() {
+  const view = document.getElementById('knowledgeView');
+  if (!KB || KB.items.length === 0) {
+    view.innerHTML = '<p class="empty">知识库数据未加载。</p>';
+    return;
+  }
+  const modules = [...new Set(KB.items.map((i) => i.module))];
+  view.innerHTML = `
+    <div class="kb-header">
+      <h2>📚 知识库（${KB.items.length} 条知识点 · ${KB.rules.length} 条规则）</h2>
+      <p class="kb-hint">支持关键词搜索（名称/要点/易错点），点击卡片查看前置依赖与关联规则。</p>
+    </div>
+    <div class="kb-filters" id="kbFilters">
+      <button class="kb-filter active" data-mod="all">全部</button>
+      ${modules.map((m) => `<button class="kb-filter" data-mod="${esc(m)}">${MODULE_LABEL[m] || m}</button>`).join('')}
+    </div>
+    <div class="kb-grid" id="kbGrid"></div>
+  `;
+  view.querySelectorAll('.kb-filter').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      view.querySelectorAll('.kb-filter').forEach((b) => b.classList.toggle('active', b === btn));
+      renderKnowledgeList();
+    });
+  });
+  renderKnowledgeList();
+}
+
+function renderKnowledgeList() {
+  const grid = document.getElementById('kbGrid');
+  if (!grid) return;
+  const activeMod = document.querySelector('.kb-filter.active')?.dataset.mod || 'all';
+  let items = KB.items;
+  if (activeMod !== 'all') items = items.filter((i) => i.module === activeMod);
+  if (keyword) {
+    items = items.filter((i) =>
+      (i.name + i.summary + i.pitfall + i.textbookRef + i.id).toLowerCase().includes(keyword));
+  }
+  if (items.length === 0) {
+    grid.innerHTML = '<p class="empty">没有匹配的知识点。</p>';
+    return;
+  }
+  grid.innerHTML = items.map((item) => knowledgeCardHtml(item)).join('');
+  grid.querySelectorAll('.kb-card').forEach((card) => {
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.kb-prereq') || e.target.closest('.kb-rule')) return;
+      card.classList.toggle('expanded');
+    });
+  });
+}
+
+function knowledgeCardHtml(item) {
+  const prereqs = (item.prerequisites || []).map((id) => {
+    const ref = KB.items.find((i) => i.id === id);
+    return ref
+      ? `<span class="kb-prereq" onclick="jumpToKnowledge('${esc(id)}')">${esc(ref.name)}</span>`
+      : `<span class="kb-prereq">${esc(id)}</span>`;
+  }).join('');
+  const rules = (item.rules || []).map((r) =>
+    `<span class="kb-rule" title="${esc(r.display)}"><b>${esc(r.id)}</b> ${esc(r.name)}</span>`
+  ).join('');
+  return `
+    <div class="kb-card" data-id="${esc(item.id)}">
+      <div class="kb-card-head">
+        <span class="kb-id">${esc(item.id)}</span>
+        <span class="kb-tier">${item.tier === 1 ? '主干' : item.tier === 2 ? '拓展' : '选学'}</span>
+      </div>
+      <h4 class="kb-name">${esc(item.name)}</h4>
+      <p class="kb-module">${MODULE_LABEL[item.module] || item.module} · ${esc(item.textbookRef)}</p>
+      <p class="kb-summary">${esc(item.summary || '')}</p>
+      ${item.pitfall ? `<p class="kb-pitfall">⚠ ${esc(item.pitfall)}</p>` : ''}
+      <div class="kb-expand">
+        ${prereqs ? `<div class="kb-section"><b>前置知识：</b>${prereqs}</div>` : ''}
+        ${rules ? `<div class="kb-section"><b>关联规则：</b>${rules}</div>` : ''}
+      </div>
+    </div>`;
+}
+
+function jumpToKnowledge(id) {
+  keyword = '';
+  document.getElementById('searchBox').value = '';
+  switchView('knowledge');
+  setTimeout(() => {
+    const card = document.querySelector(`.kb-card[data-id="${id}"]`);
+    if (card) {
+      card.classList.add('expanded');
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }, 100);
+}
+
+/* ---------- 知识问答面板 ---------- */
+
+function renderQAPanel() {
+  const view = document.getElementById('qaView');
+  view.innerHTML = `
+    <div class="qa-header">
+      <h2>❓ 化学知识问答</h2>
+      <p class="kb-hint">输入化学问题，系统从知识库（${KB.items.length} 条）与规则库（${KB.rules.length} 条）中检索匹配内容。基于关键词匹配，非 AI 对话。</p>
+    </div>
+    <div class="qa-input-row">
+      <input id="qaInput" class="search qa-input" type="search" placeholder="例如：什么是勒夏特列原理？苯能使溴水褪色吗？电子守恒怎么用？" />
+      <button id="qaBtn" class="guide-expand-btn">搜索</button>
+    </div>
+    <div class="qa-quick">
+      <span>试试：</span>
+      ${['勒夏特列', '苯 溴水', '电子守恒', '化学平衡', '电化学', '滴定误差'].map((q) =>
+        `<button class="qa-quick-btn" data-q="${esc(q)}">${esc(q)}</button>`).join('')}
+    </div>
+    <div id="qaResults" class="qa-results"></div>
+  `;
+  const input = document.getElementById('qaInput');
+  const btn = document.getElementById('qaBtn');
+  const doSearch = () => { document.getElementById('qaResults').innerHTML = qaSearchHtml(input.value.trim()); };
+  btn.addEventListener('click', doSearch);
+  input.addEventListener('keydown', (e) => { if (e.key === 'Enter') doSearch(); });
+  view.querySelectorAll('.qa-quick-btn').forEach((b) => {
+    b.addEventListener('click', () => { input.value = b.dataset.q; doSearch(); });
+  });
+}
+
+function qaSearchHtml(query) {
+  if (!query) return '<p class="empty">请输入问题关键词。</p>';
+  const tokens = qaTokenize(query);
+  const kHits = [];
+  const rHits = [];
+  for (const item of KB.items) {
+    const s = scoreKnowledge(item, tokens);
+    if (s > 0) kHits.push({ item, score: s });
+  }
+  for (const rule of KB.rules) {
+    const s = scoreRule(rule, tokens);
+    if (s > 0) rHits.push({ rule, score: s });
+  }
+  kHits.sort((a, b) => b.score - a.score);
+  rHits.sort((a, b) => b.score - a.score);
+
+  if (kHits.length === 0 && rHits.length === 0) {
+    return `<p class="empty">未找到与「${esc(query)}」相关的知识点，请尝试其他关键词。</p>`;
+  }
+
+  let html = '';
+  if (kHits.length > 0) {
+    html += `<h3 class="qa-section-title">📖 相关知识点（${kHits.length}）</h3>`;
+    html += kHits.slice(0, 10).map(({ item }) => knowledgeCardHtml(item)).join('');
+  }
+  if (rHits.length > 0) {
+    html += `<h3 class="qa-section-title">📐 相关规则（${rHits.length}）</h3>`;
+    html += '<div class="qa-rules">' + rHits.slice(0, 15).map(({ rule }) => `
+      <div class="qa-rule-card">
+        <div class="qa-rule-head"><span class="kb-id">${esc(rule.id)}</span> ${esc(rule.name)}</div>
+        <p class="qa-rule-display">${chem(rule.display || '')}</p>
+        ${rule.knowledgeId ? `<p class="qa-rule-ref">所属知识点：<span class="kb-prereq" onclick="jumpToKnowledge('${esc(rule.knowledgeId)}')">${esc(KB.items.find(i=>i.id===rule.knowledgeId)?.name || rule.knowledgeId)}</span></p>` : ''}
+      </div>
+    `).join('') + '</div>';
+  }
+  return html;
+}
+
+function qaTokenize(query) {
+  const tokens = [query];
+  if (query.length > 4) {
+    for (let i = 0; i <= query.length - 2; i++) tokens.push(query.slice(i, i + 2));
+  }
+  const parts = query.split(/\s+/).filter(Boolean);
+  if (parts.length > 1) tokens.push(...parts);
+  return [...new Set(tokens.map((t) => t.toLowerCase()))];
+}
+
+function scoreKnowledge(item, tokens) {
+  const fields = [
+    { text: item.name, weight: 10 },
+    { text: item.id, weight: 5 },
+    { text: item.pitfall, weight: 4 },
+    { text: item.summary, weight: 3 },
+    { text: item.textbookRef, weight: 2 },
+  ];
+  for (const f of fields) {
+    const score = tokens.reduce((s, t) => s + ((f.text || '').toLowerCase().includes(t) ? f.weight : 0), 0);
+    if (score > 0) return score;
+  }
+  return 0;
+}
+
+function scoreRule(rule, tokens) {
+  const nameScore = tokens.reduce((s, t) => s + ((rule.name || '').toLowerCase().includes(t) ? 10 : 0), 0);
+  if (nameScore > 0) return nameScore;
+  const idScore = tokens.reduce((s, t) => s + ((rule.id || '').toLowerCase().includes(t) ? 5 : 0), 0);
+  if (idScore > 0) return idScore;
+  return tokens.reduce((s, t) => s + ((rule.display || '').toLowerCase().includes(t) ? 3 : 0), 0);
 }
 
 /* ---------- 错误提示 ---------- */

@@ -405,6 +405,34 @@ main { padding: 28px 20px 60px; }
 .chip-k { background: #ecfdf5; color: #047857; border-color: #a7f3d0; }
 .chip-src { background: #f8fafc; }
 
+/* 推理步骤时间线：左侧垂直连接线 */
+.steps > li.step-timeline::after {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 36px;
+  bottom: -8px;
+  width: 2px;
+  background: var(--border);
+}
+.steps > li.step-timeline:last-child::after { display: none; }
+
+/* 按证据类型着色：方程式(红) / 规则(蓝) / 检索(灰) */
+.steps > li.step-type-reaction { border-left: 3px solid #dc2626; }
+.steps > li.step-type-reaction::before { background: #fee2e2; color: #b91c1c; }
+.steps > li.step-type-rule { border-left: 3px solid #2563eb; }
+.steps > li.step-type-rule::before { background: #dbeafe; color: #1d4ed8; }
+.steps > li.step-type-lookup { border-left: 3px solid #64748b; }
+.steps > li.step-type-lookup::before { background: #f1f5f9; color: #475569; }
+.steps > li.step-type-reasoning { border-left: 3px solid #7c3aed; }
+.steps > li.step-type-reasoning::before { background: #ede9fe; color: #6d28d9; }
+
+.chip-type { font-weight: 600; }
+.chip-type-reaction { background: #fef2f2; color: #b91c1c; border-color: #fecaca; }
+.chip-type-rule { background: #eff6ff; color: #1d4ed8; border-color: #bfdbfe; }
+.chip-type-lookup { background: #f8fafc; color: #475569; border-color: #e2e8f0; }
+.chip-type-reasoning { background: #f5f3ff; color: #6d28d9; border-color: #ddd6fe; }
+
 /* 答案结构化展示 */
 
 .eq-block {
@@ -888,10 +916,136 @@ main { padding: 28px 20px 60px; }
   line-height: 1.5;
 }
 
+/* —— 首页可视化入口按钮 —— */
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #818cf8, #4f46e5);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.28);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.hero-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 9px 24px rgba(79, 70, 229, 0.34);
+}
+
+/* —— 可视化效果一览 —— */
+.viz-hero { padding: 26px 4px 4px; }
+.viz-hero h2 { margin: 0 0 6px; font-size: 22px; color: var(--brand-dark); }
+.viz-hero p { margin: 0; font-size: 13.5px; color: var(--muted); }
+
+.viz-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 20px;
+  margin: 18px 0 48px;
+}
+
+.viz-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.viz-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.1);
+}
+
+.viz-card-head {
+  padding: 14px 18px 10px;
+  border-bottom: 1px dashed var(--border);
+}
+
+.viz-card-head h3 { margin: 0 0 3px; font-size: 15px; color: var(--text); }
+.viz-card-head p { margin: 0; font-size: 12px; color: var(--muted); }
+
+.viz-card-body { flex: 1; padding: 14px 18px; }
+
+/* 卡片内嵌套图示：去掉图块自身的边框与标题，避免双层框架 */
+.viz-card-body .viz-block {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.viz-card-body .viz-block > h5 { display: none; }
+
+.viz-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 18px;
+  border-top: 1px solid var(--border);
+  background: #f8fafc;
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.viz-card-foot span { color: var(--brand); font-weight: 600; }
+.viz-card-foot:hover { background: #eef2ff; }
+
 /* —— 电化学装置图 SVG —— */
 .elec-diagram { overflow-x: auto; }
 .elec-svg { width: 100%; max-width: 640px; height: auto; display: block; }
 .elec-svg text { font-family: inherit; }
+
+/* 电子沿外电路流动的动画虚线 */
+.elec-flow {
+  stroke-dasharray: 7 6;
+  animation: elecFlow 1.3s linear infinite;
+}
+@keyframes elecFlow {
+  to { stroke-dashoffset: -26; }
+}
+
+.elec-eq-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.elec-eq {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid var(--border);
+}
+
+.elec-eq-formula { font-size: 14px; line-height: 1.4; }
+
+.elec-eq-tag {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 7px;
+}
+
+.elec-eq-ox .elec-eq-tag { background: #ffedd5; color: #9a3412; }
+.elec-eq-red .elec-eq-tag { background: #dbeafe; color: #1e40af; }
 
 /* —— 转化链流程图 —— */
 .flow-chart {
@@ -957,38 +1111,22 @@ main { padding: 28px 20px 60px; }
 
 /* —— 粒子浓度柱状图 —— */
 .bar-chart {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 16px;
-  height: 180px;
-  padding: 10px;
-  background: #fff;
-  border-radius: 8px;
+  padding: 12px 10px;
+  background: linear-gradient(180deg, #fdfdff 0%, #ffffff 100%);
+  border-radius: 10px;
   border: 1px solid var(--border);
 }
 
-.bar-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  height: 100%;
+.bar-svg {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-.bar-label {
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: var(--text);
-}
-
-.bar {
-  width: 36px;
-  background: linear-gradient(180deg, var(--cat-color, var(--brand)) 0%, var(--cat-soft, var(--brand-soft)) 100%);
-  border-radius: 6px 6px 0 0;
-  min-height: 20px;
-}
+.bar-g { transition: opacity 0.2s ease; }
+.bar-g:hover { opacity: 0.82; }
 
 /* —— 离子共存冲突图 —— */
 .coex-graph {
@@ -997,6 +1135,17 @@ main { padding: 28px 20px 60px; }
   border-radius: 8px;
   border: 1px solid var(--border);
 }
+
+.coex-svg {
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.coex-node-g rect { transition: transform 0.2s ease, stroke-width 0.2s ease; }
+.coex-node-g:hover rect { stroke-width: 3; }
 
 .coex-nodes {
   display: flex;
@@ -1089,52 +1238,296 @@ main { padding: 28px 20px 60px; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
-  padding: 14px;
+  gap: 10px;
+  padding: 12px;
   background: #fff;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 1px solid var(--border);
 }
 
-.mole-center {
-  border: 3px solid var(--brand);
-  border-radius: 12px;
-  padding: 10px 24px;
-  background: var(--brand-soft);
-}
-
-.mole-ring {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+.mole-svg {
   width: 100%;
-  max-width: 400px;
+  max-width: 560px;
+  height: auto;
+  display: block;
 }
 
-.mole-node {
+/* ---------- 主导航 ---------- */
+
+.main-nav {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-inner {
+  display: flex;
+  gap: 8px;
+  padding: 10px 0;
+}
+
+.nav-btn {
+  padding: 8px 18px;
   border: 1.5px solid var(--border);
   border-radius: 8px;
-  padding: 8px 12px;
   background: #fff;
-  text-align: center;
-}
-
-.mole-node.mole-hl {
-  border-color: var(--brand);
-  background: var(--brand-soft);
-  box-shadow: 0 0 0 2px var(--brand-soft);
-}
-
-.mole-node-label {
-  font-size: 13px;
+  cursor: pointer;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--brand-dark);
+  transition: all 0.2s;
 }
 
-.mole-node-formula {
+.nav-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.nav-btn.active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+/* ---------- 知识库浏览页 ---------- */
+
+.kb-header h2 {
+  margin: 12px 0 4px;
+}
+
+.kb-hint {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0 0 16px;
+}
+
+.kb-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.kb-filter {
+  padding: 6px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.2s;
+}
+
+.kb-filter:hover {
+  border-color: var(--brand);
+}
+
+.kb-filter.active {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+
+.kb-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+
+.kb-card {
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  background: #fff;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+
+.kb-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.kb-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.kb-id {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--brand);
+  background: var(--brand-soft);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.kb-tier {
+  font-size: 11px;
+  color: var(--muted);
+  background: #f0f0f0;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.kb-name {
+  margin: 4px 0;
+  font-size: 16px;
+}
+
+.kb-module {
   font-size: 12px;
   color: var(--muted);
-  margin-top: 2px;
+  margin: 2px 0 8px;
+}
+
+.kb-summary {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333;
+  margin: 6px 0;
+}
+
+.kb-pitfall {
+  font-size: 12px;
+  color: #d63031;
+  background: #ffeaea;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin: 8px 0 0;
+}
+
+.kb-expand {
+  display: none;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+}
+
+.kb-card.expanded .kb-expand {
+  display: block;
+}
+
+.kb-section {
+  font-size: 12px;
+  margin-bottom: 8px;
+  line-height: 1.8;
+}
+
+.kb-prereq {
+  display: inline-block;
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin: 2px 4px 2px 0;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.kb-prereq:hover {
+  background: #bbdefb;
+}
+
+.kb-rule {
+  display: inline-block;
+  background: #f3e5f5;
+  color: #7b1fa2;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin: 2px 4px 2px 0;
+  font-size: 12px;
+  cursor: help;
+}
+
+/* ---------- 知识问答面板 ---------- */
+
+.qa-header h2 {
+  margin: 12px 0 4px;
+}
+
+.qa-input-row {
+  display: flex;
+  gap: 10px;
+  margin: 16px 0 12px;
+}
+
+.qa-input {
+  flex: 1;
+}
+
+.qa-quick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.qa-quick-btn {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.qa-quick-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.qa-results {
+  min-height: 100px;
+}
+
+.qa-section-title {
+  margin: 20px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--brand-soft);
+}
+
+.qa-rules {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 12px;
+}
+
+.qa-rule-card {
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  background: #fff;
+}
+
+.qa-rule-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.qa-rule-display {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #444;
+  margin: 0 0 8px;
+  padding: 8px 12px;
+  background: #f9f9f9;
+  border-radius: 6px;
+}
+
+.qa-rule-ref {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
 }
 
 /* —— 原子守恒校验 —— */
@@ -1219,13 +1612,23 @@ main { padding: 28px 20px 60px; }
 
 .ct-chart svg {
   width: 100%;
-  max-width: 540px;
+  max-width: 560px;
   height: auto;
   display: block;
   margin: 0 auto;
 }
 
 .ct-chart svg text { font-family: inherit; }
+
+/* 曲线描边动画（pathLength=1 归一化，兼容任意路径长度） */
+.ct-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: ctDraw 1.1s ease-out forwards;
+}
+@keyframes ctDraw {
+  to { stroke-dashoffset: 0; }
+}
 
 .ct-legend {
   display: flex;
@@ -1257,12 +1660,14 @@ main { padding: 28px 20px 60px; }
 }
 
 .apparatus-item {
-  background: #fff;
+  background: linear-gradient(180deg, #fdfdff 0%, #ffffff 100%);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 10px;
   text-align: center;
 }
+
+.apparatus-item svg * { stroke-linecap: round; stroke-linejoin: round; }
 
 .apparatus-item svg {
   width: 100%;

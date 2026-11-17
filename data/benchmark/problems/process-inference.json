@@ -348,6 +348,229 @@
       ],
       "source": "人教版《化学·必修第一册》第三章'铁及其化合物'（Fe^2+/Fe^3+ 相互转化）",
       "tags": ["转化链", "铁三角", "电荷守恒"]
+    },
+    {
+      "id": "PROC-009",
+      "category": "ProcessInference",
+      "difficulty": "Basic",
+      "problemText": "A 是一种常见的强碱。向 A 的溶液中通入少量 CO2 得到正盐 B；继续通入过量 CO2，B 转化为酸式盐 C。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["NaOH", "Na2CO3", "NaHCO3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["CO2(少量)"], "phenomenon": "生成正盐" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["CO2", "H2O"], "phenomenon": "正盐转化为酸式盐" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "2NaOH + CO2 = Na2CO3 + H2O",
+          "Na2CO3 + CO2 + H2O = 2NaHCO3"
+        ],
+        "substanceMap": { "A": "NaOH", "B": "Na2CO3", "C": "NaHCO3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-009-D1",
+          "description": "未配平：钠左 1 右 2、氢左 1 右 0",
+          "equation": "NaOH + CO2 = Na2CO3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-009-D2",
+          "description": "未配平：钠左 2 右 1、碳左 2 右 1",
+          "equation": "Na2CO3 + CO2 = NaHCO3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'钠及其化合物'（NaOH→Na2CO3→NaHCO3 转化链）",
+      "tags": ["转化链", "钠的化合物", "酸性氧化物", "酸式盐"]
+    },
+    {
+      "id": "PROC-010",
+      "category": "ProcessInference",
+      "difficulty": "Hard",
+      "problemText": "A 是空气中含量最高的气体。A 与氢气在高温高压催化剂下化合生成 B；B 在催化剂、加热条件下被氧气氧化为无色气体 C；C 遇氧气迅速变为红棕色气体 D；D 与水反应生成强酸 E。确定 A、B、C、D、E 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["N2", "NH3", "NO", "NO2", "HNO3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["H2"], "conditions": ["高温", "高压", "催化剂"], "phenomenon": "可逆化合" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["O2"], "conditions": ["催化剂", "△"], "phenomenon": "催化氧化" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["O2"], "phenomenon": "无色变红棕色" },
+          { "step": 4, "from": "D", "to": "E", "reagents": ["H2O"], "phenomenon": "生成强酸" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "E", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "N2 + 3H2 ⇌ 2NH3",
+          "4NH3 + 5O2 =催化剂,△= 4NO + 6H2O",
+          "2NO + O2 = 2NO2",
+          "3NO2 + H2O = 2HNO3 + NO"
+        ],
+        "substanceMap": { "A": "N2", "B": "NH3", "C": "NO", "D": "NO2", "E": "HNO3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-010-D1",
+          "description": "未配平合成氨：氢左 2 右 3",
+          "equation": "N2 + H2 = NH3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-010-D2",
+          "description": "NO2 与水反应未配平：氮左 1 右 2",
+          "equation": "NO2 + H2O = HNO3 + NO",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'氮及其化合物'（工业制硝酸原理）",
+      "tags": ["转化链", "氮的化合物", "工业制硝酸", "可逆反应"]
+    },
+    {
+      "id": "PROC-011",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "A 是一种灰黑色固体单质，是信息技术的核心材料。A 在氧气中加热生成酸性氧化物 B；B 溶于氢氧化钠溶液得到盐 C；向 C 的溶液中加入盐酸产生白色胶状沉淀 D。确定 A、B、C、D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Si", "SiO2", "Na2SiO3", "H2SiO3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["△"], "phenomenon": "生成酸性氧化物" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["NaOH"], "phenomenon": "固体溶解" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["HCl"], "phenomenon": "白色胶状沉淀" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "Si + O2 =△= SiO2",
+          "SiO2 + 2NaOH = Na2SiO3 + H2O",
+          "Na2SiO3 + 2HCl = 2NaCl + H2SiO3↓"
+        ],
+        "substanceMap": { "A": "Si", "B": "SiO2", "C": "Na2SiO3", "D": "H2SiO3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-011-D1",
+          "description": "未配平：硅左 2 右 1",
+          "equation": "2Si + O2 = SiO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-011-D2",
+          "description": "未配平：钠左 1 右 2",
+          "equation": "SiO2 + NaOH = Na2SiO3 + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第五章'硅及其化合物'（硅的转化链）",
+      "tags": ["转化链", "硅的化合物", "酸性氧化物"]
+    },
+    {
+      "id": "PROC-012",
+      "category": "ProcessInference",
+      "difficulty": "Basic",
+      "problemText": "A 是一种微溶的碱，其水溶液俗称石灰水。向 A 的溶液中通入 CO2 产生白色沉淀 B；继续通入过量 CO2，沉淀溶解得到 C。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Ca(OH)2", "CaCO3", "Ca(HCO3)2"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["CO2"], "phenomenon": "澄清石灰水变浑浊" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["CO2(过量)", "H2O"], "phenomenon": "沉淀溶解" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "CO2 + Ca(OH)2 = CaCO3↓ + H2O",
+          "CO2 + CaCO3 + H2O = Ca(HCO3)2"
+        ],
+        "substanceMap": { "A": "Ca(OH)2", "B": "CaCO3", "C": "Ca(HCO3)2" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-012-D1",
+          "description": "未配平：氢左 2 右 0、氧左 4 右 3",
+          "equation": "CO2 + Ca(OH)2 = CaCO3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-012-D2",
+          "description": "未配平：氢左 0 右 2",
+          "equation": "CO2 + CaCO3 = Ca(HCO3)2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第一章'离子反应'（石灰水→碳酸钙→碳酸氢钙转化链）",
+      "tags": ["转化链", "钙的化合物", "酸式盐", "沉淀溶解"]
+    },
+    {
+      "id": "PROC-013",
+      "category": "ProcessInference",
+      "difficulty": "Medium",
+      "problemText": "A 是一种常见金属。A 溶于稀盐酸得到浅绿色溶液 B；向 B 中加入 NaOH 溶液产生白色沉淀 C；C 在空气中迅速被氧化为红褐色沉淀 D。确定 A、B、C、D 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["Fe", "FeCl2", "Fe(OH)2", "Fe(OH)3"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["HCl(稀)"], "phenomenon": "产生气泡，溶液呈浅绿色" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["NaOH"], "phenomenon": "白色絮状沉淀" },
+          { "step": 3, "from": "C", "to": "D", "reagents": ["O2", "H2O"], "phenomenon": "白色沉淀变灰绿最终变红褐" }
+        ]
+      },
+      "question": { "ask": "WriteStepEquations", "targets": ["A", "B", "C", "D", "各步方程式"] },
+      "expected": {
+        "equations": [
+          "Fe + 2HCl = FeCl2 + H2↑",
+          "FeCl2 + 2NaOH = Fe(OH)2↓ + 2NaCl",
+          "4Fe(OH)2 + O2 + 2H2O = 4Fe(OH)3"
+        ],
+        "substanceMap": { "A": "Fe", "B": "FeCl2", "C": "Fe(OH)2", "D": "Fe(OH)3" },
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROC-013-D1",
+          "description": "未配平：氯左 1 右 2、氢左 1 右 2",
+          "equation": "Fe + HCl = FeCl2 + H2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROC-013-D2",
+          "description": "漏写 H2O：氢左 8 右 12、氧左 10 右 12",
+          "equation": "4Fe(OH)2 + O2 = 4Fe(OH)3",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'（Fe→FeCl2→Fe(OH)2→Fe(OH)3 转化链）",
+      "tags": ["转化链", "铁的化合物", "亚铁氧化", "沉淀颜色变化"]
     }
   ]
 }

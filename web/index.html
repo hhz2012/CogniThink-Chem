@@ -19,8 +19,18 @@
       每道题的解题过程、逐步讲解与分级引导均由推断引擎真实运行生成，不依赖人工撰写。
     </p>
     <div class="stats" id="stats"></div>
+    <a class="hero-cta" href="#viz">✨ 浏览可视化效果</a>
   </div>
 </header>
+
+<nav class="main-nav">
+  <div class="container nav-inner">
+    <button class="nav-btn active" data-view="problems">📝 题目</button>
+    <button class="nav-btn" data-view="viz">✨ 可视化</button>
+    <button class="nav-btn" data-view="knowledge">📚 知识库</button>
+    <button class="nav-btn" data-view="qa">❓ 问答</button>
+  </div>
+</nav>
 
 <nav class="toolbar">
   <div class="container toolbar-inner">
@@ -36,6 +46,12 @@
   </section>
 
   <section id="detailView" hidden></section>
+
+  <section id="vizView" hidden></section>
+
+  <section id="knowledgeView" hidden></section>
+
+  <section id="qaView" hidden></section>
 
   <p class="notice" id="loadingTip">正在加载题目数据…</p>
   <div class="notice error" id="errorTip" hidden></div>

@@ -107,14 +107,14 @@ public class ExplanationGuideTests
     // ------------------------------------------------------------------
 
     [Fact]
-    public void Guide_AllProblems_HasFourProgressiveLevels()
+    public void Guide_AllProblems_HasSixFrameworkSteps()
     {
         foreach (var problem in Problems)
         {
             var solution = ProblemSolver.Solve(problem);
             var guide = GuideGenerator.Generate(solution, problem);
-            Assert.Equal(4, guide.Levels.Count);
-            Assert.Equal(new[] { "定位题型", "回忆知识点", "关键思路", "更具体的提示" },
+            Assert.Equal(6, guide.Levels.Count);
+            Assert.Equal(new[] { "审题分类", "建立模型", "知识检索", "规则应用", "精确求解", "守恒校验" },
                 guide.Levels.Select(l => l.Title).ToArray());
             Assert.All(guide.Levels, l => Assert.NotEmpty(l.Prompts));
             Assert.Contains(problem.Id, guide.FullText);

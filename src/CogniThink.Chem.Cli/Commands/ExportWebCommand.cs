@@ -4,7 +4,9 @@ using CogniThink.Chem.Core;
 using CogniThink.Chem.Core.Benchmark;
 using CogniThink.Chem.Core.Data;
 using CogniThink.Chem.Core.Explanation;
+using CogniThink.Chem.Core.Knowledge;
 using CogniThink.Chem.Core.Molecules;
+using CogniThink.Chem.Core.Rules;
 using CogniThink.Chem.Core.Solving;
 
 namespace CogniThink.Chem.Cli.Commands;
@@ -30,6 +32,7 @@ internal static class ExportWebCommand
 
         var problems = BenchmarkLoader.LoadAll(dataRoot);
         var knowledge = ChemDataLoader.LoadKnowledge(dataRoot);
+        var rules = ChemDataLoader.LoadRules(dataRoot);
         var explainer = new Explainer(knowledge);
 
         var records = new List<object>();
@@ -170,6 +173,50 @@ internal static class ExportWebCommand
         {
             Console.WriteLine($"  {c.name}：{c.count} 题");
         }
+
+        // 导出知识库 + 规则库（供前端知识浏览页与问答面板使用）
+        var ruleByKnowledgeId = rules
+            .Where(r => !string.IsNullOrWhiteSpace(r.KnowledgeId))
+            .GroupBy(r => r.KnowledgeId!)
+            .ToDictionary(g => g.Key, g => g.ToList());
+
+        var knowledgeExport = new
+        {
+            version = "1.0",
+            generatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
+            items = knowledge.All.Select(item => new
+            {
+                item.Id,
+                item.Name,
+                item.Module,
+                item.Tier,
+                item.TextbookRef,
+                item.Prerequisites,
+                item.Summary,
+                item.Pitfall,
+                rules = (ruleByKnowledgeId.TryGetValue(item.Id, out var itemRules)
+                    ? itemRules.Select(r => (object)new
+                    {
+                        r.Id,
+                        r.Name,
+                        r.Layer,
+                        display = r.Conclusion?.Display ?? "",
+                    })
+                    : Array.Empty<object>()).ToList(),
+            }),
+            rules = rules.Select(r => new
+            {
+                r.Id,
+                r.Name,
+                r.KnowledgeId,
+                r.Layer,
+                display = r.Conclusion?.Display ?? "",
+            }),
+        };
+
+        var knowledgeFile = Path.Combine(targetDir, "knowledge.json");
+        File.WriteAllText(knowledgeFile, JsonSerializer.Serialize(knowledgeExport, options), new UTF8Encoding(false));
+        Console.WriteLine($"已导出知识库 {knowledge.Count} 条 + 规则 {rules.Count} 条 → {knowledgeFile}");
 
         return 0;
     }

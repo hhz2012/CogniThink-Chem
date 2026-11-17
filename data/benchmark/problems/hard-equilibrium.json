@@ -323,6 +323,183 @@
       "distractors": [],
       "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
       "tags": ["化学平衡", "图像信息不足", "边界"]
+    },
+    {
+      "id": "EQ-H09",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 H2 + I2 ⇌ 2HI。起始充入 1 mol H2 和 1 mol I2，平衡时生成 1 mol HI，体系总压为 4 atm。列出三段式，求 HI 的摩尔分数与 Kp。",
+      "given": {
+        "equilibrium": {
+          "equation": "H2 + I2 ⇌ 2HI",
+          "container": "constantVolume",
+          "initial": { "H2": "1", "I2": "1" },
+          "known": { "kind": "moles", "species": "HI", "value": "1" },
+          "totalPressure": "4",
+          "fractionSpecies": "HI"
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "HI 摩尔分数", "Kp"] },
+      "expected": {
+        "equations": ["H2 + I2 ⇌ 2HI"],
+        "equilibrium": {
+          "table": [
+            { "species": "H2", "start": "1", "change": "-1/2", "end": "1/2" },
+            { "species": "I2", "start": "1", "change": "-1/2", "end": "1/2" },
+            { "species": "HI", "start": "0", "change": "1", "end": "1" }
+          ],
+          "conversionSpecies": null,
+          "conversion": null,
+          "fractionSpecies": "HI",
+          "fraction": "1/2",
+          "kValue": "4",
+          "direction": null
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H09-D1",
+          "description": "未配平：氢左 2 右 1、碘左 2 右 1",
+          "equation": "H2 + I2 = HI",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "平衡量", "Kp", "氢气碘化合"]
+    },
+    {
+      "id": "EQ-H10",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 2HI ⇌ H2 + I2。起始充入 2 mol HI，平衡时 HI 的转化率为 1/2。列出三段式并求 HI 的摩尔分数；保持温度不变迅速缩小容器体积增大压强，判断平衡移动方向。",
+      "given": {
+        "equilibrium": {
+          "equation": "2HI ⇌ H2 + I2",
+          "container": "constantVolume",
+          "initial": { "HI": "2" },
+          "known": { "kind": "conversion", "species": "HI", "value": "1/2" },
+          "disturbance": { "kind": "compress" }
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "HI 摩尔分数", "加压后移动方向"] },
+      "expected": {
+        "equations": ["2HI ⇌ H2 + I2"],
+        "equilibrium": {
+          "table": [
+            { "species": "HI", "start": "2", "change": "-1", "end": "1" },
+            { "species": "H2", "start": "0", "change": "1/2", "end": "1/2" },
+            { "species": "I2", "start": "0", "change": "1/2", "end": "1/2" }
+          ],
+          "conversionSpecies": "HI",
+          "conversion": "1/2",
+          "fractionSpecies": "HI",
+          "fraction": "1/2",
+          "kValue": null,
+          "direction": "noShift"
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H10-D1",
+          "description": "未配平：氢左 1 右 2、碘左 1 右 2",
+          "equation": "HI = H2 + I2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "Δν=0", "压强不移动"]
+    },
+    {
+      "id": "EQ-H11",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 CO + H2O ⇌ CO2 + H2（水煤气变换）。起始充入 1 mol CO 和 1 mol H2O，平衡时 CO 的物质的量分数为 1/4。列出三段式，求 CO 的转化率与 CO2 的摩尔分数；其他条件不变向体系中加入少量 H2，判断平衡移动方向。",
+      "given": {
+        "equilibrium": {
+          "equation": "CO + H2O ⇌ CO2 + H2",
+          "container": "constantVolume",
+          "initial": { "CO": "1", "H2O": "1" },
+          "known": { "kind": "amountFraction", "species": "CO", "value": "1/4" },
+          "fractionSpecies": "CO2",
+          "disturbance": { "kind": "addSpecies", "species": "H2" }
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "CO 转化率", "CO2 摩尔分数", "加料后移动方向"] },
+      "expected": {
+        "equations": ["CO + H2O ⇌ CO2 + H2"],
+        "equilibrium": {
+          "table": [
+            { "species": "CO", "start": "1", "change": "-1/2", "end": "1/2" },
+            { "species": "H2O", "start": "1", "change": "-1/2", "end": "1/2" },
+            { "species": "CO2", "start": "0", "change": "1/2", "end": "1/2" },
+            { "species": "H2", "start": "0", "change": "1/2", "end": "1/2" }
+          ],
+          "conversionSpecies": "CO",
+          "conversion": "1/2",
+          "fractionSpecies": "CO2",
+          "fraction": "1/4",
+          "kValue": null,
+          "direction": "reverse"
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H11-D1",
+          "description": "漏写 H2：氢左 2 右 0",
+          "equation": "CO + H2O = CO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "平衡分数", "水煤气变换", "浓度扰动"]
+    },
+    {
+      "id": "EQ-H12",
+      "category": "ChemicalEquilibrium",
+      "difficulty": "Hard",
+      "problemText": "恒温恒容密闭容器中发生可逆反应 2SO3 ⇌ 2SO2 + O2（正反应吸热）。起始充入 2 mol SO3，平衡时 SO3 的转化率为 1/2，体系总压为 5 atm。列出三段式，求 SO3 的摩尔分数与 Kp；其他条件不变升高温度，判断平衡移动方向并说明 K 如何变化。",
+      "given": {
+        "equilibrium": {
+          "equation": "2SO3 ⇌ 2SO2 + O2",
+          "container": "constantVolume",
+          "initial": { "SO3": "2" },
+          "known": { "kind": "conversion", "species": "SO3", "value": "1/2" },
+          "totalPressure": "5",
+          "fractionSpecies": "SO3",
+          "disturbance": { "kind": "heatUp", "thermal": "endothermic" }
+        }
+      },
+      "question": { "ask": "EquilibriumCalculation", "targets": ["三段式", "SO3 摩尔分数", "Kp", "升温后移动方向", "K 的变化"] },
+      "expected": {
+        "equations": ["2SO3 ⇌ 2SO2 + O2"],
+        "equilibrium": {
+          "table": [
+            { "species": "SO3", "start": "2", "change": "-1", "end": "1" },
+            { "species": "SO2", "start": "0", "change": "1", "end": "1" },
+            { "species": "O2", "start": "0", "change": "1/2", "end": "1/2" }
+          ],
+          "conversionSpecies": "SO3",
+          "conversion": "1/2",
+          "fractionSpecies": "SO3",
+          "fraction": "2/5",
+          "kValue": "1",
+          "direction": "forward"
+        }
+      },
+      "distractors": [
+        {
+          "id": "EQ-H12-D1",
+          "description": "未配平：氧左 3 右 4",
+          "equation": "SO3 = SO2 + O2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·选择性必修1》第二章'化学反应速率与化学平衡'",
+      "tags": ["化学平衡", "三段式", "Kp", "吸热反应", "温度扰动"]
     }
   ]
 }

@@ -36,7 +36,8 @@ public sealed class Guide
 /// 引导生成器（"能指导学生思考"）：由 <see cref="Solution"/> 与题面生成分级启发提问。
 /// 伴思铁律：只引导、不给答案——引导文本中不得出现答案方程式、成分结论、
 /// 物质赋值或计算数值；最多指向知识条目编号/知识点名称，让学生自己推出结论。
-/// 四级递进：定位题型 → 回忆知识点 → 关键思路 → 更具体的提示。
+/// 六级递进，对应统一解题框架：
+/// 审题分类 → 建立模型 → 知识检索 → 规则应用 → 精确求解 → 守恒校验。
 /// </summary>
 public static class GuideGenerator
 {
@@ -44,7 +45,7 @@ public static class GuideGenerator
     /// <param name="solution">引擎解答（提供知识点线索与证据编号）。</param>
     /// <param name="problem">题目（提供设问目标与已知条件）。</param>
     /// <param name="knowledge">知识库；缺省从 <see cref="DataRoot.Resolve()"/> 载入。</param>
-    /// <param name="reactions">反应知识库；缺省从 <see cref="DataRoot.Resolve()"/> 载入，用于第 4 级查反应条目。</param>
+    /// <param name="reactions">反应知识库；缺省从 <see cref="DataRoot.Resolve()"/> 载入，用于查反应条目。</param>
     public static Guide Generate(Solution solution, ProblemSpec problem, KnowledgeBase? knowledge = null, ReactionLibrary? reactions = null)
     {
         knowledge ??= ChemDataLoader.LoadKnowledge(DataRoot.Resolve());
@@ -55,16 +56,18 @@ public static class GuideGenerator
             Category = problem.Category,
         };
 
-        guide.Levels.Add(BuildLevel1(problem));
-        guide.Levels.Add(BuildLevel2(solution, knowledge));
-        guide.Levels.Add(BuildLevel3(problem));
-        guide.Levels.Add(BuildLevel4(solution, problem, knowledge, reactions));
+        guide.Levels.Add(BuildStep1(problem));
+        guide.Levels.Add(BuildStep2(problem));
+        guide.Levels.Add(BuildStep3(solution, knowledge));
+        guide.Levels.Add(BuildStep4(problem));
+        guide.Levels.Add(BuildStep5(solution, problem));
+        guide.Levels.Add(BuildStep6(solution, problem, knowledge, reactions));
         guide.FullText = RenderFullText(guide);
         return guide;
     }
 
-    /// <summary>第 1 级：定位题型——先想清楚"这是什么题、要什么答案"。</summary>
-    private static GuideLevel BuildLevel1(ProblemSpec problem)
+    /// <summary>第 1 步：审题分类——先想清楚"这是什么题、已知什么、求什么"。</summary>
+    private static GuideLevel BuildStep1(ProblemSpec problem)
     {
         var targets = problem.Question.Targets.Count > 0
             ? string.Join("、", problem.Question.Targets)
@@ -72,19 +75,41 @@ public static class GuideGenerator
         return new GuideLevel
         {
             Level = 1,
-            Title = "定位题型",
+            Title = "审题分类",
             Prompts =
             {
                 $"这是一道{Explainer.CategoryName(problem.Category)}题。先问自己：题目到底要求什么？（{targets}）",
                 "答案应该以什么形式呈现——化学方程式、存在性结论、物质对应关系，还是精确数值？",
+                "把题给的已知条件逐条列出来，区分「确定条件」和「隐含条件」。",
             },
         };
     }
 
-    /// <summary>第 2 级：回忆知识点——激活解题所需的课内知识，直接呈现要点。</summary>
-    private static GuideLevel BuildLevel2(Solution solution, KnowledgeBase knowledge)
+    /// <summary>第 2 步：建立模型——选定本题的标准解法范式。</summary>
+    private static GuideLevel BuildStep2(ProblemSpec problem)
     {
-        var level = new GuideLevel { Level = 2, Title = "回忆知识点" };
+        var level = new GuideLevel { Level = 2, Title = "建立模型" };
+        level.Prompts.Add(problem.Category switch
+        {
+            ProblemCategory.ProductInference => "范式：反应库检索。把反应物+条件与课内反应条目逐一比对。",
+            ProblemCategory.IonCoexistence => "范式：介质+两两反应。先定介质（酸/碱/中），再把离子两两配对查反应。",
+            ProblemCategory.SubstanceIdentification or ProblemCategory.IonPowderIdentification => "范式：约束传播。逐步分析每步现象，确定「一定存在」和「一定不存在」，剩余归「可能存在」。",
+            ProblemCategory.ProcessInference or ProblemCategory.OrganicInference => "范式：转化链回溯。从最特征的现象锁定一个物质，再沿链逐个验证赋值。",
+            ProblemCategory.IndustrialProcess => "范式：转化链+每步目的。区分化学转化步骤与纯操作步骤，分析每步在除杂/分离/pH 调控中的作用。",
+            ProblemCategory.StoichiometryCalc => "范式：物质的量 n 为中心。所有已知量换算到 n，再用公式求目标量。",
+            ProblemCategory.Electrochemistry => "范式：装置判定+离子电子法。先判原电池/电解池，再拆半反应。",
+            ProblemCategory.ChemicalEquilibrium => "范式：三段式。起始→转化(ν·x)→平衡，列一元一次方程解 x。",
+            ProblemCategory.AqueousIonEquilibrium => "范式：电离/水解+三大守恒。先写全部电离水解方程，再列电荷/物料/质子守恒。",
+            ProblemCategory.ExperimentalInquiry => "范式：操作→现象→结论。按教材固定表述模板作答，误差分析回到操作原理。",
+            _ => "范式：先确定本题的标准解法类型，再按对应步骤推进。",
+        });
+        return level;
+    }
+
+    /// <summary>第 3 步：知识检索——激活解题所需的课内知识点。</summary>
+    private static GuideLevel BuildStep3(Solution solution, KnowledgeBase knowledge)
+    {
+        var level = new GuideLevel { Level = 3, Title = "知识检索" };
         var seen = new HashSet<string>(StringComparer.Ordinal);
         foreach (var step in solution.Steps)
         {
@@ -98,7 +123,7 @@ public static class GuideGenerator
                 var summary = !string.IsNullOrWhiteSpace(item.Summary)
                     ? $"要点：{item.Summary}"
                     : "回想这条规律的内容与适用条件。";
-                level.Prompts.Add($"知识点「{item.Name}」（{item.TextbookRef}）。{summary}");
+                level.Prompts.Add($"知识点「{item.Name}」（{item.Id}，{item.TextbookRef}）。{summary}");
             }
         }
 
@@ -110,10 +135,10 @@ public static class GuideGenerator
         return level;
     }
 
-    /// <summary>第 3 级：关键思路——按类别用题给已知条件驱动提示（不含具体结论）。</summary>
-    private static GuideLevel BuildLevel3(ProblemSpec problem)
+    /// <summary>第 4 步：规则应用——按类别用题给已知条件驱动推理（不含具体结论）。</summary>
+    private static GuideLevel BuildStep4(ProblemSpec problem)
     {
-        var level = new GuideLevel { Level = 3, Title = "关键思路" };
+        var level = new GuideLevel { Level = 4, Title = "规则应用" };
         var g = problem.Given;
         switch (problem.Category)
         {
@@ -245,16 +270,74 @@ public static class GuideGenerator
         return level;
     }
 
-    /// <summary>第 4 级：更具体的提示——查关键反应条目，给出反应类型与条件（仍不给出产物/方程式）。</summary>
-    private static GuideLevel BuildLevel4(Solution solution, ProblemSpec problem, KnowledgeBase knowledge, ReactionLibrary reactions)
+    /// <summary>第 5 步：精确求解——设未知量、列方程、代入计算（不给最终数值）。</summary>
+    private static GuideLevel BuildStep5(Solution solution, ProblemSpec problem)
     {
-        var level = new GuideLevel { Level = 4, Title = "更具体的提示" };
+        var level = new GuideLevel { Level = 5, Title = "精确求解" };
+
         if (problem.Category == ProblemCategory.StoichiometryCalc && problem.Expected.Calc is { } calc)
         {
-            level.Prompts.Add($"最后的提示：按 {ProblemSolver.FormulaOf(calc.Op)} 代入题给数值，注意精确计算。");
+            level.Prompts.Add($"按 {ProblemSolver.FormulaOf(calc.Op)} 代入题给数值，注意单位换算（如 mL→L、g→mol）。");
+            level.Prompts.Add("用分数精确运算，避免浮点误差；最后检查结果的量纲是否正确。");
             return level;
         }
 
+        if (problem.Category == ProblemCategory.ChemicalEquilibrium)
+        {
+            level.Prompts.Add("设转化进度为 x，把三段式中各物种的平衡量用 x 表示。");
+            level.Prompts.Add("用题给的平衡信息（转化率/平衡量/分数）列出关于 x 的一元一次方程并求解。");
+            level.Prompts.Add("检查 x 是否为正、各物种平衡量是否非负——若矛盾则此题无解。");
+            return level;
+        }
+
+        // 推断类：设标签→物质的赋值，逐步代入验证
+        if (problem.Category is ProblemCategory.ProcessInference or ProblemCategory.OrganicInference or ProblemCategory.IndustrialProcess)
+        {
+            level.Prompts.Add("给转化链的每个字母标签赋一个候选物质，然后沿链逐步行验证。");
+            level.Prompts.Add("若某一步无法解释，回退上一步换一个候选再试；所有步骤都通过的赋值即为答案。");
+            return level;
+        }
+
+        // 成分推断类
+        if (problem.Category is ProblemCategory.SubstanceIdentification or ProblemCategory.IonPowderIdentification)
+        {
+            level.Prompts.Add("对每个候选物质，用每步实验现象检验：能产生该现象的保留，不能的排除。");
+            level.Prompts.Add("注意「无现象」不等于「无反应」——逐一排查哪些候选若存在一定会反应。");
+            return level;
+        }
+
+        level.Prompts.Add("把第 4 步的推理落实为具体的计算或推导，注意单位与有效数字。");
+        return level;
+    }
+
+    /// <summary>第 6 步：守恒校验——检查原子/电荷/质量/电子守恒。</summary>
+    private static GuideLevel BuildStep6(Solution solution, ProblemSpec problem, KnowledgeBase knowledge, ReactionLibrary reactions)
+    {
+        var level = new GuideLevel { Level = 6, Title = "守恒校验" };
+        level.Prompts.Add("最后做守恒检查：你的结论是否满足原子守恒、电荷守恒、质量守恒？");
+
+        if (problem.Category == ProblemCategory.Electrochemistry)
+        {
+            level.Prompts.Add("电化学额外检查：两个半反应的电子转移数是否相等？总反应是否与半反应之和一致？");
+        }
+        else if (problem.Category == ProblemCategory.ChemicalEquilibrium)
+        {
+            level.Prompts.Add("平衡题检查：K 只与温度有关（EQ-002），催化剂不移动平衡（EQ-003），扰动方向是否符合勒夏特列原理（EQ-001）？");
+        }
+        else if (problem.Category == ProblemCategory.IonCoexistence)
+        {
+            level.Prompts.Add("离子共存检查：是否有遗漏的离子对？介质离子（H⁺/OH⁻）是否已纳入考量？");
+        }
+        else if (problem.Category == ProblemCategory.AqueousIonEquilibrium)
+        {
+            level.Prompts.Add("水溶液检查：三大守恒式是否正确列出？浓度排序中强电解质粒子是否排在弱过程粒子之前？");
+        }
+        else if (problem.Category == ProblemCategory.StoichiometryCalc)
+        {
+            level.Prompts.Add("计算检查：方程式计量数之比是否等于物质的量之比？单位换算是否正确？");
+        }
+
+        // 查关键反应条目，给出反应类型与条件（仍不给出产物/方程式）
         var evidence = solution.Steps
             .Select(s => s.Evidence)
             .FirstOrDefault(e => e.StartsWith("RX-", StringComparison.Ordinal));
@@ -269,16 +352,12 @@ public static class GuideGenerator
             {
                 knName = $"，对应知识点「{kn.Name}」";
             }
-            // 只给反应类型与条件，不透露反应物/产物/方程式/现象，避免直接泄漏答案
-            level.Prompts.Add($"最后的提示：本题的关键反应属于{typeName}{condText}{knName}。回到教材中该类反应的规律，结合题给信息推导结论。");
+            level.Prompts.Add($"关键反应属于{typeName}{condText}{knName}。回到教材中该类反应的规律，确认你的推导与之一致。");
         }
-        else if (evidence is not null)
+
+        if (level.Prompts.Count == 1)
         {
-            level.Prompts.Add($"最后的提示：本题的关键反应记录在知识条目 {evidence} 中——确认它的反应物与条件，结论就在其中。");
-        }
-        else
-        {
-            level.Prompts.Add("最后的提示：回到第 2 级的知识点，把与题给条件最吻合的那条规律写出来，再对照题目逐步排查。");
+            level.Prompts.Add("回到第 3 步的知识点，把与题给条件最吻合的那条规律写出来，再对照你的结论逐步排查。");
         }
 
         return level;
@@ -308,7 +387,7 @@ public static class GuideGenerator
         };
         foreach (var level in guide.Levels)
         {
-            lines.Add($"◆ 第 {level.Level} 级·{level.Title}");
+            lines.Add($"◆ 第 {level.Level} 步·{level.Title}");
             foreach (var prompt in level.Prompts)
             {
                 lines.Add($"  - {prompt}");

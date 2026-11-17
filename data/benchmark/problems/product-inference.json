@@ -264,6 +264,144 @@
       ],
       "source": "人教版《化学·必修第一册》第二章'钠及其化合物'（过氧化钠，歧化反应）",
       "tags": ["歧化反应", "氧化还原", "过氧化钠"]
+    },
+    {
+      "id": "PROD-009",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "镁条在氧气中剧烈燃烧，发出耀眼白光。写出该反应的化学方程式。",
+      "given": { "species": ["Mg", "O2"], "conditions": ["点燃"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["2Mg + O2 =点燃= 2MgO"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-009-D1",
+          "description": "氧原子不守恒",
+          "equation": "Mg + O2 =点燃= MgO",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'金属材料'（镁的燃烧）",
+      "tags": ["化合反应", "氧化还原"]
+    },
+    {
+      "id": "PROD-010",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "木炭在氧气中完全燃烧。写出该反应的化学方程式。",
+      "given": { "species": ["C", "O2"], "conditions": ["点燃"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["C + O2 =点燃= CO2"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-010-D1",
+          "description": "氧原子不守恒（右 2 个 O，左 2 个 O，但 C 不守恒：左 2 右 1）",
+          "equation": "2C + O2 =点燃= CO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第六章'化学反应与能量'（碳的燃烧）",
+      "tags": ["化合反应", "氧化还原", "完全燃烧"]
+    },
+    {
+      "id": "PROD-011",
+      "category": "ProductInference",
+      "difficulty": "Basic",
+      "problemText": "硫粉在氧气中燃烧，产生明亮的蓝紫色火焰。写出该反应的化学方程式。",
+      "given": { "species": ["S", "O2"], "conditions": ["点燃"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["S + O2 =点燃= SO2"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-011-D1",
+          "description": "误写为 SO3：硫在氧气中燃烧直接产物是 SO2，SO3 需催化氧化",
+          "equation": "2S + 3O2 =点燃= 2SO3",
+          "expectValid": false,
+          "expectFailChecks": ["反应库一致性"],
+          "expectRiskTag": "知识库矛盾"
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第二章'硫及其化合物'（硫的燃烧）",
+      "tags": ["化合反应", "氧化还原", "二氧化硫"]
+    },
+    {
+      "id": "PROD-012",
+      "category": "ProductInference",
+      "difficulty": "Medium",
+      "problemText": "氢气在加热条件下还原氧化铜。写出该反应的化学方程式。",
+      "given": { "species": ["H2", "CuO"], "conditions": ["△"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["H2 + CuO =△= Cu + H2O"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-012-D1",
+          "description": "氢原子不守恒",
+          "equation": "H2 + CuO =△= Cu + 2H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第一册》第三章'铁及其化合物'拓展（氢气还原金属氧化物）",
+      "tags": ["置换反应", "氧化还原", "还原反应"]
+    },
+    {
+      "id": "PROD-013",
+      "category": "ProductInference",
+      "difficulty": "Hard",
+      "problemText": "一氧化碳在高温下还原氧化铁（工业炼铁原理）。写出该反应的化学方程式。",
+      "given": { "species": ["CO", "Fe2O3"], "conditions": ["高温"] },
+      "question": { "ask": "WriteProducts", "targets": ["产物", "化学方程式"] },
+      "expected": {
+        "equations": ["Fe2O3 + 3CO =高温= 2Fe + 3CO2"],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平", "氧化还原分析"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "PROD-013-D1",
+          "description": "配平错误：碳原子左 1 右 3",
+          "equation": "CO + Fe2O3 =高温= 2Fe + 3CO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        },
+        {
+          "id": "PROD-013-D2",
+          "description": "氧原子不守恒：左 4 右 6",
+          "equation": "3CO + Fe2O3 =高温= 2Fe + 2CO2",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第七章'有机化合物'拓展；必修第一册'金属材料'（工业炼铁）",
+      "tags": ["氧化还原", "工业炼铁", "一氧化碳"]
     }
   ]
 }

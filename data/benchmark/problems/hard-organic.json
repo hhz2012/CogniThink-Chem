@@ -303,6 +303,150 @@
       "distractors": [],
       "source": "人教版《化学·必修第二册》第七章'有机化合物'（乙烯与乙炔均能使溴水褪色并加氢，证据不足时的如实欠定边界样例）",
       "tags": ["有机推断", "边界", "双解", "如实欠定"]
+    },
+    {
+      "id": "ORG-H09",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是无色有刺激性气味的液体，有毒，误饮可致失明。A 在 Cu 催化、加热下被氧气氧化为 B；B 与银氨溶液在水浴加热条件下反应，试管内壁形成光亮银镜，生成 C。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["CH3OH", "HCHO", "(NH4)2CO3", "HCOOH", "CH3COOH"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["O2"], "conditions": ["Cu", "△"] },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["Ag(NH3)2OH"], "conditions": ["水浴", "△"], "phenomenon": "试管内壁形成光亮银镜" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "CH3OH", "B": "HCHO", "C": "(NH4)2CO3" },
+        "equations": [
+          "2CH3OH + O2 =Cu,△= 2HCHO + 2H2O",
+          "HCHO + 4Ag(NH3)2OH =水浴,△= (NH4)2CO3 + 4Ag↓ + 6NH3 + 2H2O"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H09-D1",
+          "description": "甲醇催化氧化未配平：氧原子不守恒",
+          "equation": "CH3OH + O2 =Cu,△= HCHO + H2O",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《选择性必修3·有机化学基础》第三章'烃的衍生物'（甲醇催化氧化与甲醛银镜反应）",
+      "tags": ["有机推断", "醇醛转化", "银镜反应"]
+    },
+    {
+      "id": "ORG-H10",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是无色晶体，有特殊气味，有毒，其稀溶液可用于消毒防腐。A 与 NaOH 溶液反应，浑浊的悬浊液变澄清，得到 B；A 与浓溴水反应立即产生白色沉淀 C。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C6H5OH", "C6H5ONa", "C6H3OBr3", "C6H5NO2", "C6H6"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["NaOH"], "phenomenon": "浑浊的悬浊液变澄清" },
+          { "step": 2, "from": "A", "to": "C", "reagents": ["Br2"], "phenomenon": "产生白色沉淀" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C6H5OH", "B": "C6H5ONa", "C": "C6H3OBr3" },
+        "equations": [
+          "C6H5OH + NaOH = C6H5ONa + H2O",
+          "C6H5OH + 3Br2 = C6H3OBr3↓ + 3HBr"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H10-D1",
+          "description": "苯酚溴代漏写产物 HBr：氢、溴不守恒",
+          "equation": "C6H5OH + 3Br2 = C6H3OBr3↓",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "反应库一致性"]
+        }
+      ],
+      "source": "人教版《选择性必修3·有机化学基础》第三章'烃的衍生物'（苯酚的弱酸性与溴代反应）",
+      "tags": ["有机推断", "苯酚", "弱酸性", "取代反应"]
+    },
+    {
+      "id": "ORG-H11",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是食醋的主要成分，有刺激性气味。A 与 NaOH 溶液发生中和反应生成 B；A 与碳酸钠溶液反应产生能使澄清石灰水变浑浊的气体 C，同时生成 B。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["CH3COOH", "CH3COONa", "CO2", "CH3CHO", "C2H5OH"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "reagents": ["NaOH"] },
+          { "step": 2, "from": "A", "to": "C", "reagents": ["Na2CO3"], "phenomenon": "产生能使澄清石灰水变浑浊的气体" }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "CH3COOH", "B": "CH3COONa", "C": "CO2" },
+        "equations": [
+          "CH3COOH + NaOH = CH3COONa + H2O",
+          "2CH3COOH + Na2CO3 = 2CH3COONa + H2O + CO2↑"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H11-D1",
+          "description": "乙酸与碳酸钠反应未配平：氢、氧、钠均不守恒",
+          "equation": "CH3COOH + Na2CO3 = CH3COONa + CO2↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒"]
+        }
+      ],
+      "source": "人教版《化学·必修第二册》第七章'有机化合物'（乙酸的酸性与中和、与碳酸盐反应）",
+      "tags": ["有机推断", "羧酸", "酸性比较", "复分解反应"]
+    },
+    {
+      "id": "ORG-H12",
+      "category": "OrganicInference",
+      "difficulty": "Hard",
+      "problemText": "A 是酒的主要成分。A 在浓硫酸、170℃ 条件下发生分子内脱水生成气体 B；B 与氢气在 Ni 催化、加热下加成生成 C。确定 A、B、C 并写出各步反应的化学方程式。",
+      "given": {
+        "candidateSpecies": ["C2H5OH", "C2H4", "C2H6", "CH3CHO", "C2H5Br"],
+        "steps": [
+          { "step": 1, "from": "A", "to": "B", "conditions": ["浓H2SO4", "170℃"], "phenomenon": "生成使溴水褪色的气体" },
+          { "step": 2, "from": "B", "to": "C", "reagents": ["H2"], "conditions": ["Ni", "△"] }
+        ]
+      },
+      "question": { "ask": "InferOrganicChain", "targets": ["A", "B", "C", "各步方程式"] },
+      "expected": {
+        "substanceMap": { "A": "C2H5OH", "B": "C2H4", "C": "C2H6" },
+        "equations": [
+          "C2H5OH =浓H2SO4,170℃= C2H4↑ + H2O",
+          "C2H4 + H2 =Ni,△= C2H6"
+        ],
+        "engineExpectation": {
+          "isValid": true,
+          "mustPass": ["白名单校验", "元素与电荷守恒", "配平"]
+        }
+      },
+      "distractors": [
+        {
+          "id": "ORG-H12-D1",
+          "description": "乙醇消去反应漏写产物水：氢、氧不守恒",
+          "equation": "C2H5OH =浓H2SO4,170℃= C2H4↑",
+          "expectValid": false,
+          "expectFailChecks": ["元素守恒", "反应库一致性"]
+        }
+      ],
+      "source": "人教版《选择性必修3·有机化学基础》第三章'烃的衍生物'（乙醇消去制乙烯与乙烯催化加氢）",
+      "tags": ["有机推断", "消去反应", "加成反应", "乙烯"]
     }
   ]
 }
