@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="edu">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>专项思维扩展 · 化学伴思</title>
+
+<!-- Tailwind CSS v3 (Play CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- 主题提前应用：读取 localStorage，避免刷新闪烁 -->
+<script>
+  (function () {
+    var saved = localStorage.getItem('chem-bansi-theme');
+    if (saved === 'adventure' || saved === 'edu') {
+      document.documentElement.setAttribute('data-theme', saved);
+    }
+  })();
+</script>
+
+<style>
+/* ============================================================
+   主题变量（两套主题互相独立，仅切换视觉，不改布局）
+   ============================================================ */
+
+/* ---------- 主题1：标准教育模式（默认） ---------- */
+[data-theme="edu"] {
+  --primary: #28B8B8;            /* 主色 */
+  --primary-deep: #0F6B6B;       /* 辅助深青 */
+  --bg: #F7FCFC;                 /* 页面背景 */
+  --text: #1A2E33;               /* 文字主色 */
+  --text-sub: #64787C;           /* 次要文字 */
+
+  --card-bg: #FFFFFF;            /* 卡片基底 */
+  --card-border: rgba(15, 107, 107, 0.10);
+  --card-shadow: 0 2px 10px rgba(15, 107, 107, 0.07);
+  --card-shadow-hover: 0 6px 16px rgba(15, 107, 107, 0.13);
+  --card-radius: 16px;
+  --card-blur: none;
+
+  --icon-bg: rgba(40, 184, 184, 0.12);
+  --icon-c: #0F6B6B;
+
+  --track: #E6F1F1;              /* 进度条底 */
+  --fill: #28B8B8;
+  --fill-glow: none;
+
+  /* 化学闯关按钮 / 风格切换按钮 */
+  --btn1-bg: rgba(40, 184, 184, 0.12);
+  --btn1-c: #0F6B6B;
+  --btn1-border: rgba(40, 184, 184, 0.35);
+  --btn1-glow: none;
+  --btn2-bg: transparent;
+  --btn2-c: #0F6B6B;
+  --btn2-border: rgba(15, 107, 107, 0.30);
+
+  /* 底部导航 */
+  --tab-bg: rgba(255, 255, 255, 0.96);
+  --tab-border: rgba(15, 107, 107, 0.08);
+  --tab-shadow: 0 -2px 16px rgba(15, 107, 107, 0.10);
+  --tab-inactive: #8AA0A4;
+  --tab-active-glow: none;
+
+  /* 背景层：教育模式无渐变、无卡片底纹 */
+  --grad-op: 0;
+  --pattern-op: 0;
+  --wm-op: 0.05;                 /* 淡化学分子暗纹 5% */
+}
+
+/* ---------- 主题2：秘境探险模式 ---------- */
+[data-theme="adventure"] {
+  --primary: #28E0E0;            /* 荧光青 */
+  --primary-deep: #0F282C;
+  --bg: #0F282C;
+  --text: #E6FBFB;               /* 青白色，保证可读 */
+  --text-sub: #9FC6C6;
+
+  --card-bg: rgba(21, 59, 64, 0.55);   /* 半透深青 + 玻璃拟态 */
+  --card-border: rgba(40, 224, 224, 0.30); /* 1px 细发光边框 */
+  --card-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.45), 0 0 14px rgba(40, 224, 224, 0.12);
+  --card-radius: 18px;
+  --card-blur: blur(12px);
+
+  --icon-bg: rgba(40, 224, 224, 0.14);
+  --icon-c: #28E0E0;
+
+  --track: rgba(255, 255, 255, 0.14);
+  --fill: #28E0E0;
+  --fill-glow: 0 0 8px rgba(40, 224, 224, 0.7); /* 进度条柔和发光 */
+
+  --btn1-bg: #28E0E0;
+  --btn1-c: #0F282C;
+  --btn1-border: transparent;
+  --btn1-glow: 0 0 12px rgba(40, 224, 224, 0.45);
+  --btn2-bg: rgba(40, 224, 224, 0.08);
+  --btn2-c: #28E0E0;
+  --btn2-border: rgba(40, 224, 224, 0.45);
+
+  --tab-bg: rgba(15, 40, 44, 0.88);
+  --tab-border: rgba(40, 224, 224, 0.25);
+  --tab-shadow: 0 -4px 24px rgba(0, 0, 0, 0.5);
+  --tab-inactive: #7BA6A6;
+  --tab-active-glow: 0 0 10px rgba(40, 224, 224, 0.5);
+
+  /* 背景层：暗底渐变 + 卡片专题底纹 10% */
+  --grad-op: 1;
+  --pattern-op: 0.10;
+  --wm-op: 0.08;
+}
+
+/* ============================================================
+   基础样式与全局过渡
+   ============================================================ */
+* { -webkit-tap-highlight-color: transparent; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+/* 暗底渐变层（仅探险模式可见，用透明度过渡实现平滑切换） */
+.bg-grad {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(160deg, #0F282C 0%, #153B40 100%);
+  opacity: var(--grad-op);
+  transition: opacity 0.35s ease;
+}
+
+/* 化学分子底纹层（两主题共用平铺图案，颜色随主题） */
+.bg-wm {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  opacity: var(--wm-op);
+  transition: opacity 0.35s ease;
+}
+[data-theme="edu"] .bg-wm {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%230F6B6B' stroke-width='1'%3E%3Cpath d='M38 16l14 8v16l-14 8-14-8V24z'/%3E%3Cpath d='M112 88l14 8v16l-14 8-14-8V96z'/%3E%3Cpath d='M38 48v18M38 82l46 24M98 112h14'/%3E%3Ccircle cx='38' cy='88' r='3'/%3E%3Ccircle cx='112' cy='72' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+[data-theme="adventure"] .bg-wm {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150' viewBox='0 0 150 150'%3E%3Cg fill='none' stroke='%2328E0E0' stroke-width='1'%3E%3Cpath d='M38 16l14 8v16l-14 8-14-8V24z'/%3E%3Cpath d='M112 88l14 8v16l-14 8-14-8V96z'/%3E%3Cpath d='M38 48v18M38 82l46 24M98 112h14'/%3E%3Ccircle cx='38' cy='88' r='3'/%3E%3Ccircle cx='112' cy='72' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ============================================================
+   头部排版（字号两主题一致：标题24px / 描述16px）
+   ============================================================ */
+.page-title { font-size: 24px; font-weight: 700; line-height: 1.25; color: var(--text); }
+.page-desc  { font-size: 16px; font-weight: 600; color: var(--text); }
+.page-sub   { font-size: 14px; color: var(--text-sub); line-height: 1.5; }
+
+/* ---------- 右上角按钮 ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; font-weight: 600; line-height: 1;
+  padding: 7px 10px; border-radius: 999px; border: 1px solid;
+  cursor: pointer; white-space: nowrap;
+  transition: all 0.35s ease;
+}
+.btn:active { transform: scale(0.95); }
+.btn-challenge {
+  background: var(--btn1-bg); color: var(--btn1-c);
+  border-color: var(--btn1-border);
+  box-shadow: var(--btn1-glow);
+}
+.btn-theme {
+  background: var(--btn2-bg); color: var(--btn2-c);
+  border-color: var(--btn2-border);
+}
+
+/* ============================================================
+   专题卡片（2列网格，间距16px，布局两主题一致）
+   ============================================================ */
+.card {
+  position: relative; overflow: hidden;
+  min-height: 118px;
+  padding: 14px;
+  border-radius: var(--card-radius);
+  border: 1px solid var(--card-border);
+  background-color: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: var(--card-blur);
+  -webkit-backdrop-filter: var(--card-blur);
+  transition: all 0.35s ease;
+}
+.card:active { transform: scale(0.97); }
+[data-theme="edu"] .card:hover { box-shadow: var(--card-shadow-hover); }
+/* 探险模式：悬浮轻微上浮 + 边框提亮 */
+[data-theme="adventure"] .card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(40, 224, 224, 0.65);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* 探险模式卡片内专题弱底纹（10%，仅视觉装饰） */
+.card-pattern {
+  position: absolute; right: 6px; bottom: 6px;
+  width: 84px; height: 84px;
+  opacity: var(--pattern-op);
+  background-repeat: no-repeat; background-position: center;
+  background-size: 84px 84px;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+.pat-spark    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%2328E0E0' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M36 8L18 36h10l-4 20 22-30H34l6-18z'/%3E%3C/svg%3E"); }
+.pat-beaker   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%2328E0E0' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M26 8v14L12 48a6 6 0 0 0 5 8h30a6 6 0 0 0 5-8L38 22V8'/%3E%3Cpath d='M22 8h20M17 38h30'/%3E%3C/svg%3E"); }
+.pat-scale    { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%2328E0E0' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M32 8v42M24 50h16M8 18h48M32 12l-18 6M32 12l18 6'/%3E%3Cpath d='M9 27a8 8 0 0 0 10 0L14 18zM45 27a8 8 0 0 0 10 0L50 18z'/%3E%3C/svg%3E"); }
+.pat-battery  { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%2328E0E0' stroke-width='1.5' stroke-linejoin='round'%3E%3Crect x='10' y='22' width='38' height='20' rx='3'/%3E%3Cpath d='M52 28v8'/%3E%3Cpath d='M30 26l-7 9h7l-5 7'/%3E%3C/svg%3E"); }
+.pat-crystal  { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%2328E0E0' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M32 8l16 12-16 36L16 20z'/%3E%3Cpath d='M16 20h32M32 8v48'/%3E%3C/svg%3E"); }
+.pat-molecule { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' fill='none' stroke='%2328E0E0' stroke-width='1.5' stroke-linejoin='round'%3E%3Cpath d='M32 12l13 7.5v15L32 42l-13-7.5v-15z'/%3E%3Ccircle cx='32' cy='12' r='2.5'/%3E%3Ccircle cx='19' cy='34.5' r='2.5'/%3E%3Ccircle cx='45' cy='34.5' r='2.5'/%3E%3Ccircle cx='32' cy='49' r='2.5'/%3E%3C/svg%3E"); }
+
+/* 卡片内容 */
+.icon-box {
+  width: 34px; height: 34px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px;
+  background: var(--icon-bg); color: var(--icon-c);
+  transition: all 0.35s ease;
+}
+.card-title { font-size: 18px; font-weight: 700; line-height: 1.25; color: var(--text); }
+
+/* 进度条（探险模式带柔和发光） */
+.track {
+  height: 6px; border-radius: 999px;
+  background: var(--track); overflow: hidden;
+  transition: background 0.35s ease;
+}
+.fill {
+  height: 100%; width: 0%;
+  border-radius: 999px;
+  background: var(--fill);
+  box-shadow: var(--fill-glow);
+  transition: width 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
+}
+.progress-text { font-size: 14px; font-weight: 600; color: var(--text-sub); }
+
+/* ============================================================
+   底部导航（4栏，玻璃质感随主题切换）
+   ============================================================ */
+.tabbar {
+  position: fixed; left: 50%; transform: translateX(-50%);
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  width: 343px; z-index: 20;
+  display: flex;
+  padding: 8px 6px;
+  border-radius: 20px;
+  background: var(--tab-bg);
+  border: 1px solid var(--tab-border);
+  box-shadow: var(--tab-shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: all 0.35s ease;
+}
+.tab-item {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  font-size: 10px; font-weight: 600;
+  color: var(--tab-inactive);
+  cursor: pointer;
+  transition: color 0.35s ease;
+}
+.tab-item.active { color: var(--primary); text-shadow: var(--tab-active-glow); }
+.tab-item.active svg { filter: drop-shadow(var(--tab-active-glow)); }
+
+/* ============================================================
+   通用过渡（保证主题切换全局平滑）
+   ============================================================ */
+.app, .card, .icon-box, .btn, .tabbar, .track, .progress-text {
+  transition: all 0.35s ease;
+}
+</style>
+</head>
+
+<body class="min-h-screen">
+
+  <!-- 背景层：暗底渐变（探险）+ 化学分子底纹（两主题） -->
+  <div class="bg-grad"></div>
+  <div class="bg-wm"></div>
+
+  <!-- 主容器：375px 竖屏 -->
+  <div class="app relative z-10 mx-auto flex min-h-screen max-w-[375px] flex-col px-4 pb-28">
+
+    <!-- ========== 顶部标题区 ========== -->
+    <header class="pt-7">
+      <div class="flex items-start justify-between gap-2">
+        <h1 class="page-title">专项思维扩展</h1>
+        <!-- 右上角按钮组：化学闯关 + 风格切换 -->
+        <div class="flex gap-2 pt-1">
+          <button class="btn btn-challenge" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 3v6L4.5 18a2 2 0 0 0 1.8 3h11.4a2 2 0 0 0 1.8-3L14 9V3"/><path d="M8.5 3h7"/><path d="M7 15h10"/>
+            </svg>
+            化学闯关
+          </button>
+          <button class="btn btn-theme" id="themeToggle" type="button" aria-label="切换主题">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 8h10l-3-3"/><path d="M17 16H7l3 3"/>
+            </svg>
+            风格切换
+          </button>
+        </div>
+      </div>
+      <p class="page-desc mt-3">六大高考化学难题专项 · 48道精选难题</p>
+      <p class="page-sub mt-1.5">AI伴思引导层层递进，练透每一条解题思路</p>
+    </header>
+
+    <!-- ========== 6个专题卡片（2列 × 3行，间距16px） ========== -->
+    <main class="mt-5 grid flex-1 grid-cols-2 gap-4">
+
+      <!-- 卡片1：氧化还原反应 -->
+      <div class="card">
+        <div class="card-pattern pat-spark"></div>
+        <div class="relative flex h-full flex-col">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2L4.5 13.5h5.5L9 22l9.5-11.5H13L14.5 2z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">氧化还原反应</h3>
+          </div>
+          <div class="mt-auto pt-4">
+            <div class="track"><div class="fill"></div></div>
+            <div class="mt-1.5 text-right progress-text">0/8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片2：水溶液离子平衡 -->
+      <div class="card">
+        <div class="card-pattern pat-beaker"></div>
+        <div class="relative flex h-full flex-col">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/><path d="M9.5 14a2.5 2.5 0 0 0 2.5 2.5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">水溶液离子平衡</h3>
+          </div>
+          <div class="mt-auto pt-4">
+            <div class="track"><div class="fill"></div></div>
+            <div class="mt-1.5 text-right progress-text">0/8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片3：化学平衡 -->
+      <div class="card">
+        <div class="card-pattern pat-scale"></div>
+        <div class="relative flex h-full flex-col">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3v15"/><path d="M8 21h8"/><path d="M5 7l7-2 7 2"/><path d="M5 7l-2.5 5a3.5 3.5 0 0 0 5 0L5 7z"/><path d="M19 7l-2.5 5a3.5 3.5 0 0 0 5 0L19 7z"/>
+              </svg>
+            </div>
+            <h3 class="card-title">化学平衡</h3>
+          </div>
+          <div class="mt-auto pt-4">
+            <div class="track"><div class="fill"></div></div>
+            <div class="mt-1.5 text-right progress-text">0/8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片4：电化学综合 -->
+      <div class="card">
+        <div class="card-pattern pat-battery"></div>
+        <div class="relative flex h-full flex-col">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="8" width="17" height="9" rx="2"/><path d="M21.5 11v3"/><path d="M11 9.5l-2.5 3.5h3L9 16.5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">电化学综合</h3>
+          </div>
+          <div class="mt-auto pt-4">
+            <div class="track"><div class="fill"></div></div>
+            <div class="mt-1.5 text-right progress-text">0/8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片5：元素化合物推断 -->
+      <div class="card">
+        <div class="card-pattern pat-crystal"></div>
+        <div class="relative flex h-full flex-col">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 3l6 5-6 13L6 8l6-5z"/><path d="M6 8h12"/>
+              </svg>
+            </div>
+            <h3 class="card-title">元素化合物推断</h3>
+          </div>
+          <div class="mt-auto pt-4">
+            <div class="track"><div class="fill"></div></div>
+            <div class="mt-1.5 text-right progress-text">0/8</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 卡片6：有机化学 -->
+      <div class="card">
+        <div class="card-pattern pat-molecule"></div>
+        <div class="relative flex h-full flex-col">
+          <div class="flex items-center gap-2.5">
+            <div class="icon-box">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 4l7 4v8l-7 4-7-4V8l7-4z"/><circle cx="12" cy="12" r="2.5"/>
+              </svg>
+            </div>
+            <h3 class="card-title">有机化学</h3>
+          </div>
+          <div class="mt-auto pt-4">
+            <div class="track"><div class="fill"></div></div>
+            <div class="mt-1.5 text-right progress-text">0/8</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ========== 底部4栏Tab导航（默认选中：闯关） ========== -->
+  <nav class="tabbar">
+    <!-- 闯关（选中） -->
+    <div class="tab-item active">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6 21V4"/><path d="M6 4h11l-3 3.5L17 11H6"/>
+      </svg>
+      <span>闯关</span>
+    </div>
+    <!-- 图鉴 -->
+    <div class="tab-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 5a2 2 0 0 1 2-2h14v18H6a2 2 0 0 0-2 2V5z"/><path d="M4 19a2 2 0 0 1 2-2h14"/>
+      </svg>
+      <span>图鉴</span>
+    </div>
+    <!-- 题库 -->
+    <div class="tab-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/><path d="M3 17.5l9 5 9-5"/>
+      </svg>
+      <span>题库</span>
+    </div>
+    <!-- 我的 -->
+    <div class="tab-item">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/>
+      </svg>
+      <span>我的</span>
+    </div>
+  </nav>
+
+<!-- ========== 主题切换逻辑 + 本地存储 ========== -->
+<script>
+  (function () {
+    var KEY = 'chem-bansi-theme';
+    var root = document.documentElement;
+    var toggle = document.getElementById('themeToggle');
+
+    toggle.addEventListener('click', function () {
+      // 在「标准教育 edu」与「秘境探险 adventure」之间切换
+      var next = root.getAttribute('data-theme') === 'adventure' ? 'edu' : 'adventure';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem(KEY, next); // 持久化，刷新后记住选择
+    });
+  })();
+</script>
+
+</body>
+</html>

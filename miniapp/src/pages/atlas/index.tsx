@@ -17,8 +17,8 @@ const ACHIEVEMENTS = [
   { id: 'all', name: '通关达人', desc: '完成全部题目', icon: '🏆', check: (p: UserProgress) => p.solvedIds.length >= allChallenges.length },
   { id: 'thought3', name: '思想收集者', desc: '集齐 3 种化学思想碎片', icon: '💎', check: (p: UserProgress) => THOUGHTS.filter((t) => p.thoughtCounts[t] > 0).length >= 3 },
   { id: 'thought5', name: '五思俱全', desc: '集齐全部 5 种化学思想碎片', icon: '🌈', check: (p: UserProgress) => THOUGHTS.every((t) => p.thoughtCounts[t] > 0) },
-  { id: 'chapter1', name: '初探奥秘', desc: '通关一个章节', icon: '🎯', check: (p: UserProgress) => chapters.some((ch) => ch.challenges.every((c) => p.solvedIds.includes(c.id))) },
-  { id: 'chapter3', name: '探索不止', desc: '通关 3 个章节', icon: '🧭', check: (p: UserProgress) => chapters.filter((ch) => ch.challenges.every((c) => p.solvedIds.includes(c.id))).length >= 3 },
+  { id: 'chapter1', name: '初探奥秘', desc: '通关一个专项', icon: '🎯', check: (p: UserProgress) => chapters.some((ch) => ch.challenges.every((c) => p.solvedIds.includes(c.id))) },
+  { id: 'chapter3', name: '探索不止', desc: '通关 3 个专项', icon: '🧭', check: (p: UserProgress) => chapters.filter((ch) => ch.challenges.every((c) => p.solvedIds.includes(c.id))).length >= 3 },
 ]
 
 export default function Atlas() {

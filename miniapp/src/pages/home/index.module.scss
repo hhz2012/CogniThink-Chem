@@ -1,200 +1,300 @@
 @use '@/styles/variables.scss' as *;
 
+/* ============================================
+   页面基础 + 双主题 CSS 变量
+   （布局两主题一致，仅切换视觉样式）
+   ============================================ */
 .page {
   min-height: 100vh;
-  background: $color-bg-page;
   padding-bottom: 130rpx;
+  transition: background 0.35s ease;
 }
 
-.hero {
-  position: relative;
-  background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
-  padding: 60rpx 32rpx 48rpx;
-  overflow: hidden;
+/* ---------- 主题1：标准教育模式（默认） ---------- */
+.edu {
+  /* 主色 / 文字 */
+  --primary: #28B8B8;
+  --primary-deep: #0F6B6B;
+  --text: #1A2E33;
+  --text-sub: #64787C;
+
+  /* 卡片：白色基底，柔和低阴影，无玻璃拟态 */
+  --card-bg: #FFFFFF;
+  --card-border: rgba(15, 107, 107, 0.10);
+  --card-shadow: 0 4rpx 20rpx rgba(15, 107, 107, 0.07);
+  --card-radius: 32rpx;
+
+  /* 图标 */
+  --icon-border: rgba(15, 107, 107, 0.08);
+
+  /* 进度条：常规 */
+  --track: #E6F1F1;
+  --fill: #28B8B8;
+  --fill-glow: none;
+
+  /* 按钮 */
+  --btn1-bg: rgba(40, 184, 184, 0.12);
+  --btn1-c: #0F6B6B;
+  --btn1-border: rgba(40, 184, 184, 0.35);
+  --btn2-bg: transparent;
+  --btn2-c: #0F6B6B;
+  --btn2-border: rgba(15, 107, 107, 0.30);
+
+  /* 页面背景：淡青 + 5% 分子暗纹点阵 */
+  background-color: #F7FCFC;
+  background-image: radial-gradient(rgba(15, 107, 107, 0.05) 2rpx, transparent 2rpx);
+  background-size: 56rpx 56rpx;
 }
 
-.heroBg {
-  position: absolute;
-  inset: 0;
-  opacity: 0.12;
+/* ---------- 主题2：秘境探险模式 ---------- */
+.adv {
+  --primary: #28E0E0;
+  --primary-deep: #0F282C;
+  --text: #E6FBFB;
+  --text-sub: #9FC6C6;
+
+  /* 卡片：玻璃拟态 + 1px 细发光边框 */
+  --card-bg: rgba(21, 59, 64, 0.55);
+  --card-border: rgba(40, 224, 224, 0.30);
+  --card-shadow: 0 8rpx 36rpx rgba(0, 0, 0, 0.35);
+  --card-radius: 36rpx;
+
+  --icon-border: rgba(40, 224, 224, 0.35);
+
+  /* 进度条：柔和发光 */
+  --track: rgba(255, 255, 255, 0.14);
+  --fill: #28E0E0;
+  --fill-glow: 0 0 16rpx rgba(40, 224, 224, 0.7);
+
+  /* 按钮 */
+  --btn1-bg: #28E0E0;
+  --btn1-c: #0F282C;
+  --btn1-border: transparent;
+  --btn2-bg: rgba(40, 224, 224, 0.08);
+  --btn2-c: #28E0E0;
+  --btn2-border: rgba(40, 224, 224, 0.45);
+
+  /* 页面背景：深色暗底渐变 + 微光分子点阵 */
+  background-color: #0F282C;
+  background-image:
+    radial-gradient(rgba(40, 224, 224, 0.06) 2rpx, transparent 2rpx),
+    radial-gradient(circle at 85% 12%, rgba(40, 224, 224, 0.08) 0%, transparent 45%),
+    linear-gradient(160deg, #0F282C 0%, #153B40 100%);
+  background-size: 56rpx 56rpx, 100% 100%, 100% 100%;
+  background-repeat: repeat, no-repeat, no-repeat;
 }
 
-.float1 { position: absolute; top: 20rpx; right: 80rpx; font-size: 80rpx; }
-.float2 { position: absolute; top: 120rpx; right: 40rpx; font-size: 60rpx; }
-.float3 { position: absolute; bottom: 20rpx; left: 40rpx; font-size: 70rpx; }
-
-.heroInner { position: relative; z-index: 1; }
-
-.heroEyebrow {
-  display: block;
-  color: #5eead4;
-  font-size: $font-size-xs;
-  letter-spacing: 4rpx;
-  margin-bottom: 12rpx;
+/* ============================================
+   顶部标题区（字号双主题一致）
+   ============================================ */
+.header {
+  padding: 56rpx 32rpx 32rpx;
 }
 
-.heroTitle {
-  display: block;
-  color: #fff;
-  font-size: 56rpx;
-  font-weight: $font-weight-bold;
-  line-height: 1.2;
-}
-
-.heroSub {
-  display: block;
-  color: #94a3b8;
-  font-size: $font-size-md;
-  margin-top: 8rpx;
-}
-
-.stats {
-  display: flex;
-  gap: 16rpx;
-  margin-top: 32rpx;
-}
-
-.stat {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  border-radius: $radius-md;
-  padding: 16rpx;
-  text-align: center;
-}
-
-.statNum {
-  display: block;
-  color: #5eead4;
-  font-size: 40rpx;
-  font-weight: $font-weight-bold;
-}
-
-.statLabel {
-  display: block;
-  color: #cbd5e1;
-  font-size: $font-size-xs;
-  margin-top: 4rpx;
-}
-
-.body {
-  height: calc(100vh - 360rpx);
-  padding: 24rpx 32rpx 0;
-}
-
-.chapterList {
-  display: flex;
-  flex-direction: column;
-  gap: 24rpx;
-}
-
-.chapterCard {
-  background: #fff;
-  border-radius: $radius-lg;
-  border-left: 6rpx solid;
-  padding: 24rpx;
-  box-shadow: $shadow-card;
-}
-
-.chapterHead {
+.headerRow {
   display: flex;
   align-items: center;
-  gap: 16rpx;
+  justify-content: space-between;
+  gap: 12rpx;
 }
 
-.chapterIcon {
-  width: 72rpx;
-  height: 72rpx;
-  border-radius: $radius-md;
+.title {
+  font-size: 48rpx;   /* 24px */
+  font-weight: $font-weight-bold;
+  color: var(--text);
+  line-height: 1.25;
+  white-space: nowrap;
+  transition: color 0.35s ease;
+}
+
+/* 右上角按钮组：化学闯关 + 风格切换 */
+.btnGroup {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 36rpx;
+  gap: 12rpx;
   flex-shrink: 0;
 }
 
-.chapterInfo { flex: 1; min-width: 0; }
-
-.chapterName {
-  display: block;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
-}
-
-.chapterDesc {
-  display: block;
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
-  margin-top: 2rpx;
-}
-
-.chapterBadge {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-}
-
-.progressBar {
-  height: 8rpx;
-  background: $color-divider;
+.btnPrimary,
+.btnTheme {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12rpx 20rpx;
   border-radius: $radius-round;
-  margin: 16rpx 0 20rpx;
-  overflow: hidden;
+  border: 2rpx solid;
+  transition: all 0.35s ease;
+
+  &:active {
+    transform: scale(0.93);
+  }
 }
 
-.progressFill {
-  height: 100%;
-  border-radius: $radius-round;
-  transition: width $transition-base;
+.btnPrimary {
+  background: var(--btn1-bg);
+  border-color: var(--btn1-border);
 }
 
-.levelGrid {
+.btnPrimaryText {
+  font-size: 24rpx;
+  font-weight: $font-weight-semibold;
+  color: var(--btn1-c);
+  line-height: 1;
+}
+
+.btnTheme {
+  background: var(--btn2-bg);
+  border-color: var(--btn2-border);
+}
+
+.btnThemeText {
+  font-size: 24rpx;
+  font-weight: $font-weight-semibold;
+  color: var(--btn2-c);
+  line-height: 1;
+}
+
+.descMain {
+  display: block;
+  margin-top: 24rpx;
+  font-size: 32rpx;   /* 16px */
+  font-weight: $font-weight-semibold;
+  color: var(--text);
+  line-height: 1.4;
+  transition: color 0.35s ease;
+}
+
+.descSub {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 28rpx;   /* 14px */
+  color: var(--text-sub);
+  line-height: 1.5;
+  transition: color 0.35s ease;
+}
+
+/* ============================================
+   列表区：2列网格，间距32rpx（16px）
+   ============================================ */
+.body {
+  height: calc(100vh - 330rpx);
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14rpx;
+  gap: 32rpx;
 }
 
-.levelBtn {
+/* ============================================
+   专题卡片
+   ============================================ */
+.card {
+  position: relative;
+  min-height: 240rpx;
+  border-radius: var(--card-radius);
+  background-color: var(--card-bg);
+  border: 2rpx solid var(--card-border);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: all 0.35s ease;
+
+  &:active {
+    transform: scale(0.97);
+  }
+}
+
+/* 探险模式：玻璃拟态 */
+.adv .card {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* 探险模式：专题弱底纹（10% 透明度，右下角） */
+.cardPattern {
+  position: absolute;
+  right: 10rpx;
+  bottom: 10rpx;
+  width: 176rpx;
+  height: 176rpx;
+  opacity: 0.10;
+  border-radius: 24rpx;
+  pointer-events: none;
+}
+
+.cardInner {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  min-height: 240rpx;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  padding: 28rpx;
+  box-sizing: border-box;
+}
+
+.cardTop {
+  display: flex;
   align-items: center;
-  padding: 18rpx 12rpx;
-  background: $color-bg-page;
-  border-radius: $radius-md;
-  border: 2rpx solid transparent;
-  transition: all $transition-fast;
+  gap: 16rpx;
 }
 
-.levelBtn:active {
-  transform: scale(0.96);
-  border-color: $color-primary;
+/* 图标：圆角小方块 */
+.iconBox {
+  width: 68rpx;
+  height: 68rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  border: 2rpx solid var(--icon-border);
+  flex-shrink: 0;
 }
 
-.solved {
-  background: $color-primary-soft;
+.iconImg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
-.levelNum {
-  font-size: 32rpx;
+.cardTitle {
+  flex: 1;
+  min-width: 0;
+  font-size: 36rpx;   /* 18px */
   font-weight: $font-weight-bold;
-  color: $color-primary;
+  color: var(--text);
+  line-height: 1.25;
+  transition: color 0.35s ease;
 }
 
-.levelTitle {
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
-  margin-top: 6rpx;
-  text-align: center;
+.cardBottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8rpx 22rpx;
+  margin-top: 20rpx;
 }
 
-.chapterDone {
-  margin-top: 16rpx;
-  text-align: center;
-  color: $color-warning;
-  font-size: $font-size-sm;
+/* 难度等级分布 */
+.diffItem {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.diffDot {
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.diffNum {
+  font-size: 22rpx;
   font-weight: $font-weight-semibold;
+  transition: color 0.35s ease;
 }
 
 .bottomPad {
-  height: 40rpx;
+  height: 48rpx;
 }

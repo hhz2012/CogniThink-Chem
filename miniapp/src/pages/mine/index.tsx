@@ -63,7 +63,7 @@ export default function Mine() {
           <View className={styles.statCard}>
             <Text className={styles.statIcon}>🏆</Text>
             <Text className={styles.statNum}>{chapters.filter((ch) => ch.challenges.every((c) => progress.solvedIds.includes(c.id))).length}</Text>
-            <Text className={styles.statLabel}>通关章节</Text>
+            <Text className={styles.statLabel}>通关专项</Text>
           </View>
         </View>
 

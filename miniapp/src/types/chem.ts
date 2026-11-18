@@ -1,11 +1,11 @@
-// 化学题型
+// 高考化学六大难题专项
 export type ChemCategory =
-  | 'ProductInference'
-  | 'IonCoexistence'
-  | 'StoichiometryCalc'
-  | 'Electrochemistry'
-  | 'ChemicalEquilibrium'
-  | 'ExperimentalInquiry'
+  | 'RedoxReaction'        // 氧化还原反应
+  | 'IonicEquilibrium'     // 水溶液中的离子平衡
+  | 'ChemicalEquilibrium'  // 化学平衡
+  | 'Electrochemistry'     // 电化学
+  | 'InorganicInference'   // 元素化合物推断
+  | 'OrganicChemistry'     // 有机化学
 
 export type Thought =
   | 'Conservation'
@@ -13,6 +13,9 @@ export type Thought =
   | 'Equilibrium'
   | 'Classification'
   | 'ModelCognition'
+
+// 难度等级（与高考难度分布对齐）
+export type Difficulty = '基础' | '进阶' | '综合' | '难题' | '压轴'
 
 export interface GuideLevel {
   level: number
@@ -34,7 +37,8 @@ export interface Challenge {
   explanation: string
   thought: Thought
   guide: GuideLevel[]
-  unlockNeed?: number // 解锁所需的章节进度（章节内序号）
+  difficulty: Difficulty
+  unlockNeed?: number // 解锁所需的本专项内已通关序号（从0开始）
 }
 
 export interface Chapter {

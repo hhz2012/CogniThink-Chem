@@ -3,12 +3,12 @@ import { UserProgress, Thought } from '../types/chem'
 
 const STORAGE_KEY = 'chem-challenge-progress-v1'
 
-export const THOUGHT_META: Record<Thought, { label: string; icon: string; color: string }> = {
-  Conservation: { label: '守恒思想', icon: '⚖️', color: '#dc2626' },
-  Structure: { label: '结构决定性质', icon: '🔬', color: '#ea580c' },
-  Equilibrium: { label: '动态平衡', icon: '🔄', color: '#2563eb' },
-  Classification: { label: '分类比较', icon: '🗂️', color: '#16a34a' },
-  ModelCognition: { label: '证据推理·模型认知', icon: '🧩', color: '#7c3aed' },
+export const THOUGHT_META: Record<Thought, { label: string; icon: string; color: string; desc: string }> = {
+  Conservation: { label: '守恒思想', icon: '⚖️', color: '#dc2626', desc: '抓住反应前后不变的量——原子、电子、电荷、质量，以不变应万变。' },
+  Structure: { label: '结构决定性质', icon: '🔬', color: '#ea580c', desc: '从微观结构（电子排布、化学键、空间构型）推导宏观性质与反应规律。' },
+  Equilibrium: { label: '动态平衡', icon: '🔄', color: '#2563eb', desc: '平衡是动态的，外界条件改变时平衡移动，用勒夏特列原理判断方向。' },
+  Classification: { label: '分类比较', icon: '🗂️', color: '#16a34a', desc: '将物质/反应分门别类，通过同类比较与递变规律快速推断未知性质。' },
+  ModelCognition: { label: '证据推理·模型认知', icon: '🧩', color: '#7c3aed', desc: '基于实验证据建构模型，用模型解释现象并预测结果。' },
 }
 
 export const defaultProgress: UserProgress = {

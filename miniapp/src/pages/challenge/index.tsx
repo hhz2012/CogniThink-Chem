@@ -2,7 +2,7 @@ import { View, Text, ScrollView } from '@tarojs/components'
 import { useState, useEffect } from 'react'
 import Taro, { useRouter } from '@tarojs/taro'
 import ThoughtChip from '../../components/ThoughtChip'
-import { getChallengeById } from '../../data/challenges'
+import { chapters, getChallengeById } from '../../data/challenges'
 import {
   loadProgress, markSolved, consumeInspiration, THOUGHT_META,
 } from '../../utils/storage'
@@ -17,6 +17,18 @@ const LAYER_META = {
   Ability: { label: '能力', icon: '🧠', cls: 'ability' },
 }
 
+type ChatKind = 'intro' | 'question' | 'hint' | 'knowledge' | 'action' | 'summary'
+
+interface ChatMsg {
+  id: number
+  role: 'tutor' | 'student'
+  kind: ChatKind
+  text: string
+  level: number
+  layer?: GuideLevel['cognitiveLayer']
+  knowledge?: { name: string; summary?: string; textbookRef?: string }
+}
+
 export default function ChallengePage() {
   const router = useRouter()
   const id = router.params.id as string
@@ -25,7 +37,8 @@ export default function ChallengePage() {
   const [selected, setSelected] = useState<number | null>(null)
   const [result, setResult] = useState<ResultState>('pending')
   const [progress, setProgress] = useState<UserProgress>(loadProgress())
-  const [revealedLevels, setRevealedLevels] = useState<Record<number, boolean>>({})
+  const [messages, setMessages] = useState<ChatMsg[]>([])
+  const [currentLevel, setCurrentLevel] = useState(0) // 0=未开始, 1..6=进行中, 7=已完成
   const [hintLevels, setHintLevels] = useState<Record<number, boolean>>({})
   const [showConservation, setShowConservation] = useState(false)
 
@@ -37,6 +50,53 @@ export default function ChallengePage() {
   }, [challenge])
 
   if (!challenge) return <View className={styles.page} />
+
+  const chapter = chapters.find((c) => c.challenges.some((ch) => ch.id === challenge.id))
+  const thoughtMeta = THOUGHT_META[challenge.thought]
+  const correctLetter = String.fromCharCode(65 + challenge.answerIndex)
+
+  const pushMsg = (msg: Omit<ChatMsg, 'id'>) => {
+    setMessages((prev) => [...prev, { ...msg, id: prev.length }])
+  }
+
+  const startGuide = (fromLevel = 1) => {
+    if (currentLevel > 0) return
+    const lv = challenge.guide[fromLevel - 1]
+    if (!lv) return
+    pushMsg({ role: 'tutor', kind: 'intro', text: `第 ${lv.level} 步 · ${lv.title}`, level: lv.level, layer: lv.cognitiveLayer })
+    pushMsg({ role: 'tutor', kind: 'question', text: lv.prompts.join('\n'), level: lv.level, layer: lv.cognitiveLayer, knowledge: lv.knowledgeCard })
+    setCurrentLevel(lv.level)
+  }
+
+  const onHint = () => {
+    if (currentLevel < 1 || currentLevel > 6) return
+    const lv = challenge.guide[currentLevel - 1]
+    if (!lv.hint || hintLevels[lv.level]) return
+    const next = consumeInspiration(progress)
+    if (!next) {
+      Taro.showToast({ title: '灵感值不足，答对题目可获得', icon: 'none' })
+      return
+    }
+    setProgress(next)
+    setHintLevels((s) => ({ ...s, [lv.level]: true }))
+    pushMsg({ role: 'student', kind: 'action', text: '💡 给我提示', level: lv.level })
+    pushMsg({ role: 'tutor', kind: 'hint', text: lv.hint, level: lv.level })
+  }
+
+  const onNext = () => {
+    if (currentLevel < 1 || currentLevel > 6) return
+    const lv = challenge.guide[currentLevel - 1]
+    pushMsg({ role: 'student', kind: 'action', text: currentLevel === 6 ? '明白了 ✓' : '明白了，继续 →', level: lv.level })
+    const nextLv = challenge.guide[currentLevel]
+    if (!nextLv) {
+      pushMsg({ role: 'tutor', kind: 'summary', text: '🎉 6 步思维引导已完成！回顾整条解题路径，你已掌握本题的核心思维方法。', level: 6 })
+      setCurrentLevel(7)
+      return
+    }
+    pushMsg({ role: 'tutor', kind: 'intro', text: `第 ${nextLv.level} 步 · ${nextLv.title}`, level: nextLv.level, layer: nextLv.cognitiveLayer })
+    pushMsg({ role: 'tutor', kind: 'question', text: nextLv.prompts.join('\n'), level: nextLv.level, layer: nextLv.cognitiveLayer, knowledge: nextLv.knowledgeCard })
+    setCurrentLevel(nextLv.level)
+  }
 
   const submit = () => {
     if (selected === null) {
@@ -50,38 +110,38 @@ export default function ChallengePage() {
       setProgress(next)
       Taro.showToast({ title: '答对了！+2 灵感值', icon: 'success' })
     } else if (!correct) {
-      Taro.showToast({ title: '再想想，可以点下方「伴思引导」', icon: 'none' })
+      // 答错时自动开始第一步引导
+      setTimeout(() => startGuide(1), 600)
+      Taro.showToast({ title: '答错了，引导已开启', icon: 'none' })
     }
   }
 
-  const revealLevel = (lv: GuideLevel) => {
-    // 先展开本层（反问问题）
-    setRevealedLevels((s) => ({ ...s, [lv.level]: true }))
-  }
-
-  const askHint = (lv: GuideLevel) => {
-    // 提示需要消耗 1 灵感值
-    if (!lv.hint) return
-    const next = consumeInspiration(progress)
-    if (!next) {
-      Taro.showToast({ title: '灵感值不足，答对题目可获得', icon: 'none' })
-      return
-    }
-    setProgress(next)
-    setHintLevels((s) => ({ ...s, [lv.level]: true }))
-    Taro.showToast({ title: '-1 灵感值', icon: 'none' })
-  }
-
-  const thoughtMeta = THOUGHT_META[challenge.thought]
+  const guideDone = currentLevel > 6
 
   return (
     <View className={styles.page}>
       <ScrollView scrollY className={styles.body}>
+        {/* 顶部信息栏 */}
+        {chapter && (
+          <View className={styles.metaBar} style={{ borderLeftColor: chapter.color }}>
+            <View className={styles.metaLeft}>
+              <Text className={styles.metaIcon}>{chapter.icon}</Text>
+              <View className={styles.metaText}>
+                <Text className={styles.metaChapter}>{chapter.name}</Text>
+                <Text className={styles.metaId}>题目 {challenge.id} · {challenge.difficulty}</Text>
+              </View>
+            </View>
+            <ThoughtChip thought={challenge.thought} size="sm" />
+          </View>
+        )}
+
         {/* 题干卡片 */}
         <View className={styles.problemCard}>
           <View className={styles.problemHead}>
-            <Text className={styles.problemTitle}>{challenge.title}</Text>
-            <ThoughtChip thought={challenge.thought} size="sm" />
+            <View className={styles.problemTitleRow}>
+              <Text className={styles.problemTitle}>{challenge.title}</Text>
+              <Text className={styles.problemDiff}>{challenge.difficulty}</Text>
+            </View>
           </View>
           <Text className={styles.problemText}>{challenge.problemText}</Text>
         </View>
@@ -107,23 +167,27 @@ export default function ChallengePage() {
           })}
         </View>
 
-        {/* 提交按钮 */}
+        {/* 提交 / 结果 */}
         {result === 'pending' ? (
           <View className={styles.submitBtn} onClick={submit}>提交答案</View>
         ) : (
           <View className={styles.resultBox} style={{ borderColor: result === 'correct' ? '#16a34a' : '#dc2626' }}>
             <Text className={styles.resultTitle}>
-              {result === 'correct' ? '🎉 回答正确！' : '💪 别灰心，看看解析'}
+              {result === 'correct' ? '🎉 回答正确！' : '💪 别灰心，答案是 ' + correctLetter}
             </Text>
             <Text className={styles.explanation}>{challenge.explanation}</Text>
             <View className={styles.thoughtReward}>
               <Text>获得思想碎片：</Text>
               <Text style={{ color: thoughtMeta.color }}>{thoughtMeta.icon} {thoughtMeta.label}</Text>
             </View>
+            <View className={styles.thoughtExplain}>
+              <Text className={styles.thoughtExplainTitle}>{thoughtMeta.icon} {thoughtMeta.label}思维</Text>
+              <Text className={styles.thoughtExplainText}>{thoughtMeta.desc}</Text>
+            </View>
           </View>
         )}
 
-        {/* 守恒校验 */}
+        {/* 守恒校验（答完后展示） */}
         {result !== 'pending' && (
           <View className={styles.conservation}>
             <View className={styles.conservationHead} onClick={() => setShowConservation((v) => !v)}>
@@ -141,65 +205,91 @@ export default function ChallengePage() {
           </View>
         )}
 
-        {/* 伴思引导 */}
+        {/* 伴思引导 - 对话式递进 */}
         <View className={styles.guideSection}>
           <View className={styles.guideHeader}>
-            <Text className={styles.guideTitle}>🤔 伴思引导（逐级解锁）</Text>
+            <Text className={styles.guideTitle}>🤔 伴思引导 · 对话式</Text>
             <Text className={styles.guideSub}>灵感值：{progress.inspirations}</Text>
           </View>
-          <View className={styles.guideLegend}>
-            <View className={`${styles.legend} ly-knowledge`}><Text>📖 知识点</Text></View>
-            <View className={`${styles.legend} ly-application`}><Text>🛠️ 知识运用</Text></View>
-            <View className={`${styles.legend} ly-ability`}><Text>🧠 能力</Text></View>
-          </View>
-          <View className={styles.guideList}>
-            {challenge.guide.map((lv) => {
-              const lm = LAYER_META[lv.cognitiveLayer]
-              const isRevealed = revealedLevels[lv.level]
-              const isHintShown = hintLevels[lv.level]
-              return (
-                <View key={lv.level} className={`${styles.guideLevel} ${styles['ly-' + lm.cls]}`}>
-                  <View className={styles.guideLevelHead} onClick={() => revealLevel(lv)}>
-                    <Text className={styles.levelNo}>{lv.level}</Text>
-                    <Text className={styles.levelTitle}>{lv.title}</Text>
-                    <Text className={`${styles.layerBadge} ${styles['lb-' + lm.cls]}`}>{lm.icon} {lm.label}</Text>
-                  </View>
-                  {isRevealed && (
-                    <View className={styles.guideBody}>
-                      <View className={styles.promptList}>
-                        {lv.prompts.map((p, i) => (
-                          <Text key={i} className={styles.prompt}>• {p}</Text>
-                        ))}
+          <View className={styles.chatBox}>
+            {messages.length === 0 ? (
+              <View className={styles.chatEmpty} onClick={() => startGuide(1)}>
+                <Text className={styles.chatEmptyIcon}>💬</Text>
+                <Text className={styles.chatEmptyTitle}>点击开始伴思引导</Text>
+                <Text className={styles.chatEmptySub}>跟着 AI 导师一步步思考，不直接给答案</Text>
+              </View>
+            ) : (
+              <View className={styles.chatList}>
+                {messages.map((m) => {
+                  const isTutor = m.role === 'tutor'
+                  return (
+                    <View key={m.id} className={`${styles.msg} ${isTutor ? styles.tutor : styles.student}`}>
+                      {isTutor && <View className={styles.avatar}>🤖</View>}
+                      <View className={styles.bubbleWrap}>
+                        {isTutor && m.kind === 'intro' && m.layer && (
+                          <Text className={`${styles.layerTag} ${styles['lt-' + LAYER_META[m.layer].cls]}`}>
+                            {LAYER_META[m.layer].icon} {LAYER_META[m.layer].label}
+                          </Text>
+                        )}
+                        <View className={`${styles.bubble} ${isTutor ? styles.tutorBubble : styles.studentBubble} ${styles['bk-' + m.kind]}`}>
+                          {m.kind === 'intro' && <Text className={styles.introText}>{m.text}</Text>}
+                          {m.kind === 'question' && (
+                            <>
+                              <Text className={styles.questionText}>{m.text}</Text>
+                              {m.knowledge && (
+                                <View className={styles.knowledgeCard}>
+                                  <View className={styles.kcardHead}>
+                                    <Text className={styles.kcardName}>📖 {m.knowledge.name}</Text>
+                                    {m.knowledge.textbookRef && (
+                                      <Text className={styles.kcardRef}>{m.knowledge.textbookRef}</Text>
+                                    )}
+                                  </View>
+                                  {m.knowledge.summary && (
+                                    <Text className={styles.kcardSummary}>{m.knowledge.summary}</Text>
+                                  )}
+                                </View>
+                              )}
+                            </>
+                          )}
+                          {m.kind === 'hint' && <Text className={styles.hintText}>💡 {m.text}</Text>}
+                          {m.kind === 'summary' && <Text className={styles.summaryText}>{m.text}</Text>}
+                          {m.kind === 'action' && <Text className={styles.actionText}>{m.text}</Text>}
+                        </View>
                       </View>
-                      {lv.knowledgeCard && (
-                        <View className={styles.knowledgeCard}>
-                          <View className={styles.kcardHead}>
-                            <Text className={styles.kcardName}>📖 {lv.knowledgeCard.name}</Text>
-                            {lv.knowledgeCard.textbookRef && (
-                              <Text className={styles.kcardRef}>{lv.knowledgeCard.textbookRef}</Text>
-                            )}
-                          </View>
-                          {lv.knowledgeCard.summary && (
-                            <Text className={styles.kcardSummary}>{lv.knowledgeCard.summary}</Text>
-                          )}
-                        </View>
-                      )}
-                      {lv.hint && (
-                        <View className={styles.hintArea}>
-                          {isHintShown ? (
-                            <Text className={styles.hintText}>💡 {lv.hint}</Text>
-                          ) : (
-                            <View className={styles.hintBtn} onClick={() => askHint(lv)}>
-                              💡 给我提示（-1 灵感值）
-                            </View>
-                          )}
-                        </View>
-                      )}
+                      {!isTutor && <View className={styles.avatar}>🧑‍🎓</View>}
                     </View>
-                  )}
+                  )
+                })}
+              </View>
+            )}
+
+            {/* 当前步骤的操作按钮 */}
+            {currentLevel >= 1 && currentLevel <= 6 && (
+              <View className={styles.chatActions}>
+                {challenge.guide[currentLevel - 1].hint && !hintLevels[currentLevel] && (
+                  <View className={styles.hintBtn} onClick={onHint}>💡 给我提示（-1）</View>
+                )}
+                <View className={styles.nextBtn} onClick={onNext}>
+                  {currentLevel === 6 ? '完成引导 ✓' : '继续下一步 →'}
                 </View>
-              )
-            })}
+              </View>
+            )}
+
+            {/* 引导完成后展示完整解题路径回顾 */}
+            {guideDone && (
+              <View className={styles.pathRecap}>
+                <Text className={styles.pathRecapTitle}>🧭 解题路径回顾</Text>
+                {challenge.guide.map((lv) => (
+                  <View key={lv.level} className={styles.pathItem}>
+                    <Text className={styles.pathItemNum}>{lv.level}</Text>
+                    <View className={styles.pathItemBody}>
+                      <Text className={styles.pathItemTitle}>{lv.title}</Text>
+                      {lv.hint && <Text className={styles.pathItemHint}>{lv.hint}</Text>}
+                    </View>
+                  </View>
+                ))}
+              </View>
+            )}
           </View>
         </View>
 

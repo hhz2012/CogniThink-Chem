@@ -10,6 +10,53 @@
   padding: 24rpx 32rpx 0;
 }
 
+/* ============ 顶部信息栏 ============ */
+.metaBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 16rpx 20rpx;
+  margin-bottom: 20rpx;
+  box-shadow: $shadow-card;
+  border-left: 6rpx solid;
+}
+
+.metaLeft {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  min-width: 0;
+}
+
+.metaIcon {
+  font-size: 36rpx;
+  flex-shrink: 0;
+}
+
+.metaText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.metaChapter {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.metaId {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-top: 2rpx;
+}
+
+/* ============ 题干卡片 ============ */
 .problemCard {
   background: #fff;
   border-radius: $radius-lg;
@@ -25,10 +72,28 @@
   margin-bottom: 16rpx;
 }
 
+.problemTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  flex: 1;
+  min-width: 0;
+}
+
 .problemTitle {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   color: $color-text-primary;
+}
+
+.problemDiff {
+  display: inline-block;
+  font-size: 20rpx;
+  color: #fff;
+  background: #94a3b8;
+  border-radius: $radius-round;
+  padding: 2rpx 14rpx;
+  flex-shrink: 0;
 }
 
 .problemText {
@@ -38,6 +103,7 @@
   line-height: 1.7;
 }
 
+/* ============ 选项 ============ */
 .optionList {
   display: flex;
   flex-direction: column;
@@ -118,6 +184,7 @@
 .option.correct .optionMark { color: $color-success; }
 .option.wrongOpt .optionMark { color: $color-error; }
 
+/* ============ 提交 / 结果 ============ */
 .submitBtn {
   margin-top: 28rpx;
   height: $button-height-lg;
@@ -166,6 +233,30 @@
   font-size: $font-size-sm;
 }
 
+.thoughtExplain {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: $radius-sm;
+}
+
+.thoughtExplainTitle {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: #92400e;
+}
+
+.thoughtExplainText {
+  display: block;
+  margin-top: 6rpx;
+  font-size: $font-size-sm;
+  color: #78350f;
+  line-height: 1.65;
+}
+
+/* ============ 守恒校验 ============ */
 .conservation {
   margin-top: 20rpx;
   background: #fff;
@@ -206,6 +297,7 @@
   color: $color-primary-dark;
 }
 
+/* ============ 伴思引导 - 对话式 ============ */
 .guideSection {
   margin-top: 28rpx;
 }
@@ -214,7 +306,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10rpx;
+  margin-bottom: 14rpx;
 }
 
 .guideTitle {
@@ -228,114 +320,137 @@
   color: $color-text-secondary;
 }
 
-.guideLegend {
-  display: flex;
-  gap: 10rpx;
-  margin-bottom: 14rpx;
+.chatBox {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 20rpx;
+  box-shadow: $shadow-card;
 }
 
-.legend {
-  padding: 4rpx 14rpx;
-  border-radius: $radius-round;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
-}
-
-.ly-knowledge { background: #fef3c7; color: #92400e; }
-.ly-application { background: #dbeafe; color: #1e40af; }
-.ly-ability { background: #ede9fe; color: #6d28d9; }
-
-.guideList {
+/* 空状态 */
+.chatEmpty {
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
-}
-
-.guideLevel {
-  background: #fff;
-  border-radius: $radius-md;
-  overflow: hidden;
-  box-shadow: $shadow-card;
-  border-left: 4rpx solid;
-}
-
-.guideLevel.ly-knowledge { border-left-color: #f59e0b; }
-.guideLevel.ly-application { border-left-color: #3b82f6; }
-.guideLevel.ly-ability { border-left-color: #8b5cf6; }
-
-.guideLevelHead {
-  display: flex;
   align-items: center;
-  gap: 12rpx;
-  padding: 18rpx 20rpx;
+  padding: 40rpx 20rpx;
+  background: linear-gradient(135deg, #f0fdfa, #fff);
+  border: 2rpx dashed #99f6e4;
+  border-radius: $radius-md;
 }
 
-.levelNo {
-  width: 36rpx;
-  height: 36rpx;
+.chatEmptyIcon {
+  font-size: 56rpx;
+}
+
+.chatEmptyTitle {
+  margin-top: 12rpx;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-dark;
+}
+
+.chatEmptySub {
+  margin-top: 6rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+/* 消息列表 */
+.chatList {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.msg {
+  display: flex;
+  gap: 12rpx;
+  align-items: flex-start;
+}
+
+.tutor { justify-content: flex-start; }
+.student { justify-content: flex-end; }
+
+.avatar {
+  width: 56rpx;
+  height: 56rpx;
   border-radius: 50%;
-  background: $color-bg-page;
+  background: #f1f5f9;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-bold;
-  color: $color-primary;
+  font-size: 28rpx;
   flex-shrink: 0;
 }
 
-.levelTitle {
-  flex: 1;
-  font-size: $font-size-md;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
+.bubbleWrap {
+  max-width: 78%;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
 }
 
-.layerBadge {
-  padding: 3rpx 12rpx;
-  border-radius: $radius-round;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-semibold;
-  flex-shrink: 0;
-}
+.student .bubbleWrap { align-items: flex-end; }
 
-.lb-knowledge { background: #fef3c7; color: #92400e; }
-.lb-application { background: #dbeafe; color: #1e40af; }
-.lb-ability { background: #ede9fe; color: #6d28d9; }
-
-.guideBody {
-  padding: 0 20rpx 20rpx;
-}
-
-.promptList {
-  background: $color-bg-page;
-  border-radius: $radius-sm;
-  padding: 14rpx 16rpx;
-  margin-bottom: 12rpx;
-}
-
-.prompt {
-  display: block;
+.bubble {
+  padding: 14rpx 18rpx;
+  border-radius: 20rpx;
   font-size: $font-size-sm;
-  color: $color-text-primary;
-  line-height: 1.7;
-  margin-bottom: 6rpx;
+  line-height: 1.65;
+  word-break: break-all;
 }
 
-.prompt:last-child { margin-bottom: 0; }
+.tutorBubble {
+  background: #f8fafc;
+  color: $color-text-primary;
+  border-top-left-radius: 6rpx;
+}
 
+.studentBubble {
+  background: $color-primary;
+  color: #fff;
+  border-top-right-radius: 6rpx;
+}
+
+/* 气泡类型微调 */
+.bk-intro { background: #fff7ed; color: #9a3412; font-weight: $font-weight-semibold; }
+.bk-summary { background: #ecfdf5; color: #065f46; font-weight: $font-weight-semibold; }
+.bk-hint { background: #fefce8; color: #854d0e; }
+.bk-action { background: $color-primary; color: #fff; }
+
+.introText { font-size: $font-size-sm; font-weight: $font-weight-semibold; }
+.questionText { white-space: pre-wrap; }
+.hintText { white-space: pre-wrap; }
+.summaryText { white-space: pre-wrap; }
+.actionText { font-size: $font-size-xs; }
+
+/* 层级标签（知识点/知识运用/能力） */
+.layerTag {
+  align-self: flex-start;
+  padding: 2rpx 12rpx;
+  border-radius: $radius-round;
+  font-size: 18rpx;
+  font-weight: $font-weight-semibold;
+}
+
+.lt-knowledge { background: #fef3c7; color: #92400e; }
+.lt-application { background: #dbeafe; color: #1e40af; }
+.lt-ability { background: #ede9fe; color: #6d28d9; }
+
+/* 知识卡片 */
 .knowledgeCard {
+  margin-top: 12rpx;
   background: linear-gradient(135deg, #fffbeb, #fff);
   border: 1px solid #fde68a;
   border-radius: $radius-sm;
-  padding: 14rpx 16rpx;
-  margin-bottom: 12rpx;
+  padding: 12rpx 14rpx;
 }
 
 .kcardHead {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10rpx;
 }
 
 .kcardName {
@@ -345,31 +460,41 @@
 }
 
 .kcardRef {
-  font-size: $font-size-xs;
+  font-size: 18rpx;
   color: #b45309;
   background: #fef3c7;
   padding: 2rpx 10rpx;
   border-radius: $radius-xs;
+  flex-shrink: 0;
 }
 
 .kcardSummary {
   display: block;
-  font-size: $font-size-sm;
+  margin-top: 6rpx;
+  font-size: $font-size-xs;
   color: #78350f;
-  margin-top: 8rpx;
   line-height: 1.6;
 }
 
-.hintArea { margin-top: 4rpx; }
+/* 操作按钮 */
+.chatActions {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 20rpx;
+  padding-top: 18rpx;
+  border-top: 1px solid $color-divider;
+}
 
 .hintBtn {
-  display: inline-block;
-  padding: 10rpx 22rpx;
-  border: 1px dashed #d1d5db;
+  flex: 1;
+  padding: 16rpx;
+  text-align: center;
+  border: 2rpx dashed #d1d5db;
   background: #f8fafc;
   color: $color-text-secondary;
-  border-radius: $radius-sm;
+  border-radius: $radius-md;
   font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
 }
 
 .hintBtn:active {
@@ -378,15 +503,70 @@
   background: $color-primary-soft;
 }
 
-.hintText {
-  display: block;
-  padding: 12rpx 16rpx;
-  background: #f0fdfa;
-  border: 1px solid #99f6e4;
-  border-radius: $radius-sm;
-  color: #115e59;
+.nextBtn {
+  flex: 1.2;
+  padding: 16rpx;
+  text-align: center;
+  background: linear-gradient(135deg, $color-primary-light, $color-primary);
+  color: #fff;
+  border-radius: $radius-md;
   font-size: $font-size-sm;
-  line-height: 1.65;
+  font-weight: $font-weight-semibold;
+  box-shadow: 0 4rpx 12rpx rgba(15, 118, 110, 0.25);
+}
+
+.nextBtn:active { transform: scale(0.97); opacity: 0.9; }
+
+/* 引导完成后的路径回顾 */
+.pathRecap {
+  margin-top: 22rpx;
+  padding: 18rpx;
+  background: #fff7ed;
+  border: 2rpx solid #fed7aa;
+  border-radius: $radius-md;
+}
+
+.pathRecapTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: #9a3412;
+}
+
+.pathItem {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 14rpx;
+  align-items: flex-start;
+}
+
+.pathItemNum {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: $radius-round;
+  background: #fb923c;
+  color: #fff;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.pathItemBody { flex: 1; }
+
+.pathItemTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.pathItemHint {
+  display: block;
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: 1.6;
 }
 
 .bottomPad { height: 60rpx; }
