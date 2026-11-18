@@ -4,7 +4,8 @@ export default defineAppConfig({
     'pages/atlas/index',
     'pages/bank/index',
     'pages/mine/index',
-    'pages/challenge/index'
+    'pages/challenge/index',
+    'pages/tutor/index'
   ],
   window: {
     backgroundTextStyle: 'light',

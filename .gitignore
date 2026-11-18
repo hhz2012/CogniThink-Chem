@@ -19,9 +19,17 @@ coverage*.xml
 Thumbs.db
 .DS_Store
 
+## SQLite WAL 运行时临时文件（主库 .db 保留）
+*.db-shm
+*.db-wal
+
 ## Local scratch
 .tmp/
 *.log
+
+## 本地开发密钥（含 API Key，禁止提交）
+appsettings.Development.json
+appsettings.*.Development.json
 
 ## 预览时解包的 HTML 分享包（压缩包仍保留在 .trae-html-share-packages/ 下）
 /interaction-design-explain-guide/

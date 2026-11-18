@@ -112,6 +112,12 @@ export default function Home() {
         </View>
         <Text className={styles.descMain}>六大高考化学难题专项 · {allChallenges.length}道精选难题</Text>
         <Text className={styles.descSub}>AI伴思引导层层递进，练透每一条解题思路</Text>
+        <View
+          className={styles.tutorEntry}
+          onClick={() => Taro.navigateTo({ url: '/pages/tutor/index' })}
+        >
+          <Text className={styles.tutorEntryText}>🧭 伴思导学 · 分步推理</Text>
+        </View>
       </View>
 
       {/* ========== 6个专题卡片（2列 × 3行） ========== */}
@@ -122,6 +128,9 @@ export default function Home() {
               progress.solvedIds.includes(c.id)
             ).length
             const allSolved = solvedInChapter === ch.challenges.length
+            const chapterProgress = Math.round((solvedInChapter / ch.challenges.length) * 100)
+            // 箭头位置限制在 3%~97%，避免贴边
+            const arrowPos = Math.min(Math.max(chapterProgress, 3), 97)
             const diffStats = DIFF_LEVELS.map((d) => ({
               ...d,
               total: ch.challenges.filter((c) => c.difficulty === d.key).length,
@@ -154,12 +163,17 @@ export default function Home() {
                     <Text className={styles.cardTitle}>{ch.name}</Text>
                   </View>
                   <View className={styles.cardBottom}>
-                    {diffStats.map((d) => (
-                      <View key={d.key} className={styles.diffItem}>
-                        <View className={styles.diffDot} style={{ background: d.color }} />
-                        <Text className={styles.diffNum} style={{ color: d.color }}>{d.total}</Text>
-                      </View>
-                    ))}
+                    <View className={styles.diffBar}>
+                      {diffStats.map((d) => (
+                        <View
+                          key={d.key}
+                          className={styles.diffSeg}
+                          style={{ flex: d.total, background: d.color }}
+                        />
+                      ))}
+                    </View>
+                    {/* 进度箭头：指示用户在该专项已推进到的位置 */}
+                    <View className={styles.progressArrow} style={{ left: `${arrowPos}%` }} />
                   </View>
                 </View>
               </View>

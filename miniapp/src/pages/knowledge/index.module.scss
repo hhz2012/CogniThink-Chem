@@ -1,0 +1,286 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+}
+
+.body {
+  height: 100vh;
+  padding: 24rpx 32rpx 0;
+}
+
+/* ============ 顶部 ============ */
+.header {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: 28rpx;
+  margin-bottom: 24rpx;
+  box-shadow: $shadow-card;
+}
+
+.title {
+  display: block;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 8rpx;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-top: 20rpx;
+}
+
+.progressTrack {
+  flex: 1;
+  height: 12rpx;
+  background: #e6f1f1;
+  border-radius: $radius-round;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: $color-primary;
+  border-radius: $radius-round;
+  transition: width 0.35s ease;
+}
+
+.progressText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  flex-shrink: 0;
+}
+
+/* ============ 层级分区 ============ */
+.layerSection {
+  margin-bottom: 28rpx;
+}
+
+.layerHead {
+  border-left: 6rpx solid;
+  padding-left: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.layerTitle {
+  display: block;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.layerDesc {
+  display: block;
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+/* ============ 知识点卡片 ============ */
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  margin-bottom: 16rpx;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+}
+
+.cardHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+}
+
+.cardHeadLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.cardCode {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  padding: 4rpx 12rpx;
+  border-radius: $radius-sm;
+  flex-shrink: 0;
+}
+
+.cardTitleWrap {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cardName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.cardSummary {
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: 1.5;
+}
+
+.cardToggle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-secondary;
+  padding-left: 16rpx;
+  flex-shrink: 0;
+}
+
+/* ============ 展开内容 ============ */
+.cardBody {
+  padding: 0 24rpx 24rpx;
+}
+
+.label {
+  display: block;
+  margin: 20rpx 0 10rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+}
+
+.point {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.7;
+}
+
+.pitfall {
+  display: block;
+  font-size: $font-size-sm;
+  color: #b45309;
+  line-height: 1.7;
+}
+
+/* 自测题 */
+.checkQ {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.6;
+  margin-bottom: 12rpx;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 16rpx;
+  margin-bottom: 10rpx;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  background: #fff;
+}
+
+.optRight {
+  border-color: #16a34a;
+  background: #f0fdf4;
+}
+
+.optWrong {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.optLetter {
+  width: 36rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: #e6f1f1;
+  color: $color-primary;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+}
+
+.optText {
+  flex: 1;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.checkExplain {
+  display: block;
+  margin-top: 10rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: 1.7;
+}
+
+/* 教学步骤 */
+.teachStep {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.7;
+  margin-bottom: 6rpx;
+}
+
+.exampleBox {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  background: #f0f9f8;
+  border-radius: $radius-md;
+  border-left: 4rpx solid $color-primary;
+}
+
+.exampleTitle {
+  display: block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  margin-bottom: 6rpx;
+}
+
+.exampleText {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.7;
+}
+
+/* 关联题目 */
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.chip {
+  padding: 8rpx 20rpx;
+  background: #e6f1f1;
+  border-radius: $radius-round;
+}
+
+.chipText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+}
+
+.bottomPad {
+  height: 48rpx;
+}

@@ -56,6 +56,81 @@
   margin-top: 2rpx;
 }
 
+/* ============ 难度导航（更简单 / 更难） ============ */
+.diffNav {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.diffNavBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  padding: 14rpx 0;
+  background: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+  box-shadow: $shadow-card;
+}
+
+.diffNavDisabled {
+  opacity: 0.35;
+}
+
+.diffNavArrow {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+}
+
+.diffNavText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+/* ============ 知识体系入口 ============ */
+.kpBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding: 18rpx 22rpx;
+  margin-bottom: 20rpx;
+  background: #f0f9f8;
+  border: 2rpx solid #cceae8;
+  border-radius: $radius-lg;
+}
+
+.kpLeft {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.kpTitle {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+}
+
+.kpNames {
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: 1.5;
+}
+
+.kpArrow {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  flex-shrink: 0;
+}
+
 /* ============ 题干卡片 ============ */
 .problemCard {
   background: #fff;
@@ -567,6 +642,135 @@
   font-size: $font-size-xs;
   color: $color-text-secondary;
   line-height: 1.6;
+}
+
+/* 引擎复盘探问 */
+.reviewBox {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background: linear-gradient(135deg, #f0f9ff, #fff);
+  border: 2rpx solid #bae6fd;
+  border-radius: $radius-lg;
+}
+
+.reviewTitle {
+  display: block;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: #075985;
+  margin-bottom: 6rpx;
+}
+
+.reviewItem {
+  margin-top: 14rpx;
+  padding-top: 12rpx;
+  border-top: 1px dashed #bae6fd;
+}
+
+.reviewQ {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.6;
+}
+
+.reviewMeta {
+  display: block;
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  color: $color-text-secondary;
+  line-height: 1.5;
+}
+
+/* 逐步诊断对话 */
+.diagBox {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  background: #fff;
+  border: 2rpx solid $color-divider;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+.diagTitle {
+  display: block;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary-dark;
+  margin-bottom: 12rpx;
+}
+
+.diagList {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.diagMsg {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.diagStudent { justify-content: flex-end; }
+
+.diagBubble {
+  max-width: 84%;
+  padding: 14rpx 18rpx;
+  border-radius: 18rpx;
+}
+
+.diagTutorBubble {
+  background: #f8fafc;
+  border-top-left-radius: 4rpx;
+}
+
+.diagStuBubble {
+  background: $color-primary;
+  border-top-right-radius: 4rpx;
+}
+
+.diagText {
+  font-size: $font-size-sm;
+  line-height: 1.65;
+  white-space: pre-wrap;
+  color: $color-text-primary;
+}
+
+.diagStuBubble .diagText { color: #fff; }
+
+.diagChoices {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  margin-top: 16rpx;
+}
+
+.diagChoice {
+  padding: 14rpx 16rpx;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  background: #fff;
+}
+
+.diagChoice:active {
+  border-color: $color-primary;
+  background: $color-primary-soft;
+}
+
+.diagChoiceText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+.diagRetry {
+  margin-top: 16rpx;
+  padding: 16rpx;
+  text-align: center;
+  background: linear-gradient(135deg, $color-primary-light, $color-primary);
+  color: #fff;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
 }
 
 .bottomPad { height: 60rpx; }

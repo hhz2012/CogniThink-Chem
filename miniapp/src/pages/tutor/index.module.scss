@@ -1,0 +1,513 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding: 24rpx 32rpx 0;
+  box-sizing: border-box;
+}
+
+/* ============ 顶部 ============ */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.backBtn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-round;
+  background: #fff;
+  box-shadow: $shadow-card;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.backIcon {
+  font-size: $font-size-lg;
+  color: $color-primary;
+  font-weight: $font-weight-bold;
+}
+
+.headerMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  display: block;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.subtitle {
+  display: block;
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+/* ============ 题目列表 ============ */
+.listWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  margin-top: 8rpx;
+}
+
+.problemCard {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 24rpx;
+  box-shadow: $shadow-card;
+  border-left: 6rpx solid $color-primary;
+}
+
+.problemTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+}
+
+.problemTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.difficulty {
+  font-size: 20rpx;
+  color: $color-primary;
+  background: rgba(15, 118, 110, 0.1);
+  border-radius: $radius-round;
+  padding: 4rpx 14rpx;
+  flex-shrink: 0;
+}
+
+.problemMeta {
+  display: block;
+  margin-top: 8rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+/* ============ 题干 ============ */
+.stemCard {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 24rpx;
+  box-shadow: $shadow-card;
+  margin-bottom: 20rpx;
+}
+
+.stemLabel {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+  margin-bottom: 10rpx;
+}
+
+.stemText {
+  display: block;
+  font-size: $font-size-md;
+  line-height: 1.75;
+  color: $color-text-primary;
+}
+
+.kpRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 16rpx;
+}
+
+.kpTag {
+  font-size: 20rpx;
+  color: $color-text-secondary;
+  background: #f1f5f9;
+  border-radius: $radius-sm;
+  padding: 4rpx 12rpx;
+}
+
+/* ============ 进度 ============ */
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.progressBar {
+  flex: 1;
+  height: 12rpx;
+  background: #e2e8f0;
+  border-radius: $radius-round;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, $color-primary-light, $color-primary);
+  border-radius: $radius-round;
+  transition: width $transition-base;
+}
+
+.progressText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  min-width: 72rpx;
+  text-align: right;
+}
+
+/* ============ 当前步骤 ============ */
+.stepCard {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 24rpx;
+  box-shadow: $shadow-card;
+  margin-bottom: 20rpx;
+}
+
+.stepHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+
+.stepTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.keyBadge {
+  margin-left: 10rpx;
+  font-size: 18rpx;
+  color: #b45309;
+  background: #fef3c7;
+  border-radius: $radius-xs;
+  padding: 2rpx 10rpx;
+}
+
+.stepKp {
+  font-size: 20rpx;
+  color: $color-text-secondary;
+}
+
+.stepPrompt {
+  display: block;
+  font-size: $font-size-md;
+  line-height: 1.7;
+  color: $color-text-primary;
+  margin-bottom: 18rpx;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 180rpx;
+  background: #f8fafc;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-md;
+  padding: 18rpx;
+  font-size: $font-size-sm;
+  line-height: 1.7;
+  box-sizing: border-box;
+}
+
+.submitBtn {
+  margin-top: 18rpx;
+  height: $button-height-md;
+  border-radius: $radius-button;
+  background: linear-gradient(135deg, $color-primary-light, $color-primary);
+  color: #fff;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.submitBtnDisabled {
+  opacity: 0.6;
+}
+
+/* ============ 反馈 ============ */
+.feedback {
+  background: #fff;
+  border-radius: $radius-lg;
+  padding: 24rpx;
+  box-shadow: $shadow-card;
+  margin-bottom: 20rpx;
+}
+
+.feedbackHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14rpx;
+}
+
+.statusBadge {
+  font-size: 22rpx;
+  padding: 4rpx 14rpx;
+  border-radius: $radius-round;
+  font-weight: $font-weight-semibold;
+}
+
+.statusOk {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.statusWarn {
+  color: #b45309;
+  background: #fef3c7;
+}
+
+.statusDone {
+  color: #4338ca;
+  background: #e0e7ff;
+}
+
+.actionText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.messageText {
+  display: block;
+  font-size: $font-size-md;
+  line-height: 1.75;
+  color: $color-text-primary;
+}
+
+.hintBox {
+  margin-top: 16rpx;
+  background: #fff7ed;
+  border: 2rpx dashed #fdba74;
+  border-radius: $radius-md;
+  padding: 16rpx;
+}
+
+.hintLabel {
+  display: block;
+  font-size: 20rpx;
+  color: #c2410c;
+  margin-bottom: 6rpx;
+}
+
+.hintText {
+  display: block;
+  font-size: $font-size-sm;
+  line-height: 1.7;
+  color: #7c2d12;
+}
+
+/* ============ 知识库证据 ============ */
+.evidenceBox {
+  margin-top: 16rpx;
+  background: #f0fdfa;
+  border: 2rpx solid #99f6e4;
+  border-radius: $radius-md;
+  padding: 18rpx;
+}
+
+.evidenceHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  margin-bottom: 10rpx;
+}
+
+.evidenceTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-dark;
+}
+
+.evidenceType {
+  flex-shrink: 0;
+  font-size: 20rpx;
+  color: $color-primary;
+  background: #ccfbf1;
+  border-radius: $radius-round;
+  padding: 2rpx 12rpx;
+}
+
+.evidenceConclusion {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  line-height: 1.65;
+  color: $color-text-primary;
+}
+
+.conflictItem {
+  margin-top: 12rpx;
+  padding: 12rpx 14rpx;
+  background: #fff7ed;
+  border-left: 4rpx solid #f97316;
+  border-radius: $radius-sm;
+}
+
+.conflictTitle {
+  display: block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: #9a3412;
+}
+
+.conflictText {
+  display: block;
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  line-height: 1.65;
+  color: #7c2d12;
+}
+
+.evidenceFact {
+  display: block;
+  margin-top: 8rpx;
+  font-size: $font-size-xs;
+  line-height: 1.65;
+  color: $color-text-secondary;
+}
+
+.reactionCard {
+  margin-top: 12rpx;
+  padding: 12rpx 14rpx;
+  background: #fff;
+  border-radius: $radius-sm;
+}
+
+.reactionEquation {
+  display: block;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  line-height: 1.65;
+  color: $color-primary-dark;
+}
+
+.reactionMeta {
+  display: block;
+  margin-top: 4rpx;
+  font-size: 20rpx;
+  line-height: 1.6;
+  color: $color-text-secondary;
+}
+
+.metaRow {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  margin-top: 14rpx;
+}
+
+.errorTag {
+  font-size: $font-size-xs;
+  color: #b91c1c;
+}
+
+.mastery {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+}
+
+.weakBox {
+  margin-top: 14rpx;
+  background: #f8fafc;
+  border-radius: $radius-md;
+  padding: 14rpx;
+}
+
+.weakTitle {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  margin-bottom: 6rpx;
+}
+
+.weakItem {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  line-height: 1.7;
+}
+
+/* ============ 通关 ============ */
+.completeCard {
+  background: linear-gradient(135deg, #ecfdf5, #fff);
+  border: 2rpx solid #a7f3d0;
+  border-radius: $radius-lg;
+  padding: 28rpx;
+  margin-bottom: 20rpx;
+}
+
+.completeTitle {
+  display: block;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: #047857;
+  margin-bottom: 8rpx;
+}
+
+.completeText {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.7;
+}
+
+.variantBtn {
+  margin-top: 18rpx;
+  height: $button-height-md;
+  border-radius: $radius-button;
+  background: #047857;
+  color: #fff;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============ 状态与提示 ============ */
+.loadingText {
+  display: block;
+  text-align: center;
+  padding: 40rpx;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.errorText {
+  display: block;
+  padding: 20rpx;
+  background: #fef2f2;
+  border-radius: $radius-md;
+  color: #b91c1c;
+  font-size: $font-size-sm;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+.apiHint {
+  display: block;
+  text-align: center;
+  margin-top: 20rpx;
+  font-size: 20rpx;
+  color: #94a3b8;
+}
+
+.bottomPad {
+  height: 60rpx;
+}
