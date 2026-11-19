@@ -588,6 +588,37 @@ public sealed partial class LlmGatewayService
                 Confidence = 1.0
             };
         }
+
+        // Tier 2-B / AC-17：物质转化链确定性校验（规则库查表）。
+        // 不能唯一判定时返回 null → 回退，不影响原有路径（零回归）。
+        var trn = TransformationChainValidator.TryDecide(req);
+        if (trn is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = trn.FinalResult,
+                DerivationSteps = trn.Reasons,
+                ErrorTags = InferErrorTags(trn.FinalResult),
+                ConstraintNote = trn.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Tier 2-C / AC-18：NA 粒子计数确定性校验（事实库查表，最保守）。
+        var nac = NaChoiceValidator.TryDecide(req);
+        if (nac is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = nac.FinalResult,
+                DerivationSteps = nac.Reasons,
+                ErrorTags = InferErrorTags(nac.FinalResult),
+                ConstraintNote = nac.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
         var outcome = ChoiceVerifier.TryDecide(req, _chem);
         if (outcome is not null)
         {

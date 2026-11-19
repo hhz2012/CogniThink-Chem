@@ -1,0 +1,114 @@
+﻿=== pdf-173 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: （1）基态 Cu 原子的价层电子排布式为____________________。
+EXPECTED: 关键词: B
+NOTE: 解析：A. Al³⁺核外电子数为10，电子层数为2；K⁺核外电子数为18，电子层数为3，根据“层多径大”的规律可知：r(K⁺)>r(Al³⁺)，A选项错误。B. 同主族元素，其电负性从上到下逐渐减小。O和S都是第ⅥA族元素，在元素周期表中O位于S的上方，因此电负性：O>S，B选项正确。（利用SO₂中O元素的化合价为-2价，以及电负性口诀“F老大、O老二”也可以比较出S、O的电负性）C. H₂O、H₂S均为共价分子，比较沸点时优先看分子间是否能形成氢键。由于H₂O分子间存在氢键而H₂S没有，因此H₂O的沸点高于H₂S的，C选项错误。D. 元素的金属性越强，其最高价氧化物对应的水化物的碱性越强。K的金属性强于Al的，因此KOH的碱性强于Al(OH)₃
+
+=== pdf-486 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (2)(2023·浙江6月选考，17节选改编·★)基态N原子的价层电子排布式是_______________________。
+(2024·浙江卷·双选·★★★)下列有关单核微粒的描述正确的是( )
+EXPECTED: 关键词: 2s2 2p3,AB
+NOTE: [千问求解] N原子序数7，价层为第二层：2s²2p³；A正确（Ar唯一排布）；B正确（Na⁺与Ne同构，但Na⁺核电荷大，电离能更大）；C错（Ge应为[Ar]4s²3d¹⁰4p²）；D错（Fe先失4s电子）
+
+=== pdf-488 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (5)(2024·山东卷节选·★★)Mn在元素周期表中位于第____周期第____族；同周期元素中，基态原子未成对电子数比Mn多的元素是____(填元素符号)。
+EXPECTED: 关键词: 四,VIIB,Fe
+NOTE: [千问求解] Mn原子序数25，电子排布[Ar]3d⁵4s²，位于第四周期VIIB族；同周期中Fe（3d⁶4s²）有4个未成对电子，多于Mn的5个？错！Mn有5个（3d⁵半满），Fe有4个，Cr（3d⁵4s¹）有6个，故应为Cr。修正：四；VIIB；Cr
+
+=== pdf-198 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=True ===
+Q: （2023·全国乙卷·★★★）已知一些物质的熔点数据如下表：
+物质	NaCl	SiCl4	GeCl4	SnCl4
+熔点/℃	800.7	－68.8	－51.5	－34.1
+(1) Na 与 Si 均为第三周期元素，NaCl 熔点明显高于 SiCl4 的原因是_______________________________。
+(2) 分析同族元素的氯化物 SiCl4、GeCl4、SnCl4 熔点变化趋势及其原因：_______________________________。
+EXPECTED: 关键词: 离子晶体,分子晶体,C
+NOTE: (1)NaCl是典型离子晶体，熔化破坏离子键；SiCl4、GeCl4、SnCl4均为分子晶体，结构相似，相对分子质量依次增大，范德华力增强，熔点依次升高。(2)SiCl4熔点仅−68.8℃，极低，说明为分子晶体；三者均为同主族氯化物，分子结构相似，相对分子质量依次增大，范德华力依次增强，熔点依次升高，故选C。
+
+=== pdf-485 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=True ===
+Q: (1)(2021·河北卷节选·★★)含Cu、Zn、Sn及S的四元半导体化合物(简写为CZTS)，是一种低价、无污染的绿色环保型光伏材料，可应用于薄膜太阳能电池领域。基态S原子的价层电子中，两种自旋状态的电子数之比为__________。
+EXPECTED: 关键词: 1:1
+NOTE: [千问求解] S原子基态价层电子排布为3s²3p⁴，s轨道2个电子自旋相反，p轨道4个电子中必有2个↑、2个↓，故两种自旋电子数之比为1:1。
+
+=== pdf-117 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (1)Si是半导体材料,同族的Ge也是半导体材料,则ⅣA族元素的单质都是半导体材料（ ）
+EXPECTED: 关键词: ×,×,√,×,√,√,√,×,×,×,√,√,√,×
+NOTE: 解析：(1)(×)在元素周期表中，构成半导体材料的元素主要集中在金属和非金属的分界线处，如第ⅣA族的Si、Ge。但第ⅣA族元素不全都位于金属和非金属分界线处，如碳是典型的非金属单质、Pb是典型的金属单质，它们均不是半导体材料。因此第ⅣA族元素的单质并非都是半导体材料。(2)(×)硅的导电性介于导体和绝缘体之间，可以制造半导体，而光导纤维的主要成分为SiO₂，与Si单质的导电性无关。
+
+=== pdf-120 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (4)SiO2可用于生产光导纤维,利用了SiO2的导电性（ ）
+EXPECTED: 关键词: D
+NOTE: A项：钡元素焰色为黄绿色，正确；B项：BaCuSi2O6中Ba为+2、Si为+4、O为-2，可算得Cu为+2，B正确；C项：该物质含SiO3^2-和Ba2+、Cu2+，是硅酸盐材料，C正确；D项：在硅酸盐中，1个Si原子通常与4个O原子形成硅氧四面体结构，每个Si周围连接4个O，D选项错误。【反思】硅酸盐以Si和O为核心，普遍含金属元素，结构性质多样。
+
+=== pdf-121 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (5)石墨烯、碳纳米管、碳纤维均属于无机非金属材料（ ）
+EXPECTED: 关键词: C
+NOTE: A项：硼精矿中B2O3、Al2O3、SiO2均与NaOH反应生成可溶物，但FeCl3与NaOH生成Fe(OH)3沉淀，故滤渣1为Fe(OH)3，无SiO2反应产物，A错；B项：滤渣2为Na2O·3CaO·Al2O3·nSiO2，属硅酸盐，氧化物表示形式不能称氧化物（仅含2种元素且一种为氧才可），B错；C项：NaBH4具强还原性，易被O2氧化，故‘制取’需无氧环境，C正确；D项：各步反应中元素化合价未变，无氧化还原反应，D错。
+
+=== pdf-122 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (6)单晶硅芯片的主要成分可被氢氟酸腐蚀（ ）
+EXPECTED: 关键词: D
+NOTE: A项：石英砂主成分为SiO2，与C高温反应：2C+SiO2→Si+2CO↑，C作还原剂，Si为还原产物，还原性：还原剂＞还原产物，故C还原性＞Si，不能由非金属性强弱直接推断还原性，A错；B项：步骤②：Si(粗)+3HCl→SiHCl3+H2（300℃），步骤③：SiHCl3+H2→Si(纯)+3HCl（1100℃），由此可知D选项正确。
+
+=== pdf-134 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: （★）正误判断，正确的填“√”，错误的填“×”。(1)澄清石灰水和酸性 KMnO4 溶液均可以区分 CO2 和 SO2（ ）(2)可用饱和 Na2CO3 溶液除去 CO2 中少量的 SO2（ ）(3)SO2 能防止葡萄酒中的一些成分被氧化，起到保质作用（ ）(4)在医疗上，硫酸钡、碳酸钡均可被用作消化系统 X 射线检查的内服药剂（ ）(5)少量 SO2 通入 Ca(ClO)2 溶液中：Ca2+ + 3ClO− + SO2 + H2O = CaSO4 ↓ + Cl− + 2HClO（ ）(6)向某钾盐中滴加浓盐酸后，产生能使品红溶液褪色的气体，则可以验证某钾盐为 K2SO3（ ）(7)向某待测液中滴加 BaCl2 溶液，若生成白色沉淀，则待测液含有 SO4^2−（ ）(8)SO2 通入 BaCl2 溶液中不产生沉淀，则 SO2 通入 Ba(NO3)2 溶液中也不产生沉淀（ ）(9)可以用装置 制备并收集 SO2（ ）(10)向胆矾中滴加浓硫酸，胆矾变白色与向纸张上滴加浓硫酸，纸张变黑色的原理相同（ ）(11)用 Na2SO3 溶液吸收足量的 Cl2：3SO3^2− + Cl2 + H2O...[truncated]
+EXPECTED: 关键词: ×,×,√,×,√,×,×,×,×,×,×,√,×,×,×
+NOTE: 解析：(1)酸性KMnO4溶液能与SO2发生氧化还原反应而褪色，而CO2不能和酸性KMnO4溶液反应，故可用酸性KMnO4溶液区分二者；但CO2和SO2均会与澄清石灰水反应生成白色沉淀（分别为CaCO3、CaSO3），因此澄清石灰水无法区分二者。(2)饱和Na2CO3溶液不仅与杂质SO2反应，还会与目标气体CO2反应，导致CO2被消耗，应改用饱和NaHCO3溶液除去CO2中少量的SO2。
+
+=== pdf-163 | type=unknown | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (4)如果“焙烧”后的产物直接用酸浸取，是否可行？________，其原因是________________________。
+EXPECTED: 关键词: 3d10 4s1,MnO2 + SO3^2- + 2H+ = Mn2+ + SO4^2- + H2O,[Cu(NH3)4]2+,提高H2SO4和Na2SO3的利用率,降低生产成本,除杂更彻底,使所得金,银产品品质提升,减少废水产生,MnO2 > Fe3+ > Cu2+,①12 ②122×1×55×3 / (NA×10^-7)^3
+NOTE: Cu为29号元素，基态电子排布为[Ar]3d10 4s1；‘还原酸浸’中MnO2将SO3^2-氧化为SO4^2-，自身被还原为Mn2+；滤液1加铁粉还原Fe3+、Cu2+；MnO2氧化Fe2+为Fe3+，再与NaOH生成Fe(OH)3沉淀；金、银不参与反应进入滤渣1，后转入滤液2得Au、Ag。
+
+=== pdf-466 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (7)瓷坩埚不可用于加热熔化烧碱或纯碱（ ）
+EXPECTED: 关键词: √
+NOTE: [千问求解] 瓷坩埚含SiO₂，与NaOH、Na₂CO₃高温下反应生成硅酸钠，腐蚀坩埚。
+
+=== pdf-469 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (10)利用CO2合成高级脂肪酸甘油酯,实现无机小分子向有机高分子的转化（ ）
+EXPECTED: 关键词: ×
+NOTE: [千问求解] 高级脂肪酸甘油酯是有机小分子（相对高分子而言），非高分子化合物，CO2合成该物质属于无机物→有机小分子转化。
+
+=== pdf-470 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (11)月面国旗由超细玄武岩纤维纺织而成,属于无机非金属材料（ ）
+EXPECTED: 关键词: √
+NOTE: [千问求解] 玄武岩纤维主要成分为SiO₂、Al₂O₃等无机物，属无机非金属材料。
+
+=== pdf-473 | type=unknown | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (14)固体Na2CO3、溶液Na2SiO3证明非金属性:Cl>C>Si（ ）
+EXPECTED: 关键词: ×
+NOTE: [千问求解] 比较非金属性应依据最高价氧化物对应水化物酸性或单质与氢气反应难易等，Na2CO3、Na2SiO3为盐，不能直接证明Cl>C>Si；且Cl未参与比较。
+
+=== d4-3 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=True ===
+Q: Na2CO3 溶液中，电荷守恒式正确的是？
+EXPECTED: 关键词: Na+,H+,CO3^2-,HCO3-,OH-,2c
+NOTE: 陷阱：CO3^2-带2个负电荷，浓度前要乘2
+
+=== pdf-514 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=True ===
+Q: (1)CH3COOH、H2CO3、HCN 的酸性由弱到强的顺序为____________________。
+EXPECTED: 关键词: HCN < H2CO3 < CH3COOH
+NOTE: [千问求解] Ka值：HCN(4.9×10⁻¹⁰) < H2CO3(Ka1=4.3×10⁻⁷) < CH3COOH(1.8×10⁻⁵)，故酸性依次增强。
+
+=== pdf-516 | type=concept | gwUsed=False gwAdopted=False gwCorr=False plCorr=True ===
+Q: (3)KHC2O4 溶液为__________(填“酸性”或“碱性”)
+EXPECTED: 关键词: 酸性
+NOTE: [千问求解] KHC2O4中HC2O4⁻既可电离（Ka2=5.4×10⁻⁵）又可水解（Kh=Kw/Ka1≈10⁻¹².⁸⁷），因Ka2＞Kh，故溶液显酸性。
+
+=== pdf-190 | type=equilibrium | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (1)(2023·北京卷·★★)比较S原子和O原子的第一电离能大小,从原子结构的角度说明理由:________________________________________________________。
+(2)(2025·上海一模·★★)配合物正离子的符号为[Cu(NH3)4(H2O)2]2+,其中非金属元素的电负性由大到小的顺序为________________________________________________________。
+(3)(2025·上海二模·★★)月球上的主要矿物有辉石(CaMgSiO6)、斜长石(KAlSi3O8)和橄榄石{可分为铁橄榄石(Fe2SiO4)、镁橄榄石(Mg2SiO4)、铁镁橄榄石[(Mg·Fe)2SiO4]}等。月球上的上述主要矿物中,属于短周期元素的原子半径由大到小的顺序为________________________________________________________(填元素符号)。
+(4)(2025·天津河西三模·★★)基态Ti原子的价层电子排布式为__________,钙、钛、氧的电负性由大到小的顺序是___...[truncated]
+EXPECTED: 关键词: 正四面体,sp3
+NOTE: 解析：(1) H2S为V形（或角形），离子键、共价键；(2) AsCl3中心原子As为sp3杂化，基准键角109°28′；BCl3中心原子B为sp2杂化，基准键角120°。表格中H2S：2个S-H σ键，1个S孤电子对，价层电子对数=2+1=3？但实际为4对（2键+2孤），此处原文表中计算为2(1个S接2个H)，孤电子对=1/2(6-2×1)=2，价层=2+2=4，应为sp3杂化，V形；SO2：2个S-O σ键，孤电子对=1/2(6-2×2)=1，价层=3，sp2；SO3：3个S-O σ键，孤电子对=0，价层=3，sp2。中心原子价层电子对数不同于其他的是H2S（4对）。
+
+=== pdf-188 | type=structure_verify | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (3)[2023·广东，19(1)①★★]基态Fe2+的3d电子轨道表示式为_______________________。
+(2025·山西三模改编·★★)下列化学用语表述正确的是( )
+EXPECTED: 关键词: sp3
+NOTE: 解析：(1) NH2-的N原子有3个σ键和1个孤电子对，价层电子对数为4，N杂化方式为sp3；-NH3+的N原子有4个σ键和0个孤电子对，价层电子对数为4，N杂化方式也为sp3。二者中心原子杂化方式相同，但孤电子对越多，键角越小，故∠HNH在H2N-NH2中大于-NH2<NH3+中的-NH3+。(2) H2O中O和SO4^2-中S都是sp3杂化，H2O中O有2个被孤电子对占据，SO4^2-中S的4个杂化轨道均被成键电子对占据，孤电子对斥力更大，导致H-O-H键角小于O-S-O键角。(3) NH3中有1个孤电子对，BH3中B未满足8电子结构，有一个空轨道，N提供孤电子对形成配位键，B为sp3杂化；NH3BH3水解生成B3O6^3-，其中B有4个σ键，无孤电子对，杂化类型为sp3；反应物中B有3个σ键，无孤电子对，杂化类型为sp2。
+
+=== pdf-489 | type=structure_verify | gwUsed=False gwAdopted=False gwCorr=False plCorr=False ===
+Q: (6)(2024·北京卷·★★)锡(Sn)是现代“五金”之一，广泛应用于合金、半导体工业等。Sn位于元素周期表的第五周期第ⅣA族。将Sn的基态原子最外层轨道表示式补充完整：5s ___ 5p ___
+EXPECTED: 关键词: ² ²
+NOTE: [千问求解] Sn原子序数50，电子排布[ Kr ]4d¹⁰5s²5p²，最外层为5s²5p²，故5s填2，5p填2。
+

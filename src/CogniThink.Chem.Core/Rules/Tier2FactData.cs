@@ -61,6 +61,7 @@ public sealed class NaParticleFact
     public int SigmaBonds { get; set; }
     public int PiBonds { get; set; }
     public int CovalentBonds { get; set; }
+    public bool Molecular { get; set; }    // 是否为分子晶体/分子（σ/π/共价键查询仅对分子有意义）
     public int Ions { get; set; }          // 每式单元完全电离产生的离子数（名义）
     public double HBonds { get; set; }     // 每式平均氢键数（如冰中 H2O = 2）
     public string StpState { get; set; } = "gas"; // gas / solid / liquid

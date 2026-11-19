@@ -58,7 +58,7 @@ def norm_sub(tok):
     if t in by_name: return by_name[t].get("formula", t)
     return t
 
-COND_SET = {"高温","加热","△","点燃","催化剂","放电","光照","电解","通电","蒸干","灼烧","煮沸","微生物","酶","高压"}
+COND_SET = {"高温","加热","△","点燃","催化剂","放电","光照","电解","通电","蒸干","灼烧","煮沸","微生物","酶","高压","常温","熔融电解","熔融"}
 REAGENT_ALIAS = {"氯气":"Cl2","液氯":"Cl2","氯水":"Cl2","盐酸":"HCl","稀盐酸":"HCl","浓盐酸":"浓HCl","硫酸":"H2SO4","稀硫酸":"H2SO4","浓硫酸":"浓H2SO4","硝酸":"HNO3","稀硝酸":"HNO3","浓硝酸":"浓HNO3","水":"H2O","蒸馏水":"H2O","氧气":"O2","空气":"O2","过量空气":"O2","过量氧气":"O2","二氧化碳":"CO2","过量CO2":"CO2","过量二氧化碳":"CO2","一氧化碳":"CO","氢气":"H2","氮气":"N2","氨气":"NH3","氯化氢":"HCl","硫化氢":"H2S","二氧化硫":"SO2","三氧化硫":"SO3","氢氧化钠":"NaOH","氢氧化钾":"KOH","氢氧化钙":"Ca(OH)2","澄清石灰水":"Ca(OH)2","石灰水":"Ca(OH)2","石灰乳":"Ca(OH)2","氢氧化钡":"Ba(OH)2","氨水":"NH3·H2O","一水合氨":"NH3·H2O","氯化钠":"NaCl","氯化钙":"CaCl2","氯化钡":"BaCl2","氯化铁":"FeCl3","氯化亚铁":"FeCl2","氯化铜":"CuCl2","氯化铵":"NH4Cl","硝酸银":"AgNO3","硝酸钡":"Ba(NO3)2","碳酸钠":"Na2CO3","碳酸氢钠":"NaHCO3","碳酸钾":"K2CO3","次氯酸钠":"NaClO","次氯酸钙":"Ca(ClO)2","氯酸钾":"KClO3","高锰酸钾":"KMnO4","二氧化锰":"MnO2","过氧化氢":"H2O2","双氧水":"H2O2","铁粉":"Fe","铁":"Fe","铜粉":"Cu","铜":"Cu","铝粉":"Al","铝":"Al","锌":"Zn","锌粉":"Zn","镁":"Mg","碳":"C","木炭":"C","焦炭":"C","硫":"S","硫磺":"S","磷":"P","KSCN":"KSCN","硫氰化钾":"KSCN","硫氰酸钾":"KSCN","KI":"KI","碘化钾":"KI","淀粉":"淀粉","乙醇":"C2H5OH","酒精":"C2H5OH","醋酸":"CH3COOH","乙酸":"CH3COOH","NaAlO2":"NaAlO2","偏铝酸钠":"NaAlO2","硅酸钠":"Na2SiO3","Na2O2":"Na2O2","过氧化钠":"Na2O2","Na2O":"Na2O","氧化钠":"Na2O"}
 ACID_CONC = {"稀硫酸":"稀H2SO4","浓硫酸":"浓H2SO4","稀盐酸":"稀HCl","浓盐酸":"浓HCl",
              "稀硝酸":"稀HNO3","浓硝酸":"浓HNO3","稀H2SO4":"稀H2SO4","浓H2SO4":"浓H2SO4",
@@ -87,11 +87,28 @@ def reag_satisfies(req_set, opt_set):
         if not any(_base(o) == br and (cr == "" or _conc(o) == cr) for o in opt_set):
             return False
     return True
+def norm_cond(c):
+    """条件词归一：同义词 + 数字温度 → 高温/△（规则库统一用 △ 表加热）。"""
+    t = norm(c).strip()
+    if t == "加热":
+        return "△"
+    m = re.match(r"^(\d+)℃$", t)
+    if m:
+        return "高温" if int(m.group(1)) >= 500 else "△"
+    return t
+
 def is_cond(tok):
     t = norm(tok).strip()
     if t in COND_SET: return True
     if re.match(r"^\d+℃$", t): return True
     return False
+
+def cond_satisfies(rule_conds, opt_cond):
+    """规则要求的每个条件须由选项提供（归一化后）。"""
+    for rc in (rule_conds or []):
+        if norm_cond(rc) not in opt_cond:
+            return False
+    return True
 
 # load rules, build index (from,to) -> list of rule
 rules_data = json.load(open(ROOT + r"\data\highschool\transformation-rules.json", encoding="utf-8"))
@@ -109,7 +126,7 @@ def split_ann(ann):
     toks = [t for t in toks if t]
     reag, cond = set(), set()
     for t in toks:
-        if is_cond(t): cond.add(norm(t))
+        if is_cond(t): cond.add(norm_cond(t))
         else: reag.add(norm_reagent(t))
     return reag, cond
 
@@ -161,30 +178,29 @@ def parse_chain(text):
     return None
 
 def step_feasible(frm, reag, cond, to):
-    """True=feasible, False=broken, None=unknown(-> whole chain null)."""
+    """True=feasible, False=broken, None=unknown(-> whole chain null).
+    尊重 feasible 标志 + 条件校验：匹配到可行规则(试剂⊆选项且条件⊆选项)→可行；
+    仅匹配到不可行规则→不可行；都不匹配→断链。裸箭头(无试剂无条件)按成对存在判定。"""
     matches = idx.get((frm, to), [])
     if not matches:
         return False  # no rule for this pair -> broken
     if not reag and not cond:
-        # truly bare arrow (e.g. 3-substance "甲、乙、丙", conditions omitted): pair existence suffices.
-        return True
-    if not reag:
-        # condition-only arrow (e.g. "--(△)-->"): must match a rule that consumes NO reagent
-        # (decomposition / condition-driven). A rule needing a reagent is not satisfied by △ alone
-        # (prevents false-feasible like Na2CO3 --(△)--> NaOH, which actually needs Ca(OH)2).
-        for r in matches:
-            if not norm_rea_list(r.get("reagents", [])):
-                return True
-        return False
-    # reagent-bearing arrow -> require a matching rule that explicitly consumes reagents (non-empty
-    # required set) and supplies all of them. A rule needing no reagent does NOT satisfy a
-    # reagent-bearing option (prevents false-feasible like Cu(OH)2 --(H2O)--> CuO).
+        # truly bare arrow (e.g. 3-substance "甲、乙、丙", reagents/conditions omitted):
+        # pair existence suffices unless only infeasible rules are recorded.
+        return any(r.get("feasible", True) for r in matches)
+
+    def reag_fits(r):
+        req = norm_rea_list(r.get("reagents", []))
+        if not reag:
+            return len(req) == 0          # cond-only arrow: rule must consume no reagent
+        return len(req) > 0 and reag_satisfies(req, reag)
+
     for r in matches:
-        req_r = norm_rea_list(r.get("reagents", []))
-        if not req_r:
-            continue
-        if reag_satisfies(req_r, reag):
+        if r.get("feasible", True) and reag_fits(r) and cond_satisfies(r.get("conditions"), cond):
             return True
+    for r in matches:
+        if (not r.get("feasible", True)) and reag_fits(r) and cond_satisfies(r.get("conditions"), cond):
+            return False
     return False
 
 def chain_ok(steps):
@@ -237,4 +253,42 @@ def render(x):
 def run_pdf_targets():
     pdf = json.load(open(ROOT + r"\src\CogniThink.TutorBrain.Api\data\pdf_questions.json", encoding="utf-8"))
     pdf_items = pdf if isinstance(pdf, list) else pdf.get("items", [])
-    targets = {"pdf-013":"D"
+    targets = {"pdf-013":"D","pdf-015":"B","pdf-016":"D","pdf-017":"A"}
+    print("=== pdf targets ===")
+    for x in pdf_items:
+        if x.get("id") in targets:
+            q, opts = render(x)
+            letter, info = decide(q, opts)
+            exp = targets[x["id"]]
+            status = "OK" if letter == exp else ("NULL(safe)" if letter is None else "MISMATCH")
+            print(f"[{status}] {x['id']} expected={exp} got={letter} ({info})")
+
+def letter_of(ans):
+    m = re.search(r"[A-D]", str(ans or ""))
+    return m.group(0) if m else ""
+
+# ---------- test t2t generated questions ----------
+def run_t2t():
+    t2t = json.load(open(ROOT + r"\src\CogniThink.TutorBrain.Api\data\tier2_questions.json", encoding="utf-8"))
+    items = t2t if isinstance(t2t, list) else t2t.get("items", [])
+    fails = []
+    solved = 0
+    total = 0
+    for x in items:
+        if not str(x.get("id", "")).startswith("t2t-"):
+            continue
+        total += 1
+        q, opts = render(x)
+        letter, info = decide(q, opts)
+        exp = letter_of(x.get("answer"))
+        if letter == exp:
+            solved += 1
+        else:
+            fails.append(f"{x['id']} expected={exp} got={letter} ({info})")
+    print(f"=== t2t: total {total}, solved {solved}, fails {len(fails)} ===")
+    for f in fails:
+        print("  ", f)
+
+if __name__ == "__main__":
+    run_pdf_targets()
+    run_t2t()

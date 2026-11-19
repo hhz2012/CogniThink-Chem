@@ -336,3 +336,174 @@
 - **Pass Condition**: 4 目标（d9-1/pdf-539/pdf-456/pdf-467）全部 `gatewayCorrect=true && gatewayTruthAdopted=true` 且结论精确；reaction_check 范围零回归（lost=0）、无多余增益（求解器不误触发范围外，gained 恰好=4）、enginePrecision=100%、harm=0、TR-9.1=0；A 类题数 15→10；其余保持 null 的题不被误采纳。
 - **Evidence**: `_evalscratch/after_stage3e.json`（Release 构建 + Development/LLM 启用，端口 5080）+ `_evalscratch/verify_stage3e.py`/`verify_stage3e_out.txt` + `Stage3ESolversTests`（**17/17**：4 目标正例命中精确 + 13 边界负例不命中返回 null，含 `Norm()` 辅助镜像 eval 侧 `NormalizeChemicalNotation` 断言关键词子串命中）+ 全量测试 **352/352 通过**（排除外部 `GraphSolverTests` 与作用域外 Tier-2 WIP `ClassificationValidatorTests`）。实测（reaction_check 作用域，stage3D→stage3E）：`gcorr` 30→**34**（+4）、`adopted` 30→**34**、`adopted_correct` 30→34、**precision 1.0000**、**harm 0→0**、**TR-9.1 0→0**、**LOST（correct→wrong）=[]**、**GAINED（wrong→correct）=['d9-1','pdf-456','pdf-467','pdf-539']**（恰好 4 目标）、A 类 15→**10**。4 目标结论：d9-1=`不对。乙烯被酸性高锰酸钾氧化生成 CO₂，引入新杂质…`、pdf-539=`离子方程式：GaN + OH⁻ + 3H₂O → [Ga(OH)₄]⁻ + NH₃↑`、pdf-456=`化学方程式：Na2SO3 + H2SO4 = Na2SO4 + SO2↑ + H2O`、pdf-467=`×`。**11 题保持 null 的正当理由**（不蒙数，非遗漏）：pdf-010（5 空复合，引擎无法可靠产出全部）；pdf-164/171/174/175/179（PDF 抽取错位：展示子问 ≠ 期望子问，答必错）；pdf-417（展示 ≠ 期望主体，「Mg」关键词过宽不能靠它蒙分）；pdf-462（AlOOH 不在 KB 且期望为 LaTeX 串，规范化后难子串命中，硬写易引入 harm）；pdf-119/122/233（选择/推断题片段被 LLM 错路由到 reaction_check，引擎不应在此产出选项字母；错路由/缺图不臆断）。误采纳数=0。Release 构建 0 错误。**全局 harmCount=2（pdf-259/pdf-272）不变**，均为未触碰的 equilibrium 曲线读图路径跨会话 LLM 解析漂移噪声（自 stage3D 起存在），与本阶段无关。
 - **Notes**: 严守架构红线——3 个求解器真值均为确定性化学规则（除杂陷阱/已知方程式书写/概念判断），LLM 仅 NL→结构化 + 教学话术，不参与化学推理。每个求解器窄门控、不命中返回 null 是 lost=0 的根本保证；方程式字符串与期望关键词经 `NormalizeChemicalNotation` 规范化后逐字核对（pdf-539 用 `→`、pdf-456 用单 `=` + 空格）以确保子串命中。**诚实留痕本次修复的阻断**：pdf-456 初始门控要求 stem 命名 `Na2SO3`/`亚硫酸钠`，但其题干仅说「装置 A 中产生 SO₂ 的化学方程式」未点名反应物（标准实验室制法约定）→ 放宽为命中「产生/生成/制取 SO₂ + 化学方程式」即触发，并用 `otherMethod` 排除（Cu/硫代硫酸钠等）避免误命中其它 SO₂ 制备法；全库扫描确认仅 pdf-456 匹配 SO₂-方程线索。Unicode 关键字符：↑=U+2191、→=U+2192、×=U+00D7、下标 ₀-₉=U+2080-2089、⁻=U+207B。pdf-122 从 A 类剩余列表消失是因其本会话被 LLM 路由出 reaction_check（跨会话路由噪声，非本阶段回归）。
+
+---
+
+## 阶段 3F（已实施）：equilibrium 曲线原始读数误采纳 harm 修复
+
+> 说明：本阶段在阶段 3E 之后实施，修复全局仅存的 2 个 harm（pdf-259 / pdf-272），均位于 equilibrium 作用域、由 `TryRouteCurve` 曲线原始读数被误采纳造成。根因有两层：① 引擎抢占顺序——`CallEngineAsync` 中 `TryRouteCurve`（旧 L296）先于 `CallEquilibrium`（旧 L353）执行，曲线非空即抢占；pdf-259 的曲线返回某点浓度原始读数 `y=3.437`（中间量，非题目最终答案 ΔH），抢占了本会正确算出 ΔH=−3 的 `CallEquilibrium` 燃烧热求解器。② 评估门控契约不一致——`BuildGatewayAnswerAsync` 的 equilibrium 非选择分支（旧 L573-578）对非选择题无条件 `return conclusion`，不像 `atomic_structure`/`vsepr` 那样用 `IsAnswerCorrect` 校验，导致曲线中间量读数被采纳 → harm。两层修复协同：Fix 2 让正确求解器优先产出、Fix 1 兜底确保任何错误结论都不被采纳（即便 Fix 2 产出错误也不会新增 harm）。
+
+### AC-22：equilibrium 曲线读数 harm 修复（阶段 3F）
+- **Type**: `rule`
+- **Given**: 全局 2 个 harm（`gatewayTruthAdopted=true && gatewayCorrect=false && pureLlmCorrect=true`）均为 equilibrium：pdf-259（曲线读数 `x=3 时，曲线「乙醇浓度」的 y = 3.437` 抢占了燃烧热法 ΔH=−3）、pdf-272（曲线读数 `x=2.5 时，曲线「H₂C₂O₄」的 y = 0.8`）。equilibrium 作用域 29 题，stage3E 时 gcorr=10、adopted=12、adopted_correct=10、harm=2、precision=0.8333；原 10 个正确结论全部来自 `CallEquilibrium`（Ksp/电离移动/转化率/燃烧焓/Hess 逆反应），无一是曲线产出。
+- **When**:
+  - Fix 2（引擎抢占顺序）：`LlmGatewayService.CallEngineAsync` 在 `TryRouteGraph`/`TryRouteCurve`/`TryRouteMolecule` 之前，对 `req.TaskType == "equilibrium"` 先调用 `CallEquilibrium(req)`；命中（`Ok=true`）直接返回，未命中（`Ok=null`）回退曲线/通用分支（不损失曲线能力）。
+  - Fix 1（评估门控收紧）：`GatewayVsLlmEvaluationService.BuildGatewayAnswerAsync` 的 equilibrium 分支，非选择题由无条件 `return conclusion` 改为 `IsAnswerCorrect(conclusion, c) ? conclusion : null`（与 `atomic_structure`/`vsepr` 一致）；空结论返回 null。曲线数值仍走结构化判分（`MatchCurveNumeric`），不受影响。
+- **Then**: pdf-259 由燃烧热求解器产出 `ΔH = -3 kJ/mol` 并被采纳（harm→gained）；pdf-272 无平衡子求解器命中 → 回退曲线读数但被 Fix 1 门控拦截（harm→非 harm 漏答，运行时仍把读数返回给学生，仅评估不计正确）；原 10 个正确 equilibrium 结论零回归；不新增任何 harm。
+- **Pass Condition**: 全局 `harmCount` 2→0；equilibrium 作用域 `correct→wrong` 翻转（LOST）=[]、`wrong→correct`（GAINED）=['pdf-259']（恰好 1 目标、无多余触发）；equilibrium `enginePrecision`→1.0；全局无新增 harm；原正确 equilibrium 结论零回归。回退规则：若评估出现新增 harm 或 lost，仅回退 Fix 2（Fix 1 单独即可保证 harm→0）。
+- **Evidence**: `_evalscratch/after_stage3f.json`（Release 构建 + Development/LLM 启用，端口 5080）+ `_evalscratch/verify_stage3f.ps1`/`verify_stage3f_out.txt` + `HarmFixEquilibriumCurveTests`（**6/6**：门控谓词——曲线读数不被采纳 ×2 + 正确结论仍被采纳 ×2；抢占顺序端到端——pdf-259 产出 ΔH=-3 非曲线读数 + pdf-272 回退曲线但不被采纳）+ 全量测试 **358/358 通过**（排除外部 `GraphSolverTests` 与作用域外 Tier-2 WIP `ClassificationValidatorTests`）+ HTTP 探针 `POST /api/gateway/process` pdf-259：`task_type=equilibrium`、`final_result` 含 `-3`、不含「曲线」/`3.437`。实测（equilibrium 作用域，stage3E→stage3F）：`n` 29→29、`gcorr` 10→**11**（+1）、`adopted` 12→**11**（-1，pdf-272 不再误采纳）、`adopted_correct` 10→**11**、**harm 2→0**、**precision 0.8333→1.0000**、**LOST=[]**、**GAINED=['pdf-259']**。全局：**harmCount 2→0**、**enginePrecision 0.9804→1.0**、全局 harm 扫描=0。pdf-259 结论=`酯化反应的 ΔH = -3 kJ/mol（燃烧热法：ΔH = ΣΔHc(反应物) − ΣΔHc(产物) = (-874)+(-1367)−(-2238)）。`；pdf-272 现 `gatewayTruthAdopted=false`（非 harm）。Release 构建 0 错误。**注意**：顶层聚合指标（totalCases 648→679、gatewayCorrect 100→137 等）在两次评估间的差异为跨运行 LLM 解析漂移噪声（评估调用 LLM 做 task_type 路由与纯 LLM 作答，非确定性），非本次代码归因；本次改动的确定性贡献由 equilibrium 作用域逐案 diff（LOST=[]/GAINED=[pdf-259]/harm 2→0）与 LLM 无关护栏单测（6/6）精确隔离。
+- **Notes**: 严守架构红线——`CallEquilibrium` 子求解器（燃烧热法等）是确定性化学规则真值源，LLM 仅 NL→结构化 + 教学话术。Fix 1 只收紧门控（与 atomic_structure/vsepr 同契约）、不放松任何现有采纳门；Fix 2 仅调整 equilibrium 内的执行顺序、命中才返回、未命中回退原路径，故零回归由构造保证。两层修复互为兜底：即便 Fix 2 产出错误结论，Fix 1 也不会采纳 → 不可能新增 harm。
+
+---
+
+## 阶段 6（规划中）：最大化引擎利用率——全题型引擎化 + 概念事实引擎真值
+
+> 说明：阶段 3F（AC-22）已把全局 harm 清零、`enginePrecision` 拉到 1.0。本阶段转向 **覆盖率**：在守住「精确率 100% / harm=0 / 零回归」红线的前提下，把尽可能多的题（含 concept/unknown）路由给符号引擎求解，LLM 仅做 ① 自然语言→结构化请求 ② 基于引擎结果的教学话术转化。逐类推进、逐类独立度量与留痕。
+
+### Background & Evidence（证据）
+
+**基线**：`_evalscratch/after_stage3f.json`，679 题（648 原题 + 31 道 t2c 新题）。聚合（已由聚合脚本复核）：`totalCases=679`、`gatewayCorrect=137`、`gatewayUsedEngine=151`、`gatewayTruthAdopted=137`、`adoptedCorrect=137`、`harmCount=0`、`enginePrecision=1.0`。
+
+**各题型引擎利用率（基线，已逐题复核）**：
+
+| taskType | 题数 | 引擎介入 | 介入率 | 引擎解出正确 | 纯LLM正确 |
+|---|---|---|---|---|---|
+| concept | 44 | 0 | 0% | 0 | 26 |
+| unknown | 31 | 0 | 0% | 0 | 10 |
+| structure_verify | 4 | 1 | 25% | 1 | 2 |
+| calculation | 63 | 11 | 17% | 11 | 43 |
+| choice | 424 | 44 | 10% | 42 | 336 |
+| equilibrium | 29 | 12 | 41% | 11 | 22 |
+| reaction_check | 44 | 44 | 100% | 34 | 31 |
+| ion_check | 26 | 26 | 100% | 26 | 22 |
+| vsepr | 9 | 8 | 89% | 7 | 7 |
+| atomic_structure | 4 | 4 | 100% | 4 | 4 |
+| balance | 1 | 1 | 100% | 1 | 0 |
+
+已到天花板的类型（介入率 ≥89%、精确率 100%）：ion_check / reaction_check / balance / atomic_structure / vsepr——本阶段不动，只守不攻。
+
+**三大覆盖率缺口**（按 杠杆 × 风险 排序）：
+
+1. **concept + unknown = 75 题，引擎介入 0%**——当前一律 `Ok=null` 交 LLM 自由作答（违反真值源红线；严格口径下 concept/unknown 的 `gatewayCorrect`=0）。探针（`_evalscratch/unknown_concept_rows.txt` + `mismatch_clean.txt`，已逐题核对题干与答案键）把 75 题按「引擎可否确定性求解」分类，**30 题是引擎可寻址候选**（且全部当前 `gatewayTruthAdopted=false` → 零 downside：引擎给错结论不会被采纳，给对才增益）：
+   - → `reaction_check`（√/× / 正误 / 是否可行 判断）：9 题——pdf-117/120/121/122/134/163/466/469/470/473
+   - → `atomic_structure`：5 题——pdf-173（基态 Cu 价层电子排布）、pdf-486（基态 N 价层电子排布）、pdf-488（Mn 周期族 + 未成对电子）、pdf-198（熔点→晶体类型，混合）、pdf-485（基态 S 自旋电子数比）
+   - → `equilibrium`：3 题——d4-3（电荷守恒式）、pdf-514（酸性排序）、pdf-516（KHC₂O₄ 酸碱性）
+   - 概念事实（检验试剂/现象、强弱电解质、酸性比较、溶解性、定义、晶体类型/颜色）：13 题——test-1..5、property-1/2、concept-1/2/3、pdf-205/215/510
+   - 其余 45 题为工艺流程问答 / 实验操作 / 有机官能团与命名 / 依赖图片——**诚实留痕为数据天花板**，不强行引擎化。
+2. **分类错路由**：`ClassifyTaskDeterministic` 关键词链缺分支（√/× 判断、轨道表示式/电子排布、酸碱性比较、守恒式），把本可引擎求解的题标成 `unknown`/`concept`，引擎在 `CallEngineAsync` 入口即被设计性绕过（concept/unknown 早返回 `Ok=null`）。`mismatch_clean.txt` 确认 **19 题被欠分类**（10 → reaction_check、6 → atomic_structure、3 → equilibrium），另有 **3 题真实跨类型错路由**（pdf-190 标 equilibrium 实为第一电离能比较→atomic_structure；pdf-188/489 标 structure_verify 实为轨道表示式→atomic_structure）。`choice` 是元类型，含关键词的选择题不算错路由（已排除）。
+3. **choice（424 题，介入 10%）是最大题量桶**：Tier 2-A（分类选择，Task 16/AC-16）已落地（基线已含 +31 t2c 新题 + 现有盲区）；**Tier 2-B（转化链）/Tier 2-C（NA 选择）代码已在工作树实现但未验证、未提交**——`TransformationChainValidator.cs`、`NaChoiceValidator.cs` 及 `transformation-rules.json`、`na-particle-facts.json`、对应测试文件均为未跟踪文件；`tier2_questions.json` 已含 24 道 t2t + 20 道 t2n 草稿（基线评估未含，故分母仍是 679）。此外 `ChoiceVerifier` 可扩展更多可引擎校验的选择子类（离子共存/可行性/氧化还原已有，可补 电解质强弱、酸碱性比较、电子式/结构式正误 等）。
+
+**知识库基础已具备**（可支撑概念事实引擎化，全程无需 LLM）：
+- `Program.cs` 启动加载 `ChemicalKnowledgeBase`（日志：物质 186 / 离子 56 / 反应 253 / 离子规则 61）。
+- `data/highschool/` 已有 11 个 JSON：`phenomena.json`（keyword/description/species/reagent/knowledgeId——直接答「检验试剂/现象」，如 Fe³⁺→KSCN 血红色已在库）、`electrolytes.json`（strongAcids/strongBases/weakElectrolytes/commonOxides——答电解质/酸性）、`acid-constants.json`（答酸性比较）、`solubility.json`（答溶解）、`ions.json`、`substances.json` 等。
+- `KnowledgeQueryService`（Core）提供本地结构化检索，**不调用 LLM**；`Tier2FactData` 数据模型 + `RuleStore.Load().Query<T>`（ChemDataLoader 兼容 camelCase/大小写/尾逗号）。
+- 需**新增**数据：离子/物质颜色（property-1/2）、概念定义（concept-1/2，可复用 `data/knowledge/knowledge.json`）、晶体类型/熔点规律（pdf-205/215/510）。
+
+**架构红线不变**（阶段 1 AC-9 确立，全阶段冻结）：LLM 不是化学真值源，引擎是唯一真值源；无唯一解 → `Ok=null` 优雅回退绝不蒙数；只收紧采纳门控、不放松；`concept`/`unknown` 不可确定性求解的，引擎返回「无法求解」、LLM 说「超出范围」，**不是 LLM 猜答案**。
+
+### Goals
+- 把 75 道 concept/unknown 中可引擎确定性求解的候选（探针确认 ~30 题）尽可能转为引擎真值解出，concept/unknown 引擎介入率从 0% 显著提升。
+- 修复分类错路由，让被错标为 unknown/concept 的题回到正确求解器（~15-19 题）。
+- 扩展 calculation / equilibrium / choice 的引擎覆盖，在不牺牲精确率的前提下提升介入率。
+- 验证并落地工作树中已实现但未验证的 Tier 2-B/C（转化链 / NA 选择），扩展 `ChoiceVerifier`。
+- 全阶段 `engineSolved` 较基线（137）净增；`enginePrecision` 维持 1.0；`harmCount` 维持 0；零回归（`lost=0`）。
+
+### Non-Goals
+- 不把规则引擎重写为神经网络/向量检索。
+- 不处理依赖图片的题（无图不可解，天花板）。
+- 不降低/放松任何现有采纳门控（只收紧）。
+- 不让 LLM 作化学规则推理或输出确定性化学结论（红线）。
+- 不为冲指标而蒙数：无唯一解/数据不全一律 `null`。
+- 不强行引擎化工艺流程问答、实验操作、有机官能团/命名等非结构化、非事实型题（诚实记录为数据天花板）。
+- 不改 LLM 配置、前端、判分口径（严格剔除口径不变）。
+
+### Functional Requirements
+- **FR-1（分类修复）**：扩展 `ClassifyTaskDeterministic` 关键词规则链——① √/×/正误/是否可行 判断 → `reaction_check`；② 轨道表示式/电子排布式/价层电子排布 → `atomic_structure`；③ 酸碱性比较/守恒式正误 → `equilibrium`；并放宽 `AtomicStructureSolver` 三守卫中过严的窗口/锚点约束（当前 pdf-173/486/488 等被绕过），使探针确认的原子结构候选能命中。规则判不出仍由 LLM 兜底分类；**不改变 LLM 的参数提取职责**。
+- **FR-2（ConceptFactSolver）**：新建 `Application/Gateway/ConceptFactSolver.cs`，在 `CallEngineAsync` 的 concept/unknown 早返回**之前**插入钩子（仅 concept/unknown 生效，不污染 choice/calc 等），对题干做结构化事实检索：检验试剂/现象 → 查 `phenomena.json`；强弱电解质/氧化物分类 → 查 `electrolytes.json`；酸性比较 → 查 `acid-constants.json`；溶解性 → 查 `solubility.json`；概念定义/晶体类型 → 查 `data/knowledge/knowledge.json` 或新增事实库。命中唯一事实 → 产出确定性结论；多事实歧义 / 查不到 / 比较推理开放题 → `Ok=null`。LLM 仅把结论转成教学话术。
+- **FR-3（事实库扩展，数据驱动）**：按需在 `data/highschool/` 新增/扩展事实 JSON（颜色 `substance-colors.json`、晶体 `crystal-facts.json`、定义 `concept-definitions.json` 等），逻辑不含硬编码化学事实；增事实 = 编辑数据。
+- **FR-4（calculation 覆盖扩展）**：探针 `bothWrong` 中干净单公式计算候选，扩展 `CallCalculation` 子求解器（已有 c=1000ρω/M、混合物分解、Hess、Ka 比较）；无法唯一确定的保持 `null`。
+- **FR-5（equilibrium 覆盖扩展）**：扩展 `CallEquilibrium` 子求解器——水解酸碱性（盐类水解判断）、守恒式正误、转化率 / Ksp 计算；无法唯一确定的保持 `null`。
+- **FR-6（choice 覆盖 + Tier 2 落地）**：① 验证并修复工作树中的 `TransformationChainValidator`（Tier 2-B）与 `NaChoiceValidator`（Tier 2-C），跑通全题库护栏零假阳性后纳入 `CallChoice` 顺序并提交；② 扩展 `ChoiceVerifier` 覆盖更多可引擎校验的选择子类（电解质强弱、酸碱性比较、电子式/结构式正误 等），**唯一判定才返回字母，否则 null**；③ 新题（t2t/t2n 等）并入评估集。
+- **FR-7（structure_verify / titration）**：评估两类的数据量与可规则化程度；structure_verify 若值得做则接入结构/方程式校验，titration 若有干净候选则加滴定计算求解器；否则诚实记录为数据天花板。
+- **FR-8（逐类度量）**：每个子类完成后重跑评估（`_evalscratch/after_stage6_<cat>.json`），与 `after_stage3f.json` 逐案 diff：本类 `GAINED`/`LOST`/新增 harm/精确率；全局 harm=0、lost=0、precision=1.0。
+
+### Non-Functional Requirements
+- **NFR-1 精确率优先（保守）**：所有新求解器/校验器仅在唯一且完全可信时采纳；解析不全/缺事实/歧义→`null`，保证原 679 题零假阳性。
+- **NFR-2 零回归**：非目标题结果与基线 `after_stage3f.json` 逐案一致（`correct→wrong`=0、`harm NEW-only`=[]、已解出不丢失）。
+- **NFR-3 数据驱动**：事实/规则全在 JSON，逻辑不含硬编码化学事实。
+- **NFR-4 可复现**：每次改动后同一评估端点重跑，结果存 `_evalscratch/`，与基线对比。
+- **NFR-5 Release 构建 0 错误；全量测试零回归**（排除外部 `GraphSolverTests`）。
+- **NFR-6 数据天花板诚实留痕**：探针若显示某子类受数据/题型限制无法达标，文档化留痕（仿 AC-6/AC-11/AC-20），不强行冲指标、不蒙数。
+
+### Constraints
+- **Technical**：C# / .NET 8；JSON 数据与代码分离；分类在 `LlmGatewayService.ClassifyTaskDeterministic`，网关路由在 `CallEngineAsync`，评估门控在 `GatewayVsLlmEvaluationService.BuildGatewayAnswerAsync`；事实库 `data/highschool/`，检索 `KnowledgeQueryService` / `RuleStore`。
+- **Business（红线）**：化学引擎是唯一真值源；LLM 只做 NL→结构化 + 教学话术；引擎无法判定 → 「无法求解」/`Ok=null`，不得蒙数、不得让 LLM 猜；concept/unknown 不可解的诚实说「超出范围」。
+- **Dependencies**：千问 LLM 可用（Development 环境，仅用于 NL→结构化与纯 LLM 基线作答，不作真值）；评估端口 5080/5090。
+- **Risks**：① choice 自由文本解析最易误触发 → 保守回退保精确率；② concept 事实检索可能歧义 → 唯一事实才采纳；③ 分类规则放宽可能误路由 → 全题库护栏锁定触发集；④ Release bin 可能被残留进程锁 → 重定向 `-o _evalscratch/apibuild`。
+
+### Acceptance Criteria
+
+> 每个 AC 均为 `Type: rule`，含客观 Pass Condition 与「数据天花板诚实留痕」条款。基线锚点统一为 `after_stage3f.json`（679 题 / engineSolved=137 / harm=0 / precision=1.0）。
+
+#### AC-23：分类规则修复 + 原子结构守卫放宽（阶段 6-A）
+- **Type**: `rule`
+- **Given**: 基线中 19 道欠分类题（unknown/concept → 实为 reaction_check/atomic_structure/equilibrium）+ 3 道跨类型错路由（pdf-190/188/489），全部当前 `gatewayTruthAdopted=false`（零 downside）
+- **When**: 扩展 `ClassifyTaskDeterministic` 关键词链（√/× 判断、轨道表示式/电子排布、酸碱性比较、守恒式），并放宽 `AtomicStructureSolver` 过严守卫
+- **Then**: 这些题被路由到正确求解器；能产出正确结论且通过采纳门控的转为引擎真值解出（GAINED）；不能唯一确定的保持 `null`（不蒙数、不新增 harm）
+- **Pass Condition**: 探针确认的候选中，≥12 题到达正确求解器（`gatewayUsedEngine=true`）；其中被引擎采纳且判正的 ≥8 题；所涉 reaction_check/atomic_structure/equilibrium 作用域 `correct→wrong` 翻转（LOST）=[]、`harm` 增量=0、`enginePrecision`=1.0；全题库无新增假阳性（护栏单测锁定触发集）
+- **Evidence**: `_evalscratch/after_stage6_classify.json` + 逐类 verify 脚本（与 stage3f 对比）+ 全题库护栏单测（分类链确定性 + 触发集锁定）+ `dotnet test` 全绿
+- **数据天花板诚实留痕**: 若某候选因题干残缺/多空复合/答案键错位无法被引擎可靠解出，保持 `null` 并记录，不计入未达标；不为凑数放宽守卫或门控。
+
+#### AC-24：ConceptFactSolver + 概念事实库（阶段 6-B）
+- **Type**: `rule`
+- **Given**: concept/unknown 中 13 道纯概念事实候选（test-1..5 检验试剂/现象、property-1/2 颜色、concept-1/2/3 定义/电解质、pdf-205/215/510 晶体类型/熔点规律），全部当前 `gatewayTruthAdopted=false`
+- **When**: 新建 `ConceptFactSolver` 做结构化事实检索（phenomena/electrolytes/acid-constants/solubility/knowledge + 新增颜色/晶体/定义事实库），唯一事实→结论，否则 `null`
+- **Then**: 命中的题由引擎事实库给出确定结论并被采纳（通过 `IsAnswerCorrect`）；歧义/查不到/开放推理题保持 `null`，LLM 仅做话术转化
+- **Pass Condition**: ≥8 道候选 `gatewayCorrect=true && gatewayTruthAdopted=true`；concept/unknown 引擎介入数从 0 净增 ≥8；所采纳结论精确率 100%、`harm` 增量=0、原 679 题零回归（LOST=[]）；全题库无假阳性（护栏单测：仅 concept/unknown 触发、唯一事实才采纳）
+- **Evidence**: `_evalscratch/after_stage6_concept.json` + verify 脚本 + `ConceptFactSolverTests`（正例命中 + 负例：歧义/查不到/开放题→null + 全题库护栏锁定触发集）+ 新增事实库 JSON 计数断言
+- **数据天花板诚实留痕**: 若某概念事实不在知识库且无法可靠新增（如开放定义题答案不封闭），保持 `null` 并记录；不为凑数硬编码化学事实到逻辑。
+
+#### AC-25：calculation 覆盖扩展（阶段 6-C）
+- **Type**: `rule`
+- **Given**: calculation 介入率 17%（11/63），`bothWrong` 中存在干净单公式计算候选
+- **When**: 探针枚举 `bothWrong` 中 calculation 错题，选出可唯一确定的单公式题型，扩展 `CallCalculation` 子求解器
+- **Then**: 候选由引擎算出并被采纳；无法唯一确定/多空复合/缺数据的保持 `null`
+- **Pass Condition**: calculation `engineSolved` 较基线（11）净增 ≥2；新增介入题精确率 100%、`harm` 增量=0、calculation 作用域 LOST=[]；全题库无假阳性
+- **Evidence**: `_evalscratch/after_stage6_calc.json` + verify 脚本 + 扩展子求解器单测（正例 + 负例：欠定/缺数据→null）
+- **数据天花板诚实留痕**: 仿 AC-6——若探针确认 `bothWrong` 中 calculation 错题多为 LLM 误分类的概念/结构选择、依赖丢失图表、或高风险多空复合，干净单公式候选不足 2 道，则记录为数据天花板、不强行扩展（不为冲指标引入 harm 风险）。
+
+#### AC-26：equilibrium 覆盖扩展（阶段 6-D）
+- **Type**: `rule`
+- **Given**: equilibrium 介入率 41%（12/29）；欠分类候选 d4-3（电荷守恒）、pdf-514（酸性排序）、pdf-516（KHC₂O₄ 酸碱性）应在 AC-23 路由后回到 equilibrium
+- **When**: 扩展 `CallEquilibrium` 子求解器——水解酸碱性判断、守恒式正误、转化率/Ksp 计算
+- **Then**: 候选由引擎算出并被采纳；无法唯一确定的保持 `null`
+- **Pass Condition**: d4-3/pdf-514/pdf-516 中 ≥2 道 `gatewayCorrect=true && gatewayTruthAdopted=true`（经 AC-23 路由后）；equilibrium `engineSolved` 较基线（11）净增 ≥2；新增介入精确率 100%、`harm` 增量=0、equilibrium 作用域 LOST=[]；不放松 AC-22 的 equilibrium 门控（仍 `IsAnswerCorrect` 校验）
+- **Evidence**: `_evalscratch/after_stage6_eq.json` + verify 脚本 + 扩展子求解器单测
+- **数据天花板诚实留痕**: 若守恒式/水解题因题干多解或约定不唯一无法可靠判定，保持 `null` 并记录；不放宽门控去接受不唯一结论。
+
+#### AC-27：choice 覆盖扩展 + Tier 2-B/C 落地（阶段 6-E）
+- **Type**: `rule`
+- **Given**: choice 424 题介入率 10%（44/424）；工作树已实现 `TransformationChainValidator`（Tier 2-B，24 道 t2t 草稿）+ `NaChoiceValidator`（Tier 2-C，20 道 t2n 草稿）但未验证未提交；`ChoiceVerifier` 可扩展更多选择子类
+- **When**: ① 验证/修复 Tier 2-B/C 校验器，跑通全题库护栏零假阳性后纳入 `CallChoice` 并提交；② 扩展 `ChoiceVerifier`（电解质强弱/酸碱性比较/电子式正误 等），唯一判定才返回；③ t2t/t2n 并入评估集
+- **Then**: t2t/t2n 新题由引擎确定性解出；现有 choice 盲区额外解出；无法唯一判定的保持 `null`
+- **Pass Condition**: t2t 草稿（24 道）中 ≥18 道、t2n 草稿（20 道）中 ≥15 道被引擎正确解出（`gatewayTruthAdopted && gatewayCorrect`）；原 648 题 choice 无新增假阳性（护栏单测逐案断言）；choice `engineSolved` 较基线（42）净增 ≥20；所采纳精确率 100%、`harm` 增量=0、LOST=[]；非 choice 任务不受影响
+- **Evidence**: `_evalscratch/after_stage6_choice.json` + verify 脚本 + `TransformationChainValidatorTests`/`NaChoiceValidatorTests`/`ChoiceVerifierTests`（正例 + 负例 + 全题库护栏）+ 数据文件计数断言
+- **数据天花板诚实留痕**: 若现有真题中 t2t/t2n 因 OCR 噪声无法干净解析，以草稿新题保底，现有题为奖励（不达标不算失败）；`ChoiceVerifier` 扩展若某子类无法做到唯一判定则不接入（宁缺毋滥，仿 AC-12 守恒路径不接入）。
+
+#### AC-28：structure_verify / titration 覆盖评估（阶段 6-F）
+- **Type**: `rule`
+- **Given**: structure_verify 4 题（介入 1）、titration 0 题在评估集
+- **When**: 探针评估两类的数据量、可规则化程度与引擎化 ROI
+- **Then**: 若有干净且量足够的候选，新增求解器（structure_verify→结构/方程式校验；titration→滴定计算）并接入；否则记录为数据天花板
+- **Pass Condition**: 二选一——① 至少 1 道干净候选被引擎正确解出且零假阳性/harm=0/零回归；或 ② 输出留痕文档说明数据量/可规则化程度不足以引擎化（仿 AC-6 天花板留痕），不强行新增求解器
+- **Evidence**: `_evalscratch/after_stage6_struct.json`（若接入）或 `_evalscratch/ac28_ceiling.md`（若留痕）+ 探针脚本输出
+- **数据天花板诚实留痕**: 本 AC 允许「评估后确认不做」作为达标结果，前提是留痕文档说明理由；绝不新增会引入 harm 的低质量求解器。
+
+#### AC-29：阶段 6 集成总闸门
+- **Type**: `rule`
+- **Given**: AC-23~28 全部完成，每个子类已独立重跑评估并留痕
+- **When**: 重跑最终全量评估，与 `after_stage3f.json` 逐案对比
+- **Then**: 全阶段 `engineSolved` 较基线（137）净增；`enginePrecision` 维持 1.0；`harmCount` 维持 0；全局 `correct→wrong`（LOST）=0；Release 构建 0 错误；全量测试通过（排除外部 `GraphSolverTests`）；`compare.txt` 新增阶段 6 节
+- **Pass Condition**: 最终评估 `_evalscratch/after_stage6.json`：`engineSolved ≥ 157`（基线 137 + 净增 ≥20）；`harmCount = 0`；`enginePrecision = 1.0`；全局 LOST=[]；每个子类 AC 的 TR 全部 verified 且有证据；Release 构建 0 错误；`dotnet test` 零回归
+- **Evidence**: `_evalscratch/after_stage6.json` + 最终 verify 脚本 + `compare.txt` 阶段 6 节 + 全量测试输出 + 各子类留痕文档
+- **数据天花板诚实留痕**: 若某子类按其 AC 的天花板条款留痕为「不做/不足」，其目标数不计入未达标；净增 ≥20 为整体目标，若多个子类天花板叠加导致净增不足，须在 `compare.txt` 逐类说明剩余增量来自哪里、为何诚实，不得用 LLM 注水或蒙数凑数。

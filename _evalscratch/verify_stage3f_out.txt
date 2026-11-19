@@ -1,0 +1,40 @@
+=== stage3F verification: equilibrium curve harm fix (pdf-259/pdf-272) ===
+
+--- top-level metrics (stage3E -> stage3F) ---
+  totalCases          : 648 -> 679
+  gatewayCorrect      : 100 -> 137
+  gatewayTruthCorrect : 100 -> 137
+  gatewayEngineUsed   : 115 -> 151
+  engineSolved        : 102 -> 137
+  enginePrecision     : 0.9804 -> 1
+  harmCount           : 2 -> 0
+
+--- equilibrium scope (stage3E -> stage3F) ---
+  n               : 29 -> 29  (delta +0)
+  gcorr           : 10 -> 11  (delta +1)
+  adopted         : 12 -> 11  (delta -+1)
+  adopted_correct : 10 -> 11  (delta +1)
+  harm            : 2 -> 0  (delta -+2)
+  precision       : 0.8333 -> 1.0000
+  eq LOST  (correct->wrong) : []   (must be empty)
+  eq GAINED (wrong->correct) : [pdf-259]   (must contain pdf-259)
+
+--- global harm scan (adopted && !correct && pureLlmCorrect) ---
+  stage3F global harm count = 0
+
+--- target case check ---
+  pdf-259 : gwCorrect=True adopted=True pureLlmCorrect=True
+         concl=酯化反应的 ΔH = -3 kJ/mol（燃烧热法：ΔH = ΣΔHc(反应物) − ΣΔHc(产物) = (-874)+(-1367)−(-2238)）。
+  pdf-272 : gwCorrect=False adopted=False pureLlmCorrect=True
+         concl=x=2.5 时，曲线「H₂C₂O₄」的 y = 0.8
+
+--- red lines ---
+  global harm 2 -> 0                : PASS
+  equilibrium lost = []             : PASS
+  equilibrium gained contains pdf-259: PASS
+  no new global harm                : PASS
+  enginePrecision not drop          : PASS
+  pdf-259 adopted & correct         : PASS
+  pdf-272 non-harm (not adopted)    : PASS
+
+OVERALL: PASS

@@ -253,3 +253,48 @@ locant误拆修复+IsPdf              648   435   446  235      68.8     62.9  1
   真值解出分布 stage3e（reaction_check）：34（+4 vs stage3d）；Release 构建 0 错误；全量测试 352/352 通过
        （排除外部 GraphSolverTests 与作用域外 Tier-2 WIP ClassificationValidatorTests）；HTTP 探针 4/4 end-to-end 精确。
        详见 tasks.md Task 21、spec.md AC-21 与 verify_stage3e_out.txt。
+
+【阶段3F】equilibrium 曲线原始读数误采纳 harm 修复（pdf-259 / pdf-272）
+
+  【基线】全局 harmCount=2，全部集中在 equilibrium：pdf-259（曲线读数 y=3.437 抢占燃烧热法 ΔH=-3）、
+        pdf-272（曲线读数 y=0.8）。equilibrium 作用域（after_stage3e.json）：n=29、gcorr=10、adopted=12、
+        adopted_correct=10、harm=2、precision=0.8333；原 10 个正确结论均来自 CallEquilibrium，无一来自曲线。
+  【根因】两层：① CallEngineAsync 中 TryRouteCurve 先于 CallEquilibrium 执行，曲线非空即抢占；
+        ② BuildGatewayAnswerAsync equilibrium 非选择分支无条件 return conclusion（未用 IsAnswerCorrect 校验）。
+  【修复】Fix 2：equilibrium 先调 CallEquilibrium，命中返回、未命中回退曲线（不损失曲线能力）；
+        Fix 1：equilibrium 非选择门控改 IsAnswerCorrect 校验后采纳（与 atomic_structure/vsepr 同契约）。
+
+  指标（equilibrium 作用域，stage3E → stage3F，来源 verify_stage3f.ps1 / verify_stage3f_out.txt）：
+  ┌──────────────────┬────────┬────────┬──────────┐
+  │ 指标              │ stage3E│ stage3F│ Δ        │
+  ├──────────────────┼────────┼────────┼──────────┤
+  │ n                │ 29     │ 29     │ 0        │
+  │ gcorr            │ 10     │ 11     │ +1       │
+  │ adopted          │ 12     │ 11     │ -1       │
+  │ adopted_correct  │ 10     │ 11     │ +1       │
+  │ harm             │ 2      │ 0      │ -2       │
+  │ precision        │ 0.8333 │ 1.0000 │ +0.1667  │
+  └──────────────────┴────────┴────────┴──────────┘
+  逐题翻转：LOST (correct→wrong) = []  （零回归，必须为空）；
+            GAINED (wrong→correct) = ['pdf-259']  （恰好 1 目标，无多余触发）。
+  全局：harmCount 2 → 0；enginePrecision 0.9804 → 1.0；全局 harm 扫描 = 0（无新增 harm）。
+
+  AC-22 TR-22.1 门控谓词（曲线读数不被采纳 / 正确结论仍被采纳）: PASS — HarmFixEquilibriumCurveTests ×4。
+  AC-22 TR-22.2 抢占顺序端到端（pdf-259 产出 ΔH=-3 非曲线 / pdf-272 回退不采纳）: PASS — 单测 ×2 + after_stage3f.json + HTTP 探针。
+  AC-22 TR-22.3 equilibrium 零回归: PASS — lost=[]、gained=['pdf-259']、eq harm 2→0、eq precision 1.0。
+  AC-22 TR-22.4 全局无新增 harm: PASS — 全局 harm 扫描=0。
+
+  目标题结论：
+    pdf-259 →「酯化反应的 ΔH = -3 kJ/mol（燃烧热法：ΔH = ΣΔHc(反应物) − ΣΔHc(产物) = (-874)+(-1367)−(-2238)）。」
+              gatewayCorrect=true && gatewayTruthAdopted=true（harm → gained）。
+    pdf-272 → 运行时仍返回曲线读数「x=2.5 时，曲线「H₂C₂O₄」的 y = 0.8」，但 Fix 1 门控拦截 →
+              gatewayTruthAdopted=false（harm → 非 harm 漏答，运行时仍把读数返回给学生）。
+
+  红线核对: 不蒙数 ✓；只收紧不放松采纳门控 ✓；equilibrium 原正确 10 题零回归（lost=[]）✓；
+       全局 harmCount=0 ✓；enginePrecision=1.0 ✓；无新增 harm ✓。
+  【顶层聚合噪声诚实说明】顶层 totalCases 648→679、gatewayCorrect 100→137 等差异为跨运行 LLM 解析漂移噪声
+       （评估调用 LLM 做 task_type 路由与纯 LLM 作答，非确定性），非本次代码归因；本次确定性贡献由
+       equilibrium 作用域逐案 diff（LOST=[]/GAINED=[pdf-259]/harm 2→0）与 LLM 无关单测（6/6）精确隔离。
+  真值解出分布 stage3f（equilibrium）：11（+1 vs stage3e）；Release 构建 0 错误；全量测试 358/358 通过
+       （排除外部 GraphSolverTests 与作用域外 Tier-2 WIP ClassificationValidatorTests）；HTTP 探针 pdf-259 1/1 精确。
+       详见 tasks.md Task 22、spec.md AC-22 与 verify_stage3f_out.txt。

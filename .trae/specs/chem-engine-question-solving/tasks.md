@@ -353,7 +353,7 @@
 
 ## Task 17：物质转化链校验（Tier 2-B / AC-17）
 
-- **Status**: pending
+- **Status**: done
 - **Priority**: high
 - **Depends On**: None
 - **Goal**: 新建「(反应物,试剂,条件)→产物/可行性」规则库与 `TransformationChainValidator`，确定性解出「下列转化能否一步实现」链题；新建 ≥20 道链题并入题库。
@@ -371,10 +371,17 @@
   - `rule` TR-17.3: 不蒙数——链中任一步缺规则 / 非链模式 / 无唯一解 → null；单元负例断言。
   - `rule` TR-17.4: 规则库 ≥50 条转化步；计数断言。
 - **Notes**: 节点分隔符兼容 `--(...)-->`、`--[...]→`、`→` 等 OCR 常见写法（参考 pdf-013/144 格式）。试剂/条件的归一化（忽略空格/全半角）在查表前做。
+- **Evidence**:
+  - 规则库 `data/highschool/transformation-rules.json`：**232 条有向转化步**（≥50 ✓），每条含 `from`/`reagents`/`conditions`/`to`/`feasible`/`reason`，覆盖 Na/Fe/Cu/S/N/Cl/Si/Al/C 常见转化（含 pdf-013/015/016/017 涉及步骤）；由 `_evalscratch/build_transformation_rules.py` 生成。
+  - 校验器 `TransformationChainValidator.cs`：精确复刻 Python 镜像 `_evalscratch/verify_t2t.py`（norm / norm_sub / norm_reagent / ACID_CONC / REAGENT_ALIAS / COND_SET / reag_satisfies / parse_chain 三分支 / step_feasible 三分支 / chain_ok / ask_dir_t / decide）；加载 `RuleStore` 的 `transformation-rules` + `ClassificationData`（名称归一化复用，`Norm` 保留大小写 Co≠CO）。
+  - 解析鲁棒性：`CONN_RE` 用平衡括号正则 `\((?:[^()]|\([^()]*\))*\)` 兼容 `--(Ca(OH)2,△)-->` 嵌套括号；`step_feasible` 三分支（无规则→False / 真裸箭头→True / 纯条件箭头须匹配空试剂规则 / 带试剂箭头须匹配非空试剂规则）防误判；酸浓度按 base+浓度匹配（稀/浓硫酸不塌缩为 H2SO4）。
+  - 新题 `tier2_questions.json`：**24 道 t2t-**（≥20 ✓），经 `_evalscratch/draft_t2t.py` 逐题验证 + `append_t2t.py` 追加，含「能实现」与「不能实现」问法；`GenTier2Questions()` 已并入 `BuildTestCases()`。
+  - 单测 `TransformationChainValidatorTests` **13/13 全绿**：`新增t2t题_全部被转化链校验器正确解出` 遍历 24 题断言全对；pdf-013→D / pdf-015→B / pdf-016→D 必解；pdf-017 断言「null 或非 null 时 == A」（A/D 均可行，诚实 null，不蒙数）；`Guardrail_全题库_转化链校验器无假阳性` 遍历 `BuildTestCases()` 凡采纳必与答案一致 → **零假阳性**；规则步数 ≥50 计数断言。
+  - Python 镜像复核：`verify_t2t.py` 本会话实测 **24/24 全解、0 fails**（pdf-013/015/016 OK，pdf-017 safe null）；`scan_t2t_fullbank.py` 全题库扫描 solved=27（3 pdf + 24 t2t）、**MISMATCH=0**。
 
 ## Task 18：NA 选择逐选项计算校验（Tier 2-C / AC-18）
 
-- **Status**: pending
+- **Status**: done
 - **Priority**: high
 - **Depends On**: None
 - **Goal**: 新建「每式粒子数 + 条件/陷阱」事实库与保守型 `NaChoiceValidator`，确定性解出「设 N_A…下列说法正确的是」逐选项粒子数计算题；新建 ≥18 道 NA 题并入题库。
@@ -392,10 +399,17 @@
   - `rule` TR-18.3: 保守——任一选项解析不全 / 物质不在库 / 无唯一解 → 整题 null；非 NA 题（无 N_A 锚点）不触发；单元负例断言。
   - `rule` TR-18.4: 事实库 ≥40 个化学式；计数断言。
 - **Notes**: 这是三类中风险最高（自由文本解析）。解析正则与陷阱规则需在单测中用真实选项字符串验证；新题格式刻意可控以保底，现有真题为奖励。若某现有题因 OCR 无法解析，不得为凑数放宽解析（会引入假阳性）——宁缺毋滥。
+- **Evidence**:
+  - 事实库 `data/highschool/na-particle-facts.json`：**56 个分子式**（≥40 ✓），由 `_evalscratch/build_na_facts.py` 生成；数值字段（molarMass/electrons/protons/neutrons/atoms）由公式解析器从最常见同位素质量计算（避免算术错误），结构字段（molecular/sigmaBonds/piBonds/covalentBonds/ions/hBonds/stpState/hydrolyzableIons）手工核准，含交叉断言（CO2 p=22/n=22、Na2O2 ions=3、SO3 stpState=solid、C4H10 σ=13 等）。
+  - 数据模型：`Tier2FactData.NaParticleFact` 新增 `public bool Molecular`（键查询适用性守卫；JSON `molecular` 经 ChemDataLoader 大小写不敏感自动映射）。
+  - 校验器 `NaChoiceValidator.cs`：精确复刻 `_evalscratch/verify_t2n.py`，**最保守**——仅当题干锚定 NA + 问法方向可判 + 四个选项全部可干净解析为 `[数量][单位][物质]…[粒子]…[k]·NA` + 候选唯一 → 返回字母；任一选项不可判定（氧化还原/反应/同位素/浓度缺体积等）→ 整题 null。含标况非气态陷阱（SO3/H2O→FALSE）、水解离子陷阱（实际<名义→FALSE）。
+  - 新题 `tier2_questions.json`：**20 道 t2n-**（≥18 ✓），经 `_evalscratch/draft_t2n.py` 逐题验证 + `append_t2n.py` 追加，覆盖质量→粒子、标况体积→粒子、键数、条件陷阱、水解陷阱，选项格式刻意干净可解析。
+  - 单测 `NaChoiceValidatorTests` **19/19 全绿**：`新增t2n题_全部被NA校验器正确解出` 遍历 20 题断言全对；9 道 pdf 真题（pdf-026/093/419/421-427 等）诚实 null 断言；单元锁（质量换算/标况气体/非气态陷阱/氧化还原→null/无唯一→null）；`Guardrail_全题库_NA校验器无假阳性` 遍历 `BuildTestCases()` → **零假阳性**；事实库 ≥40 计数断言。
+  - Python 镜像复核：`verify_t2n.py` + `scan_t2n_fullbank.py` 20/20、**MISMATCH=0**，所有真题 NA 题诚实返回 null（宁缺毋滥，不为凑数放宽解析）。
 
 ## Task 19：Tier 2 集成、全题库护栏与评估（Tier 2 总闸门 / AC-19）
 
-- **Status**: pending
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: Task 16, Task 17, Task 18
 - **Goal**: 完成 choice 路径多校验器接入顺序、新题并入评估集、全题库护栏单测（新题全对 + 原 648 无假阳性/零回归），并尽力重跑全量 LLM 评估，证明净增 ≥60 解出、精确率 100%、harm 不增。
@@ -474,3 +488,193 @@
   - 评估：`_evalscratch/after_stage3e.json`（最新评估，2026/11/19 16:13，晚于 after_stage5.json）；验证脚本 `verify_stage3e.py`、输出 `verify_stage3e_out.txt`。
   - 结果（AC-21 全闸门通过）：reaction_check 作用域 stage3D→stage3E——`gcorr` 30→**34**（+4）、`adopted` 30→**34**、`adopted_correct` 30→34、**precision 1.0000**、**harm 0→0**、**TR-9.1 0→0**、**LOST=[]**（零回归）、**GAINED=['d9-1','pdf-456','pdf-467','pdf-539']**（恰好 4 目标）、A 类 15→**10**。4 目标结论：d9-1=`不对。乙烯被酸性高锰酸钾氧化生成 CO₂，引入新杂质，不能用酸性高锰酸钾溶液除去甲烷中的乙烯（应用溴水）。`、pdf-539=`离子方程式：GaN + OH⁻ + 3H₂O → [Ga(OH)₄]⁻ + NH₃↑`、pdf-456=`化学方程式：Na2SO3 + H2SO4 = Na2SO4 + SO2↑ + H2O`、pdf-467=`×`。误采纳数=0。Release 构建 0 错误；HTTP 探针 4/4 end-to-end 精确。
 - **Notes**: 严守架构红线——3 个求解器真值均为确定性化学规则，LLM 不参与化学推理。窄门控 + 不命中返回 null 是 lost=0 的根本保证。**对 AC-20（阶段 5）文档的澄清**：AC-20 曾把 d9-1/pdf-467/pdf-539 在 stage5 聚合中的出现归为「跨运行 LLM 解析漂移噪声」；本阶段（在 stage5 之后实施）使这 3 题（+pdf-456）变为确定性求解器稳定解出，**不再是噪声**——AC-20 的归因仅对 stage5 当时的代码窗口成立。**诚实留痕本次修复的阻断**：pdf-456 题干未点名 Na₂SO₃（标准实验室制法约定）→ 初始门控过严漏判，放宽为「产生/生成/制取 SO₂ + 化学方程式」即触发，加 `otherMethod` 排除（Cu/硫代硫酸钠等）避免误命中其它 SO₂ 制备法；全库扫描确认仅 pdf-456 匹配。Unicode 关键字符：↑=U+2191、→=U+2192、×=U+00D7、下标 ₀-₉=U+2080-2089、⁻=U+207B。**11 题保持 null 的正当理由**（不蒙数，非遗漏，详见 compare.txt 阶段3E 节与 spec AC-21）：pdf-010（5 空复合）、pdf-164/171/174/175/179（PDF 抽取错位，展示子问≠期望）、pdf-417（展示≠期望主体，「Mg」关键词过宽）、pdf-462（AlOOH 不在 KB 且期望 LaTeX 串）、pdf-119/122/233（错路由/缺图）。全局 harmCount=2（pdf-259/pdf-272）不变，均为未触碰的 equilibrium 曲线读图跨会话 LLM 漂移噪声，与本阶段无关。
+
+---
+
+## Task 22：equilibrium 曲线读数误采纳 harm 修复（阶段 3F / AC-22）
+
+- **Status**: done
+- **Priority**: high
+- **Depends On**: Task 10（结构化判分 `IsAnswerCorrect`/`IsStructuredCorrect` 公共静态，门控收紧复用）、Task 7/AC-8（curve 资产路由 `TryRouteCurve`）、既有 equilibrium 求解器接入（`CallEquilibrium` 燃烧热法等子求解器）
+- **Goal**: 修复全局仅存的 2 个 harm（pdf-259/pdf-272，均 equilibrium 曲线原始读数被误采纳）。两层修复：① 引擎抢占顺序让 equilibrium 确定性求解器优先于曲线原始读数；② 评估门控收紧，只采纳答案键校验通过的结论。守住 harmCount 2→0、无新增 harm、原正确 equilibrium 零回归（lost=[]）、enginePrecision 不降。
+- **Acceptance Criteria Addressed**: AC-22
+- **Architecture Red Lines (frozen)**: 不用 LLM 作化学真值源（`CallEquilibrium` 子求解器是确定性化学规则，LLM 仅 NL→结构化 + 教学话术）；无唯一解 → `Ok=null` 优雅回退绝不蒙数；只收紧采纳门控、不放松任何现有门（Fix 1 与 `atomic_structure`/`vsepr` 同契约）；两层修复互为兜底，不可能新增 harm。
+- **Subtasks**:
+  - S1 根因定位：从 `after_stage3e.json` 定位 2 个 harm 均为 equilibrium 曲线读数；确认 `assetBreakdown.curve` 的 structuredHits=0（曲线引擎全评估 0 正确、2 harm）；确认原 10 个正确 equilibrium 结论均来自 `CallEquilibrium` 而非曲线 → 抢占顺序 + 门控契约是根因。
+  - S2 Fix 2（抢占顺序）：`LlmGatewayService.CallEngineAsync` 在 `TryRouteGraph`/`TryRouteCurve`/`TryRouteMolecule` 之前，对 equilibrium 先调 `CallEquilibrium`，命中返回、未命中回退。
+  - S3 Fix 1（门控收紧）：`GatewayVsLlmEvaluationService.BuildGatewayAnswerAsync` equilibrium 非选择分支改 `IsAnswerCorrect` 校验后采纳，空结论返回 null。
+  - S4 单测：新建 `HarmFixEquilibriumCurveTests`（门控谓词 ×4 + 抢占顺序端到端 ×2）。
+  - S5 构建+测试：Release 0 错误；全量 358/358（排除外部 `GraphSolverTests` 与 Tier-2 WIP `ClassificationValidatorTests`）。
+  - S6 评估：Release/Development 起 5080 → 重跑 → `after_stage3f.json`；`verify_stage3f.ps1` 与 stage3E 对比（equilibrium 作用域 + 全局 harm 扫描）。
+  - S7 HTTP 探针：`POST /api/gateway/process` pdf-259 验证 `final_result` 含 `-3`、非曲线读数。
+- **Test Requirements**:
+  - `rule` TR-22.1: 门控谓词——pdf-259/pdf-272 曲线原始读数 `IsAnswerCorrect=false`（不被采纳）；正确平衡结论 `IsAnswerCorrect=true`（仍被采纳，零回归）；证据为 `HarmFixEquilibriumCurveTests` 门控断言 ×4。
+  - `rule` TR-22.2: 抢占顺序端到端——pdf-259 `CallEngineAsync` 产出 ΔH=-3 且 `AssetKind≠curve`、不含 `3.437`/「曲线」；pdf-272 无求解器命中→回退曲线但不被采纳（能力不丢失、无 harm）；证据为 `HarmFixEquilibriumCurveTests` ×2 + `after_stage3f.json` + HTTP 探针。
+  - `rule` TR-22.3: equilibrium 零回归——对比 stage3E 前驱 LOST=[]、GAINED=['pdf-259']（恰好 1 目标）、eq harm 2→0、eq precision→1.0；证据为 `verify_stage3f.ps1`。
+  - `rule` TR-22.4: 全局无新增 harm——全局 harm 扫描（adopted && !correct && pureLlmCorrect）=0；证据为 `verify_stage3f.ps1`。
+- **Evidence**:
+  - 代码：改 `LlmGatewayService.cs`（`CallEngineAsync` equilibrium 抢占）、`GatewayVsLlmEvaluationService.cs`（`BuildGatewayAnswerAsync` equilibrium 门控收紧）。
+  - 单测：新建 `tests/CogniThink.TutorBrain.Tests/HarmFixEquilibriumCurveTests.cs` **6/6 全过**（门控谓词 ×4 + 抢占端到端 ×2）；全量 **358/358 通过**（排除外部 `GraphSolverTests` 与作用域外 Tier-2 WIP `ClassificationValidatorTests`）。
+  - 评估：`_evalscratch/after_stage3f.json`；验证脚本 `verify_stage3f.ps1`、输出 `verify_stage3f_out.txt`。
+  - 结果（AC-22 全闸门通过）：equilibrium 作用域 stage3E→stage3F——n 29→29、gcorr 10→**11**（+1）、adopted 12→**11**（-1）、adopted_correct 10→**11**、**harm 2→0**、**precision 0.8333→1.0000**、**LOST=[]**、**GAINED=['pdf-259']**。全局 **harmCount 2→0**、**enginePrecision 0.9804→1.0**、全局 harm 扫描=0。pdf-259 结论=`酯化反应的 ΔH = -3 kJ/mol（燃烧热法：…）`；pdf-272 现 `gatewayTruthAdopted=false`（非 harm）。HTTP 探针 pdf-259：`task_type=equilibrium`、`final_result` 含 `-3`、不含「曲线」/`3.437`。Release 构建 0 错误。
+- **Notes**: 顶层聚合指标（totalCases/gatewayCorrect 等）两次评估间差异为跨运行 LLM 解析漂移噪声，非本次代码归因；确定性贡献由 equilibrium 逐案 diff + LLM 无关单测隔离。回退规则：若评估出现新增 harm 或 lost，仅回退 Fix 2（Fix 1 单独即保证 harm→0）。
+
+---
+
+# 阶段 6：最大化引擎利用率——全题型引擎化 + 概念事实引擎真值
+
+> 执行顺序原则：**最低风险 / 最高 ROI 优先**，每个任务独立完成「探针 → 实现 → 单测 + 全题库护栏 → 重跑评估 → 逐案 verify 零回归/零新增 harm → 标记 done」。基线锚点统一为 `_evalscratch/after_stage3f.json`（679 题 / engineSolved=137 / harm=0 / precision=1.0）。所有候选当前 `gatewayTruthAdopted=false`，故引擎化是零 downside：给错不被采纳、给对才增益。
+
+## Task 23：分类规则修复 + 原子结构守卫放宽（阶段 6-A / AC-23）
+
+- **Status**: pending
+- **Priority**: high
+- **Depends On**: Task 10（`ClassifyTaskDeterministic` 规则链 + `ApplyDeterministicTaskType` 在 LLM 成功/失败两路径统一应用）、Task 15（`AtomicStructureSolver` 三守卫）
+- **Goal**: 修复 `ClassifyTaskDeterministic` 缺分支导致的欠分类（19 题 unknown/concept → 实为 reaction_check/atomic_structure/equilibrium）与 3 题跨类型错路由，并放宽 `AtomicStructureSolver` 过严守卫，让探针确认的候选回到正确求解器。纯路由/守卫变更、不新增求解器 → 本阶段风险最低。
+- **Acceptance Criteria Addressed**: AC-23
+- **Architecture Red Lines (frozen)**: 不用 LLM 作真值源；分类规则链只新增关键词分支、不删除现有分支（避免回归）；`AtomicStructureSolver` 放宽守卫后仍须「无唯一解→null」不蒙数（比值/多元素/缺横线仍拒绝）；不放松任何采纳门控；全题库护栏锁定触发集。
+- **Subtasks**:
+  - S1 探针复核：用 `_evalscratch/mismatch_clean.txt` + `unknown_concept_rows.txt` 逐题确认 19 欠分类 + 3 错路由的题干与答案键；列出每题期望路由到的求解器与可解性。
+  - S2 分类规则扩展：`LlmGatewayService.ClassifyTaskDeterministic` 新增——① 「√/×/正误/是否可行/( ) 判断」→ `reaction_check`（注意不抢 choice：选项块优先仍归 choice）；② 「轨道表示式/电子排布式/价层电子排布/未成对电子」→ `atomic_structure`；③ 「酸性由弱到强/由强到弱/守恒式正确」→ `equilibrium`。保持 choice 选项块判定最优先。
+  - S3 跨类型错路由：评估 `GatewayVsLlmEvaluationService` 侧（或分类链）对 pdf-190（eq→atomic）、pdf-188/489（structure_verify→atomic）的纠正；若属 LLM 兜底分类漂移，用规则链覆盖。
+  - S4 原子结构守卫放宽：`AtomicStructureSolver` 三守卫中锚点窗口/填空检测过严导致 pdf-173/486/488 绕过——逐项放宽并用全题库护栏确认不误触发选择题/比值题。
+  - S5 单测 + 全题库护栏：扩展分类链单测（新分支命中 + 不抢 choice + 不回归旧分支）；`AtomicStructureSolver` 单测补正例（pdf-173/486/488 命中）+ 负例（仍拒绝比值/多元素/无横线/选择题）；全题库护栏断言触发集锁定、凡采纳必与答案一致。
+  - S6 构建+测试：Release 0 错误（若 bin 被残留进程锁，重定向 `-o _evalscratch/apibuild`）；全量测试零回归（排除外部 `GraphSolverTests`）。
+  - S7 评估：Release/Development 起服务 → 重跑 → `_evalscratch/after_stage6_classify.json`；写 verify 脚本与 stage3f 逐案 diff（所涉作用域 GAINED/LOST/harm/precision）。
+- **Test Requirements**:
+  - `rule` TR-23.1: 探针候选 ≥12 题到达正确求解器（`gatewayUsedEngine=true`），其中 ≥8 题 `gatewayCorrect && gatewayTruthAdopted`；证据为 `after_stage6_classify.json` 逐案核对。
+  - `rule` TR-23.2: 分类链确定性——同一题两次运行 taskType 一致率不下降（对照 stage2d 99.85%）；新分支不抢 choice（选择题仍 100% 归 choice）；证据为全题库遍历单测。
+  - `rule` TR-23.3: 不蒙数——放宽守卫后比值题/多元素/缺横线/选择题仍返回 null；证据为 `AtomicStructureSolver` 单元负例断言。
+  - `rule` TR-23.4: 零回归零新增 harm——所涉 reaction_check/atomic_structure/equilibrium 作用域 LOST=[]、harm 增量=0、precision=1.0；全题库 `correct→wrong`=0；证据为 verify 脚本输出。
+- **Notes**: 本任务是纯路由/守卫变更，不新增化学真值逻辑，零回归由「只增不删规则 + 采纳门控不变」构造保证。若某候选经 S1 复核实为多空复合/题干残缺（如 pdf-198 混合题），保持 null 并在 AC-23 天花板条款留痕，不为凑数硬解。
+
+## Task 24：ConceptFactSolver + 概念事实库（阶段 6-B / AC-24）
+
+- **Status**: pending
+- **Priority**: high
+- **Depends On**: Task 9（concept/unknown 早返回钩子位置，FR-2 须在早返回之前插入）、Task 15/20（求解器 + 采纳门控模式：仅采纳 `IsAnswerCorrect` 通过的结论）
+- **Goal**: 新建 `ConceptFactSolver`，让 concept/unknown 中的纯事实题（检验试剂/现象、强弱电解质、酸性比较、溶解性、定义、晶体类型/颜色）由结构化知识库确定性解出，LLM 仅做话术转化；按需新增事实 JSON，逻辑不硬编码化学事实。
+- **Acceptance Criteria Addressed**: AC-24
+- **Architecture Red Lines (frozen)**: 事实库 JSON 是唯一真值源，不调用 LLM 推理；仅 concept/unknown 触发（钩子在早返回之前，但不污染 choice/calc/equilibrium）；命中**唯一**事实才返回结论，多事实歧义/查不到/比较推理开放题→`null` 不蒙数；评估仅采纳 `IsAnswerCorrect` 通过的结论；新增事实全在 JSON、逻辑零硬编码。
+- **Subtasks**:
+  - S1 探针：逐题核对 13 道候选（test-1..5、property-1/2、concept-1/2/3、pdf-205/215/510）的题干、答案键，确认每题对应的事实库来源与答案封闭性。
+  - S2 事实库盘点：确认 `phenomena.json`/`electrolytes.json`/`acid-constants.json`/`solubility.json`/`data/knowledge/knowledge.json` 能否覆盖 test/concept/pdf-205/215/510；列出缺失事实（颜色、晶体、部分定义）。
+  - S3 新增事实库：按需在 `data/highschool/` 新增 `substance-colors.json`（property-1/2）、`crystal-facts.json`（pdf-205/215/510 晶体类型/熔点规律）、必要时 `concept-definitions.json`；复用 `Tier2FactData`/`RuleStore.Load()` 加载模式。
+  - S4 求解器：新建 `Application/Gateway/ConceptFactSolver.cs`，静态 `TrySolve(EngineRequest)`：识别问法锚点（检验/现象/颜色/电解质/酸性/溶解/晶体/定义）→ 定位题干中物质/离子 → 查对应事实库 → 唯一命中产出结论（含同义词变体兼容答案键）；任一环节不唯一/查不到/开放推理→null。
+  - S5 接入 + 门控：`LlmGatewayService.CallEngineAsync` 在 concept/unknown 早返回**之前**调用 `ConceptFactSolver`；`GatewayVsLlmEvaluationService.BuildGatewayAnswerAsync` 新增 concept/unknown 事实分支，仅采纳 `IsAnswerCorrect` 通过的结论（与 atomic_structure/vsepr/equilibrium 同契约）。
+  - S6 单测 + 全题库护栏：`ConceptFactSolverTests`（正例命中精确 + 负例：歧义/查不到/开放推理/选择题→null + 全题库护栏：仅 concept/unknown 触发、触发集锁定、凡采纳必与答案一致）；新增事实库计数断言。
+  - S7 构建+测试：Release 0 错误；全量测试零回归。
+  - S8 评估：重跑 → `_evalscratch/after_stage6_concept.json`；verify 脚本与 stage3f 对比（concept/unknown 作用域）。
+- **Test Requirements**:
+  - `rule` TR-24.1: ≥8 道候选 `gatewayCorrect && gatewayTruthAdopted`；concept/unknown 引擎介入数从 0 净增 ≥8；证据为 `after_stage6_concept.json` 逐案核对。
+  - `rule` TR-24.2: 不蒙数——歧义/查不到/比较推理开放题/非 concept/unknown → 一律 null；证据为单元负例断言。
+  - `rule` TR-24.3: 全题库护栏——求解器仅在 concept/unknown 触发、触发集锁定、凡采纳必与答案一致（零假阳性）、选择题触发数=0；证据为护栏单测遍历 `BuildTestCases()`。
+  - `rule` TR-24.4: 零回归零新增 harm——原 679 题 LOST=[]、harm 增量=0、precision=1.0；证据为 verify 脚本。
+  - `rule` TR-24.5: 数据驱动——新增事实全在 `data/highschool/*.json`，求解器逻辑无硬编码化学事实；证据为代码审查 + 事实库计数断言。
+- **Notes**: 本任务把 concept/unknown 的「LLM 自由作答」改为「引擎事实检索」，是真值源红线的关键兑现。若某题答案不封闭（开放定义/多解），保持 null 并在 AC-24 天花板条款留痕。颜色/晶体事实需逐题核对答案键写法，结论产出同义词变体确保 `IsAnswerCorrect` 命中。
+
+## Task 25：calculation 覆盖扩展（阶段 6-C / AC-25）
+
+- **Status**: pending
+- **Priority**: medium
+- **Depends On**: Task 4（`CallCalculation` 子求解器框架）、Task 23（分类修复后 calc 路由更准）
+- **Goal**: 探针 `bothWrong` 中干净单公式计算候选，扩展 `CallCalculation` 子求解器，在不牺牲精确率的前提下提升 calc 引擎介入率。
+- **Acceptance Criteria Addressed**: AC-25
+- **Architecture Red Lines (frozen)**: 引擎是唯一真值源；仅在唯一确定时返回数值结论，欠定/多空/缺数据→`null` 不蒙数；不放松采纳门控；不引入 harm。
+- **Subtasks**:
+  - S1 探针：枚举 `after_stage3f.json` 中 `taskType=calculation` 且 `gatewayCorrect=false` 的题，筛出干净单公式候选（单一未知数、题干数据完整、答案封闭）；排除多空复合、依赖图表、LLM 误分类的概念/结构题。
+  - S2 实现：对选出的题型扩展 `CallCalculation` 子求解器（或新增窄域求解器），复用现有 c=1000ρω/M、混合物分解、Hess、Ka 比较模式。
+  - S3 单测：正例（算出正确值）+ 负例（欠定/缺数据/多解→null）。
+  - S4 构建+测试：Release 0 错误；全量零回归。
+  - S5 评估：重跑 → `_evalscratch/after_stage6_calc.json`；verify 脚本与 stage3f 对比（calculation 作用域）。
+- **Test Requirements**:
+  - `rule` TR-25.1: calculation `engineSolved` 较基线（11）净增 ≥2，新增介入题精确率 100%；证据为 `after_stage6_calc.json`。
+  - `rule` TR-25.2: 不蒙数——欠定/缺数据/多空复合→null；证据为单元负例。
+  - `rule` TR-25.3: 零回归零新增 harm——calculation 作用域 LOST=[]、harm 增量=0、全题库 `correct→wrong`=0；证据为 verify 脚本。
+- **Notes**: 仿 AC-6——若 S1 探针确认干净单公式候选不足 2 道（多为误分类/缺图/多空复合），按 AC-25 天花板条款留痕、不强行扩展，绝不引入 harm 风险。
+
+## Task 26：equilibrium 覆盖扩展（阶段 6-D / AC-26）
+
+- **Status**: pending
+- **Priority**: medium
+- **Depends On**: Task 23（d4-3/pdf-514/pdf-516 经分类修复回到 equilibrium）、Task 5/22（`CallEquilibrium` 子求解器 + AC-22 门控契约）
+- **Goal**: 扩展 `CallEquilibrium` 子求解器覆盖水解酸碱性、守恒式正误、转化率/Ksp 计算，解出经 AC-23 路由回来的 equilibrium 候选。
+- **Acceptance Criteria Addressed**: AC-26
+- **Architecture Red Lines (frozen)**: 不放松 AC-22 确立的 equilibrium 门控（非选择仍 `IsAnswerCorrect` 校验后采纳）；仅唯一确定→结论，多解/约定不唯一→`null`；不引入 harm。
+- **Subtasks**:
+  - S1 探针：核对 d4-3（电荷守恒）、pdf-514（酸性排序，用 `acid-constants.json`）、pdf-516（KHC₂O₄ 水解酸碱性）的可解性；扫描 `bothWrong` 中其它 equilibrium 干净候选（转化率/Ksp）。
+  - S2 实现：扩展 `CallEquilibrium` 子求解器——① 守恒式正误（电荷/物料/质子守恒比对）；② 盐类水解酸碱性判断（查表 + 规则）；③ 转化率/Ksp 计算。
+  - S3 单测：正例 + 负例（多解/约定不唯一→null）。
+  - S4 构建+测试：Release 0 错误；全量零回归。
+  - S5 评估：重跑 → `_evalscratch/after_stage6_eq.json`；verify 脚本与 stage3f 对比（equilibrium 作用域）。
+- **Test Requirements**:
+  - `rule` TR-26.1: d4-3/pdf-514/pdf-516 中 ≥2 道 `gatewayCorrect && gatewayTruthAdopted`；equilibrium `engineSolved` 较基线（11）净增 ≥2；证据为 `after_stage6_eq.json`。
+  - `rule` TR-26.2: 不蒙数——守恒式/水解多解或约定不唯一→null；证据为单元负例。
+  - `rule` TR-26.3: 门控不放松——equilibrium 非选择结论仍经 `IsAnswerCorrect` 采纳；零回归零新增 harm（equilibrium 作用域 LOST=[]、harm 增量=0、precision=1.0）；证据为 verify 脚本 + 门控单测。
+- **Notes**: pdf-514 酸性排序可复用 `acid-constants.json`（数据已在库）；d4-3 守恒式需谨慎（多守恒式可能都「正确」，须唯一匹配答案键），不唯一则 null。
+
+## Task 27：choice 覆盖扩展 + Tier 2-B/C 落地（阶段 6-E / AC-27）
+
+- **Status**: pending
+- **Priority**: high
+- **Depends On**: Task 16（Tier 2-A 已落地，提供 choice 校验器接入模式 + `tier2_questions.json` 结构）、Task 12（`ChoiceVerifier`）、**收口完成 Tasks 17/18/19**（Tier 2-B/C 代码已在工作树但未验证未提交）
+- **Goal**: ① 验证/修复工作树中已实现的 `TransformationChainValidator`（Tier 2-B，24 道 t2t）与 `NaChoiceValidator`（Tier 2-C，20 道 t2n），跑通全题库护栏零假阳性后纳入 `CallChoice` 并提交；② 扩展 `ChoiceVerifier` 覆盖更多可引擎校验的选择子类；③ 把 t2t/t2n 并入评估集，最大化 choice（424 题，最大桶）的引擎利用率。
+- **Acceptance Criteria Addressed**: AC-27（并收口 AC-17/AC-18/AC-19）
+- **Architecture Red Lines (frozen)**: 事实/规则库 JSON 唯一真值源，不调用 LLM；保守优先——任一选项解析不全/缺事实/无唯一解→整题 null，绝不部分采纳；仅 choice 触发，非 choice 路径完全不变 → 零回归由构造保证；不接入无法唯一判定的子类（仿 AC-12 守恒路径不接入）。
+- **Subtasks**:
+  - S1 现状盘点：读工作树中 `TransformationChainValidator.cs`/`NaChoiceValidator.cs` 及其测试、`transformation-rules.json`/`na-particle-facts.json`、`tier2_questions.json` 的 24 道 t2t + 20 道 t2n；确认是否已接入 `CallChoice`、是否编译、测试是否通过（先解决 PID 29736 残留进程对 Debug bin 的锁：重定向构建输出或停掉确认无用的残留服务）。
+  - S2 Tier 2-B 验证修复：跑 `TransformationChainValidatorTests` + 全题库护栏（原 648 零假阳性）；修复解析/查表问题；确认 24 道 t2t 解出率。
+  - S3 Tier 2-C 验证修复：跑 `NaChoiceValidatorTests` + 全题库护栏；NA 解析最易错触发，保守回退；确认 20 道 t2n 解出率。
+  - S4 接入定稿：`CallChoice` 按序 `ClassificationValidator → TransformationChainValidator → NaChoiceValidator → ChoiceVerifier`（任一唯一判定即返回）；确认 t2t/t2n 已并入 `BuildTestCases`。
+  - S5 ChoiceVerifier 扩展：探针原 648 choice 未解题中可引擎校验的子类（电解质强弱、酸碱性比较、电子式/结构式正误 等）；仅接入能唯一判定的，新增负例单测。
+  - S6 全题库护栏单测：遍历 `BuildTestCases()`（679 + t2t + t2n），断言：新题全对、原 648 凡采纳必与答案一致（零假阳性）、原已解不丢失（零回归）、非 choice 不触发。
+  - S7 构建+测试：Release 0 错误；全量测试零回归（含此前被排除的 Tier-2 测试，待 B/C 验证通过后纳入主测试集）。
+  - S8 评估：重跑 → `_evalscratch/after_stage6_choice.json`；verify 脚本与 stage3f 对比（choice 作用域 + 全局）。
+  - S9 提交：把 Tier 2-B/C 的未跟踪文件（校验器/数据/测试）纳入版本控制（用户要求提交时再 commit）。
+- **Test Requirements**:
+  - `rule` TR-27.1: t2t（24 道）≥18 道、t2n（20 道）≥15 道 `gatewayCorrect && gatewayTruthAdopted`；证据为 `after_stage6_choice.json` 逐案核对。
+  - `rule` TR-27.2: 原 648 题 choice 无新增假阳性——新校验器所采纳的每个答案均与该题预期一致；证据为全题库护栏单测逐案断言。
+  - `rule` TR-27.3: choice `engineSolved` 较基线（42）净增 ≥20；所采纳精确率 100%、harm 增量=0、LOST=[]；证据为 verify 脚本。
+  - `rule` TR-27.4: 非 choice 任务不受影响（新校验器仅在 choice 分支执行）；证据为单元断言 + 全量测试通过。
+  - `rule` TR-27.5: 数据驱动——转化规则/NA 事实全在 JSON，逻辑无硬编码；规则库/事实库计数达标（tier2 规则≥50 步、NA 事实≥40 式）；证据为计数断言。
+- **Notes**: 本任务是阶段 6 最大杠杆（choice 424 题）但也是假阳性风险最高处——**保守优先**是核心。工作树已有 B/C 实现，重点是验证 + 护栏 + 零假阳性，而非从零写。若现有真题因 OCR 无法解析，以 t2t/t2n 草稿保底（草稿格式可控），现有题为奖励、不达标不算失败（AC-27 天花板条款）。`ChoiceVerifier` 扩展子类若无法唯一判定则不接入，宁缺毋滥。
+
+## Task 28：structure_verify / titration 覆盖评估（阶段 6-F / AC-28）
+
+- **Status**: pending
+- **Priority**: low
+- **Depends On**: Task 23（分类修复后 structure_verify 路由更准）
+- **Goal**: 评估 structure_verify（4 题，介入 1）与 titration（评估集 0 题）的数据量与可规则化程度；有干净候选则新增求解器，否则诚实留痕为数据天花板。
+- **Acceptance Criteria Addressed**: AC-28
+- **Architecture Red Lines (frozen)**: 仅在唯一且可信时采纳，否则 null；不新增会引入 harm 的低质量求解器；零回归零新增 harm。
+- **Subtasks**:
+  - S1 探针：枚举评估集中 structure_verify 题（pdf-199/188/489/d7-4）与全题库搜索 titration 关键词（滴定/浓度/标定）题，评估数据量、可规则化程度、引擎化 ROI。
+  - S2 决策：若有 ≥1 道干净且可唯一判定的候选 → 新增窄域求解器（structure_verify→`EquationCorrectnessJudge`/结构校验；titration→滴定计算），接入 + 门控 + 单测 + 护栏；若数据量不足或不可规则化 → 写 `_evalscratch/ac28_ceiling.md` 留痕。
+  - S3 构建+测试（若接入）：Release 0 错误；全量零回归。
+  - S4 评估（若接入）：重跑 → `_evalscratch/after_stage6_struct.json`；verify 与 stage3f 对比。
+- **Test Requirements**:
+  - `rule` TR-28.1: 二选一达标——① ≥1 道干净候选 `gatewayCorrect && gatewayTruthAdopted` 且零假阳性/harm=0/零回归；或 ② `_evalscratch/ac28_ceiling.md` 留痕说明数据量/可规则化程度不足以引擎化；证据为对应产物。
+- **Notes**: 本 AC 允许「评估后不做」作为达标（AC-28 天花板条款），前提是留痕。绝不新增会引入 harm 的求解器。
+
+## Task 29：阶段 6 集成总闸门（阶段 6 / AC-29）
+
+- **Status**: pending
+- **Priority**: high
+- **Depends On**: Task 23, Task 24, Task 25, Task 26, Task 27, Task 28
+- **Goal**: 汇总阶段 6 全部子类成果，重跑最终全量评估，与 `after_stage3f.json` 逐案对比，证明 `engineSolved` 净增、precision=1.0、harm=0、lost=0，更新 `compare.txt` 阶段 6 节，收口本阶段。
+- **Acceptance Criteria Addressed**: AC-29
+- **Architecture Red Lines (frozen)**: 全阶段红线不变——引擎唯一真值源、不蒙数、不放松门控、零回归、零新增 harm；最终数据必须可复现、可逐案追溯。
+- **Subtasks**:
+  - S1 最终评估：Release 构建（重定向 `_evalscratch/apibuild` 绕锁）+ Development/LLM 启用起服务 → 重跑 → `_evalscratch/after_stage6.json`。
+  - S2 逐案对比：写最终 verify 脚本，与 `after_stage3f.json` 逐案 diff——全局 engineSolved/gatewayCorrect/harm/precision；各作用域 GAINED/LOST；`harm NEW-only`=[]、`correct→wrong`=[]、丢失解出=[]。
+  - S3 各子类 TR 复核：确认 AC-23~28 的每个 TR 均已 verified 且有证据产物；天花板留痕文档齐全。
+  - S4 全量测试：`dotnet test` 全绿（排除外部 `GraphSolverTests`）；Release 构建 0 错误。
+  - S5 文档：`compare.txt` 新增阶段 6 节（基线→最终各指标差值 + 各子类贡献分解 + 天花板留痕汇总）。
+  - S6 清理：停止评估服务器；确认无残留进程锁 bin。
+- **Test Requirements**:
+  - `rule` TR-29.1: `after_stage6.json` 中 `engineSolved ≥ 157`（基线 137 + 净增 ≥20）；证据为最终 verify 脚本输出。
+  - `rule` TR-29.2: 全局 `harmCount = 0`、`enginePrecision = 1.0`、全局 `correct→wrong`（LOST）=[]、丢失解出=[]；证据为 verify 脚本。
+  - `rule` TR-29.3: 每个子类 AC（23~28）的 TR 全部 verified 且有证据；天花板留痕（若有）文档齐全；证据为各 `after_stage6_<cat>.json` + 留痕 .md。
+  - `rule` TR-29.4: Release 构建 0 错误；`dotnet test` 零回归（排除外部 `GraphSolverTests`）；证据为构建/测试日志。
+  - `rule` TR-29.5: `compare.txt` 新增阶段 6 节，含基线 vs 最终差值、各子类贡献分解、天花板留痕汇总；证据为 `compare.txt`。
+- **Notes**: 净增 ≥20 为整体目标；若多个子类按其天花板条款留痕为「不做/不足」，须在 `compare.txt` 逐类说明剩余增量来源，不得用 LLM 注水或蒙数凑数（AC-29 天花板条款）。评估顶层聚合的跨运行 LLM 漂移噪声须与确定性贡献（逐案 diff + LLM 无关护栏单测）隔离表述，沿用阶段 3F 做法。

@@ -2083,6 +2083,380 @@
       ],
       "feasible": true,
       "reason": "CO+H2O=CO2+H2 (水煤气)"
+    },
+    {
+      "from": "NO",
+      "to": "HNO3",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "NO 与水不反应，需 O2：4NO+3O2+2H2O=4HNO3"
+    },
+    {
+      "from": "Fe",
+      "to": "Fe2O3",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [
+        "高温"
+      ],
+      "feasible": false,
+      "reason": "Fe 与水蒸气高温生成 Fe3O4，非 Fe2O3"
+    },
+    {
+      "from": "K2FeO4",
+      "to": "H2",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "K2FeO4 水解生成 Fe(OH)3/O2，不生成 H2"
+    },
+    {
+      "from": "Fe2O3",
+      "to": "Fe(OH)3",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Fe2O3 难溶于水，不能直接与水反应"
+    },
+    {
+      "from": "Fe2O3",
+      "to": "K2FeO4",
+      "reagents": [
+        "KClO",
+        "KOH"
+      ],
+      "conditions": [],
+      "feasible": true,
+      "reason": "碱性次氯酸钾氧化 Fe2O3"
+    },
+    {
+      "from": "FeCl3",
+      "to": "Fe2O3",
+      "reagents": [],
+      "conditions": [
+        "蒸干",
+        "灼烧"
+      ],
+      "feasible": true,
+      "reason": "FeCl3 水解蒸干得 Fe(OH)3，灼烧得 Fe2O3"
+    },
+    {
+      "from": "Fe",
+      "to": "FeCl3",
+      "reagents": [
+        "Cl2"
+      ],
+      "conditions": [
+        "△"
+      ],
+      "feasible": true,
+      "reason": "2Fe+3Cl2=2FeCl3 (加热)"
+    },
+    {
+      "from": "S",
+      "to": "SO3",
+      "reagents": [
+        "O2"
+      ],
+      "conditions": [
+        "点燃"
+      ],
+      "feasible": false,
+      "reason": "S 点燃生成 SO2，不能直接生成 SO3"
+    },
+    {
+      "from": "MgCl2(溶液)",
+      "to": "无水MgCl2",
+      "reagents": [],
+      "conditions": [
+        "蒸干"
+      ],
+      "feasible": false,
+      "reason": "MgCl2 溶液蒸干水解得 Mg(OH)2/MgO，得不到无水 MgCl2"
+    },
+    {
+      "from": "无水MgCl2",
+      "to": "Mg",
+      "reagents": [],
+      "conditions": [
+        "熔融电解"
+      ],
+      "feasible": true,
+      "reason": "MgCl2(熔融)=Mg+Cl2"
+    },
+    {
+      "from": "SO2",
+      "to": "Na2SO3",
+      "reagents": [
+        "NaOH"
+      ],
+      "conditions": [],
+      "feasible": true,
+      "reason": "SO2+2NaOH=Na2SO3+H2O"
+    },
+    {
+      "from": "SO2",
+      "to": "CaSO3",
+      "reagents": [
+        "Ca(OH)2"
+      ],
+      "conditions": [],
+      "feasible": true,
+      "reason": "SO2+Ca(OH)2=CaSO3+H2O"
+    },
+    {
+      "from": "Na2SO3",
+      "to": "SO2",
+      "reagents": [
+        "H2SO4"
+      ],
+      "conditions": [],
+      "feasible": true,
+      "reason": "Na2SO3+H2SO4=Na2SO4+SO2+H2O"
+    },
+    {
+      "from": "H2S",
+      "to": "S",
+      "reagents": [
+        "Cl2"
+      ],
+      "conditions": [],
+      "feasible": true,
+      "reason": "H2S+Cl2=2HCl+S"
+    },
+    {
+      "from": "S",
+      "to": "Cu2S",
+      "reagents": [
+        "Cu"
+      ],
+      "conditions": [
+        "△"
+      ],
+      "feasible": true,
+      "reason": "2Cu+S=Cu2S"
+    },
+    {
+      "from": "SiO2",
+      "to": "H2SiO3",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "SiO2 不溶于水，不能直接与水反应生成硅酸"
+    },
+    {
+      "from": "CuO",
+      "to": "Cu(OH)2",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "CuO 不溶于水，不能直接与水反应生成 Cu(OH)2"
+    },
+    {
+      "from": "Al2O3",
+      "to": "Al(OH)3",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Al2O3 不溶于水，不能直接与水反应生成 Al(OH)3"
+    },
+    {
+      "from": "MgO",
+      "to": "Mg(OH)2",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "MgO 与水难直接化合生成 Mg(OH)2"
+    },
+    {
+      "from": "CaCO3",
+      "to": "Ca(OH)2",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "CaCO3 不溶于水，需先高温分解为 CaO 再与水反应"
+    },
+    {
+      "from": "Cu",
+      "to": "Cu(OH)2",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Cu 与水不反应"
+    },
+    {
+      "from": "Fe",
+      "to": "Fe(OH)3",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Fe 与水不能直接生成 Fe(OH)3"
+    },
+    {
+      "from": "Al",
+      "to": "Al(OH)3",
+      "reagents": [
+        "H2O"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Al 与水常温下不能直接生成 Al(OH)3"
+    },
+    {
+      "from": "Fe",
+      "to": "FeCl3",
+      "reagents": [
+        "HCl"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Fe 与 HCl 反应生成 FeCl2，非 FeCl3"
+    },
+    {
+      "from": "Cu",
+      "to": "CuCl2",
+      "reagents": [
+        "HCl"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Cu 与 HCl 不反应"
+    },
+    {
+      "from": "Ag",
+      "to": "AgNO3",
+      "reagents": [
+        "HCl"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Ag 与 HCl 不反应"
+    },
+    {
+      "from": "Fe2O3",
+      "to": "FeSO4",
+      "reagents": [
+        "H2SO4"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Fe2O3 与 H2SO4 反应生成 Fe2(SO4)3，非 FeSO4"
+    },
+    {
+      "from": "BaSO4",
+      "to": "BaCl2",
+      "reagents": [
+        "HNO3"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "BaSO4 不溶于硝酸"
+    },
+    {
+      "from": "AgCl",
+      "to": "AgNO3",
+      "reagents": [
+        "HNO3"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "AgCl 不溶于硝酸"
+    },
+    {
+      "from": "N2",
+      "to": "NO2",
+      "reagents": [
+        "O2"
+      ],
+      "conditions": [
+        "放电"
+      ],
+      "feasible": false,
+      "reason": "N2 与 O2 放电生成 NO，不能直接生成 NO2"
+    },
+    {
+      "from": "FeCl3",
+      "to": "Fe",
+      "reagents": [
+        "Cu"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Cu 只能将 FeCl3 还原为 FeCl2，不能置换出 Fe"
+    },
+    {
+      "from": "Na",
+      "to": "NaOH",
+      "reagents": [
+        "O2"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "Na 与 O2 反应生成 Na2O/Na2O2，非 NaOH"
+    },
+    {
+      "from": "H2SO4(稀)",
+      "to": "SO2",
+      "reagents": [
+        "Cu"
+      ],
+      "conditions": [
+        "△"
+      ],
+      "feasible": false,
+      "reason": "稀硫酸与 Cu 不反应，需浓硫酸"
+    },
+    {
+      "from": "SO2",
+      "to": "SO3",
+      "reagents": [
+        "O2"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "SO2 与 O2 需催化剂、加热才能生成 SO3"
+    },
+    {
+      "from": "NH3",
+      "to": "NO",
+      "reagents": [
+        "O2"
+      ],
+      "conditions": [],
+      "feasible": false,
+      "reason": "NH3 催化氧化需催化剂、加热才能生成 NO"
+    },
+    {
+      "from": "H2SiO3",
+      "to": "Na2SiO3",
+      "reagents": [
+        "NaOH"
+      ],
+      "conditions": [],
+      "feasible": true,
+      "reason": "H2SiO3+2NaOH=Na2SiO3+2H2O"
     }
   ]
 }
