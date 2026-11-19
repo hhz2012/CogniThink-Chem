@@ -1,0 +1,30 @@
+{
+  "page_idx": 97,
+  "raw": "[\n  {\n    \"num\": 9,\n    \"answer\": \"B\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：0.2 mol/L CH3COONH4溶液pH=7，说明醋酸与一水合氨电离常数相等，A正确。B项：b点加5 mL盐酸、d点加10 mL NaOH，n(Na+)是n(Cl-)的两倍；b点总体积15 mL，d点20 mL，由c=n/V得2c(Na+)=3c(Cl-)，B错误。C项：CH3COONH4中加入等体积等浓度HCl、NaOH，反应后a、c、d三点溶质分别为CH3COONH4/CH3COOH/NH4Cl、CH3COONa/NH3·H2O、CH3COONa/NH4Cl，均可水解促进水电离，且CH3COONH4> NH4Cl=CH3COONa，故水电离程度a>c=d，C正确。D项：无H+、OH-且有分子，应考元素守恒；b点加盐酸量为CH3COONH4物质的量一半，由元素守恒得c(CH3COOH)+c(CH3COO-)=2c(Cl-)，D正确。\"\n  },\n  {\n    \"num\": 10,\n    \"answer\": \"D\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：HCN与KCN等体积混合，n(HCN)+n(CN-)=原2倍，故c(HCN)+c(CN-)=0.1 mol/L，A错误。B项：酸或碱抑制水电离，水解促进；氨水与盐酸恰好完全反应生成NH4Cl时，主要离子为NH4+和Cl-，因NH4+水解，故c(NH4+)<c(Cl-)，B错误。C项：等式中无H+、OH-且有分子，应考元素守恒；醋酸与醋酸钠混合液中，n(CH3COOH)+n(CH3COO-)=2n(Na+)，即c(CH3COOH)+c(CH3COO-)=2c(Na+)，C错误。D项：研究对象不全是离子，也含Na+，说明质子守恒可通过电荷守恒与元素守恒联立推导；NaHCO3与Na2CO3按2:1混合，存在电荷守恒①c(H+)+c(Na+)=2c(CO3^2-)+c(HCO3^-)+c(OH-)和元素守恒②4c(CO3^2-)+4c(HCO3^-)+4c(H2CO3)=3c(Na+)，联立得3c(H+)+c(HCO3^-)+4c(H2CO3)=2c(CO3^2-)+3c(OH-)，D正确。\"\n  },\n  {\n    \"num\": 11,\n    \"answer\": \"B\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：等式中全为离子是电荷守恒特征，但氨水中存在电荷守恒c(OH-)=c(H+)+c(NH4+)，A错误。B项：0.1 mol/L NH4HCO3溶液中主要存在NH4+、HCO3^-，NH4+水解与HCO3^-水解均呈酸性，仅HCO3^-水解呈碱性；因pH=7.8>7，说明HCO3^-水解程度大于其电离程度，故c(H2CO3)>c(CO3^2-)，B正确。C项：等式中无H+、OH-且有分子是元素守恒特征；0.1 mol/L氨水与0.1 mol/L NH4HCO3等体积混合，N元素总量为C元素2倍，即n(N)/n(C)=2，故c(N)/c(C)=2，存在元素守恒2c(HCO3^-)+2c(H2CO3)+2c(CO3^2-)=c(NH4+)+c(NH3·H2O)，C错误。D项：FeCO3沉淀存在，上层清液为饱和溶液，此时c(Fe2+)·c(CO3^2-)=Ksp(FeCO3)，D错误。\"\n  },\n  {\n    \"num\": 12,\n    \"answer\": \"C\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"根据题图，点(1,2,0,5)处c(H2A)=c(HA-)；点(4,2,0,5)处c(A2-)=c(HA-)。由K_a1=c(H+)×c(HA-)/c(H2A)，K_a2=c(H+)×c(A2-)/c(HA-)，代入得K_a1、K_a2分别为1×10^-1.2、1×10^-4.2。A项：等式中无H+、OH-且有分子是元素守恒特征；0.1 mol/L H2A溶液中元素守恒c(H2A)+c(HA-)+c(A2-)=0.1 mol/L，A正确。B项：0.1 mol/L NaHA溶液中主要离子为Na+和HA-，次要微粒为HA-电离产生的A2-和水解生成的H2A，由点(4,2,0,5)知c(A2-)=c(HA-)，故c(H2A)<c(HA-)，B错误。C项正确（题干要求选正确项，结合解析C为答案）。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 9,
+      "answer": "B",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：0.2 mol/L CH3COONH4溶液pH=7，说明醋酸与一水合氨电离常数相等，A正确。B项：b点加5 mL盐酸、d点加10 mL NaOH，n(Na+)是n(Cl-)的两倍；b点总体积15 mL，d点20 mL，由c=n/V得2c(Na+)=3c(Cl-)，B错误。C项：CH3COONH4中加入等体积等浓度HCl、NaOH，反应后a、c、d三点溶质分别为CH3COONH4/CH3COOH/NH4Cl、CH3COONa/NH3·H2O、CH3COONa/NH4Cl，均可水解促进水电离，且CH3COONH4> NH4Cl=CH3COONa，故水电离程度a>c=d，C正确。D项：无H+、OH-且有分子，应考元素守恒；b点加盐酸量为CH3COONH4物质的量一半，由元素守恒得c(CH3COOH)+c(CH3COO-)=2c(Cl-)，D正确。"
+    },
+    {
+      "num": 10,
+      "answer": "D",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：HCN与KCN等体积混合，n(HCN)+n(CN-)=原2倍，故c(HCN)+c(CN-)=0.1 mol/L，A错误。B项：酸或碱抑制水电离，水解促进；氨水与盐酸恰好完全反应生成NH4Cl时，主要离子为NH4+和Cl-，因NH4+水解，故c(NH4+)<c(Cl-)，B错误。C项：等式中无H+、OH-且有分子，应考元素守恒；醋酸与醋酸钠混合液中，n(CH3COOH)+n(CH3COO-)=2n(Na+)，即c(CH3COOH)+c(CH3COO-)=2c(Na+)，C错误。D项：研究对象不全是离子，也含Na+，说明质子守恒可通过电荷守恒与元素守恒联立推导；NaHCO3与Na2CO3按2:1混合，存在电荷守恒①c(H+)+c(Na+)=2c(CO3^2-)+c(HCO3^-)+c(OH-)和元素守恒②4c(CO3^2-)+4c(HCO3^-)+4c(H2CO3)=3c(Na+)，联立得3c(H+)+c(HCO3^-)+4c(H2CO3)=2c(CO3^2-)+3c(OH-)，D正确。"
+    },
+    {
+      "num": 11,
+      "answer": "B",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：等式中全为离子是电荷守恒特征，但氨水中存在电荷守恒c(OH-)=c(H+)+c(NH4+)，A错误。B项：0.1 mol/L NH4HCO3溶液中主要存在NH4+、HCO3^-，NH4+水解与HCO3^-水解均呈酸性，仅HCO3^-水解呈碱性；因pH=7.8>7，说明HCO3^-水解程度大于其电离程度，故c(H2CO3)>c(CO3^2-)，B正确。C项：等式中无H+、OH-且有分子是元素守恒特征；0.1 mol/L氨水与0.1 mol/L NH4HCO3等体积混合，N元素总量为C元素2倍，即n(N)/n(C)=2，故c(N)/c(C)=2，存在元素守恒2c(HCO3^-)+2c(H2CO3)+2c(CO3^2-)=c(NH4+)+c(NH3·H2O)，C错误。D项：FeCO3沉淀存在，上层清液为饱和溶液，此时c(Fe2+)·c(CO3^2-)=Ksp(FeCO3)，D错误。"
+    },
+    {
+      "num": 12,
+      "answer": "C",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "根据题图，点(1,2,0,5)处c(H2A)=c(HA-)；点(4,2,0,5)处c(A2-)=c(HA-)。由K_a1=c(H+)×c(HA-)/c(H2A)，K_a2=c(H+)×c(A2-)/c(HA-)，代入得K_a1、K_a2分别为1×10^-1.2、1×10^-4.2。A项：等式中无H+、OH-且有分子是元素守恒特征；0.1 mol/L H2A溶液中元素守恒c(H2A)+c(HA-)+c(A2-)=0.1 mol/L，A正确。B项：0.1 mol/L NaHA溶液中主要离子为Na+和HA-，次要微粒为HA-电离产生的A2-和水解生成的H2A，由点(4,2,0,5)知c(A2-)=c(HA-)，故c(H2A)<c(HA-)，B错误。C项正确（题干要求选正确项，结合解析C为答案）。"
+    }
+  ]
+}

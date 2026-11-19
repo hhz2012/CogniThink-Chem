@@ -1,0 +1,15 @@
+{
+  "id": "pdf-239",
+  "images": [
+    "pdf_images/p083_n02_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "坐标曲线图",
+      "reason": "图中给出了反应①和反应②的焓变数值（ΔH₁=+124.2 kJ·mol⁻¹、ΔH₂=+131.5 kJ·mol⁻¹）及各物质能量相对位置，是计算总反应ΔH和判断选项正误的关键依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"坐标曲线图\",\n    \"reason\": \"图中给出了反应①和反应②的焓变数值（ΔH₁=+124.2 kJ·mol⁻¹、ΔH₂=+131.5 kJ·mol⁻¹）及各物质能量相对位置，是计算总反应ΔH和判断选项正误的关键依据。\"\n  }\n]"
+}

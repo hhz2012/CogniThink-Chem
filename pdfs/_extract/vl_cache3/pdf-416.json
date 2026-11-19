@@ -1,0 +1,15 @@
+{
+  "id": "pdf-416",
+  "images": [
+    "pdf_images/p137_n05_r0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": false,
+      "type": "其他",
+      "reason": "图片仅为题干文字的局部截图，未提供任何额外解题信息。"
+    }
+  ],
+  "raw": "[{\"index\": 0, \"meaningful\": false, \"type\": \"其他\", \"reason\": \"图片仅为题干文字的局部截图，未提供任何额外解题信息。\"}]"
+}

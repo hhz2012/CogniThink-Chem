@@ -1,0 +1,12 @@
+{
+  "id": "pdf-429",
+  "type": "molecule",
+  "img": "pdf_images/p143_n02_3.png",
+  "key": "pdf-429_p143_n02_3_molecule",
+  "raw": "{\"name\": \"3-甲基己烷\", \"smiles\": \"CC(C)CCCC\", \"note\": \"支链烷烃：主链6个碳（己烷），在第3位碳上有一个甲基取代基；结构为CH3-CH(CH3)-CH2-CH2-CH2-CH3，对应SMILES CC(C)CCCC\"}",
+  "data": {
+    "name": "3-甲基己烷",
+    "smiles": "CC(C)CCCC",
+    "note": "支链烷烃：主链6个碳（己烷），在第3位碳上有一个甲基取代基；结构为CH3-CH(CH3)-CH2-CH2-CH2-CH3，对应SMILES CC(C)CCCC"
+  }
+}

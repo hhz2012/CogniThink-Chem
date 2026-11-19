@@ -1,0 +1,15 @@
+{
+  "id": "pdf-512",
+  "images": [
+    "pdf_images/p087_n06_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "转化关系图",
+      "reason": "图中展示了钒物种（VO²⁺/VO₂⁺）与H₂O₂、苯、苯酚之间的三步催化循环路径及中间体X、Z的转化关系，是判断各选项正误所必需的反应机理依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"转化关系图\",\n    \"reason\": \"图中展示了钒物种（VO²⁺/VO₂⁺）与H₂O₂、苯、苯酚之间的三步催化循环路径及中间体X、Z的转化关系，是判断各选项正误所必需的反应机理依据。\"\n  }\n]"
+}

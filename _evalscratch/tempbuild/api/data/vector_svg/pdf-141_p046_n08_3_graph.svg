@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="288.9353442325062" y1="320.0" x2="219.24962170990065" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="288.9353442325062" y1="320.0" x2="60.0" y2="206.06232353204183" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="550.2367373476087" y1="97.43096937068822" x2="219.24962170990065" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="550.2367373476087" y1="97.43096937068822" x2="60.0" y2="206.06232353204183" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="219.24962170990065" y1="60.0" x2="580.0" y2="253.02184085906939" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="381.62481085495034" y="144.51092042953468" width="36" height="18" fill="white"/>
+<text x="399.62481085495034" y="158.51092042953468" text-anchor="middle" fill="#c0392b">O₂</text>
+<line x1="580.0" y1="253.02184085906939" x2="288.9353442325062" y2="320.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="416.4676721162531" y="274.5109204295347" width="36" height="18" fill="white"/>
+<text x="434.4676721162531" y="288.5109204295347" text-anchor="middle" fill="#c0392b">H₂O</text>
+<circle cx="288.9353442325062" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="288.9353442325062" y="325.0" text-anchor="middle" font-weight="bold">M</text>
+<circle cx="550.2367373476087" cy="97.43096937068822" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="550.2367373476087" y="102.43096937068822" text-anchor="middle" font-weight="bold">Y</text>
+<circle cx="219.24962170990065" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="219.24962170990065" y="65.0" text-anchor="middle" font-weight="bold">W</text>
+<circle cx="60.0" cy="206.06232353204183" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="211.06232353204183" text-anchor="middle" font-weight="bold">X</text>
+<circle cx="580.0" cy="253.02184085906939" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="258.02184085906936" text-anchor="middle" font-weight="bold">Z</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

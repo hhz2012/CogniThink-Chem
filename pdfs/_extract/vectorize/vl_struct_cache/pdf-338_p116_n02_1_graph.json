@@ -1,0 +1,44 @@
+{
+  "id": "pdf-338",
+  "type": "graph",
+  "img": "pdf_images/p116_n02_1.png",
+  "key": "pdf-338_p116_n02_1_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"R-X + AlCl3\", \"label\": \"R-X + AlCl₃\"},\n    {\"id\": \"[Rδ+---Xδ---AlCl3]\", \"label\": \"[Rδ+---Xδ---AlCl₃]\"},\n    {\"id\": \"环正离子中间体\", \"label\": \"⁺(苯环上连R和H，X-AlCl₃在下方)\"},\n    {\"id\": \"R-苯\", \"label\": \"苯环-R\"}\n  ],\n  \"edges\": [\n    {\"from\": \"R-X + AlCl3\", \"to\": \"[Rδ+---Xδ---AlCl3]\", \"cond\": \"\"},\n    {\"from\": \"[Rδ+---Xδ---AlCl3]\", \"to\": \"环正离子中间体\", \"cond\": \"\"},\n    {\"from\": \"环正离子中间体\", \"to\": \"R-苯\", \"cond\": \"-HX\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "R-X + AlCl3",
+        "label": "R-X + AlCl₃"
+      },
+      {
+        "id": "[Rδ+---Xδ---AlCl3]",
+        "label": "[Rδ+---Xδ---AlCl₃]"
+      },
+      {
+        "id": "环正离子中间体",
+        "label": "⁺(苯环上连R和H，X-AlCl₃在下方)"
+      },
+      {
+        "id": "R-苯",
+        "label": "苯环-R"
+      }
+    ],
+    "edges": [
+      {
+        "from": "R-X + AlCl3",
+        "to": "[Rδ+---Xδ---AlCl3]",
+        "cond": ""
+      },
+      {
+        "from": "[Rδ+---Xδ---AlCl3]",
+        "to": "环正离子中间体",
+        "cond": ""
+      },
+      {
+        "from": "环正离子中间体",
+        "to": "R-苯",
+        "cond": "-HX"
+      }
+    ]
+  }
+}

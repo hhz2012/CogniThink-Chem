@@ -1,0 +1,36 @@
+{
+  "page_idx": 20,
+  "raw": "[\n  {\n    \"num\": 8,\n    \"answer\": \"B\",\n    \"module\": \"模块4 离子大量共存题型\",\n    \"explanation\": \"A项：Cl2通入NaOH溶液生成NaCl和NaClO，均为钠盐，可拆为离子形式，离子方程式为Cl2+2OH−=Cl−+ClO−+H2O，A正确。B项：醋酸是弱酸，不能拆成离子；CaCO3+2CH3COOH=Ca2++2CH3COO−+CO2↑+H2O，B错误。C项：Fe3+氧化性强于Cu2+，Cu只能将Fe3+还原为Fe2+，离子方程式为2Fe3++Cu=2Fe2++Cu2+，C正确。D项：Hg2+是重金属离子，与S2−生成难溶HgS沉淀，离子方程式为Hg2++S2−=HgS↓，D正确。\"\n  },\n  {\n    \"num\": 9,\n    \"answer\": \"B\",\n    \"module\": \"模块4 离子大量共存题型\",\n    \"explanation\": \"A项：碱性锌锰电池正极MnO2得电子生成MnO(OH)，电极反应为MnO2+H2O+e−=MnO(OH)+OH−，A正确。B项：充电时PbSO4在阳极失电子生成PbO2，酸性环境用H+配平，应为PbSO4+2H2O−2e−=PbO2+SO42−+4H+，B选项写成4H+错误，故B错误。C项：K3[Fe(CN)6]可溶，需拆为K+和[Fe(CN)6]3−；K4[Fe(CN)6]难溶，不拆，C正确。D项：TiCl4水解生成TiO2·xH2O沉淀，离子方程式为TiCl4+(x+2)H2O=TiO2·xH2O↓+4H++4Cl−，D正确。\"\n  },\n  {\n    \"num\": 1,\n    \"answer\": \"B\",\n    \"module\": \"模块4 离子大量共存题型\",\n    \"explanation\": \"A项：S2O32−在酸性环境中生成S和SO2，与H+不能大量共存，A错误。B项：钾盐均易溶，Cl−、CO32−、ClO−、K+可大量共存，B正确。C项：Ag+与Br−生成淡黄色AgBr沉淀，不能大量共存，C错误。D项：[Cu(NH3)4]2+呈碱性，Fe3+在碱性中生成Fe(OH)3沉淀；且[Cu(NH3)4]2+与H+反应，故与Fe3+不能大量共存，D错误。\"\n  },\n  {\n    \"num\": 2,\n    \"answer\": \"D\",\n    \"module\": \"模块4 离子大量共存题型\",\n    \"explanation\": \"A项：NO3−在酸性下具强氧化性，能氧化I−为I2，自身被还原为NO或NO2，故H+、NO3−、I−不能共存，A错误。B项：Fe3+与CN−形成[Fe(CN)6]3−配离子，不能大量共存，B错误。C项：Si与C同主族，硅酸盐类似碳酸盐，CaCO3难溶，故SiO32−与Ca2+生成CaSiO3沉淀，不能共存，C错误。D项：NH4+是弱酸阳离子，水解生成NH3·H2O；HCO3−、CH3COO−是弱酸阴离子，也水解；阴阳离子水解相互促进但不彻底，仍可大量共存，D正确。\"\n  },\n  {\n    \"num\": 3,\n    \"answer\": \"B\",\n    \"module\": \"模块4 离子大量共存题型\",\n    \"explanation\": \"A项：硫酸钾、硫酸镁易溶，三种离子可共存；但加入Ba(OH)2后，Ba2+与SO42−生成BaSO4沉淀，OH−与Mg2+生成Mg(OH)2沉淀，离子方程式不完整，A不符合题意。B项未给出具体选项内容，但根据上下文及题干‘3.B’及解析开头‘解析:A.’推断本题答案为B（原题可能B为正确选项），结合常规判断，此处按原文结构提取答案为B。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 8,
+      "answer": "B",
+      "module": "模块4 离子大量共存题型",
+      "explanation": "A项：Cl2通入NaOH溶液生成NaCl和NaClO，均为钠盐，可拆为离子形式，离子方程式为Cl2+2OH−=Cl−+ClO−+H2O，A正确。B项：醋酸是弱酸，不能拆成离子；CaCO3+2CH3COOH=Ca2++2CH3COO−+CO2↑+H2O，B错误。C项：Fe3+氧化性强于Cu2+，Cu只能将Fe3+还原为Fe2+，离子方程式为2Fe3++Cu=2Fe2++Cu2+，C正确。D项：Hg2+是重金属离子，与S2−生成难溶HgS沉淀，离子方程式为Hg2++S2−=HgS↓，D正确。"
+    },
+    {
+      "num": 9,
+      "answer": "B",
+      "module": "模块4 离子大量共存题型",
+      "explanation": "A项：碱性锌锰电池正极MnO2得电子生成MnO(OH)，电极反应为MnO2+H2O+e−=MnO(OH)+OH−，A正确。B项：充电时PbSO4在阳极失电子生成PbO2，酸性环境用H+配平，应为PbSO4+2H2O−2e−=PbO2+SO42−+4H+，B选项写成4H+错误，故B错误。C项：K3[Fe(CN)6]可溶，需拆为K+和[Fe(CN)6]3−；K4[Fe(CN)6]难溶，不拆，C正确。D项：TiCl4水解生成TiO2·xH2O沉淀，离子方程式为TiCl4+(x+2)H2O=TiO2·xH2O↓+4H++4Cl−，D正确。"
+    },
+    {
+      "num": 1,
+      "answer": "B",
+      "module": "模块4 离子大量共存题型",
+      "explanation": "A项：S2O32−在酸性环境中生成S和SO2，与H+不能大量共存，A错误。B项：钾盐均易溶，Cl−、CO32−、ClO−、K+可大量共存，B正确。C项：Ag+与Br−生成淡黄色AgBr沉淀，不能大量共存，C错误。D项：[Cu(NH3)4]2+呈碱性，Fe3+在碱性中生成Fe(OH)3沉淀；且[Cu(NH3)4]2+与H+反应，故与Fe3+不能大量共存，D错误。"
+    },
+    {
+      "num": 2,
+      "answer": "D",
+      "module": "模块4 离子大量共存题型",
+      "explanation": "A项：NO3−在酸性下具强氧化性，能氧化I−为I2，自身被还原为NO或NO2，故H+、NO3−、I−不能共存，A错误。B项：Fe3+与CN−形成[Fe(CN)6]3−配离子，不能大量共存，B错误。C项：Si与C同主族，硅酸盐类似碳酸盐，CaCO3难溶，故SiO32−与Ca2+生成CaSiO3沉淀，不能共存，C错误。D项：NH4+是弱酸阳离子，水解生成NH3·H2O；HCO3−、CH3COO−是弱酸阴离子，也水解；阴阳离子水解相互促进但不彻底，仍可大量共存，D正确。"
+    },
+    {
+      "num": 3,
+      "answer": "B",
+      "module": "模块4 离子大量共存题型",
+      "explanation": "A项：硫酸钾、硫酸镁易溶，三种离子可共存；但加入Ba(OH)2后，Ba2+与SO42−生成BaSO4沉淀，OH−与Mg2+生成Mg(OH)2沉淀，离子方程式不完整，A不符合题意。B项未给出具体选项内容，但根据上下文及题干‘3.B’及解析开头‘解析:A.’推断本题答案为B（原题可能B为正确选项），结合常规判断，此处按原文结构提取答案为B。"
+    }
+  ]
+}

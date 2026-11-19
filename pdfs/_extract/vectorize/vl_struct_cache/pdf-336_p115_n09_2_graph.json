@@ -1,0 +1,35 @@
+{
+  "id": "pdf-336",
+  "type": "graph",
+  "img": "pdf_images/p115_n09_2.png",
+  "key": "pdf-336_p115_n09_2_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"C6H5C≡CH\", \"label\": \"C₆H₅−C≡CH\"},\n    {\"id\": \"C6H5CCl=CH2\", \"label\": \"C₆H₅−CCl=CH₂\"},\n    {\"id\": \"C6H5CH=CHCl\", \"label\": \"C₆H₅−CH=CHCl\"}\n  ],\n  \"edges\": [\n    {\"from\": \"C6H5C≡CH\", \"to\": \"C6H5CCl=CH2\", \"cond\": \"HCl, Al₂O₃\"},\n    {\"from\": \"C6H5C≡CH\", \"to\": \"C6H5CH=CHCl\", \"cond\": \"HCl, Al₂O₃\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "C6H5C≡CH",
+        "label": "C₆H₅−C≡CH"
+      },
+      {
+        "id": "C6H5CCl=CH2",
+        "label": "C₆H₅−CCl=CH₂"
+      },
+      {
+        "id": "C6H5CH=CHCl",
+        "label": "C₆H₅−CH=CHCl"
+      }
+    ],
+    "edges": [
+      {
+        "from": "C6H5C≡CH",
+        "to": "C6H5CCl=CH2",
+        "cond": "HCl, Al₂O₃"
+      },
+      {
+        "from": "C6H5C≡CH",
+        "to": "C6H5CH=CHCl",
+        "cond": "HCl, Al₂O₃"
+      }
+    ]
+  }
+}

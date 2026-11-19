@@ -1,0 +1,12 @@
+{
+  "id": "pdf-439",
+  "type": "molecule",
+  "img": "pdf_images/p145_n13_4.png",
+  "key": "pdf-439_p145_n13_4_molecule",
+  "raw": "{\"name\": \"potassium hydroxide\", \"smiles\": \"[K+].[OH-]\", \"note\": \"Structure shows K⁺ cation and hydroxide anion [∶Ö∶H]⁻, i.e., OH⁻ with lone pairs on oxygen; standard ionic compound KOH.\"}",
+  "data": {
+    "name": "potassium hydroxide",
+    "smiles": "[K+].[OH-]",
+    "note": "Structure shows K⁺ cation and hydroxide anion [∶Ö∶H]⁻, i.e., OH⁻ with lone pairs on oxygen; standard ionic compound KOH."
+  }
+}

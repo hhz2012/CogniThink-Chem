@@ -1,0 +1,57 @@
+{
+  "id": "pdf-199",
+  "images": [
+    "pdf_images/p071_n08_2.png",
+    "pdf_images/p071_n08_3.png",
+    "pdf_images/p071_n08_4.png",
+    "pdf_images/p071_n08_5.png",
+    "pdf_images/p071_n08_6.png",
+    "pdf_images/p071_n08_7.png",
+    "pdf_images/p071_n08_8.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片展示了物质C的结构式（邻羟基苯丙酸类结构），明确其含—CH₂CH(OH)COOH而非题干文字所述“—CH₂CHCOOH”，修正了题干笔误并提供解题必需的官能团位置信息。"
+    },
+    {
+      "index": 1,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片展示了物质M的结构式（苯丙酸），确认其为—CH₂CH₂COOH直链结构，与C形成对比，是判断酸性强弱的关键依据。"
+    },
+    {
+      "index": 2,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片展示了C（邻甲基苯酚衍生物）与C'（对羟基苯甲醛）的具体结构，明确二者官能团差异（酚羟基 vs 醛基+酚羟基）及位置，是分析分离方法与结构原因的必要信息。"
+    },
+    {
+      "index": 3,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片为选项A的NH₃·H₂O氢键结构式，显示N—H···O氢键连接方式，是判断正确氢键方向（供体H来自NH₃，受体O来自H₂O）的核心依据。"
+    },
+    {
+      "index": 4,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片为选项B的结构式，显示N—H···H—O错误连接（H不能同时作氢键受体），用于排除错误选项，解题需对比各选项氢键合理性。"
+    },
+    {
+      "index": 5,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片为选项C的结构式，省略了NH₃中一个H原子（仅画H—N），结构不完整且暗示N直接连H···O，违背价键规则，是判断其错误的关键视觉信息。"
+    },
+    {
+      "index": 6,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片为选项D的结构式，显示N—H···H—O（H在O上），即氢键受体为H而非O，明显错误，需依赖该图识别氢键方向错误。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片展示了物质C的结构式（邻羟基苯丙酸类结构），明确其含—CH₂CH(OH)COOH而非题干文字所述“—CH₂CHCOOH”，修正了题干笔误并提供解题必需的官能团位置信息。\"\n  },\n  {\n    \"index\": 1,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片展示了物质M的结构式（苯丙酸），确认其为—CH₂CH₂COOH直链结构，与C形成对比，是判断酸性强弱的关键依据。\"\n  },\n  {\n    \"index\": 2,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片展示了C（邻甲基苯酚衍生物）与C'（对羟基苯甲醛）的具体结构，明确二者官能团差异（酚羟基 vs 醛基+酚羟基）及位置，是分析分离方法与结构原因的必要信息。\"\n  },\n  {\n    \"index\": 3,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片为选项A的NH₃·H₂O氢键结构式，显示N—H···O氢键连接方式，是判断正确氢键方向（供体H来自NH₃，受体O来自H₂O）的核心依据。\"\n  },\n  {\n    \"index\": 4,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片为选项B的结构式，显示N—H···H—O错误连接（H不能同时作氢键受体），用于排除错误选项，解题需对比各选项氢键合理性。\"\n  },\n  {\n    \"index\": 5,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片为选项C的结构式，省略了NH₃中一个H原子（仅画H—N），结构不完整且暗示N直接连H···O，违背价键规则，是判断其错误的关键视觉信息。\"\n  },\n  {\n    \"index\": 6,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片为选项D的结构式，显示N—H···H—O（H在O上），即氢键受体为H而非O，明显错误，需依赖该图识别氢键方向错误。\"\n  }\n]"
+}

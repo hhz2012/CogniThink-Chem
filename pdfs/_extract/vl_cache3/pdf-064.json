@@ -1,0 +1,15 @@
+{
+  "id": "pdf-064",
+  "images": [
+    "pdf_images/p018_n11_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "转化关系图",
+      "reason": "图中展示了a与b加热生成气体e、b与c生成沉淀f和气体g、c与d生成沉淀f和气体g的反应路径，这是推断各物质身份（如e为NH₃、g为CO₂、f为BaCO₃或Al(OH)₃等）的关键依据，题干文字未明确反应组合关系。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"转化关系图\",\n    \"reason\": \"图中展示了a与b加热生成气体e、b与c生成沉淀f和气体g、c与d生成沉淀f和气体g的反应路径，这是推断各物质身份（如e为NH₃、g为CO₂、f为BaCO₃或Al(OH)₃等）的关键依据，题干文字未明确反应组合关系。\"\n  }\n]"
+}

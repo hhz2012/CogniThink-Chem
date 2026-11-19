@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="288.94241073184423" y1="320.0" x2="219.24532182680005" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="236.09386627932213" y="178.0" width="36" height="18" fill="white"/>
+<text x="254.09386627932213" y="192.0" text-anchor="middle" fill="#c0392b">①</text>
+<line x1="288.94241073184423" y1="320.0" x2="550.2370428923316" y2="97.43134806250019" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="401.5897268120879" y="196.7156740312501" width="36" height="18" fill="white"/>
+<text x="419.5897268120879" y="210.7156740312501" text-anchor="middle" fill="#c0392b">①</text>
+<line x1="550.2370428923316" y1="97.43134806250019" x2="60.0" y2="206.06189177794556" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="287.1185214461658" y="139.74661992022288" width="36" height="18" fill="white"/>
+<text x="305.1185214461658" y="153.74661992022288" text-anchor="middle" fill="#c0392b">T-F菌</text>
+<line x1="60.0" y1="206.06189177794556" x2="550.2370428923316" y2="97.43134806250019" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="60.0" y1="206.06189177794556" x2="580.0" y2="253.01928904862172" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="302.0" y="217.54059041328364" width="36" height="18" fill="white"/>
+<text x="320.0" y="231.54059041328364" text-anchor="middle" fill="#c0392b">O₂</text>
+<circle cx="288.94241073184423" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="288.94241073184423" y="325.0" text-anchor="middle" font-weight="bold">CH₄、H₂S</text>
+<circle cx="550.2370428923316" cy="97.43134806250019" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="550.2370428923316" y="102.43134806250019" text-anchor="middle" font-weight="bold">Fe₂(SO₄)₃</text>
+<circle cx="219.24532182680005" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="219.24532182680005" y="65.0" text-anchor="middle" font-weight="bold">S</text>
+<circle cx="60.0" cy="206.06189177794556" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="211.06189177794556" text-anchor="middle" font-weight="bold">FeSO₄、CH₄、X</text>
+<circle cx="580.0" cy="253.01928904862172" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="258.0192890486217" text-anchor="middle" font-weight="bold">CH₄、H₂O</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

@@ -1,0 +1,1352 @@
+{
+  "total_image_questions": 218,
+  "matched": 206,
+  "missing": [
+    {
+      "id": "pdf-026",
+      "page": 11,
+      "num": 1,
+      "question": "(2024·贵州卷·★★)二氧化氯(ClO2)可用于自来水消毒。实验室用草酸(H2C2O4)和KClO3制取ClO2的反应为H2C2O4+2KClO3+H2SO4=2ClO2↑+2CO2↑+K2SO4+2H2O。设NA为阿伏加德罗常数的值。下列说法正确的是( )"
+    },
+    {
+      "id": "pdf-093",
+      "page": 26,
+      "num": 4,
+      "question": "(2025·山西太原期末·★★)过氧化钠可用作潜水装置中 CO2 吸收剂和供氧剂。设 N_A 为阿伏加德罗常数的值，下列说法正确的是（ ）"
+    },
+    {
+      "id": "pdf-096",
+      "page": 27,
+      "num": 7,
+      "question": "7.(2022·湖北卷·★★)硫代碳酸钠能用于处理废水中的重金属离子,可通过如下反应制备:2NaHS(s)+CS2(l)═Na2CS3(s)+H2S(g),下列说法正确的是( )"
+    },
+    {
+      "id": "pdf-123",
+      "page": 39,
+      "num": 3,
+      "question": "(2024·江西卷·★★)景德镇青花瓷素有“国瓷”的美誉，是以黏土为原料，用含钴、铁的颜料着色，上釉后一次性高温烧制而成的青蓝色彩瓷。下列关于青花瓷说法正确的是（ ）"
+    },
+    {
+      "id": "pdf-474",
+      "page": 39,
+      "num": 4,
+      "question": "(2025·湖北三模·★★★)“中国紫”是目前被确认的出现于工业社会以前的最早的人造颜料之一，这种颜色被大量应用于兵马俑的衣物上色，其化学成分为 BaCuSi2O6。下列有关中国紫说法错误的是（ ）"
+    },
+    {
+      "id": "pdf-142",
+      "page": 47,
+      "num": 9,
+      "question": "(2024·全国专题练习·★★★)向0.1 mol·L⁻¹的溶液X中通入H₂S至过量，下列对应反应现象或离子方程式中存在错误的是（ ）"
+    },
+    {
+      "id": "pdf-172",
+      "page": 57,
+      "num": 6,
+      "question": "(6)1.0 Kg 蛇纹石“矿化”固定 CO2，得到 0.466 kg Mg5(CO3)4(OH)2·4H2O，相当于固定 CO2__________L(标准状况)。"
+    },
+    {
+      "id": "pdf-315",
+      "page": 110,
+      "num": 2,
+      "question": "(2024·广东卷·★★)我国自主设计建造的浮式生产储卸油装置“海葵一号”将在珠江口盆地海域使用,其钢铁外壳镶嵌了锌块,以利用电化学原理延缓外壳的腐蚀。下列有关说法正确的是"
+    },
+    {
+      "id": "pdf-233",
+      "page": 81,
+      "num": 6,
+      "question": "(原创题·★★★)X、Y、Z、W、R是原子序数依次递增的前20号主族元素，n、m、p分别是X、Y、W对应的单质，q、s、t是由X、Y、W组成的二元或三元化合物。n、m、p、q、s、t转化关系如图所示。常温下Z的单质遇浓硫酸无明显现象，但遇稀硫酸却剧烈反应。下列说法一定正"
+    },
+    {
+      "id": "pdf-277",
+      "page": 98,
+      "num": 5,
+      "question": "5.（2025·白城一模·★★★）25 ℃时，浓度均为 0.2 mol/L 的 NaHCO3 和 Na2CO3 溶液中，下列判断不正确的是（ ）"
+    },
+    {
+      "id": "pdf-326",
+      "page": 113,
+      "num": 2,
+      "question": "(2025·河北邯郸期末·★★★)下列有关有机化合物的结构或性质说法正确的是( )"
+    },
+    {
+      "id": "pdf-448",
+      "page": 147,
+      "num": 8,
+      "question": "(2024·天津卷·★★)关于天津博物馆典藏文物的相关化学知识,判断错误的是( )"
+    }
+  ],
+  "manifest": {
+    "pdf-014": [
+      "pdf_images/p007_n04_1.png"
+    ],
+    "pdf-015": [
+      "pdf_images/p007_n05_2.png"
+    ],
+    "pdf-018": [
+      "pdf_images/p008_n08_2.png"
+    ],
+    "pdf-021": [
+      "pdf_images/p009_n03_0.png"
+    ],
+    "pdf-024": [
+      "pdf_images/p010_n06_0.png"
+    ],
+    "pdf-037": [
+      "pdf_images/p013_n07_0.png",
+      "pdf_images/p013_n07_1.png",
+      "pdf_images/p013_n07_2.png",
+      "pdf_images/p013_n07_3.png"
+    ],
+    "pdf-064": [
+      "pdf_images/p018_n11_1.png"
+    ],
+    "pdf-071": [
+      "pdf_images/p020_n07_0.png"
+    ],
+    "pdf-074": [
+      "pdf_images/p021_n03_0.png"
+    ],
+    "pdf-077": [
+      "pdf_images/p022_n06_0.png"
+    ],
+    "pdf-087": [
+      "pdf_images/p024_n03_1.png"
+    ],
+    "pdf-088": [
+      "pdf_images/p024_n04_2.png"
+    ],
+    "pdf-090": [
+      "pdf_images/p026_n01_0.png"
+    ],
+    "pdf-094": [
+      "pdf_images/p027_n05_0.png"
+    ],
+    "pdf-098": [
+      "pdf_images/p028_n09_0.png",
+      "pdf_images/p028_n09_1.png",
+      "pdf_images/p028_n09_2.png",
+      "pdf_images/p028_n09_3.png",
+      "pdf_images/p028_n09_4.png"
+    ],
+    "pdf-100": [
+      "pdf_images/p029_n02_0.png"
+    ],
+    "pdf-103": [
+      "pdf_images/p029_n05_1.png"
+    ],
+    "pdf-104": [
+      "pdf_images/p030_n06_0.png"
+    ],
+    "pdf-456": [
+      "pdf_images/p031_n09_0.png"
+    ],
+    "pdf-458": [
+      "pdf_images/p032_n02_0.png"
+    ],
+    "pdf-459": [
+      "pdf_images/p032_n03_1.png"
+    ],
+    "pdf-111": [
+      "pdf_images/p035_n03_0.png"
+    ],
+    "pdf-113": [
+      "pdf_images/p036_n05_0.png"
+    ],
+    "pdf-475": [
+      "pdf_images/p039_n05_0.png"
+    ],
+    "pdf-478": [
+      "pdf_images/p041_n01_0.png",
+      "pdf_images/p041_n01_1.png"
+    ],
+    "pdf-479": [
+      "pdf_images/p041_n03_2.png"
+    ],
+    "pdf-125": [
+      "pdf_images/p042_n04_0.png"
+    ],
+    "pdf-126": [
+      "pdf_images/p042_n05_1.png"
+    ],
+    "pdf-127": [
+      "pdf_images/p042_n06_2.png"
+    ],
+    "pdf-128": [
+      "pdf_images/p042_n07_3.png"
+    ],
+    "pdf-130": [
+      "pdf_images/p043_n09_0.png"
+    ],
+    "pdf-132": [
+      "pdf_images/p043_n11_2.png"
+    ],
+    "pdf-133": [
+      "pdf_images/p044_n12_0.png"
+    ],
+    "pdf-134": [
+      "pdf_images/p045_n01_0.png"
+    ],
+    "pdf-138": [
+      "pdf_images/p046_n05_0.png",
+      "pdf_images/p046_n05_1.png"
+    ],
+    "pdf-140": [
+      "pdf_images/p046_n07_2.png"
+    ],
+    "pdf-141": [
+      "pdf_images/p046_n08_3.png"
+    ],
+    "pdf-143": [
+      "pdf_images/p047_n10_0.png"
+    ],
+    "pdf-145": [
+      "pdf_images/p048_n12_0.png"
+    ],
+    "pdf-146": [
+      "pdf_images/p048_n13_1.png"
+    ],
+    "pdf-147": [
+      "pdf_images/p049_n02_3.png"
+    ],
+    "pdf-480": [
+      "pdf_images/p049_n01_0.png",
+      "pdf_images/p049_n01_1.png",
+      "pdf_images/p049_n01_2.png"
+    ],
+    "pdf-149": [
+      "pdf_images/p050_n04_0.png"
+    ],
+    "pdf-150": [
+      "pdf_images/p050_n05_1.png"
+    ],
+    "pdf-151": [
+      "pdf_images/p050_n06_2.png"
+    ],
+    "pdf-152": [
+      "pdf_images/p050_n07_3.png"
+    ],
+    "pdf-153": [
+      "pdf_images/p051_n08_0.png"
+    ],
+    "pdf-154": [
+      "pdf_images/p051_n09_1.png"
+    ],
+    "pdf-155": [
+      "pdf_images/p051_n10_2.png"
+    ],
+    "pdf-156": [
+      "pdf_images/p052_n11_0.png",
+      "pdf_images/p052_n11_1.png",
+      "pdf_images/p052_n11_2.png"
+    ],
+    "pdf-159": [
+      "pdf_images/p054_n03_0.png"
+    ],
+    "pdf-167": [
+      "pdf_images/p056_n02_1.png",
+      "pdf_images/p056_n02_2.png"
+    ],
+    "pdf-169": [
+      "pdf_images/p057_n03_1.png"
+    ],
+    "pdf-177": [
+      "pdf_images/p058_n05_2.png"
+    ],
+    "pdf-178": [
+      "pdf_images/p058_n06_1.png"
+    ],
+    "pdf-481": [
+      "pdf_images/p059_n06_0.png",
+      "pdf_images/p059_n06_1.png",
+      "pdf_images/p059_n06_2.png"
+    ],
+    "pdf-188": [
+      "pdf_images/p063_n03_1.png",
+      "pdf_images/p063_n03_2.png"
+    ],
+    "pdf-487": [
+      "pdf_images/p063_n04_3.png",
+      "pdf_images/p063_n04_4.png"
+    ],
+    "pdf-494": [
+      "pdf_images/p065_n03_0.png"
+    ],
+    "pdf-498": [
+      "pdf_images/p065_n07_1.png"
+    ],
+    "pdf-505": [
+      "pdf_images/p068_n06_0.png"
+    ],
+    "pdf-506": [
+      "pdf_images/p068_n07_1.png"
+    ],
+    "pdf-508": [
+      "pdf_images/p068_n09_3.png"
+    ],
+    "pdf-191": [
+      "pdf_images/p069_n10_0.png"
+    ],
+    "pdf-196": [
+      "pdf_images/p070_n05_2.png"
+    ],
+    "pdf-199": [
+      "pdf_images/p071_n08_2.png",
+      "pdf_images/p071_n08_3.png",
+      "pdf_images/p071_n08_4.png",
+      "pdf_images/p071_n08_5.png",
+      "pdf_images/p071_n08_6.png",
+      "pdf_images/p071_n08_7.png",
+      "pdf_images/p071_n08_8.png"
+    ],
+    "pdf-201": [
+      "pdf_images/p072_n02_1.png",
+      "pdf_images/p072_n02_2.png"
+    ],
+    "pdf-202": [
+      "pdf_images/p072_n03_3.png"
+    ],
+    "pdf-203": [
+      "pdf_images/p072_n04_4.png"
+    ],
+    "pdf-204": [
+      "pdf_images/p073_n05_0.png"
+    ],
+    "pdf-205": [
+      "pdf_images/p073_n06_1.png"
+    ],
+    "pdf-206": [
+      "pdf_images/p073_n07_2.png",
+      "pdf_images/p073_n07_3.png"
+    ],
+    "pdf-208": [
+      "pdf_images/p074_n02_0.png",
+      "pdf_images/p074_n02_1.png",
+      "pdf_images/p074_n02_2.png"
+    ],
+    "pdf-211": [
+      "pdf_images/p075_n05_0.png"
+    ],
+    "pdf-212": [
+      "pdf_images/p075_n06_1.png"
+    ],
+    "pdf-214": [
+      "pdf_images/p075_n08_2.png",
+      "pdf_images/p075_n08_3.png",
+      "pdf_images/p075_n08_4.png"
+    ],
+    "pdf-215": [
+      "pdf_images/p076_n09_0.png",
+      "pdf_images/p076_n09_1.png",
+      "pdf_images/p076_n09_2.png"
+    ],
+    "pdf-216": [
+      "pdf_images/p077_n01_0.png"
+    ],
+    "pdf-217": [
+      "pdf_images/p077_n02_1.png"
+    ],
+    "pdf-218": [
+      "pdf_images/p077_n03_2.png"
+    ],
+    "pdf-219": [
+      "pdf_images/p078_n04_0.png"
+    ],
+    "pdf-220": [
+      "pdf_images/p078_n05_1.png",
+      "pdf_images/p078_n05_2.png"
+    ],
+    "pdf-221": [
+      "pdf_images/p078_n06_3.png"
+    ],
+    "pdf-222": [
+      "pdf_images/p078_n07_4.png"
+    ],
+    "pdf-223": [
+      "pdf_images/p079_n01_0.png"
+    ],
+    "pdf-225": [
+      "pdf_images/p079_n03_2.png"
+    ],
+    "pdf-226": [
+      "pdf_images/p079_n04_3.png"
+    ],
+    "pdf-227": [
+      "pdf_images/p080_n05_3.png",
+      "pdf_images/p080_n05_4.png"
+    ],
+    "pdf-511": [
+      "pdf_images/p081_n02_0.png"
+    ],
+    "pdf-238": [
+      "pdf_images/p083_n01_0.png"
+    ],
+    "pdf-239": [
+      "pdf_images/p083_n02_1.png"
+    ],
+    "pdf-240": [
+      "pdf_images/p084_n03_0.png"
+    ],
+    "pdf-241": [
+      "pdf_images/p084_n04_1.png"
+    ],
+    "pdf-246": [
+      "pdf_images/p086_n02_0.png"
+    ],
+    "pdf-247": [
+      "pdf_images/p086_n03_1.png"
+    ],
+    "pdf-248": [
+      "pdf_images/p087_n04_0.png"
+    ],
+    "pdf-249": [
+      "pdf_images/p087_n05_1.png"
+    ],
+    "pdf-512": [
+      "pdf_images/p087_n06_2.png"
+    ],
+    "pdf-250": [
+      "pdf_images/p088_n07_0.png",
+      "pdf_images/p088_n07_1.png",
+      "pdf_images/p088_n07_2.png",
+      "pdf_images/p088_n07_3.png",
+      "pdf_images/p088_n07_4.png"
+    ],
+    "pdf-251": [
+      "pdf_images/p088_n08_5.png",
+      "pdf_images/p088_n08_6.png"
+    ],
+    "pdf-255": [
+      "pdf_images/p089_n04_1.png"
+    ],
+    "pdf-256": [
+      "pdf_images/p090_n05_0.png",
+      "pdf_images/p090_n05_1.png"
+    ],
+    "pdf-257": [
+      "pdf_images/p090_n06_2.png"
+    ],
+    "pdf-258": [
+      "pdf_images/p091_n07_0.png",
+      "pdf_images/p091_n07_1.png",
+      "pdf_images/p091_n07_2.png"
+    ],
+    "pdf-259": [
+      "pdf_images/p092_n01_0.png"
+    ],
+    "pdf-261": [
+      "pdf_images/p093_n03_0.png",
+      "pdf_images/p093_n03_1.png",
+      "pdf_images/p093_n03_2.png"
+    ],
+    "pdf-262": [
+      "pdf_images/p094_n04_0.png",
+      "pdf_images/p094_n04_1.png"
+    ],
+    "pdf-265": [
+      "pdf_images/p095_n04_0.png"
+    ],
+    "pdf-271": [
+      "pdf_images/p097_n10_0.png"
+    ],
+    "pdf-272": [
+      "pdf_images/p097_n11_1.png"
+    ],
+    "pdf-276": [
+      "pdf_images/p098_n04_0.png"
+    ],
+    "pdf-281": [
+      "pdf_images/p099_n09_0.png"
+    ],
+    "pdf-284": [
+      "pdf_images/p100_n12_0.png"
+    ],
+    "pdf-286": [
+      "pdf_images/p101_n02_0.png"
+    ],
+    "pdf-287": [
+      "pdf_images/p101_n03_1.png"
+    ],
+    "pdf-288": [
+      "pdf_images/p101_n04_2.png"
+    ],
+    "pdf-289": [
+      "pdf_images/p102_n05_0.png"
+    ],
+    "pdf-290": [
+      "pdf_images/p102_n06_1.png"
+    ],
+    "pdf-292": [
+      "pdf_images/p103_n08_0.png"
+    ],
+    "pdf-295": [
+      "pdf_images/p104_n01_0.png"
+    ],
+    "pdf-297": [
+      "pdf_images/p104_n03_2.png"
+    ],
+    "pdf-298": [
+      "pdf_images/p105_n04_0.png"
+    ],
+    "pdf-299": [
+      "pdf_images/p105_n05_1.png"
+    ],
+    "pdf-300": [
+      "pdf_images/p105_n06_2.png"
+    ],
+    "pdf-301": [
+      "pdf_images/p105_n07_3.png"
+    ],
+    "pdf-302": [
+      "pdf_images/p106_n08_battery.png"
+    ],
+    "pdf-303": [
+      "pdf_images/p106_n09_0.png"
+    ],
+    "pdf-304": [
+      "pdf_images/p106_n10_1.png",
+      "pdf_images/p106_n10_2.png",
+      "pdf_images/p106_n10_3.png"
+    ],
+    "pdf-306": [
+      "pdf_images/p107_n02_1.png"
+    ],
+    "pdf-307": [
+      "pdf_images/p107_n03_2.png",
+      "pdf_images/p107_n03_3.png"
+    ],
+    "pdf-308": [
+      "pdf_images/p108_n04_0.png"
+    ],
+    "pdf-309": [
+      "pdf_images/p108_n05_1.png"
+    ],
+    "pdf-310": [
+      "pdf_images/p108_n06_2.png"
+    ],
+    "pdf-311": [
+      "pdf_images/p108_n07_3.png"
+    ],
+    "pdf-312": [
+      "pdf_images/p109_n08_0.png"
+    ],
+    "pdf-313": [
+      "pdf_images/p109_n09_1.png",
+      "pdf_images/p109_n09_2.png"
+    ],
+    "pdf-317": [
+      "pdf_images/p110_n04_0.png"
+    ],
+    "pdf-318": [
+      "pdf_images/p110_n05_1.png"
+    ],
+    "pdf-522": [
+      "pdf_images/p112_n05_4.png"
+    ],
+    "pdf-325": [
+      "pdf_images/p113_n01_0.png"
+    ],
+    "pdf-327": [
+      "pdf_images/p113_n03_1.png"
+    ],
+    "pdf-328": [
+      "pdf_images/p113_n04_2.png",
+      "pdf_images/p113_n04_3.png"
+    ],
+    "pdf-330": [
+      "pdf_images/p114_n03_2.png"
+    ],
+    "pdf-332": [
+      "pdf_images/p114_n05_4.png"
+    ],
+    "pdf-524": [
+      "pdf_images/p114_n02_1.png"
+    ],
+    "pdf-336": [
+      "pdf_images/p115_n09_2.png",
+      "pdf_images/p115_n09_3.png",
+      "pdf_images/p115_n09_4.png"
+    ],
+    "pdf-338": [
+      "pdf_images/p116_n02_1.png",
+      "pdf_images/p116_n02_2.png"
+    ],
+    "pdf-341": [
+      "pdf_images/p117_n05_1.png"
+    ],
+    "pdf-344": [
+      "pdf_images/p118_n01_0.png"
+    ],
+    "pdf-346": [
+      "pdf_images/p118_n03_2.png"
+    ],
+    "pdf-347": [
+      "pdf_images/p118_n04_3.png"
+    ],
+    "pdf-348": [
+      "pdf_images/p119_n05_0.png"
+    ],
+    "pdf-351": [
+      "pdf_images/p120_n02_1.png"
+    ],
+    "pdf-353": [
+      "pdf_images/p120_n04_3.png",
+      "pdf_images/p120_n04_4.png"
+    ],
+    "pdf-357": [
+      "pdf_images/p121_n04_3.png"
+    ],
+    "pdf-359": [
+      "pdf_images/p122_n06_1.png"
+    ],
+    "pdf-360": [
+      "pdf_images/p122_n07_2.png"
+    ],
+    "pdf-361": [
+      "pdf_images/p122_n08_3.png"
+    ],
+    "pdf-362": [
+      "pdf_images/p122_n09_4.png"
+    ],
+    "pdf-363": [
+      "pdf_images/p123_n01_0.png"
+    ],
+    "pdf-364": [
+      "pdf_images/p123_n02_1.png"
+    ],
+    "pdf-367": [
+      "pdf_images/p123_n05_2.png"
+    ],
+    "pdf-370": [
+      "pdf_images/p124_n08_1.png"
+    ],
+    "pdf-371": [
+      "pdf_images/p124_n09_2.png"
+    ],
+    "pdf-383": [
+      "pdf_images/p127_n11_1.png"
+    ],
+    "pdf-386": [
+      "pdf_images/p128_n02_0.png"
+    ],
+    "pdf-387": [
+      "pdf_images/p128_n03_1.png"
+    ],
+    "pdf-388": [
+      "pdf_images/p128_n04_2.png"
+    ],
+    "pdf-390": [
+      "pdf_images/p129_n02_1.png"
+    ],
+    "pdf-391": [
+      "pdf_images/p129_n03_2.png",
+      "pdf_images/p129_n03_3.png"
+    ],
+    "pdf-397": [
+      "pdf_images/p131_n03_0.png"
+    ],
+    "pdf-398": [
+      "pdf_images/p131_n04_1.png",
+      "pdf_images/p131_n04_2.png"
+    ],
+    "pdf-400": [
+      "pdf_images/p132_n06_2.png"
+    ],
+    "pdf-404": [
+      "pdf_images/p133_n10_1.png"
+    ],
+    "pdf-406": [
+      "pdf_images/p134_n12_0.png"
+    ],
+    "pdf-408": [
+      "pdf_images/p134_n14_1.png",
+      "pdf_images/p134_n14_2.png",
+      "pdf_images/p134_n14_3.png",
+      "pdf_images/p134_n14_4.png"
+    ],
+    "pdf-409": [
+      "pdf_images/p135_n15_0.png"
+    ],
+    "pdf-410": [
+      "pdf_images/p135_n16_1.png"
+    ],
+    "pdf-412": [
+      "pdf_images/p136_n01_0.png",
+      "pdf_images/p136_n01_1.png"
+    ],
+    "pdf-413": [
+      "pdf_images/p136_n02_2.png"
+    ],
+    "pdf-414": [
+      "pdf_images/p137_n03_1.png",
+      "pdf_images/p137_n03_2.png"
+    ],
+    "pdf-528": [
+      "pdf_images/p137_n01_0.png"
+    ],
+    "pdf-531": [
+      "pdf_images/p138_n05_1.png"
+    ],
+    "pdf-532": [
+      "pdf_images/p138_n04_0.png"
+    ],
+    "pdf-418": [
+      "pdf_images/p140_n07_0.png"
+    ],
+    "pdf-425": [
+      "pdf_images/p142_n07_0.png"
+    ],
+    "pdf-428": [
+      "pdf_images/p143_n01_0.png",
+      "pdf_images/p143_n01_1.png"
+    ],
+    "pdf-429": [
+      "pdf_images/p143_n02_2.png",
+      "pdf_images/p143_n02_3.png"
+    ],
+    "pdf-431": [
+      "pdf_images/p143_n04_4.png",
+      "pdf_images/p143_n04_5.png"
+    ],
+    "pdf-432": [
+      "pdf_images/p143_n05_6.png"
+    ],
+    "pdf-433": [
+      "pdf_images/p144_n06_0.png",
+      "pdf_images/p144_n06_1.png",
+      "pdf_images/p144_n06_2.png",
+      "pdf_images/p144_n06_3.png"
+    ],
+    "pdf-434": [
+      "pdf_images/p144_n07_4.png",
+      "pdf_images/p144_n07_5.png",
+      "pdf_images/p144_n07_6.png",
+      "pdf_images/p144_n07_7.png"
+    ],
+    "pdf-438": [
+      "pdf_images/p145_n12_0.png",
+      "pdf_images/p145_n12_1.png",
+      "pdf_images/p145_n12_2.png"
+    ],
+    "pdf-439": [
+      "pdf_images/p145_n13_3.png",
+      "pdf_images/p145_n13_4.png",
+      "pdf_images/p145_n13_5.png",
+      "pdf_images/p145_n13_6.png"
+    ],
+    "pdf-107": [
+      "pdf_images/p033_n01_r0.png"
+    ],
+    "pdf-139": [
+      "pdf_images/p046_n06_r0.png"
+    ],
+    "pdf-170": [
+      "pdf_images/p057_n04_r0.png"
+    ],
+    "pdf-490": [
+      "pdf_images/p064_n05_r0.png"
+    ],
+    "pdf-510": [
+      "pdf_images/p076_n02_r0.png"
+    ],
+    "pdf-232": [
+      "pdf_images/p081_n05_r0.png"
+    ],
+    "pdf-416": [
+      "pdf_images/p137_n05_r0.png"
+    ],
+    "pdf-369": [
+      "pdf_images/p124_n07_r0.png"
+    ],
+    "pdf-340": [
+      "pdf_images/p116_n04_r0.png"
+    ],
+    "pdf-534": [
+      "pdf_images/p139_n02_r0.png"
+    ],
+    "pdf-535": [
+      "pdf_images/p139_n03_r0.png"
+    ],
+    "pdf-540": [
+      "pdf_images/p139_n08_r0.png",
+      "pdf_images/p139_n08_r1.png"
+    ]
+  },
+  "extras_by_page": {
+    "7": [
+      {
+        "file": "pdf_images/p007_n03_0.png",
+        "num": 3,
+        "desc": "物质转化关系框图"
+      }
+    ],
+    "8": [
+      {
+        "file": "pdf_images/p008_n06_0.png",
+        "num": 6,
+        "desc": "铁及其化合物转化流程图"
+      },
+      {
+        "file": "pdf_images/p008_n07_1.png",
+        "num": 7,
+        "desc": "工业制备物质转化流程图"
+      }
+    ],
+    "18": [
+      {
+        "file": "pdf_images/p018_n10_0.png",
+        "num": 10,
+        "desc": "实验流程装置图"
+      }
+    ],
+    "21": [
+      {
+        "file": "pdf_images/p021_n04_1.png",
+        "num": 4,
+        "desc": "氙氟化物反应表格"
+      }
+    ],
+    "22": [
+      {
+        "file": "pdf_images/p022_n07_1.png",
+        "num": 7,
+        "desc": "海带提碘工艺流程图"
+      }
+    ],
+    "24": [
+      {
+        "file": "pdf_images/p024_n02_0.png",
+        "num": 2,
+        "desc": "Cl2制KClO3流程图"
+      }
+    ],
+    "26": [
+      {
+        "file": "pdf_images/p026_n03_1.png",
+        "num": 3,
+        "desc": "泡沫灭火器反应方程式"
+      }
+    ],
+    "27": [
+      {
+        "file": "pdf_images/p027_n08_1.png",
+        "num": 8,
+        "desc": "锂云母制LiOH流程图"
+      }
+    ],
+    "30": [
+      {
+        "file": "pdf_images/p030_n07_1.png",
+        "num": 7,
+        "desc": "四行三列表格"
+      },
+      {
+        "file": "pdf_images/p030_n08_2.png",
+        "num": 8,
+        "desc": "四行三列表格"
+      }
+    ],
+    "32": [
+      {
+        "file": "pdf_images/p032_n05_2.png",
+        "num": 5,
+        "desc": "工艺流程图"
+      }
+    ],
+    "33": [
+      {
+        "file": "pdf_images/p033_n00_0.png",
+        "num": 0,
+        "desc": "LAEM工艺流程图"
+      },
+      {
+        "file": "pdf_images/p033_n00_1.png",
+        "num": 0,
+        "desc": "LAEM原理示意图"
+      },
+      {
+        "file": "pdf_images/p033_n06_2.png",
+        "num": 6,
+        "desc": "废催化剂提铝镍流程图"
+      },
+      {
+        "file": "pdf_images/p033_n06_3.png",
+        "num": 6,
+        "desc": "离子沉淀pH数据表"
+      }
+    ],
+    "35": [
+      {
+        "file": "pdf_images/p035_n04_1.png",
+        "num": 4,
+        "desc": "废线路板提铜工艺流程图"
+      }
+    ],
+    "36": [
+      {
+        "file": "pdf_images/p036_n06_1.png",
+        "num": 6,
+        "desc": "铜冶金污水处理流程图"
+      },
+      {
+        "file": "pdf_images/p036_n06_2.png",
+        "num": 6,
+        "desc": "金属氢氧化物沉淀pH表"
+      }
+    ],
+    "39": [
+      {
+        "file": "pdf_images/p039_n06_1.png",
+        "num": 6,
+        "desc": "粗硅提纯工艺流程图"
+      }
+    ],
+    "43": [
+      {
+        "file": "pdf_images/p043_n10_1.png",
+        "num": 10,
+        "desc": "氯气与水反应实验装置"
+      }
+    ],
+    "54": [
+      {
+        "file": "pdf_images/p054_n04_1.png",
+        "num": 4,
+        "desc": "硒制备工艺流程图"
+      },
+      {
+        "file": "pdf_images/p054_n05_2.png",
+        "num": 5,
+        "desc": "BaTiO3制备工艺流程图"
+      }
+    ],
+    "56": [
+      {
+        "file": "pdf_images/p056_n01_0.png",
+        "num": 1,
+        "desc": "工艺流程框图"
+      }
+    ],
+    "57": [
+      {
+        "file": "pdf_images/p057_n02_0.png",
+        "num": 2,
+        "desc": "NiO晶胞结构示意图"
+      }
+    ],
+    "58": [
+      {
+        "file": "pdf_images/p058_n00_0.png",
+        "num": 0,
+        "desc": "金-银矿工艺流程图"
+      }
+    ],
+    "59": [
+      {
+        "file": "pdf_images/p059_n07_3.png",
+        "num": 7,
+        "desc": "提取铍工艺流程图"
+      }
+    ],
+    "63": [
+      {
+        "file": "pdf_images/p063_n01_0.png",
+        "num": 1,
+        "desc": "价层电子排布框图"
+      }
+    ],
+    "64": [
+      {
+        "file": "pdf_images/p064_n00_0.png",
+        "num": 0,
+        "desc": "Mn原子结构示意图"
+      }
+    ],
+    "68": [
+      {
+        "file": "pdf_images/p068_n08_2.png",
+        "num": 8,
+        "desc": "Sn与Cl2反应装置图"
+      }
+    ],
+    "70": [
+      {
+        "file": "pdf_images/p070_n03_0.png",
+        "num": 3,
+        "desc": "物质转化关系框图"
+      },
+      {
+        "file": "pdf_images/p070_n04_1.png",
+        "num": 4,
+        "desc": "羧酸pKa数据表"
+      }
+    ],
+    "71": [
+      {
+        "file": "pdf_images/p071_n01_0.png",
+        "num": 1,
+        "desc": "氮循环转化关系图"
+      },
+      {
+        "file": "pdf_images/p071_n07_1.png",
+        "num": 7,
+        "desc": "物质熔点数据表"
+      }
+    ],
+    "72": [
+      {
+        "file": "pdf_images/p072_n01_0.png",
+        "num": 1,
+        "desc": "晶胞结构与XRD图"
+      }
+    ],
+    "74": [
+      {
+        "file": "pdf_images/p074_n04_3.png",
+        "num": 4,
+        "desc": "物质性质解释表"
+      }
+    ],
+    "79": [
+      {
+        "file": "pdf_images/p079_n02_1.png",
+        "num": 2,
+        "desc": "冠醚分子转化框图"
+      }
+    ],
+    "80": [
+      {
+        "file": "pdf_images/p080_n00_0.png",
+        "num": 0,
+        "desc": "环六糊精结构图"
+      },
+      {
+        "file": "pdf_images/p080_n00_1.png",
+        "num": 0,
+        "desc": "甲氧基苯反应图"
+      },
+      {
+        "file": "pdf_images/p080_n00_2.png",
+        "num": 0,
+        "desc": "环六糊精包合反应图"
+      }
+    ],
+    "81": [
+      {
+        "file": "pdf_images/p081_n03_1.png",
+        "num": 3,
+        "desc": "有机分子结构图"
+      },
+      {
+        "file": "pdf_images/p081_n04_2.png",
+        "num": 4,
+        "desc": "分子结构简图"
+      }
+    ],
+    "89": [
+      {
+        "file": "pdf_images/p089_n03_0.png",
+        "num": 3,
+        "desc": "反应平衡示意图"
+      }
+    ],
+    "98": [
+      {
+        "file": "pdf_images/p098_n06_1.png",
+        "num": 6,
+        "desc": "电离平衡常数表格"
+      }
+    ],
+    "102": [
+      {
+        "file": "pdf_images/p102_n00_2.png",
+        "num": 0,
+        "desc": "MnSO4除镁沉锰流程图"
+      }
+    ],
+    "103": [
+      {
+        "file": "pdf_images/p103_n09_1.png",
+        "num": 9,
+        "desc": "两组实验装置示意图"
+      }
+    ],
+    "104": [
+      {
+        "file": "pdf_images/p104_n02_1.png",
+        "num": 2,
+        "desc": "铅酸与氢氧燃料电池图"
+      }
+    ],
+    "107": [
+      {
+        "file": "pdf_images/p107_n01_0.png",
+        "num": 1,
+        "desc": "电解装置示意图"
+      }
+    ],
+    "112": [
+      {
+        "file": "pdf_images/p112_n01_0.png",
+        "num": 1,
+        "desc": "曲美托嗪结构式"
+      },
+      {
+        "file": "pdf_images/p112_n02_1.png",
+        "num": 2,
+        "desc": "溴代环己酮结构式"
+      },
+      {
+        "file": "pdf_images/p112_n03_2.png",
+        "num": 3,
+        "desc": "含氟硝基苯结构式"
+      },
+      {
+        "file": "pdf_images/p112_n04_3.png",
+        "num": 4,
+        "desc": "硝基苯胺氯代物结构式"
+      },
+      {
+        "file": "pdf_images/p112_n06_5.png",
+        "num": 6,
+        "desc": "邻苯二酚结构式"
+      },
+      {
+        "file": "pdf_images/p112_n07_6.png",
+        "num": 7,
+        "desc": "氨基苯甲酸结构式"
+      },
+      {
+        "file": "pdf_images/p112_n08_7.png",
+        "num": 8,
+        "desc": "聚苯乙烯结构简式"
+      }
+    ],
+    "114": [
+      {
+        "file": "pdf_images/p114_n01_0.png",
+        "num": 1,
+        "desc": "三种烷烃结构简式"
+      },
+      {
+        "file": "pdf_images/p114_n04_3.png",
+        "num": 4,
+        "desc": "1,1-联环戊烯结构式"
+      }
+    ],
+    "115": [
+      {
+        "file": "pdf_images/p115_n07_0.png",
+        "num": 7,
+        "desc": "柠檬烯结构简式"
+      },
+      {
+        "file": "pdf_images/p115_n08_1.png",
+        "num": 8,
+        "desc": "烯烃加成机理图"
+      }
+    ],
+    "116": [
+      {
+        "file": "pdf_images/p116_n01_0.png",
+        "num": 1,
+        "desc": "卤代烃结构式图"
+      },
+      {
+        "file": "pdf_images/p116_n03_3.png",
+        "num": 3,
+        "desc": "实验现象结论表"
+      }
+    ],
+    "117": [
+      {
+        "file": "pdf_images/p117_n00_0.png",
+        "num": 0,
+        "desc": "手性分子结构式"
+      },
+      {
+        "file": "pdf_images/p117_n06_2.png",
+        "num": 6,
+        "desc": "超分子反应示意图"
+      }
+    ],
+    "118": [
+      {
+        "file": "pdf_images/p118_n02_1.png",
+        "num": 2,
+        "desc": "X和Y结构简式"
+      }
+    ],
+    "119": [
+      {
+        "file": "pdf_images/p119_n06_1.png",
+        "num": 6,
+        "desc": "D-乙酰氨基葡萄糖结构式"
+      }
+    ],
+    "120": [
+      {
+        "file": "pdf_images/p120_n01_0.png",
+        "num": 1,
+        "desc": "蛇孢菌素X结构式"
+      },
+      {
+        "file": "pdf_images/p120_n03_2.png",
+        "num": 3,
+        "desc": "氘代甲醛与HCN加成反应式"
+      }
+    ],
+    "121": [
+      {
+        "file": "pdf_images/p121_n01_0.png",
+        "num": 1,
+        "desc": "缩聚反应方程式图"
+      },
+      {
+        "file": "pdf_images/p121_n01_1.png",
+        "num": 1,
+        "desc": "乳酸自身酯化结构式"
+      },
+      {
+        "file": "pdf_images/p121_n03_2.png",
+        "num": 3,
+        "desc": "化合物X→Y→Z转化图"
+      }
+    ],
+    "122": [
+      {
+        "file": "pdf_images/p122_n05_0.png",
+        "num": 5,
+        "desc": "有机反应转化图"
+      }
+    ],
+    "124": [
+      {
+        "file": "pdf_images/p124_n06_0.png",
+        "num": 6,
+        "desc": "ATP结构示意图"
+      }
+    ],
+    "127": [
+      {
+        "file": "pdf_images/p127_n10_0.png",
+        "num": 10,
+        "desc": "PVA合成反应式图"
+      },
+      {
+        "file": "pdf_images/p127_n12_2.png",
+        "num": 12,
+        "desc": "PLGA合成反应式图"
+      }
+    ],
+    "129": [
+      {
+        "file": "pdf_images/p129_n01_0.png",
+        "num": 1,
+        "desc": "立方烷结构简图"
+      }
+    ],
+    "132": [
+      {
+        "file": "pdf_images/p132_n00_0.png",
+        "num": 0,
+        "desc": "乙酸乙酯制备装置图"
+      },
+      {
+        "file": "pdf_images/p132_n05_1.png",
+        "num": 5,
+        "desc": "滴定与稀释操作图"
+      },
+      {
+        "file": "pdf_images/p132_n07_3.png",
+        "num": 7,
+        "desc": "五色变化实验图示"
+      }
+    ],
+    "133": [
+      {
+        "file": "pdf_images/p133_n08_0.png",
+        "num": 8,
+        "desc": "苯甲酸提纯流程图"
+      }
+    ],
+    "139": [
+      {
+        "file": "pdf_images/p139_n00_0.png",
+        "num": 0,
+        "desc": "实验装置图"
+      },
+      {
+        "file": "pdf_images/p139_n00_1.png",
+        "num": 0,
+        "desc": "配制溶液流程图"
+      },
+      {
+        "file": "pdf_images/p139_n06_2.png",
+        "num": 6,
+        "desc": "LED废料处理流程图"
+      },
+      {
+        "file": "pdf_images/p139_n06_3.png",
+        "num": 6,
+        "desc": "吸收装置图"
+      }
+    ],
+    "142": [
+      {
+        "file": "pdf_images/p142_n08_1.png",
+        "num": 8,
+        "desc": "化学反应方程式图"
+      },
+      {
+        "file": "pdf_images/p142_n08_2.png",
+        "num": 8,
+        "desc": "化学反应式与条件图"
+      }
+    ],
+    "144": [
+      {
+        "file": "pdf_images/p144_n08_8.png",
+        "num": 8,
+        "desc": "聚乙炔结构简式"
+      },
+      {
+        "file": "pdf_images/p144_n08_9.png",
+        "num": 8,
+        "desc": "CH₃CH₂C(CH₃)=CH₂结构"
+      },
+      {
+        "file": "pdf_images/p144_n09_10.png",
+        "num": 9,
+        "desc": "H₂O VSEPR模型"
+      },
+      {
+        "file": "pdf_images/p144_n10_11.png",
+        "num": 10,
+        "desc": "异丙基结构简式"
+      },
+      {
+        "file": "pdf_images/p144_n10_12.png",
+        "num": 10,
+        "desc": "NaCl水合离子图"
+      },
+      {
+        "file": "pdf_images/p144_n10_13.png",
+        "num": 10,
+        "desc": "Cl₂σ键形成示意图"
+      },
+      {
+        "file": "pdf_images/p144_n11_14.png",
+        "num": 11,
+        "desc": "碳原子轨道表示式"
+      }
+    ],
+    "145": [
+      {
+        "file": "pdf_images/p145_n14_7.png",
+        "num": 14,
+        "desc": "NH₄⁺电子式图"
+      }
+    ]
+  },
+  "recovered_by_refetch": 12
+}

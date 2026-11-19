@@ -1,0 +1,15 @@
+{
+  "id": "pdf-287",
+  "images": [
+    "pdf_images/p101_n03_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "坐标曲线图",
+      "reason": "图中两条直线a、b的截距与斜率关系及X、Y点坐标是判断K_sp大小、溶液状态及离子浓度比的关键依据，题干文字未提供具体数值或图形特征。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"坐标曲线图\",\n    \"reason\": \"图中两条直线a、b的截距与斜率关系及X、Y点坐标是判断K_sp大小、溶液状态及离子浓度比的关键依据，题干文字未提供具体数值或图形特征。\"\n  }\n]"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "pdf-272",
+  "images": [
+    "pdf_images/p097_n11_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "坐标曲线图",
+      "reason": "图中给出了H₂C₂O₄、HC₂O₄⁻、C₂O₄²⁻三者物质的量分数随pH变化的曲线及关键交点坐标(1.2,0.5)和(4.2,0.5)，是计算K_a1所必需的数据依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"坐标曲线图\",\n    \"reason\": \"图中给出了H₂C₂O₄、HC₂O₄⁻、C₂O₄²⁻三者物质的量分数随pH变化的曲线及关键交点坐标(1.2,0.5)和(4.2,0.5)，是计算K_a1所必需的数据依据。\"\n  }\n]"
+}

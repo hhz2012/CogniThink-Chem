@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="288.94630963140617" y1="320.0" x2="550.2417431126921" y2="97.43216006906415" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="401.59402637204914" y="196.71608003453207" width="36" height="18" fill="white"/>
+<text x="419.59402637204914" y="210.71608003453207" text-anchor="middle" fill="#c0392b">-410.9 kJ·mol⁻¹</text>
+<line x1="288.94630963140617" y1="320.0" x2="219.24298804396972" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="236.09464883768794" y="178.0" width="36" height="18" fill="white"/>
+<text x="254.09464883768794" y="192.0" text-anchor="middle" fill="#c0392b">+119.6 kJ·mol⁻¹</text>
+<line x1="288.94630963140617" y1="320.0" x2="580.0" y2="253.02060592878283" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="416.4731548157031" y="274.5103029643914" width="36" height="18" fill="white"/>
+<text x="434.4731548157031" y="288.5103029643914" text-anchor="middle" fill="#c0392b">+108.4 kJ·mol⁻¹</text>
+<line x1="219.24298804396972" y1="60.0" x2="60.0" y2="206.05982473371805" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="121.62149402198486" y="121.02991236685904" width="36" height="18" fill="white"/>
+<text x="139.62149402198486" y="135.02991236685904" text-anchor="middle" fill="#c0392b">-348.3 kJ·mol⁻¹</text>
+<line x1="60.0" y1="206.05982473371805" x2="550.2417431126921" y2="97.43216006906415" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="287.12087155634606" y="139.7459924013911" width="36" height="18" fill="white"/>
+<text x="305.12087155634606" y="153.7459924013911" text-anchor="middle" fill="#c0392b">-785.6 kJ·mol⁻¹</text>
+<line x1="580.0" y1="253.02060592878283" x2="60.0" y2="206.05982473371805" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="302.0" y="217.54021533125044" width="36" height="18" fill="white"/>
+<text x="320.0" y="231.54021533125044" text-anchor="middle" fill="#c0392b">+495.0 kJ·mol⁻¹</text>
+<circle cx="288.94630963140617" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="288.94630963140617" y="325.0" text-anchor="middle" font-weight="bold">Na(s)+1/2Cl2(g)</text>
+<circle cx="550.2417431126921" cy="97.43216006906415" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="550.2417431126921" y="102.43216006906415" text-anchor="middle" font-weight="bold">NaCl(s)</text>
+<circle cx="219.24298804396972" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="219.24298804396972" y="65.0" text-anchor="middle" font-weight="bold">Cl(g)</text>
+<circle cx="60.0" cy="206.05982473371805" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="211.05982473371805" text-anchor="middle" font-weight="bold">Cl⁻(g)+Na⁺(g)</text>
+<circle cx="580.0" cy="253.02060592878283" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="258.02060592878286" text-anchor="middle" font-weight="bold">Na(g)</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

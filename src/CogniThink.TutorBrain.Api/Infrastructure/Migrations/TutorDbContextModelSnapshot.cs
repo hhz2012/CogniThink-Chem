@@ -224,6 +224,9 @@ namespace CogniThink.TutorBrain.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("DistractorKeywords")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ExpectedExpression")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -260,6 +263,9 @@ namespace CogniThink.TutorBrain.Infrastructure.Migrations
 
                     b.Property<int>("StepIndex")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("VagueKeywords")
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

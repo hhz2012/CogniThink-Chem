@@ -18,7 +18,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CogniThink.Chem.Core\CogniThink.Chem.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="data\**\*.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="data\pdf_images\**\*" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="data\vector_svg\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

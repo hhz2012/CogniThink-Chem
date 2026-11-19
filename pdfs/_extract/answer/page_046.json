@@ -1,0 +1,30 @@
+{
+  "page_idx": 46,
+  "raw": "[\n  {\n    \"num\": 3,\n    \"answer\": \"×,×,√,√,×\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"（3）洁厕灵含HCl，84含NaClO，混合生成有毒Cl2；（4）84消毒原理是NaClO水解生成HClO，强氧化性破坏细菌病毒蛋白结构；（5）ClO2氧化性强且产物影响小，可作自来水消毒剂；（6）漂白粉有效成分Ca(ClO)2与CO2、H2O反应生成CaCO3和HClO；（7）液溴腐蚀橡胶，应存于玻璃塞瓶，用“水封”保存；（8）验Cl2氧化性：将点燃H2伸入盛Cl2集气瓶，导管中气体为H2，瓶中为Cl2；（9）新制氯水中Fe与Fe3+反应生成Fe2+，过量Fe后溶质为FeCl2，久置后为HCl；加KSCN无现象不能检验久置氯水；（10）加碘食盐中KIO3在酸性下与KI反应生成I2，遇淀粉变蓝，可用食醋和碘化钾-淀粉溶液检验是否加碘。\"\n  },\n  {\n    \"num\": 2,\n    \"answer\": \"A\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"氯水中存在Cl2 + H2O ⇌ H+ + Cl− + HClO平衡，加入Na2SO3后，Cl2与还原性的Na2SO3反应：Cl2 + Na2SO3 + H2O = 2HCl + Na2SO4。Cl2和HClO均有氧化性，但通常浓度更高、反应速率更快的Cl2作为该氧化反应的氧化剂。A项正确：Cl2与Na2SO3反应后生成HCl，H+浓度增大，pH减小；B、C、D均错误。\"\n  },\n  {\n    \"num\": 3,\n    \"answer\": \"D\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"由题干及“价-类二维图”推断：a为单质，可能是F2或Cl2；b为−1价氢化物（HF或HCl）；c为+4价氧化物（ClO2）；d为+1价酸（HClO）；e为−1价盐（如NaCl）；f为+1价盐（如NaClO）；g为+5价盐（如NaClO3）。A项：F无正价，c、d、f、g对应元素为Cl；F不能与H2O反应生成+1价酸，故a(F2或Cl2)不一定能与H2O反应生成b和d，A错。B项：若a为Cl2且b到e转化通过NaOH实现，则a(Cl2)→b(HCl)→e(NaCl)，e(NaCl)水溶液中性；但若a为F2，F2与H2O反应生成HF和O2，b(HF)与NaOH反应生成NaF，e(NaF)水溶液因F−水解呈碱性，故e不一定中性，B错。C项：HF分子间有氢键，沸点高于NH3等，但H2O及离子型氢化物沸点更高，HF沸点不一定高于同周期其他氢化物，C错。D项：由分析知c为ClO2（自来水消毒剂），a为Cl2，b为HCl，f为NaClO，g为NaClO3；Cl2与浓HCl反应制得Cl2不成立，实际为ClO3− + 6H+ + 5Cl− = 3Cl2↑ + 3H2O，故D正确。\"\n  },\n  {\n    \"num\": 4,\n    \"answer\": \"B\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"甲为Cl2（黄绿色气体），乙为NaOH（强碱、焰色黄色）；25℃时Cl2与NaOH反应：Cl2 + 2NaOH = NaCl + NaClO + H2O；丙与丁在酸性条件（稀硫酸）下生成Cl2，离子方程式为Cl− + ClO− + 2H+ = Cl2↑ + H2O，且丙摩尔质量大于丁，则丙为NaClO，丁为NaCl，成H2O。A项：电解NaCl溶液生成NaOH、Cl2、H2，条件为“电解”，非“电解”写法错误；B项：Cl2可用饱和食盐水收集（抑制Cl2与H2O反应，减少损失），正确；C项：NaClO溶液中HClO有漂白性，不可用pH试纸测pH（会漂白试纸），C错。故选B。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 3,
+      "answer": "×,×,√,√,×",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "（3）洁厕灵含HCl，84含NaClO，混合生成有毒Cl2；（4）84消毒原理是NaClO水解生成HClO，强氧化性破坏细菌病毒蛋白结构；（5）ClO2氧化性强且产物影响小，可作自来水消毒剂；（6）漂白粉有效成分Ca(ClO)2与CO2、H2O反应生成CaCO3和HClO；（7）液溴腐蚀橡胶，应存于玻璃塞瓶，用“水封”保存；（8）验Cl2氧化性：将点燃H2伸入盛Cl2集气瓶，导管中气体为H2，瓶中为Cl2；（9）新制氯水中Fe与Fe3+反应生成Fe2+，过量Fe后溶质为FeCl2，久置后为HCl；加KSCN无现象不能检验久置氯水；（10）加碘食盐中KIO3在酸性下与KI反应生成I2，遇淀粉变蓝，可用食醋和碘化钾-淀粉溶液检验是否加碘。"
+    },
+    {
+      "num": 2,
+      "answer": "A",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "氯水中存在Cl2 + H2O ⇌ H+ + Cl− + HClO平衡，加入Na2SO3后，Cl2与还原性的Na2SO3反应：Cl2 + Na2SO3 + H2O = 2HCl + Na2SO4。Cl2和HClO均有氧化性，但通常浓度更高、反应速率更快的Cl2作为该氧化反应的氧化剂。A项正确：Cl2与Na2SO3反应后生成HCl，H+浓度增大，pH减小；B、C、D均错误。"
+    },
+    {
+      "num": 3,
+      "answer": "D",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "由题干及“价-类二维图”推断：a为单质，可能是F2或Cl2；b为−1价氢化物（HF或HCl）；c为+4价氧化物（ClO2）；d为+1价酸（HClO）；e为−1价盐（如NaCl）；f为+1价盐（如NaClO）；g为+5价盐（如NaClO3）。A项：F无正价，c、d、f、g对应元素为Cl；F不能与H2O反应生成+1价酸，故a(F2或Cl2)不一定能与H2O反应生成b和d，A错。B项：若a为Cl2且b到e转化通过NaOH实现，则a(Cl2)→b(HCl)→e(NaCl)，e(NaCl)水溶液中性；但若a为F2，F2与H2O反应生成HF和O2，b(HF)与NaOH反应生成NaF，e(NaF)水溶液因F−水解呈碱性，故e不一定中性，B错。C项：HF分子间有氢键，沸点高于NH3等，但H2O及离子型氢化物沸点更高，HF沸点不一定高于同周期其他氢化物，C错。D项：由分析知c为ClO2（自来水消毒剂），a为Cl2，b为HCl，f为NaClO，g为NaClO3；Cl2与浓HCl反应制得Cl2不成立，实际为ClO3− + 6H+ + 5Cl− = 3Cl2↑ + 3H2O，故D正确。"
+    },
+    {
+      "num": 4,
+      "answer": "B",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "甲为Cl2（黄绿色气体），乙为NaOH（强碱、焰色黄色）；25℃时Cl2与NaOH反应：Cl2 + 2NaOH = NaCl + NaClO + H2O；丙与丁在酸性条件（稀硫酸）下生成Cl2，离子方程式为Cl− + ClO− + 2H+ = Cl2↑ + H2O，且丙摩尔质量大于丁，则丙为NaClO，丁为NaCl，成H2O。A项：电解NaCl溶液生成NaOH、Cl2、H2，条件为“电解”，非“电解”写法错误；B项：Cl2可用饱和食盐水收集（抑制Cl2与H2O反应，减少损失），正确；C项：NaClO溶液中HClO有漂白性，不可用pH试纸测pH（会漂白试纸），C错。故选B。"
+    }
+  ]
+}

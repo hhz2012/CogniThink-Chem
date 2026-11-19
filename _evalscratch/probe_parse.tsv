@@ -1,0 +1,208 @@
+id	letter	rawText	normEq	parseOk	error	balanced	parsedStr
+pdf-004	C	NO₂ 溶于氢氧化钠溶液可以发生 2NO₂ + 2NaOH = NaNO₃ + NaNO₂ + H₂O，故 NO₂ 为酸性氧化物	NO2 溶于氢氧化钠溶液可以发生 2NO2 + 2NaOH=NaNO3 + NaNO2 + H2O，故 NO2 为酸性氧化物	False	无法解析的字符 '溶'：NO2 溶于氢氧化钠溶液可以发生 2NO2	False	
+pdf-013	A	SiO2(s) --(C,高温)--> (粗)Si(s) --(HCl,300℃)--> SiHCl3(g) --(H2,1100℃)--> 高纯 Si(s)	SiO2 --(C,高温)--> (粗)Si --(HCl,300℃)--> SiHCl3 --(H2,1100℃)--> 高纯 Si	False	方程式必须包含一个等号或箭头：SiO2 --(C,高温)--> (粗)Si --(HCl,300℃)--> SiHCl3 --(H2,1100℃)--> 高纯 Si	False	
+pdf-013	B	NaCl(aq) --(NH3,CO2)--> NaHCO3(s) --(△)--> Na2CO3(s)	NaCl --(NH3,CO2)--> NaHCO3 --(△)--> Na2CO3	False	方程式必须包含一个等号或箭头：NaCl --(NH3,CO2)--> NaHCO3 --(△)--> Na2CO3	False	
+pdf-013	C	CaCO3(s) --(高温)--> CaO(s) --(H2O)--> Ca(OH)2(aq) --(Cl2)--> Ca(ClO)2(aq)	CaCO3 --(高温)--> CaO --(H2O)--> Ca(OH)2 --(Cl2)--> Ca(ClO)2	False	方程式必须包含一个等号或箭头：CaCO3 --(高温)--> CaO --(H2O)--> Ca(OH)2 --(Cl2)--> Ca(ClO)2	False	
+pdf-013	D	N2(g) --(H2,高温,高压,催化剂)--> NH3(g) --(O2,催化剂,△)--> NO(g) --(H2O)--> HNO3(aq)	N2 --(H2,高温,高压,催化剂)--> NH3 --(O2,催化剂,△)--> NO --(H2O)--> HNO3	False	方程式必须包含一个等号或箭头：N2 --(H2,高温,高压,催化剂)--> NH3 --(O2,催化剂,△)--> NO --(H2O)--> HNO3	False	
+pdf-016	A	Fe --(H2O,高温)--> Fe2O3 --(Al,高温)--> Fe	Fe --(H2O,高温)--> Fe2O3 --(Al,高温)--> Fe	False	方程式必须包含一个等号或箭头：Fe --(H2O,高温)--> Fe2O3 --(Al,高温)--> Fe	False	
+pdf-016	B	Fe2O3 --(KClO,KOH)--> K2FeO4 --(H2O)--> H2	Fe2O3 --(KClO,KOH)--> K2FeO4 --(H2O)--> H2	False	方程式必须包含一个等号或箭头：Fe2O3 --(KClO,KOH)--> K2FeO4 --(H2O)--> H2	False	
+pdf-016	C	FeCl3(aq) --(蒸干,灼烧)--> Fe2O3 --(H2O)--> Fe(OH)3	FeCl3 --(蒸干,灼烧)--> Fe2O3 --(H2O)--> Fe(OH)3	False	方程式必须包含一个等号或箭头：FeCl3 --(蒸干,灼烧)--> Fe2O3 --(H2O)--> Fe(OH)3	False	
+pdf-016	D	Fe --(Cl2,△)--> FeCl3 --(Cu)--> FeCl2	Fe --(Cl2,△)--> FeCl3 --(Cu)--> FeCl2	False	方程式必须包含一个等号或箭头：Fe --(Cl2,△)--> FeCl3 --(Cu)--> FeCl2	False	
+pdf-017	A	工业制取漂白粉：饱和食盐水 --(电解)--> Cl2 --(澄清石灰水)--> 漂白粉	饱和食盐水 --(电解)--> Cl2 --(澄清石灰水)--> 漂白粉	False	方程式必须包含一个等号或箭头：饱和食盐水 --(电解)--> Cl2 --(澄清石灰水)--> 漂白粉	False	
+pdf-017	B	工业制镁：MgCl2 溶液 --(蒸干)--> 无水 MgCl2 --(熔融电解)--> Mg	MgCl2 溶液 --(蒸干)--> 无水 MgCl2 --(熔融电解)--> Mg	False	方程式必须包含一个等号或箭头：MgCl2 溶液 --(蒸干)--> 无水 MgCl2 --(熔融电解)--> Mg	False	
+pdf-017	C	工业制取硫酸：S --(过量 O2,点燃)--> SO3 --(水)--> H2SO4	S --(过量 O2,点燃)--> SO3 --(水)--> H2SO4	False	方程式必须包含一个等号或箭头：S --(过量 O2,点燃)--> SO3 --(水)--> H2SO4	False	
+pdf-017	D	工业制取纯碱：饱和食盐水 --(①过量 NH3,②过量 CO2)--> NaHCO3 固体 --(△)--> Na2CO3 固体	饱和食盐水 --(①过量 NH3,②过量 CO2)--> NaHCO3 固体 --(△)--> Na2CO3 固体	False	方程式必须包含一个等号或箭头：饱和食盐水 --(①过量 NH3,②过量 CO2)--> NaHCO3 固体 --(△)--> Na2CO3 固体	False	
+pdf-027	A	常温下，1 L pH=12的Ba(OH)2溶液中OH-的数目为0.02NA	常温下，1 L pH=12的Ba(OH)2溶液中OH-的数目为0.02NA	False	无法解析的字符 '常'：常温下，1 L pH	False	
+pdf-029	C	气体中n(SO2)/n(H2)=(1-0.2x)/(0.2(x-1))	气体中n(SO2)/n(H2)=(1-0.2x)/(0.2(x-1))	False	无法解析的字符 '气'：气体中n(SO2)/n(H2)	False	
+pdf-035	A	H3PO3 ⇌ 3H+ + PO3^3-	H3PO3=3H+ + PO3^3-	True		True	H3PO3 = 3H^+ + PO3^3-
+pdf-035	B	Ca(OH)2 = Ca^2+ + 2OH^-	Ca(OH)2=Ca^2+ + 2OH^-	True		True	Ca(OH)2 = Ca^2+ + 2OH^-
+pdf-035	C	HCOOH ⇌ H+ + COOH^-	HCOOH=H+ + COOH^-	True		True	HCOOH = H^+ + COOH^-
+pdf-035	D	NaHSO4 = Na+ + HSO4^-	NaHSO4=Na+ + HSO4^-	True		True	NaHSO4 = Na^+ + HSO4^-
+pdf-037	A	(2025·北京期中)CH3COOH在水中电离如图甲所示,则电离方程式为CH3COOH⇌CH3COO⁻+H⁺	(2025·北京期中)CH3COOH在水中电离如图甲所示,则电离方程式为CH3COOH=CH3COO- + H+	False	数字位置非法：(2025	False	
+pdf-037	B	(2025·北京期中)电解CuCl2溶液如图乙所示,电解方程式为CuCl2=Cu²⁺+2Cl⁻	(2025·北京期中)电解CuCl2溶液如图乙所示,电解方程式为CuCl2=Cu^2+ + 2Cl-	False	数字位置非法：(2025	False	
+pdf-039	A	向饱和 Na2CO3 溶液中通入过量 CO2: 2Na+ + CO3^2- + CO2 + H2O = 2NaHCO3 ↓	2Na+ + CO3^2- + CO2 + H2O=2NaHCO3	True		True	2Na^+ + CO3^2- + CO2 + H2O = 2NaHCO3
+pdf-039	B	向 NaHSO4 溶液中加入过量 Ba(OH)2 溶液: 2H+ + SO4^2- + 2OH- + Ba^2+ = BaSO4 ↓ + 2H2O	2H+ + SO4^2- + 2OH- + Ba^2+=BaSO4 + 2H2O	True		True	2H^+ + SO4^2- + 2OH^- + Ba^2+ = BaSO4 + 2H2O
+pdf-039	C	利用明矾进行净水: Al^3+ + 3H2O = Al(OH)3 ↓ + 3H+	Al^3+ + 3H2O=Al(OH)3 + 3H+	True		True	Al^3+ + 3H2O = Al(OH)3 + 3H^+
+pdf-039	D	向 CuSO4 溶液中加入过量氨水: 2NH3 · H2O + Cu^2+ = Cu(OH)2 ↓ + 2NH4+	2NH3 · H2O + Cu^2+=Cu(OH)2 + 2NH4^+	True		True	2NH3 · H2O + Cu^2+ = Cu(OH)2 + 2NH4^+
+pdf-040	A	将 FeO 固体溶于稀硝酸: FeO + 2H+ = Fe^2+ + H2O	FeO + 2H+=Fe^2+ + H2O	True		True	FeO + 2H^+ = Fe^2+ + H2O
+pdf-040	B	用 Na2SO3 溶液吸收少量 Cl2: 3SO3^2- + Cl2 + H2O = SO4^2- + 2Cl- + 2HSO3-	3SO3^2- + Cl2 + H2O=SO4^2- + 2Cl- + 2HSO3^-	True		True	3SO3^2- + Cl2 + H2O = SO4^2- + 2Cl^- + 2HSO3^-
+pdf-040	C	向稀 AgNO3 溶液中滴加过量氨水: Ag+ + NH3 · H2O = AgOH ↓ + NH4+	Ag+ + NH3 · H2O=AgOH + NH4^+	True		True	Ag^+ + NH3 · H2O = AgOH + NH4^+
+pdf-040	D	用醋酸和淀粉-KI 溶液检验加碘盐中的 IO3-: IO3- + 5I- + 6H+ = 3I2 + 3H2O	IO3^- + 5I- + 6H+=3I2 + 3H2O	True		True	IO3^- + 5I^- + 6H^+ = 3I2 + 3H2O
+pdf-041	A	Ba(OH)2 溶液与少量 NaHCO3 溶液混合: Ba^2+ + OH- + HCO3- = BaCO3 ↓ + H2O	Ba^2+ + OH- + HCO3^-=BaCO3 + H2O	True		True	Ba^2+ + OH^- + HCO3^- = BaCO3 + H2O
+pdf-041	B	用 NaH 作野外生氢剂: 2NaH + H2O = Na2O + 2H2 ↑	2NaH + H2O=Na2O + 2H2	True		True	2NaH + H2O = Na2O + 2H2
+pdf-041	C	用氢碘酸溶解 Fe(OH)3: Fe(OH)3 + 3H+ = Fe^3+ + 3H2O	Fe(OH)3 + 3H+=Fe^3+ + 3H2O	True		True	Fe(OH)3 + 3H^+ = Fe^3+ + 3H2O
+pdf-041	D	牺牲阳极法保护海水中钢闸门的正极反应: 2H2O + 4e- = O2 ↑ + 4OH-	2H2O + 4e-=O2 + 4OH-	True		False	2H2O + 4e^- = O2 + 4OH^-
+pdf-042	A	高温煅烧硫铁矿: 4FeS2 + 15O2 --(高温)--> 2Fe2O3 + 8SO3	4FeS2 + 15O2 --(高温)--> 2Fe2O3 + 8SO3	True		True	4FeS2 + 15O2 = 2Fe2O3 + 8SO3
+pdf-042	B	泡沫灭火器工作原理: Al^3+ + 3HCO3- = Al(OH)3 ↓ + 3CO2 ↑	Al^3+ + 3HCO3^-=Al(OH)3 + 3CO2	True		True	Al^3+ + 3HCO3^- = Al(OH)3 + 3CO2
+pdf-042	C	FeCl3 溶液蚀刻铜电路板: 2FeCl3 + 3Cu = 2Fe + 3CuCl2	2FeCl3 + 3Cu=2Fe + 3CuCl2	True		True	2FeCl3 + 3Cu = 2Fe + 3CuCl2
+pdf-042	D	过量氨水吸收 SO2 尾气: SO2 + NH3 · H2O = NH4HSO3	SO2 + NH3 · H2O=NH4HSO3	True		True	SO2 + NH3 · H2O = NH4HSO3
+pdf-043	A	向碘化亚铁溶液通入等物质的量的氯气: 2Fe^2+ + 2I- + 2Cl2 = 2Fe^3+ + I2 + 4Cl-	2Fe^2+ + 2I- + 2Cl2=2Fe^3+ + I2 + 4Cl-	True		True	2Fe^2+ + 2I^- + 2Cl2 = 2Fe^3+ + I2 + 4Cl^-
+pdf-043	B	向次氯酸钙溶液通入足量二氧化碳: ClO- + CO2 + H2O = HCO3- + HClO	ClO- + CO2 + H2O=HCO3^- + HClO	True		True	ClO^- + CO2 + H2O = HCO3^- + HClO
+pdf-043	C	铜与稀硝酸反应: Cu + 4H+ + 2NO3- = Cu^2+ + 2NO2 ↑ + 2H2O	Cu + 4H+ + 2NO3^-=Cu^2+ + 2NO2 + 2H2O	True		True	Cu + 4H^+ + 2NO3^- = Cu^2+ + 2NO2 + 2H2O
+pdf-043	D	向硫化钠溶液通入足量二氧化硫: S^2- + 2SO2 + 2H2O = H2S ↓ + 2HSO3-	S^2- + 2SO2 + 2H2O=H2S + 2HSO3^-	True		True	S^2- + 2SO2 + 2H2O = H2S + 2HSO3^-
+pdf-045	A	CuCl2 浓溶液稀释，绿色溶液变蓝：[CuCl4]2- + 4H2O ⇌ [Cu(H2O)4]2+ + 4Cl-	[CuCl4]2^- + 4H2O=[Cu(H2O)4]2^+ + 4Cl-	True		False	[CuCl4]2^- + 4H2O = [Cu(H2O)4]2^+ + 4Cl^-
+pdf-045	B	ZnCl2 溶液中通入 H2S，析出白色沉淀：Zn2+ + H2S ═ ZnS↓ + 2H+	Zn^2+ + H2S=ZnS + 2H+	True		True	Zn^2+ + H2S = ZnS + 2H^+
+pdf-045	C	H2SO3 溶液中滴加 Na2S，出现浅黄色浑浊：2S2- + SO3 2- + 6H+ ═ 3S↓ + 3H2O	2S^2- + SO3^2- + 6H+=3S + 3H2O	True		True	2S^2- + SO3^2- + 6H^+ = 3S + 3H2O
+pdf-045	D	K2CrO4 溶液中滴加 H2SO4，黄色溶液变为橙色：2CrO4 2- + 2H+ ⇌ Cr2O7 2- + H2O	2CrO4^2- + 2H+=Cr2O7^2- + H2O	True		True	2CrO4^2- + 2H^+ = Cr2O7^2- + H2O
+pdf-046	A	酸性环境中铁发生析氢腐蚀的负极反应：Fe - 2e- ═ Fe2+	Fe - 2e-=Fe^2+	False	无法解析的字符 '-'：Fe - 2e-	False	
+pdf-046	B	铁发生腐蚀生锈的反应：3Fe + 2O2 + xH2O ═ Fe3O4 · xH2O	3Fe + 2O2 + xH2O=Fe3O4 · xH2O	False	无法解析的字符 'x'：xH2O	False	
+pdf-046	C	铁经过发蓝处理形成致密氧化膜：Fe + 2HNO3(浓) ═ FeO + 2NO2↑ + H2O	Fe + 2HNO3=FeO + 2NO2 + H2O	True		True	Fe + 2HNO3 = FeO + 2NO2 + H2O
+pdf-046	D	安装锌块保护船舶外壳，铁电极上发生的反应：Fe3+ + 3e- ═ Fe	Fe^3+ + 3e-=Fe	True		True	Fe^3+ + 3e^- = Fe
+pdf-047	A	向浓硝酸中加入少量氧化亚铜：Cu2O + 2H+ ═ Cu + Cu2+ + H2O	Cu2O + 2H+=Cu + Cu^2+ + H2O	True		True	Cu2O + 2H^+ = Cu + Cu^2+ + H2O
+pdf-047	B	以热氢氧化钠溶液洗涤附着在试管内壁的少量硫：3S + 6OH- Δ═ 2S2- + SO3 2- + 3H2O	3S + 6OH- Δ=2S^2- + SO3^2- + 3H2O	False	无法解析的字符 '-'：OH- Δ	False	
+pdf-047	C	醋酸铵的水解：NH4+ + H2O ⇌ NH3 · H2O + H+	NH4^+ + H2O=NH3 · H2O + H+	True		True	NH4^+ + H2O = NH3 · H2O + H^+
+pdf-047	D	向碘酸钾的酸性溶液中滴加过氧化氢：H2O2 + 2IO3- + 6H+ ═ I2 + 2O2↑ + 4H2O	H2O2 + 2IO3^- + 6H+=I2 + 2O2 + 4H2O	True		False	H2O2 + 2IO3^- + 6H^+ = I2 + 2O2 + 4H2O
+pdf-048	A	硫化氢溶液久置变浑浊：2S2- + O2 + 4H+ ═ 2S↓ + 2H2O	2S^2- + O2 + 4H+=2S + 2H2O	True		True	2S^2- + O2 + 4H^+ = 2S + 2H2O
+pdf-048	B	锌粉与稀硝酸反应：Zn + 2NO3- + 4H+ ═ Zn2+ + 2NO2↑ + 2H2O	Zn + 2NO3^- + 4H+=Zn^2+ + 2NO2 + 2H2O	True		True	Zn + 2NO3^- + 4H^+ = Zn^2+ + 2NO2 + 2H2O
+pdf-048	C	银氨溶液与溴化钠溶液反应：[Ag(NH3)2]+ + Br- ═ AgBr↓ + 2NH3	[Ag(NH3)2]+ + Br-=AgBr + 2NH3	True		True	[Ag(NH3)2]^+ + Br^- = AgBr + 2NH3
+pdf-048	D	碳酸氢钠溶液与少量氢氧化钡溶液混合：Ba2+ + HCO3- + OH- ═ BaCO3↓ + H2O	Ba^2+ + HCO3^- + OH-=BaCO3 + H2O	True		True	Ba^2+ + HCO3^- + OH^- = BaCO3 + H2O
+pdf-049	A	用氢氟酸刻蚀玻璃：SiO3 2- + 4F- + 6H+ ═ SiF4↑ + 3H2O	SiO3^2- + 4F- + 6H+=SiF4 + 3H2O	True		True	SiO3^2- + 4F^- + 6H^+ = SiF4 + 3H2O
+pdf-049	B	用三氯化铁溶液刻制覆铜电路板：2Fe3+ + 3Cu ═ 3Cu2+ + 2Fe	2Fe^3+ + 3Cu=3Cu^2+ + 2Fe	True		True	2Fe^3+ + 3Cu = 3Cu^2+ + 2Fe
+pdf-049	C	用硫代硫酸钠溶液脱氯：S2O3 2- + 2Cl2 + 3H2O ═ 2SO3 2- + 4Cl- + 6H+	S2O3^2- + 2Cl2 + 3H2O=2SO3^2- + 4Cl- + 6H+	True		True	S2O3^2- + 2Cl2 + 3H2O = 2SO3^2- + 4Cl^- + 6H^+
+pdf-049	D	用碳酸钠溶液浸泡锅炉水垢中的硫酸钙：CaSO4 + CO3 2- ═ SO4 2- + CaCO3	CaSO4 + CO3^2-=SO4^2- + CaCO3	True		True	CaSO4 + CO3^2- = SO4^2- + CaCO3
+pdf-050	A	试管壁上的银镜用稀硝酸清洗：Ag + 2H+ + NO3- ═ Ag+ + NO2↑ + H2O	Ag + 2H+ + NO3^-=Ag+ + NO2 + H2O	True		True	Ag + 2H^+ + NO3^- = Ag^+ + NO2 + H2O
+pdf-050	B	工业废水中的 Pb2+ 用 FeS 去除：Pb2+ + S2- ═ PbS↓	Pb^2+ + S^2-=PbS	True		True	Pb^2+ + S^2- = PbS
+pdf-050	C	海水提溴过程中将溴吹入 SO2 吸收塔：Br2 + SO2 + 2H2O ═ 2Br- + SO4 2- + 4H+	Br2 + SO2 + 2H2O=2Br- + SO4^2- + 4H+	True		True	Br2 + SO2 + 2H2O = 2Br^- + SO4^2- + 4H^+
+pdf-050	D	用草酸标准溶液测定高锰酸钾溶液的浓度：2MnO4- + 5C2O4 2- + 16H+ ═ 2Mn2+ + 10CO2↑ + 8H2O	2MnO4^- + 5C2O4^2- + 16H+=2Mn^2+ + 10CO2 + 8H2O	True		True	2MnO4^- + 5C2O4^2- + 16H^+ = 2Mn^2+ + 10CO2 + 8H2O
+pdf-052	A	Cl₂制备84消毒液(主要成分是NaClO):Cl₂+2OH⁻=Cl⁻+ClO⁻+H₂O	Cl2 + 2OH-=Cl- + ClO- + H2O	True		True	Cl2 + 2OH^- = Cl^- + ClO^- + H2O
+pdf-052	B	食醋去除水垢中的CaCO₃:CaCO₃+2H⁺=Ca²⁺+H₂O+CO₂↑	CaCO3 + 2H+=Ca^2+ + H2O + CO2	True		True	CaCO3 + 2H^+ = Ca^2+ + H2O + CO2
+pdf-052	C	利用覆铜板制作印刷电路板:2Fe³⁺+Cu=2Fe²⁺+Cu²⁺	2Fe^3+ + Cu=2Fe^2+ + Cu^2+	True		True	2Fe^3+ + Cu = 2Fe^2+ + Cu^2+
+pdf-052	D	Na₂S去除废水中的Hg²⁺:Hg²⁺+S²⁻=HgS↓	Hg^2+ + S^2-=HgS	True		True	Hg^2+ + S^2- = HgS
+pdf-053	A	碱性锌锰电池的正极反应:MnO₂+H₂O+e⁻=MnO(OH)+OH⁻	MnO2 + H2O+e-=MnO(OH) + OH-	False	无法解析的字符 '+'：H2O+e-	False	
+pdf-053	B	铅酸蓄电池充电时的阳极反应:Pb²⁺+2H₂O−2e⁻=PbO₂+4H⁺	Pb^2+ + 2H2O-2e-=PbO2 + 4H+	False	无法解析的字符 '-'：H2O-2e-	False	
+pdf-053	C	K₃[Fe(CN)₆]溶液滴入FeCl₂溶液中:K⁺+Fe²⁺+[Fe(CN)₆]³⁻=KFe[Fe(CN)₆]↓	K+ + Fe^2+ + [Fe(CN)6]3^-=KFe[Fe(CN)6]	True		False	K^+ + Fe^2+ + [Fe(CN)6]3^- = KFe[Fe(CN)6]
+pdf-053	D	TiCl₄加入水中:TiCl₄+(x+2)H₂O=TiO₂·xH₂O↓+4H⁺+4Cl⁻	TiCl4 + (x + 2)H2O=TiO2·xH2O + 4H+ + 4Cl-	False	无法解析的字符 'x'：(x	False	
+pdf-056	A	K+、Mg2+、SO4^2-；加入Ba(OH)2溶液；Ba2+ + SO4^2- == BaSO4↓	K+、Mg2+、SO4^2-；加入Ba(OH)2溶液；Ba2+ + SO4^2-=BaSO4	False	电荷写法有歧义，请用 ^ 标注：K+、Mg2+、SO4^2-；加入Ba(OH)2溶液；Ba2+	False	
+pdf-056	B	Na+、HCO3-、Cl-；加入NaOH溶液；OH- + HCO3- == CO3^2- + H2O	Na+、HCO3-、Cl-；加入NaOH溶液；OH- + HCO3^-=CO3^2- + H2O	False	无法解析的字符 '+'：Na+、HCO3-、Cl-；加入NaOH溶液；OH-	False	
+pdf-056	C	K+、NH3·H2O、Cl-；通入少量CO2；2OH- + CO2 == CO3^2- + H2O	K+、NH3·H2O、Cl-；通入少量CO2；2OH- + CO2=CO3^2- + H2O	False	无法解析的字符 '+'：K+、NH3	False	
+pdf-056	D	Ca2+、NO3-、CO3^2-；加入NaHSO4溶液；CO3^2- + 2H+ == CO2↑ + H2O	Ca2+、NO3-、CO3^2-；加入NaHSO4溶液；CO3^2- + 2H+=CO2 + H2O	False	无法解析的字符 '+'：Ca2+、NO3-、CO3^2-；加入NaHSO4溶液；CO3^2-	False	
+pdf-077	C	n(Cl₂)=0.12 mol 时,溶液中的 c(Fe³⁺):c(Br⁻)=1:8	n(Cl2)=0.12 mol 时,溶液中的 c(Fe3+):c(Br-)=1:8	False	无法解析的字符 'n'：n(Cl2)	False	
+pdf-077	D	n(FeBr₂):n(Cl₂)=1:1 时,反应的离子方程式为 2Fe²⁺+2Br⁻+2Cl₂=2Fe³⁺+Br₂+4Cl⁻	n(Cl2)=1:1 时,反应的离子方程式为 2Fe2^+ + 2Br- + 2Cl2=2Fe^3+ + Br2 + 4Cl-	False	无法解析的字符 'n'：n(Cl2)	False	
+pdf-078	C	步骤⑤中主要发生反应的离子方程式为 IO₃⁻+I⁻+H⁺=I₂↓+3H₂O	步骤⑤中主要发生反应的离子方程式为 IO3^- + I- + H+=I2 + 3H2O	False	无法解析的字符 '步'：步骤⑤中主要发生反应的离子方程式为 IO3^-	False	
+pdf-081	C	a=6, b=7	a=6, b=7	False	无法解析的字符 'a'：a	False	
+pdf-081	D	反应Cr2O7^2- + 3SO2 + 2H+ = 2Cr3+ + 3SO4^2- + H2O不能发生	反应Cr2O7^2- + 3SO2 + 2H+=2Cr^3+ + 3SO4^2- + H2O不能发生	False	无法解析的字符 '反'：反应Cr2O7^2-	False	
+pdf-085	B	CuH与Cl2反应的化学方程式为2CuH+3Cl2==(点燃)==2CuCl2+2HCl	CuH与Cl2反应的化学方程式为2CuH + 3Cl2=(点燃)=2CuCl2 + 2HCl	False	无法解析的字符 '与'：CuH与Cl2反应的化学方程式为2CuH	False	
+pdf-085	D	CuH与盐酸反应的离子方程式为CuH+H+==Cu++H2↑	CuH与盐酸反应的离子方程式为CuH + H+=Cu+ + H2	False	无法解析的字符 '与'：CuH与盐酸反应的离子方程式为CuH	False	
+pdf-086	B	过程Ⅰ的离子方程式为3Cl2+6OH- ==(△)==5Cl-+ClO3-+3H2O	过程Ⅰ的离子方程式为3Cl2 + 6OH-=(△)=5Cl- + ClO3^- + 3H2O	False	无法解析的字符 '过'：过程Ⅰ的离子方程式为3Cl2	False	
+pdf-092	A	泡沫灭火器反应原理：3Na2CO3 + Al2(SO4)3 + 3H2O === 3Na2SO4 + 2Al(OH)3↓ + 3CO2↑	3Na2CO3 + Al2(SO4)3 + 3H2O=3Na2SO4 + 2Al(OH)3 + 3CO2	True		True	3Na2CO3 + Al2(SO4)3 + 3H2O = 3Na2SO4 + 2Al(OH)3 + 3CO2
+pdf-092	B	用金属钠除去甲苯中的微量水：2Na + 2H2O === 2NaOH + H2↑	2Na + 2H2O=2NaOH + H2	True		True	2Na + 2H2O = 2NaOH + H2
+pdf-092	C	用 NaOH 溶液吸收尾气中的 NO2：3NO2 + 2OH⁻ === 2NO3⁻ + NO↑ + H2O	3NO2 + 2OH-=2NO3^- + NO + H2O	True		True	3NO2 + 2OH^- = 2NO3^- + NO + H2O
+pdf-092	D	氯气通入冷的石灰乳中制漂白粉：Cl2 + 2OH⁻ === ClO⁻ + Cl⁻ + H2O	Cl2 + 2OH-=ClO- + Cl- + H2O	True		True	Cl2 + 2OH^- = ClO^- + Cl^- + H2O
+pdf-094	C	在溶液 A 中加入 NaCl,促进 NH4Cl(s)⇌NH4+(aq)+Cl-(aq)逆向进行,有利于 NH4Cl 析出	在溶液 A 中加入 NaCl,促进 NH4Cl=NH4^+ + Cl-逆向进行,有利于 NH4Cl 析出	False	无法解析的字符 '在'：在溶液 A 中加入 NaCl,促进 NH4Cl	False	
+pdf-099	A	酸性环境中铁发生析氢腐蚀的负极反应:Fe−3e⁻=Fe³⁺	Fe-3e-=Fe^3+	False	无法解析的字符 '-'：Fe-3e-	False	
+pdf-099	B	铁发生腐蚀生锈的反应:4Fe+3O₂+xH₂O=2Fe₂O₃·xH₂O	4Fe + 3O2+xH2O=2Fe2O3·xH2O	False	无法解析的字符 '+'：O2+xH2O	False	
+pdf-099	C	铁经过发蓝处理形成致密氧化膜:3Fe+8HNO₃(浓)=Fe₃O₄+8NO₂↑+4H₂O	3Fe + 8HNO3=Fe3O4 + 8NO2 + 4H2O	True		True	3Fe + 8HNO3 = Fe3O4 + 8NO2 + 4H2O
+pdf-099	D	安装锌块保护船舶外壳,铁电极上发生的反应:O₂+4e⁻+2H₂O=4OH⁻	O2 + 4e- + 2H2O=4OH-	True		True	O2 + 4e^- + 2H2O = 4OH^-
+pdf-100	A	反应为3Fe+4H₂O(g)─(高温)→Fe₃O₄+4H₂	反应为3Fe + 4H2O─(高温)=Fe3O4 + 4H2	False	无法解析的字符 '反'：反应为3Fe	False	
+pdf-102	A	向FeCl₃溶液中加入Fe粉:Fe³⁺+Fe=Fe²⁺	Fe^3+ + Fe=Fe^2+	True		False	Fe^3+ + Fe = Fe^2+
+pdf-102	B	用绿矾(FeSO₄·7H₂O)处理酸性废水中的Cr₂O₇²⁻:6Fe²⁺+Cr₂O₇²⁻+14H⁺=6Fe³⁺+2Cr³⁺+7H₂O	6Fe^2+ + Cr2O7^2- + 14H+=6Fe^3+ + 2Cr^3+ + 7H2O	True		True	6Fe^2+ + Cr2O7^2- + 14H^+ = 6Fe^3+ + 2Cr^3+ + 7H2O
+pdf-102	C	还原铁粉与水蒸气反应有可燃性气体产生:2Fe+3H₂O(g)─(高温)→Fe₂O₃+3H₂	2Fe + 3H2O─(高温)=Fe2O3 + 3H2	False	无法解析的字符 '─'：H2O─(高温)	False	
+pdf-102	D	Fe₂O₃溶于HI溶液中:Fe₂O₃+6H⁺=2Fe³⁺+3H₂O	Fe2O3 + 6H+=2Fe^3+ + 3H2O	True		True	Fe2O3 + 6H^+ = 2Fe^3+ + 3H2O
+pdf-103	A	若a在沸水中可生成e,则a→f的反应一定是化合反应	若a在沸水中可生成e,则a=f的反应一定是化合反应	False	无法解析的字符 '若'：若a在沸水中可生成e,则a	False	
+pdf-103	B	在g→f→e→d转化过程中,一定存在物质颜色的变化	在g=f=e=d转化过程中,一定存在物质颜色的变化	False	方程式必须包含一个等号或箭头：在g=f=e=d转化过程中,一定存在物质颜色的变化	False	
+pdf-110	B	Na2O2供氧:2Na2O2+2CO2=2Na2CO3+O2	2Na2O2 + 2CO2=2Na2CO3 + O2	True		True	2Na2O2 + 2CO2 = 2Na2CO3 + O2
+pdf-110	C	覆铜板制作印刷电路板:2FeCl3+3Cu=2Fe+3CuCl2	2FeCl3 + 3Cu=2Fe + 3CuCl2	True		True	2FeCl3 + 3Cu = 2Fe + 3CuCl2
+pdf-110	D	铅酸蓄电池放电:Pb+PbO2+2H2SO4=2PbSO4+2H2O	Pb + PbO2 + 2H2SO4=2PbSO4 + 2H2O	True		True	Pb + PbO2 + 2H2SO4 = 2PbSO4 + 2H2O
+pdf-112	C	“碱溶”时存在反应:Sn+2OH^-+O2=SnO3^2-+H2O	Sn + 2OH^- + O2=SnO3^2- + H2O	True		True	Sn + 2OH^- + O2 = SnO3^2- + H2O
+pdf-113	B	b中气体的颜色比a中的浅，与2NO2⇌N2O4正向移动有关	b中气体的颜色比a中的浅，与2NO2=N2O4正向移动有关	False	无法解析的字符 'b'：b中气体的颜色比a中的浅，与2NO2	False	
+pdf-113	C	NaOH溶液吸收NO2的反应为3NO2+2NaOH=2NaNO3+NO+H2O	NaOH溶液吸收NO2的反应为3NO2 + 2NaOH=2NaNO3 + NO + H2O	False	无法解析的字符 '溶'：NaOH溶液吸收NO2的反应为3NO2	False	
+pdf-114	B	Na2S溶液呈碱性，其主要原因是S2-+H2O⇌HS-+OH-	Na2S溶液呈碱性，其主要原因是S2^- + H2O=HS- + OH-	False	无法解析的字符 '溶'：Na2S溶液呈碱性，其主要原因是S2^-	False	
+pdf-130	B	向紫色石蕊溶液中通入b，溶液先变红后褪色：Cl2＋H2O⇌2H+＋Cl−＋ClO−	Cl2＋H2O=2H+＋Cl-＋ClO-	True		True	Cl2 + H2O = 2H^+ + Cl^- + ClO^-
+pdf-139	A	可存在 a→b→c→d→e→f 的转化关系	可存在 a=b=c=d=e=f 的转化关系	False	方程式必须包含一个等号或箭头：可存在 a=b=c=d=e=f 的转化关系	False	
+pdf-142	A	氨水(含酚酞) 溶液由红色变为无色 NH₃·H₂O + H₂S = NH₄⁺ + HS⁻ + H₂O	氨水(含酚酞) 溶液由红色变为无色 NH3·H2O + H2S=NH4^+ + HS- + H2O	False	无法解析的字符 '氨'：氨水(含酚酞) 溶液由红色变为无色 NH3	False	
+pdf-142	B	FeCl₃溶液 先产生淡黄色沉淀，溶液由黄色变为浅绿色，后有黑色沉淀产生 2Fe³⁺ + 3H₂S = 2FeS↓ + S↓ + 6H⁺	FeCl3溶液 先产生淡黄色沉淀，溶液由黄色变为浅绿色，后有黑色沉淀产生 2Fe3^+ + 3H2S=2FeS + S + 6H+	False	无法解析的字符 '溶'：FeCl3溶液 先产生淡黄色沉淀，溶液由黄色变为浅绿色，后有黑色沉淀产生 2Fe3^+	False	
+pdf-142	C	CuSO₄溶液 溶液褪色，产生黑色沉淀 H₂S + Cu²⁺ = CuS↓ + 2H⁺	CuSO4溶液 溶液褪色，产生黑色沉淀 H2S + Cu^2+=CuS + 2H+	False	无法解析的字符 '溶'：CuSO4溶液 溶液褪色，产生黑色沉淀 H2S	False	
+pdf-142	D	酸性KMnO₄溶液 溶液由紫色变为无色，产生淡黄色沉淀 5H₂S + 2MnO₄⁻ + 6H⁺ = 2Mn²⁺ + 5S↓ + 8H₂O	酸性KMnO4溶液 溶液由紫色变为无色，产生淡黄色沉淀 5H2S + 2MnO4^- + 6H+=2Mn^2+ + 5S + 8H2O	False	无法解析的字符 '酸'：酸性KMnO4溶液 溶液由紫色变为无色，产生淡黄色沉淀 5H2S	False	
+pdf-144	A	FeS₂ --[O₂(g), 高温]→ SO₃ --[H₂O(l)]→ H₂SO₄	FeS2 --[O2, 高温]=SO3 --[H2O]=H2SO4	False	无法解析的字符 '-'：FeS2 --[O2, 高温]	False	
+pdf-144	B	SO₂ --[CaCl₂溶液]→ CaSO₃ --[O₂]→ CaSO₄	SO2 --[CaCl2溶液]=CaSO3 --[O2]=CaSO4	False	无法解析的字符 '-'：SO2 --[CaCl2溶液]	False	
+pdf-144	C	稀硫酸 --[Cu, △]→ SO₂ --[过量NaOH溶液]→ Na₂SO₃溶液	稀硫酸 --[Cu, △]=SO2 --[过量NaOH溶液]=Na2SO3溶液	False	无法解析的字符 '稀'：稀硫酸 --[Cu, △]	False	
+pdf-144	D	Na₂S₂O₃ --[稀硫酸, △]→ S --[Cu]→ Cu₂S	Na2S2O3 --[稀硫酸, △]=S --[Cu]=Cu2S	False	无法解析的字符 '-'：Na2S2O3 --[稀硫酸, △]	False	
+pdf-145	C	烧瓶壁发热,说明反应 S2O3^2-(aq)+2H+(aq)===S(s)+H2O(l)+SO2(g)是放热反应	烧瓶壁发热,说明反应 S2O3^2- + 2H+=S + H2O + SO2是放热反应	False	无法解析的字符 '烧'：烧瓶壁发热,说明反应 S2O3^2-	False	
+pdf-152	D	工业制备 e：b→a→d→e	b=a=d=e	False	方程式必须包含一个等号或箭头：b=a=d=e	False	
+pdf-153	D	双口烧瓶中发生反应的离子方程式为2NH3+ClO⁻=N2H4·H2O+Cl⁻	双口烧瓶中发生反应的离子方程式为2NH3 + ClO-=N2H4·H2O + Cl-	False	无法解析的字符 '双'：双口烧瓶中发生反应的离子方程式为2NH3	False	
+pdf-241	B	Na(s)→Na(g)是物理变化不需要破坏化学键	Na=Na是物理变化不需要破坏化学键	False	无法解析的字符 '是'：Na是物理变化不需要破坏化学键	False	
+pdf-247	A	E2=1.41 eV	E2=1.41 eV	False	无法解析的字符 '.'：.41 eV	False	
+pdf-247	B	步骤2逆向反应的ΔH=+0.29 eV	步骤2逆向反应的ΔH=0.29 eV	False	无法解析的字符 '步'：步骤2逆向反应的ΔH	False	
+pdf-248	B	T1下反应达到平衡时,c(CH3OH)=0.15 mol·L⁻¹	T1下反应达到平衡时,c(CH3OH)=0.15 mol·L-1	False	无法解析的字符 '下'：T1下反应达到平衡时,c(CH3OH)	False	
+pdf-250	A	能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量低于Y	X=过渡态1=Y=过渡态2=Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量低于Y	False	方程式必须包含一个等号或箭头：X=过渡态1=Y=过渡态2=Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量低于Y	False	
+pdf-250	B	能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态2能量高于过渡态1，Y能量低于X，Z能量低于Y	X=过渡态1=Y=过渡态2=Z，其中过渡态2能量高于过渡态1，Y能量低于X，Z能量低于Y	False	方程式必须包含一个等号或箭头：X=过渡态1=Y=过渡态2=Z，其中过渡态2能量高于过渡态1，Y能量低于X，Z能量低于Y	False	
+pdf-250	C	能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态1能量高于过渡态2，Y能量高于X，Z能量低于Y	X=过渡态1=Y=过渡态2=Z，其中过渡态1能量高于过渡态2，Y能量高于X，Z能量低于Y	False	方程式必须包含一个等号或箭头：X=过渡态1=Y=过渡态2=Z，其中过渡态1能量高于过渡态2，Y能量高于X，Z能量低于Y	False	
+pdf-250	D	能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量高于Y	X=过渡态1=Y=过渡态2=Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量高于Y	False	方程式必须包含一个等号或箭头：X=过渡态1=Y=过渡态2=Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量高于Y	False	
+pdf-252	A	溴水中存在平衡 Br2 + H2O ⇌ HBr + HBrO，当加入少量硝酸银固体后，溶液颜色变浅	溴水中存在平衡 Br2 + H2O=HBr + HBrO，当加入少量硝酸银固体后，溶液颜色变浅	False	无法解析的字符 '溴'：溴水中存在平衡 Br2	False	
+pdf-252	B	反应 2HI(g) ⇌ H2(g) + I2(g) 达到平衡后，缩小容器体积可使体系颜色变深	反应 2HI=H2 + I2 达到平衡后，缩小容器体积可使体系颜色变深	False	无法解析的字符 '反'：反应 2HI	False	
+pdf-252	C	Na(l) + KCl(l) ⇌ NaCl(l) + K(g)，工业上将钾蒸气从反应体系中分离出来，以制备金属钾	Na + KCl=NaCl + K，工业上将钾蒸气从反应体系中分离出来，以制备金属钾	False	无法解析的字符 '，'：K，工业上将钾蒸气从反应体系中分离出来，以制备金属钾	False	
+pdf-253	A	常温下，反应 2N2O(g) ⇌ 2N2(g) + O2(g)  ΔH > 0 能自发进行，表明熵变是决定该反应能否自发进行的主要因素	常温下，反应 2N2O=2N2 + O2 ΔH > 0 能自发进行，表明熵变是决定该反应能否自发进行的主要因素	False	无法解析的字符 '常'：常温下，反应 2N2O	False	
+pdf-253	B	合成氨反应 N2(g) + 3H2(g) ⇌ 2NH3(g)  ΔH < 0，使用铁触媒作催化剂可降低反应活化能，同等程度改变正、逆反应速率，但活化分子的百分数并没有改变	合成氨反应 N2 + 3H2=2NH3 ΔH < 0，使用铁触媒作催化剂可降低反应活化能，同等程度改变正、逆反应速率，但活化分子的百分数并没有改变	False	无法解析的字符 '合'：合成氨反应 N2	False	
+pdf-253	D	已知 CH4 的燃烧热为 ΔH1，CH4(g) + 2O2(g) ⇌ CO2(g) + 2H2O(g)  ΔH2，H2O(l) ⇌ H2O(g)  ΔH3，则 ΔH1 = ΔH2 + ΔH3	已知 CH4 的燃烧热为 ΔH1，CH4 + 2O2=CO2 + 2H2O ΔH2，H2O=H2O ΔH3，则 ΔH1=ΔH2 + ΔH3	False	方程式必须包含一个等号或箭头：已知 CH4 的燃烧热为 ΔH1，CH4 + 2O2=CO2 + 2H2O ΔH2，H2O=H2O ΔH3，则 ΔH1=ΔH2 + ΔH3	False	
+pdf-254	B	再充入 1 mol X，平衡时 c(Y) = 0.8 mol/L	再充入 1 mol X，平衡时 c(Y)=0.8 mol/L	False	无法解析的字符 '再'：再充入 1 mol X，平衡时 c(Y)	False	
+pdf-256	B	容器甲中平均反应速率 v(H2) = 4/(5t) mol/(L·min)	容器甲中平均反应速率 v(H2)=4/(5t) mol/(L·min)	False	无法解析的字符 '容'：容器甲中平均反应速率 v(H2)	False	
+pdf-265	C	由水电离产生的 c(H⁺)：A 点 = B 点	A 点=B 点	False	无法解析的字符 '点'：A 点	False	
+pdf-265	D	曲线Ⅰ上任意点对应的溶液中，[c(H⁺)·c(NH₄⁺)+c²(NH₄⁺)]/c(NH₃·H₂O)=1.8×10⁻⁵ mol·L⁻¹	曲线Ⅰ上任意点对应的溶液中，[c(H+)·c(NH4+)+c2(NH4+)]/c(NH3·H2O)=1.8×10-5 mol·L-1	False	无法解析的字符 '曲'：曲线Ⅰ上任意点对应的溶液中，[c(H+)	False	
+pdf-266	A	pH 相等的两溶液中：c(CH3COO⁻)=c(Cl⁻)	c(CH3COO-)=c(Cl-)	False	无法解析的字符 'c'：c(CH3COO-)	False	
+pdf-266	D	相同浓度的两溶液，分别与 NaOH 固体反应后呈中性的溶液中：c(CH3COO⁻)=c(Cl⁻)	c(CH3COO-)=c(Cl-)	False	无法解析的字符 'c'：c(CH3COO-)	False	
+pdf-267	D	②中反应后溶液：c(Na⁺)=c(CH3COO⁻)+c(Cl⁻)	c(Na+)=c(CH3COO-)+c(Cl-)	False	无法解析的字符 'c'：c(Na+)	False	
+pdf-268	B	Na2CO3 溶液中：2c(Na⁺)=c(CO3²⁻)+c(HCO3⁻)+c(H2CO3)	2c(Na+)=c(CO32-)+c(HCO3-)+c(H2CO3)	False	无法解析的字符 'c'：c(Na+)	False	
+pdf-268	D	pH=3 的盐酸和 pH=11 的 NaOH 溶液等体积混合，所得溶液 pH>7	pH=3 的盐酸和 pH=11 的 NaOH 溶液等体积混合，所得溶液 pH>7	False	无法解析的字符 'p'：pH	False	
+pdf-269	C	实验Ⅲ中发生了反应：2NaHCO3+2NH3·H2O=(NH4)2CO3+Na2CO3+2H2O	2NaHCO3 + 2NH3·H2O=(NH4)2CO3 + Na2CO3 + 2H2O	True		True	2NaHCO3 + 2NH3·H2O = (NH4)2CO3 + Na2CO3 + 2H2O
+pdf-270	D	100 mL pH=10.00 的 Na2CO3 溶液中水电离出 H⁺ 的物质的量为 1.0×10⁻⁵ mol	100 mL pH=10.00 的 Na2CO3 溶液中水电离出 H+ 的物质的量为 1.0×10-5 mol	False	无法解析的字符 'm'：mL pH	False	
+pdf-279	B	两种物质的溶液中都存在 c(Na⁺)+c(H⁺)=2c(SO3²⁻)+c(HSO3⁻)+c(OH⁻)	两种物质的溶液中都存在 c(Na+)+c(H+)=2c(SO32-)+c(HSO3-)+c(OH-)	False	无法解析的字符 '两'：两种物质的溶液中都存在 c(Na+)+c(H+)	False	
+pdf-280	D	两种溶液等体积混合后(pH>7)：c(NH4⁺)+c(H⁺)=c(Cl⁻)+c(OH⁻)	c(NH4+)+c(H+)=c(Cl-)+c(OH-)	False	无法解析的字符 'c'：c(NH4+)+c(H+)	False	
+pdf-281	B	b 点 c(Cl⁻)和 d 点 c(Na⁺)存在的关系是 2c(Cl⁻)=c(Na⁺)	b 点 c(Cl-)和 d 点 c(Na+)存在的关系是 2c(Cl-)=c(Na+)	False	无法解析的字符 'b'：b 点 c(Cl-)和 d 点 c(Na+)存在的关系是 2c(Cl-)	False	
+pdf-281	C	水的电离程度：a＞c=d	a＞c=d	False	无法解析的字符 'a'：a＞c	False	
+pdf-281	D	b 点：c(CH3COOH)+c(CH3COO⁻)=2c(Cl⁻)	c(CH3COOH)+c(CH3COO-)=2c(Cl-)	False	无法解析的字符 'c'：c(CH3COOH)+c(CH3COO-)	False	
+pdf-282	A	0.1 mol/L 的 HCN 溶液与 0.1 mol/L 的 KCN 溶液等体积混合：c(HCN)+c(CN⁻)=0.2 mol/L	c(HCN)+c(CN-)=0.2 mol/L	False	无法解析的字符 'c'：c(HCN)+c(CN-)	False	
+pdf-282	B	向氨水中逐滴加入盐酸，当氨水中水的电离程度最大时：c(NH4⁺)=c(Cl⁻)	c(NH4+)=c(Cl-)	False	无法解析的字符 'c'：c(NH4+)	False	
+pdf-282	C	等体积、等浓度的醋酸溶液和醋酸钠溶液混合：2c(CH3COOH)+2c(CH3COO⁻)=c(Na⁺)	2c(CH3COOH) + 2c(CH3COO-)=c(Na+)	False	无法解析的字符 'c'：c(CH3COOH)	False	
+pdf-282	D	碳酸氢钠和碳酸钠物质的量之比为 2∶1 的混合溶液中：3c(H⁺)+c(HCO3⁻)+4c(H2CO3)=2c(CO3²⁻)+3c(OH⁻)	3c(H+)+c(HCO3-) + 4c(H2CO3)=2c(CO32-) + 3c(OH-)	False	无法解析的字符 'c'：c(H+)+c(HCO3-)	False	
+pdf-283	B	0.1 mol/L NH4HCO3溶液(pH=7.8)中：c(H2CO3)>c(CO3^2-)	0.1 mol/L NH4HCO3溶液(pH=7.8)中：c(H2CO3)>c(CO3^2-)	False	无法解析的字符 '.'：.1 mol/L NH4HCO3溶液(pH	False	
+pdf-283	C	0.1 mol/L氨水与0.1 mol/L NH4HCO3溶液等体积混合：c(HCO3^-)+c(H2CO3)+c(CO3^2-)=2c(NH4^+)+2c(NH3·H2O)	c(HCO3^-)+c(H2CO3)+c(CO3^2-)=2c(NH4^+) + 2c(NH3·H2O)	False	无法解析的字符 'c'：c(HCO3^-)+c(H2CO3)+c(CO3^2-)	False	
+pdf-284	A	0.1 mol/L H2A溶液中，c(H2A)+c(HA^-)+c(A^2-)=0.1 mol/L	0.1 mol/L H2A溶液中，c(H2A)+c(HA^-)+c(A^2-)=0.1 mol/L	False	无法解析的字符 '.'：.1 mol/L H2A溶液中，c(H2A)+c(HA^-)+c(A^2-)	False	
+pdf-289	B	NH4F溶液中：c(NH3·H2O)+c(NH4+)=c(H+)+c(HF)	c(NH3·H2O)+c(NH4+)=c(H+)+c(HF)	False	无法解析的字符 'c'：c(NH3	False	
+pdf-289	D	“沉铁”时发生反应的离子方程式：Fe2++2HCO3-=FeCO3↓+H2O+CO2↑	Fe^2+ + 2HCO3^-=FeCO3 + H2O + CO2	True		True	Fe^2+ + 2HCO3^- = FeCO3 + H2O + CO2
+pdf-291	A	产生少量沉淀时(pH=4.8)，溶液中c(NH4+)<c(OH-)	产生少量沉淀时(pH=4.8)，溶液中c(NH4+)<c(OH-)	False	无法解析的字符 '产'：产生少量沉淀时(pH	False	
+pdf-291	B	产生大量沉淀时(pH=6.0)，溶液中c(NH4+)>c(NO3-)	产生大量沉淀时(pH=6.0)，溶液中c(NH4+)>c(NO3-)	False	无法解析的字符 '产'：产生大量沉淀时(pH	False	
+pdf-292	A	Na2S溶液中：c(Na+)=2[c(H2S)+c(HS-)+c(S2-)]	c(Na+)=2[c(H2S)+c(HS-)+c(S2-)]	False	无法解析的字符 'c'：c(Na+)	False	
+pdf-292	C	含镉废水中加入FeS后，发生反应的离子方程式为Cd2+(aq)+FeS(s)═CdS(s)+Fe2+(aq)	含镉废水中加入FeS后，发生反应的离子方程式为Cd2^+ + FeS=CdS + Fe^2+	False	无法解析的字符 '含'：含镉废水中加入FeS后，发生反应的离子方程式为Cd2^+	False	
+pdf-295	C	石墨烯表面发生的电极反应式: O2 - 4e- + 2H2O === 4OH-	O2 - 4e- + 2H2O=4OH-	False	无法解析的字符 '-'：O2 - 4e-	False	
+pdf-298	B	充电时，会发生反应：Zn + 2MnO2 = ZnMn2O4	Zn + 2MnO2=ZnMn2O4	True		True	Zn + 2MnO2 = ZnMn2O4
+pdf-298	C	放电时，正极反应有：MnO2 + H2O + e- = MnOOH + OH-	MnO2 + H2O + e-=MnOOH + OH-	True		True	MnO2 + H2O + e^- = MnOOH + OH^-
+pdf-299	A	CuAg 电极反应式为 2HCHO + 2H2O - 4e- = 2HCOO- + H2↑ + 2OH-	CuAg 电极反应式为 2HCHO + 2H2O - 4e-=2HCOO- + H2 + 2OH-	False	无法解析的字符 '电'：CuAg 电极反应式为 2HCHO	False	
+pdf-299	B	CuRu 电极反应式为 NO3- + 6H2O + 8e- = NH3↑ + 9OH-	CuRu 电极反应式为 NO3^- + 6H2O + 8e-=NH3 + 9OH-	False	无法解析的字符 '电'：CuRu 电极反应式为 NO3^-	False	
+pdf-300	D	放电时总反应：6Li + N2 + 4CF3SO2Cl = 2(CF3SO2)2NLi + 4LiCl	6Li + N2 + 4CF3SO2Cl=2(CF3SO2)2NLi + 4LiCl	True		True	6Li + N2 + 4CF3SO2Cl = 2(CF3SO2)2NLi + 4LiCl
+pdf-303	C	电池总反应为Cu²⁺ + 4NH₃ ═ [Cu(NH₃)₄]²⁺	电池总反应为Cu2^+ + 4NH3=[Cu(NH3)4]2^+	False	无法解析的字符 '电'：电池总反应为Cu2^+	False	
+pdf-305	C	阴极发生反应 NO₃⁻ + 7H₂O + 8e⁻ ══ NH₃·H₂O + 9OH⁻	阴极发生反应 NO3^- + 7H2O + 8e-=NH3·H2O + 9OH-	False	无法解析的字符 '阴'：阴极发生反应 NO3^-	False	
+pdf-306	D	NO₃⁻ 完全转化为 NH₃ 的电解总反应：NO₃⁻ + 8Cl⁻ + 6H₂O ══ NH₃↑ + 9OH⁻ + 4Cl₂↑	NO3^- + 8Cl- + 6H2O=NH3 + 9OH- + 4Cl2	True		True	NO3^- + 8Cl^- + 6H2O = NH3 + 9OH^- + 4Cl2
+pdf-307	B	电解总反应：TY + H₂O ══(电解) TQ + 2H₂↑	TY + H2O=(电解) TQ + 2H2	False	无法解析的字符 '电'：(电解) TQ	False	
+pdf-308	A	b电极反应式为2H2O+2e⁻=H2↑+2OH⁻	b电极反应式为2H2O + 2e-=H2 + 2OH-	False	无法解析的字符 'b'：b电极反应式为2H2O	False	
+pdf-309	B	N电极的电极反应式为2NH4⁺+2e⁻=2NH3↑+H2↑	N电极的电极反应式为2NH4^+ + 2e-=2NH3 + H2	False	无法解析的字符 '电'：N电极的电极反应式为2NH4^+	False	
+pdf-310	A	该芬顿系统能量转化形式为太阳能→电能→化学能	该芬顿系统能量转化形式为太阳能=电能=化学能	False	无法解析的字符 '该'：该芬顿系统能量转化形式为太阳能	False	
+pdf-310	B	阴极反应式为O2+2H⁺+2e⁻=H2O2	阴极反应式为O2 + 2H+ + 2e-=H2O2	False	无法解析的字符 '阴'：阴极反应式为O2	False	
+pdf-311	D	总反应为2CO2+2H2O==(电解)==2HCOOH+O2	总反应为2CO2 + 2H2O=(电解)=2HCOOH + O2	False	无法解析的字符 '总'：总反应为2CO2	False	
+pdf-312	D	SO4^2- 氧化成 S2O8^2- 的电极反应式为 2SO4^2- - 2e- = S2O8^2-	SO4^2- 氧化成 S2O8^2- 的电极反应式为 2SO4^2- - 2e-=S2O8^2-	False	无法解析的字符 '^'：SO4^2- 氧化成 S2O8^2- 的电极反应式为 2SO4^2- - 2e-	False	
+pdf-315	D	锌发生反应:Zn−2e⁻=Zn²⁺	Zn-2e-=Zn^2+	False	无法解析的字符 '-'：Zn-2e-	False	
+pdf-316	C	铁电极上的电极反应式为2NH₃+2e⁻=H₂↑+2NH₂⁻	铁电极上的电极反应式为2NH3 + 2e-=H2 + 2NH2^-	False	无法解析的字符 '铁'：铁电极上的电极反应式为2NH3	False	
+pdf-317	C	Pt表面发生的电极反应式:O₂+2H₂O+4e⁻=4OH⁻	O2 + 2H2O + 4e-=4OH-	True		True	O2 + 2H2O + 4e^- = 4OH^-
+pdf-321	C	(2024·贵州卷·★)CH3CH2C(CH3)=CH2的名称:2-甲基-1-丁烯	(2024·贵州卷·★)CH3CH2C(CH3)=CH2的名称:2-甲基-1-丁烯	False	数字位置非法：(2024	False	
+pdf-336	D	该条件下体系中存在 A ⇌ B，其平衡常数 K = 35	该条件下体系中存在 A=B，其平衡常数 K=35	False	无法解析的字符 '该'：该条件下体系中存在 A	False	
+pdf-374	A	[-CH2-C(CH3)=CH-CH2-]n	[-CH2-C(CH3)=CH-CH2-]n	False	无法解析的字符 '-'：[-CH2-C(CH3)	False	
+pdf-380	A	x = m + n	x=m + n	False	无法解析的字符 'x'：x	False	
+pdf-403	D	2NO2⇌N2O4为基元反应,将盛有NO2的密闭烧瓶浸入冷水,红棕色变浅	2NO2=N2O4为基元反应,将盛有NO2的密闭烧瓶浸入冷水,红棕色变浅	False	无法解析的字符 '为'：N2O4为基元反应,将盛有NO2的密闭烧瓶浸入冷水,红棕色变浅	False	
+pdf-407	A	将 SO2 通入溴水至过量，溶液的橙色褪去 → SO2 有漂白性	将 SO2 通入溴水至过量，溶液的橙色褪去=SO2 有漂白性	False	无法解析的字符 '将'：将 SO2 通入溴水至过量，溶液的橙色褪去	False	
+pdf-407	B	自热米饭附带的热源包（主要成分 CaO，少许 Na2CO3、Al 粉）加水后，未产生气体 → Al 粉已经变质	自热米饭附带的热源包（主要成分 CaO，少许 Na2CO3、Al 粉）加水后，未产生气体=Al 粉已经变质	False	无法解析的字符 '自'：自热米饭附带的热源包（主要成分 CaO，少许 Na2CO3、Al 粉）加水后，未产生气体	False	
+pdf-407	C	CuCl2 浓溶液呈黄绿色，加水稀释后溶液呈蓝色 → 配体 H2O、Cl- 与 Cu2+ 间存在配位平衡移动	CuCl2 浓溶液呈黄绿色，加水稀释后溶液呈蓝色=配体 H2O、Cl- 与 Cu2+ 间存在配位平衡移动	False	无法解析的字符 '浓'：CuCl2 浓溶液呈黄绿色，加水稀释后溶液呈蓝色	False	
+pdf-407	D	淀粉-KI 试纸遇 FeCl3-NH4HF2 的混合液不变色 → [FeF6]3- 配离子氧化能力弱	淀粉-KI 试纸遇 FeCl3-NH4HF2 的混合液不变色=[FeF6]3- 配离子氧化能力弱	False	无法解析的字符 '淀'：淀粉-KI 试纸遇 FeCl3-NH4HF2 的混合液不变色	False	
+pdf-422	C	1.0 L pH=1 的稀硫酸中含 H^+ 数目为 0.2N_A	1.0 L pH=1 的稀硫酸中含 H^+ 数目为 0.2N_A	False	无法解析的字符 '.'：.0 L pH	False	
+pdf-424	A	26 g H—C≡C—H 中含有 σ 键的数目为 3N_A	26 g H-C=C-H 中含有 σ 键的数目为 3N_A	False	无法解析的字符 'g'：g H-C	False	
+pdf-426	C	1 mol [N=C=N]^2-中含有的π键数为4NA	1 mol [N=C=N]^2-中含有的π键数为4NA	False	无法解析的字符 'm'：mol [N	False	
+pdf-427	C	1.0 L pH=2的H2SO4溶液中H+的数目为0.02NA	1.0 L pH=2的H2SO4溶液中H+的数目为0.02NA	False	无法解析的字符 '.'：.0 L pH	False	
+pdf-436	D	Cl₂分子中σ键的形成：轨道相互靠拢→轨道相互重叠→形成共价单键	轨道相互靠拢=轨道相互重叠=形成共价单键	False	无法解析的字符 '轨'：轨道相互靠拢	False	
+pdf-439	A	乙炔的结构简式：HC≡CH	HC=CH	True		True	HC = CH
+pdf-440	C	N2分子中存在N≡N键	N2分子中存在N=N键	False	无法解析的字符 '分'：N2分子中存在N	False	
+pdf-457	D	常温下Kw/c(H⁺)=1×10⁻³ mol/L的溶液中：K⁺、Na⁺、CO₃²⁻、[Al(OH)₄]⁻	常温下Kw/c(H+)=1×10-3 mol/L的溶液中：K+、Na+、CO32-、[Al(OH)4]-	False	无法解析的字符 '常'：常温下Kw/c(H+)	False	
+pdf-460	A	H₃BO₃和足量NaOH溶液反应：H₃BO₃ + 3OH⁻ ═ BO₃³⁻ + 3H₂O	H3BO3 + 3OH-=BO3^3- + 3H2O	True		True	H3BO3 + 3OH^- = BO3^3- + 3H2O
+pdf-460	B	B(OCH₃)₃和NaH反应制备NaBH₄：4NaH + B(OCH₃)₃ ═ NaBH₄ + 3CH₃ONa	4NaH + B(OCH3)3=NaBH4 + 3CH3ONa	True		True	4NaH + B(OCH3)3 = NaBH4 + 3CH3ONa
+pdf-460	C	Al₂O₃溶于NaOH溶液：Al₂O₃ + 2OH⁻ + 3H₂O ═ 2[Al(OH)₄]⁻	Al2O3 + 2OH- + 3H2O=2[Al(OH)4]-	True		True	Al2O3 + 2OH^- + 3H2O = 2[Al(OH)4]^-
+pdf-460	D	Ga(CH₃)₃与NH₃反应制GaN：Ga(CH₃)₃ + NH₃ ═(高温) GaN + 3CH₄	Ga(CH3)3 + NH3=(高温) GaN + 3CH4	False	无法解析的字符 '高'：(高温) GaN	False	
+pdf-479	B	若存在 a→b→e 的转化，则 e 的水溶液一定呈中性	若存在 a=b=e 的转化，则 e 的水溶液一定呈中性	False	无法解析的字符 '若'：若存在 a	False	
+pdf-512	A	步骤①反应为VO²⁺+H2O2→VO₂⁺+·OH+H⁺	步骤①反应为VO2^+ + H2O2=VO2++·OH + H+	False	无法解析的字符 '步'：步骤①反应为VO2^+	False	
+pdf-513	D	氨水和盐酸反应后的溶液，若溶液呈中性，则 c(Cl⁻)=c(NH₄⁺)	氨水和盐酸反应后的溶液，若溶液呈中性，则 c(Cl-)=c(NH4+)	False	无法解析的字符 '氨'：氨水和盐酸反应后的溶液，若溶液呈中性，则 c(Cl-)	False	

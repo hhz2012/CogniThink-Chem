@@ -1,0 +1,101 @@
+﻿total choice-classified: 393
+keys of a choice case: ['_part', 'expected', 'gatewayAnswer', 'gatewayConclusion', 'gatewayCorrect', 'gatewayOk', 'gatewayTruthAdopted', 'gatewayUsedEngine', 'id', 'note', 'pureLlmAnswer', 'pureLlmCorrect', 'question', 'taskType']
+
+=== choice with >=1 equation option === 79
+  pdf-004    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-035    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-037    eqOpts=2 ['A', 'B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-039    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-040    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-041    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-042    eqOpts=3 ['B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-043    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-045    eqOpts=2 ['A', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-047    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-052    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-053    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-056    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-078    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-081    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-086    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-092    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-094    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-099    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-102    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-110    eqOpts=3 ['B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-112    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-113    eqOpts=2 ['B', 'C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-130    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-241    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-247    eqOpts=2 ['A', 'B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-248    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-250    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-253    eqOpts=3 ['A', 'B', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-254    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-256    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-265    eqOpts=2 ['C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-266    eqOpts=2 ['A', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-267    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-268    eqOpts=2 ['B', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-269    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-270    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-279    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-281    eqOpts=2 ['B', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-282    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-283    eqOpts=2 ['B', 'C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-284    eqOpts=1 ['A'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-289    eqOpts=2 ['B', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-291    eqOpts=2 ['A', 'B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-298    eqOpts=2 ['B', 'C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-299    eqOpts=2 ['A', 'B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-300    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-308    eqOpts=1 ['A'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-309    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-310    eqOpts=1 ['B'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-311    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-315    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-321    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-336    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-374    eqOpts=1 ['A'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-407    eqOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-422    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-427    eqOpts=1 ['C'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-457    eqOpts=1 ['D'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  pdf-512    eqOpts=1 ['A'] part=pureLlmOnlyCorrectCases pureCorrect=True gwCorrect=False
+  ...(showing first 60); total = 79  with >=2 eq options: 35
+
+=== choice with >=1 ion-group option (>=2 ions) === 49
+  pdf-039    ionOpts=1 ['B'] part=pureLlmOnlyCorrectCases
+  pdf-040    ionOpts=3 ['B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-041    ionOpts=1 ['A'] part=pureLlmOnlyCorrectCases
+  pdf-043    ionOpts=3 ['A', 'B', 'C'] part=pureLlmOnlyCorrectCases
+  pdf-045    ionOpts=2 ['B', 'C'] part=pureLlmOnlyCorrectCases
+  pdf-047    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-048    ionOpts=3 ['A', 'B', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-049    ionOpts=3 ['A', 'B', 'C'] part=pureLlmOnlyCorrectCases
+  pdf-050    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-054    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-055    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-056    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-057    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-058    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-059    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-081    ionOpts=1 ['D'] part=pureLlmOnlyCorrectCases
+  pdf-086    ionOpts=1 ['B'] part=pureLlmOnlyCorrectCases
+  pdf-094    ionOpts=1 ['C'] part=pureLlmOnlyCorrectCases
+  pdf-110    ionOpts=4 ['A', 'B', 'C', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-112    ionOpts=1 ['B'] part=pureLlmOnlyCorrectCases
+  pdf-113    ionOpts=1 ['C'] part=pureLlmOnlyCorrectCases
+  pdf-130    ionOpts=1 ['A'] part=pureLlmOnlyCorrectCases
+  pdf-219    ionOpts=1 ['C'] part=pureLlmOnlyCorrectCases
+  pdf-269    ionOpts=1 ['C'] part=pureLlmOnlyCorrectCases
+  pdf-289    ionOpts=2 ['B', 'D'] part=pureLlmOnlyCorrectCases
+  pdf-291    ionOpts=3 ['A', 'B', 'C'] part=pureLlmOnlyCorrectCases
+  pdf-299    ionOpts=2 ['A', 'B'] part=pureLlmOnlyCorrectCases
+  pdf-311    ionOpts=1 ['D'] part=pureLlmOnlyCorrectCases
+  pdf-320    ionOpts=1 ['C'] part=pureLlmOnlyCorrectCases
+  pdf-329    ionOpts=1 ['B'] part=pureLlmOnlyCorrectCases
+
+问法含'正确': 225; 含'错误/不正确': 152; total choice 393
+
+equation-choice candidates: pureLlmCorrect=61/79, gatewayCorrect(stage3a)=0/79

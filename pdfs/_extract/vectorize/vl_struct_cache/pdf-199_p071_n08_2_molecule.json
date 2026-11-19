@@ -1,0 +1,11 @@
+{
+  "id": "pdf-199",
+  "type": "molecule",
+  "img": "pdf_images/p071_n08_2.png",
+  "raw": "{\"name\": \"3-苯基乳酸\", \"smiles\": \"OC(Cc1ccccc1)CC(=O)O\", \"note\": \"结构含苯环通过亚甲基连接至手性碳，该碳上连有羟基（-OH）和羧基（-COOH），为3-苯基乳酸（即2-羟基-3-苯基丙酸），SMILES中Cc1ccccc1为苄基部分，OC(Cc1ccccc1)CC(=O)O表示羟基在α位、羧基在末端的三碳链\"}",
+  "data": {
+    "name": "3-苯基乳酸",
+    "smiles": "OC(Cc1ccccc1)CC(=O)O",
+    "note": "结构含苯环通过亚甲基连接至手性碳，该碳上连有羟基（-OH）和羧基（-COOH），为3-苯基乳酸（即2-羟基-3-苯基丙酸），SMILES中Cc1ccccc1为苄基部分，OC(Cc1ccccc1)CC(=O)O表示羟基在α位、羧基在末端的三碳链"
+  }
+}

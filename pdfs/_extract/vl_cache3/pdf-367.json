@@ -1,0 +1,15 @@
+{
+  "id": "pdf-367",
+  "images": [
+    "pdf_images/p123_n05_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "微观示意图",
+      "reason": "图中展示了冠状病毒的结构，明确标出S蛋白（刺突蛋白）和内部RNA，为判断选项C中“病毒蛋白”及核酸类型（RNA病毒）提供关键依据，题干文字未说明病毒含RNA而非DNA。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"微观示意图\",\n    \"reason\": \"图中展示了冠状病毒的结构，明确标出S蛋白（刺突蛋白）和内部RNA，为判断选项C中“病毒蛋白”及核酸类型（RNA病毒）提供关键依据，题干文字未说明病毒含RNA而非DNA。\"\n  }\n]"
+}

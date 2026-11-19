@@ -1,0 +1,12 @@
+{
+  "id": "pdf-344",
+  "type": "molecule",
+  "img": "pdf_images/p118_n01_0.png",
+  "key": "pdf-344_p118_n01_0_molecule",
+  "raw": "{\"name\": \"2-(6-hydroxynaphthalen-2-yl)acrylic acid\", \"smiles\": \"O=C(O)C(=C)c1ccc2cc(O)ccc2c1\", \"note\": \"结构为萘环（两个苯环稠合），6位有羟基（-OH），2位连接一个丙烯酸基团（-CH=C(COOH)），即α,β-不饱和羧酸；双键位于侧链的α,β位，羧基直接连在双键碳上。\"}",
+  "data": {
+    "name": "2-(6-hydroxynaphthalen-2-yl)acrylic acid",
+    "smiles": "O=C(O)C(=C)c1ccc2cc(O)ccc2c1",
+    "note": "结构为萘环（两个苯环稠合），6位有羟基（-OH），2位连接一个丙烯酸基团（-CH=C(COOH)），即α,β-不饱和羧酸；双键位于侧链的α,β位，羧基直接连在双键碳上。"
+  }
+}

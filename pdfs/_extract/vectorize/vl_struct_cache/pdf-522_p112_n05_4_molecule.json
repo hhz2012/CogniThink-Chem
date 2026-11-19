@@ -1,0 +1,12 @@
+{
+  "id": "pdf-522",
+  "type": "molecule",
+  "img": "pdf_images/p112_n05_4.png",
+  "key": "pdf-522_p112_n05_4_molecule",
+  "raw": "{\"name\": \"2,4,6-tribromo phenol\", \"smiles\": \"Oc1c(Br)cc(Br)c(Br)c1\", \"note\": \"苯环上羟基（-OH）在1位，溴原子分别位于2、4、6位，对称三取代酚结构\"}",
+  "data": {
+    "name": "2,4,6-tribromo phenol",
+    "smiles": "Oc1c(Br)cc(Br)c(Br)c1",
+    "note": "苯环上羟基（-OH）在1位，溴原子分别位于2、4、6位，对称三取代酚结构"
+  }
+}

@@ -128,6 +128,26 @@ public sealed class EngineResponse
 
     [JsonPropertyName("need_more_condition")]
     public bool NeedMoreCondition { get; set; }
+
+    // —— 结构化图形资产引擎产出（graph/curve/molecule）；均为可选，默认 null，向后兼容 ——
+    /// <summary>产出该结论的资产引擎类型：graph / curve / molecule（无资产分支为 null）</summary>
+    [JsonPropertyName("asset_kind")]
+    public string? AssetKind { get; set; }
+
+    /// <summary>curve 主数值（ValueAtX→y；Extrema/Knee→x；Intersection→交点 x）；供结构化判分比对</summary>
+    [JsonPropertyName("numeric_value")]
+    public double? NumericValue { get; set; }
+
+    /// <summary>curve 次数值（Extrema/Knee→y；Intersection→交点 y）</summary>
+    [JsonPropertyName("numeric_value2")]
+    public double? NumericValue2 { get; set; }
+
+    // —— molecule 结构化特征（MoleculeAnalyzer 产出）；均可选，默认 null ——
+    [JsonPropertyName("mol_formula")] public string? MoleculeFormula { get; set; }
+    [JsonPropertyName("mol_unsaturation")] public int? MoleculeUnsaturation { get; set; }
+    [JsonPropertyName("mol_is_polar")] public bool? MoleculeIsPolar { get; set; }
+    [JsonPropertyName("mol_central_hybrid")] public string? MoleculeCentralHybridization { get; set; }
+    [JsonPropertyName("mol_groups")] public string[]? MoleculeFunctionalGroups { get; set; }
 }
 
 /// <summary>网关处理结果</summary>

@@ -1,0 +1,12 @@
+{
+  "id": "pdf-226",
+  "type": "molecule",
+  "img": "pdf_images/p079_n04_3.png",
+  "key": "pdf-226_p079_n04_3_molecule",
+  "raw": "{\"name\": \"BODIPY-based boronate ester macrocycle with pyridine linkers\", \"smiles\": \"O1B(Oc2cc(c(cc2-c2cc(c(cc2C)C)C)c2cc(c(cc2C)C)C)OC3=CC(C(F)(F)F)=C(C(F)(F)F)C=C3)Oc2cc(c(cc2-c2cc(c(cc2C)C)C)c2cc(c(cc2C)C)C)OC3=CC(C(F)(F)F)=C(C(F)(F)F)C=C3)O1.[N+]1=CC=CN=C1.[N+]1=CC=CN=C1.B2(Oc3cc(c(cc3-c3cc(c(cc3C)C)C)c3cc(c(cc3C)C)C)OC4=CC(C(F)(F)F)=C(C(F)(F)F)C=C4)Oc3cc(c(cc3-c3cc(c(cc3C)C)C)c3cc(c(cc3C)C)C)OC4=CC(C(F)(F)F)=C(C(F)(F)F)C=C4)B2\", \"note\": \"Structure contains two BODIPY (boron-dipyrromethene) cores (each with Me substituents), each linked via boronate ester bridges to pentafluorophenyl groups; central core includes two pyridinium units (N+ in aromatic ring) connected through boronate esters to additional BODIPY-like fragments. The symmetry suggests a macrocyclic or dimeric assembly. Key features: B(OR)2 boronate esters, perfluorinated aryl rings (C6F5), methyl-substituted fused aromatic (BODIPY) systems, and pyridine N-oxides or pyridinium linkers (arrow indicates coordination/dative bond to B). Due to complexity and possible non-standard representation, SMILES is approximate for the major connectivity.\"}",
+  "data": {
+    "name": "BODIPY-based boronate ester macrocycle with pyridine linkers",
+    "smiles": "O1B(Oc2cc(c(cc2-c2cc(c(cc2C)C)C)c2cc(c(cc2C)C)C)OC3=CC(C(F)(F)F)=C(C(F)(F)F)C=C3)Oc2cc(c(cc2-c2cc(c(cc2C)C)C)c2cc(c(cc2C)C)C)OC3=CC(C(F)(F)F)=C(C(F)(F)F)C=C3)O1.[N+]1=CC=CN=C1.[N+]1=CC=CN=C1.B2(Oc3cc(c(cc3-c3cc(c(cc3C)C)C)c3cc(c(cc3C)C)C)OC4=CC(C(F)(F)F)=C(C(F)(F)F)C=C4)Oc3cc(c(cc3-c3cc(c(cc3C)C)C)c3cc(c(cc3C)C)C)OC4=CC(C(F)(F)F)=C(C(F)(F)F)C=C4)B2",
+    "note": "Structure contains two BODIPY (boron-dipyrromethene) cores (each with Me substituents), each linked via boronate ester bridges to pentafluorophenyl groups; central core includes two pyridinium units (N+ in aromatic ring) connected through boronate esters to additional BODIPY-like fragments. The symmetry suggests a macrocyclic or dimeric assembly. Key features: B(OR)2 boronate esters, perfluorinated aryl rings (C6F5), methyl-substituted fused aromatic (BODIPY) systems, and pyridine N-oxides or pyridinium linkers (arrow indicates coordination/dative bond to B). Due to complexity and possible non-standard representation, SMILES is approximate for the major connectivity."
+  }
+}

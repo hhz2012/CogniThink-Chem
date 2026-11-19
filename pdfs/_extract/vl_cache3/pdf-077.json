@@ -1,0 +1,15 @@
+{
+  "id": "pdf-077",
+  "images": [
+    "pdf_images/p022_n06_0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "坐标曲线图",
+      "reason": "图中给出了n(Fe³⁺)和n(Br₂)随n(Cl₂)变化的具体数值关系（如Fe³⁺在n(Cl₂)=0.1 mol时达最大，Br₂在n(Cl₂)=0.1~0.3 mol区间线性增加），是判断反应分步进行、计算物质的量及验证选项的关键依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"坐标曲线图\",\n    \"reason\": \"图中给出了n(Fe³⁺)和n(Br₂)随n(Cl₂)变化的具体数值关系（如Fe³⁺在n(Cl₂)=0.1 mol时达最大，Br₂在n(Cl₂)=0.1~0.3 mol区间线性增加），是判断反应分步进行、计算物质的量及验证选项的关键依据。\"\n  }\n]"
+}

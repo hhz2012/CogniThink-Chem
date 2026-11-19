@@ -1,0 +1,14 @@
+﻿id         a5gw a5pu a6gw a6pu  gw==pu  gwL puL  a6task         a6结论
+pdf-105    FalseTrue True True  True    4   4    unknown        
+pdf-249    FalseTrue True True  True    4   4    reaction_check 已匹配到相关反应
+pdf-300    FalseTrue True True  True    4   4    reaction_check 已解析出相关物质与离子
+pdf-408    FalseTrue True True  True    4   4    reaction_check 已查到相关颜色
+pdf-045    True FalseFalseFalse False   1   1    reaction_check 已查到相关颜色
+pdf-087    True FalseFalseFalse False   1   1    reaction_check 已匹配到相关反应
+pdf-409    True FalseFalseFalse False   1   1    reaction_check 已解析出相关物质与离子
+pdf-224    True FalseTrue False False   4   2    reaction_check 已查到溶解性
+d9-1       True FalseTrue False False   0   0    reaction_check 已匹配到相关反应
+
+=== after6 全量: 满足 guard 触发条件的题 ===
+触发数=0; 其中网关对=0, 网关错=0
+  触发后 gatewayAnswer==pureLlmAnswer 的: 0

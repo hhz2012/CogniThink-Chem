@@ -1,0 +1,938 @@
+[
+  {
+    "id": "pdf-014",
+    "type": "graph",
+    "img": "pdf_images/p007_n04_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-015",
+    "type": "graph",
+    "img": "pdf_images/p007_n05_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-018",
+    "type": "graph",
+    "img": "pdf_images/p008_n08_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-037",
+    "type": "curve",
+    "img": "pdf_images/p013_n07_2.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-037",
+    "type": "curve",
+    "img": "pdf_images/p013_n07_3.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-064",
+    "type": "graph",
+    "img": "pdf_images/p018_n11_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-071",
+    "type": "graph",
+    "img": "pdf_images/p020_n07_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-074",
+    "type": "graph",
+    "img": "pdf_images/p021_n03_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-077",
+    "type": "curve",
+    "img": "pdf_images/p022_n06_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-087",
+    "type": "graph",
+    "img": "pdf_images/p024_n03_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-088",
+    "type": "graph",
+    "img": "pdf_images/p024_n04_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-090",
+    "type": "graph",
+    "img": "pdf_images/p026_n01_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-094",
+    "type": "graph",
+    "img": "pdf_images/p027_n05_0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-098",
+    "type": "graph",
+    "img": "pdf_images/p028_n09_0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-103",
+    "type": "graph",
+    "img": "pdf_images/p029_n05_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-107",
+    "type": "graph",
+    "img": "pdf_images/p033_n01_r0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-111",
+    "type": "graph",
+    "img": "pdf_images/p035_n03_0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-125",
+    "type": "graph",
+    "img": "pdf_images/p042_n04_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-126",
+    "type": "graph",
+    "img": "pdf_images/p042_n05_1.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-130",
+    "type": "graph",
+    "img": "pdf_images/p043_n09_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-132",
+    "type": "graph",
+    "img": "pdf_images/p043_n11_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-139",
+    "type": "graph",
+    "img": "pdf_images/p046_n06_r0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-140",
+    "type": "molecule",
+    "img": "pdf_images/p046_n07_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-141",
+    "type": "graph",
+    "img": "pdf_images/p046_n08_3.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-151",
+    "type": "graph",
+    "img": "pdf_images/p050_n06_2.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-152",
+    "type": "curve",
+    "img": "pdf_images/p050_n07_3.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-154",
+    "type": "graph",
+    "img": "pdf_images/p051_n09_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-156",
+    "type": "curve",
+    "img": "pdf_images/p052_n11_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-159",
+    "type": "graph",
+    "img": "pdf_images/p054_n03_0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-167",
+    "type": "graph",
+    "img": "pdf_images/p056_n02_1.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-169",
+    "type": "graph",
+    "img": "pdf_images/p057_n03_1.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-177",
+    "type": "graph",
+    "img": "pdf_images/p058_n05_2.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-196",
+    "type": "graph",
+    "img": "pdf_images/p070_n05_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-199",
+    "type": "molecule",
+    "img": "pdf_images/p071_n08_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-199",
+    "type": "molecule",
+    "img": "pdf_images/p071_n08_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-199",
+    "type": "molecule",
+    "img": "pdf_images/p071_n08_4.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-199",
+    "type": "molecule",
+    "img": "pdf_images/p071_n08_5.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-199",
+    "type": "molecule",
+    "img": "pdf_images/p071_n08_6.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-199",
+    "type": "molecule",
+    "img": "pdf_images/p071_n08_7.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-199",
+    "type": "molecule",
+    "img": "pdf_images/p071_n08_8.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-201",
+    "type": "curve",
+    "img": "pdf_images/p072_n02_2.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-208",
+    "type": "molecule",
+    "img": "pdf_images/p074_n02_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-208",
+    "type": "molecule",
+    "img": "pdf_images/p074_n02_1.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-212",
+    "type": "graph",
+    "img": "pdf_images/p075_n06_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-214",
+    "type": "molecule",
+    "img": "pdf_images/p075_n08_2.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-223",
+    "type": "molecule",
+    "img": "pdf_images/p079_n01_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-225",
+    "type": "molecule",
+    "img": "pdf_images/p079_n03_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-226",
+    "type": "molecule",
+    "img": "pdf_images/p079_n04_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-227",
+    "type": "molecule",
+    "img": "pdf_images/p080_n05_3.png",
+    "src_type": "分子结构式"
+  },
+  {
+    "id": "pdf-232",
+    "type": "molecule",
+    "img": "pdf_images/p081_n05_r0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-238",
+    "type": "curve",
+    "img": "pdf_images/p083_n01_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-239",
+    "type": "curve",
+    "img": "pdf_images/p083_n02_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-240",
+    "type": "curve",
+    "img": "pdf_images/p084_n03_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-241",
+    "type": "graph",
+    "img": "pdf_images/p084_n04_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-246",
+    "type": "curve",
+    "img": "pdf_images/p086_n02_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-247",
+    "type": "curve",
+    "img": "pdf_images/p086_n03_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-248",
+    "type": "curve",
+    "img": "pdf_images/p087_n04_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-249",
+    "type": "graph",
+    "img": "pdf_images/p087_n05_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-250",
+    "type": "curve",
+    "img": "pdf_images/p088_n07_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-251",
+    "type": "graph",
+    "img": "pdf_images/p088_n08_5.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-251",
+    "type": "curve",
+    "img": "pdf_images/p088_n08_6.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-255",
+    "type": "curve",
+    "img": "pdf_images/p089_n04_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-256",
+    "type": "curve",
+    "img": "pdf_images/p090_n05_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-256",
+    "type": "curve",
+    "img": "pdf_images/p090_n05_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-257",
+    "type": "curve",
+    "img": "pdf_images/p090_n06_2.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-258",
+    "type": "curve",
+    "img": "pdf_images/p091_n07_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-258",
+    "type": "curve",
+    "img": "pdf_images/p091_n07_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-258",
+    "type": "graph",
+    "img": "pdf_images/p091_n07_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-259",
+    "type": "curve",
+    "img": "pdf_images/p092_n01_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-261",
+    "type": "curve",
+    "img": "pdf_images/p093_n03_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-261",
+    "type": "curve",
+    "img": "pdf_images/p093_n03_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-261",
+    "type": "curve",
+    "img": "pdf_images/p093_n03_2.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-265",
+    "type": "curve",
+    "img": "pdf_images/p095_n04_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-271",
+    "type": "curve",
+    "img": "pdf_images/p097_n10_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-272",
+    "type": "curve",
+    "img": "pdf_images/p097_n11_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-281",
+    "type": "curve",
+    "img": "pdf_images/p099_n09_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-284",
+    "type": "curve",
+    "img": "pdf_images/p100_n12_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-286",
+    "type": "curve",
+    "img": "pdf_images/p101_n02_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-287",
+    "type": "curve",
+    "img": "pdf_images/p101_n03_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-288",
+    "type": "graph",
+    "img": "pdf_images/p101_n04_2.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-289",
+    "type": "graph",
+    "img": "pdf_images/p102_n05_0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-290",
+    "type": "curve",
+    "img": "pdf_images/p102_n06_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-292",
+    "type": "curve",
+    "img": "pdf_images/p103_n08_0.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-304",
+    "type": "graph",
+    "img": "pdf_images/p106_n10_3.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-310",
+    "type": "graph",
+    "img": "pdf_images/p108_n06_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-327",
+    "type": "molecule",
+    "img": "pdf_images/p113_n03_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-328",
+    "type": "curve",
+    "img": "pdf_images/p113_n04_2.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-328",
+    "type": "curve",
+    "img": "pdf_images/p113_n04_3.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-330",
+    "type": "molecule",
+    "img": "pdf_images/p114_n03_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-332",
+    "type": "graph",
+    "img": "pdf_images/p114_n05_4.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-336",
+    "type": "graph",
+    "img": "pdf_images/p115_n09_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-336",
+    "type": "curve",
+    "img": "pdf_images/p115_n09_3.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-338",
+    "type": "graph",
+    "img": "pdf_images/p116_n02_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-338",
+    "type": "molecule",
+    "img": "pdf_images/p116_n02_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-340",
+    "type": "graph",
+    "img": "pdf_images/p116_n04_r0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-341",
+    "type": "curve",
+    "img": "pdf_images/p117_n05_1.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-344",
+    "type": "molecule",
+    "img": "pdf_images/p118_n01_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-346",
+    "type": "molecule",
+    "img": "pdf_images/p118_n03_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-347",
+    "type": "graph",
+    "img": "pdf_images/p118_n04_3.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-348",
+    "type": "graph",
+    "img": "pdf_images/p119_n05_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-351",
+    "type": "molecule",
+    "img": "pdf_images/p120_n02_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-353",
+    "type": "molecule",
+    "img": "pdf_images/p120_n04_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-353",
+    "type": "molecule",
+    "img": "pdf_images/p120_n04_4.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-357",
+    "type": "molecule",
+    "img": "pdf_images/p121_n04_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-359",
+    "type": "molecule",
+    "img": "pdf_images/p122_n06_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-360",
+    "type": "molecule",
+    "img": "pdf_images/p122_n07_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-361",
+    "type": "molecule",
+    "img": "pdf_images/p122_n08_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-362",
+    "type": "molecule",
+    "img": "pdf_images/p122_n09_4.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-363",
+    "type": "graph",
+    "img": "pdf_images/p123_n01_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-364",
+    "type": "molecule",
+    "img": "pdf_images/p123_n02_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-369",
+    "type": "molecule",
+    "img": "pdf_images/p124_n07_r0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-370",
+    "type": "graph",
+    "img": "pdf_images/p124_n08_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-371",
+    "type": "molecule",
+    "img": "pdf_images/p124_n09_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-383",
+    "type": "graph",
+    "img": "pdf_images/p127_n11_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-386",
+    "type": "molecule",
+    "img": "pdf_images/p128_n02_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-387",
+    "type": "molecule",
+    "img": "pdf_images/p128_n03_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-388",
+    "type": "graph",
+    "img": "pdf_images/p128_n04_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-391",
+    "type": "molecule",
+    "img": "pdf_images/p129_n03_2.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-391",
+    "type": "molecule",
+    "img": "pdf_images/p129_n03_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-404",
+    "type": "graph",
+    "img": "pdf_images/p133_n10_1.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-408",
+    "type": "graph",
+    "img": "pdf_images/p134_n14_4.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-410",
+    "type": "graph",
+    "img": "pdf_images/p135_n16_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-412",
+    "type": "graph",
+    "img": "pdf_images/p136_n01_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-413",
+    "type": "graph",
+    "img": "pdf_images/p136_n02_2.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-414",
+    "type": "graph",
+    "img": "pdf_images/p137_n03_1.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-428",
+    "type": "molecule",
+    "img": "pdf_images/p143_n01_1.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-429",
+    "type": "molecule",
+    "img": "pdf_images/p143_n02_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-431",
+    "type": "molecule",
+    "img": "pdf_images/p143_n04_4.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-432",
+    "type": "molecule",
+    "img": "pdf_images/p143_n05_6.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-433",
+    "type": "molecule",
+    "img": "pdf_images/p144_n06_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-433",
+    "type": "molecule",
+    "img": "pdf_images/p144_n06_1.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-433",
+    "type": "molecule",
+    "img": "pdf_images/p144_n06_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-434",
+    "type": "molecule",
+    "img": "pdf_images/p144_n07_4.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-434",
+    "type": "molecule",
+    "img": "pdf_images/p144_n07_6.png",
+    "src_type": "空间填充模型"
+  },
+  {
+    "id": "pdf-434",
+    "type": "molecule",
+    "img": "pdf_images/p144_n07_7.png",
+    "src_type": "键线式"
+  },
+  {
+    "id": "pdf-438",
+    "type": "molecule",
+    "img": "pdf_images/p145_n12_0.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-438",
+    "type": "molecule",
+    "img": "pdf_images/p145_n12_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-438",
+    "type": "molecule",
+    "img": "pdf_images/p145_n12_2.png",
+    "src_type": "键线式"
+  },
+  {
+    "id": "pdf-439",
+    "type": "molecule",
+    "img": "pdf_images/p145_n13_3.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-439",
+    "type": "molecule",
+    "img": "pdf_images/p145_n13_4.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-439",
+    "type": "molecule",
+    "img": "pdf_images/p145_n13_5.png",
+    "src_type": "球棍模型"
+  },
+  {
+    "id": "pdf-458",
+    "type": "molecule",
+    "img": "pdf_images/p032_n02_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-475",
+    "type": "graph",
+    "img": "pdf_images/p039_n05_0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-479",
+    "type": "curve",
+    "img": "pdf_images/p041_n03_2.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-481",
+    "type": "graph",
+    "img": "pdf_images/p059_n06_0.png",
+    "src_type": "工艺流程图"
+  },
+  {
+    "id": "pdf-481",
+    "type": "curve",
+    "img": "pdf_images/p059_n06_2.png",
+    "src_type": "坐标曲线图"
+  },
+  {
+    "id": "pdf-494",
+    "type": "molecule",
+    "img": "pdf_images/p065_n03_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-498",
+    "type": "molecule",
+    "img": "pdf_images/p065_n07_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-505",
+    "type": "molecule",
+    "img": "pdf_images/p068_n06_0.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-506",
+    "type": "molecule",
+    "img": "pdf_images/p068_n07_1.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-508",
+    "type": "molecule",
+    "img": "pdf_images/p068_n09_3.png",
+    "src_type": "分子结构图"
+  },
+  {
+    "id": "pdf-511",
+    "type": "graph",
+    "img": "pdf_images/p081_n02_0.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-512",
+    "type": "graph",
+    "img": "pdf_images/p087_n06_2.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-522",
+    "type": "molecule",
+    "img": "pdf_images/p112_n05_4.png",
+    "src_type": "物质结构式"
+  },
+  {
+    "id": "pdf-524",
+    "type": "graph",
+    "img": "pdf_images/p114_n02_1.png",
+    "src_type": "转化关系图"
+  },
+  {
+    "id": "pdf-528",
+    "type": "curve",
+    "img": "pdf_images/p137_n01_0.png",
+    "src_type": "坐标曲线图"
+  }
+]

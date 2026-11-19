@@ -1,0 +1,85 @@
+{
+  "id": "pdf-512",
+  "type": "graph",
+  "img": "pdf_images/p087_n06_2.png",
+  "key": "pdf-512_p087_n06_2_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"H2O2\", \"label\": \"H₂O₂\"},\n    {\"id\": \"VO2+\", \"label\": \"VO²⁺\"},\n    {\"id\": \"VO+\", \"label\": \"VO⁺\"},\n    {\"id\": \"·OH\", \"label\": \"·OH\"},\n    {\"id\": \"X\", \"label\": \"X\"},\n    {\"id\": \"Z\", \"label\": \"Z\"},\n    {\"id\": \"HO-Ph\", \"label\": \"HO-苯环\"},\n    {\"id\": \"Ph-OH-H\", \"label\": \"苯环-OH-H（带H的酚）\"}\n  ],\n  \"edges\": [\n    {\"from\": \"H2O2\", \"to\": \"·OH\", \"cond\": \"\"},\n    {\"from\": \"H2O2\", \"to\": \"X\", \"cond\": \"\"},\n    {\"from\": \"VO2+\", \"to\": \"VO+\", \"cond\": \"\"},\n    {\"from\": \"VO+\", \"to\": \"VO2+\", \"cond\": \"\"},\n    {\"from\": \"·OH\", \"to\": \"Ph-OH-H\", \"cond\": \"\"},\n    {\"from\": \"Ph-OH-H\", \"to\": \"HO-Ph\", \"cond\": \"\"},\n    {\"from\": \"Ph-OH-H\", \"to\": \"Z\", \"cond\": \"\"},\n    {\"from\": \"Ph-OH-H\", \"to\": \"X\", \"cond\": \"\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "H2O2",
+        "label": "H₂O₂"
+      },
+      {
+        "id": "VO2+",
+        "label": "VO²⁺"
+      },
+      {
+        "id": "VO+",
+        "label": "VO⁺"
+      },
+      {
+        "id": "·OH",
+        "label": "·OH"
+      },
+      {
+        "id": "X",
+        "label": "X"
+      },
+      {
+        "id": "Z",
+        "label": "Z"
+      },
+      {
+        "id": "HO-Ph",
+        "label": "HO-苯环"
+      },
+      {
+        "id": "Ph-OH-H",
+        "label": "苯环-OH-H（带H的酚）"
+      }
+    ],
+    "edges": [
+      {
+        "from": "H2O2",
+        "to": "·OH",
+        "cond": ""
+      },
+      {
+        "from": "H2O2",
+        "to": "X",
+        "cond": ""
+      },
+      {
+        "from": "VO2+",
+        "to": "VO+",
+        "cond": ""
+      },
+      {
+        "from": "VO+",
+        "to": "VO2+",
+        "cond": ""
+      },
+      {
+        "from": "·OH",
+        "to": "Ph-OH-H",
+        "cond": ""
+      },
+      {
+        "from": "Ph-OH-H",
+        "to": "HO-Ph",
+        "cond": ""
+      },
+      {
+        "from": "Ph-OH-H",
+        "to": "Z",
+        "cond": ""
+      },
+      {
+        "from": "Ph-OH-H",
+        "to": "X",
+        "cond": ""
+      }
+    ]
+  }
+}

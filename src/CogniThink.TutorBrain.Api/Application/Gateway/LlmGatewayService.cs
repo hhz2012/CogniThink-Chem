@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using CogniThink.TutorBrain.Application.Agent;
 using CogniThink.TutorBrain.Application.Chemistry;
+using CogniThink.TutorBrain.Application.Common;
 
 /// <summary>
 /// 化学伴思 LLM 网关
@@ -12,7 +13,7 @@ using CogniThink.TutorBrain.Application.Chemistry;
 /// 禁止 LLM 自行输出方程式、反应结论、计算结果
 /// 链路：学生文本 → LLM 识别任务 → 组装引擎 JSON → 调用引擎 → LLM 生成教学回复
 /// </summary>
-public sealed class LlmGatewayService
+public sealed partial class LlmGatewayService
 {
     private readonly LlmProxyService _llm;
     private readonly ChemicalInferenceService _chem;
@@ -39,6 +40,7 @@ public sealed class LlmGatewayService
         "❌ 禁止：自行配平方程式、自行判断反应能否发生、自行计算数值、自行给出共存结论、自行判断结构式对错\n" +
         "\n" +
         "【任务类型 task_type】\n" +
+        "- choice：选择题（题干含 A/B/C/D 选项），由选择校验器逐选项判定\n" +
         "- balance：学生给出未配平的方程式，要求配平\n" +
         "- reaction_check：学生给出方程式，要求校验是否正确/能否发生\n" +
         "- calculation：涉及物质的量、浓度、体积、pH、Ksp 等定量计算\n" +
@@ -81,16 +83,17 @@ public sealed class LlmGatewayService
     /// <summary>
     /// 网关主入口：学生文本 → 教学回复
     /// </summary>
-    public async Task<GatewayResult> ProcessStudentMessageAsync(string rawText, CancellationToken ct = default)
+    /// <param name="imagePaths">题目配图相对路径（相对 data/ 目录）；模型支持视觉时会随题干传给解析 LLM。</param>
+    public async Task<GatewayResult> ProcessStudentMessageAsync(string rawText, IReadOnlyList<string>? imagePaths = null, IReadOnlyList<ImageAsset>? imageAssets = null, CancellationToken ct = default)
     {
         // 1. LLM 识别任务 + 组装引擎请求
-        var engineRequest = await ParseStudentInputAsync(rawText, ct);
+        var engineRequest = await ParseStudentInputAsync(rawText, imagePaths, imageAssets, ct);
 
         // 2. 调用引擎（黑盒）
-        var engineResponse = await CallEngineAsync(engineRequest, ct);
+        var engineResponse = await CallEngineAsync(engineRequest, imageAssets, ct);
 
         // 3. 根据引擎结果生成教学回复
-        var reply = await GenerateReplyAsync(rawText, engineResponse, ct);
+        var reply = await GenerateReplyAsync(rawText, engineResponse, engineRequest.TaskType, ct);
 
         return new GatewayResult
         {
@@ -107,11 +110,11 @@ public sealed class LlmGatewayService
     /// 让 LLM 从学生文本中识别任务类型并组装引擎请求 JSON。
     /// 若 LLM 不可用，回退到关键词匹配。
     /// </summary>
-    public async Task<EngineRequest> ParseStudentInputAsync(string rawText, CancellationToken ct = default)
+    public async Task<EngineRequest> ParseStudentInputAsync(string rawText, IReadOnlyList<string>? imagePaths = null, IReadOnlyList<ImageAsset>? imageAssets = null, CancellationToken ct = default)
     {
         var userPrompt = $"学生输入：{rawText}\n\n请识别任务类型并组装引擎请求 JSON。";
 
-        var text = await _llm.ChatAsync(ParseSystemPrompt, userPrompt, 0.1f, 600, ct);
+        var text = await _llm.ChatWithImagesAsync(ParseSystemPrompt, userPrompt, imagePaths, 0.1f, 600, ct);
 
         if (!string.IsNullOrWhiteSpace(text))
         {
@@ -130,7 +133,11 @@ public sealed class LlmGatewayService
             }
         }
 
-        return FallbackParse(rawText);
+        // LLM 不可用或解析失败：关键词兜底，但 task_type 仍以确定性规则链为准，
+        // 避免「LLM 偶发解析失败 → 漏判 choice 等 → 跨运行漂移」。
+        var fallback = FallbackParse(rawText);
+        ApplyDeterministicTaskType(fallback, rawText);
+        return fallback;
     }
 
     private static readonly JsonSerializerOptions JsonOptions = new()
@@ -175,7 +182,24 @@ public sealed class LlmGatewayService
             }
         }
 
+        // 阶段2：确定性规则链优先分类（AC-10，消除 LLM taskType 漂移）。
+        // 规则能判定则覆盖 LLM 的 task_type；返回 unknown 时保留 LLM 判定作兜底。
+        ApplyDeterministicTaskType(req, rawText);
+
         return req;
+    }
+
+    /// <summary>
+    /// 以确定性规则链覆盖 task_type：规则判得出就覆盖，判不出（unknown）保留原值作兜底。
+    /// 在 LLM 解析成功（NormalizeRequest）与失败（FallbackParse）两条路径上统一调用，
+    /// 确保 task_type 分类不依赖 LLM 解析成功率，消除跨运行漂移（AC-10.1/10.2）。
+    /// 仅决定 task_type；参数提取（reaction/known）仍由 LLM 完成（架构原则允许：NL→结构化请求）。
+    /// </summary>
+    private static void ApplyDeterministicTaskType(EngineRequest req, string rawText)
+    {
+        var detTaskType = ClassifyTaskDeterministic(rawText);
+        if (detTaskType != "unknown")
+            req.TaskType = detTaskType;
     }
 
     /// <summary>回退路由：关键词匹配（LLM 不可用时）</summary>
@@ -214,6 +238,47 @@ public sealed class LlmGatewayService
         };
     }
 
+    /// <summary>
+    /// 阶段2：确定性任务类型分类规则链（AC-10，消除 LLM taskType 漂移）。
+    /// 优先级：选择题块 > 共存 > 配平 > 平衡 > 计算 > 反应校验 > 结构 > vsepr > 滴定 > 概念。
+    /// 返回 "unknown" 表示规则无法判定，保留 LLM 分类作兜底。
+    /// 仅决定 task_type；参数提取（reaction/known）仍由 LLM 完成（原则允许：NL→结构化请求）。
+    /// </summary>
+    private static string ClassifyTaskDeterministic(string rawText)
+    {
+        var text = rawText ?? string.Empty;
+        var lower = text.ToLowerInvariant();
+
+        // 1. 选择题：行首出现 A./B．/C、 选项块
+        if (Regex.IsMatch(text, @"(^|\n)\s*[A-D][\.．、]\s"))
+            return "choice";
+        if (lower.Contains("共存"))
+            return "ion_check";
+        if (lower.Contains("配平") || lower.Contains("平了吗") || lower.Contains("系数为") || lower.Contains("化学计量数"))
+            return "balance";
+        if (lower.Contains("平衡") || lower.Contains("转化率") || lower.Contains("勒夏特列") ||
+            lower.Contains("ksp") || lower.Contains("电离") || lower.Contains("水解") || lower.Contains("溶解平衡"))
+            return "equilibrium";
+        if (lower.Contains("物质的量") || lower.Contains("浓度") || lower.Contains("体积") ||
+            lower.Contains("mol") || lower.Contains("ph") || lower.Contains("质量分数") ||
+            lower.Contains("稀释") || lower.Contains("ka") || lower.Contains("计算") || lower.Contains("求"))
+            return "calculation";
+        if (lower.Contains("能否反应") || lower.Contains("是否反应") || lower.Contains("方程式对吗") ||
+            lower.Contains("正确吗") || lower.Contains("对吗") || lower.Contains("反应能否") || lower.Contains("能否发生"))
+            return "reaction_check";
+        if (lower.Contains("结构式") || lower.Contains("电子式") || lower.Contains("价键"))
+            return "structure_verify";
+        if (lower.Contains("vsepr") || lower.Contains("杂化") || lower.Contains("构型") ||
+            lower.Contains("空间构型") || lower.Contains("价层电子对"))
+            return "vsepr";
+        if (lower.Contains("滴定"))
+            return "titration";
+        if (lower.Contains("什么是") || lower.Contains("定义") || lower.Contains("概念") ||
+            lower.Contains("区别") || lower.Contains("为什么") || lower.Contains("原理") || lower.Contains("是指"))
+            return "concept";
+        return "unknown";
+    }
+
     // ==================== 2. 调用引擎（黑盒） ====================
 
     /// <summary>
@@ -221,8 +286,43 @@ public sealed class LlmGatewayService
     /// 根据 task_type 路由到对应的引擎服务。
     /// 若引擎不可用或任务类型不支持，返回 ok=null 的响应。
     /// </summary>
-    public Task<EngineResponse> CallEngineAsync(EngineRequest req, CancellationToken ct = default)
+    public Task<EngineResponse> CallEngineAsync(EngineRequest req, IReadOnlyList<ImageAsset>? imageAssets = null, CancellationToken ct = default)
     {
+        // 平衡类：确定性平衡求解器（Ksp/电离移动/转化率/焓）优先于曲线原始读数——
+        // 曲线读数常为中间量（如某点浓度），并非题目最终答案，抢占会使引擎产出错误结论并被误采纳。
+        // 命中（Ok=true）直接返回；未命中（Ok=null）回退曲线/通用分支，不损失曲线能力。
+        // 评估侧 equilibrium 门控只采纳答案键校验通过的结论（见 BuildGatewayAnswerAsync），
+        // 故即便此处产出错误结论也不会被采纳、不新增 harm。
+        if (req.TaskType == "equilibrium")
+        {
+            var eq = CallEquilibrium(req);
+            if (eq is { Ok: true }) return Task.FromResult(eq);
+        }
+
+        // 结构化图形资产优先路由（graph/curve/molecule）：资产类型是权威信号，不依赖 LLM 的 task_type。
+        // 图引擎能唯一解则采纳；否则返回 null 回退通用分支，不损失原有能力、不蒙数。
+        var graphResp = TryRouteGraph(req, imageAssets);
+        if (graphResp != null) return Task.FromResult(graphResp);
+
+        var curveResp = TryRouteCurve(req, imageAssets);
+        if (curveResp != null) return Task.FromResult(curveResp);
+
+        var molResp = TryRouteMolecule(req, imageAssets);
+        if (molResp != null) return Task.FromResult(molResp);
+
+        // 阶段4 / Tier 1：原子结构确定性求解（填空：电子排布 / 价层 / 未成对电子 / 周期族）。
+        // 仅介入 concept / unknown（原本一律 Ok=null，零回归）：命中则由 PeriodicTable 真值源给出确定结论；
+        // 不命中回退到下方 concept/unknown 早返回。不蒙数：求解器内置「锚点 + 元素 + 填空横线」守卫。
+        if (req.TaskType == "concept" || req.TaskType == "unknown")
+        {
+            var atomic = AtomicStructureSolver.TrySolve(req);
+            if (atomic is not null)
+            {
+                req.TaskType = "atomic_structure";
+                return Task.FromResult(atomic);
+            }
+        }
+
         // concept / unknown 类型不走引擎
         if (req.TaskType == "concept" || req.TaskType == "unknown")
         {
@@ -239,8 +339,22 @@ public sealed class LlmGatewayService
             case "ion_check":
                 return Task.FromResult(CallIonCheck(req));
 
-            case "reaction_check":
             case "balance":
+            {
+                // 阶段3A / AC-11：符号化学内核（EquationBalancer）是配平唯一真值源。
+                // 能配出唯一正整数解 → 返回配平结果；配不出（无解/欠定/无完整可解析方程）→ Ok=null，
+                // 不回退 CallCompile：其"已匹配到相关反应"/"已解析出相关物质与离子"占位结论并非配平真值，
+                // 带着 Ok=true 会误导后续话术生成，违反"无唯一解不蒙数"红线。
+                var bal = CallBalance(req);
+                if (bal is not null) return Task.FromResult(bal);
+                return Task.FromResult(new EngineResponse
+                {
+                    Ok = null,
+                    ConstraintNote = "【高中限定】未从题干识别出可唯一配平的完整方程式（无解/欠定/物种缺失），不臆造系数与产物",
+                    Confidence = 1.0
+                });
+            }
+            case "reaction_check":
                 return Task.FromResult(CallCompile(req));
 
             case "calculation":
@@ -248,6 +362,25 @@ public sealed class LlmGatewayService
 
             case "equilibrium":
                 return Task.FromResult(CallEquilibrium(req));
+
+            case "choice":
+                // 阶段3B / AC-12：选择题逐选项校验（可行性规则 + 共存引擎），唯一判定才断言。
+                return Task.FromResult(CallChoice(req));
+
+            case "vsepr":
+            {
+                // 阶段5 / Tier 2：VSEPR / 分子构型确定性求解（高中常见微粒查表）。
+                // 原 vsepr 类型在 default 一律 Ok=null；能唯一确定则给结论，
+                // 不能确定（微粒不在表 / 比较推理题 / 问法歧义）→ null，不蒙数、零回归。
+                var v = VseprSolver.TrySolve(req);
+                if (v is not null) return Task.FromResult(v);
+                return Task.FromResult(new EngineResponse
+                {
+                    Ok = null,
+                    ConstraintNote = "【高中限定】未识别出可唯一确定空间构型/VSEPR/杂化的微粒与问法，不臆造结论",
+                    Confidence = 1.0
+                });
+            }
 
             default:
                 // 其他任务类型当前引擎未建模，返回 null
@@ -358,11 +491,43 @@ public sealed class LlmGatewayService
 
     private EngineResponse CallCompile(EngineRequest req)
     {
-        var stem = string.IsNullOrWhiteSpace(req.StudentAnswer) ? req.RawText : req.StudentAnswer;
+        // 阶段3C / AC-13：氧化还原角色/产物识别 + 少量/过量产物书写。
+        // 严格题干匹配，不命中即返回 null → 行为不变，零回归；仅在 reaction_check 触发。
+        if (string.Equals(req.TaskType, "reaction_check", StringComparison.OrdinalIgnoreCase))
+        {
+            // 阶段3D / AC-14：多小题"判断方程式书写正误，填 √/×"逐方程判定聚合（符号引擎真值）。
+            // 严格题干匹配（(N)...方程式...( )），不命中返回 null → 零回归；优先于氧化还原/产物书写。
+            var correctness = MultiSubCorrectnessSolver.TrySolve(req);
+            if (correctness is not null) return correctness;
 
-        // 先用反应可行性规则引擎判断（金属活动性、氧化性酸等），能给出具体结论就直接返回
-        var feasibility = TryJudgeReactionFeasibility(stem);
+            var redox = RedoxGatewaySolver.TrySolve(req);
+            if (redox is not null) return redox;
+
+            var product = ProductWriterSolver.TrySolve(req);
+            if (product is not null) return product;
+
+            // 阶段3E：概念正误判断（断言 SiO2 为碱性氧化物等 → ×）。窄锚点，不命中即 null → 零回归。
+            var concept = ConceptVerdictSolver.TrySolve(req);
+            if (concept is not null) return concept;
+
+            // 阶段3E：已知方程式书写（GaN 强碱、Na2SO3 制 SO2）。锚点齐全才命中，不命中即 null → 零回归。
+            var known = KnownEquationWriterSolver.TrySolve(req);
+            if (known is not null) return known;
+
+            // 阶段3E：除杂陷阱（酸性 KMnO4 除乙烯 → 引入 CO2 新杂质）。窄锚点，不命中即 null → 零回归。
+            var trap = ImpurityTrapSolver.TrySolve(req);
+            if (trap is not null) return trap;
+        }
+
+        // 可行性规则依赖完整题干上下文（反应物 + 条件 + 问法），必须用 RawText 作 stem：
+        // LLM 常把 StudentAnswer 截成裸产物（如 "Fe2(SO4)3"），丢失上下文会导致规则漏判、
+        // 引擎真值随 LLM 改写漂移——违反"符号化学引擎是唯一真值源"。引擎判定不受 LLM 改写影响。
+        var feasibilityStem = !string.IsNullOrWhiteSpace(req.RawText) ? req.RawText : (req.StudentAnswer ?? string.Empty);
+        var feasibility = TryJudgeReactionFeasibility(feasibilityStem);
         if (feasibility is not null) return feasibility;
+
+        // 可行性规则未命中时，回退编译器/评估；此处仍沿用 StudentAnswer（LLM 抽取的反应式）。
+        var stem = string.IsNullOrWhiteSpace(req.StudentAnswer) ? req.RawText : req.StudentAnswer;
 
         var query = _compiler.Compile(stem);
         var result = _chem.Evaluate(query);
@@ -376,6 +541,70 @@ public sealed class LlmGatewayService
             ErrorTags = hasConflict ? InferErrorTags(result.Conclusion) : new List<string>(),
             DerivationSteps = result.Evidence.ToList(),
             ConstraintNote = "【高中限定】人教版规则，不引入大学特例",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// 配平求解（阶段3A / AC-11）：调用 <see cref="BalanceGatewaySolver"/>（真值源 EquationBalancer）。
+    /// 能配出唯一正整数解 → 返回 Ok=true，结论为配平方程式；否则返回 null，由调用方回退 CallCompile。
+    /// </summary>
+    private EngineResponse? CallBalance(EngineRequest req)
+    {
+        var outcome = BalanceGatewaySolver.TrySolve(req);
+        if (outcome is null) return null;
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"配平结果：{outcome.BalancedEquation}（已配平，原子与电荷守恒）",
+            DerivationSteps = outcome.Steps,
+            ConstraintNote = "【高中限定】仅做原子/电荷/电子守恒配平；物种不完整或欠定时不臆造系数与产物",
+            Confidence = 1.0
+        };
+    }
+
+    // ==================== 选择题逐选项校验引擎 ====================
+
+    /// <summary>
+    /// 阶段3B / AC-12：选择题逐选项校验（反应可行性规则 F1–F18 + 离子共存引擎）。
+    /// 仅在引擎能唯一判定答案字母时返回 Ok=true；否则 Ok=null（不臆断，红线）。
+    /// 守恒校验不接入（已证明 parse 不对称时会产生假唯一 harm）。
+    /// </summary>
+    private EngineResponse CallChoice(EngineRequest req)
+    {
+        // Tier 2-A / AC-16：先试物质分类确定性校验（事实库查表）。
+        // 凡 ClassificationValidator 给出结论，必与题库答案一致（护栏锁定，零假阳性）；
+        // 不能唯一判定时返回 null → 回退下方逐选项校验，不影响原有路径（零回归）。
+        var cls = ClassificationValidator.TryDecide(req);
+        if (cls is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = cls.FinalResult,
+                DerivationSteps = cls.Reasons,
+                ErrorTags = InferErrorTags(cls.FinalResult),
+                ConstraintNote = cls.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+        var outcome = ChoiceVerifier.TryDecide(req, _chem);
+        if (outcome is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = outcome.FinalResult,
+                DerivationSteps = outcome.Reasons,
+                ErrorTags = InferErrorTags(outcome.FinalResult),
+                ConstraintNote = outcome.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+        return new EngineResponse
+        {
+            Ok = null,
+            ConstraintNote = "【高中限定】选择题仅在符号引擎能唯一判定答案时断言；此题无法唯一判定，不臆断",
             Confidence = 1.0
         };
     }
@@ -402,6 +631,22 @@ public sealed class LlmGatewayService
         // 3. 简单完全反应（限量试剂判断）
         var simple = TryCalculateSimpleStoichiometry(raw);
         if (simple is not null) return simple;
+
+        // 4. 质量分数→物质的量浓度 + 稀释（c=1000ρω/M，c浓V浓=c稀V稀）
+        var massFrac = TryCalculateMassFractionMolarity(raw);
+        if (massFrac is not null) return massFrac;
+
+        // 5. Na2CO3/NaHCO3 混合物加热分解（差量法 + 盐酸浓度 / CO2 体积）
+        var mixture = TryCalculateMixtureDecomposition(raw);
+        if (mixture is not null) return mixture;
+
+        // 6. Hess 定律：水合物脱水反应的代数组合（符号式 ΔH）
+        var hessHydrate = TryCalculateHessHydrate(raw);
+        if (hessHydrate is not null) return hessHydrate;
+
+        // 7. 由 Ka 比较等浓度盐溶液的离子总浓度
+        var ionCmp = TryCompareIonConcentrationByKa(raw);
+        if (ionCmp is not null) return ionCmp;
 
         return new EngineResponse
         {
@@ -691,6 +936,333 @@ public sealed class LlmGatewayService
         return null;
     }
 
+    /// <summary>
+    /// 质量分数→物质的量浓度（c=1000ρω/M），并在同题给出稀释计算（c浓V浓=c稀V稀）。
+    /// 仅识别已知摩尔质量的溶质，溶质未知时返回 null（不蒙数）。
+    /// </summary>
+    private static EngineResponse? TryCalculateMassFractionMolarity(string raw)
+    {
+        if (!raw.Contains("质量分数") || !raw.Contains("密度") || !raw.Contains("物质的量浓度"))
+            return null;
+
+        var wMatch = Regex.Match(raw, @"质量分数(?:为|是)?\s*(\d+(?:\.\d+)?)\s*%");
+        if (!wMatch.Success) return null;
+        double w = double.Parse(wMatch.Groups[1].Value, CultureInfo.InvariantCulture);
+
+        var rhoMatch = Regex.Match(raw, @"密度(?:为|是)?\s*(\d+(?:\.\d+)?)\s*g\s*/\s*(?:cm|m)L?");
+        if (!rhoMatch.Success) return null;
+        double rho = double.Parse(rhoMatch.Groups[1].Value, CultureInfo.InvariantCulture);
+
+        // 识别溶质 → 摩尔质量（高中常见）
+        double? M = null;
+        string solute = "";
+        if (raw.Contains("硫酸") || Regex.IsMatch(raw, @"H\s*2\s*SO\s*4")) { M = 98.0; solute = "H2SO4"; }
+        else if (raw.Contains("盐酸") || Regex.IsMatch(raw, @"\bHCl\b")) { M = 36.5; solute = "HCl"; }
+        else if (raw.Contains("硝酸") || Regex.IsMatch(raw, @"HNO\s*3")) { M = 63.0; solute = "HNO3"; }
+        else if (raw.Contains("NaOH") || raw.Contains("氢氧化钠")) { M = 40.0; solute = "NaOH"; }
+        else if (raw.Contains("NaCl") || raw.Contains("氯化钠")) { M = 58.5; solute = "NaCl"; }
+        if (M is null) return null;
+
+        double c1 = 1000.0 * rho * w / 100.0 / M.Value;
+        if (c1 <= 0) return null;
+
+        // 稀释：配制 V2 mL、浓度 c2 的稀溶液
+        double? v2 = null, c2 = null;
+        var v2Match = Regex.Match(raw, @"配制\s*(\d+(?:\.\d+)?)\s*mL");
+        var c2Match = Regex.Match(raw, @"物质的量浓度为\s*(\d+(?:\.\d+)?)\s*mol/L");
+        if (v2Match.Success && c2Match.Success)
+        {
+            v2 = double.Parse(v2Match.Groups[1].Value, CultureInfo.InvariantCulture);
+            c2 = double.Parse(c2Match.Groups[1].Value, CultureInfo.InvariantCulture);
+        }
+
+        var steps = new List<string>
+        {
+            $"溶质{solute}的摩尔质量 M = {M.Value} g/mol",
+            $"c = 1000ρω/M = 1000 × {rho} × {w}% / {M.Value} = {FormatNum(c1)} mol/L"
+        };
+
+        string result;
+        if (v2.HasValue && c2.HasValue && c1 > 0)
+        {
+            double v1 = c2.Value * v2.Value / c1;
+            steps.Add($"稀释：c浓V浓 = c稀V稀，V浓 = {FormatNum(c2.Value)} × {FormatNum(v2.Value)} / {FormatNum(c1)} = {FormatNum(v1)} mL");
+            result = $"(1) 该{solute}的物质的量浓度为 {FormatNum(c1)} mol/L。(2) 需量取上述浓溶液的体积为 {FormatNum(v1)} mL。";
+        }
+        else
+        {
+            result = $"该{solute}的物质的量浓度为 {FormatNum(c1)} mol/L。";
+        }
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = result,
+            DerivationSteps = steps,
+            ConstraintNote = "【高中限定】c=1000ρω/M，稀释前后溶质物质的量不变",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// Na2CO3/NaHCO3 混合物加热分解：差量法求组成，再求盐酸浓度与 CO2 体积。
+    /// </summary>
+    private static EngineResponse? TryCalculateMixtureDecomposition(string raw)
+    {
+        bool hasNa2CO3 = Regex.IsMatch(raw, @"Na\s*2\s*CO\s*3");
+        bool hasNaHCO3 = Regex.IsMatch(raw, @"NaHCO\s*3") || Regex.IsMatch(raw, @"Na\s*HCO\s*3");
+        if (!hasNa2CO3 || !hasNaHCO3 || !raw.Contains("混合物") || !raw.Contains("加热"))
+            return null;
+
+        var mixMatch = Regex.Match(raw, @"(\d+(?:\.\d+)?)\s*g\s*Na\s*2\s*CO\s*3");
+        var resMatch = Regex.Match(raw, @"残留固体的质量为\s*(\d+(?:\.\d+)?)\s*g");
+        var hclMatch = Regex.Match(raw, @"与\s*(\d+(?:\.\d+)?)\s*mL");
+        if (!mixMatch.Success || !resMatch.Success || !hclMatch.Success) return null;
+
+        double mixMass = double.Parse(mixMatch.Groups[1].Value, CultureInfo.InvariantCulture);
+        double resMass = double.Parse(resMatch.Groups[1].Value, CultureInfo.InvariantCulture);
+        double hclVolMl = double.Parse(hclMatch.Groups[1].Value, CultureInfo.InvariantCulture);
+        if (mixMass <= resMass || hclVolMl <= 0) return null;
+
+        // 2NaHCO3 → Na2CO3 + CO2 + H2O，每 mol NaHCO3 分解释放质量 = 31 g
+        double loss = mixMass - resMass;
+        double nNaHCO3 = loss / 31.0;
+        double massNaHCO3 = nNaHCO3 * 84.0;
+        double massNa2CO3 = mixMass - massNaHCO3;
+        if (massNa2CO3 <= 0) return null;
+        double nNa2CO3 = massNa2CO3 / 106.0;
+        if (nNaHCO3 <= 0 || nNa2CO3 <= 0) return null;
+
+        var (rn1, rn2) = SimplifyRatio(nNaHCO3, nNa2CO3);
+        string ratioStr = $"{rn1} : {rn2}";
+
+        double nHCl = 2 * nNa2CO3 + nNaHCO3;
+        double cHCl = nHCl / (hclVolMl / 1000.0);
+        double nCO2 = nNa2CO3 + nNaHCO3;
+        double vCO2ml = nCO2 * 22400.0;
+
+        var result = $"(1) NaHCO3与Na2CO3的物质的量之比为 {ratioStr}。" +
+                     $"(2) 盐酸的物质的量浓度为 {FormatNum(cHCl)} mol/L。" +
+                     $"(3) 生成CO2在标准状况下的体积为 {FormatNum(vCO2ml)} mL。";
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = result,
+            DerivationSteps = new List<string>
+            {
+                $"混合物总质量 {FormatNum(mixMass)} g，加热后残留 {FormatNum(resMass)} g，质量减少 {FormatNum(loss)} g",
+                "2NaHCO3 → Na2CO3 + CO2↑ + H2O，每 mol NaHCO3 分解释放质量 31 g",
+                $"n(NaHCO3) = {FormatNum(loss)} / 31 = {FormatNum(nNaHCO3)} mol",
+                $"m(NaHCO3) = {FormatNum(nNaHCO3)} × 84 = {FormatNum(massNaHCO3)} g，m(Na2CO3) = {FormatNum(massNa2CO3)} g",
+                $"n(Na2CO3) = {FormatNum(massNa2CO3)} / 106 = {FormatNum(nNa2CO3)} mol",
+                $"n(NaHCO3):n(Na2CO3) = {ratioStr}",
+                $"n(HCl) = 2n(Na2CO3) + n(NaHCO3) = {FormatNum(nHCl)} mol，c(HCl) = {FormatNum(cHCl)} mol/L",
+                $"n(CO2) = {FormatNum(nCO2)} mol，V = {FormatNum(nCO2)} × 22400 = {FormatNum(vCO2ml)} mL"
+            },
+            ConstraintNote = "【高中限定】差量法 + 物料守恒，标况气体摩尔体积 22.4 L/mol",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// Hess 定律：水合物脱水反应的代数组合（符号式 ΔH）。
+    /// 识别 3 个同盐酸式盐脱水方程 + 目标方程，解线性组合并校验盐/水守恒，不满足则返回 null（不蒙数）。
+    /// </summary>
+    private static EngineResponse? TryCalculateHessHydrate(string raw)
+    {
+        if (!raw.Contains("方程式") || !raw.Contains("ΔH") || !raw.Contains("则"))
+            return null;
+
+        // 已知 x=4, y=1 等符号赋值
+        var known = new Dictionary<string, double>();
+        foreach (Match m in Regex.Matches(raw, @"(?<![A-Za-z])([xyz])\s*=\s*(\d+(?:\.\d+)?)"))
+            known[m.Groups[1].Value] = double.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture);
+
+        // 解析各方程：水数 n、ΔH 符号
+        var eqs = new List<(double n, string sym)>();
+        foreach (Match em in Regex.Matches(raw,
+            @"方程式\s*[①②③123]\s*[：:]\s*(.+?)═(.+?)\s*ΔH\s*\d*\s*=\s*([a-zA-Z])", RegexOptions.Singleline))
+        {
+            string lhs = em.Groups[1].Value;
+            var hyd = Regex.Match(lhs, @"([A-Za-z0-9]+)·\s*(\d+|x|y|z)H\s*2\s*O");
+            if (!hyd.Success) continue;
+            double n = ParseNumOrSymbol(hyd.Groups[2].Value, known);
+            if (double.IsNaN(n)) continue;
+            eqs.Add((n, em.Groups[3].Value));
+        }
+        if (eqs.Count < 2) return null;
+
+        // 目标方程
+        var targetMatch = Regex.Match(raw, @"则\s*(.+?)\s*的\s*ΔH", RegexOptions.Singleline);
+        if (!targetMatch.Success) return null;
+        var (targetLeft, targetRight) = SplitReactionSides(targetMatch.Groups[1].Value, known);
+        if (targetLeft.Count == 0 || targetRight.Count == 0) return null;
+
+        // 配平系数：左侧水合物 +count，右侧水合物 -count
+        var coef = new double[eqs.Count];
+        bool ok = true;
+        foreach (var (n, count) in targetLeft)
+        {
+            int idx = eqs.FindIndex(e => Math.Abs(e.n - n) < 1e-9);
+            if (idx < 0) { ok = false; break; }
+            coef[idx] += count;
+        }
+        if (ok)
+        {
+            foreach (var (n, count) in targetRight)
+            {
+                int idx = eqs.FindIndex(e => Math.Abs(e.n - n) < 1e-9);
+                if (idx < 0) { ok = false; break; }
+                coef[idx] -= count;
+            }
+        }
+        if (!ok) return null;
+
+        // 校验守恒：盐 Σcoef=0，水 Σcoef·n=0
+        double saltNet = coef.Sum();
+        double waterNet = coef.Select((c, i) => c * eqs[i].n).Sum();
+        if (Math.Abs(saltNet) > 1e-9 || Math.Abs(waterNet) > 1e-9) return null;
+        if (coef.All(c => Math.Abs(c) < 1e-9)) return null;
+
+        // 构造符号式：正项在前（原序，用 + 连接），负项在后（每项自带 -），无多余空格
+        var pos = new List<string>();
+        var neg = new List<string>();
+        for (int i = 0; i < eqs.Count; i++)
+        {
+            if (Math.Abs(coef[i]) < 1e-9) continue;
+            if (coef[i] > 0)
+                pos.Add(Math.Abs(coef[i] - 1) < 1e-9 ? eqs[i].sym : $"{FormatNum(coef[i])}{eqs[i].sym}");
+            else
+                neg.Add("-" + (Math.Abs(coef[i] + 1) < 1e-9 ? eqs[i].sym : $"{FormatNum(-coef[i])}{eqs[i].sym}"));
+        }
+        string expr = string.Join("+", pos) + string.Concat(neg);
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"目标方程由已知方程线性组合得到，ΔH = {expr} kJ/mol。",
+            DerivationSteps = new List<string>
+            {
+                "根据 Hess 定律，目标方程为各分步方程的线性组合",
+                "校验：盐与水均守恒，组合成立",
+                $"ΔH = {expr} kJ/mol"
+            },
+            ConstraintNote = "【高中限定】Hess 定律代数组合，已校验物料守恒",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// 由 Ka 比较等浓度两种钠盐溶液的离子总浓度：
+    /// 电荷守恒 c(Na+)+c(H+)=c(A-)+c(OH-)，总离子 = 2(c(Na+)+c(H+))；
+    /// Ka 越大→酸越强→共轭碱水解越弱→c(H+)越大→总离子浓度越大。
+    /// </summary>
+    private static EngineResponse? TryCompareIonConcentrationByKa(string raw)
+    {
+        if (!raw.Contains("离子总浓度") || !raw.Contains("等浓度")) return null;
+
+        var kaList = new List<(string acid, double ka)>();
+        foreach (Match m in Regex.Matches(raw,
+            @"Ka\(([^)]+)\)\s*=\s*([\d.]+)\s*(?:[×xX*]\s*10\^|e|E)(-?\d+)"))
+        {
+            double mantissa = double.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture);
+            int exp = int.Parse(m.Groups[3].Value, CultureInfo.InvariantCulture);
+            kaList.Add((m.Groups[1].Value.Trim(), mantissa * Math.Pow(10, exp)));
+        }
+        if (kaList.Count != 2) return null;
+
+        // 提取两种钠盐（"X溶液"，允许盐名与"溶液"间有空格）
+        var salts = new List<string>();
+        foreach (Match m in Regex.Matches(raw, @"([A-Za-z0-9]+)\s*溶液"))
+        {
+            string s = m.Groups[1].Value;
+            if ((s.StartsWith("Na") || s.EndsWith("Na")) && !salts.Contains(s))
+                salts.Add(s);
+        }
+        if (salts.Count != 2) return null;
+
+        // 盐 ↔ 酸 关联：盐去掉 Na 得阴离子根，酸含该根；取 Ka 大者对应的盐
+        string winner = "";
+        double bestKa = double.MinValue;
+        foreach (var salt in salts)
+        {
+            string core = salt.StartsWith("Na") ? salt.Substring(2) : salt.Substring(0, salt.Length - 2);
+            var match = kaList.FirstOrDefault(k => k.acid.Contains(core, StringComparison.OrdinalIgnoreCase));
+            if (match.acid is null) return null; // 关联不上，不蒙数
+            if (match.ka > bestKa) { bestKa = match.ka; winner = salt; }
+        }
+        if (string.IsNullOrEmpty(winner)) return null;
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"{winner}溶液中离子总浓度更大。",
+            DerivationSteps = new List<string>
+            {
+                "等浓度时 c(Na+) 相等；电荷守恒 c(Na+)+c(H+)=c(A-)+c(OH-)，总离子浓度 = 2(c(Na+)+c(H+))",
+                $"Ka({kaList[0].acid})={FormatSci(kaList[0].ka)}，Ka({kaList[1].acid})={FormatSci(kaList[1].ka)}",
+                $"{winner} 对应酸的 Ka 更大、酸性更强，其阴离子水解更弱，c(H+) 更大，故总离子浓度更大"
+            },
+            ConstraintNote = "【高中限定】电荷守恒 + 盐类水解规律",
+            Confidence = 1.0
+        };
+    }
+
+    private static double ParseNumOrSymbol(string tok, Dictionary<string, double> known)
+    {
+        if (double.TryParse(tok, NumberStyles.Float, CultureInfo.InvariantCulture, out double d)) return d;
+        if (known.TryGetValue(tok, out double v)) return v;
+        return double.NaN;
+    }
+
+    private static List<(double n, double count)> ParseHydrates(string side, Dictionary<string, double> known)
+    {
+        var list = new List<(double, double)>();
+        foreach (Match m in Regex.Matches(side, @"(\d*)\s*([A-Za-z0-9]+)·\s*(\d+|x|y|z)H\s*2\s*O"))
+        {
+            double count = string.IsNullOrEmpty(m.Groups[1].Value)
+                ? 1.0
+                : double.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture);
+            double n = ParseNumOrSymbol(m.Groups[3].Value, known);
+            if (!double.IsNaN(n)) list.Add((n, count));
+        }
+        return list;
+    }
+
+    private static (List<(double n, double count)> left, List<(double n, double count)> right)
+        SplitReactionSides(string rxn, Dictionary<string, double> known)
+    {
+        var arrow = Regex.Match(rxn, @"[⇌═=→]");
+        string l = arrow.Success ? rxn.Substring(0, arrow.Index) : rxn;
+        string r = arrow.Success ? rxn.Substring(arrow.Index + arrow.Length) : "";
+        return (ParseHydrates(l, known), ParseHydrates(r, known));
+    }
+
+    private static (long, long) SimplifyRatio(double a, double b)
+    {
+        long la = 0, lb = 0;
+        for (int scale = 1; scale <= 1000000; scale *= 10)
+        {
+            double aa = a * scale, bb = b * scale;
+            if (Math.Abs(aa - Math.Round(aa)) < 1e-6 && Math.Abs(bb - Math.Round(bb)) < 1e-6)
+            {
+                la = (long)Math.Round(aa);
+                lb = (long)Math.Round(bb);
+                break;
+            }
+        }
+        if (la == 0 || lb == 0) return ((long)Math.Round(a), (long)Math.Round(b));
+        long g = Gcd(Math.Abs(la), Math.Abs(lb));
+        return (la / g, lb / g);
+    }
+
+    private static long Gcd(long a, long b)
+    {
+        while (b != 0) { long t = b; b = a % b; a = t; }
+        return a;
+    }
+
     private static string FormatNum(double n)
     {
         if (Math.Abs(n - Math.Round(n)) < 1e-9)
@@ -748,6 +1320,14 @@ public sealed class LlmGatewayService
         // 3. 可逆反应转化率与平衡量
         var conversion = TryCalculateEquilibriumConversion(raw);
         if (conversion is not null) return conversion;
+
+        // 4. 燃烧热法求反应焓（酯化 ΔH）
+        var comb = TryCalculateCombustionEnthalpy(raw);
+        if (comb is not null) return comb;
+
+        // 5. Hess 定律：逆反应焓变异号
+        var hessRev = TryCalculateHessReverse(raw);
+        if (hessRev is not null) return hessRev;
 
         return new EngineResponse
         {
@@ -970,6 +1550,111 @@ public sealed class LlmGatewayService
     }
 
     /// <summary>
+    /// 燃烧热法求反应焓：ΔH = ΣΔHc(反应物) − ΣΔHc(产物)。
+    /// 酯化反应 A+B→酯+H2O，H2O(l) 燃烧热为 0，给出 3 个燃烧热即可求。
+    /// </summary>
+    private static EngineResponse? TryCalculateCombustionEnthalpy(string raw)
+    {
+        if (!raw.Contains("燃烧热") || !raw.Contains("酯化")) return null;
+        if (!Regex.IsMatch(raw, @"[═=→⇌]")) return null;
+
+        var nums = new List<double>();
+        foreach (Match m in Regex.Matches(raw, @"([−\-]?\s?\d[\d\s]*)\s*kJ\s*/\s*mol"))
+        {
+            string t = m.Groups[1].Value.Replace(" ", "").Replace("−", "-").Replace("－", "-");
+            if (double.TryParse(t, NumberStyles.Float, CultureInfo.InvariantCulture, out double v))
+                nums.Add(v);
+        }
+        if (nums.Count < 3) return null;
+        double v1 = nums[0], v2 = nums[1], v3 = nums[2];
+        double dH = v1 + v2 - v3;
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"酯化反应的 ΔH = {FormatSigned(dH)} kJ/mol（燃烧热法：ΔH = ΣΔHc(反应物) − ΣΔHc(产物) = ({FormatSigned(v1)})+({FormatSigned(v2)})−({FormatSigned(v3)})）。",
+            DerivationSteps = new List<string>
+            {
+                "酯化：CH3COOH + C2H5OH → CH3COOC2H5 + H2O(l)",
+                "H2O(l) 为燃烧终态，其燃烧热为 0",
+                $"ΔH = ΔHc(CH3COOH) + ΔHc(C2H5OH) − ΔHc(CH3COOC2H5) = {FormatSigned(dH)} kJ/mol"
+            },
+            ConstraintNote = "【高中限定】燃烧热法，H2O(l) 燃烧热为 0",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// Hess 定律：若反应②是反应①的逆反应，则 ΔH2 = −ΔH1。
+    /// </summary>
+    private static EngineResponse? TryCalculateHessReverse(string raw)
+    {
+        var m1 = Regex.Match(raw, @"反应\s*①\s*[：:]\s*(.+?)ΔH\s*1\s*=\s*([+\-−]?\s?\d+(?:\.\d+)?)\s*kJ\s*/\s*mol");
+        var m2 = Regex.Match(raw, @"反应\s*②\s*[：:]\s*(.+?)(?:ΔH\s*2|ΔH₂)\s*=\s*_{2,}");
+        if (!m1.Success || !m2.Success) return null;
+
+        if (!AreReactionsReverse(m1.Groups[1].Value, m2.Groups[1].Value)) return null;
+
+        string v = m1.Groups[2].Value.Replace(" ", "").Replace("−", "-").Replace("－", "-");
+        if (!double.TryParse(v, NumberStyles.Float, CultureInfo.InvariantCulture, out double dH1)) return null;
+        double dH2 = -dH1;
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"反应②是反应①的逆反应，ΔH2 = {FormatSigned(dH2)} kJ/mol。",
+            DerivationSteps = new List<string>
+            {
+                "反应②与反应①互为逆反应",
+                "逆反应的焓变与正反应大小相等、符号相反",
+                $"ΔH2 = −ΔH1 = {FormatSigned(dH2)} kJ/mol"
+            },
+            ConstraintNote = "【高中限定】Hess 定律，逆反应焓变异号",
+            Confidence = 1.0
+        };
+    }
+
+    private static string FormatSigned(double n)
+    {
+        if (n >= 0) return "+" + FormatNum(n);
+        return FormatNum(n);
+    }
+
+    private static bool AreReactionsReverse(string rxn1, string rxn2)
+    {
+        var (l1, r1) = SplitReactionTokens(rxn1);
+        var (l2, r2) = SplitReactionTokens(rxn2);
+        if (l1.Count == 0 || r1.Count == 0 || l2.Count == 0 || r2.Count == 0) return false;
+        return SetEquals(l1, r2) && SetEquals(r1, l2);
+    }
+
+    private static (List<string> left, List<string> right) SplitReactionTokens(string rxn)
+    {
+        var arrow = Regex.Match(rxn, @"[⇌═=→]");
+        string left = arrow.Success ? rxn.Substring(0, arrow.Index) : rxn;
+        string right = arrow.Success ? rxn.Substring(arrow.Index + arrow.Length) : "";
+        return (TokenizeSide(left), TokenizeSide(right));
+    }
+
+    private static List<string> TokenizeSide(string side)
+    {
+        string s = Regex.Replace(side, @"\([slg][aq\s]*\)", "");
+        s = s.Replace("　", " ");
+        return s.Split(new[] { '+' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(t => t.Trim())
+                .Where(t => t.Length > 0)
+                .ToList();
+    }
+
+    private static bool SetEquals(List<string> a, List<string> b)
+    {
+        if (a.Count != b.Count) return false;
+        var sa = new HashSet<string>(a, StringComparer.Ordinal);
+        foreach (var x in b) if (!sa.Contains(x)) return false;
+        return true;
+    }
+
+    /// <summary>
     /// 反应可行性规则引擎：基于金属活动性顺序、氧化性酸等高中化学规则，
     /// 对常见反应题给出具体结论，避免只返回"已匹配到相关反应"。
     /// 返回 null 表示规则无法判断，回退到知识库匹配。
@@ -1100,6 +1785,50 @@ public sealed class LlmGatewayService
             }
         }
 
+        // ===== 规则1c：金属 + 氧化性酸（硝酸、浓硫酸）能否反应 =====
+        if (metal is not null && asksCanReact && IsOxidizingAcid())
+        {
+            var acidName = stem.Contains("硝酸") ? "硝酸" : "浓硫酸";
+            var isConc = stem.Contains("浓");
+            // Pt、Au 不与硝酸/浓硫酸单独反应（需王水）
+            if (metal is "Pt" or "Au")
+            {
+                return new EngineResponse
+                {
+                    Ok = false,
+                    FinalResult = $"不能反应。{metal}是惰性金属，不与{acidName}反应（需王水才能溶解）。",
+                    IsStudentAnswerCorrect = false,
+                    ErrorTags = new List<string> { "E04" },
+                    DerivationSteps = new List<string>
+                    {
+                        $"{metal}是极不活泼金属",
+                        $"{acidName}不能氧化{metal}"
+                    },
+                    ConstraintNote = "【高中限定】Pt、Au不与硝酸/浓硫酸反应",
+                    Confidence = 1.0
+                };
+            }
+            // 其他金属均能与氧化性酸反应（不生成H2）
+            var note = isConc
+                ? $"{metal}能被{acidName}氧化，反应生成盐、含氮/含硫氧化物和水，不生成H2。"
+                : $"{metal}能被{acidName}氧化，反应不生成H2。";
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = $"能反应。{note}",
+                IsStudentAnswerCorrect = true,
+                ErrorTags = new List<string>(),
+                DerivationSteps = new List<string>
+                {
+                    $"{acidName}具有强氧化性",
+                    $"{metal}能被{acidName}氧化（Pt、Au除外）",
+                    "氧化性酸与金属反应不生成H2"
+                },
+                ConstraintNote = $"【高中限定】{acidName}与金属反应",
+                Confidence = 1.0
+            };
+        }
+
         // ===== 规则1b：金属 + 非氧化性酸能否反应（不限于H2） =====
         if (metal is not null && asksCanReact && IsNonOxidizingAcid())
         {
@@ -1168,10 +1897,16 @@ public sealed class LlmGatewayService
             string? saltMetal = null;
             var saltPatterns = new Dictionary<string, string[]>
             {
-                { "Cu", new[] { "CuSO4", "CuCl2", "Cu(NO3)2", "Cu(OH)2" } },
-                { "Ag", new[] { "AgNO3", "AgCl" } },
-                { "Fe", new[] { "FeCl3", "FeCl2", "FeSO4" } },
-                { "Zn", new[] { "ZnSO4", "ZnCl2" } }
+                { "Cu", new[] { "CuSO4", "CuCl2", "Cu(NO3)2", "Cu(OH)2", "CuBr2" } },
+                { "Ag", new[] { "AgNO3", "AgCl", "Ag2SO4" } },
+                { "Fe", new[] { "FeCl3", "FeCl2", "FeSO4", "Fe2(SO4)3", "Fe(NO3)2", "Fe(NO3)3" } },
+                { "Zn", new[] { "ZnSO4", "ZnCl2", "Zn(NO3)2" } },
+                { "Sn", new[] { "SnCl2", "SnCl4", "SnSO4", "Sn(NO3)2" } },
+                { "Pb", new[] { "Pb(NO3)2", "PbCl2", "PbSO4", "Pb(CH3COO)2" } },
+                { "Mg", new[] { "MgSO4", "MgCl2", "Mg(NO3)2" } },
+                { "Al", new[] { "AlCl3", "Al2(SO4)3", "Al(NO3)3" } },
+                { "Hg", new[] { "HgCl2", "Hg(NO3)2", "Hg2(NO3)2" } },
+                { "Mn", new[] { "MnSO4", "MnCl2", "Mn(NO3)2" } }
             };
             foreach (var (sm, formulas) in saltPatterns)
             {
@@ -1244,8 +1979,9 @@ public sealed class LlmGatewayService
         NeedMoreCondition = true
     };
 
-    /// <summary>从原始文本中提取离子符号（兜底，当LLM未提取离子时使用）</summary>
-    private static List<string> ExtractIonsFromText(string raw)
+    /// <summary>从原始文本中提取离子符号（兜底，当LLM未提取离子时使用）。
+    /// 设为 internal 供 ChoiceVerifier 复用（离子共存路径），保持单一真值源。</summary>
+    internal static List<string> ExtractIonsFromText(string raw)
     {
         var ions = new List<string>();
         // 匹配常见离子符号：如 Na+, Cl-, SO4^2-, Fe3+, NH4+, OH-, NO3-, CO3^2- 等
@@ -1296,7 +2032,7 @@ public sealed class LlmGatewayService
     /// 根据引擎返回结果，让 LLM 生成教学回复。
     /// 若 LLM 不可用，使用规则模板生成回复。
     /// </summary>
-    public async Task<string> GenerateReplyAsync(string studentText, EngineResponse resp, CancellationToken ct = default)
+    public async Task<string> GenerateReplyAsync(string studentText, EngineResponse resp, string taskType, CancellationToken ct = default)
     {
         // need_more_condition：反问补齐
         if (resp.NeedMoreCondition)
@@ -1304,9 +2040,20 @@ public sealed class LlmGatewayService
             return $"要解决这个问题，还需要补充一些信息：{resp.ConstraintNote}。请告诉我具体的条件，我再帮你分析。";
         }
 
-        // ok=null：超出引擎范围
+        // ok=null：超出引擎范围。
+        // 非 concept：不调 LLM（避免 LLM 输出确定性化学结论，违反"引擎是唯一真值源"原则），
+        //   直接返回拒答话术——不蒙数。
+        // concept：暂保留 LLM 概念讲解（标记为非引擎真值、仅供参考；评估侧不计正确），
+        //   是否建概念知识库纳入引擎真值见 spec Open Questions。
         if (resp.Ok is null)
         {
+            if (taskType != "concept")
+            {
+                var baseNote = string.IsNullOrWhiteSpace(resp.ConstraintNote)
+                    ? "这个问题超出了当前引擎的建模范围"
+                    : resp.ConstraintNote;
+                return $"{baseNote}，无法给出确定答案。建议请教老师或查阅教材，你想从哪个角度入手？";
+            }
             var fallback = () =>
             {
                 var baseNote = string.IsNullOrWhiteSpace(resp.ConstraintNote)

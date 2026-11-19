@@ -1,0 +1,32 @@
+﻿=== 网关 对->错 (after3->after4): 是否 taskType/结论漂移 ===
+  [pdf-073] drift=True | a3 task=reaction_check ok=True 纯对=True | a4 task=reaction_check ok=True 纯对=True
+  [pdf-231] drift=False | a3 task=unknown ok=None 纯对=True | a4 task=unknown ok=None 纯对=False
+  [pdf-283] drift=False | a3 task=equilibrium ok=None 纯对=True | a4 task=equilibrium ok=None 纯对=False
+  [pdf-459] drift=False | a3 task=unknown ok=None 纯对=True | a4 task=unknown ok=None 纯对=False
+  [pdf-015] drift=False | a3 task=calculation ok=None 纯对=False | a4 task=calculation ok=None 纯对=False
+  [pdf-142] drift=True | a3 task=reaction_check ok=True 纯对=False | a4 task=reaction_check ok=True 纯对=False
+  [pdf-195] drift=False | a3 task=calculation ok=None 纯对=False | a4 task=calculation ok=None 纯对=False
+  [pdf-213] drift=False | a3 task=reaction_check ok=True 纯对=False | a4 task=reaction_check ok=True 纯对=False
+  [pdf-265] drift=False | a3 task=equilibrium ok=None 纯对=False | a4 task=equilibrium ok=None 纯对=False
+  [pdf-410] drift=False | a3 task=calculation ok=None 纯对=False | a4 task=calculation ok=None 纯对=False
+  [pdf-439] drift=False | a3 task=structure_verify ok=None 纯对=False | a4 task=structure_verify ok=None 纯对=False
+
+=== after4: reaction_check 证据路径 帮倒忙 vs 网关独有 ===
+evidence 路径 n=157: 帮倒忙(纯对网错)=3 网关独有(网对纯错)=3 净=0
+  帮倒忙 choice? [('pdf-073', True), ('pdf-408', True), ('pdf-515', False)]
+  网关独有 choice? [('d9-1', False), ('pdf-083', True), ('pdf-224', True)]
+
+帮倒忙明细:
+  [pdf-073] choice=True 结论=已匹配到相关反应
+     Q: (2025·四川绵阳模拟·★★)二氟化氧(OF2)是极强的氧化剂和氟化剂。已知:①2F2 + 2NaOH = OF2 + 2NaF + H2O(NaOH溶液的浓度为2%),②2OF
+     纯答: B错误。   反应①中，F₂→OF₂，F从0价→−1价（得电子），O从−2价（NaOH中）→+2价（OF₂中），每生成1 mol OF₂，O
+  [pdf-408] choice=True 结论=已查到相关颜色
+     Q: (2025·湖北黄石一模改编·★★)下列图示的实验操作能达到实验目的的是 A. 制备二氧化硫 B. 验证钠与水反应是否放热 C. 利用肥皂液中产生无色气泡证明铁粉与水蒸气反应生成 
+     纯答: C可以。铁粉与水蒸气高温反应生成H₂，通入肥皂液产生无色气泡，可直观验证H₂生成。   A错：Na₂SO₃与浓H₂SO₄制SO₂应使用分液漏
+  [pdf-515] choice=False 结论=已匹配到相关反应
+     Q: (2)向 NaCN 中通入少量的 CO2，发生反应的离子方程式为____________________。
+     纯答: CN⁻ + CO₂ + H₂O → HCN + HCO₃⁻   能发生。因酸性：H₂CO₃ > HCN > HCO₃⁻，少量CO₂生成HCN
+网关独有明细(前8):
+  [d9-1] choice=False 结论=已匹配到相关反应 | 纯答=对。酸性高锰酸钾能将乙烯氧化为CO₂和水，而甲烷不与其反应，可除去乙烯杂质。但需注意：生成的CO₂会
+  [pdf-083] choice=True 结论=已匹配到相关反应 | 纯答=D不正确。HF中H、F化合价未变（H⁺→H⁺，F⁻→F⁻），不是还原产物。还原产物是Xe（Xe⁺→X
+  [pdf-224] choice=True 结论=已查到溶解性 | 纯答=A不正确。a是环己醇，无酸性基团，不能与NaOH反应；b含酯基和酚羟基，酚羟基可与NaOH反应，但a

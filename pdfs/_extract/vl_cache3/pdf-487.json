@@ -1,0 +1,22 @@
+{
+  "id": "pdf-487",
+  "images": [
+    "pdf_images/p063_n04_3.png",
+    "pdf_images/p063_n04_4.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "微观示意图",
+      "reason": "图示为3s和3p轨道的电子排布图，对应选项A中Ca²⁺的最外层电子排布描述，是判断A是否正确的关键依据。"
+    },
+    {
+      "index": 1,
+      "meaningful": true,
+      "type": "微观示意图",
+      "reason": "图示为3d和4s轨道的电子排布图，对应选项C中激发态Cu原子的价层电子轨道表示式，是判断C是否正确的关键依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"微观示意图\",\n    \"reason\": \"图示为3s和3p轨道的电子排布图，对应选项A中Ca²⁺的最外层电子排布描述，是判断A是否正确的关键依据。\"\n  },\n  {\n    \"index\": 1,\n    \"meaningful\": true,\n    \"type\": \"微观示意图\",\n    \"reason\": \"图示为3d和4s轨道的电子排布图，对应选项C中激发态Cu原子的价层电子轨道表示式，是判断C是否正确的关键依据。\"\n  }\n]"
+}

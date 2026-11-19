@@ -1,0 +1,29 @@
+{
+  "id": "pdf-208",
+  "images": [
+    "pdf_images/p074_n02_0.png",
+    "pdf_images/p074_n02_1.png",
+    "pdf_images/p074_n02_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图1展示了金刚石、石墨、C60和碳纳米管的原子排列结构，是判断它们互为同素异形体、金刚石为共价晶体及C60分子间作用力的关键依据。"
+    },
+    {
+      "index": 1,
+      "meaningful": true,
+      "type": "球棍模型",
+      "reason": "图2a以球棍模型呈现Al2Cl6二聚体结构，其中桥键Cl连接两个Al原子，是判断Al原子杂化类型（sp3）的必需信息。"
+    },
+    {
+      "index": 2,
+      "meaningful": true,
+      "type": "晶体结构图",
+      "reason": "图2b为AlF3晶胞结构，通过灰球（Al³⁺）与紫球（F⁻）的位置关系可确定F⁻的配位数（4），该信息无法仅从文字推得。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图1展示了金刚石、石墨、C60和碳纳米管的原子排列结构，是判断它们互为同素异形体、金刚石为共价晶体及C60分子间作用力的关键依据。\"\n  },\n  {\n    \"index\": 1,\n    \"meaningful\": true,\n    \"type\": \"球棍模型\",\n    \"reason\": \"图2a以球棍模型呈现Al2Cl6二聚体结构，其中桥键Cl连接两个Al原子，是判断Al原子杂化类型（sp3）的必需信息。\"\n  },\n  {\n    \"index\": 2,\n    \"meaningful\": true,\n    \"type\": \"晶体结构图\",\n    \"reason\": \"图2b为AlF3晶胞结构，通过灰球（Al³⁺）与紫球（F⁻）的位置关系可确定F⁻的配位数（4），该信息无法仅从文字推得。\"\n  }\n]"
+}

@@ -1,0 +1,51 @@
+﻿total choice rows: 393; single-letter answer: 336
+
+=== COEXIST (ion groups all-4) ===
+  decidable: 1; correct: 1; wrong: 0; precision=1/1
+  of decidable: pureLlm already correct=1, pureLlm wrong=0
+  GAIN (engine correct & pureLlm wrong): 0
+  HARM RISK (engine wrong & pureLlm correct): 0
+    pdf-059    ans=D pred=D  [OK] ask=correct pureLlm=True
+
+=== CONSERVATION ===
+  decidable: 2; correct: 1; wrong: 1; precision=1/2
+  of decidable: pureLlm already correct=2, pureLlm wrong=0
+  GAIN (engine correct & pureLlm wrong): 0
+  HARM RISK (engine wrong & pureLlm correct): 1
+    pdf-045    ans=A pred=A  [OK] ask=wrong   pureLlm=True
+    pdf-053    ans=B pred=C  [WRONG] ask=wrong   pureLlm=True
+
+=== FEASIBILITY ===
+  decidable: 2; correct: 2; wrong: 0; precision=2/2
+  of decidable: pureLlm already correct=2, pureLlm wrong=0
+  GAIN (engine correct & pureLlm wrong): 0
+  HARM RISK (engine wrong & pureLlm correct): 0
+    pdf-042    ans=B pred=B  [OK] ask=correct pureLlm=True
+    pdf-110    ans=C pred=C  [OK] ask=wrong   pureLlm=True
+
+=== COMBINED (any path) ===
+  decidable: 5; correct: 4; wrong: 1
+  GAIN=0  HARM_RISK=1
+    pdf-042    ans=B pred=B  [OK] via=fease ask=correct
+    pdf-045    ans=A pred=A  [OK] via=conserv ask=wrong
+    pdf-053    ans=B pred=C  [WRONG] via=conserv ask=wrong
+    pdf-059    ans=D pred=D  [OK] via=coexist ask=correct
+    pdf-110    ans=C pred=C  [OK] via=fease ask=wrong
+
+=== infeasible rule firing counts (per option across all single-answer choices) ===
+  F1: 4
+  F9: 3
+  F16: 2
+  F4: 1
+  F14: 1
+  F11: 1
+  F7: 1
+  F8: 1
+  F10: 1
+  F13: 1
+  F15: 1
+  F12: 1
+
+equation options: balanced=67, unbalanced=5, parseFail=111, no-eq=1143
+
+AC-12 check (combined): intervention=5 (need>=5), correct=4 precision=80% (need>=60%)

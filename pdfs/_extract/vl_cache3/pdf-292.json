@@ -1,0 +1,15 @@
+{
+  "id": "pdf-292",
+  "images": [
+    "pdf_images/p103_n08_0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "坐标曲线图",
+      "reason": "该图展示了Na₂S溶液中H₂S、HS⁻、S²⁻三者物质的量分数随pH变化的关系，是判断选项B中离子浓度大小顺序的关键依据，题干文字未提供具体分布数据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"坐标曲线图\",\n    \"reason\": \"该图展示了Na₂S溶液中H₂S、HS⁻、S²⁻三者物质的量分数随pH变化的关系，是判断选项B中离子浓度大小顺序的关键依据，题干文字未提供具体分布数据。\"\n  }\n]"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "pdf-391",
+  "type": "molecule",
+  "img": "pdf_images/p129_n03_3.png",
+  "key": "pdf-391_p129_n03_3_molecule",
+  "raw": "{\"name\": \"camphor\", \"smiles\": \"CC1(C(=O)CCC1(C)C2CC2)C\", \"note\": \"双环[2.2.1]庚烷骨架，桥头碳连有甲基和羰基（酮），另一桥头连有异丙基结构；典型樟脑（camphor）结构，含六元环酮与两个甲基及一个亚甲基桥组成的降冰片烷衍生物\"}",
+  "data": {
+    "name": "camphor",
+    "smiles": "CC1(C(=O)CCC1(C)C2CC2)C",
+    "note": "双环[2.2.1]庚烷骨架，桥头碳连有甲基和羰基（酮），另一桥头连有异丙基结构；典型樟脑（camphor）结构，含六元环酮与两个甲基及一个亚甲基桥组成的降冰片烷衍生物"
+  }
+}

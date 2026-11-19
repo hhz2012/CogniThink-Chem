@@ -1,0 +1,12 @@
+{
+  "id": "pdf-494",
+  "type": "molecule",
+  "img": "pdf_images/p065_n03_0.png",
+  "key": "pdf-494_p065_n03_0_molecule",
+  "raw": "{\"name\": \"Bis(triphenylphosphine)nickel(II) dichloride\", \"smiles\": \"Cl[Ni](Cl)(P(c1ccccc1)(c2ccccc2)c3ccccc3)(P(c4ccccc4)(c5ccccc5)c6ccccc6)\", \"note\": \"中心Ni(II)与两个Cl⁻配体和两个三苯基膦（PPh₃）配体形成四面体配合物；每个P原子连接三个苯环，结构对称。\"}",
+  "data": {
+    "name": "Bis(triphenylphosphine)nickel(II) dichloride",
+    "smiles": "Cl[Ni](Cl)(P(c1ccccc1)(c2ccccc2)c3ccccc3)(P(c4ccccc4)(c5ccccc5)c6ccccc6)",
+    "note": "中心Ni(II)与两个Cl⁻配体和两个三苯基膦（PPh₃）配体形成四面体配合物；每个P原子连接三个苯环，结构对称。"
+  }
+}

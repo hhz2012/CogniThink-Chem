@@ -1,0 +1,24 @@
+{
+  "page_idx": 58,
+  "raw": "[\n  {\n    \"num\": 1,\n    \"answer\": \"B\",\n    \"module\": \"模块2 常考元素的化工流程题\",\n    \"explanation\": \"（1）四步反应中，第（2）步为2CuCl2+2H2O+3Na2CO3→Cu2(OH)2CO3↓+2NaHCO3+4NaCl[或2CuCl2+H2O+2Na2CO3→Cu2(OH)2CO3↓+CO2↑+4NaCl]；（3）PbSO4；（4）Zn2(OH)2CO3+H++Fe3+→2Zn2++CO2↑+Fe(OH)3（或2Zn2(OH)2CO3+5H++Fe3+→4Zn2++2CO2↑+3H2O+Fe(OH)3等）；（5）0.5；（6）①阴极阳离子放电顺序：Cu2+＞H+＞Zn2+，当H+开始放电生成H2时，说明Cu2+浓度已很低，而Zn2+还在溶液中；②阳极Cl-失电子生成Cl2，会污染环境或腐蚀设备。\"\n  },\n  {\n    \"num\": 2,\n    \"answer\": \"Cu, 第四周期第ⅠB族\",\n    \"module\": \"模块2 常考元素的化工流程题\",\n    \"explanation\": \"（1）Cu是29号元素，核外电子排布为1s2 2s2 2p6 3s2 3p6 3d10 4s1；周期数等于最大能层序数，Cu最大能层为4，故位于第四周期；价层电子总数为11，即第11列，属ⅠB族。（2）对比“碱浸脱氯”工序，可溶性铜盐在“碱浸脱氯”中转化为碱式碳酸盐沉淀时发生复分解反应，用“定1法”配平：步骤①得2CuCl2+Na2CO3→Cu2(OH)2CO3↓；步骤②得2CuCl2+Na2CO3+2H2O→Cu2(OH)2CO3↓；步骤③结合Na、Cl守恒得2CuCl2+3Na2CO3+2H2O→Cu2(OH)2CO3↓+2NaHCO3+4NaCl，或2CuCl2+2Na2CO3+H2O→Cu2(OH)2CO3↓+CO2↑+4NaCl。\"\n  },\n  {\n    \"num\": 3,\n    \"answer\": \"SiO2和PbSO4\",\n    \"module\": \"模块2 常考元素的化工流程题\",\n    \"explanation\": \"根据上述分析可知，滤渣①的成分是SiO2和PbSO4。（硫酸中的沉淀，经常考查SiO2、PbSO4、CaSO4、BaSO4等）\"\n  }\n]",
+  "answers": [
+    {
+      "num": 1,
+      "answer": "B",
+      "module": "模块2 常考元素的化工流程题",
+      "explanation": "（1）四步反应中，第（2）步为2CuCl2+2H2O+3Na2CO3→Cu2(OH)2CO3↓+2NaHCO3+4NaCl[或2CuCl2+H2O+2Na2CO3→Cu2(OH)2CO3↓+CO2↑+4NaCl]；（3）PbSO4；（4）Zn2(OH)2CO3+H++Fe3+→2Zn2++CO2↑+Fe(OH)3（或2Zn2(OH)2CO3+5H++Fe3+→4Zn2++2CO2↑+3H2O+Fe(OH)3等）；（5）0.5；（6）①阴极阳离子放电顺序：Cu2+＞H+＞Zn2+，当H+开始放电生成H2时，说明Cu2+浓度已很低，而Zn2+还在溶液中；②阳极Cl-失电子生成Cl2，会污染环境或腐蚀设备。"
+    },
+    {
+      "num": 2,
+      "answer": "Cu, 第四周期第ⅠB族",
+      "module": "模块2 常考元素的化工流程题",
+      "explanation": "（1）Cu是29号元素，核外电子排布为1s2 2s2 2p6 3s2 3p6 3d10 4s1；周期数等于最大能层序数，Cu最大能层为4，故位于第四周期；价层电子总数为11，即第11列，属ⅠB族。（2）对比“碱浸脱氯”工序，可溶性铜盐在“碱浸脱氯”中转化为碱式碳酸盐沉淀时发生复分解反应，用“定1法”配平：步骤①得2CuCl2+Na2CO3→Cu2(OH)2CO3↓；步骤②得2CuCl2+Na2CO3+2H2O→Cu2(OH)2CO3↓；步骤③结合Na、Cl守恒得2CuCl2+3Na2CO3+2H2O→Cu2(OH)2CO3↓+2NaHCO3+4NaCl，或2CuCl2+2Na2CO3+H2O→Cu2(OH)2CO3↓+CO2↑+4NaCl。"
+    },
+    {
+      "num": 3,
+      "answer": "SiO2和PbSO4",
+      "module": "模块2 常考元素的化工流程题",
+      "explanation": "根据上述分析可知，滤渣①的成分是SiO2和PbSO4。（硫酸中的沉淀，经常考查SiO2、PbSO4、CaSO4、BaSO4等）"
+    }
+  ]
+}

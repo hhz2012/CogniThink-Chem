@@ -1,0 +1,55 @@
+﻿=== AFTER2 (门控后) (total 648) ===
+  总体: 纯LLM 405(0.625) 网关 407(0.6281) 引擎介入 232
+  PDF(545): 纯LLM 310(56.9%) 网关 304(55.8%) 引擎介入 162
+  手工(103): 纯LLM 95(92.2%) 网关 103(100.0%) 引擎介入 70
+  -- by taskType --
+    reaction_check     n=164 介入=164 网关 121(73.8%) 纯LLM 120(73.2%)
+    calculation        n=122 介入=  6 网关  68(55.7%) 纯LLM  69(56.6%)
+    concept            n=109 介入=  0 网关  70(64.2%) 纯LLM  70(64.2%)
+    equilibrium        n= 87 介入= 15 网关  54(62.1%) 纯LLM  56(64.4%)
+    unknown            n= 50 介入=  0 网关  15(30.0%) 纯LLM  16(32.0%)
+    structure_verify   n= 44 介入=  0 网关  25(56.8%) 纯LLM  25(56.8%)
+    ion_check          n= 39 介入= 34 网关  38(97.4%) 纯LLM  33(84.6%)
+    vsepr              n= 17 介入=  0 网关  10(58.8%) 纯LLM  10(58.8%)
+    balance            n= 13 介入= 13 网关   5(38.5%) 纯LLM   5(38.5%)
+    titration          n=  2 介入=  0 网关   1(50.0%) 纯LLM   1(50.0%)
+    electrolysis       n=  1 介入=  0 网关   0( 0.0%) 纯LLM   0( 0.0%)
+
+=== AFTER3 (复用pureAnswer回退) (total 648) ===
+  总体: 纯LLM 404(0.6235) 网关 415(0.6404) 引擎介入 232
+  PDF(545): 纯LLM 309(56.7%) 网关 312(57.2%) 引擎介入 162
+  手工(103): 纯LLM 95(92.2%) 网关 103(100.0%) 引擎介入 70
+  -- by taskType --
+    reaction_check     n=164 介入=164 网关 122(74.4%) 纯LLM 120(73.2%)
+    calculation        n=122 介入=  6 网关  72(59.0%) 纯LLM  69(56.6%)
+    concept            n=104 介入=  0 网关  66(63.5%) 纯LLM  66(63.5%)
+    equilibrium        n= 87 介入= 15 网关  55(63.2%) 纯LLM  56(64.4%)
+    unknown            n= 55 介入=  0 网关  20(36.4%) 纯LLM  20(36.4%)
+    structure_verify   n= 44 介入=  0 网关  26(59.1%) 纯LLM  24(54.5%)
+    ion_check          n= 39 介入= 34 网关  38(97.4%) 纯LLM  33(84.6%)
+    vsepr              n= 17 介入=  0 网关  10(58.8%) 纯LLM  10(58.8%)
+    balance            n= 13 介入= 13 网关   5(38.5%) 纯LLM   5(38.5%)
+    titration          n=  2 介入=  0 网关   1(50.0%) 纯LLM   1(50.0%)
+    electrolysis       n=  1 介入=  0 网关   0( 0.0%) 纯LLM   0( 0.0%)
+
+=== 逐题网关对错变化 (after2 -> after3) ===
+  网错->网对: 12  ['pdf-026', 'pdf-195', 'pdf-231', 'pdf-265', 'pdf-346', 'pdf-511', 'pdf-015', 'pdf-142', 'pdf-213', 'pdf-283', 'pdf-410', 'pdf-439']
+  网对->网错: 4  ['pdf-082', 'pdf-212', 'pdf-241', 'pdf-251']
+
+  纯LLM 错->对: 3  纯LLM 对->错: 4  (漂移噪声参考)
+
+=== AFTER3 帮倒忙 (纯对/网错/引擎介入) ===
+  共 4 题:
+   {'reaction_check': 3, 'equilibrium': 1}
+  [pdf-082] task=reaction_check 期望=关键词: D,若反应过程中断裂6 mol P—P键，则反应转移的电子数 | 结论=已匹配到相关反应
+  [pdf-282] task=equilibrium 期望=关键词: D,碳酸氢钠和碳酸钠物质的量之比为 2∶1 的混合溶液中：3 | 结论=平衡向逆向（左）移动，电离程度减小。
+  [pdf-408] task=reaction_check 期望=关键词: B,验证钠与水反应是否放热 | 结论=已查到相关颜色
+  [pdf-515] task=reaction_check 期望=关键词: CN⁻ + CO₂ + H₂O → HCN + HCO₃⁻ | 结论=已匹配到相关反应
+
+=== AC 核对 (AFTER3) ===
+  AC-3 PDF纯LLM≥280: 309 (>=280 -> True)
+  AC-4 总体网关≥纯LLM: 64.0% vs 62.3% -> True
+  AC-4 PDF网关≥纯LLM: 57.2% vs 56.7% -> True  (网关312 vs 纯309)
+  AC-7 手工网关100%: 103/103 -> True; 手工纯LLM≥95: 95 -> True
+  AC-6 calc+eq介入≥26: 21 -> False
+  ion_check 网关: 38/39 (97.4%)

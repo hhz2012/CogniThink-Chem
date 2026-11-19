@@ -1,0 +1,15 @@
+{
+  "id": "pdf-154",
+  "images": [
+    "pdf_images/p051_n09_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "转化关系图",
+      "reason": "图片展示了MOFs材料吸附含NO₂废气→N₂O₄被固定→与H₂O、O₂反应生成HNO₃并再生的完整循环路径，该转化机制及N₂O₄分子结构（图例）是判断选项B、C、D的关键依据，题干文字未描述具体反应步骤与分子构型。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"转化关系图\",\n    \"reason\": \"图片展示了MOFs材料吸附含NO₂废气→N₂O₄被固定→与H₂O、O₂反应生成HNO₃并再生的完整循环路径，该转化机制及N₂O₄分子结构（图例）是判断选项B、C、D的关键依据，题干文字未描述具体反应步骤与分子构型。\"\n  }\n]"
+}

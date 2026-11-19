@@ -1,0 +1,43 @@
+﻿=== reaction_check 作用域：stage3D → stage3E ===
+  n               : 45 -> 44  (Δ-1)
+  gcorr           : 30 -> 34  (Δ+4)
+  plcorr          : 31 -> 31  (Δ+0)
+  used            : 45 -> 44  (Δ-1)
+  adopted         : 30 -> 34  (Δ+4)
+  adopted_correct : 30 -> 34  (Δ+4)
+  harm            : 0 -> 0  (Δ+0)
+  tr91            : 0 -> 0  (Δ+0)
+  precision       : 1.0000 -> 1.0000
+  A-class count   : 15 -> 10
+  stage3E A-class remaining: ['pdf-010', 'pdf-119', 'pdf-164', 'pdf-171', 'pdf-174', 'pdf-175', 'pdf-179', 'pdf-233', 'pdf-417', 'pdf-462']
+
+=== reaction_check 逐题翻转 ===
+  LOST (correct→wrong) : []  -> 必须为空
+  GAINED (wrong→correct): ['d9-1', 'pdf-456', 'pdf-467', 'pdf-539']
+
+=== 4 个目标题核对 ===
+  d9-1: gwCorrect=True adopted=True bucket=bothCorrectCases concl='不对。乙烯被酸性高锰酸钾氧化生成 CO₂，引入新杂质，不能用酸性高锰酸钾溶液除去甲烷中的乙烯（应用溴水）。'
+  pdf-539: gwCorrect=True adopted=True bucket=gatewayOnlyCorrectCases concl='离子方程式：GaN + OH⁻ + 3H₂O → [Ga(OH)₄]⁻ + NH₃↑'
+  pdf-456: gwCorrect=True adopted=True bucket=bothCorrectCases concl='化学方程式：Na2SO3 + H2SO4 = Na2SO4 + SO2↑ + H2O'
+  pdf-467: gwCorrect=True adopted=True bucket=gatewayOnlyCorrectCases concl='×'
+
+=== 11 题保持 null 核对（应仍未采纳、结论非我新规则产出） ===
+  pdf-010: adopted=False gwCorrect=False concl='已匹配到相关反应'
+  pdf-119: adopted=False gwCorrect=False concl='已匹配到相关反应'
+  pdf-122: adopted=False gwCorrect=False concl=''
+  pdf-164: adopted=False gwCorrect=False concl='已解析出相关物质与离子'
+  pdf-171: adopted=False gwCorrect=False concl='已解析出相关物质与离子'
+  pdf-174: adopted=False gwCorrect=False concl='已匹配到相关反应'
+  pdf-175: adopted=False gwCorrect=False concl='已匹配到相关反应'
+  pdf-179: adopted=False gwCorrect=False concl='已解析出相关物质与离子'
+  pdf-233: adopted=False gwCorrect=False concl='已匹配到相关反应'
+  pdf-417: adopted=False gwCorrect=False concl='已匹配到相关反应'
+  pdf-462: adopted=False gwCorrect=False concl='已匹配到相关反应'
+  误采纳数: 0 (无)
+
+=== 红线核对 ===
+  lost=0        : PASS
+  harm=0 (rc)   : PASS
+  precision=1.0 : PASS
+  TR-9.1=0 (rc) : PASS
+  gained==4     : PASS

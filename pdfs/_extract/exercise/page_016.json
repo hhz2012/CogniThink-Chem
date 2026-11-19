@@ -1,0 +1,58 @@
+{
+  "page_idx": 16,
+  "raw": "[\n  {\n    \"num\": 7,\n    \"type\": \"choice\",\n    \"question\": \"(2024·北京卷)判断下列离子方程式书写的正误,正确的填“√”,错误的填“×”。(1)(2024·北京卷)海水提溴过程中,用氯气氧化苦卤得到溴单质:2Br⁻+Cl₂=Br₂+2Cl⁻( )\",\n    \"options\": {}\n  },\n  {\n    \"num\": 7,\n    \"type\": \"choice\",\n    \"question\": \"(2024·北京卷)用绿矾(FeSO₄·7H₂O)将酸性工业废水中的Cr₂O₇²⁻转化为Cr³⁺:6Fe²⁺+Cr₂O₇²⁻+14H⁺=6Fe³⁺+2Cr³⁺+7H₂O( )\",\n    \"options\": {}\n  },\n  {\n    \"num\": 7,\n    \"type\": \"choice\",\n    \"question\": \"(2024·浙江月考)H₂SO₃溶液中滴加Ba(NO₃)₂溶液:H₂SO₃+Ba²⁺=BaSO₃↓+2H⁺( )\",\n    \"options\": {}\n  },\n  {\n    \"num\": 7,\n    \"type\": \"choice\",\n    \"question\": \"(2024·浙江月考)NaHCO₃溶液中通入少量Cl₂:2HCO₃⁻+Cl₂=2CO₂+Cl⁻+ClO⁻+H₂O( )\",\n    \"options\": {}\n  },\n  {\n    \"num\": 7,\n    \"type\": \"choice\",\n    \"question\": \"(2024·湖北卷)亚铜氨溶液除去合成氨原料气中的CO:[Cu(NH₃)₂]²⁺+CO+NH₃⇌[Cu(NH₃)₃CO]²⁺( )\",\n    \"options\": {}\n  },\n  {\n    \"num\": 8,\n    \"type\": \"choice\",\n    \"question\": \"(2023·北京卷)下列离子方程式与所给事实不相符的是( )\",\n    \"options\": {\n      \"A\": \"Cl₂制备84消毒液(主要成分是NaClO):Cl₂+2OH⁻=Cl⁻+ClO⁻+H₂O\",\n      \"B\": \"食醋去除水垢中的CaCO₃:CaCO₃+2H⁺=Ca²⁺+H₂O+CO₂↑\",\n      \"C\": \"利用覆铜板制作印刷电路板:2Fe³⁺+Cu=2Fe²⁺+Cu²⁺\",\n      \"D\": \"Na₂S去除废水中的Hg²⁺:Hg²⁺+S²⁻=HgS↓\"\n    }\n  },\n  {\n    \"num\": 9,\n    \"type\": \"choice\",\n    \"question\": \"(2023·湖南卷)下列有关电极方程式或离子方程式错误的是( )\",\n    \"options\": {\n      \"A\": \"碱性锌锰电池的正极反应:MnO₂+H₂O+e⁻=MnO(OH)+OH⁻\",\n      \"B\": \"铅酸蓄电池充电时的阳极反应:Pb²⁺+2H₂O−2e⁻=PbO₂+4H⁺\",\n      \"C\": \"K₃[Fe(CN)₆]溶液滴入FeCl₂溶液中:K⁺+Fe²⁺+[Fe(CN)₆]³⁻=KFe[Fe(CN)₆]↓\",\n      \"D\": \"TiCl₄加入水中:TiCl₄+(x+2)H₂O=TiO₂·xH₂O↓+4H⁺+4Cl⁻\"\n    }\n  }\n]",
+  "questions": [
+    {
+      "num": 7,
+      "type": "choice",
+      "question": "(2024·北京卷)判断下列离子方程式书写的正误,正确的填“√”,错误的填“×”。(1)(2024·北京卷)海水提溴过程中,用氯气氧化苦卤得到溴单质:2Br⁻+Cl₂=Br₂+2Cl⁻( )",
+      "options": {}
+    },
+    {
+      "num": 7,
+      "type": "choice",
+      "question": "(2024·北京卷)用绿矾(FeSO₄·7H₂O)将酸性工业废水中的Cr₂O₇²⁻转化为Cr³⁺:6Fe²⁺+Cr₂O₇²⁻+14H⁺=6Fe³⁺+2Cr³⁺+7H₂O( )",
+      "options": {}
+    },
+    {
+      "num": 7,
+      "type": "choice",
+      "question": "(2024·浙江月考)H₂SO₃溶液中滴加Ba(NO₃)₂溶液:H₂SO₃+Ba²⁺=BaSO₃↓+2H⁺( )",
+      "options": {}
+    },
+    {
+      "num": 7,
+      "type": "choice",
+      "question": "(2024·浙江月考)NaHCO₃溶液中通入少量Cl₂:2HCO₃⁻+Cl₂=2CO₂+Cl⁻+ClO⁻+H₂O( )",
+      "options": {}
+    },
+    {
+      "num": 7,
+      "type": "choice",
+      "question": "(2024·湖北卷)亚铜氨溶液除去合成氨原料气中的CO:[Cu(NH₃)₂]²⁺+CO+NH₃⇌[Cu(NH₃)₃CO]²⁺( )",
+      "options": {}
+    },
+    {
+      "num": 8,
+      "type": "choice",
+      "question": "(2023·北京卷)下列离子方程式与所给事实不相符的是( )",
+      "options": {
+        "A": "Cl₂制备84消毒液(主要成分是NaClO):Cl₂+2OH⁻=Cl⁻+ClO⁻+H₂O",
+        "B": "食醋去除水垢中的CaCO₃:CaCO₃+2H⁺=Ca²⁺+H₂O+CO₂↑",
+        "C": "利用覆铜板制作印刷电路板:2Fe³⁺+Cu=2Fe²⁺+Cu²⁺",
+        "D": "Na₂S去除废水中的Hg²⁺:Hg²⁺+S²⁻=HgS↓"
+      }
+    },
+    {
+      "num": 9,
+      "type": "choice",
+      "question": "(2023·湖南卷)下列有关电极方程式或离子方程式错误的是( )",
+      "options": {
+        "A": "碱性锌锰电池的正极反应:MnO₂+H₂O+e⁻=MnO(OH)+OH⁻",
+        "B": "铅酸蓄电池充电时的阳极反应:Pb²⁺+2H₂O−2e⁻=PbO₂+4H⁺",
+        "C": "K₃[Fe(CN)₆]溶液滴入FeCl₂溶液中:K⁺+Fe²⁺+[Fe(CN)₆]³⁻=KFe[Fe(CN)₆]↓",
+        "D": "TiCl₄加入水中:TiCl₄+(x+2)H₂O=TiO₂·xH₂O↓+4H⁺+4Cl⁻"
+      }
+    }
+  ]
+}

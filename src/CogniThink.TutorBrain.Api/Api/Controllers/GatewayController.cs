@@ -29,7 +29,7 @@ public sealed class GatewayController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Text))
             return BadRequest(new { message = "text 不能为空" });
 
-        var result = await _gateway.ProcessStudentMessageAsync(request.Text, ct);
+        var result = await _gateway.ProcessStudentMessageAsync(request.Text, ct: ct);
         return Ok(result);
     }
 
@@ -40,7 +40,7 @@ public sealed class GatewayController : ControllerBase
         if (string.IsNullOrWhiteSpace(request.Text))
             return BadRequest(new { message = "text 不能为空" });
 
-        var req = await _gateway.ParseStudentInputAsync(request.Text, ct);
+        var req = await _gateway.ParseStudentInputAsync(request.Text, ct: ct);
         return Ok(req);
     }
 

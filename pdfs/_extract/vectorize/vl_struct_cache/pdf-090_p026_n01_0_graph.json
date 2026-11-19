@@ -1,0 +1,53 @@
+{
+  "id": "pdf-090",
+  "type": "graph",
+  "img": "pdf_images/p026_n01_0.png",
+  "key": "pdf-090_p026_n01_0_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"NaCl\", \"label\": \"NaCl\"},\n    {\"id\": \"Na\", \"label\": \"Na\"},\n    {\"id\": \"Na₂O₂\", \"label\": \"Na₂O₂\"},\n    {\"id\": \"NaOH\", \"label\": \"NaOH\"},\n    {\"id\": \"NaClO\", \"label\": \"NaClO\"}\n  ],\n  \"edges\": [\n    {\"from\": \"NaCl\", \"to\": \"Na\", \"cond\": \"电解\"},\n    {\"from\": \"Na\", \"to\": \"Na₂O₂\", \"cond\": \"O₂\"},\n    {\"from\": \"Na₂O₂\", \"to\": \"NaOH\", \"cond\": \"H₂O\"},\n    {\"from\": \"NaOH\", \"to\": \"NaClO\", \"cond\": \"Cl₂\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "NaCl",
+        "label": "NaCl"
+      },
+      {
+        "id": "Na",
+        "label": "Na"
+      },
+      {
+        "id": "Na₂O₂",
+        "label": "Na₂O₂"
+      },
+      {
+        "id": "NaOH",
+        "label": "NaOH"
+      },
+      {
+        "id": "NaClO",
+        "label": "NaClO"
+      }
+    ],
+    "edges": [
+      {
+        "from": "NaCl",
+        "to": "Na",
+        "cond": "电解"
+      },
+      {
+        "from": "Na",
+        "to": "Na₂O₂",
+        "cond": "O₂"
+      },
+      {
+        "from": "Na₂O₂",
+        "to": "NaOH",
+        "cond": "H₂O"
+      },
+      {
+        "from": "NaOH",
+        "to": "NaClO",
+        "cond": "Cl₂"
+      }
+    ]
+  }
+}

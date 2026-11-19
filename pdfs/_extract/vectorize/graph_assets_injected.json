@@ -1,0 +1,331 @@
+[
+  {
+    "id": "pdf-015",
+    "source": "pdf_images/p007_n05_2.png",
+    "svg": "vector_svg/pdf-015_p007_n05_2_graph.svg",
+    "n_nodes": 3,
+    "n_edges": 3
+  },
+  {
+    "id": "pdf-018",
+    "source": "pdf_images/p008_n08_2.png",
+    "svg": "vector_svg/pdf-018_p008_n08_2_graph.svg",
+    "n_nodes": 5,
+    "n_edges": 5
+  },
+  {
+    "id": "pdf-064",
+    "source": "pdf_images/p018_n11_1.png",
+    "svg": "vector_svg/pdf-064_p018_n11_1_graph.svg",
+    "n_nodes": 7,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-071",
+    "source": "pdf_images/p020_n07_0.png",
+    "svg": "vector_svg/pdf-071_p020_n07_0_graph.svg",
+    "n_nodes": 8,
+    "n_edges": 7
+  },
+  {
+    "id": "pdf-074",
+    "source": "pdf_images/p021_n03_0.png",
+    "svg": "vector_svg/pdf-074_p021_n03_0_graph.svg",
+    "n_nodes": 6,
+    "n_edges": 5
+  },
+  {
+    "id": "pdf-087",
+    "source": "pdf_images/p024_n03_1.png",
+    "svg": "vector_svg/pdf-087_p024_n03_1_graph.svg",
+    "n_nodes": 5,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-088",
+    "source": "pdf_images/p024_n04_2.png",
+    "svg": "vector_svg/pdf-088_p024_n04_2_graph.svg",
+    "n_nodes": 11,
+    "n_edges": 9
+  },
+  {
+    "id": "pdf-090",
+    "source": "pdf_images/p026_n01_0.png",
+    "svg": "vector_svg/pdf-090_p026_n01_0_graph.svg",
+    "n_nodes": 5,
+    "n_edges": 4
+  },
+  {
+    "id": "pdf-094",
+    "source": "pdf_images/p027_n05_0.png",
+    "svg": "vector_svg/pdf-094_p027_n05_0_graph.svg",
+    "n_nodes": 6,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-098",
+    "source": "pdf_images/p028_n09_0.png",
+    "svg": "vector_svg/pdf-098_p028_n09_0_graph.svg",
+    "n_nodes": 8,
+    "n_edges": 7
+  },
+  {
+    "id": "pdf-107",
+    "source": "pdf_images/p033_n01_r0.png",
+    "svg": "vector_svg/pdf-107_p033_n01_r0_graph.svg",
+    "n_nodes": 21,
+    "n_edges": 20
+  },
+  {
+    "id": "pdf-111",
+    "source": "pdf_images/p035_n03_0.png",
+    "svg": "vector_svg/pdf-111_p035_n03_0_graph.svg",
+    "n_nodes": 10,
+    "n_edges": 12
+  },
+  {
+    "id": "pdf-125",
+    "source": "pdf_images/p042_n04_0.png",
+    "svg": "vector_svg/pdf-125_p042_n04_0_graph.svg",
+    "n_nodes": 5,
+    "n_edges": 11
+  },
+  {
+    "id": "pdf-126",
+    "source": "pdf_images/p042_n05_1.png",
+    "svg": "vector_svg/pdf-126_p042_n05_1_graph.svg",
+    "n_nodes": 7,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-132",
+    "source": "pdf_images/p043_n11_2.png",
+    "svg": "vector_svg/pdf-132_p043_n11_2_graph.svg",
+    "n_nodes": 9,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-141",
+    "source": "pdf_images/p046_n08_3.png",
+    "svg": "vector_svg/pdf-141_p046_n08_3_graph.svg",
+    "n_nodes": 5,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-151",
+    "source": "pdf_images/p050_n06_2.png",
+    "svg": "vector_svg/pdf-151_p050_n06_2_graph.svg",
+    "n_nodes": 8,
+    "n_edges": 10
+  },
+  {
+    "id": "pdf-154",
+    "source": "pdf_images/p051_n09_1.png",
+    "svg": "vector_svg/pdf-154_p051_n09_1_graph.svg",
+    "n_nodes": 5,
+    "n_edges": 4
+  },
+  {
+    "id": "pdf-159",
+    "source": "pdf_images/p054_n03_0.png",
+    "svg": "vector_svg/pdf-159_p054_n03_0_graph.svg",
+    "n_nodes": 11,
+    "n_edges": 13
+  },
+  {
+    "id": "pdf-167",
+    "source": "pdf_images/p056_n02_1.png",
+    "svg": "vector_svg/pdf-167_p056_n02_1_graph.svg",
+    "n_nodes": 11,
+    "n_edges": 10
+  },
+  {
+    "id": "pdf-169",
+    "source": "pdf_images/p057_n03_1.png",
+    "svg": "vector_svg/pdf-169_p057_n03_1_graph.svg",
+    "n_nodes": 11,
+    "n_edges": 11
+  },
+  {
+    "id": "pdf-177",
+    "source": "pdf_images/p058_n05_2.png",
+    "svg": "vector_svg/pdf-177_p058_n05_2_graph.svg",
+    "n_nodes": 9,
+    "n_edges": 8
+  },
+  {
+    "id": "pdf-241",
+    "source": "pdf_images/p084_n04_1.png",
+    "svg": "vector_svg/pdf-241_p084_n04_1_graph.svg",
+    "n_nodes": 5,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-249",
+    "source": "pdf_images/p087_n05_1.png",
+    "svg": "vector_svg/pdf-249_p087_n05_1_graph.svg",
+    "n_nodes": 4,
+    "n_edges": 5
+  },
+  {
+    "id": "pdf-251",
+    "source": "pdf_images/p088_n08_5.png",
+    "svg": "vector_svg/pdf-251_p088_n08_5_graph.svg",
+    "n_nodes": 3,
+    "n_edges": 3
+  },
+  {
+    "id": "pdf-258",
+    "source": "pdf_images/p091_n07_2.png",
+    "svg": "vector_svg/pdf-258_p091_n07_2_graph.svg",
+    "n_nodes": 8,
+    "n_edges": 10
+  },
+  {
+    "id": "pdf-289",
+    "source": "pdf_images/p102_n05_0.png",
+    "svg": "vector_svg/pdf-289_p102_n05_0_graph.svg",
+    "n_nodes": 4,
+    "n_edges": 3
+  },
+  {
+    "id": "pdf-304",
+    "source": "pdf_images/p106_n10_3.png",
+    "svg": "vector_svg/pdf-304_p106_n10_3_graph.svg",
+    "n_nodes": 7,
+    "n_edges": 11
+  },
+  {
+    "id": "pdf-310",
+    "source": "pdf_images/p108_n06_2.png",
+    "svg": "vector_svg/pdf-310_p108_n06_2_graph.svg",
+    "n_nodes": 10,
+    "n_edges": 13
+  },
+  {
+    "id": "pdf-332",
+    "source": "pdf_images/p114_n05_4.png",
+    "svg": "vector_svg/pdf-332_p114_n05_4_graph.svg",
+    "n_nodes": 3,
+    "n_edges": 2
+  },
+  {
+    "id": "pdf-336",
+    "source": "pdf_images/p115_n09_2.png",
+    "svg": "vector_svg/pdf-336_p115_n09_2_graph.svg",
+    "n_nodes": 3,
+    "n_edges": 2
+  },
+  {
+    "id": "pdf-338",
+    "source": "pdf_images/p116_n02_1.png",
+    "svg": "vector_svg/pdf-338_p116_n02_1_graph.svg",
+    "n_nodes": 4,
+    "n_edges": 3
+  },
+  {
+    "id": "pdf-347",
+    "source": "pdf_images/p118_n04_3.png",
+    "svg": "vector_svg/pdf-347_p118_n04_3_graph.svg",
+    "n_nodes": 3,
+    "n_edges": 2
+  },
+  {
+    "id": "pdf-348",
+    "source": "pdf_images/p119_n05_0.png",
+    "svg": "vector_svg/pdf-348_p119_n05_0_graph.svg",
+    "n_nodes": 2,
+    "n_edges": 1
+  },
+  {
+    "id": "pdf-363",
+    "source": "pdf_images/p123_n01_0.png",
+    "svg": "vector_svg/pdf-363_p123_n01_0_graph.svg",
+    "n_nodes": 3,
+    "n_edges": 2
+  },
+  {
+    "id": "pdf-383",
+    "source": "pdf_images/p127_n11_1.png",
+    "svg": "vector_svg/pdf-383_p127_n11_1_graph.svg",
+    "n_nodes": 3,
+    "n_edges": 2
+  },
+  {
+    "id": "pdf-388",
+    "source": "pdf_images/p128_n04_2.png",
+    "svg": "vector_svg/pdf-388_p128_n04_2_graph.svg",
+    "n_nodes": 4,
+    "n_edges": 2
+  },
+  {
+    "id": "pdf-404",
+    "source": "pdf_images/p133_n10_1.png",
+    "svg": "vector_svg/pdf-404_p133_n10_1_graph.svg",
+    "n_nodes": 6,
+    "n_edges": 5
+  },
+  {
+    "id": "pdf-408",
+    "source": "pdf_images/p134_n14_4.png",
+    "svg": "vector_svg/pdf-408_p134_n14_4_graph.svg",
+    "n_nodes": 8,
+    "n_edges": 8
+  },
+  {
+    "id": "pdf-410",
+    "source": "pdf_images/p135_n16_1.png",
+    "svg": "vector_svg/pdf-410_p135_n16_1_graph.svg",
+    "n_nodes": 4,
+    "n_edges": 3
+  },
+  {
+    "id": "pdf-412",
+    "source": "pdf_images/p136_n01_0.png",
+    "svg": "vector_svg/pdf-412_p136_n01_0_graph.svg",
+    "n_nodes": 2,
+    "n_edges": 1
+  },
+  {
+    "id": "pdf-413",
+    "source": "pdf_images/p136_n02_2.png",
+    "svg": "vector_svg/pdf-413_p136_n02_2_graph.svg",
+    "n_nodes": 4,
+    "n_edges": 5
+  },
+  {
+    "id": "pdf-414",
+    "source": "pdf_images/p137_n03_1.png",
+    "svg": "vector_svg/pdf-414_p137_n03_1_graph.svg",
+    "n_nodes": 6,
+    "n_edges": 5
+  },
+  {
+    "id": "pdf-475",
+    "source": "pdf_images/p039_n05_0.png",
+    "svg": "vector_svg/pdf-475_p039_n05_0_graph.svg",
+    "n_nodes": 7,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-481",
+    "source": "pdf_images/p059_n06_0.png",
+    "svg": "vector_svg/pdf-481_p059_n06_0_graph.svg",
+    "n_nodes": 7,
+    "n_edges": 6
+  },
+  {
+    "id": "pdf-512",
+    "source": "pdf_images/p087_n06_2.png",
+    "svg": "vector_svg/pdf-512_p087_n06_2_graph.svg",
+    "n_nodes": 8,
+    "n_edges": 8
+  },
+  {
+    "id": "pdf-524",
+    "source": "pdf_images/p114_n02_1.png",
+    "svg": "vector_svg/pdf-524_p114_n02_1_graph.svg",
+    "n_nodes": 4,
+    "n_edges": 3
+  }
+]

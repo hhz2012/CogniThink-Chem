@@ -1,0 +1,12 @@
+{
+  "id": "pdf-208",
+  "type": "molecule",
+  "img": "pdf_images/p074_n02_0.png",
+  "key": "pdf-208_p074_n02_0_molecule",
+  "raw": "{\"name\": \"C60\", \"smiles\": \"C1=CC2=C(C=C1)C3=CC4=CC5=CC6=CC7=CC8=CC9=CC%10=CC1C%11=CC2C%12=CC3C%13=CC4C%14=CC5C%15=CC6C%16=CC7C%17=CC8C%18=CC9C%19=CC%10C1C%11%12C%13%14C%15%16C%17%18C%19\", \"note\": \"富勒烯C60，由60个碳原子组成的足球状笼形结构，含12个五元环和20个六元环；SMILES为标准IUPAC规范表示的闭合笼状结构\"}",
+  "data": {
+    "name": "C60",
+    "smiles": "C1=CC2=C(C=C1)C3=CC4=CC5=CC6=CC7=CC8=CC9=CC%10=CC1C%11=CC2C%12=CC3C%13=CC4C%14=CC5C%15=CC6C%16=CC7C%17=CC8C%18=CC9C%19=CC%10C1C%11%12C%13%14C%15%16C%17%18C%19",
+    "note": "富勒烯C60，由60个碳原子组成的足球状笼形结构，含12个五元环和20个六元环；SMILES为标准IUPAC规范表示的闭合笼状结构"
+  }
+}

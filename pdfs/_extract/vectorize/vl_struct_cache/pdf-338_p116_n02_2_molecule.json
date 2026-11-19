@@ -1,0 +1,12 @@
+{
+  "id": "pdf-338",
+  "type": "molecule",
+  "img": "pdf_images/p116_n02_2.png",
+  "key": "pdf-338_p116_n02_2_molecule",
+  "raw": "{\"name\": \" trifluoromethylbenzene vs toluene comparison\", \"smiles\": \"C1=CC=C(C=C1)C(F)(F)F\", \"note\": \"左侧为三氟甲基苯（trifluoromethylbenzene），苯环上连有-CF3基团；右侧为甲苯（toluene），连有-CH3基团；图中用'>'表示比较关系，但结构式仅左侧完整可识别，故SMILES取左侧分子。\"}",
+  "data": {
+    "name": " trifluoromethylbenzene vs toluene comparison",
+    "smiles": "C1=CC=C(C=C1)C(F)(F)F",
+    "note": "左侧为三氟甲基苯（trifluoromethylbenzene），苯环上连有-CF3基团；右侧为甲苯（toluene），连有-CH3基团；图中用'>'表示比较关系，但结构式仅左侧完整可识别，故SMILES取左侧分子。"
+  }
+}

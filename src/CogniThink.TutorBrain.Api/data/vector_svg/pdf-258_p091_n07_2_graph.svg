@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="326.1227001370015" y1="320.0" x2="580.0" y2="186.56265403202255" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="435.06135006850076" y="241.2813270160113" width="36" height="18" fill="white"/>
+<text x="453.06135006850076" y="255.2813270160113" text-anchor="middle" fill="#c0392b">e⁻</text>
+<line x1="580.0" y1="186.56265403202255" x2="130.7384051449691" y2="96.28465384831223" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="580.0" y1="186.56265403202255" x2="60.0" y2="191.77979731141826" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="60.0" y1="191.77979731141826" x2="505.57861771918925" y2="278.12989103221713" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="60.0" y1="191.77979731141826" x2="130.7384051449691" y2="96.28465384831223" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="505.57861771918925" y1="278.12989103221713" x2="135.80421480227875" y2="285.9625989937175" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="135.80421480227875" y1="285.9625989937175" x2="506.27307937681655" y2="93.05273636343664" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="135.80421480227875" y1="285.9625989937175" x2="130.7384051449691" y2="96.28465384831223" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="506.27307937681655" y1="93.05273636343664" x2="317.0257067600882" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="393.64939306845235" y="64.52636818171831" width="36" height="18" fill="white"/>
+<text x="411.64939306845235" y="78.52636818171831" text-anchor="middle" fill="#c0392b">步骤1</text>
+<line x1="317.0257067600882" y1="60.0" x2="326.1227001370015" y2="320.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="303.57420344854484" y="178.0" width="36" height="18" fill="white"/>
+<text x="321.57420344854484" y="192.0" text-anchor="middle" fill="#c0392b">步骤1</text>
+<circle cx="326.1227001370015" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="326.1227001370015" y="325.0" text-anchor="middle" font-weight="bold">SOCl2·I2</text>
+<circle cx="580.0" cy="186.56265403202255" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="191.56265403202255" text-anchor="middle" font-weight="bold">Li+</text>
+<circle cx="130.7384051449691" cy="96.28465384831223" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="130.7384051449691" y="101.28465384831223" text-anchor="middle" font-weight="bold">LiCl</text>
+<circle cx="60.0" cy="191.77979731141826" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="196.77979731141826" text-anchor="middle" font-weight="bold">SOICl</text>
+<circle cx="505.57861771918925" cy="278.12989103221713" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="505.57861771918925" y="283.12989103221713" text-anchor="middle" font-weight="bold">I-</text>
+<circle cx="135.80421480227875" cy="285.9625989937175" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="135.80421480227875" y="290.9625989937175" text-anchor="middle" font-weight="bold">S2SO2</text>
+<circle cx="506.27307937681655" cy="93.05273636343664" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="506.27307937681655" y="98.05273636343664" text-anchor="middle" font-weight="bold">I2</text>
+<circle cx="317.0257067600882" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="317.0257067600882" y="65.0" text-anchor="middle" font-weight="bold">SOCl2</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

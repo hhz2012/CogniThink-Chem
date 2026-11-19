@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="375.36358694973194" y1="320.0" x2="529.7988639207382" y2="105.406562654938" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="434.58122543523507" y="200.703281327469" width="36" height="18" fill="white"/>
+<text x="452.58122543523507" y="214.703281327469" text-anchor="middle" fill="#c0392b">加50~80℃的热水溶解
+过滤除杂</text>
+<line x1="529.7988639207382" y1="105.406562654938" x2="258.59818793243267" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="376.19852592658543" y="70.703281327469" width="36" height="18" fill="white"/>
+<text x="394.19852592658543" y="84.703281327469" text-anchor="middle" fill="#c0392b">①适量NaOH溶液
+②通一定量空气</text>
+<line x1="529.7988639207382" y1="105.406562654938" x2="580.0" y2="234.08114735874756" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="536.8994319603692" y="157.74385500684278" width="36" height="18" fill="white"/>
+<text x="554.8994319603692" y="171.74385500684278" text-anchor="middle" fill="#c0392b">①适量NaOH溶液
+②通一定量空气</text>
+<line x1="258.59818793243267" y1="60.0" x2="60.0" y2="152.8279530154884" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="141.29909396621633" y="94.4139765077442" width="36" height="18" fill="white"/>
+<text x="159.29909396621633" y="108.4139765077442" text-anchor="middle" fill="#c0392b">加热</text>
+<line x1="580.0" y1="234.08114735874756" x2="111.60292612624613" y2="281.3854202238117" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="327.80146306312304" y="245.73328379127963" width="36" height="18" fill="white"/>
+<text x="345.80146306312304" y="259.73328379127963" text-anchor="middle" fill="#c0392b">操作A</text>
+<circle cx="375.36358694973194" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="375.36358694973194" y="325.0" text-anchor="middle" font-weight="bold">工业绿矾 (FeSO₄·7H₂O)</text>
+<circle cx="529.7988639207382" cy="105.406562654938" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="529.7988639207382" y="110.406562654938" text-anchor="middle" font-weight="bold">FeSO₄ 溶液</text>
+<circle cx="258.59818793243267" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="258.59818793243267" y="65.0" text-anchor="middle" font-weight="bold">沉淀：Fe(OH)₂和Fe(OH)₃</text>
+<circle cx="60.0" cy="152.8279530154884" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="157.8279530154884" text-anchor="middle" font-weight="bold">产品Fe₃O₄</text>
+<circle cx="580.0" cy="234.08114735874756" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="239.08114735874756" text-anchor="middle" font-weight="bold">溶液a</text>
+<circle cx="111.60292612624613" cy="281.3854202238117" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="111.60292612624613" y="286.3854202238117" text-anchor="middle" font-weight="bold">产品Na₂SO₄</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

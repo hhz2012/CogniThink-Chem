@@ -1,0 +1,52 @@
+﻿总数 648  网关对 415  纯对 404  引擎介入 232
+bothCorrect=397 gatewayOnly=18 pureOnly=7 bothWrong=226
+
+=== reaction_check 按结论具体性 ===
+  concrete(直接用结论): n=9 网关对9(100%) 纯对9(100%) 网关-纯=0
+  evidence(走LLM证据): n=155 网关对113(73%) 纯对111(72%) 网关-纯=2
+  -> evidence 路径若全部回退 pureAnswer：网关将从 113 变为 111 (净-2)
+
+=== 帮倒忙 4 题 ===
+  [pdf-082] task=reaction_check concrete=False 结论=已匹配到相关反应
+     Q: (2025·浙江省嘉兴市高三一模·★★★)膦(PH3)是一种较强的还原剂，可利用白磷(P4)和过量碱液来制备，反应原理为P4 + KOH + H2O → PH3↑ + KH2PO2
+  [pdf-282] task=equilibrium concrete=False 结论=平衡向逆向（左）移动，电离程度减小。
+     Q: (2025·浙江三模·★★★)下列说法正确的是( ) A. 0.1 mol/L 的 HCN 溶液与 0.1 mol/L 的 KCN 溶液等体积混合：c(HCN)+c(CN⁻)=0.
+  [pdf-408] task=reaction_check concrete=False 结论=已查到相关颜色
+     Q: (2025·湖北黄石一模改编·★★)下列图示的实验操作能达到实验目的的是 A. 制备二氧化硫 B. 验证钠与水反应是否放热 C. 利用肥皂液中产生无色气泡证明铁粉与水蒸气反应生成 
+  [pdf-515] task=reaction_check concrete=False 结论=已匹配到相关反应
+     Q: (2)向 NaCN 中通入少量的 CO2，发生反应的离子方程式为____________________。
+
+=== both-wrong 226 题 ===
+  by taskType: {'unknown': 35, 'balance': 8, 'calculation': 48, 'equilibrium': 30, 'reaction_check': 39, 'concept': 38, 'structure_verify': 18, 'vsepr': 7, 'electrolysis': 1, 'ion_check': 1, 'titration': 1}
+  其中题干提及图(无图不可解): 65
+  其中PDF选择题: 95
+  其中引擎介入: 48
+  -- 引擎介入但仍错 48 (前15) --
+   [pdf-010] task=balance 期望=关键词: (1)2FeCl3+3H2O, Fe(OH)3↓+ 结论=已匹配到相关反应
+   [pdf-044] task=balance 期望=关键词: (1)2H++SO4^2-+Ba2++2OH-== 结论=已匹配到相关反应
+   [pdf-045] task=reaction_check 期望=关键词: A,CuCl2 浓溶液稀释，绿色溶液变蓝：[CuC 结论=已查到相关颜色
+   [pdf-065] task=reaction_check 期望=关键词: B,5 项 结论=已解析出相关物质与离子
+   [pdf-074] task=reaction_check 期望=关键词: A,该条件下的氧化性:Ce⁴⁺ > Cr2O7²⁻ 结论=已匹配到相关反应
+   [pdf-075] task=reaction_check 期望=关键词: B,反应ⅱ中每生成1 mol O2转移4 mol电 结论=已解析出相关物质与离子
+   [pdf-085] task=reaction_check 期望=关键词: A,“另一种反应物”在反应中表现还原性 结论=已匹配到相关反应
+   [pdf-089] task=balance 期望=关键词: (1)5NO2^- + 2MnO4^- + 6H^ 结论=已查到相关颜色
+   [pdf-100] task=reaction_check 期望=关键词: A,反应为3Fe+4H₂O(g)─(高温)→Fe₃ 结论=已解析出相关物质与离子
+   [pdf-107] task=balance 期望=关键词: D 结论=已匹配到相关反应
+   [pdf-116] task=reaction_check 期望=关键词: A,空气中灼烧过的铜丝伸入乙醇中，黑色铜丝恢复光亮 结论=已查到相关颜色
+   [pdf-118] task=reaction_check 期望=关键词: A,碳化硅熔点高,故可用作砂纸和砂轮的磨料 结论=已匹配到相关反应
+   [pdf-122] task=reaction_check 期望=关键词: D 结论=已匹配到相关反应
+   [pdf-134] task=reaction_check 期望=关键词: ×,×,√,×,√,×,×,×,×,×,×,√,× 结论=已匹配到相关反应
+   [pdf-137] task=reaction_check 期望=关键词: × 结论=已查到相关颜色
+
+=== AC-6: calc+eq 引擎介入明细 ===
+  calculation: 总122 介入6 网关对6/6
+     未介入 116: 纯LLM对65 网关对66
+  equilibrium: 总87 介入15 网关对13/15
+     未介入 72: 纯LLM对42 网关对42
+
+=== 网对->网错 核查 (after3 vs after2) ===
+  after2对->after3错(疑似回归): ['pdf-082', 'pdf-212', 'pdf-241', 'pdf-251']
+   [pdf-082] after2 task=reaction_check 结论=已匹配到相关反应 | after3 task=reaction_check 结论=已匹配到相关反应 纯对after3=True
+   [pdf-212] after2 task=equilibrium 结论= | after3 task=equilibrium 结论= 纯对after3=True
+   [pdf-241] after2 task=calculation 结论= | after3 task=calculation 结论= 纯对after3=True
+   [pdf-251] after2 task=equilibrium 结论= | after3 task=equilibrium 结论= 纯对after3=False

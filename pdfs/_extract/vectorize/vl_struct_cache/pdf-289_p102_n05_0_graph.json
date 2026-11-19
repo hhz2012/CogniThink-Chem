@@ -1,0 +1,44 @@
+{
+  "id": "pdf-289",
+  "type": "graph",
+  "img": "pdf_images/p102_n05_0.png",
+  "key": "pdf-289_p102_n05_0_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"FeSO4溶液\", \"label\": \"FeSO4溶液\"},\n    {\"id\": \"除钙\", \"label\": \"除钙\"},\n    {\"id\": \"沉铁\", \"label\": \"沉铁\"},\n    {\"id\": \"FeCO3\", \"label\": \"FeCO3\"}\n  ],\n  \"edges\": [\n    {\"from\": \"FeSO4溶液\", \"to\": \"除钙\", \"cond\": \"\"},\n    {\"from\": \"除钙\", \"to\": \"沉铁\", \"cond\": \"\"},\n    {\"from\": \"沉铁\", \"to\": \"FeCO3\", \"cond\": \"\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "FeSO4溶液",
+        "label": "FeSO4溶液"
+      },
+      {
+        "id": "除钙",
+        "label": "除钙"
+      },
+      {
+        "id": "沉铁",
+        "label": "沉铁"
+      },
+      {
+        "id": "FeCO3",
+        "label": "FeCO3"
+      }
+    ],
+    "edges": [
+      {
+        "from": "FeSO4溶液",
+        "to": "除钙",
+        "cond": ""
+      },
+      {
+        "from": "除钙",
+        "to": "沉铁",
+        "cond": ""
+      },
+      {
+        "from": "沉铁",
+        "to": "FeCO3",
+        "cond": ""
+      }
+    ]
+  }
+}

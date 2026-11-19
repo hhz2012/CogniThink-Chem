@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="sans-serif" font-size="13">
+<rect x="0" y="0" width="640" height="420" fill="white"/>
+<line x1="70.0" y1="40" x2="70.0" y2="360" stroke="#eee"/>
+<line x1="70.0" y1="360" x2="70.0" y2="365" stroke="black"/>
+<text x="70.0" y="380" text-anchor="middle">0</text>
+<line x1="205.0" y1="40" x2="205.0" y2="360" stroke="#eee"/>
+<line x1="205.0" y1="360" x2="205.0" y2="365" stroke="black"/>
+<text x="205.0" y="380" text-anchor="middle">5</text>
+<line x1="340.0" y1="40" x2="340.0" y2="360" stroke="#eee"/>
+<line x1="340.0" y1="360" x2="340.0" y2="365" stroke="black"/>
+<text x="340.0" y="380" text-anchor="middle">10</text>
+<line x1="475.0" y1="40" x2="475.0" y2="360" stroke="#eee"/>
+<line x1="475.0" y1="360" x2="475.0" y2="365" stroke="black"/>
+<text x="475.0" y="380" text-anchor="middle">15</text>
+<line x1="610.0" y1="40" x2="610.0" y2="360" stroke="#eee"/>
+<line x1="610.0" y1="360" x2="610.0" y2="365" stroke="black"/>
+<text x="610.0" y="380" text-anchor="middle">20</text>
+<line x1="70" y1="360.0" x2="610" y2="360.0" stroke="#eee"/>
+<line x1="65" y1="360.0" x2="70" y2="360.0" stroke="black"/>
+<text x="62" y="364.0" text-anchor="end">60</text>
+<line x1="70" y1="306.7" x2="610" y2="306.7" stroke="#eee"/>
+<line x1="65" y1="306.7" x2="70" y2="306.7" stroke="black"/>
+<text x="62" y="310.7" text-anchor="end">70</text>
+<line x1="70" y1="253.3" x2="610" y2="253.3" stroke="#eee"/>
+<line x1="65" y1="253.3" x2="70" y2="253.3" stroke="black"/>
+<text x="62" y="257.3" text-anchor="end">80</text>
+<line x1="70" y1="200.0" x2="610" y2="200.0" stroke="#eee"/>
+<line x1="65" y1="200.0" x2="70" y2="200.0" stroke="black"/>
+<text x="62" y="204.0" text-anchor="end">90</text>
+<line x1="70" y1="146.7" x2="610" y2="146.7" stroke="#eee"/>
+<line x1="65" y1="146.7" x2="70" y2="146.7" stroke="black"/>
+<text x="62" y="150.7" text-anchor="end">100</text>
+<line x1="70" y1="93.3" x2="610" y2="93.3" stroke="#eee"/>
+<line x1="65" y1="93.3" x2="70" y2="93.3" stroke="black"/>
+<text x="62" y="97.3" text-anchor="end">110</text>
+<line x1="70" y1="40.0" x2="610" y2="40.0" stroke="#eee"/>
+<line x1="65" y1="40.0" x2="70" y2="40.0" stroke="black"/>
+<text x="62" y="44.0" text-anchor="end">120</text>
+<line x1="70" y1="40" x2="70" y2="360" stroke="black" stroke-width="1.5"/>
+<line x1="70" y1="360" x2="610" y2="360" stroke="black" stroke-width="1.5"/>
+<text x="340.0" y="405" text-anchor="middle">t/s</text>
+<text x="20" y="200.0" text-anchor="middle" transform="rotate(-90 20 200.0)">p/kPa</text>
+<polyline points="70.0,146.7 97.0,146.7 124.0,120.0 178.0,173.3 205.0,226.7 232.0,200.0 259.0,173.3 286.0,146.7 313.0,146.7 340.0,146.7 394.0,146.7 448.0,146.7 502.0,146.7 556.0,146.7 610.0,146.7" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="70.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="97.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="124.0" cy="120.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="178.0" cy="173.3" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="205.0" cy="226.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="232.0" cy="200.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="259.0" cy="173.3" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="286.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="313.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="340.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="394.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="448.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="502.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="556.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="610.0" cy="146.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="55" text-anchor="end" fill="#c0392b">曲线</text>
+</svg>

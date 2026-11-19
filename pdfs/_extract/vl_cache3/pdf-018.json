@@ -1,0 +1,15 @@
+{
+  "id": "pdf-018",
+  "images": [
+    "pdf_images/p008_n08_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "转化关系图",
+      "reason": "图片展示了W、V、X、Y、Z之间的具体转化路径及反应条件（如Δ、CO₂、HCl），是解题必需的物质转化逻辑依据，题干文字仅提及‘如图’而未描述该流程。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"转化关系图\",\n    \"reason\": \"图片展示了W、V、X、Y、Z之间的具体转化路径及反应条件（如Δ、CO₂、HCl），是解题必需的物质转化逻辑依据，题干文字仅提及‘如图’而未描述该流程。\"\n  }\n]"
+}

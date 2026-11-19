@@ -1,0 +1,394 @@
+id	answer	askWrong	valid	invalid	unparsable	decided	correct
+pdf-001	B	True			ABCD		False
+pdf-002	C	False			ABCD		False
+pdf-003	D	False			ABCD		False
+pdf-004	B	False			ABCD		False
+pdf-005	C	False			ABCD		False
+pdf-006	B	False			AB		False
+pdf-007	C	True			ABCD		False
+pdf-008	A, B, C, D	True			ABCD		False
+pdf-009	①,②,③,⑥	False			ABCD		False
+pdf-011	B	False			ABCD		False
+pdf-012	D	False			ABCD		False
+pdf-013	D	False			ABCD		False
+pdf-014	D	False			ABCD		False
+pdf-015	B	False			ABCD		False
+pdf-016	D	False			ABCD		False
+pdf-017	A	False			ABCD		False
+pdf-018	D	True			ABCD		False
+pdf-019	D	False			ABCD		False
+pdf-020	A	False			ABCD		False
+pdf-021	C	True			ABCD		False
+pdf-026	D	False			ABCD		False
+pdf-027	B	False			ABCD		False
+pdf-028	C	False			ABCD		False
+pdf-029	A	True			ABCD		False
+pdf-031	A	False			ABCD		False
+pdf-032	B	False			ABCD		False
+pdf-033	D	False			ABCD		False
+pdf-034	C	False			ABCD		False
+pdf-035	B	False	ACD		B		False
+pdf-036	C	False			ABCD		False
+pdf-037	D	False			ABCD		False
+pdf-039	A	False	AB	CD			False
+pdf-040	B	False	A		BCD		False
+pdf-041	A	False	B	D	AC		False
+pdf-042	B	False	ACD		B		False
+pdf-043	B	False	A		BCD		False
+pdf-045	A	True	B		ACD		False
+pdf-046	A	False	D		ABC		False
+pdf-047	B	False	A		BCD		False
+pdf-048	C	False	A		BCD		False
+pdf-049	D	False	B		ACD		False
+pdf-050	C	False	B		ACD		False
+pdf-052	B	False			ABCD		False
+pdf-053	B	True			ABCD		False
+pdf-054	B	False			ABCD		False
+pdf-055	D	False			ABCD		False
+pdf-056	B	False	ACD		B		False
+pdf-057	B	False			ABCD		False
+pdf-058	B	False			ABCD		False
+pdf-059	D	False			ABCD		False
+pdf-060	D	False			ABCD		False
+pdf-061	C	False			ABCD		False
+pdf-062	B	False			ABCD		False
+pdf-063	C	False			ABCD		False
+pdf-064	B	False			ABCD		False
+pdf-065	B	False			ABCD		False
+pdf-066	C	False			ABCD		False
+pdf-067	C	True			ABCD		False
+pdf-068	C	True			ABCD		False
+pdf-069	B	False			ABCD		False
+pdf-071	BD	True			ABCD		False
+pdf-072	D	True			ABCD		False
+pdf-073	C	True			ABCD		False
+pdf-074	A	False			ABCD		False
+pdf-075	B	True			ABCD		False
+pdf-076	C	True			ABCD		False
+pdf-077	C	True			ABCD		False
+pdf-078	B	False			ABCD		False
+pdf-079	C	False			ABCD		False
+pdf-080	B	False			ABCD		False
+pdf-081	B	False			ABCD		False
+pdf-082	D	False			ABCD		False
+pdf-083	A	True			ABCD		False
+pdf-085	A	True			ABCD		False
+pdf-086	B	False			ABCD		False
+pdf-087	A	True			ABCD		False
+pdf-088	D	True			ABCD		False
+pdf-090	1,3,1,3	False			ABCD		False
+pdf-091	C	False			ABCD		False
+pdf-092	A	False	B		ACD		False
+pdf-093	A	False			ABCD		False
+pdf-094	D	True			ABCD		False
+pdf-095	A	False			ABCD		False
+pdf-096	B	False			ABCD		False
+pdf-099	A,B,C,D	True			ABCD		False
+pdf-100	A,B,C,D	True			ABCD		False
+pdf-101	A,B,C,D	False			ABCD		False
+pdf-102	B	False			ABCD		False
+pdf-103	B	False			ABCD		False
+pdf-104	D	False			ABCD		False
+pdf-105	D	False			ABCD		False
+pdf-106	B	False			ABCD		False
+pdf-109	A	False			ABCD		False
+pdf-110	C	True	BCD		A		False
+pdf-111	B	False			ABCD		False
+pdf-112	C	False	C		ABD		False
+pdf-113	C	True			ABCD		False
+pdf-114	D	True			ABCD		False
+pdf-115	AC	False			ABCD		False
+pdf-116	A	True			ABCD		False
+pdf-118	A	True			ABCD		False
+pdf-123	×,×,√,√,×	False			ABCD		False
+pdf-124	A	False			ABCD		False
+pdf-125	B	False			ABCD		False
+pdf-126	B	False			ABCD		False
+pdf-127	C	False			ABCD		False
+pdf-128	D	False			ABCD		False
+pdf-129	B	False			ABCD		False
+pdf-130	D	False			ABCD		False
+pdf-131	A	False			ABCD		False
+pdf-132	C	True			ABCD		False
+pdf-135	×	True			ABCD		False
+pdf-136	√	False			ABCD		False
+pdf-137	×	False			ABCD		False
+pdf-138	√	False			ABCD		False
+pdf-139	×	False			ABCD		False
+pdf-140	×	True			ABCD		False
+pdf-141	×	False			A		False
+pdf-142	×	True			ABCD		False
+pdf-143	×	False			ABCD		False
+pdf-144	×	False			ABCD		False
+pdf-145	√	True			ABCD		False
+pdf-147	A, B, C, D	False			ABCD		False
+pdf-148	A, B, C, D	True			ABCD		False
+pdf-149	A, B, C, D	False			ABCD		False
+pdf-150	D	True			ABCD		False
+pdf-151	C	False			ABCD		False
+pdf-152	C	False			ABCD		False
+pdf-153	A	True			ABCD		False
+pdf-154	A,B,D	False			ABCD		False
+pdf-155	A,B,C,D	True			ABCD		False
+pdf-157	C	True			ABCD		False
+pdf-158	D	True			ABC		False
+pdf-162	(1)2 (2)SO4^2- (3)温度升高，反应速率增大，浸出率增大；温度过高时会导致NH3·H2O的分解和NH3的挥发，且(NH4)2S2O8也会分解损失，反应速率减小，浸出率减小 (4)[Cu(NH3)4]2+ + Zn = [Zn(NH3)4]2+ + Cu (5)Fe (6)当pH升高时，促进H2A的电离，增大c(A2-)，使反应A2- + PbSO4 ⇌ PbA + SO4^2-正向移动，PbA产率增大 (7)Pb[OOC(CH2)2COO] →(290℃) Pb + 2H2O + 4CO↑	False			abcd		False
+pdf-181	C	False			ABCD		False
+pdf-182	A	False			ABCD		False
+pdf-183	B	True			ABCD		False
+pdf-184	B	False			ABCD		False
+pdf-185	(1)B (2)D	True			ABCD		False
+pdf-186	B	False			ABCD		False
+pdf-187	(1)sp3 < sp2 (2)H—O—H键角小于O—S—O键角	True			ABCD		False
+pdf-189	(1) sp2, (2) sp3	False			ABCD		False
+pdf-191	A	True			ABCD		False
+pdf-192	B	False			ABCD		False
+pdf-193	B	True			ABCD		False
+pdf-194	A	True			ABCD		False
+pdf-195	D	False			ABCD		False
+pdf-197	A,B,C,D	True			ABCD		False
+pdf-200	C	False			ABCD		False
+pdf-201	D	False			ABCD		False
+pdf-202	D	False			ABCD		False
+pdf-209	B	False			ABCD		False
+pdf-210	A, C, D	True			ABCD		False
+pdf-211	B	False			ABCD		False
+pdf-212	D	False			ABCD		False
+pdf-213	B, C	True			ABCD		False
+pdf-214	B	False			ABCD		False
+pdf-216	A	False			ABCD		False
+pdf-217	D	True			ABCD		False
+pdf-218	D,B,C	True			ABCD		False
+pdf-219	C	True			ABCD		False
+pdf-220	A,B,C	True			ABCD		False
+pdf-221	A	False			ABCD		False
+pdf-223	D	False			ABCD		False
+pdf-224	D	True			ABCD		False
+pdf-225	C	False			ABCD		False
+pdf-227	A	True			ABCD		False
+pdf-229	D	False			ABCD		False
+pdf-230	C	False			ABCD		False
+pdf-231	B	True			ABCD		False
+pdf-232	A	True			ABCD		False
+pdf-234	A	False			ABCD		False
+pdf-235	A	False			ABCD		False
+pdf-236	B	False			ABCD		False
+pdf-237	B	False			ABCD		False
+pdf-238	C	False			ABCD		False
+pdf-239	C	True			ABCD		False
+pdf-240	C	False			ABCD		False
+pdf-241	B	True			ABCD		False
+pdf-245	C	False			ABCD		False
+pdf-246	C	True			ABCD		False
+pdf-247	C	True			ABCD		False
+pdf-248	D	True			ABCD		False
+pdf-249	B	False			ABCD		False
+pdf-250	B	False			ABCD		False
+pdf-251	C	True			ABCD		False
+pdf-252	BFH	False			ABCDEFGH		False
+pdf-253	A	False			ABCD		False
+pdf-254	A	False			ABCD		False
+pdf-256	D	False			ABCD		False
+pdf-263	B	False			ABCDEF		False
+pdf-264	B	False			ABCD		False
+pdf-265	A	True			ABCD		False
+pdf-266	A	False			ABCD		False
+pdf-267	C	True			ABCD		False
+pdf-268	A, B, C, D	False			ABCD		False
+pdf-269	A, B, C, D	True			ABCD		False
+pdf-270	D	False			ABCD		False
+pdf-271	A, B, C, D	True			ABCD		False
+pdf-276	B	False			ABCD		False
+pdf-277	C	True			ABCD		False
+pdf-279	A, B, C, D	True			ABCD		False
+pdf-280	A, B, C	True			ABCD		False
+pdf-281	B	True			ABCD		False
+pdf-282	D	False			ABCD		False
+pdf-283	B	False			ABCD		False
+pdf-284	C	True			ABCD		False
+pdf-285	A	False			ABCD		False
+pdf-286	D	True			ABCD		False
+pdf-287	D	True			ABCD		False
+pdf-288	C	False			ABCD		False
+pdf-289	B	True			ABCD		False
+pdf-290	A	False			ABCD		False
+pdf-291	C	False			ABC		False
+pdf-292	B	True			ABCD		False
+pdf-293	C	False			ABCD		False
+pdf-294	B	True			ABCD		False
+pdf-295	A	True			ABCD		False
+pdf-296	C	False			ABCD		False
+pdf-297	A	True			AB		False
+pdf-298	C	False	BC		AD		False
+pdf-299	B	False			ABCD		False
+pdf-300	D	False			ABCD		False
+pdf-301	A	False			ABCD		False
+pdf-302	A	True			A		False
+pdf-303	C	False			ABCD		False
+pdf-305	A	True			ABCD		False
+pdf-306	A	True			ABCD		False
+pdf-307	D	True			ABCD		False
+pdf-308	D	True			ABCD		False
+pdf-309	C	False			ABCD		False
+pdf-310	C	True			ABCD		False
+pdf-311	D	False			ABCD		False
+pdf-312	AC	True			ABCD		False
+pdf-314	B	False			ABCD		False
+pdf-315	D	False			ABCD		False
+pdf-316	A	True			ABCD		False
+pdf-317	B	False			ABCD		False
+pdf-318	C	False			ABCD		False
+pdf-319	A	False			ABCD		False
+pdf-320	B	False			ABCD		False
+pdf-321	D	True			ABCD		False
+pdf-325	B	False			ABCD		False
+pdf-326	A	False			ABCD		False
+pdf-327	A	True			ABCD		False
+pdf-329	A, C, E	False			ABCDE		False
+pdf-330	C	True			ABCD		False
+pdf-331	A	True			ABCD		False
+pdf-332	B	True			ABCD		False
+pdf-334	C	True			ABCD		False
+pdf-335	B	True			ABCD		False
+pdf-336	A	True			ABCD		False
+pdf-337	C	False			ABCD		False
+pdf-338	C	False			ABCD		False
+pdf-339	C	False			ABCD		False
+pdf-341	D	False			ABCD		False
+pdf-342	C	True			ABCD		False
+pdf-343	B	True			ABCD		False
+pdf-344	C	True			ABCD		False
+pdf-345	B	True			ABCD		False
+pdf-346	D	False			ABCD		False
+pdf-347	D	False			ABCD		False
+pdf-348	C	False			ABCD		False
+pdf-349	B	False			ABCD		False
+pdf-350	D	False			ABCD		False
+pdf-351	D	False			ABCD		False
+pdf-352	A	True			ABCD		False
+pdf-353	A	True			ABCD		False
+pdf-358	A	False			ABCD		False
+pdf-359	C	True			ABCD		False
+pdf-360	AC	False			ABCD		False
+pdf-361	C	True			ABCD		False
+pdf-362	C	False			ABCD		False
+pdf-363	C	False			ABCD		False
+pdf-364	D	False			ABCD		False
+pdf-365	C	True			ABCD		False
+pdf-366	C	True			ABCD		False
+pdf-367	B	True			ABCD		False
+pdf-368	C	True			ABCD		False
+pdf-369	A	True			ABCD		False
+pdf-370	A	True			ABCD		False
+pdf-371	C	False			ABCD		False
+pdf-372	A	True			ABCD		False
+pdf-373	B	True			ABCD		False
+pdf-374	B	False			ABCD		False
+pdf-375	B	False			ABCD		False
+pdf-376	B	True			ABCD		False
+pdf-378	B	True			ABCD		False
+pdf-379	A	False			ABCD		False
+pdf-380	D	True			ABCD		False
+pdf-381	D	False			A		False
+pdf-382	B	False			ABCD		False
+pdf-383	B	False			ABCD		False
+pdf-384	C	False			ABCD		False
+pdf-385	C	False			ABCD		False
+pdf-386	A	True			ABCD		False
+pdf-387	B	True			ABCD		False
+pdf-388	D	True			ABCD		False
+pdf-390	D	False			ABCD		False
+pdf-392	C	False			ABCD		False
+pdf-393	B	False			ABCD		False
+pdf-394	B	False			ABCD		False
+pdf-395	C	True			ABCD		False
+pdf-396	B	True			ABCD		False
+pdf-397	A	False			ABCD		False
+pdf-398	C	False			AB		False
+pdf-399	A	False			ABCD		False
+pdf-400	C	False			ABCD		False
+pdf-401	B	True			ABCD		False
+pdf-402	C	False			ABCD		False
+pdf-403	B	False			ABCD		False
+pdf-404	A, B, C, D	True			ABCD		False
+pdf-405	A, B, C, D	False			ABCD		False
+pdf-406	A, B, C, D	False			ABCD		False
+pdf-407	A	True			ABCD		False
+pdf-408	B	False			ABCD		False
+pdf-409	D	True			ABCD		False
+pdf-410	C	True			ABCD		False
+pdf-411	D	False			ABCD		False
+pdf-412	B, (2) Mn²⁺氧化, (3) c	False			ABCabc		False
+pdf-414	K3[Fe(CN)6]溶液, ABC, BC	False			ABCD		False
+pdf-416	(1)①4s²4p¹ ②GaN+OH⁻+3H₂O==(Ga(OH)₄)⁻+NH₃↑ ③ac (2)①玻璃棒 漏斗 ②In、Mg (3)①将Na[Ga(OH)₄]转化为Ga(OH)₃沉淀 ②ac	False			ABCD		False
+pdf-419	D	False			ABCD		False
+pdf-420	B	True			ABCD		False
+pdf-421	B	False			ABCD		False
+pdf-422	A	False			ABCD		False
+pdf-423	A	False			ABCD		False
+pdf-424	A	False			AB		False
+pdf-425	A	False			ABCD		False
+pdf-426	D	False			ABCD		False
+pdf-427	A	False			ABCD		False
+pdf-428	B	False			ABCD		False
+pdf-429	A	False			ABCD		False
+pdf-430	C	False			ABCD		False
+pdf-431	C	True			ABCD		False
+pdf-432	B	True			AB		False
+pdf-433	B	True			ABCD		False
+pdf-434	B	True			ABCD		False
+pdf-435	B	False			ABCD		False
+pdf-436	C	True			ABCD		False
+pdf-437	C	False			AB		False
+pdf-438	B	False			ABCD		False
+pdf-439	C	True			ABCD		False
+pdf-440	C	False			ABCD		False
+pdf-441	B	False			ABCD		False
+pdf-442	D	True			ABCD		False
+pdf-443	B	True			ABCD		False
+pdf-444	A	True			ABCD		False
+pdf-445	A	False			ABCD		False
+pdf-446	B	True			ABCD		False
+pdf-447	B	False			ABCD		False
+pdf-448	D	True			ABCD		False
+pdf-449	D	True			ABCD		False
+pdf-451	C	True			ABCD		False
+pdf-452	B	True			ABCD		False
+pdf-453	B	False			ABCD		False
+pdf-454	A	True			ABCD		False
+pdf-455	D	False			ABCD		False
+pdf-457	D	False			ABCD		False
+pdf-458	BD	False			ABCD		False
+pdf-459	A	False			ABCD		False
+pdf-460	A	True			ABCD		False
+pdf-463	c d	False			abcd		False
+pdf-474	A	True			ABCD		False
+pdf-475	ACD	False			ABCD		False
+pdf-476	D	False			ABCD		False
+pdf-479	D	False			ABCD		False
+pdf-480	√××√×××××√	True			ABCD		False
+pdf-491	AC	False			ABC		False
+pdf-492	B	False			ABCD		False
+pdf-493	B	True			ABCD		False
+pdf-494	C	True			ABCD		False
+pdf-495	D	False			ABCD		False
+pdf-496	D	False			ABCD		False
+pdf-497	C	False			ABCD		False
+pdf-498	D	False			ABCD		False
+pdf-499	B	True			ABCD		False
+pdf-500	A	False			ABCD		False
+pdf-501	B	False			ABCD		False
+pdf-502	D	False			ABCD		False
+pdf-503	B	True			ABCD		False
+pdf-504	C	True			ABCD		False
+pdf-505	B	True			ABCD		False
+pdf-511	D	False			ABCD		False
+pdf-512	D	True			ABCD		False
+pdf-513	B	True			ABCD		False
+pdf-524	BC	False			ABCD		False
+pdf-525	D	False			ABCD		False
+pdf-529	C	False			ABCD		False
+pdf-531	BC	False			ABCD		False
+pdf-540	D	False			ABCD		False
+pdf-544	a	False			abcd		False
+pdf-545	A	False			ABCD		False

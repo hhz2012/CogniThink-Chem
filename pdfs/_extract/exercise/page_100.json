@@ -1,0 +1,28 @@
+{
+  "page_idx": 100,
+  "raw": "[\n  {\n    \"num\": 11,\n    \"type\": \"choice\",\n    \"question\": \"11. (2025·江苏苏州三模★★★)室温下，用FeSO4溶液与氨水-NH4HCO3混合溶液反应，制备FeCO3。已知Ka1(H2CO3)=4.3×10^-7，Ka2(H2CO3)=7.1×10^-11。下列说法正确的是（ ）\",\n    \"options\": {\n      \"A\": \"0.1 mol/L氨水中：c(OH^-)>c(H^+)+c(NH4^+)\",\n      \"B\": \"0.1 mol/L NH4HCO3溶液(pH=7.8)中：c(H2CO3)>c(CO3^2-)\",\n      \"C\": \"0.1 mol/L氨水与0.1 mol/L NH4HCO3溶液等体积混合：c(HCO3^-)+c(H2CO3)+c(CO3^2-)=2c(NH4^+)+2c(NH3·H2O)\",\n      \"D\": \"制得FeCO3沉淀后的上层清液中：c(Fe^2+)·c(CO3^2-)<Ksp(FeCO3)\"\n    }\n  },\n  {\n    \"num\": 12,\n    \"type\": \"choice\",\n    \"question\": \"12. (2025·葫芦岛市一模★★★)常温下，Na2A溶液中H2A、HA^-、A^2-的物质的量分数与pH的关系如下图。已知：A^2-的物质的量分数=c(A^2-)/[c(H2A)+c(HA^-)+c(A^2-)]。下列表述不正确的是（ ）\",\n    \"options\": {\n      \"A\": \"0.1 mol/L H2A溶液中，c(H2A)+c(HA^-)+c(A^2-)=0.1 mol/L\",\n      \"B\": \"在0.1 mol/L NaHA溶液中，c(HA^-)>c(A^2-)>c(H2A)\",\n      \"C\": \"将等物质的量的NaHA、Na2A溶于水中，所得溶液的pH为4.2\",\n      \"D\": \"M点对应的pH为2.7\"\n    }\n  }\n]",
+  "questions": [
+    {
+      "num": 11,
+      "type": "choice",
+      "question": "11. (2025·江苏苏州三模★★★)室温下，用FeSO4溶液与氨水-NH4HCO3混合溶液反应，制备FeCO3。已知Ka1(H2CO3)=4.3×10^-7，Ka2(H2CO3)=7.1×10^-11。下列说法正确的是（ ）",
+      "options": {
+        "A": "0.1 mol/L氨水中：c(OH^-)>c(H^+)+c(NH4^+)",
+        "B": "0.1 mol/L NH4HCO3溶液(pH=7.8)中：c(H2CO3)>c(CO3^2-)",
+        "C": "0.1 mol/L氨水与0.1 mol/L NH4HCO3溶液等体积混合：c(HCO3^-)+c(H2CO3)+c(CO3^2-)=2c(NH4^+)+2c(NH3·H2O)",
+        "D": "制得FeCO3沉淀后的上层清液中：c(Fe^2+)·c(CO3^2-)<Ksp(FeCO3)"
+      }
+    },
+    {
+      "num": 12,
+      "type": "choice",
+      "question": "12. (2025·葫芦岛市一模★★★)常温下，Na2A溶液中H2A、HA^-、A^2-的物质的量分数与pH的关系如下图。已知：A^2-的物质的量分数=c(A^2-)/[c(H2A)+c(HA^-)+c(A^2-)]。下列表述不正确的是（ ）",
+      "options": {
+        "A": "0.1 mol/L H2A溶液中，c(H2A)+c(HA^-)+c(A^2-)=0.1 mol/L",
+        "B": "在0.1 mol/L NaHA溶液中，c(HA^-)>c(A^2-)>c(H2A)",
+        "C": "将等物质的量的NaHA、Na2A溶于水中，所得溶液的pH为4.2",
+        "D": "M点对应的pH为2.7"
+      }
+    }
+  ]
+}

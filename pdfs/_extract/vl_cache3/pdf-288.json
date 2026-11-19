@@ -1,0 +1,15 @@
+{
+  "id": "pdf-288",
+  "images": [
+    "pdf_images/p101_n04_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "工艺流程图",
+      "reason": "题干明确提及‘过程如图所示’，该图应包含关键操作步骤（如加NaF除Mg²⁺、调pH、加Na₂CO₃沉淀等）及物质流向，是判断各选项正误所必需的流程依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"工艺流程图\",\n    \"reason\": \"题干明确提及‘过程如图所示’，该图应包含关键操作步骤（如加NaF除Mg²⁺、调pH、加Na₂CO₃沉淀等）及物质流向，是判断各选项正误所必需的流程依据。\"\n  }\n]"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "pdf-111",
+  "images": [
+    "pdf_images/p035_n03_0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "工艺流程图",
+      "reason": "图中清晰展示了“浸取→沉铜→沉钴→…→Li₂CO₃”的完整工艺步骤、各步加入试剂（H₂SO₄+H₂O₂、NaOH）、产物（气体、Cu(OH)₂、Co(OH)₂、滤液1/2）及物质流向，是判断选项B、C等正误所必需的核心信息。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"工艺流程图\",\n    \"reason\": \"图中清晰展示了“浸取→沉铜→沉钴→…→Li₂CO₃”的完整工艺步骤、各步加入试剂（H₂SO₄+H₂O₂、NaOH）、产物（气体、Cu(OH)₂、Co(OH)₂、滤液1/2）及物质流向，是判断选项B、C等正误所必需的核心信息。\"\n  }\n]"
+}

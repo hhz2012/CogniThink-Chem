@@ -1,0 +1,590 @@
+
+========== classification ==========
+total=25  unsolved(truthAdopted=false)=24  pureRight_gwWrong=17  bothWrong=7
+-- unsolved list (id | taskType | pureCorrect | question[:60]) --
+  pdf-038    equilibrium pure=False  8.(2025·三亚期末·★)①硫酸钠是一种无机化合物,难溶于②乙醇,能溶于③水,用途非常广泛。硫酸钠的制备方法很多,例如可由④NaOH或⑤
+  pdf-044    calculation pure=False  (2025·模拟组合题)请按要求书写下列离子方程式。(1)(2025·湖南一模)向 KHSO4 溶液中逐滴加入 Ba(OH)2 溶液至溶液呈
+  pdf-345    choice     pure=False  (2024·重庆卷·★★★★)橙花和橙叶经水蒸气蒸馏可得精油，X和Y是该精油中的两种化学成分。下列说法错误的是（ ） A. X存在2个手性碳
+  pdf-381    choice     pure=False  （2025·八省联考内蒙古卷·★★★）化学革新催化体育发展，科技赋能铸就赛场荣光。下列有关说法正确的是（ ） A. 碳纤维复合材料可增强羽毛
+  pdf-390    choice     pure=False  (2025·山西期中·★★★)将6.8 g X完全燃烧生成3.6 g H2O和8.96 L(标准状况下)CO2。X的核磁共振氢谱有4组峰且峰
+  pdf-474    choice     pure=False  (2025·湖北三模·★★★)“中国紫”是目前被确认的出现于工业社会以前的最早的人造颜料之一，这种颜色被大量应用于兵马俑的衣物上色，其化学成
+  pdf-475    choice     pure=False  (2025·黑龙江哈尔滨二模改编·★★★)硼氢化钠(NaBH4)具有优良的还原性，在有机化学和无机化学领域有着广泛的应用。用硼精矿（主要成分
+  pdf-001    choice     pure=True  (2025·湖南阶段性考试·★)分类法是一种行之有效、简单易行的科学方法，人们在认识事物时可以采取多种分类方法以补充单一分类法的不足。下列关
+  pdf-002    choice     pure=True  (2025·四川月考·★★)对下列各组物质的分类正确的是（ ） A. 酸性氧化物：二氧化硫、干冰、氧化铝 B. 同素异形体：¹²C、¹³C、
+  pdf-003    choice     pure=True  (2025·湖北月考·★★)下列物质分类正确的是（ ） A. CaO、Al₂O₃、Fe₂O₃ 是碱性氧化物 B. HCl、CH₃COOH、H
+  pdf-004    choice     pure=True  (2025·新疆阶段性测试·★★)分类是化学研究中常用的方法。下列分类方法正确的是（ ） A. 漂白粉、氢氧化铁胶体、氯水、铝热剂、冰水混合
+  pdf-006    choice     pure=True  (2025·河北阶段性测试·★★)中国的化学工作者已成功研制出碱金属与 C₆₀ 形成的球碳盐 K₃C₆₀，实验测知该物质属于离子化合物，具有
+  pdf-017    choice     pure=True  (2025·江苏无锡期中·★★★)元素及其化合物的转化在工业生产中具有极其重要的用途。下列物质间转化能实现的是（ ） A. 工业制取漂白粉：
+  pdf-031    choice     pure=True  (2024·浙江卷·★)下列物质不属于电解质的是( ) A. CO2 B. HCl C. NaOH D. BaSO4
+  pdf-032    choice     pure=True  (2025·陕西西安交大附中高考模拟·★)下列物质属于非电解质的是( ) A. 硫酸钡 B. 二氧化硫 C. 氯化氢 D. 氯气
+  pdf-040    choice     pure=True  (2025·四川绵阳三诊)下列过程对应的离子方程式书写正确的是( ) A. 将 FeO 固体溶于稀硝酸: FeO + 2H+ = Fe^2+
+  pdf-103    choice     pure=True  (2024·广东卷·★★)部分含Mg或Al或Fe物质的分类与相应化合价关系如图。下列推断合理的是( ) A. 若a在沸水中可生成e,则a→f
+  pdf-148    choice     pure=True  3.（2023·山东卷·★★）实验室中使用盐酸、硫酸和硝酸时，对应关系错误的是（ ）A. 稀盐酸：配制AlCl3溶液B. 稀硫酸：蔗糖和淀粉
+  pdf-152    choice     pure=True  (2025·广东二模·★★)部分含氮物质的分类及相应化合价关系如图所示。下列说法正确的是（ ） A. f 可作为化肥，与草木灰同时施用可增强
+  pdf-195    choice     pure=True  (2023·天津卷·★★★)下表列出25℃时不同羧酸的pKa（即－lgKa）。根据表中的数据推测，结论正确的是( ) 羧酸：CH3COOH、
+  pdf-319    choice     pure=True  (2025·天津河西期中·★★)按碳的骨架对有机化合物进行分类,下列说法正确的是( ) A. CH3CH2Br属于烃类 B. CH(CH3)
+  pdf-394    choice     pure=True  (2025·四川南充期中·★★★★)下列关于有机化合物的说法正确的是() A. C7H16含3个甲基的同分异构体有2种 B. C5H10O2
+  pdf-448    choice     pure=True  (2024·天津卷·★★)关于天津博物馆典藏文物的相关化学知识,判断错误的是( ) A. 太保鼎(西周)的材质是青铜,青铜属于合金 B. 《
+  pdf-479    choice     pure=True  (2025·广东肇庆二模·★★)部分含 F 或 Cl 物质的分类与相应化合价关系如图所示。下列说法正确的是（ ） A. a 一定能与 H2O
+
+========== transformation ==========
+total=55  unsolved(truthAdopted=false)=49  pureRight_gwWrong=34  bothWrong=16
+-- unsolved list (id | taskType | pureCorrect | question[:60]) --
+  pdf-074    choice     pure=False  (2025·河北模拟预测·★★★)几种离子在水溶液中有如图转化关系。下列说法正确的是 A. 该条件下的氧化性:Ce⁴⁺ > Cr2O7²⁻ 
+  pdf-090    choice     pure=False  (2025·黑吉辽蒙卷改编·★★)钠及其化合物的部分转化关系如图。设 N_A 为阿伏加德罗常数的值，下列说法正确的是（ ） A. 反应①生成
+  pdf-139    choice     pure=False  (2025·广东深圳三模·★★)“价-类”二维图是学习化学的重要工具和模型，硫元素的部分“价-类”二维图如图所示。下列说法正确的是 A. 可
+  pdf-140    choice     pure=False  (2024·河北模拟预测改编·★★)在加热条件下，硫单质可以与 NaOH 溶液反应：3S + 6NaOH △ 2Na2S + Na2SO3 
+  pdf-144    choice     pure=False  (2025·河北秦皇岛一模·★★★)硫及其化合物的转化具有重要应用。下列含硫物质间的转化均能一步实现的是（ ） A. FeS₂ --[O₂(
+  pdf-196    calculation pure=False  (2024·安徽卷·★★★★)地球上的生物氮循环涉及多种含氮物质，转化关系之一如下图所示(X、Y均为氮氧化物)，羟胺(NH2OH)以中间产物
+  pdf-204    unknown    pure=False  (2024·江苏卷节选·★★)回收磁性合金钕铁硼(Nd2Fe14B)可制备半导体材料铁酸铋和光学材料氧化钕。反萃取后，Fe2(SO4)3 经
+  pdf-233    reaction_check pure=False  (原创题·★★★)X、Y、Z、W、R是原子序数依次递增的前20号主族元素，n、m、p分别是X、Y、W对应的单质，q、s、t是由X、Y、W组成
+  pdf-244    calculation pure=False  (2021·海南高考·★★☆)碳及其化合物间的转化广泛存在于自然界及人类的生产和生活中。 已知25 ℃,101 kPa时:①1 mol 葡萄
+  pdf-258    equilibrium pure=False  (2024·广西卷·★★★★☆)二氯亚砜(SOCl2)是重要的液态化工原料。回答下列问题：(1)合成 SOCl2 前先制备 SCl2。有关转
+  pdf-261    equilibrium pure=False  (2024·辽宁卷节选·★★★)保持反应器进料口总压为100 kPa，分别以8 kPa CH4、24 kPa H2S(He作辅气)与25 k
+  pdf-305    choice     pure=False  (2025·新课标卷·★★★)某研究小组设计如下电解池，既可将中性废水中的硝酸盐转化为氨，又可将废塑料(PET)碱性水解液中的乙二醇转化为羟
+  pdf-306    choice     pure=False  (2025·湖南卷·★★★)一种电化学处理硝酸盐产氨的工作原理如图所示。下列说法错误的是( ) A. 电解过程中，K⁺ 向左室迁移 B. 电
+  pdf-313    calculation pure=False  (2024·天津卷节选)NaBH4 的再生：用惰性电极电解碱性 Na[B(OH)4]溶液，在阳极生成 O2，在阴极生成 BH4- 和 OH-
+  pdf-410    choice     pure=False  (2025·浙江1月选考卷·★★★)蛋白质中N元素含量可按下列步骤测定：[流程图：蛋白质中的N元素 → 步骤I（浓H2SO4、K2SO4、催
+  pdf-454    choice     pure=False  (2024·浙江6月选考·★★)化学与人类社会可持续发展息息相关。下列说法不正确的是( ) A. 部分金属可在高温下用焦炭、一氧化碳、氢气等
+  pdf-005    choice     pure=True  (2025·天津阶段性测试·★)碳纳米管是一种仅由碳元素组成的纯净物，其直径为 10～100 nm，被认为是一种未来的材料。下列有关碳纳米管
+  pdf-013    choice     pure=True  (2024·云南学业考试·★★)下列物质转化不能实现的是( ) A. SiO2(s) --(C,高温)--> (粗)Si(s) --(HCl
+  pdf-016    choice     pure=True  (2025·江苏南通模拟·★★★)铁的单质及许多化合物均具有重要用途。K2FeO4 可用作净水剂，K2FeO4 在水中不稳定，会生成 Fe(
+  pdf-017    choice     pure=True  (2025·江苏无锡期中·★★★)元素及其化合物的转化在工业生产中具有极其重要的用途。下列物质间转化能实现的是（ ） A. 工业制取漂白粉：
+  pdf-018    choice     pure=True  (2025·八省联考河南卷·★★★)W 是一种短周期金属元素的单质，V 是无色气体。它们之间的转化关系如图（略去部分生成物和反应条件）。下列
+  pdf-067    choice     pure=True  (2025·湖南卷·★★)NaSbO3 是一种合成聚酯的催化剂,可用“硝酸钠法”制备,反应的化学方程式为 4NaNO3 + 4Sb + 3O
+  pdf-080    choice     pure=True  (2025·天津和平区二模·★★)利用CH3OH可将废水中的NO3-转化为对环境无害的物质后排放，反应原理为H+ + CH3OH + NO3
+  pdf-082    choice     pure=True  (2025·浙江省嘉兴市高三一模·★★★)膦(PH3)是一种较强的还原剂，可利用白磷(P4)和过量碱液来制备，反应原理为P4 + KOH +
+  pdf-086    choice     pure=True  2.(2025·海南一模·★★★)某学习小组制备KClO3并探究其部分性质，过程如下所示：Cl2 --(KOH溶液/△)→ KClO3 --
+  pdf-103    choice     pure=True  (2024·广东卷·★★)部分含Mg或Al或Fe物质的分类与相应化合价关系如图。下列推断合理的是( ) A. 若a在沸水中可生成e,则a→f
+  pdf-125    choice     pure=True  (2025·河南二模★★★)甲是由短周期元素构成的一种常见有色气体单质,该气体单质可以用于自来水的杀菌消毒,乙为强碱且焰色呈黄色,丙的摩尔质
+  pdf-132    choice     pure=True  (2024·重庆卷★★★)单质M的相关转化如下图所示。下列说法错误的是（ ） A. a可使灼热的铜变黑 B. b可与红热的铁产生气体 C. 
+  pdf-141    choice     pure=True  (2025·河南三模·★★)已知 M 是一种常见酸的浓溶液，可使蔗糖变黑，Y 是一种单质，构成 Y 的原子最外层电子数是次外层电子数的 2 
+  pdf-151    choice     pure=True  (2025·北京东城二模·★★★)硝酸是重要的化工原料。下图为制硝酸的流程示意图。下列说法正确的是（ ） A. 流程中，N2、NH3 和 N
+  pdf-152    choice     pure=True  (2025·广东二模·★★)部分含氮物质的分类及相应化合价关系如图所示。下列说法正确的是（ ） A. f 可作为化肥，与草木灰同时施用可增强
+  pdf-154    choice     pure=True  (2024·湖北一模★★★)某MOFs多孔材料孔径大小和形状恰好将N2O4“固定”，利于工业废气中的NO2高效转化为HNO3，其原理示意图如
+  pdf-156    calculation pure=True  11.(2025·山西晋城二模★★★)某兴趣小组设计如下实验进行喷泉实验和制备肼。回答下列问题： Ⅰ. 制备 NH3 并进行喷泉实验(实验装
+  pdf-200    choice     pure=True  1.（★☆）下列关于晶体和非晶体的说法，正确的是（ ） A. 晶体在三维空间里呈周期性有序排列，因此在各个不同的方向上具有相同的物理性质 B
+  pdf-241    choice     pure=True  4.(2025·海淀区校级模拟★★)NaCl的Born-Haber循环如图所示：已知：元素的基态原子得到一个电子形成气态负一价离子时所放出的
+  pdf-254    choice     pure=True  （2024·江西卷·★★★）温度 T 下，向 1 L 真空刚性容器中加入 1 mol (CH3)2CHOH，反应达到平衡时，c(Y) = 0
+  pdf-262    equilibrium pure=True  （2024·贵州卷★★★★★）在无氧环境下，CH4 经催化脱氢芳构化可以直接转化为高附加值的芳烃产品。一定温度下，CH4 芳构化时同时存在如
+  pdf-294    choice     pure=True  (2025·北京东城·三模·★★★)Na2CO3溶液可以处理锅炉水垢中的CaSO4，使其转化为疏松、易溶于酸的CaCO3。某兴趣小组模拟上述
+  pdf-310    choice     pure=True  (2024·贵州卷·★★★)一种太阳能驱动环境处理的自循环光催化芬顿系统工作原理如图。光阳极发生反应：HCO3⁻+H2O=HCO4⁻+2H⁺
+  pdf-311    choice     pure=True  (2024·重庆卷·★★★)我国科研工作者研发了一种新型复合电极材料，可将CO2电催化转化为甲酸，如图是电解装置示意图。下列说法正确的是（ 
+  pdf-338    choice     pure=True  (2025·广西柳州模拟·★★★★)Friedel−Crafts 烷基化反应的机理可简化用下图表示。下列说法正确的是（ ） A. AlCl3
+  pdf-341    choice     pure=True  （2025·江苏常州期中★★★）CH3CH2CH3的溴化、氯化反应过程及产物选择性如图所示。下列说法正确的是（ ） A. CH3CH2CH2
+  pdf-450    equilibrium pure=True  (高考组合题·★★)判断下列说法是否正确,正确的填“√”,错误的填“×”。(1)煤经过气化和液化等物理变化可转化为清洁燃料( )(2)生石灰
+  pdf-451    choice     pure=True  (2024·全国甲卷·★★)人类对能源的利用经历了柴薪、煤炭和石油时期,现正向新能源方向高质量发展。下列有关能源的叙述错误的是( ) A. 
+  pdf-455    choice     pure=True  (2025·黑吉辽蒙卷·★)东北三省及内蒙古资源丰富,下列资源转化的主要过程不属于化学变化的是( ) A. 石灰石煅烧 B. 磁铁矿炼铁 C
+  pdf-479    choice     pure=True  (2025·广东肇庆二模·★★)部分含 F 或 Cl 物质的分类与相应化合价关系如图所示。下列说法正确的是（ ） A. a 一定能与 H2O
+  pdf-481    calculation pure=True  (2024·湖南卷节选★★★★★)铜阳极泥(含有Au、Ag2Se、Cu2Se、PbSO4等)是一种含贵金属的可再生资源，回收贵金属的化工流程
+  pdf-506    equilibrium pure=True  7.(1)(2024·浙江卷节选·★★★)H2N—NH2 + H+ → H2N—NH3+，其中—NH2 的 N 原子杂化方式为______；
+  pdf-512    choice     pure=True  (2025·四川卷·★★)钒催化剂对H2O2氧化苯制备苯酚的反应具有良好的催化活性,反应机理如图所示,其中步骤③为放热反应。下列说法错误的是
+
+========== NA ==========
+total=24  unsolved(truthAdopted=false)=24  pureRight_gwWrong=17  bothWrong=7
+-- unsolved list (id | taskType | pureCorrect | question[:60]) --
+  pdf-026    choice     pure=False  (2024·贵州卷·★★)二氧化氯(ClO2)可用于自来水消毒。实验室用草酸(H2C2O4)和KClO3制取ClO2的反应为H2C2O4+2
+  pdf-027    choice     pure=False  (2025·四川成都二模·★★)用NA表示阿伏加德罗常数的值，下列说法正确的是( ) A. 常温下，1 L pH=12的Ba(OH)2溶液中
+  pdf-087    choice     pure=False  3.(2025·四川巴中三模·★★)天然气中含有少量有毒气体H2S，用如图所示流程在常温下可实现天然气在氧化亚铁硫杆菌(T·F菌)作用下催化
+  pdf-090    choice     pure=False  (2025·黑吉辽蒙卷改编·★★)钠及其化合物的部分转化关系如图。设 N_A 为阿伏加德罗常数的值，下列说法正确的是（ ） A. 反应①生成
+  pdf-140    choice     pure=False  (2024·河北模拟预测改编·★★)在加热条件下，硫单质可以与 NaOH 溶液反应：3S + 6NaOH △ 2Na2S + Na2SO3 
+  pdf-217    choice     pure=False  (2025·四川卷·★★★)CaCO3的四方晶胞(晶胞参数α=β=γ=90°，省略CO3^2-中的氧，只标出C4+)和CaO的立方晶胞如图所
+  pdf-425    choice     pure=False  (2024·河北卷·★★★)超氧化钾(KO2)可用作潜水或宇航装置的CO2吸收剂和供氧剂，反应为4KO2+2CO2=2K2CO3+3O2，N
+  pdf-025    calculation pure=True  (2025·安徽省合肥联考·★★★★)化学计量在生产和科研中应用广泛。回答下列问题：(1)9.03×10^23 个 HCl 分子在标准状况下
+  pdf-068    choice     pure=True  (2025·湖南模拟改编·★★★)自来水消毒剂 ClO2 可用葡萄糖与 NaClO3 发生以下反应制得: C6H12O6 + NaClO3 
+  pdf-072    choice     pure=True  (2025·浙江嘉兴三模·★★)高铁酸钠(Na2FeO4)是一种新型绿色消毒剂,主要用于饮用水处理。工业上制备高铁酸钠的一种方法为 3ClO
+  pdf-082    choice     pure=True  (2025·浙江省嘉兴市高三一模·★★★)膦(PH3)是一种较强的还原剂，可利用白磷(P4)和过量碱液来制备，反应原理为P4 + KOH +
+  pdf-093    choice     pure=True  (2025·山西太原期末·★★)过氧化钠可用作潜水装置中 CO2 吸收剂和供氧剂。设 N_A 为阿伏加德罗常数的值，下列说法正确的是（ ） 
+  pdf-178    calculation pure=True  （6）一种锑锰(Mn3Sb)合金的立方晶胞结构如右图所示。 ①该晶胞中，每个 Sb 周围与它最近且相等距离的 Mn 有______个。 ②N
+  pdf-216    choice     pure=True  (2025·湖南卷·★★★)K+掺杂的铋酸钡具有超导性。K+替代部分Ba2+形成Ba0.6K0.4BiO3(摩尔质量为354.8 g/mol
+  pdf-221    choice     pure=True  (2025·湖南三模·★★★)白铜是一种以镍为主要添加元素的铜基合金，有一定的抗菌性能，常在医院重症监护室被作为“触摸材料”，可以减少交叉污
+  pdf-222    calculation pure=True  (2025·上海二模节选·★★★)白磷(P4)的晶体属于分子晶体，其晶胞结构如图。已知晶胞的边长为a nm，阿伏加德罗常数的值为N_A mo
+  pdf-419    choice     pure=True  (2025·广东卷·★★)设 N_A 为阿伏加德罗常数的值。下列说法正确的是( ) A. 1 mol ^18O_2 的中子数，比 1 mol
+  pdf-420    choice     pure=True  (2025·河北卷·★★)设 N_A 为阿伏加德罗常数的值。下列说法错误的是( ) A. 18 g H_2O 晶体内氢键的数目为 2N_A 
+  pdf-421    choice     pure=True  (2025·云南卷·★★)设 N_A 为阿伏加德罗常数的值。下列说法正确的是( ) A. 22.4 L CH_4 中原子的数目为 5N_A 
+  pdf-422    choice     pure=True  (2025·湖南卷·★★★)加热条件下，浓硫酸与木炭发生反应：C + 2H_2SO_4(浓) ==(△)== CO_2↑ + 2H_2O +
+  pdf-423    choice     pure=True  (2024·海南卷·★★)N_A 代表阿伏加德罗常数的值。下列说法正确的是( ) A. 2.2 g 超重水(^3H_2O)所含的电子数目为 
+  pdf-424    choice     pure=True  (2024·广东卷·★★)设 N_A 为阿伏加德罗常数的值。下列说法正确的是( ) A. 26 g H—C≡C—H 中含有 σ 键的数目为 
+  pdf-426    choice     pure=True  (2024·江西卷·★★★)我国学者把游离态氮固定在碳上(示踪反应如下)，制得的[N=C=N]^2-可用于合成核酸的结构单元。阿伏加德罗常数
+  pdf-427    choice     pure=True  (2023·全国甲卷·★★★)NA为阿伏加德罗常数的值，下列说法正确的是（ ） A. 0.5 mol异丁烷分子中共价键的数目为6.5NA B
+
+========== other ==========
+total=552  unsolved(truthAdopted=false)=466  pureRight_gwWrong=331  bothWrong=136
+-- unsolved list (id | taskType | pureCorrect | question[:60]) --
+  d9-3       concept    pure=False  胶体带电吗？
+  pdf-009    choice     pure=False  (2025·广西月考·★)下列说法中正确的是( ) A. ①②③④ B. ②③④⑤ C. ①②③⑥ D. ③④⑤⑦
+  pdf-012    choice     pure=False  (2025·安徽合肥阶段练习·★★)下列叙述中正确的是( ) A. ①②④⑤ B. ②③④⑤ C. ①③⑤⑥ D. ①③⑤⑦
+  pdf-020    choice     pure=False  (2025·黑龙江哈尔滨期中·★★★)下列叙述正确的个数是( ) A. 2 个 B. 3 个 C. 4 个 D. 5 个
+  pdf-030    equilibrium pure=False  (2025·山东二模节选·★★★)Bi2S3是一种具有优良光电性质的纳米材料。现在欲测定Bi2S3量子点中Bi^3+含量：取a g Bi2S
+  pdf-045    choice     pure=False  (2025·四川卷·★★)下列解释实验现象的离子方程式错误的是（ ） A. CuCl2 浓溶液稀释，绿色溶液变蓝：[CuCl4]2- + 4
+  pdf-065    choice     pure=False  (2025·模拟汇编·★★)下列过程涉及氧化还原反应的有( ) A. 4 项 B. 5 项 C. 6 项 D. 全部
+  pdf-071    choice     pure=False  (2021·山东卷·★★★☆)(双选)实验室中利用固体KMnO4进行如图实验,下列说法错误的是( ) A. G与H均为氧化产物 B. 实验中
+  pdf-073    choice     pure=False  (2025·四川绵阳模拟·★★)二氟化氧(OF2)是极强的氧化剂和氟化剂。已知:①2F2 + 2NaOH = OF2 + 2NaF + H2
+  pdf-075    choice     pure=False  (2025·黑龙江省联考·★★★)稀有气体化合物在化学、照明、医疗等众多领域有广泛应用,含Xe化合物的种类较多,氙的氟化物(XeFn)与Na
+  pdf-078    choice     pure=False  7.(2025·北京海淀三模★★★★)实验室模拟海带提碘的流程如下,下列说法正确的是( )(I—127) A. 步骤①③⑥的操作分别是过滤、
+  pdf-085    choice     pure=False  1.(2025·北京海淀区三模·★★★)氢化亚铜(CuH)是一种红棕色的难溶物，可在40～50℃条件下，用CuSO4溶液和“另一种反应物”制
+  pdf-088    choice     pure=False  4.(2025·广东深圳二模·★★)四种燃煤烟气脱硫方法的原理如图，下列说法不正确的是（ ） A. 方法1中，吸收SO2前后的溶液中硫元素的
+  pdf-097    unknown    pure=False  8.(2024·福建卷·★★★)锂云母的主要成分为 K(Li1.5Al1.5)(AlSi3O10)(OH)x F2−x,实验室探索一种碱浸分
+  pdf-100    choice     pure=False  (2024·新课标卷·★)实验室中利用右图装置验证铁与水蒸气反应。下列说法错误的是( ) A. 反应为3Fe+4H₂O(g)─(高温)→Fe
+  pdf-107    equilibrium pure=False  （2025·湖北武汉二模·★★★）工艺中，LAEM是一种新型阴离子交换膜，允许带负电荷的配离子从高浓度区扩散至低浓度区。用LAEM提取金属离
+  pdf-108    calculation pure=False  （2025·湖北武汉二模·★★★）某废氧化铝基催化剂主要含有α-Al2O3、NiAl2O4，以及少量Fe2O3、MgO等，从该废催化剂中提取
+  pdf-114    choice     pure=False  (2023·湖南卷·★★★)处理某铜冶金污水(含Cu2+、Fe3+、Zn2+、Al3+)的部分流程如下：已知：①溶液中金属离子开始沉淀和完全
+  pdf-115    choice     pure=False  （2024·山东卷不定项选择★★★）钧瓷是宋代五大名瓷之一，其中红色钧瓷的发色剂为Cu2O。为探究Cu2O的性质，取等量少许Cu2O分别加入
+  pdf-117    concept    pure=False  (1)Si是半导体材料,同族的Ge也是半导体材料,则ⅣA族元素的单质都是半导体材料（ ）
+  pdf-120    concept    pure=False  (4)SiO2可用于生产光导纤维,利用了SiO2的导电性（ ）
+  pdf-121    concept    pure=False  (5)石墨烯、碳纳米管、碳纤维均属于无机非金属材料（ ）
+  pdf-122    concept    pure=False  (6)单晶硅芯片的主要成分可被氢氟酸腐蚀（ ）
+  pdf-123    choice     pure=False  (2024·江西卷·★★)景德镇青花瓷素有“国瓷”的美誉，是以黏土为原料，用含钴、铁的颜料着色，上釉后一次性高温烧制而成的青蓝色彩瓷。下列关
+  pdf-133    equilibrium pure=False  (2025·海南二模·★★★★)二氯化二硫(S2Cl2)在工业上可以用于橡胶的硫化,还可以作为贵金属的萃取剂,可由硫和氯气在100～110℃
+  pdf-134    concept    pure=False  （★）正误判断，正确的填“√”，错误的填“×”。(1)澄清石灰水和酸性 KMnO4 溶液均可以区分 CO2 和 SO2（ ）(2)可用饱和 
+  pdf-135    choice     pure=False  (2025·浙江温州二模·★★★)关于硫的性质，下列说法不正确的是（ ） A. 浓硫酸可干燥 SO2 B. S 与 Cu 加热条件下反应生成
+  pdf-136    choice     pure=False  (2025·河南安阳一模·★★★)关于物质的处理方法，下列说法正确的是（ ） A. 蒸馏法：将水蒸气通入酒糟中蒸出白酒 B. 盐析-过滤法：
+  pdf-137    choice     pure=False  (2025·上海二模·★★★)下列事实中，能用来比较碳元素和硫元素的非金属性强弱的是 A. SO2 具有漂白性而 CO2 没有 B. 少量 
+  pdf-138    choice     pure=False  (2025·全国模拟预测·★★)某化学实验小组利用以下装置进行相关实验。其中不能达到预期目的的是 A. 制备 H2S 气体 B. 干燥 H2
+  pdf-142    choice     pure=False  (2024·全国专题练习·★★★)向0.1 mol·L⁻¹的溶液X中通入H₂S至过量，下列对应反应现象或离子方程式中存在错误的是（ ） A.
+  pdf-143    choice     pure=False  (2025·湖北武汉二模·★★★)实验小组设计下图所示装置，验证SO₂性质，下列说法正确的是（ ） A. 实验室用98%的浓硫酸和亚硫酸钠固
+  pdf-145    choice     pure=False  12.(2025·广东深圳一模★★★)按下图装置,将浓 H2SO4 加入 Na2S2O3 溶液中,Na2S2O3 溶液产生气泡和黄色沉淀。下
+  pdf-150    choice     pure=False  (2025·广东深圳二模·★★)下列有关 NO 制备及性质验证的实验装置不正确的是（ ） A. 制备 NO B. 提纯 NO C. 验证 N
+  pdf-153    choice     pure=False  (2025·辽宁模拟★★★)某制肼法是以氨为氮源，用次氯酸钠氧化氨气制备水合肼(N2H4·H2O)，其反应装置如图所示(夹持装置已略去)。下
+  pdf-159    unknown    pure=False  (2023·新课标卷节选★★★★)铬和钒具有广泛用途。铬钒渣中铬和钒以低价态含氧酸盐形式存在,主要杂质为铁、铝、硅、磷等的化合物,从铬钒渣中
+  pdf-160    unknown    pure=False  (2025·重庆卷节选★★★★)硒(Se)广泛应用于农业和生物医药等领域,一种利用H2Se热解制备高纯硒的流程如下:
+  pdf-161    unknown    pure=False  (2023·全国甲卷★★)BaTiO3是一种压电材料。以BaSO4为原料,采用下列路线可制备粉状BaTiO3。
+  pdf-162    choice     pure=False  (3)“酸化”步骤应选用的酸是______(填字母)。 a. 稀硫酸 b. 浓硫酸 c. 盐酸 d. 磷酸
+  pdf-163    unknown    pure=False  (4)如果“焙烧”后的产物直接用酸浸取，是否可行？________，其原因是________________________。
+  pdf-164    reaction_check pure=False  (5)“沉淀”步骤中生成 BaTiO(C2O4)2 的化学方程式为________________________________。
+  pdf-165    unknown    pure=False  (6)“热分解”生成粉状钛酸钡，产生的nCO2 : nCO = ______。
+  pdf-167    equilibrium pure=False  (2025·新课标卷·★★★)我国的蛇纹石资源十分丰富,它的主要成分是 Mg3Si2O5(OH)4,伴生有少量 Ni、Fe、Al 等元素。利
+  pdf-168    calculation pure=False  (2)经“焙烧①”“水浸”，过滤分离后，滤液中金属离子 Ni2+、Fe3+、Mg2+、Al3+的浓度分别为0.005 mol/L、0.150
+  pdf-170    unknown    pure=False  (4)“焙烧②”后得到 NiO。NiO 晶胞如右图所示，晶胞中含有 Ni2+的个数为__________。 4.(2025·云南卷·★★★)
+  pdf-171    reaction_check pure=False  (5)调节“沉镍”后的溶液为碱性，“矿化”反应的离子方程式为____________________。
+  pdf-172    calculation pure=False  (6)1.0 Kg 蛇纹石“矿化”固定 CO2，得到 0.466 kg Mg5(CO3)4(OH)2·4H2O，相当于固定 CO2_____
+  pdf-173    concept    pure=False  （1）基态 Cu 原子的价层电子排布式为____________________。
+  pdf-174    reaction_check pure=False  （2）“还原酸浸”时，MnO2 反应的离子方程式为____________________。
+  pdf-176    unknown    pure=False  （4）“沉铜”前，“滤液 1”多次循环的目的为____________________。
+  pdf-177    concept    pure=False  （5）根据“还原酸浸”“氧化”，推断 Fe^3+、Cu^2+、MnO2 的氧化性由强到弱的顺序为____________________。 
+  pdf-179    reaction_check pure=False  （3）用离子方程式表示置换过程中加入 Fe 的目的：____________________。
+  pdf-180    concept    pure=False  （4）粗铜经酸浸处理，再进行电解精炼；电解时用酸化的 CuSO4 溶液做电解液，并维持一定的 c(H+) 和 c(Cu^2+)。粗铜若未经酸
+  pdf-185    choice     pure=False  (2025·北京海淀期末·★★)⁴⁰K是钾元素的一种较稳定的核素，其衰变后产生⁴⁰Ar。⁴⁰K的半衰期(放射性元素的原子核有半数发生衰变所需
+  pdf-187    choice     pure=False  (2025·北京石景山一模·★★)采用锶(38Sr)同位素与氧同位素检测方法研究亚长(商王朝人)的部分数据如下。下列说法不正确的是( ) A
+  pdf-188    structure_verify pure=False  (3)[2023·广东，19(1)①★★]基态Fe2+的3d电子轨道表示式为_______________________。 (2025·山
+  pdf-189    choice     pure=False  (2025·江苏模拟预测改编·★★)我国科学家对量子材料的研究处于国际领先水平,近年来对石墨烯、硅烯、锗烯等低维量子材料的研究发展迅速。下列
+  pdf-190    equilibrium pure=False  (1)(2023·北京卷·★★)比较S原子和O原子的第一电离能大小,从原子结构的角度说明理由:_______________________
+  pdf-193    choice     pure=False  (2025·湖南卷·★★★)下列有关物质性质的解释错误的是( ) A. 酸性：CH3COOH < HCOOH；—CH3是推电子基团 B. 熔
+  pdf-194    choice     pure=False  (2025·湖南三模·★★★)将铜加热后伸入有氯气的集气瓶，然后向燃烧后的固体中加入少量的水使其溶解，得到深绿色溶液。再逐滴加水，溶液由深绿
+  pdf-201    choice     pure=False  2.（2025·云南昭通阶段测试改编·★★）实验室制取 HF 的原理为 CaF2 + H2SO4（浓）△ CaSO4 + 2HF↑，氢氟酸可
+  pdf-203    unknown    pure=False  4.（2025·新课标卷节选·★）“焙烧②”后得到 NiO。NiO 晶胞如图所示，晶胞中含有 Ni²⁺ 的个数为 ______。
+  pdf-212    choice     pure=False  (2025·湖南三模·★★★)W、X、Y、Z是核电荷数依次增大的短周期元素，其中基态Z原子s轨道电子数与p轨道电子数之比为3:4，由上述四种
+  pdf-213    choice     pure=False  (2025·辽宁二模·★★)结构决定性质，性质决定用途。对下列事实解释错误的是（ ） A. 植物油可制取肥皂 植物油可通过催化加氢提高饱和度
+  pdf-224    choice     pure=False  (2025·天津二模改编·★★)某冠醚分子c可识别K+，可用作相转移催化剂，合成方法及超分子结构如下。下列说法不正确的是（ ） A. a、b
+  pdf-227    choice     pure=False  (2024·湖北卷·★★★)科学家合成了一种如图所示的纳米“分子客车”,能装载多种稠环芳香烃。三种芳烃与“分子客车”的结合常数(值越大越稳定
+  pdf-235    choice     pure=False  （2023·广东卷·★★★★）化合物XYZ₄ME₄可作肥料，所含的5种元素位于主族，在每个短周期均有分布，仅有Y和M同族。Y的基态原子价层p
+  pdf-246    choice     pure=False  (2024·北京卷·★★★)苯在浓HNO3和浓H2SO4作用下，反应过程中能量变化示意图如下。下列说法不正确的是( ) A. 从中间体到产物
+  pdf-252    choice     pure=False  （★★）勒夏特列原理在工农业生产和日常生活中都具有重要的意义，下列相关事实不能用勒夏特列原理解释的是 A. 溴水中存在平衡 Br2 + H2
+  pdf-255    calculation pure=False  （2024·江苏卷·★★★★）CO2 加氢制甲醇过程中的主要反应（忽略其他副反应）为①CO2(g) + H2(g) ⇌ CO(g) + H2
+  pdf-260    calculation pure=False  (2024·江西卷节选·★★★★)石油开采的天然气含有H2S。综合利用天然气制氢是实现“碳中和”的重要途径。CH4和H2S重整制氢的主要反应
+  pdf-280    choice     pure=False  (2025·北京景山区一模·★★★)25 ℃时，关于浓度均为 0.1 mol/L 的氨水和 NH4Cl 两种溶液，下列说法不正确的是( ) 
+  pdf-288    choice     pure=False  (2023·江苏卷·★★★)室温下，用含少量 Mg^2+ 的 MnSO4 溶液制备 MnCO3 的过程如图所示。已知 K_sp(MgF2)=
+  pdf-292    choice     pure=False  (2025·北京市丰台区一模·★★★)Na2S、FeS可用于含镉(Cd2+)废水的处理。已知：常温下，i. Na2S溶液中各含硫粒子的物质的
+  pdf-295    choice     pure=False  (2025·广东惠州期末·★★)一种锂-空气电池的工作原理如图所示,下列说法不正确的是 A. 金属锂作电池的负极 B. 电子由金属锂经负载流
+  pdf-312    choice     pure=False  (2024·海南卷·双选)电解 NH4HSO4 溶液得到 S2O8^2-，是早期制备 H2O2 的重要步骤。某实验装置如图所示。电解过程流出
+  pdf-316    choice     pure=False  (2024·浙江1月选考·★★★)破损的镀锌铁皮在氨水中发生电化学腐蚀,生成[Zn(NH₃)₄]²⁺和H₂,下列说法不正确的是 A. 氨水浓
+  pdf-317    choice     pure=False  (2023·广东卷·★★)负载有Pt和Ag的活性炭,可选择性去除Cl⁻实现废酸的纯化,其工作原理如图。下列说法正确的是 A. Ag作原电池正
+  pdf-322    unknown    pure=False  (2024·浙江卷·★★)中官能团名称为______。
+  pdf-323    unknown    pure=False  (2025·毕节一诊改编·★★)中官能团名称为______，该有机化合物的系统命名为______。
+  pdf-333    unknown    pure=False  (2025·北京昌平二模·★★★)以2-丁烯为原料合成G的路线如下,其中L有2种化学环
+  pdf-340    equilibrium pure=False  (2025·天津期末·★★★)(R)-2-溴辛烷的溴原子被羟基取代时，羟基在碳溴键断裂的方向连接称为构型保持，在碳溴键断裂的相反方向连接称为
+  pdf-346    choice     pure=False  (2025·河北石家庄期中改编·★★★★)连花清瘟胶囊对于治疗新冠肺炎有确切的疗效，其有效成分绿原酸的结构简式如下图所示。下列有关绿原酸说法
+  pdf-352    choice     pure=False  (2025·成都二诊·★★★)氘代甲醛与HCN发生加成反应如下，下列说法错误的是( ) A. 产物Ⅱ含有三种官能团 B. 氘代甲醛中σ键与π
+  pdf-360    choice     pure=False  (2024·海南卷·双选·★★)海南暗罗是一种药用植物,具有抗菌、抗肿瘤活性。从中提取的一种生物活性物质结构简式如图所示。下列关于该分子说法
+  pdf-365    choice     pure=False  (2025·浙江期中·★★★)下列有关说法不正确的是（ ） A. X射线衍射实验中，当单一波长的X射线通过石英玻璃粉末时，会在记录仪上产生分
+  pdf-367    choice     pure=False  (2025·甘肃期末·★★)冠状病毒(如图)由蛋白质和核酸组成，核酸由核苷酸组成。下列说法错误的是（ ） A. 核苷酸可在酶的条件下水解为磷
+  pdf-368    choice     pure=False  (2025·天津南开一模改编·★★)下列说法错误的是( ) A. 糖类、蛋白质和核酸均能发生水解反应 B. 核酸可看作磷酸、戊糖和碱基通过一
+  pdf-376    choice     pure=False  (2024·北京卷·★★★)CO2的资源化利用有利于实现“碳中和”。利用CO2为原料可以合成新型可降解高分子P，其合成路线如下。已知：反应①
+  pdf-377    unknown    pure=False  (2024·新课标卷·★★★)一种点击化学方法合成聚硫酸酯(W)的路线如下所示：
+  pdf-378    choice     pure=False  （2025·北京海淀期中·★★）光学性能优良的高分子材料聚碳酸异山梨醇酯可由如下反应制备。下列说法错误的是（ ） A. 反应式中 a 为 2
+  pdf-386    choice     pure=False  (2025·河北衡水期中·★★★★)下列说法错误的是( ) A. 正丁烷分子中4个碳原子不可能处于同一平面上 B. 分子中有6个碳原子在同一
+  pdf-389    concept    pure=False  (2025·上海徐汇期末·★★)被称为“立方烷”，是一种合成的烃，它的分子式为______；其二氯代物共有______种。
+  pdf-399    choice     pure=False  (2024·北京卷·★★★)下列实验的对应操作中，不合理的是（ ） A. 用 HCl 标准溶液滴定 NaOH 溶液 B. 稀释浓硫酸 C. 
+  pdf-406    choice     pure=False  (2025·河北沧州一模·★★★)图示装置不能完成相应气体的发生和收集实验的是(加热、除杂和尾气处理装置略) A. Cl2：二氧化锰和浓盐酸
+  pdf-409    choice     pure=False  (2024·湖北卷·★★★★)碱金属的液氨溶液含有的蓝色溶剂化电子[e(NH3)n]−是强还原剂。锂与液氨反应的装置如图(夹持装置略)。下列
+  pdf-412    choice     pure=False  (2025·四川卷节选·★★★☆)双水杨醛缩乙二胺(H2L, Mr=268)的锰配合物(MnLClx)常用作有机氧化反应的催化剂。某化学课外
+  pdf-414    choice     pure=False  (3)过滤操作中需要的玻璃仪器。除烧杯和玻璃棒外，还需要__________(填字母)。 3.(2025·江西一模改编★★★☆)磁性纳米 F
+  pdf-415    calculation pure=False  (4)步骤④中用盐酸调节 pH 至 3～4，除去的离子有______________。
+  pdf-416    choice     pure=False  (5)“一系列操作”是指______(填字母)。 A. 蒸发至晶膜形成后，趁热过滤 B. 蒸发至晶膜形成后，冷却结晶 C. 蒸发至大量晶体析
+  pdf-417    reaction_check pure=False  (6)请用离子方程式表示加入盐酸后发生的反应：__________________________。另有两种方案进行粗盐提纯。方案2：向粗盐
+  pdf-432    choice     pure=False  (2024·北京卷·★★)下列化学用语或图示表达不正确的是（ ） A. H2O2的电子式为H+[::O::O::]2-H+ B. CH4分子
+  pdf-434    choice     pure=False  (2024·浙江6月选考·★★)下列表示不正确的是（ ） A. CO₂的电子式为:Ö::C::Ö: B. Cl₂中共价键的电子云图： C. 
+  pdf-436    choice     pure=False  (2024·湖南卷·★★)下列化学用语表述错误的是（ ） A. NaOH的电子式：Na⁺[:Ö:H]⁻ B. 异丙基的结构简式：-CH(CH
+  pdf-437    choice     pure=False  (2023·浙江1月选考·★★)下列化学用语表示正确的是（ ） A. 中子数为18的氯原子：³⁷₁₇Cl B. 碳的基态原子轨道表示式：1s
+  pdf-458    choice     pure=False  (2025·宁夏二模·★★)下列说法正确的是 A. 基态Ga原子核外电子排布式：[Ar]4s²4p¹ B. NH₃BH₃的结构式：H—N←B
+  pdf-459    choice     pure=False  下列制取BCl₃的部分实验装置能达到实验目的的是 A. 用装置甲干燥Cl₂ B. 用装置乙制取BCl₃ C. 用装置丙收集BCl₃ D. 用
+  pdf-461    unknown    pure=False  (2024·广东卷节选·★★★)镓(Ga)在半导体、记忆合金等高精尖材料领域有重要应用。一种从电解铝的副产品炭渣(含C、Na、Al、F和少量
+  pdf-462    reaction_check pure=False  (4)“滤饼”的成分为 AlOOH,则“沉铝”的离子方程式为________________________。
+  pdf-465    concept    pure=False  (7)可利用萃取剂 P204( )从“溶液”中萃取分离出 Ni2+。P204 在煤油中常以二聚体的形式存在,其原因是____________
+  pdf-466    concept    pure=False  (7)瓷坩埚不可用于加热熔化烧碱或纯碱（ ）
+  pdf-467    reaction_check pure=False  (8)SiO2可与氢氟酸反应,故SiO2为碱性氧化物（ ）
+  pdf-469    concept    pure=False  (10)利用CO2合成高级脂肪酸甘油酯,实现无机小分子向有机高分子的转化（ ）
+  pdf-470    concept    pure=False  (11)月面国旗由超细玄武岩纤维纺织而成,属于无机非金属材料（ ）
+  pdf-473    unknown    pure=False  (14)固体Na2CO3、溶液Na2SiO3证明非金属性:Cl>C>Si（ ）
+  pdf-478    reaction_check pure=False  (★)正误判断，正确的填“√”，错误的填“×”。(1)氯气泄漏时，可用蘸 NaOH 溶液的湿毛巾捂住口鼻撤离（ ） (2)用装置 可实现氯气
+  pdf-480    choice     pure=False  1.（★★）正误判断，正确的填“√”，错误的填“×”。(1)将装有NO2的密闭烧瓶浸入冰水中，烧瓶内气体的红棕色会变浅（ ）(2)将过量的N
+  pdf-486    concept    pure=False  (2)(2023·浙江6月选考，17节选改编·★)基态N原子的价层电子排布式是_______________________。 (2024·
+  pdf-488    concept    pure=False  (5)(2024·山东卷节选·★★)Mn在元素周期表中位于第____周期第____族；同周期元素中，基态原子未成对电子数比Mn多的元素是__
+  pdf-489    structure_verify pure=False  (6)(2024·北京卷·★★)锡(Sn)是现代“五金”之一，广泛应用于合金、半导体工业等。Sn位于元素周期表的第五周期第ⅣA族。将Sn的基
+  pdf-491    choice     pure=False  (2021·全国乙卷节选·★★★)对于基态Cr原子，下列叙述正确的是______(填字母)。 A. 轨道处于半充满时体系总能量低，核外电子排
+  pdf-509    vsepr      pure=False  (2025·上海一模·★★★)硼的化合物具有特殊的性质，硼与砷或镍等元素可形成多种具有超导电性的化合物，如CaNi2As2等。回答下列问题：
+  pdf-519    concept    pure=False  (2024·甘肃卷改编·★★)曲美托嗪分子中官能团名称为______、______。
+  pdf-520    unknown    pure=False  (2024·甘肃卷改编·★)中官能团有______、______、______（写名称）。
+  pdf-521    concept    pure=False  (2024·北京卷·★)中含氧官能团名称为______。
+  pdf-522    unknown    pure=False  (2025·成都二诊改编·★★)的名称为______。
+  pdf-523    unknown    pure=False  (2025·晋中二模改编·★★)中官能团名称为______，该有机化合物的习惯命名为______。
+  pdf-524    choice     pure=False  (2025·湖北武汉期中·★★)以物质a为原料,制备物质d(金刚烷)的合成路线如图所示: A. 物质a与Br2发生1:1加成的产物有1种 B
+  pdf-526    calculation pure=False  (全国专题训练·★★)按要求书写酯化反应的化学方程式。(4)羟基酸自身的酯化反应,如乳酸 CH3CHCOOH (OH) 自身酯化①生成六元环
+  pdf-527    calculation pure=False  (全国专题训练·★★)按要求书写酯化反应的化学方程式。(4)羟基酸自身的酯化反应,如乳酸 CH3CHCOOH (OH) 自身酯化②生成聚酯:
+  pdf-531    choice     pure=False  (2025·河北一模★★★★)某兴趣小组模仿上述流程制取 Fe3O4 并测定其产率,具体操作如下:Ⅰ. 测定绿矾的含量(杂质不与 KMnO4
+  pdf-533    calculation pure=False  N2，再加入8滴RSH(巯基乙酸)，用2 mol·L⁻¹的NaOH溶液调节pH为8～9，继续通入N2。步骤Ⅲ：使用滴管将NaHTe溶液(稍过
+  pdf-536    unknown    pure=False  (4)步骤Ⅲ中“快速一次性加入NaHTe溶液”的原因是______。
+  pdf-537    unknown    pure=False  (5)若实验加热回流时间过长，产物的量子点的特性比较差，结合信息分析其原因是______。
+  pdf-539    reaction_check pure=False  (2)Ⅰ中GaN反应生成[Ga(OH)4]⁻的离子方程式为________________________。
+  pdf-543    calculation pure=False  (3)①Ⅲ加硫酸调节溶液pH的目的是________________________。
+  test-1     concept    pure=True  检验 Fe3+ 离子应该用什么试剂？
+  test-2     concept    pure=True  检验 Cl- 离子应该用什么试剂？
+  concept-1  concept    pure=True  什么是电解质？
+  test-3     concept    pure=True  检验 SO4^2- 离子应该用什么试剂？
+  test-4     concept    pure=True  检验 NH4+ 离子应该用什么方法？
+  test-5     concept    pure=True  检验 CO3^2- 离子应该用什么试剂？
+  concept-2  concept    pure=True  什么是氧化还原反应？
+  concept-3  concept    pure=True  强电解质和弱电解质的区别是什么？
+  property-1 concept    pure=True  Fe3+ 离子的水溶液是什么颜色？
+  property-2 concept    pure=True  MnO4- 离子的水溶液是什么颜色？
+  trap-limit-2 calculation pure=True  在 3NO2 + H2O = 2HNO3 + NO 反应中，氧化剂和还原剂的质量比是多少？
+  trap-limit-3 calculation pure=True  等物质的量的 NaHCO3 和 Ba(OH)2 反应的离子方程式是什么？
+  d4-3       concept    pure=True  Na2CO3 溶液中，电荷守恒式正确的是？
+  d5-1       calculation pure=True  标准状况下，22.4L SO3 含有的分子数是 NA 吗？
+  d5-2       calculation pure=True  标准状况下，22.4L 己烷含有的分子数是 NA 吗？
+  d5-3       calculation pure=True  1mol N2 和 3mol H2 在一定条件下充分反应，生成 2mol NH3 对吗？
+  d5-4       calculation pure=True  1mol Cu 与足量浓硫酸反应，转移电子数是 2NA 吗？
+  d5-5       calculation pure=True  1mol D2O（重水）的摩尔质量是多少？
+  d6-1       vsepr      pure=True  NH3 分子的空间构型是什么？
+  d6-2       vsepr      pure=True  H2O 分子的空间构型是什么？
+  d6-3       vsepr      pure=True  SO3 分子的空间构型是什么？
+  d6-4       vsepr      pure=True  SO2 分子的空间构型是什么？
+  d6-5       vsepr      pure=True  ClO3- 离子的空间构型是什么？
+  d7-1       concept    pure=True  二氯甲烷（CH2Cl2）有几种同分异构体？
+  d7-2       concept    pure=True  正丁烷有几种等效氢？
+  d7-3       concept    pure=True  异丁烷（2-甲基丙烷）有几种等效氢？
+  d7-4       structure_verify pure=True  下列分子中含有手性碳原子的是？CH3CH(OH)COOH 有没有手性碳？
+  d8-3       concept    pure=True  原电池中，阳离子向哪个电极移动？
+  d8-4       concept    pure=True  铅蓄电池放电时，Pb 电极是正极还是负极？
+  d9-1       reaction_check pure=True  用酸性高锰酸钾溶液除去甲烷中的乙烯，对吗？
+  d9-2       concept    pure=True  氯气具有漂白性吗？
+  d9-4       concept    pure=True  能使湿润淀粉KI试纸变蓝的气体一定是Cl2吗？
+  d10-1      calculation pure=True  H2(g) + 1/2O2(g) = H2O(l) ΔH=-285.8kJ/mol。则 2H2O(l) = 2H2(g) + O2(g) 的
+  d10-2      calculation pure=True  已知：①C(s)+O2(g)=CO2(g) ΔH=-393.5kJ/mol；②CO(g)+1/2O2(g)=CO2(g) ΔH=-283.0
+  d10-3      calculation pure=True  键能计算反应热：ΔH = 反应物总键能 - 生成物总键能，对吗？
+  d10-4      calculation pure=True  1mol C(石墨)完全燃烧放热393.5kJ，热化学方程式中ΔH的符号是正还是负？
+  pdf-007    choice     pure=True  (2025·辽宁期末·★)下列关于分散系的说法错误的是( ) A. 自然界中的云、雾、烟都是胶体 B. 按照分散剂的状态不同，胶体可分为液溶
+  pdf-008    choice     pure=True  (2025·广西月考·★)下列关于胶体的性质、制备和应用叙述错误的是( ) A. 当日光从窗隙射入时，观察到一束光线 B. 向氢氧化铁胶体中
+  pdf-010    reaction_check pure=True  (2025·长沙月考·★★★)(1)取少量 Fe2O3 粉末(红棕色)于烧杯中，加入适量盐酸，发生反应的化学方程式为____________
+  pdf-011    choice     pure=True  (2022·湖北卷·★)化学与生活密切相关,下列不涉及化学变化的是( ) A. 加入明矾后泥水变澄清 B. 北京冬奥会用水快速制冰 C. 炖
+  pdf-014    choice     pure=True  (2025·苏州期末·★★)“价-类二维图”是从元素化合价和物质所属类别两个维度认识元素及其化合物性质的坐标图。如图是铜元素的“价-类二维图
+  pdf-019    choice     pure=True  (2025·广东惠州阶段练习·★★)化学的学习与研究,由宏观到微观,由定性到定量。下列叙述正确的是( ) A. 摩尔是国际单位制中七个基本物
+  pdf-021    choice     pure=True  (2025·河北阶段性考试·★★★)某密闭刚性容器中由可滑动隔板将容器分为甲、乙两部分。现向甲室通入 O2，乙室通入 1 mol N2，隔板
+  pdf-024    calculation pure=True  (2025·四川成都阶段练习·★★★★)利用“化学计量”的相关知识解决下列问题：(1)常温常压下，用等质量的 CH4、CO、O2、H2 四种
+  pdf-028    choice     pure=True  (全国阶段练习·★★)标准状况下，将20 L CO2和CO的混合气体全部通过足量的Na2O2粉末，在相同状况下，气体体积减少到16 L，则原
+  pdf-029    choice     pure=True  (全国阶段练习·★★)将一定量锌与100 mL 18 mol·L^-1的浓硫酸充分反应，锌完全溶解时产生0.8 mol气体(不考虑气体在溶液
+  pdf-033    choice     pure=True  (2025·河南南阳一模·★★)下列有关电解质的说法正确的是( ) A. NaCl在电流的作用下电离成钠离子和氯离子 B. 强电解质溶液的导
+  pdf-034    choice     pure=True  (2025·江苏南京模拟·★★)下列关于化合物、单质、混合物、电解质的正确组合是( ) A. 烧碱、液态氧、冰水混合物、H2SO4 B. 生
+  pdf-035    choice     pure=True  (2025·河北衡水一模·★)下列物质在水溶液中的电离方程式书写正确的是( ) A. H3PO3 ⇌ 3H+ + PO3^3- B. Ca(
+  pdf-036    choice     pure=True  (2025·云南昆明一中高考模拟·★★)将少量氢氧化钠固体加入下列溶液中，溶液导电能力变化最大的是( ) A. 0.1 mol·L^-1 硫
+  pdf-037    choice     pure=True  7.(2025·模拟组合题★★★)下列图示与得出结论相符的是(水合离子用相应离子符号表示)() A. (2025·北京期中)CH3COOH在
+  pdf-039    choice     pure=True  (2025·山西三模改编)下列反应的离子方程式书写正确的是( ) A. 向饱和 Na2CO3 溶液中通入过量 CO2: 2Na+ + CO3
+  pdf-043    choice     pure=True  (2023·浙江卷)下列反应的离子方程式正确的是( ) A. 向碘化亚铁溶液通入等物质的量的氯气: 2Fe^2+ + 2I- + 2Cl2 
+  pdf-046    choice     pure=True  (2025·新课标卷·★★)下列关于铁腐蚀与防护的反应式正确的是（ ） A. 酸性环境中铁发生析氢腐蚀的负极反应：Fe - 2e- ═ Fe
+  pdf-047    choice     pure=True  (2025·八省联考河南卷·★★)对于下列过程中发生的化学反应，相应离子方程式书写正确的是（ ） A. 向浓硝酸中加入少量氧化亚铜：Cu2O
+  pdf-048    choice     pure=True  (2025·八省联考四川卷·★★)下列过程对应的离子方程式正确的是（ ） A. 硫化氢溶液久置变浑浊：2S2- + O2 + 4H+ ═ 2
+  pdf-050    choice     pure=True  (2024·新课标卷·★★★)对于下列过程中发生的化学反应，相应离子方程式正确的是（ ） A. 试管壁上的银镜用稀硝酸清洗：Ag + 2H+
+  pdf-052    choice     pure=True  (2023·北京卷)下列离子方程式与所给事实不相符的是( ) A. Cl₂制备84消毒液(主要成分是NaClO):Cl₂+2OH⁻=Cl⁻+
+  pdf-053    choice     pure=True  (2023·湖南卷)下列有关电极方程式或离子方程式错误的是( ) A. 碱性锌锰电池的正极反应:MnO₂+H₂O+e⁻=MnO(OH)+OH
+  pdf-054    choice     pure=True  (2025·八省联考晋陕宁青卷·★★)下列各组离子在水溶液中可以大量共存的是( ) A. S2O3^2-、H+、I-、Na+ B. Cl-、
+  pdf-055    choice     pure=True  (2024·浙江卷·★★)下列离子组在溶液中能大量共存的是( ) A. H+、I-、Ba2+、NO3- B. Fe3+、K+、CN-、Cl-
+  pdf-056    choice     pure=True  (2025·吉林期末·★★)下列各组离子或分子能大量共存且当加入相应试剂后发生反应的离子方程式书写正确并完整的是( ) A. K+、Mg2+
+  pdf-057    choice     pure=True  (2025·黑龙江齐齐哈尔二模·★★)常温下，下列各组离子在指定溶液中一定能大量共存的是( ) A. 硫酸四氨合铜溶液：H+、Fe3+、NO
+  pdf-058    choice     pure=True  (2025·安徽一模·★★)下列各组离子在给定溶液中一定能大量共存的是( ) A. C2H5OH的水溶液中：K+、MnO4-、H+、SO4^
+  pdf-060    choice     pure=True  (2022·重庆卷·★★)下列操作中，不会影响溶液中K+、Al3+、Fe3+、Ba2+、Cl-、NO3-等离子大量共存的是( ) A. 加入
+  pdf-061    choice     pure=True  (2022·湖北卷·★★★)下列各组离子在给定溶液中能大量共存的是( ) A. 在 0.1 mol·L⁻¹ 氨水中: Ag⁺、Cu²⁺、NO
+  pdf-062    choice     pure=True  (2025·东北育才学校三模·★★)在溶液中能大量共存的离子组是( ) A. 0.1 mol·L⁻¹ 酸性高锰酸钾溶液中: Na⁺、Cl⁻、
+  pdf-063    choice     pure=True  (2025·全国模拟预测·★★★)向 2 mL 0.2 mol·L⁻¹ 的 CuSO₄ 溶液中滴加过量的 0.2 mol·L⁻¹ 的 Na₂
+  pdf-064    choice     pure=True  (2024·全国甲卷·★★★)四瓶无色溶液 NH₄NO₃、Na₂CO₃、Ba(OH)₂、AlCl₃,它们之间的反应关系如图所示。其中 a、b
+  pdf-066    choice     pure=True  (2025·青岛三模·★★)下列颜料制取过程不属于氧化还原反应的是( ) A. 矾红(Fe2O3):绿矾每斤,入黄土四两,入罐熬炼,则成矾红
+  pdf-069    choice     pure=True  (2025·浙江三模·★★)已知甲硅烷(SiH4)能与高锰酸钾溶液发生反应:SiH4+2MnO4⁻=2MnO2↓+SiO3²⁻+H2O+H2
+  pdf-070    calculation pure=True  (★★)反应:2KMnO4+16HCl(浓)=2KCl+2MnCl2+5Cl2↑+8H2O用于实验室制备氯气。(1)请用双线桥法标出电子转移
+  pdf-076    choice     pure=True  5.(2025·汇编★★★)根据下列操作及现象,得出结论错误的是( ) A. 向 NaBr 和 NaI 均为 0.1 mol·L⁻¹ 的混合
+  pdf-077    choice     pure=True  6.(★★★)向 200 mL FeBr₂ 溶液中逐渐通入 Cl₂,其中 n(Fe³⁺)、n(Br₂)随通入 n(Cl₂)的变化如图所示,下
+  pdf-079    choice     pure=True  8.(★★★★)将一定量的 Cl₂ 通入 30 mL 浓度为 10.00 mol·L⁻¹ 的氢氧化钠浓溶液中,加热一段时间后,溶液中形成 N
+  pdf-081    choice     pure=True  (2025·四川成都期末·★★)已知反应：①SO2 + 2Fe3+ + 2H2O = SO4^2- + 2Fe2+ + W；②Cr2O7^2
+  pdf-083    choice     pure=True  (2025·浙江省杭州市高三一模·★★★)六氟合铂酸氙(XePtF6，其中Pt为+5价)是人类发现的第一个稀有气体化合物，与水反应的化学方程
+  pdf-084    calculation pure=True  (2025·试题汇编·★★)按要求写出化学方程式：(1)(2025·辽宁月考节选)对废旧催化剂进行回收可有效利用金属资源。某废旧催化剂主要含
+  pdf-091    choice     pure=True  (2025·四川卷·★★)下列与物质性质相关的说法正确的是（ ） A. 油脂产生“哈喇”味，因其发生了水解反应 B. 淀粉难溶于水，说明其结
+  pdf-092    choice     pure=True  (2025·晋陕宁青卷改编·★★)下列有关反应方程式正确的是（ ） A. 泡沫灭火器反应原理：3Na2CO3 + Al2(SO4)3 + 3
+  pdf-094    choice     pure=True  5.(2025·浙江三模·★★★)我国化学家侯德榜发明了联合制碱法,对世界制碱工业做出了巨大贡献。联合制碱法的主要工艺流程如图甲所示(部分物
+  pdf-095    choice     pure=True  6.(2025·广东惠州期末·★★)“劳动创造幸福生活”,下列劳动项目与所述化学知识没有关联的是( ) A. 用小苏打制抗酸药 B. 用氢氟
+  pdf-096    choice     pure=True  7.(2022·湖北卷·★★)硫代碳酸钠能用于处理废水中的重金属离子,可通过如下反应制备:2NaHS(s)+CS2(l)═Na2CS3(s)
+  pdf-098    calculation pure=True  9.(2025·全国模拟预测★★★)某化学兴趣小组在实验室中模拟侯氏制碱法制备NaHCO3，进一步处理得到产品Na2CO3和NH4Cl。实验
+  pdf-099    choice     pure=True  (2025·新课标卷改编·★★)下列关于铁腐蚀与防护的反应式错误的是( ) A. 酸性环境中铁发生析氢腐蚀的负极反应:Fe−3e⁻=Fe³⁺
+  pdf-101    choice     pure=True  (2024·广西卷·★★)某小组对Fe₂(SO₄)₃和K₃[Fe(CN)₆]的性质进行探究:Ⅰ.向少量蒸馏水里滴加2滴Fe₂(SO₄)₃溶液
+  pdf-102    choice     pure=True  (2025·模拟汇编·★★)下列离子方程式正确的是( ) A. 向FeCl₃溶液中加入Fe粉:Fe³⁺+Fe=Fe²⁺ B. 用绿矾(FeS
+  pdf-104    choice     pure=True  (2025·江苏南通三模·★★)FeS2在酸性条件下可发生反应:FeS2+H2SO4=FeSO4+S+H2S↑。以FeS2为原料制取FeSO
+  pdf-105    choice     pure=True  (2023·浙江卷·★★★)探究铁及其化合物的性质,下列实验方案、现象和结论都正确的是 A. 向FeCl2溶液中加入Zn片 B. 向Fe2(
+  pdf-106    choice     pure=True  (2023·江苏卷·★★★)室温下,探究0.1 mol·L⁻¹FeSO4溶液的性质,下列实验方案能达到探究目的的是 A. 溶液中是否含有Fe
+  pdf-109    choice     pure=True  (2023·上海卷·★)战国时期人们用青铜浇铸形成各样的青铜器,青铜比纯铜更便于制成形态各异的容器的原因是( ) A. 熔点低 B. 密度大
+  pdf-111    choice     pure=True  (2025·北京模拟预测·★★★)从锂离子电池电极材料LiCoO2(含少量金属Cu)中提取Co(OH)2和Li2CO3的回收工艺流程如图所示
+  pdf-112    choice     pure=True  (2024·福建卷·★★)从废线路板(主要成分为铜,含少量铅锡合金、铝、锌和铁)中提取铜的流程如下:已知:“滤液2”主要含SnO3^2-和H
+  pdf-113    choice     pure=True  (2025·北京朝阳二模·★★★)浓硝酸与铜作用的过程如下图所示。现象：ⅰ. a中产生红棕色气体，溶液呈绿色，试管壁发热；ⅱ. 烧杯液面上方
+  pdf-116    choice     pure=True  （2025·黑吉辽蒙卷★★）微粒邂逅时的色彩变化是化学馈赠的视觉浪漫。下列对颜色变化的解释错误的是（ ） A. 空气中灼烧过的铜丝伸入乙醇中
+  pdf-118    choice     pure=True  (2)硅的导电性介于导体和绝缘体之间,可用于制造光导纤维（ ） (2025·浙江三模·★★)物质的性质决定物质的用途,下列说法不正确的是（ 
+  pdf-119    reaction_check pure=True  (3)工业制高纯硅:SiO2 --(C,高温)--> Si(粗硅) --(HCl,300℃)--> SiHCl3 --(H2,1100℃)-
+  pdf-124    choice     pure=True  (2023·上海卷·★★)向饱和氯水中加入少量 Na2SO3 固体，下列说法正确的是（ ） A. 溶液 pH 减小 B. 溶液颜色变深 C.
+  pdf-126    choice     pure=True  (2025·四川巴中三模★★★★)一种制备NaClO2粗产品的工艺流程如图。已知:纯ClO2易分解爆炸,一般用空气稀释到体积分数为10%以下
+  pdf-127    choice     pure=True  (2025·广东深圳二模★★★)实验室中利用如图所示装置进行Cl2的相关实验,其中能够达到预期目的的是( ) A. 制备Cl2 B. 除杂 
+  pdf-128    choice     pure=True  (2025·广东二模★★★)有关氯气的微型探究实验装置如图所示。实验时滴入几滴浓盐酸,下列说法正确的是( ) A. ①处先变红后褪色,说明C
+  pdf-129    choice     pure=True  (2025·广东清远二模★★)卤素间形成的化合物如“BrCl、IBr、ICl”等称为卤素互化物，化学性质与卤素单质类似，则下列关于卤素互化物
+  pdf-130    choice     pure=True  (2025·内蒙古二模★★)部分含氯物质的“价-类”关系如图所示。下列事实和对应的方程式均正确的是（ ） A. 用a的溶液溶解试管中难溶的A
+  pdf-131    choice     pure=True  (2025·广东一模★★)25℃时，1体积的水可溶解约2体积的氯气。下列实验现象不能证明氯气与水发生了化学反应的是（ ） A. 试管内液面上
+  pdf-146    calculation pure=True  13.(2025·河北沧州二模★★★★)SO2 在生活、生产中有重要用途,使用不当会造成环境污染。某同学利用如图所示装置研究二氧化硫的性质。
+  pdf-147    choice     pure=True  2.（2025·浙江三模·★★）关于化学实验和化工生产的安全，下列说法正确的是（ ）A. 为加快铁屑在稀硫酸中的溶解，采用酒精灯加热比用电热
+  pdf-149    choice     pure=True  (2025·海南模拟预测·★★)下列实验操作正确且能达到相应实验目的的是（ ） A. 吸收 NH3，防止污染空气 B. 验证 Cl2 的助燃
+  pdf-155    choice     pure=True  (2025·福建厦门模拟★★★)采用沉淀法定量测定氯化铵在溶液中的热分解率实验过程如图。下列说法错误的是() A. “热分解”过程不宜加入沸
+  pdf-157    choice     pure=True  (2025·四川卷·★★★)一种主要成分为Ca3(PO4)2和KAlSi3O8的高钾磷矿，通过如下流程可制得重要的化工产品白磷(P4)、K2
+  pdf-158    choice     pure=True  (2025·湖南卷·★★★)工业废料的综合处理有利于减少环境污染并实现资源循环利用。从某工业废料中回收镉、锰的部分工艺流程如下：已知：①富集
+  pdf-166    calculation pure=True  (2025·四川卷节选·★★★)为了节约资源,减少重金属对环境的污染,一研究小组对某有色金属冶炼厂的高氯烟道灰(主要含有 CuCl2、ZnC
+  pdf-169    equilibrium pure=True  (3)加入 NaOH “调 pH=6”，过滤后，滤渣②是__________、__________，滤液中 Al3+的浓度为________
+  pdf-175    reaction_check pure=True  （3）“浸金银”时，Au 溶解涉及的主要反应如下： ①Au + 5S2O3^2- + [Cu(NH3)4]^2+ === [Au(S2O3)
+  pdf-181    choice     pure=True  (2025·上海宝山二模·★★)氮在自然界中大多以¹⁴N存在，少量以¹⁵N存在。下列关于¹⁴N与¹⁵N说法正确的是（ ） A. 二者互为同素
+  pdf-182    choice     pure=True  (2021·河北卷·★★)用中子轰击ᴺ₂X原子产生α粒子(即氦核⁴₂He)的核反应为ᴺ₂X＋¹₀n→⁷ₚY＋⁴₂He。已知元素Y在化合物中呈
+  pdf-183    choice     pure=True  (2021·北京卷·★★)下列有关放射性核素氚(³₁H)的表述不正确的是（ ） A. ³₁H原子核外电子数为1 B. ³₁H原子核内中子数为
+  pdf-184    choice     pure=True  (2022·山东卷·★★)¹³₈O、¹⁵₈O的半衰期很短，自然界中不能稳定存在。人工合成反应如下：¹⁶₈O＋³₂He→¹³₈O＋⁹₄X；¹⁶
+  pdf-186    choice     pure=True  (2025·江苏一模·★★)张青莲教授精确测得铟(In,原子序数为49)的相对原子质量为114.818±0.003,该值被采用为国际标准数据
+  pdf-191    choice     pure=True  (2025·河北衡水一模·★★★)下列化学用语表达错误的是( ) A. HCl分子中s-p σ键的电子云轮廓图： B. 中子数为20的氯原子
+  pdf-192    choice     pure=True  (2023·山东卷·★★)下列分子属于极性分子的是( ) A. CS2 B. NF3 C. SO3 D. SiF4
+  pdf-197    choice     pure=True  下列有关物质结构或性质的比较中，正确的是（ ） （2025·安徽二模·★★）海洋是一个巨大的资源库，利用海洋资源可制出重要的化工原料（如 N
+  pdf-198    concept    pure=True  （2023·全国乙卷·★★★）已知一些物质的熔点数据如下表： 物质	NaCl	SiCl4	GeCl4	SnCl4 熔点/℃	800.7	－6
+  pdf-202    choice     pure=True  3.（2025·山西三模·★★★）某种铁系储氢合金材料的晶胞如右图，八面体中心为金属铁离子，顶点均为 NH3 分子；四面体中心为硼原子，顶点
+  pdf-205    unknown    pure=True  (2023·广东卷·★★)由 CoCl2 可制备 AlxCoOy 晶体，其立方晶胞如图。Al 与 O 最小间距大于 Co 与 O 最小间距，
+  pdf-206    calculation pure=True  (2024·北京卷节选·★★)锡(Sn)是现代“五金”之一，广泛应用于合金、半导体工业等。白锡和灰锡是 Sn 的常见同素异形体。白锡具有体心
+  pdf-207    calculation pure=True  (2025·湖北随州期末·★★★)完成下列问题。(1)NH3的沸点比PH3的高，原因是__________________________。
+  pdf-209    choice     pure=True  (2024·山东卷·★)下列物质均为共价晶体且成键结构相似，其中熔点最低的是( ) A. 金刚石(C) B. 单晶硅(Si) C. 金刚砂(
+  pdf-210    choice     pure=True  (2025·湖北卷·★★★)下列关于物质性质或应用解释错误的是( ) A. 石蜡油的流动性比水的差；石蜡油的分子间作用力比水的小 B. NH
+  pdf-211    choice     pure=True  (2023·山东卷·★★★)石墨与F2在450℃反应，石墨层间插入F得到层状结构化合物(CF)x，该物质仍具润滑性，其单层局部结构如图所示。
+  pdf-214    choice     pure=True  (2025·安徽阜阳期末·★★★)白磷、正交型黑磷（与石墨具有类似的层状结构，单层黑磷叫黑磷烯）、磷化硼的结构模型如图所示。下列说法正确的是
+  pdf-215    concept    pure=True  (1)(2025·河南期中·★★★)CO2在一定条件下能转化为晶体甲和晶体乙，其晶胞结构如图所示：①晶体甲中存在的作用力有_________
+  pdf-218    choice     pure=True  (2024·湖南卷·★★)Li2CN2是一种高活性的人工固氮产物，其合成反应为2LiH+C+N2 --(高温)--> Li2CN2+H2，晶
+  pdf-219    choice     pure=True  (2024·湖北卷·★★★)黄金按质量分数分级，纯金为24K。Au-Cu合金的三种晶胞结构如图，Ⅱ和Ⅲ是立方晶胞。下列说法错误的是（ ） A
+  pdf-220    choice     pure=True  (2024·甘肃卷·★★★)β-MgCl2晶体中，多个晶胞无隙并置而成的结构如图甲所示，其中部分结构显示为图乙，下列说法错误的是（ ） A.
+  pdf-223    choice     pure=True  (2025·山东泰安模拟预测·★★★)冠醚在水相和油相均有一定的溶解度，是重要的相转移催化剂。18-冠-6是冠醚的一种，其结构如图A，可与K
+  pdf-225    choice     pure=True  (2025·上海阶段练习·★★★)(双选)某种超分子的结构如图所示(已知：—Me为甲基)。下列说法正确的是（ ） A. 电负性：F>O>N>
+  pdf-226    choice     pure=True  (2024·东北三省卷·★★★)环六糊精(D-吡喃葡萄糖缩合物)具有空腔结构，腔内极性较小，腔外极性较大，可包含某些分子形成超分子。图1、图
+  pdf-228    calculation pure=True  (2025·天津和平二模节选·★★★)FeCl3 溶液与 KSCN 溶液反应,Fe3+ 与 SCN− 不仅能以 1∶3 的个数比配合,还能以
+  pdf-229    choice     pure=True  (2025·湖南卷·★★★)MZ浓溶液中含有的X[MZ2(YX)]具有酸性，能溶解金属氧化物。元素X、Y、Z、M的原子序数依次增大，分别位于
+  pdf-230    choice     pure=True  (2025·甘肃卷·★★★)我国科学家制备了具有优良双折射性能的C3H8N6I6·3H2O材料。下列说法正确的是（ ） A. 电负性:N<C
+  pdf-231    choice     pure=True  (2024·浙江6月选考·★★★)X、Y、Z、M四种主族元素，原子序数依次增大，分别位于三个不同短周期，Y与M同主族，Y与Z核电荷数相差2，
+  pdf-232    choice     pure=True  (2025·新课标卷·★★★)一种化合物分子结构如图所示，其中W、X、Y、Z为短周期元素，原子序数依次增大，W的一种同位素的中子数为0，X和
+  pdf-234    choice     pure=True  （2024·全国甲卷·★★★★★）W、X、Y、Z为原子序数依次增大的短周期元素。W和X原子序数之和等于Y⁻的核外电子数，化合物W⁺[ZY₆]
+  pdf-236    choice     pure=True  （2024·江西卷·★★）某新材料阳离子为W₃₆X₁₈Y₂Z₆M⁺。W、X、Y、Z和M是原子序数依次增大的前20号主族元素，前四周期中M原子
+  pdf-237    choice     pure=True  （2024·重庆卷·★★★★）R、X、Y和Z为短周期元素，XY₃ZR₃的分子结构如下所示。R中电子只有一种自旋取向，X、Y和Z处于同一周期，
+  pdf-238    choice     pure=True  （2025·天津期中·★）下列说法正确的是（ ） A. 图甲表示 Ba(OH)2·8H2O 和 NH4Cl 反应过程中的能量变化 B. 图乙
+  pdf-239    choice     pure=True  （2025·日照期末·★★）反应 C3H8(g)＝CH4(g)＋C2H2(g)＋H2(g)  ΔH，可经两步完成，反应进程中能量变化如图所示
+  pdf-240    choice     pure=True  3.(2025·吉林期末★★★)在标准压强101 kPa、298 K下，由最稳定的单质合成1 mol物质B的反应焓变，叫做物质B的标准摩尔生
+  pdf-242    calculation pure=True  5.(2025·湖南高考节选★★)已知：反应 i:2C₂H₄(g)⇌C₄H₈(g)  ΔH₁＝－104.7 kJ/mol；反应 ii:2C₂
+  pdf-245    choice     pure=True  (2024·江苏卷·★★)下列说法正确的是( ) A. 豆科植物固氮过程中，固氮酶能提高该反应的活化能 B. C2H4与O2反应中，Ag催化
+  pdf-247    choice     pure=True  (2024·甘肃卷·★★☆)甲烷在某含Mo催化剂作用下部分反应的能量变化如图所示，下列说法错误的是( ) A. E2=1.41 eV B. 
+  pdf-248    choice     pure=True  (2024·海南卷·★★★)已知298 K,101 kPa时,CO2(g)+3H2(g)⇌CH3OH(g)+H2O(g) ΔH=−49.5 
+  pdf-249    choice     pure=True  (2025湖南高考·★★★)环氧化合物是重要的有机合成中间体。以钛掺杂沸石为催化剂,由丙烯( )为原料生产环氧丙烷( )的反应机理如图所示。
+  pdf-250    choice     pure=True  (2024·安徽卷·★★★)某温度下,在密闭容器中充入一定量的X(g),发生下列反应:X(g)⇌Y(g)(ΔH1<0),Y(g)⇌Z(g)(
+  pdf-251    choice     pure=True  (2023·浙江6月选考·★★★)一定条件下,1-苯基丙炔(Ph−C≡C−CH3)可与HCl发生催化加成,反应如下: [反应路径图：Ph−C
+  pdf-253    choice     pure=True  （2025·台州二模·★★）下列说法正确的是（ ） A. 常温下，反应 2N2O(g) ⇌ 2N2(g) + O2(g)  ΔH > 0 能
+  pdf-256    choice     pure=True  （2024·重庆卷·★★★）醋酸甲酯制乙醇的反应为 CH3COOCH3(g) + 2H2(g) ⇌ CH3CH2OH(g) + CH3OH(
+  pdf-263    choice     pure=True  （★★★）关于室温下 pH 相同、体积相同的氨水与氢氧化钠两种稀溶液，下列叙述正确的有几项（ ） A. 加入适量氯化铵固体后，两溶液的 pH
+  pdf-264    choice     pure=True  （2025·天津北辰三模·★★）下列操作能促进水的电离且使溶液中 c(H⁺)＜c(OH⁻) 的是（ ） A. 将水加热煮沸 B. 向水中加入
+  pdf-265    choice     pure=True  （2025·吉林一模改编·★★★）25 ℃时，分别稀释 pH=11 的 Ba(OH)₂ 溶液和氨水，溶液 pH 的变化如右图所示。下列说法错
+  pdf-266    choice     pure=True  (2025·北京昌平二模·★★★)相同温度下，关于盐酸和醋酸两种溶液的比较，下列说法正确的是（ ） A. pH 相等的两溶液中：c(CH3C
+  pdf-267    choice     pure=True  (2025·北京昌平二模·★★★)室温下，进行如下实验：①向 20 mL 0.1 mol/L 醋酸溶液中加入 20 mL 0.1 mol/L
+  pdf-268    choice     pure=True  (2025·北京东城二模·★★★)25 ℃时，下列说法正确的是（ ） A. 2 mL 0.1 mol/L 的醋酸和盐酸分别与足量锌反应，生成
+  pdf-269    choice     pure=True  (2025·天津一模·★★★)实验Ⅰ浑浊不消失，实验Ⅱ和Ⅲ中浊液变澄清。下列分析不正确的是（ ） A. NaHCO3 浊液中：c(Na⁺)>
+  pdf-270    choice     pure=True  (2021·浙江 1 月选考·★★★)25 ℃时，下列说法正确的是（ ） A. NaHA 溶液呈酸性，可以推测 H2A 为强酸 B. 可溶性
+  pdf-271    choice     pure=True  10.(2025·河北邢台二模·★★★)25℃下,某实验小组用碱(MOH)与酸(HA)做了如下三组滴定实验： 得到滴定曲线如下图(生成的MA
+  pdf-274    equilibrium pure=True  2.（★★★）除去 CuCl2 溶液中的 FeCl3，应该加入________（填化学式），用平衡原理解释该物质可以除去杂质的原因：____
+  pdf-275    calculation pure=True  3.（★★）常温下，浓度均为 0.1 mol/L 的下列溶液，pH 由大到小的顺序为________________。已知：lg2=0.3。
+  pdf-276    choice     pure=True  4.（2025·北京丰台三模·★★）下列图示中的操作没有涉及水解反应的是（ ） A. 实验室制备 Fe(OH)3 胶体 B. 用硫酸滴定 N
+  pdf-277    choice     pure=True  5.（2025·白城一模·★★★）25 ℃时，浓度均为 0.2 mol/L 的 NaHCO3 和 Na2CO3 溶液中，下列判断不正确的是（
+  pdf-278    equilibrium pure=True  6.（2025·浙江宁波期中·★★★）25 ℃时，部分物质的电离平衡常数如表所示：化学式 CH3COOH H2CO3 HClO HCN H2
+  pdf-279    choice     pure=True  (2025·北京门头沟区一模·★★★)关于 Na2SO3 和 NaHSO3 的说法中不正确的是( ) A. NaHSO3 溶液显酸性，是因为
+  pdf-281    choice     pure=True  (2025·北京门头沟区·一模·★★★)在 25 ℃时，向两份 10 mL 0.2 mol/L 的 CH3COONH4 溶液(pH=7)中分
+  pdf-282    choice     pure=True  (2025·浙江三模·★★★)下列说法正确的是( ) A. 0.1 mol/L 的 HCN 溶液与 0.1 mol/L 的 KCN 溶液等体
+  pdf-283    choice     pure=True  11. (2025·江苏苏州三模★★★)室温下，用FeSO4溶液与氨水-NH4HCO3混合溶液反应，制备FeCO3。已知Ka1(H2CO3)
+  pdf-284    choice     pure=True  12. (2025·葫芦岛市一模★★★)常温下，Na2A溶液中H2A、HA^-、A^2-的物质的量分数与pH的关系如下图。已知：A^2-的物
+  pdf-285    choice     pure=True  (★★)向含有 MgCO3 固体的溶液中滴加少许浓盐酸(忽略体积变化)，下列数值变小的是 A. c(CO3^2-) B. c(Mg^2+) 
+  pdf-286    choice     pure=True  (2025·河北承德期末·★★★)某温度下，Ca(OH)2 和 CaWO4 在水中的沉淀溶解平衡曲线如图所示[已知：pc(X)=－lg c(
+  pdf-287    choice     pure=True  (2025·安徽宣城期末·★★★)25 ℃时，PbR(R^2- 为 SO4^2- 或 CO3^2-)的饱和水溶液中，－lg c(R^2-)与
+  pdf-289    choice     pure=True  5.(2025·重庆期末·★★★)用含少量Ca2+的FeSO4溶液制备FeCO3的过程如图所示。下列说法错误的是（ ） A. 保存FeSO4
+  pdf-290    choice     pure=True  6.(2025·湖北孝感期末·★★★)一定温度下，将足量的BaSO4固体溶于50 mL水中，充分搅拌，慢慢加入Na2CO3固体，随着c(CO
+  pdf-291    choice     pure=True  7.(2024·重庆卷·★★★)某兴趣小组探究[Cu(NH3)4](NO3)2的生成过程。若向3 mL 0.1 mol/L Cu(NO3)2
+  pdf-293    choice     pure=True  (2025·北京西城三模·★★★)探究同浓度的Na2CO3与NaHCO3溶液和不同盐溶液间的反应，①中产生白色沉淀和无色气体，②中只产生白色
+  pdf-296    choice     pure=True  (2025·北京通州三模·★★★)铅酸蓄电池多用于启动和维持汽车用电系统的正常运转,氢氧燃料电池可以连续不断地提供电能作为汽车的动力能源。下
+  pdf-297    choice     pure=True  (2025·四川卷·★★★)最近,我国科学工作者制备了一种 Ni-CuO 电催化剂,并将其与金属铝组装成可充电电池,用于还原污水中的 NO3
+  pdf-298    choice     pure=True  (2024·全国甲卷·★★★★☆)科学家使用 δ-MnO2 研制了一种 MnO2-Zn 可充电电池(如图所示)。电池工作一段时间后，MnO2
+  pdf-299    choice     pure=True  (2024·江西卷·★★★★☆)我国学者发明了一种新型多功能甲醛-硝酸盐电池，可同时处理废水中的甲醛和硝酸根离子(如图)。下列说法正确的是（
+  pdf-300    choice     pure=True  (2024·福建卷·★★★★☆)一种兼具合成功能的新型锂电池工作原理如图。电解质为含 Li+ 有机溶液。放电过程中产生 (CF3SO2)2N
+  pdf-301    choice     pure=True  (2023·海南卷·★★)利用金属 Al、海水及其中的溶解氧可组成电池，如图所示。下列说法正确的是（ ） A. b 电极为电池正极 B. 电
+  pdf-302    choice     pure=True  (2023·全国乙卷·★★★☆)室温钠-硫电池被认为是一种成本低、比能量高的能源存储系统。一种室温钠-硫电池的结构如图所示。将钠箔置于聚苯并
+  pdf-303    choice     pure=True  (2023·山东卷·不定项选择★★★)利用热再生氨电池可实现CuSO4电镀废液的浓缩再生。电池装置如图所示，甲、乙两室均预加相同的CuSO4
+  pdf-304    calculation pure=True  (2025·上海阶段练习节选)如图甲是CO-空气燃料电池的工作原理示意图，a、b均为惰性电极。a电极的电极反应式为_____________
+  pdf-307    choice     pure=True  (2025·晋陕宁青卷·★★★★)我国科研人员采用图示的电解池，由百里酚(TY)合成了百里醌(TQ)。电极 b 表面的主要反应历程见图(灰球
+  pdf-308    choice     pure=True  (2023·湖北卷·★★★)我国科学家设计如图所示的电解池，实现了海水直接制备氢气技术的绿色化。该装置工作时阳极无Cl2生成且KOH溶液的浓
+  pdf-309    choice     pure=True  (2025·山西三模·★★★)工业上用单池双膜三液装置(如下图)，依据电解原理电解NH4NO3制备HNO3和NH3·H2O，下列说法正确的是
+  pdf-314    choice     pure=True  (2025·广东汕头三模·★★)生活中许多现象与电化学原理密切相关,下列说法正确的是 A. 铜板打上铁铆钉后,铜板更易被腐蚀 B. 用“保暖
+  pdf-315    choice     pure=True  (2024·广东卷·★★)我国自主设计建造的浮式生产储卸油装置“海葵一号”将在珠江口盆地海域使用,其钢铁外壳镶嵌了锌块,以利用电化学原理延缓
+  pdf-318    choice     pure=True  (2025·山西二模·★★★)如图装置可防止钢铁管道在潮湿土壤中的腐蚀。下列有关说法正确的是 A. 电流由镁块经导线流向钢铁管道 B. 管道
+  pdf-320    choice     pure=True  (2023·浙江卷改编·★★)下列说法正确的是( ) A. 32S2和34S4互为同位素 B. C70和纳米碳管互为同素异形体 C. H-C
+  pdf-321    choice     pure=True  下列关于有机化合物的命名错误的是( ) A. (2024·山东卷·★)的系统命名:2-甲基苯酚 B. (2025·八省联考河南卷·★★)的化
+  pdf-324    concept    pure=True  (2025·山东青岛期中改编·★★)某高分子结构简式为[CH=CH]n，其单体含有的官能团名称为______，该单体的化学名称为______
+  pdf-325    choice     pure=True  (2025·湖南模拟卷·★★★)下列化学用语或图示正确的是( ) A. 苯甲酸甲酯的习惯命名：苯甲酸甲酯 B. 甲苯的质谱图中，质荷比为92
+  pdf-326    choice     pure=True  (2025·河北邯郸期末·★★★)下列有关有机化合物的结构或性质说法正确的是( ) A. 721分光光度计能产生X射线，可用于晶体结构的测定
+  pdf-327    choice     pure=True  (2024·湖北卷·★★★)鹰爪甲素(如图)可从治疗疟疾的有效药物鹰爪根中分离得到。下列说法错误的是( ) A. 有5个手性碳 B. 在12
+  pdf-328    calculation pure=True  (2025·澳门期末·★★★)研究肉桂酸的组成和结构 肉桂酸乙酯是一种具有果香味的天然香料，广泛应用于食品、医药和化妆品等领域。某小组同学通
+  pdf-329    choice     pure=True  (2025·湖北武汉阶段练习·★★)下列有关有机化合物分子结构和性质的分析中正确的是______(多选)。 A. 等物质的量的正丁烷和异丁烷
+  pdf-330    choice     pure=True  (2025·湖南常德期中·★★★)有机化合物A的键线式如图所示,有机化合物B与等物质的量的H2发生加成反应得到有机化合物A。下列有关说法错误
+  pdf-331    choice     pure=True  (2025·浙江宁波期中·★★)1,1-联环戊烯(双环戊二烯结构)是重要的有机合成中间体。下列关于该有机化合物的说法错误的是( ) A. 分
+  pdf-332    choice     pure=True  (2025·四川眉山模拟·★★)药物中间体O-乙酰基扁桃酰氯的合成路线如图所示,下列说法错误的是( ) A. M、N、P分子均能发生取代、加
+  pdf-334    choice     pure=True  (2024·天津卷·★★)柠檬烯是芳香植物和水果中的常见组分。下列有关它的说法错误的是( ) A. 属于不饱和烃 B. 所含碳原子采取 sp
+  pdf-335    choice     pure=True  (2024·广西卷·★★★)烯烃进行加成反应的一种机理如下：此外，已知实验测得 CH2=CH2、CH3CH=CH2、(CH3)2C=CH2 
+  pdf-336    choice     pure=True  (2025·成都二诊·★★★)1-苯基丙炔可以在 Al2O3 催化下发生如下反应：双键同侧基团间的排斥影响烯烃的稳定性（排斥力：苯基-甲基＞
+  pdf-337    choice     pure=True  (2025·河北承德期中·★★★)下列卤代烃既能发生消去反应生成烯烃，又能发生水解反应生成醇的是（ ） A. ①③⑤ B. ③④⑤ C. ②
+  pdf-339    choice     pure=True  (2025·河南洛阳期中·★★★★)根据实验操作及现象，下列结论正确的是（ ） A. 向溴水中加入苯，振荡后静置；水层颜色变浅；溴与苯发生了
+  pdf-342    choice     pure=True  （2025·河南三模★★★）KF不溶于乙腈(CH3CN)溶液，但在冠醚的乙腈溶液中，可溶解并释放出F−，最终生成有机氟化物。下面是一个反应的
+  pdf-343    choice     pure=True  （2025·四川绵阳阶段练习★★★）下列说法不正确的是（ ） A. 用溴水可以一次性鉴别溴乙烷、乙醇、乙醛和苯酚溶液 B. 苯甲酸及其钠盐可
+  pdf-344    choice     pure=True  (2025·八省联考云南卷·★★★)化合物Z是合成消炎镇痛药萘普生的一种重要原料，其结构简式如图所示。下列有关该化合物说法错误的是（ ） A
+  pdf-347    choice     pure=True  (2025·辽宁二模·★★★)杂杯芳烃是超分子化学的热点研究领域。一种合成氧杂杯[4]芳烃(z)的方法如图所示(R为烃基)：下列说法正确的是
+  pdf-348    choice     pure=True  （2025·南通三模改编·★★★）一种杯酚的合成过程如图所示。该杯酚盛装 C60 后形成超分子。下列说法正确的是（ ） A. 该杯酚的合成过
+  pdf-349    choice     pure=True  （2025·安徽芜湖期末·★★★）D-乙酰氨基葡萄糖的结构简式如下，下列有关该物质的说法，正确的是（ ） A. 分子式为 C8H14O6N 
+  pdf-350    choice     pure=True  (2024·江西卷·★★★)蛇抱菌素(X)是一种具有抗癌活性的天然植物毒素。下列关于X说法正确的是( ) A. 含有4种官能团，8个手性碳原
+  pdf-351    choice     pure=True  (2025·四川绵阳二诊·★★★)甲基麦冬黄烷酮是麦冬的主要活性成分，其结构如图。下列关于该物质的说法正确的是( ) A. 分子中含有3种官
+  pdf-353    choice     pure=True  (2025·湖南模拟·★★★)葫芦[n]脲(n=5,6,7,8……)家族分子是一种具有空腔的桶状大杯、两端开口的超分子主体，可以很好地包结有
+  pdf-354    calculation pure=True  (全国专题训练·★★)按要求书写酯化反应的化学方程式。(1)一元羧酸与多元醇之间的酯化反应,如乙酸与乙二醇的物质的量之比为1:1
+  pdf-355    calculation pure=True  (全国专题训练·★★)按要求书写酯化反应的化学方程式。(2)多元羧酸与一元醇之间的酯化反应,如乙二酸与乙醇的物质的量之比为1:2 (2025
+  pdf-356    calculation pure=True  (全国专题训练·★★)按要求书写酯化反应的化学方程式。(3)多元羧酸与多元醇之间的酯化反应,如乙二酸与乙二醇酯化①生成环酯: (2024·江
+  pdf-358    choice     pure=True  (2024·广西卷·★★)6-硝基胡椒酸是合成心血管药物奥索利酸的中间体,其合成路线中的某一步如下：X → Y(6-硝基胡椒酸) 下列有关X
+  pdf-359    choice     pure=True  (2024·广东卷·★★★)从我国南海的柳珊瑚中分离得到的柳珊瑚酸(下图),具有独特的环系结构。下列关于柳珊瑚酸的说法不正确的是（ ） A.
+  pdf-361    choice     pure=True  (2025·八省联考河南卷·★★)化合物L是从我国传统中药华中五味子中提取得到的一种天然产物,其结构如图所示。下列有关该化合物的说法错误的是
+  pdf-362    choice     pure=True  (2025·八省联考四川卷·★★)维生素A乙酸酯的结构简式为,下列说法正确的是（ ） A. 不能发生水解反应 B. 不能使溴的CCl4溶液褪
+  pdf-363    choice     pure=True  (2025·湖南卷·★★)天冬氨酸广泛应用于医药、食品和化工等领域。天冬氨酸的一条合成路线如下：[图示：X →(Br2/PBr3) Y →(
+  pdf-364    choice     pure=True  (2025·江苏卷·★★)屠呦呦等采用低温、乙醚冷浸提取的青蒿素(C15H22O5，含—O—O—)在治疗疟疾中起到重要作用。下列说法正确的是
+  pdf-366    choice     pure=True  (2024·北京卷·★★)下列说法不正确的是（ ） A. 葡萄糖氧化生成CO2和H2O的反应是放热反应 B. 核酸可看作磷酸、戊糖和碱基通过
+  pdf-369    choice     pure=True  (2025·陕西渭南阶段练习·★★★)下列说法不正确的是( ) A. 酸催化下，n mol 苯酚与 n mol 甲醛反应生成线型酚醛树脂，同
+  pdf-370    choice     pure=True  (2025·天津二模·★★★)2024 年诺贝尔化学奖授予了三位科学家，以表彰他们在蛋白质结构研究的突破性贡献。某 DNA 分子的片段如图所
+  pdf-371    choice     pure=True  (2025·山东二模·★★★)一种有机催化剂催化修饰色氨酸的反应如下。下列说法正确的是( ) A. Ⅰ中所有碳原子一定共平面 B. Ⅰ和Ⅲ中
+  pdf-372    choice     pure=True  (2025·八省联考四川卷·★★)下列关于生物有机分子的说法错误的是( ) A. 纤维素能被氢氧化铜氧化 B. 蔗糖和麦芽糖的水解产物都含有
+  pdf-373    choice     pure=True  (2024·河北卷·★★★)高分子材料在生产、生活中得到广泛应用。下列说法错误的是( ) A. 线型聚乙烯塑料为长链高分子，受热易软化 B.
+  pdf-374    choice     pure=True  (★★★)下列高分子化合物是由两种单体通过加聚反应而制得的是( ) A. [-CH2-C(CH3)=CH-CH2-]n B. [-CH2-C
+  pdf-375    choice     pure=True  (2025·广东阶段练习·★★★)化学与生产生活、科技密切相关。下列说法正确的是( ) A. “奋斗者号”潜水器含钛合金，其熔点、强度都高于
+  pdf-379    choice     pure=True  （2025·河北期末·★★★★）下列有关化学材料的说法正确的是（ ） A. 聚对苯二甲酸乙二酯(PET)由对苯二甲酸和乙二醇经缩聚反应制得 
+  pdf-380    choice     pure=True  （2025·八省联考河南卷·★★★）CO2 的资源化利用，有利于实现“碳中和”。一种功能性聚碳酸酯高分子材料 G 可由如下反应制备。下列说法
+  pdf-382    choice     pure=True  10.(2025·八省联考内蒙古卷·★★)聚乙烯醇(PVA)广泛应用于建筑、医药、纺织、造纸、包装等诸多领域，可用如下方法制备。 A. ①为
+  pdf-383    choice     pure=True  11.(2025·八省联考四川卷·★★)一种可制造光学镜片的聚合物 Z，其合成路线如图所示。 A. X 的水解产物含有乙酸的同系物 B. Y
+  pdf-384    choice     pure=True  12.(2025·新课标卷·★★★)我国研究人员利用手性催化剂 Bis(Salen)Al 合成了具有优良生物相容性的 PLGA。下列叙述正确
+  pdf-385    choice     pure=True  (2025·新疆巴音郭楞期末·★★)下列有机化合物分子中所有原子不可能共平面的是( ) A. 乙烯 B. 光气(COCl2) C. 对二甲苯
+  pdf-387    choice     pure=True  (2025·内蒙古鄂尔多斯期中·★★★★)某有机化合物的结构简式如图所示，下列关于该有机化合物的叙述不正确的是( ) A. 最多有10个碳原
+  pdf-388    choice     pure=True  (2025·八省联考陕西卷·★★★★)化合物M是一种新型抗生素关键中间体的类似物，其合成路线如下(略去部分试剂和反应条件)。已知化合物K虚线
+  pdf-391    unknown    pure=True  (2025·天津期中·★★★)有下列各组有机化合物(大球表示碳原子，小球表示氢原子)：①CH3CH2CH2CH3 和 CH3-CH(CH3)
+  pdf-392    choice     pure=True  (2025·新疆伊犁期末·★★★)已知一C5H11的结构有8种，分子式为C6H12O的有机化合物属于醛类的同分异构体的种数为(不考虑立体异构
+  pdf-393    choice     pure=True  (2025·重庆市部分学校联考·★★★★)化合物H( H3CO-苯环-OH-CHO )是合成苯并呋喃的重要中间体，H的同分异构体有多种，其中
+  pdf-395    choice     pure=True  (2025·浙江1月选考卷·★)关于实验室安全,下列说法不正确的是( ) A. 若不慎将盐酸沾到皮肤上,应立即用大量水冲洗,然后用3%～5%
+  pdf-396    choice     pure=True  (2024·东北三省卷编·★)下列实验操作或处理方法错误的是( ) A. 点燃H2前,先检验其纯度 B. 金属K着火,用湿抹布盖灭 C. 硝
+  pdf-397    choice     pure=True  (2024·山东卷·★★)下列图示实验中,操作规范的是( ) A. 调控滴定速度 B. 用pH试纸测定溶液pH C. 加热试管中的液体 D.
+  pdf-398    choice     pure=True  (2025·四川卷·★★★)下列实验装置使用正确的是( ) A. 实验室制取氨气 B. 实验室制取氯气
+  pdf-400    choice     pure=True  (2024·贵州卷·★★★)下列装置不能达到实验目的的是（ ） A. 图①可用于实验室制 NH3 B. 图②可用于除去 C2H2 中少量的 
+  pdf-401    choice     pure=True  (2025·湖南卷·★★★)化学实验充满着五颜六色的变化。下列描述错误的是（ ） A. 溶液褪色 B. 产生红色沉淀 C. 溶液呈紫色 D.
+  pdf-402    choice     pure=True  (2024·广东卷·★★)提纯2.0 g苯甲酸粗品(含少量NaCl和泥沙)的过程如下。其中,操作X为( ) A. 加热蒸馏 B. 加水稀释 
+  pdf-403    choice     pure=True  (2024·山东卷改编·★★★)由下列事实或现象能得出相应结论的是( ) A. 向酸性KMnO4溶液中加入草酸,紫色褪去 B. 铅蓄电池使用
+  pdf-404    choice     pure=True  (2025·湖北襄阳一模·★★★)过氧化钙是水产养殖中广泛使用的供氧剂,实验室以碳酸钙为原料制备过氧化钙的流程如图所示。下列说法不正确的是(
+  pdf-405    choice     pure=True  (2024·河北卷·★★★)下列实验操作及现象能得出相应结论的是( ) A. 还原铁粉与水蒸气反应生成的气体点燃后有爆鸣声 B. 待测液中滴
+  pdf-407    choice     pure=True  (2024·海南卷·★★)根据下列实验及现象，所得结论错误的是 A. 将 SO2 通入溴水至过量，溶液的橙色褪去 → SO2 有漂白性 B.
+  pdf-408    choice     pure=True  (2025·湖北黄石一模改编·★★)下列图示的实验操作能达到实验目的的是 A. 制备二氧化硫 B. 验证钠与水反应是否放热 C. 利用肥皂液
+  pdf-411    choice     pure=True  (2024·贵州卷·★★★)根据下列实验操作及现象所推出的结论正确的是( ) A. 将Zn和ZnSO4溶液与Cu和CuSO4溶液组成双液原电
+  pdf-413    unknown    pure=True  (2024·上海卷·★★★)粗盐中含有 SO4²⁻、K⁺、Ca²⁺、Mg²⁺等杂质离子，实验室按下面的流程进行精制：[流程图：粗盐 →①Ba
+  pdf-418    equilibrium pure=True  (2024·重庆卷节选★★★★)FeS2 可用作锂电池和超级电容器的电极材料。制备 FeS2 的一种实验装置如图所示(加热及夹持装置略)。(
+  pdf-428    choice     pure=True  (2025·四川卷·★★)下列化学用语或图示正确的是（ ） A. 中子数为21的钾核素：21/19 K B. CaC2的电子式：Ca2+[:
+  pdf-429    choice     pure=True  (2025·八省联考河南卷·★★)下列化学用语或图示正确的是（ ） A. CaO的电子式：Ca2+[:O:]2- B. Li+的结构示意图：
+  pdf-430    choice     pure=True  (2024·东北三省卷·★★)下列化学用语或表述正确的是（ ） A. 中子数为1的氦核素：1/2 He B. SiO2的晶体类型：分子晶体 
+  pdf-431    choice     pure=True  (2023·湖南卷·★★)下列化学用语表述错误的是（ ） A. HClO的电子式：H:Ö:Cl: B. 中子数为10的氧原子：18/8 O 
+  pdf-433    choice     pure=True  (2024·甘肃卷·★★)下列化学用语表述错误的是（ ） A. Ca²⁺和Cl⁻的最外层电子排布图均为[↑↓][↑↓↑↓↑↓] B. PH₃
+  pdf-435    choice     pure=True  (2024·贵州卷·★★)下列叙述正确的是（ ） A. KBr的电子式为K⁺[:Br:]⁻ B. 聚乙炔的结构简式：-[CH＝CH]ₙ- C
+  pdf-438    choice     pure=True  (2024·宁夏银川一中·★★)下列化学用语表示正确的是（ ） A. H2S分子的球棍模型：●—●—● B. BCl3的电子式为:Cl:B:
+  pdf-439    choice     pure=True  (2022·浙江6月选考·★★)下列化学用语表示错误的是（ ） A. 乙炔的结构简式：HC≡CH B. KOH的电子式：K+[∶O∶H]− 
+  pdf-440    choice     pure=True  (2023·江苏·★★)反应：NH4Cl + NaNO2 = NaCl + N2↑ + 2H2O 应用于石油开采，下列说法表示正确的是（ ）
+  pdf-441    choice     pure=True  (2025·新课标卷·★)化学与人类生活密切相关。下列叙述正确的是( ) A. 硫酸铜具有杀菌作用,可用作饮用水消毒剂 B. 小苏打遇酸能产
+  pdf-442    choice     pure=True  (2024·甘肃卷·★)化学与生活息息相关,下列对应关系错误的是( ) A. 次氯酸钠|氧化性|衣物漂白 B. 氢气|可燃性|制作燃料电池 
+  pdf-443    choice     pure=True  (2022·海南卷·★★)化学物质在体育领域有广泛用途。下列说法错误的是( ) A. 涤纶可作为制作运动服的材料 B. 纤维素可以为运动员提
+  pdf-444    choice     pure=True  (2024·贵州卷·★)厨房中处处有化学。下列说法错误的是( ) A. 清洗餐具时用洗洁精去除油污|洗洁精中的表面活性剂可使油污水解为水溶性
+  pdf-445    choice     pure=True  (2024·安徽卷·★★)青少年帮厨既可培养劳动习惯,也能将化学知识应用于实践。下列有关解释合理的是( ) A. 清洗铁锅后及时擦干,能减缓
+  pdf-446    choice     pure=True  (2024·东北三省卷·★★)家务劳动中蕴含着丰富的化学知识。下列相关解释错误的是( ) A. 用过氧碳酸钠漂白衣物:Na2CO4 具有较强
+  pdf-447    choice     pure=True  (2025·四川卷·★★)材料是科技发展的基础,下列属于金属材料的是( ) A. 制造电极的石墨烯 B. 制造减震弹簧的高碳钢 C. 制造防
+  pdf-449    choice     pure=True  (2024·新课标卷·★)文房四宝是中华传统文化的瑰宝。下列有关叙述错误的是( ) A. 羊毛可用于制毛笔,主要成分为蛋白质 B. 松木可用
+  pdf-452    choice     pure=True  (2022·湖北卷·★★)化学物质与生命过程密切相关,下列说法错误的是( ) A. 维生素C可以还原活性氧自由基 B. 蛋白质只能由蛋白酶催
+  pdf-453    choice     pure=True  (2025·安徽卷·★★)用下列化学知识解释对应劳动项目不合理的是( ) A. 用大米制麦芽糖：淀粉水解生成麦芽糖 B. 用次氯酸钠溶液消毒
+  pdf-456    reaction_check pure=True  (2025·湖北武汉模拟预测★★★)某实验小组探究SO2与K2FeO4的反应，实验如下。已知：ⅰ.K2FeO4为紫色固体，微溶于KOH溶液；
+  pdf-457    choice     pure=True  (2025·重庆阶段练习·★★)常温下，下列给定条件的溶液中，一定能大量共存的离子组是 A. 加入Al能放出H2的溶液中：Cl⁻、S₂O₃²
+  pdf-460    choice     pure=True  下列化学反应表示不正确的是 A. H₃BO₃和足量NaOH溶液反应：H₃BO₃ + 3OH⁻ ═ BO₃³⁻ + 3H₂O B. B(OCH
+  pdf-463    calculation pure=True  (5)“调 pH”分步沉淀可获得 Ni(OH)2,两次“调 pH”的数值依次为______、______(填字母)。 a. 3 b. 7 c
+  pdf-464    calculation pure=True  (6)“调 pH”沉镍后,滤液中溶质的主要成分为________________________(填化学式)。
+  pdf-476    choice     pure=True  (2025·全国模拟改编·★★★)“从沙滩到用户”是指半导体工业中，从沙子中（主要成分是 SiO2）提取粗硅，加工成高纯硅，最终制成电子产品
+  pdf-477    unknown    pure=True  （2025·辽宁模拟预测改编★★★★）铍用于宇航器件的构筑。一种从铍铝硅酸盐[Be3Al2(SiO3)6]中提取铍的工艺流程如下：已知：①B
+  pdf-483    concept    pure=True  (5)电解熔融氯化铍制备金属铍时,加入氯化钠的主要作用是________________________。
+  pdf-484    calculation pure=True  8.(2024·新课标卷·★★★★)钴及其化合物在制造合金、磁性材料、催化剂及陶瓷釉等方面有着广泛应用。一种从湿法炼锌产生的废渣(主要含Co
+  pdf-485    concept    pure=True  (1)(2021·河北卷节选·★★)含Cu、Zn、Sn及S的四元半导体化合物(简写为CZTS)，是一种低价、无污染的绿色环保型光伏材料，可应
+  pdf-492    choice     pure=True  (2024·江苏卷·★)明矾[KAl(SO4)2·12H2O]可用作净水剂。下列说法正确的是() A. 半径:Al3+>K+ B. 电负性:
+  pdf-493    choice     pure=True  (2023·天津卷·★★)下列比较C和Si非金属性的方法,错误的是() A. 单质氧化性 B. 氧化物熔点 C. 和氢气化合难易程度 D. 
+  pdf-494    choice     pure=True  (2024·安徽卷·★★★)某催化剂结构简式如图所示。下列说法错误的是() A. 该物质中Ni为+2价 B. 基态原子的第一电离能:Cl>P
+  pdf-495    choice     pure=True  (2024·浙江卷·双选·★★)氮和氧是构建化合物的常见元素。下列说法正确的是() A. 电负性:B>N>O B. 离子半径:P3-<S2-
+  pdf-496    choice     pure=True  (2023·江苏卷·★★)元素C、Si、Ge位于元素周期表中ⅣA族。下列说法正确的是() A. 原子半径:r(C)>r(Si)>r(Ge) 
+  pdf-497    choice     pure=True  (2025·江苏南通模拟改编·★★)Mg、Ca、Sr位于同一主族,其单质均能与O2和N2反应。下列说法正确的是() A. 稳定性:H2O<N
+  pdf-498    choice     pure=True  (2025·湖南模拟预测·★★★)某种化学品的结构如图所示,已知W、X、Y、Z、M均为短周期主族元素,其中W、X、Y在同一周期,Z、M同处另
+  pdf-499    choice     pure=True  (2025·四川卷·★★★)生产磷肥时，利用纯碱溶液吸收 SiF4 的反应如下：3SiF4 + 2Na2CO3 + 2H2O = H4SiO
+  pdf-500    choice     pure=True  (2023·湖北卷·★★★)价层电子对互斥理论可以预测某些微粒的空间结构。下列说法正确的是（ ） A. CH4 和 H2O 的 VSEPR 
+  pdf-501    choice     pure=True  (2024·河北卷·★★★)从微观视角探析物质结构及性质是学习化学的有效方法。下列实例与解释不符的是（ ） A. 原子光谱是不连续的线状谱线
+  pdf-502    choice     pure=True  (2024·天津卷·★★)渤海中北部发现的亿吨级油田对保障我国能源安全具有重要意义。石油由 C、H、O、S、N 等元素构成。下列判断正确的是
+  pdf-503    choice     pure=True  (2024·甘肃卷·★★★)温室气体 N2O 在催化剂作用下可分解为 O2 和 N2，也可作为氧化剂氧化苯制苯酚。据此完成下面小题。（1）下
+  pdf-504    choice     pure=True  (2)下列说法错误的是（ ） A. 相同条件下 N2 比 O2 稳定 B. N2O 与 NO2+ 的空间结构相同 C. N2O 中 N—O 
+  pdf-505    choice     pure=True  6.(2025·全国模拟预测·★★★)如图所示的化合物 J 是一种重要的化工原料，X、Y、Z、W 是原子序数依次增大的短周期主族元素，其中 
+  pdf-507    vsepr      pure=True  8.(2024·北京卷·★★★)锡 (Sn) 是现代“五金”之一，广泛应用于合金、半导体工业等。SnCl2 和 SnCl4 是锡的常见氯化物
+  pdf-508    vsepr      pure=True  9.(1)(★★★)根据价层电子对互斥理论，H2S、SO2、SO3 的气态分子中，中心原子价层电子对数不同于其他分子的是__________
+  pdf-510    concept    pure=True  (2)(2025·北京丰台期末·★★★)C60独特的笼状结构使其及其衍生物表现出特殊的性质。金刚石与 C60 的晶胞结构如图，比较二者熔点大
+  pdf-511    choice     pure=True  (2025·四川卷·★★★)由原子序数依次增大的短周期主族元素X、Y、Z、W组成的化合物，其结构如图所示。X的核外电子数与电子层数相同，Y、
+  pdf-513    choice     pure=True  （2020·浙江 1 月选考·★★★）下列说法不正确的是（ ） A. pH＞7 的溶液不一定呈碱性 B. 中和 pH 和体积均相等的氨水、N
+  pdf-514    concept    pure=True  (1)CH3COOH、H2CO3、HCN 的酸性由弱到强的顺序为____________________。
+  pdf-516    concept    pure=True  (3)KHC2O4 溶液为__________(填“酸性”或“碱性”)
+  pdf-517    calculation pure=True  (4)25 ℃，0.01 mol·L⁻¹ NaClO 溶液的 pH=______。(lg2=0.3)
+  pdf-518    equilibrium pure=True  (5)25 ℃，在 pH=5 的稀醋酸溶液中，c(CH3COO⁻)__________ mol·L⁻¹(写出精确值的表示式)。下列方法中，可
+  pdf-525    choice     pure=True  下列说法正确的是（ ） A. (S)-2-辛醇为构型保持产物 B. (R)-2-辛醇分子中存在“肩并肩”的成键方式 C. 三种有机化合物分子
+  pdf-528    unknown    pure=True  已知：KCl 和 NaCl 的溶解度如右图所示：(1)步骤①中 BaCl2 要稍过量。请描述检验 BaCl2 是否过量的方法：
+  pdf-529    choice     pure=True  (2)若加 BaCl2 后不先过滤就加氢氧化钠和碳酸钠，会导致______(填字母)。 A. SO4^2- 不能完全去除 B. 消耗更多 N
+  pdf-530    unknown    pure=True  (7)相比于方案3，方案2的优点是____________________________________。
+  pdf-532    concept    pure=True  (2024·河北卷选题·★★★★★)市售的溴(纯度 99%)中含有少量的 Cl2 和 I2,某化学兴趣小组利用氧化还原反应原理,设计实验制备
+  pdf-534    unknown    pure=True  (2)仪器C的名称为______。
+  pdf-535    calculation pure=True  (3)下图为配制2 mol·L⁻¹ NaOH溶液的部分过程，若操作a只进行了1次，则配制浓度可能______(填“偏大”“偏小”或“无影响”
+  pdf-540    choice     pure=True  (3)Ⅰ使用装置如图(加热及夹持装置省略)，吸收液可用______(填标号)。 A. 水 B. 浓盐酸 C. 稀硫酸 D. 四氯化碳
+  pdf-541    unknown    pure=True  (2)①Ⅱ需用到的玻璃仪器有烧杯、______和______。
+  pdf-542    unknown    pure=True  (2)“沉淀1”含金属元素______(填元素符号)。
+  pdf-544    calculation pure=True  (2)按下列操作顺序测定溶液pH，不规范的是______________(填标号)。 a. 用镊子夹取湿润的pH试纸 b. 将pH试纸置于干
+  pdf-545    choice     pure=True  (2024·广西卷·★★)光照时，纳米TiO₂能使水产生羟基自由基·OH，可用于处理废水。下列表述正确的是（ ） A. 基态Ti的价层电子排
+
+========== overlap (in >=2 Tier2 cats) ==========
+count=8
+  pdf-051    ['classification', 'transformation']  (2024·北京卷)判断下列离子方程式书写的正误,正确的填“√”,错误的填“×”。(1)(2024·北京卷)海水提溴过程
+  pdf-090    ['NA', 'transformation']  (2025·黑吉辽蒙卷改编·★★)钠及其化合物的部分转化关系如图。设 N_A 为阿伏加德罗常数的值，下列说法正确的是（ 
+  pdf-140    ['NA', 'transformation']  (2024·河北模拟预测改编·★★)在加热条件下，硫单质可以与 NaOH 溶液反应：3S + 6NaOH △ 2Na2S
+  pdf-017    ['classification', 'transformation']  (2025·江苏无锡期中·★★★)元素及其化合物的转化在工业生产中具有极其重要的用途。下列物质间转化能实现的是（ ） A
+  pdf-082    ['NA', 'transformation']  (2025·浙江省嘉兴市高三一模·★★★)膦(PH3)是一种较强的还原剂，可利用白磷(P4)和过量碱液来制备，反应原理为
+  pdf-103    ['classification', 'transformation']  (2024·广东卷·★★)部分含Mg或Al或Fe物质的分类与相应化合价关系如图。下列推断合理的是( ) A. 若a在沸水
+  pdf-152    ['classification', 'transformation']  (2025·广东二模·★★)部分含氮物质的分类及相应化合价关系如图所示。下列说法正确的是（ ） A. f 可作为化肥，与
+  pdf-479    ['classification', 'transformation']  (2025·广东肇庆二模·★★)部分含 F 或 Cl 物质的分类与相应化合价关系如图所示。下列说法正确的是（ ） A. 

@@ -1,0 +1,53 @@
+{
+  "id": "pdf-154",
+  "type": "graph",
+  "img": "pdf_images/p051_n09_1.png",
+  "key": "pdf-154_p051_n09_1_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"含NO₂的废气\", \"label\": \"含NO₂的废气\"},\n    {\"id\": \"MOFs材料\", \"label\": \"MOFs材料\"},\n    {\"id\": \"HNO₃\", \"label\": \"HNO₃\"},\n    {\"id\": \"清洁空气\", \"label\": \"清洁空气\"},\n    {\"id\": \"N₂O₄\", \"label\": \"N₂O₄\"}\n  ],\n  \"edges\": [\n    {\"from\": \"含NO₂的废气\", \"to\": \"MOFs材料\", \"cond\": \"吸附\"},\n    {\"from\": \"MOFs材料\", \"to\": \"HNO₃\", \"cond\": \"H₂O、O₂\"},\n    {\"from\": \"HNO₃\", \"to\": \"MOFs材料\", \"cond\": \"再生\"},\n    {\"from\": \"MOFs材料\", \"to\": \"清洁空气\", \"cond\": \"\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "含NO₂的废气",
+        "label": "含NO₂的废气"
+      },
+      {
+        "id": "MOFs材料",
+        "label": "MOFs材料"
+      },
+      {
+        "id": "HNO₃",
+        "label": "HNO₃"
+      },
+      {
+        "id": "清洁空气",
+        "label": "清洁空气"
+      },
+      {
+        "id": "N₂O₄",
+        "label": "N₂O₄"
+      }
+    ],
+    "edges": [
+      {
+        "from": "含NO₂的废气",
+        "to": "MOFs材料",
+        "cond": "吸附"
+      },
+      {
+        "from": "MOFs材料",
+        "to": "HNO₃",
+        "cond": "H₂O、O₂"
+      },
+      {
+        "from": "HNO₃",
+        "to": "MOFs材料",
+        "cond": "再生"
+      },
+      {
+        "from": "MOFs材料",
+        "to": "清洁空气",
+        "cond": ""
+      }
+    ]
+  }
+}

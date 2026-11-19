@@ -1,0 +1,12 @@
+{
+  "id": "pdf-359",
+  "type": "molecule",
+  "img": "pdf_images/p122_n06_1.png",
+  "key": "pdf-359_p122_n06_1_molecule",
+  "raw": "{\"name\": \"3-methyl-6-(1-methylethyl)-1,2,3,4,4a,5,6,7-octahydronaphthalene-1-carboxylic acid\", \"smiles\": \"CC1=CCC(CC1)C(=O)C2CCC(C2)C(=O)O\", \"note\": \"结构为双环[4.4.0]癸烷骨架（十氢萘衍生物），含一个羧基(-COOH)连在桥头碳上，一个甲基和一个异丙基取代基；右侧六元环含一个酮羰基(C=O)，左侧六元环含一个双键及甲基取代。SMILES按标准顺序编码：从羧基碳开始，经双键环、桥接碳、含酮环，确保连接关系与图一致。\"}",
+  "data": {
+    "name": "3-methyl-6-(1-methylethyl)-1,2,3,4,4a,5,6,7-octahydronaphthalene-1-carboxylic acid",
+    "smiles": "CC1=CCC(CC1)C(=O)C2CCC(C2)C(=O)O",
+    "note": "结构为双环[4.4.0]癸烷骨架（十氢萘衍生物），含一个羧基(-COOH)连在桥头碳上，一个甲基和一个异丙基取代基；右侧六元环含一个酮羰基(C=O)，左侧六元环含一个双键及甲基取代。SMILES按标准顺序编码：从羧基碳开始，经双键环、桥接碳、含酮环，确保连接关系与图一致。"
+  }
+}

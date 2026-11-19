@@ -1,0 +1,118 @@
+{
+  "id": "pdf-310",
+  "type": "graph",
+  "img": "pdf_images/p108_n06_2.png",
+  "key": "pdf-310_p108_n06_2_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"H₂O\", \"label\": \"H₂O\"},\n    {\"id\": \"HCO₃⁻\", \"label\": \"HCO₃⁻\"},\n    {\"id\": \"HCO₄⁻\", \"label\": \"HCO₄⁻\"},\n    {\"id\": \"H₂O₂\", \"label\": \"H₂O₂\"},\n    {\"id\": \"•OH\", \"label\": \"•OH\"},\n    {\"id\": \"Mn(IV)\", \"label\": \"Mn(IV)\"},\n    {\"id\": \"Mn(II)\", \"label\": \"Mn(II)\"},\n    {\"id\": \"H₂O₂Mn(II)\", \"label\": \"H₂O₂Mn(II)\"},\n    {\"id\": \"O₂⁻\", \"label\": \"O₂⁻\"},\n    {\"id\": \"O₂\", \"label\": \"O₂\"}\n  ],\n  \"edges\": [\n    {\"from\": \"H₂O\", \"to\": \"HCO₃⁻\", \"cond\": \"\"},\n    {\"from\": \"HCO₃⁻\", \"to\": \"HCO₄⁻\", \"cond\": \"\"},\n    {\"from\": \"HCO₄⁻\", \"to\": \"H₂O₂\", \"cond\": \"\"},\n    {\"from\": \"H₂O₂\", \"to\": \"HCO₃⁻\", \"cond\": \"\"},\n    {\"from\": \"H₂O₂\", \"to\": \"•OH\", \"cond\": \"\"},\n    {\"from\": \"•OH\", \"to\": \"Mn(IV)\", \"cond\": \"\"},\n    {\"from\": \"Mn(IV)\", \"to\": \"H₂O₂Mn(II)\", \"cond\": \"\"},\n    {\"from\": \"H₂O₂Mn(II)\", \"to\": \"Mn(II)\", \"cond\": \"\"},\n    {\"from\": \"Mn(II)\", \"to\": \"•OH\", \"cond\": \"\"},\n    {\"from\": \"Mn(II)\", \"to\": \"HCO₃⁻\", \"cond\": \"\"},\n    {\"from\": \"HCO₃⁻\", \"to\": \"O₂⁻\", \"cond\": \"\"},\n    {\"from\": \"O₂⁻\", \"to\": \"H₂O₂\", \"cond\": \"\"},\n    {\"from\": \"H₂O₂\", \"to\": \"O₂\", \"cond\": \"\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "H₂O",
+        "label": "H₂O"
+      },
+      {
+        "id": "HCO₃⁻",
+        "label": "HCO₃⁻"
+      },
+      {
+        "id": "HCO₄⁻",
+        "label": "HCO₄⁻"
+      },
+      {
+        "id": "H₂O₂",
+        "label": "H₂O₂"
+      },
+      {
+        "id": "•OH",
+        "label": "•OH"
+      },
+      {
+        "id": "Mn(IV)",
+        "label": "Mn(IV)"
+      },
+      {
+        "id": "Mn(II)",
+        "label": "Mn(II)"
+      },
+      {
+        "id": "H₂O₂Mn(II)",
+        "label": "H₂O₂Mn(II)"
+      },
+      {
+        "id": "O₂⁻",
+        "label": "O₂⁻"
+      },
+      {
+        "id": "O₂",
+        "label": "O₂"
+      }
+    ],
+    "edges": [
+      {
+        "from": "H₂O",
+        "to": "HCO₃⁻",
+        "cond": ""
+      },
+      {
+        "from": "HCO₃⁻",
+        "to": "HCO₄⁻",
+        "cond": ""
+      },
+      {
+        "from": "HCO₄⁻",
+        "to": "H₂O₂",
+        "cond": ""
+      },
+      {
+        "from": "H₂O₂",
+        "to": "HCO₃⁻",
+        "cond": ""
+      },
+      {
+        "from": "H₂O₂",
+        "to": "•OH",
+        "cond": ""
+      },
+      {
+        "from": "•OH",
+        "to": "Mn(IV)",
+        "cond": ""
+      },
+      {
+        "from": "Mn(IV)",
+        "to": "H₂O₂Mn(II)",
+        "cond": ""
+      },
+      {
+        "from": "H₂O₂Mn(II)",
+        "to": "Mn(II)",
+        "cond": ""
+      },
+      {
+        "from": "Mn(II)",
+        "to": "•OH",
+        "cond": ""
+      },
+      {
+        "from": "Mn(II)",
+        "to": "HCO₃⁻",
+        "cond": ""
+      },
+      {
+        "from": "HCO₃⁻",
+        "to": "O₂⁻",
+        "cond": ""
+      },
+      {
+        "from": "O₂⁻",
+        "to": "H₂O₂",
+        "cond": ""
+      },
+      {
+        "from": "H₂O₂",
+        "to": "O₂",
+        "cond": ""
+      }
+    ]
+  }
+}

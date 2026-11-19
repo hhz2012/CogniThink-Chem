@@ -1,0 +1,26 @@
+[
+  {
+    "knowledgeId": "C-ELECTROLYTE",
+    "substanceIds": ["H2O", "HCl", "H2SO4", "HNO3", "H2CO3", "CH3COOH", "NaOH", "NH3H2O", "NaCl", "Na2CO3", "NaHCO3"]
+  },
+  {
+    "knowledgeId": "C-ION-REACTION",
+    "substanceIds": ["HCl", "H2SO4", "NaOH", "Ca(OH)2", "Na2CO3", "NaHCO3", "BaCl2", "BaSO4", "AgNO3", "AgCl", "CaCO3", "FeCl2", "FeCl3", "Fe(OH)2", "Fe(OH)3", "CO2"]
+  },
+  {
+    "knowledgeId": "C-REDOX",
+    "substanceIds": ["Na", "Na2O2", "Fe", "FeCl2", "FeCl3", "Cl2", "O2", "HNO3", "KMnO4", "KI", "H2O2", "Cu"]
+  },
+  {
+    "knowledgeId": "C-COEXIST",
+    "substanceIds": ["HNO3", "H2SO4", "NaOH", "NaCl", "Na2CO3", "CaCO3", "BaCl2", "BaSO4", "AgNO3", "AgCl", "FeCl2", "FeCl3", "Fe(OH)2", "Fe(OH)3"]
+  },
+  {
+    "knowledgeId": "C-FE",
+    "substanceIds": ["Fe", "FeO", "Fe2O3", "Fe3O4", "FeCl2", "FeCl3", "FeSO4", "Fe2(SO4)3", "Fe(OH)2", "Fe(OH)3", "KSCN", "Fe(SCN)3"]
+  },
+  {
+    "knowledgeId": "C-NA",
+    "substanceIds": ["Na", "Na2O", "Na2O2", "NaOH", "Na2CO3", "NaHCO3", "Na2SO4", "NaCl", "NaAlO2", "NaClO", "Na2S"]
+  }
+]

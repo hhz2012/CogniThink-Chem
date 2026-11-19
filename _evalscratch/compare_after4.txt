@@ -1,0 +1,54 @@
+﻿=== AFTER3 (复用pureAnswer回退) (total 648) ===
+  总体: 纯LLM 404(0.6235) 网关 415(0.6404) 引擎介入 232
+  PDF(545): 纯LLM 309(56.7%) 网关 312(57.2%) 引擎介入 162
+  手工(103): 纯LLM 95(92.2%) 网关 103(100.0%) 引擎介入 70
+  -- by taskType --
+    reaction_check     n=164 介入=164 网关 122(74.4%) 纯LLM 120(73.2%)
+    calculation        n=122 介入=  6 网关  72(59.0%) 纯LLM  69(56.6%)
+    concept            n=104 介入=  0 网关  66(63.5%) 纯LLM  66(63.5%)
+    equilibrium        n= 87 介入= 15 网关  55(63.2%) 纯LLM  56(64.4%)
+    unknown            n= 55 介入=  0 网关  20(36.4%) 纯LLM  20(36.4%)
+    structure_verify   n= 44 介入=  0 网关  26(59.1%) 纯LLM  24(54.5%)
+    ion_check          n= 39 介入= 34 网关  38(97.4%) 纯LLM  33(84.6%)
+    vsepr              n= 17 介入=  0 网关  10(58.8%) 纯LLM  10(58.8%)
+    balance            n= 13 介入= 13 网关   5(38.5%) 纯LLM   5(38.5%)
+    titration          n=  2 介入=  0 网关   1(50.0%) 纯LLM   1(50.0%)
+    electrolysis       n=  1 介入=  0 网关   0( 0.0%) 纯LLM   0( 0.0%)
+
+=== AFTER4 (拆分PDF答案关键词) (total 648) ===
+  总体: 纯LLM 431(0.6651) 网关 438(0.6759) 引擎介入 232
+  PDF(545): 纯LLM 336(61.7%) 网关 335(61.5%) 引擎介入 162
+  手工(103): 纯LLM 95(92.2%) 网关 103(100.0%) 引擎介入 70
+  -- by taskType --
+    reaction_check     n=166 介入=166 网关 125(75.3%) 纯LLM 125(75.3%)
+    calculation        n=127 介入=  6 网关  81(63.8%) 纯LLM  79(62.2%)
+    concept            n=112 介入=  0 网关  76(67.9%) 纯LLM  76(67.9%)
+    equilibrium        n= 84 介入= 15 网关  55(65.5%) 纯LLM  55(65.5%)
+    unknown            n= 49 介入=  0 网关  23(46.9%) 纯LLM  23(46.9%)
+    structure_verify   n= 42 介入=  0 网关  23(54.8%) 纯LLM  23(54.8%)
+    ion_check          n= 39 介入= 34 网关  38(97.4%) 纯LLM  33(84.6%)
+    vsepr              n= 15 介入=  0 网关  11(73.3%) 纯LLM  11(73.3%)
+    balance            n= 11 介入= 11 网关   5(45.5%) 纯LLM   5(45.5%)
+    titration          n=  2 介入=  0 网关   1(50.0%) 纯LLM   1(50.0%)
+    electrolysis       n=  1 介入=  0 网关   0( 0.0%) 纯LLM   0( 0.0%)
+
+=== 网关 对错变化 (after3 -> after4) ===
+  错->对: 34  ['pdf-082', 'pdf-212', 'pdf-241', 'pdf-010', 'pdf-024', 'pdf-025', 'pdf-045', 'pdf-098', 'pdf-156', 'pdf-198', 'pdf-215', 'pdf-272', 'pdf-324', 'pdf-328', 'pdf-391', 'pdf-393', 'pdf-413', 'pdf-450', 'pdf-456', 'pdf-481', 'pdf-484', 'pdf-487', 'pdf-488', 'pdf-506', 'pdf-508', 'pdf-510', 'pdf-518', 'pdf-519', 'pdf-522', 'pdf-528', 'pdf-530', 'pdf-532', 'pdf-535', 'pdf-542']
+  对->错: 11  ['pdf-073', 'pdf-231', 'pdf-283', 'pdf-459', 'pdf-015', 'pdf-142', 'pdf-195', 'pdf-213', 'pdf-265', 'pdf-410', 'pdf-439']
+=== 纯LLM 对错变化 (after3 -> after4) ===
+  错->对: 32  ['pdf-438', 'pdf-010', 'pdf-024', 'pdf-025', 'pdf-045', 'pdf-098', 'pdf-156', 'pdf-198', 'pdf-215', 'pdf-272', 'pdf-324', 'pdf-328', 'pdf-391', 'pdf-393', 'pdf-413', 'pdf-450', 'pdf-456', 'pdf-481', 'pdf-484', 'pdf-487', 'pdf-488', 'pdf-506', 'pdf-508', 'pdf-510', 'pdf-518', 'pdf-519', 'pdf-522', 'pdf-528', 'pdf-530', 'pdf-532', 'pdf-535', 'pdf-542']
+  对->错: 5  ['pdf-231', 'pdf-283', 'pdf-459', 'pdf-282', 'pdf-426']
+
+=== AFTER4 帮倒忙 (纯对/网错/引擎介入) ===
+  共 3 题: {'reaction_check': 3}
+  [pdf-073] task=reaction_check 结论=已匹配到相关反应
+  [pdf-408] task=reaction_check 结论=已查到相关颜色
+  [pdf-515] task=reaction_check 结论=已匹配到相关反应
+
+=== AC 核对 (AFTER4) ===
+  AC-3 PDF纯LLM≥280: 336 -> True
+  AC-4 总体网关≥纯LLM: 67.6% vs 66.5% -> True
+  AC-4 PDF网关≥纯LLM: 61.5% vs 61.7% -> False  (网关335 vs 纯336)
+  AC-7 手工网关100%: 103/103 -> True; 手工纯LLM≥95: 95 -> True
+  AC-6 calc+eq介入≥26: 21 -> False
+  ion_check 网关: 38/39 (97.4%)

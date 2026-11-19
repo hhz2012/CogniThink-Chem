@@ -1,0 +1,15 @@
+{
+  "id": "pdf-290",
+  "images": [
+    "pdf_images/p102_n06_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "坐标曲线图",
+      "reason": "图像提供了c(Ba²⁺)随c(CO₃²⁻)变化的具体数值关系（如B点对应c(CO₃²⁻)=2.5×10⁻⁴ mol/L时c(Ba²⁺)=1.0×10⁻⁵ mol/L，C点对应c(CO₃²⁻)=5.0×10⁻⁴ mol/L时c(Ba²⁺)=0.5×10⁻⁵ mol/L），这些数据是计算Ksp、判断沉淀转化及验证选项D的关键依据，题干文字未给出具体数值。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"坐标曲线图\",\n    \"reason\": \"图像提供了c(Ba²⁺)随c(CO₃²⁻)变化的具体数值关系（如B点对应c(CO₃²⁻)=2.5×10⁻⁴ mol/L时c(Ba²⁺)=1.0×10⁻⁵ mol/L，C点对应c(CO₃²⁻)=5.0×10⁻⁴ mol/L时c(Ba²⁺)=0.5×10⁻⁵ mol/L），这些数据是计算Ksp、判断沉淀转化及验证选项D的关键依据，题干文字未给出具体数值。\"\n  }\n]"
+}

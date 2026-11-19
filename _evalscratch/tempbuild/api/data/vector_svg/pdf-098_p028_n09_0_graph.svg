@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="326.1228883324897" y1="320.0" x2="580.0" y2="186.56378587962706" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="435.0614441662449" y="241.28189293981353" width="36" height="18" fill="white"/>
+<text x="453.0614441662449" y="255.28189293981353" text-anchor="middle" fill="#c0392b">NaCl 粉末</text>
+<line x1="580.0" y1="186.56378587962706" x2="130.73776414670914" y2="96.28499480509747" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="337.3688820733546" y="129.42439034236227" width="36" height="18" fill="white"/>
+<text x="355.3688820733546" y="143.42439034236227" text-anchor="middle" fill="#c0392b">CO₂</text>
+<line x1="580.0" y1="186.56378587962706" x2="135.8044562430216" y2="285.96271358437343" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="339.9022281215108" y="224.26324973200025" width="36" height="18" fill="white"/>
+<text x="357.9022281215108" y="238.26324973200025" text-anchor="middle" fill="#c0392b">CO₂</text>
+<line x1="130.73776414670914" y1="96.28499480509747" x2="60.0" y2="191.77926575021758" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="130.73776414670914" y1="96.28499480509747" x2="505.5802198184432" y2="278.1290425345055" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="135.8044562430216" y1="285.96271358437343" x2="506.2738307346926" y2="93.05311509808789" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="303.0391434888571" y="177.50791434123067" width="36" height="18" fill="white"/>
+<text x="321.0391434888571" y="191.50791434123067" text-anchor="middle" fill="#c0392b">NaCl 粉末</text>
+<line x1="135.8044562430216" y1="285.96271358437343" x2="317.0257451503888" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="208.4151006967052" y="160.98135679218672" width="36" height="18" fill="white"/>
+<text x="226.4151006967052" y="174.98135679218672" text-anchor="middle" fill="#c0392b">NaCl 粉末</text>
+<circle cx="326.1228883324897" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="326.1228883324897" y="325.0" text-anchor="middle" font-weight="bold">浓氨水</text>
+<circle cx="580.0" cy="186.56378587962706" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="191.56378587962706" text-anchor="middle" font-weight="bold">饱和氨盐水</text>
+<circle cx="130.73776414670914" cy="96.28499480509747" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="130.73776414670914" y="101.28499480509747" text-anchor="middle" font-weight="bold">NaHCO₃</text>
+<circle cx="60.0" cy="191.77926575021758" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="196.77926575021758" text-anchor="middle" font-weight="bold">气体</text>
+<circle cx="505.5802198184432" cy="278.1290425345055" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="505.5802198184432" y="283.1290425345055" text-anchor="middle" font-weight="bold">产品Na₂CO₃</text>
+<circle cx="135.8044562430216" cy="285.96271358437343" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="135.8044562430216" y="290.96271358437343" text-anchor="middle" font-weight="bold">母液</text>
+<circle cx="506.2738307346926" cy="93.05311509808789" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="506.2738307346926" y="98.05311509808789" text-anchor="middle" font-weight="bold">食盐水</text>
+<circle cx="317.0257451503888" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="317.0257451503888" y="65.0" text-anchor="middle" font-weight="bold">产品NH₄Cl</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

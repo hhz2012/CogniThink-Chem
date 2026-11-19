@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="375.3632315104156" y1="320.0" x2="529.7989984712868" y2="105.4069228669322" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="434.58111499085123" y="200.7034614334661" width="36" height="18" fill="white"/>
+<text x="452.58111499085123" y="214.7034614334661" text-anchor="middle" fill="#c0392b">①</text>
+<line x1="375.3632315104156" y1="320.0" x2="258.5935431910187" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="298.9783873507171" y="178.0" width="36" height="18" fill="white"/>
+<text x="316.9783873507171" y="192.0" text-anchor="middle" fill="#c0392b">①</text>
+<line x1="529.7989984712868" y1="105.4069228669322" x2="580.0" y2="234.0791365746345" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="536.8994992356434" y="157.74302972078334" width="36" height="18" fill="white"/>
+<text x="554.8994992356434" y="171.74302972078334" text-anchor="middle" fill="#c0392b">②</text>
+<line x1="258.5935431910187" y1="60.0" x2="60.0" y2="152.827918511624" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="141.29677159550934" y="94.413959255812" width="36" height="18" fill="white"/>
+<text x="159.29677159550934" y="108.413959255812" text-anchor="middle" fill="#c0392b">③</text>
+<line x1="258.5935431910187" y1="60.0" x2="111.60312177814784" y2="281.3854946253487" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="167.09833248458327" y="158.69274731267436" width="36" height="18" fill="white"/>
+<text x="185.09833248458327" y="172.69274731267436" text-anchor="middle" fill="#c0392b">③</text>
+<circle cx="375.3632315104156" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="375.3632315104156" y="325.0" text-anchor="middle" font-weight="bold">饱和食盐水</text>
+<circle cx="529.7989984712868" cy="105.4069228669322" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="529.7989984712868" y="110.4069228669322" text-anchor="middle" font-weight="bold">NaHCO₃固体</text>
+<circle cx="258.5935431910187" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="258.5935431910187" y="65.0" text-anchor="middle" font-weight="bold">溶液A</text>
+<circle cx="60.0" cy="152.827918511624" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="157.827918511624" text-anchor="middle" font-weight="bold">NH₄Cl固体</text>
+<circle cx="580.0" cy="234.0791365746345" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="239.0791365746345" text-anchor="middle" font-weight="bold">纯碱</text>
+<circle cx="111.60312177814784" cy="281.3854946253487" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="111.60312177814784" y="286.3854946253487" text-anchor="middle" font-weight="bold">溶液B</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

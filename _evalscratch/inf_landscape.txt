@@ -1,0 +1,69 @@
+﻿==========================================================================================
+所有出现 >=1 条 infeasible 规则命中的题目（按 askDir 分组）
+==========================================================================================
+
+----- askDir=wrong  (共 1 题有命中) -----
+  pdf-110 ans=C ask=wrong eq=3 bal=3 unbal=0 pf=0 inf=1  <<< 唯一不可行=C 答案=C CORRECT >>>
+      A: oth/no-eq   煤制水煤气:C+H2O(g)高温CO+H2
+      B: eq/balanced   Na2O2供氧:2Na2O2+2CO2=2Na2CO3+O2
+      C: eq/balanced [F1:Fe3+Cu→Fe(应→Fe2]  覆铜板制作印刷电路板:2FeCl3+3Cu=2Fe+3CuCl2
+      D: eq/balanced   铅酸蓄电池放电:Pb+PbO2+2H2SO4=2PbSO4+2H2O
+
+----- askDir=correct  (共 10 题有命中) -----
+  pdf-039 ans=A ask=correct eq=4 bal=4 unbal=0 pf=0 inf=1
+      A: eq/balanced   向饱和 Na2CO3 溶液中通入过量 CO2: 2Na+ + CO3^2- + CO2 + H2O = 2Na
+      B: eq/balanced   向 NaHSO4 溶液中加入过量 Ba(OH)2 溶液: 2H+ + SO4^2- + 2OH- + Ba^2
+      C: eq/balanced   利用明矾进行净水: Al^3+ + 3H2O = Al(OH)3 ↓ + 3H+
+      D: eq/balanced [F16:过量氨水→氢氧化物沉淀(应→]  向 CuSO4 溶液中加入过量氨水: 2NH3 · H2O + Cu^2+ = Cu(OH)2 ↓ + 2NH
+  pdf-040 ans=B ask=correct eq=4 bal=4 unbal=0 pf=0 inf=2  (2命中，需再1条)
+      A: eq/balanced [F4:Fe2++硝酸→Fe2+(应→]  将 FeO 固体溶于稀硝酸: FeO + 2H+ = Fe^2+ + H2O
+      B: eq/balanced   用 Na2SO3 溶液吸收少量 Cl2: 3SO3^2- + Cl2 + H2O = SO4^2- + 2Cl
+      C: eq/balanced [F16:过量氨水→氢氧化物沉淀(应→]  向稀 AgNO3 溶液中滴加过量氨水: Ag+ + NH3 · H2O = AgOH ↓ + NH4+
+      D: eq/balanced   用醋酸和淀粉-KI 溶液检验加碘盐中的 IO3-: IO3- + 5I- + 6H+ = 3I2 + 3H2O
+  pdf-041 ans=A ask=correct eq=4 bal=3 unbal=1 pf=0 inf=2  (2命中，需再1条)
+      A: eq/balanced   Ba(OH)2 溶液与少量 NaHCO3 溶液混合: Ba^2+ + OH- + HCO3- = BaCO3 
+      B: eq/balanced [F14:NaH+H2O→Na2O(应]  用 NaH 作野外生氢剂: 2NaH + H2O = Na2O + 2H2 ↑
+      C: eq/balanced [F11:HI+Fe(OH)3→Fe3]  用氢碘酸溶解 Fe(OH)3: Fe(OH)3 + 3H+ = Fe^3+ + 3H2O
+      D: eq/unbalanced   牺牲阳极法保护海水中钢闸门的正极反应: 2H2O + 4e- = O2 ↑ + 4OH-
+  pdf-042 ans=B ask=correct eq=4 bal=4 unbal=0 pf=0 inf=3  <<< 3不可行 剩余=B 答案=B CORRECT >>>
+      A: eq/balanced [F7:FeS2+O2→SO3(应→S]  高温煅烧硫铁矿: 4FeS2 + 15O2 --(高温)--> 2Fe2O3 + 8SO3
+      B: eq/balanced   泡沫灭火器工作原理: Al^3+ + 3HCO3- = Al(OH)3 ↓ + 3CO2 ↑
+      C: eq/balanced [F1:Fe3+Cu→Fe(应→Fe2]  FeCl3 溶液蚀刻铜电路板: 2FeCl3 + 3Cu = 2Fe + 3CuCl2
+      D: eq/balanced [F8:过量氨水+SO2→酸式盐(应→]  过量氨水吸收 SO2 尾气: SO2 + NH3 · H2O = NH4HSO3
+  pdf-043 ans=B ask=correct eq=4 bal=4 unbal=0 pf=0 inf=2  (2命中，需再1条)
+      A: eq/balanced   向碘化亚铁溶液通入等物质的量的氯气: 2Fe^2+ + 2I- + 2Cl2 = 2Fe^3+ + I2 + 
+      B: eq/balanced   向次氯酸钙溶液通入足量二氧化碳: ClO- + CO2 + H2O = HCO3- + HClO
+      C: eq/balanced [F9:稀硝酸→NO2(应→NO)]  铜与稀硝酸反应: Cu + 4H+ + 2NO3- = Cu^2+ + 2NO2 ↑ + 2H2O
+      D: eq/balanced [F10:S2-+SO2→H2S(应→]  向硫化钠溶液通入足量二氧化硫: S^2- + 2SO2 + 2H2O = H2S ↓ + 2HSO3-
+  pdf-046 ans=A ask=correct eq=4 bal=2 unbal=0 pf=2 inf=1
+      A: eq/parseFail   酸性环境中铁发生析氢腐蚀的负极反应：Fe - 2e- ═ Fe2+
+      B: eq/parseFail [F13:铁锈→Fe3O4(应→Fe2]  铁发生腐蚀生锈的反应：3Fe + 2O2 + xH2O ═ Fe3O4 · xH2O
+      C: eq/balanced   铁经过发蓝处理形成致密氧化膜：Fe + 2HNO3(浓) ═ FeO + 2NO2↑ + H2O
+      D: eq/balanced   安装锌块保护船舶外壳，铁电极上发生的反应：Fe3+ + 3e- ═ Fe
+  pdf-048 ans=C ask=correct eq=4 bal=4 unbal=0 pf=0 inf=1
+      A: eq/balanced   硫化氢溶液久置变浑浊：2S2- + O2 + 4H+ ═ 2S↓ + 2H2O
+      B: eq/balanced [F9:稀硝酸→NO2(应→NO)]  锌粉与稀硝酸反应：Zn + 2NO3- + 4H+ ═ Zn2+ + 2NO2↑ + 2H2O
+      C: eq/balanced   银氨溶液与溴化钠溶液反应：[Ag(NH3)2]+ + Br- ═ AgBr↓ + 2NH3
+      D: eq/balanced   碳酸氢钠溶液与少量氢氧化钡溶液混合：Ba2+ + HCO3- + OH- ═ BaCO3↓ + H2O
+  pdf-049 ans=D ask=correct eq=4 bal=4 unbal=0 pf=0 inf=2  (2命中，需再1条)
+      A: eq/balanced   用氢氟酸刻蚀玻璃：SiO3 2- + 4F- + 6H+ ═ SiF4↑ + 3H2O
+      B: eq/balanced [F1:Fe3+Cu→Fe(应→Fe2]  用三氯化铁溶液刻制覆铜电路板：2Fe3+ + 3Cu ═ 3Cu2+ + 2Fe
+      C: eq/balanced [F15:S2O3+Cl2→SO3^2]  用硫代硫酸钠溶液脱氯：S2O3 2- + 2Cl2 + 3H2O ═ 2SO3 2- + 4Cl- + 6H+
+      D: eq/balanced   用碳酸钠溶液浸泡锅炉水垢中的硫酸钙：CaSO4 + CO3 2- ═ SO4 2- + CaCO3
+  pdf-050 ans=C ask=correct eq=4 bal=4 unbal=0 pf=0 inf=1
+      A: eq/balanced [F9:稀硝酸→NO2(应→NO)]  试管壁上的银镜用稀硝酸清洗：Ag + 2H+ + NO3- ═ Ag+ + NO2↑ + H2O
+      B: eq/balanced   工业废水中的 Pb2+ 用 FeS 去除：Pb2+ + S2- ═ PbS↓
+      C: eq/balanced   海水提溴过程中将溴吹入 SO2 吸收塔：Br2 + SO2 + 2H2O ═ 2Br- + SO4 2- + 
+      D: eq/balanced   用草酸标准溶液测定高锰酸钾溶液的浓度：2MnO4- + 5C2O4 2- + 16H+ ═ 2Mn2+ + 1
+  pdf-102 ans=B ask=correct eq=4 bal=2 unbal=1 pf=1 inf=1
+      A: eq/unbalanced   向FeCl₃溶液中加入Fe粉:Fe³⁺+Fe=Fe²⁺
+      B: eq/balanced   用绿矾(FeSO₄·7H₂O)处理酸性废水中的Cr₂O₇²⁻:6Fe²⁺+Cr₂O₇²⁻+14H⁺=6Fe³⁺
+      C: eq/parseFail [F12:Fe+H2O(g)→Fe2O]  还原铁粉与水蒸气反应有可燃性气体产生:2Fe+3H₂O(g)─(高温)→Fe₂O₃+3H₂
+      D: eq/balanced   Fe₂O₃溶于HI溶液中:Fe₂O₃+6H⁺=2Fe³⁺+3H₂O
+
+----- askDir=?  (共 1 题有命中) -----
+  pdf-016 ans=D ask=? eq=4 bal=0 unbal=0 pf=4 inf=1
+      A: eq/parseFail   Fe --(H2O,高温)--> Fe2O3 --(Al,高温)--> Fe
+      B: eq/parseFail   Fe2O3 --(KClO,KOH)--> K2FeO4 --(H2O)--> H2
+      C: eq/parseFail   FeCl3(aq) --(蒸干,灼烧)--> Fe2O3 --(H2O)--> Fe(OH)3
+      D: eq/parseFail [F1:Fe3+Cu→Fe(应→Fe2]  Fe --(Cl2,△)--> FeCl3 --(Cu)--> FeCl2

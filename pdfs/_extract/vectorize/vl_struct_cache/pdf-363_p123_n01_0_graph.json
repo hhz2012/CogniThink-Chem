@@ -1,0 +1,35 @@
+{
+  "id": "pdf-363",
+  "type": "graph",
+  "img": "pdf_images/p123_n01_0.png",
+  "key": "pdf-363_p123_n01_0_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"X\", \"label\": \"COOH\\n|\\nCH2\\n|\\nCOOH\"},\n    {\"id\": \"Y\", \"label\": \"Br\\n|\\nCH-COOH\\n|\\nCH2\\n|\\nCOOH\"},\n    {\"id\": \"天冬氨酸\", \"label\": \"H2N\\n|\\nCH-COOH\\n|\\nCH2\\n|\\nCOOH\"}\n  ],\n  \"edges\": [\n    {\"from\": \"X\", \"to\": \"Y\", \"cond\": \"Br₂, PBr₃\"},\n    {\"from\": \"Y\", \"to\": \"天冬氨酸\", \"cond\": \"NH₃\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "X",
+        "label": "COOH\n|\nCH2\n|\nCOOH"
+      },
+      {
+        "id": "Y",
+        "label": "Br\n|\nCH-COOH\n|\nCH2\n|\nCOOH"
+      },
+      {
+        "id": "天冬氨酸",
+        "label": "H2N\n|\nCH-COOH\n|\nCH2\n|\nCOOH"
+      }
+    ],
+    "edges": [
+      {
+        "from": "X",
+        "to": "Y",
+        "cond": "Br₂, PBr₃"
+      },
+      {
+        "from": "Y",
+        "to": "天冬氨酸",
+        "cond": "NH₃"
+      }
+    ]
+  }
+}

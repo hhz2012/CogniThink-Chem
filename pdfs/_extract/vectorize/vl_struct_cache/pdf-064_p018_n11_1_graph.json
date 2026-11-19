@@ -1,0 +1,71 @@
+{
+  "id": "pdf-064",
+  "type": "graph",
+  "img": "pdf_images/p018_n11_1.png",
+  "key": "pdf-064_p018_n11_1_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"a\", \"label\": \"a\"},\n    {\"id\": \"b\", \"label\": \"b\"},\n    {\"id\": \"c\", \"label\": \"c\"},\n    {\"id\": \"d\", \"label\": \"d\"},\n    {\"id\": \"e\", \"label\": \"e\"},\n    {\"id\": \"f\", \"label\": \"f\"},\n    {\"id\": \"g\", \"label\": \"g\"}\n  ],\n  \"edges\": [\n    {\"from\": \"a\", \"to\": \"e\", \"cond\": \"Δ\"},\n    {\"from\": \"b\", \"to\": \"e\", \"cond\": \"Δ\"},\n    {\"from\": \"b\", \"to\": \"f\", \"cond\": \"\"},\n    {\"from\": \"c\", \"to\": \"f\", \"cond\": \"\"},\n    {\"from\": \"c\", \"to\": \"g\", \"cond\": \"\"},\n    {\"from\": \"d\", \"to\": \"g\", \"cond\": \"\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "a",
+        "label": "a"
+      },
+      {
+        "id": "b",
+        "label": "b"
+      },
+      {
+        "id": "c",
+        "label": "c"
+      },
+      {
+        "id": "d",
+        "label": "d"
+      },
+      {
+        "id": "e",
+        "label": "e"
+      },
+      {
+        "id": "f",
+        "label": "f"
+      },
+      {
+        "id": "g",
+        "label": "g"
+      }
+    ],
+    "edges": [
+      {
+        "from": "a",
+        "to": "e",
+        "cond": "Δ"
+      },
+      {
+        "from": "b",
+        "to": "e",
+        "cond": "Δ"
+      },
+      {
+        "from": "b",
+        "to": "f",
+        "cond": ""
+      },
+      {
+        "from": "c",
+        "to": "f",
+        "cond": ""
+      },
+      {
+        "from": "c",
+        "to": "g",
+        "cond": ""
+      },
+      {
+        "from": "d",
+        "to": "g",
+        "cond": ""
+      }
+    ]
+  }
+}

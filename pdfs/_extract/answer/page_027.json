@@ -1,0 +1,24 @@
+{
+  "page_idx": 27,
+  "raw": "[\n  {\n    \"num\": 6,\n    \"answer\": \"C\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：由题图可知，向200 mL FeBr2溶液中通入氯气，Fe2+先反应，说明还原性Fe2+>Br-，对应氧化产物的氧化性Br2>Fe3+，A正确。B项：通入0.1 mol Cl2时，Fe2+恰好被完全氧化为Fe3+，反应为2Fe2++Cl2=2Fe3++2Cl-，得n(Fe2+)=0.2 mol，c(FeBr2)=0.2 mol/0.2 L=1 mol·L-1，B正确。C项：根据公式n=cV，n(FeBr2)=1 mol·L-1×200×10-3 L=0.2 mol；当通入n(Cl2)=0.12 mol时，0.02 mol Cl2与Br-反应，剩余n(Br-)=0.4-0.04=0.36 mol，则c(Fe3+):c(Br-)=n(Fe3+):n(Br-)=0.2:0.36=5:9，C错误。D项：n(FeBr2):n(Cl2)=1:1时，0.1 mol Cl2先氧化0.2 mol Fe2+为Fe3+，另0.1 mol Cl2将0.2 mol Br-氧化为Br2，离子方程式为2Fe2++2Br-+2Cl2=2Fe3++Br2+4Cl-，D正确。\"\n  },\n  {\n    \"num\": 7,\n    \"answer\": \"B\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"步骤①：海带灼烧后加水溶解，过滤除残渣，得含I-滤液（过滤）。步骤②：酸性条件下，加氧化剂（如H2O2）将I-氧化为I2。步骤③：用CCl4萃取I2，分液得含I2有机层（萃取和分液）。步骤④：向有机层加NaOH溶液，I2在碱性条件下歧化：3I2+6NaOH=NaIO3+5NaI+3H2O（离子式：3I2+6OH-=5I-+IO3-+3H2O），生成的IO3-、I-进入水层。步骤⑤：向水层加稀H2SO4、IO3-、I-在酸性下归中：5NaI+NaIO3+3H2SO4=3Na2SO4+3I2+3H2O（离子式：5I-+IO3-+6H+=3I2+3H2O）。步骤⑥：过滤分离出固态I2。A项：①③⑥操作分别为过滤、萃取分液、过滤，A错。B项：m/M=7.62/127=0.03 mol；步骤④中3I2+6NaOH→NaIO3+5NaI+3H2O，I元素化合价升至+5、降至-1，3 mol I2转移5 mol电子，故0.03 mol I2转移0.05 mol电子，B正确。C项：⑤主要离子方程式应为5I-+IO3-+6H+=3I2+3H2O，C错。D项：步骤④消耗6 mol NaOH，步骤⑤生成3 mol I2消耗3 mol H2SO4，但NaOH与H2SO4物质的量不相等，D错。\"\n  },\n  {\n    \"num\": 8,\n    \"answer\": \"C\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：Cl2与NaOH加热反应体系中同时存在NaCl、NaClO、NaClO3。若氧化产物只有NaClO，则n(Na+):n(Cl-)=2:1；若只有NaClO3，则n(Na+):n(Cl-)最小为6:5；故6:5<n(Na+):n(Cl-)<2:1，不可能是7:3（即2.33:1），A错。B项：无NaOH则反应不完全；据钠原子守恒，n(NaOH)=n(NaCl)+n(NaClO)+n(NaClO3)=0.03 L×10.00 mol·L-1=0.3 mol；据氯原子守恒，2n(Cl2)=n(NaCl)+n(NaClO)+n(NaClO3)=0.3 mol，故n(Cl2)=0.15 mol，B错。C项：用“极值思想”：若0.3 mol NaOH全生成NaCl和NaClO，则2NaOH~Cl2~转移1 mol e-，0.3 mol NaOH转移0.15 mol e-；若全生成NaCl和NaClO3，则6NaOH~3Cl2~转移5 mol e-，0.3 mol NaOH转移0.25 mol e-；故0.15<n<0.25，C正确。D项：“假设法”：设n(NaCl)=x，n(NaClO)=y，n(NaClO3)=z，则x+y+z=0.3，x+y+5z=0.3（电子守恒），解得z=0，y=0.3，x=0，不合理；实际应满足x+y+z=0.3，x+y+5z=0.3→4z=0→z=0，矛盾，说明必须有多种产物；准确计算：令n(NaClO)=a，n(NaClO3)=b，则a+b≤0.3，电子得失：a+5b=0.3（因Cl2得电子总数=0.3 mol），解得a=0.3-5b≥0→b≤0.06；又n(NaCl)=0.3-a-b=4b，得电子数=4b，失电子数=a+5b=0.3，仅当b=0.05时，a=0.05，n(NaCl)=0.2，得失电子均为0.25 mol；但题目说“得失电子数相等”，而选项D中计算n(NaCl)=5 mol等明显单位错误，且逻辑混乱，D错。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 6,
+      "answer": "C",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：由题图可知，向200 mL FeBr2溶液中通入氯气，Fe2+先反应，说明还原性Fe2+>Br-，对应氧化产物的氧化性Br2>Fe3+，A正确。B项：通入0.1 mol Cl2时，Fe2+恰好被完全氧化为Fe3+，反应为2Fe2++Cl2=2Fe3++2Cl-，得n(Fe2+)=0.2 mol，c(FeBr2)=0.2 mol/0.2 L=1 mol·L-1，B正确。C项：根据公式n=cV，n(FeBr2)=1 mol·L-1×200×10-3 L=0.2 mol；当通入n(Cl2)=0.12 mol时，0.02 mol Cl2与Br-反应，剩余n(Br-)=0.4-0.04=0.36 mol，则c(Fe3+):c(Br-)=n(Fe3+):n(Br-)=0.2:0.36=5:9，C错误。D项：n(FeBr2):n(Cl2)=1:1时，0.1 mol Cl2先氧化0.2 mol Fe2+为Fe3+，另0.1 mol Cl2将0.2 mol Br-氧化为Br2，离子方程式为2Fe2++2Br-+2Cl2=2Fe3++Br2+4Cl-，D正确。"
+    },
+    {
+      "num": 7,
+      "answer": "B",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "步骤①：海带灼烧后加水溶解，过滤除残渣，得含I-滤液（过滤）。步骤②：酸性条件下，加氧化剂（如H2O2）将I-氧化为I2。步骤③：用CCl4萃取I2，分液得含I2有机层（萃取和分液）。步骤④：向有机层加NaOH溶液，I2在碱性条件下歧化：3I2+6NaOH=NaIO3+5NaI+3H2O（离子式：3I2+6OH-=5I-+IO3-+3H2O），生成的IO3-、I-进入水层。步骤⑤：向水层加稀H2SO4、IO3-、I-在酸性下归中：5NaI+NaIO3+3H2SO4=3Na2SO4+3I2+3H2O（离子式：5I-+IO3-+6H+=3I2+3H2O）。步骤⑥：过滤分离出固态I2。A项：①③⑥操作分别为过滤、萃取分液、过滤，A错。B项：m/M=7.62/127=0.03 mol；步骤④中3I2+6NaOH→NaIO3+5NaI+3H2O，I元素化合价升至+5、降至-1，3 mol I2转移5 mol电子，故0.03 mol I2转移0.05 mol电子，B正确。C项：⑤主要离子方程式应为5I-+IO3-+6H+=3I2+3H2O，C错。D项：步骤④消耗6 mol NaOH，步骤⑤生成3 mol I2消耗3 mol H2SO4，但NaOH与H2SO4物质的量不相等，D错。"
+    },
+    {
+      "num": 8,
+      "answer": "C",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：Cl2与NaOH加热反应体系中同时存在NaCl、NaClO、NaClO3。若氧化产物只有NaClO，则n(Na+):n(Cl-)=2:1；若只有NaClO3，则n(Na+):n(Cl-)最小为6:5；故6:5<n(Na+):n(Cl-)<2:1，不可能是7:3（即2.33:1），A错。B项：无NaOH则反应不完全；据钠原子守恒，n(NaOH)=n(NaCl)+n(NaClO)+n(NaClO3)=0.03 L×10.00 mol·L-1=0.3 mol；据氯原子守恒，2n(Cl2)=n(NaCl)+n(NaClO)+n(NaClO3)=0.3 mol，故n(Cl2)=0.15 mol，B错。C项：用“极值思想”：若0.3 mol NaOH全生成NaCl和NaClO，则2NaOH~Cl2~转移1 mol e-，0.3 mol NaOH转移0.15 mol e-；若全生成NaCl和NaClO3，则6NaOH~3Cl2~转移5 mol e-，0.3 mol NaOH转移0.25 mol e-；故0.15<n<0.25，C正确。D项：“假设法”：设n(NaCl)=x，n(NaClO)=y，n(NaClO3)=z，则x+y+z=0.3，x+y+5z=0.3（电子守恒），解得z=0，y=0.3，x=0，不合理；实际应满足x+y+z=0.3，x+y+5z=0.3→4z=0→z=0，矛盾，说明必须有多种产物；准确计算：令n(NaClO)=a，n(NaClO3)=b，则a+b≤0.3，电子得失：a+5b=0.3（因Cl2得电子总数=0.3 mol），解得a=0.3-5b≥0→b≤0.06；又n(NaCl)=0.3-a-b=4b，得电子数=4b，失电子数=a+5b=0.3，仅当b=0.05时，a=0.05，n(NaCl)=0.2，得失电子均为0.25 mol；但题目说“得失电子数相等”，而选项D中计算n(NaCl)=5 mol等明显单位错误，且逻辑混乱，D错。"
+    }
+  ]
+}

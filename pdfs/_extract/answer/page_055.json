@@ -1,0 +1,24 @@
+{
+  "page_idx": 55,
+  "raw": "[\n  {\n    \"num\": 9,\n    \"answer\": \"A,B,D\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：氮的固定指将游离态N2转化为含氮化合物，N2O4→HNO3不属于氮的固定；B项：超分子识别功能通过非共价作用实现，如氢键、疏水作用等，形成特定结构和功能组装体，体现超分子识别功能；C项：2NO2⇌N2O4 ΔH<0，升温平衡左移，N2O4减少，不利于MOFs固定；D项：HNO3反应为2N2O4+O2+2H2O=4HNO3，原子利用率100%。\"\n  },\n  {\n    \"num\": 10,\n    \"answer\": \"A,B,C,D\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：沸石微孔结构可能吸附NH3、HCl气体，影响热分解率测定，故不宜加入；B项：沉淀Ag+后滴加AgNO3，无浑浊说明Cl-已沉淀完全；C项：烘干温度高致AgCl分解，应选干燥器防分解；D项：由n(NH4Cl)=m/M(AgCl)，残留NH4Cl物质的量=m/143.5 mol，热分解率=1−NH4Cl残留率，计算得结果正确。\"\n  },\n  {\n    \"num\": 11,\n    \"answer\": \"(1) CaCl2 + 2NH3↑ + 2H2O；(2) Na2CO3 + NaCl + N2H4·H2O + N2H4·H2O；(3)c；(4)60%\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"(1)装置甲制NH3反应为2NH4Cl+Ca(OH)2→CaCl2+2NH3↑+2H2O；打开K2挤压胶头滴管引发喷泉。(2)NaClO氧化N2H4·H2O需控制用量，缓慢滴加NaClO；三颈烧瓶中反应为CO(NH2)2+2NaOH+NaClO→Na2CO3+NaCl+N2H4·H2O，氧化产物N2H4·H2O中N为−2价，比CO(NH2)2中−3价升高1价。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 9,
+      "answer": "A,B,D",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：氮的固定指将游离态N2转化为含氮化合物，N2O4→HNO3不属于氮的固定；B项：超分子识别功能通过非共价作用实现，如氢键、疏水作用等，形成特定结构和功能组装体，体现超分子识别功能；C项：2NO2⇌N2O4 ΔH<0，升温平衡左移，N2O4减少，不利于MOFs固定；D项：HNO3反应为2N2O4+O2+2H2O=4HNO3，原子利用率100%。"
+    },
+    {
+      "num": 10,
+      "answer": "A,B,C,D",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：沸石微孔结构可能吸附NH3、HCl气体，影响热分解率测定，故不宜加入；B项：沉淀Ag+后滴加AgNO3，无浑浊说明Cl-已沉淀完全；C项：烘干温度高致AgCl分解，应选干燥器防分解；D项：由n(NH4Cl)=m/M(AgCl)，残留NH4Cl物质的量=m/143.5 mol，热分解率=1−NH4Cl残留率，计算得结果正确。"
+    },
+    {
+      "num": 11,
+      "answer": "(1) CaCl2 + 2NH3↑ + 2H2O；(2) Na2CO3 + NaCl + N2H4·H2O + N2H4·H2O；(3)c；(4)60%",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "(1)装置甲制NH3反应为2NH4Cl+Ca(OH)2→CaCl2+2NH3↑+2H2O；打开K2挤压胶头滴管引发喷泉。(2)NaClO氧化N2H4·H2O需控制用量，缓慢滴加NaClO；三颈烧瓶中反应为CO(NH2)2+2NaOH+NaClO→Na2CO3+NaCl+N2H4·H2O，氧化产物N2H4·H2O中N为−2价，比CO(NH2)2中−3价升高1价。"
+    }
+  ]
+}

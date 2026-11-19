@@ -1,0 +1,120 @@
+{
+  "id": "pdf-479",
+  "type": "curve",
+  "img": "pdf_images/p041_n03_2.png",
+  "key": "pdf-479_p041_n03_2_curve",
+  "raw": "{\n  \"xLabel\": \"物质类别\",\n  \"yLabel\": \"化合价\",\n  \"xTicks\": [\n    {\"value\": null, \"x\": 0.12},\n    {\"value\": null, \"x\": 0.28},\n    {\"value\": null, \"x\": 0.44},\n    {\"value\": null, \"x\": 0.60},\n    {\"value\": null, \"x\": 0.76}\n  ],\n  \"yTicks\": [\n    {\"value\": -1, \"y\": 0.25},\n    {\"value\": 0, \"y\": 0.5},\n    {\"value\": 1, \"y\": 0.75},\n    {\"value\": 4, \"y\": 0.9375},\n    {\"value\": 5, \"y\": 1.0}\n  ],\n  \"series\": [\n    {\n      \"name\": \"a\",\n      \"points\": [[0.12, 0.5]]\n    },\n    {\n      \"name\": \"b\",\n      \"points\": [[0.28, 0.25]]\n    },\n    {\n      \"name\": \"c\",\n      \"points\": [[0.44, 0.9375]]\n    },\n    {\n      \"name\": \"d\",\n      \"points\": [[0.60, 0.75]]\n    },\n    {\n      \"name\": \"e\",\n      \"points\": [[0.76, 0.25]]\n    },\n    {\n      \"name\": \"f\",\n      \"points\": [[0.76, 0.75]]\n    },\n    {\n      \"name\": \"g\",\n      \"points\": [[0.76, 0.9375]]\n    }\n  ]\n}",
+  "data": {
+    "xLabel": "物质类别",
+    "yLabel": "化合价",
+    "xTicks": [
+      {
+        "value": null,
+        "x": 0.12
+      },
+      {
+        "value": null,
+        "x": 0.28
+      },
+      {
+        "value": null,
+        "x": 0.44
+      },
+      {
+        "value": null,
+        "x": 0.6
+      },
+      {
+        "value": null,
+        "x": 0.76
+      }
+    ],
+    "yTicks": [
+      {
+        "value": -1,
+        "y": 0.25
+      },
+      {
+        "value": 0,
+        "y": 0.5
+      },
+      {
+        "value": 1,
+        "y": 0.75
+      },
+      {
+        "value": 4,
+        "y": 0.9375
+      },
+      {
+        "value": 5,
+        "y": 1.0
+      }
+    ],
+    "series": [
+      {
+        "name": "a",
+        "points": [
+          [
+            0.12,
+            0.5
+          ]
+        ]
+      },
+      {
+        "name": "b",
+        "points": [
+          [
+            0.28,
+            0.25
+          ]
+        ]
+      },
+      {
+        "name": "c",
+        "points": [
+          [
+            0.44,
+            0.9375
+          ]
+        ]
+      },
+      {
+        "name": "d",
+        "points": [
+          [
+            0.6,
+            0.75
+          ]
+        ]
+      },
+      {
+        "name": "e",
+        "points": [
+          [
+            0.76,
+            0.25
+          ]
+        ]
+      },
+      {
+        "name": "f",
+        "points": [
+          [
+            0.76,
+            0.75
+          ]
+        ]
+      },
+      {
+        "name": "g",
+        "points": [
+          [
+            0.76,
+            0.9375
+          ]
+        ]
+      }
+    ]
+  }
+}

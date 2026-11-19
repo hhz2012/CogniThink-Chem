@@ -1,0 +1,30 @@
+{
+  "page_idx": 143,
+  "raw": "[\n  {\n    \"num\": 3,\n    \"answer\": \"B\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：已知物理量是气体体积V，需计算原子个数N，根据公式n=V/Vm，N=NA×n，必须确定Vm的值才能计算；Vm受温度T、压强p影响，选项未给T、p，无法计算，A错误。B项：元素符号左上角为质量数，质量数=质子数+中子数，18O中子数=18-8=10，1mol 18O含中子数10NA，B正确。C项：Fe与S反应生成FeS，Fe显+2价；因Fe量少，应代入Fe量计算，n(Fe)=0.5mol，n(e-)=2n(Fe)=1mol，N(e-)=NA，C错误。D项：MnO2与浓盐酸反应，但不与稀盐酸反应；n(Cl2)=0.3mol时盐酸变稀，反应停止，故n(Cl2)<0.3mol，D错误。\"\n  },\n  {\n    \"num\": 4,\n    \"answer\": \"A\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：12C质子数=原子序数=6，质量数=12，摩尔质量12g/mol，n=m/M=12g/12g/mol=1mol，质子数=6×NA=6NA，A正确。B项：常温常压下气体摩尔体积≠22.4L/mol，标准状况下Vm=22.4L/mol，常温常压（25℃,101kPa）Vm=24.5L/mol；n(CO2)=6.72L/24.5L/mol，σ键数=6.72/24.5×2×NA≠0.6NA，B错误。C项：pH=-lgc(H+)，c(H+)=0.1mol/L，n(H+)=0.1mol，但N=n×NA=0.1NA≠0.2NA，C错误。D项：SO2与O2反应可逆，生成SO3分子数小于NA，D错误。\"\n  },\n  {\n    \"num\": 5,\n    \"answer\": \"A\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：3H2O摩尔质量=22g/mol，2.2g超重水物质的量=2.2/22=0.1mol，每个3H2O含电子数=1×2+8=10，总电子数=0.1×10×NA=NA，A正确。B项：ClO-水解，1L 0.1mol/L NaClO中n(HClO)+n(ClO-)=0.1NA，ClO-数目<0.1NA，B错误。C项：过量C与1mol SiO2反应：2C+SiO2→Si+2CO↑，Si从+4→0，得4e-，转移电子数=4NA，C错误。D项：CH4与Cl2取代为连锁反应，每取代1个H消耗1个Cl2并生成1个HCl，n(Cl2)=n(HCl)，D错误。\"\n  },\n  {\n    \"num\": 6,\n    \"answer\": \"A\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"A项：H-C≡C-H含3个σ键，摩尔质量=26g/mol，26g该物质为1mol，故含3mol σ键，A正确。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 3,
+      "answer": "B",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：已知物理量是气体体积V，需计算原子个数N，根据公式n=V/Vm，N=NA×n，必须确定Vm的值才能计算；Vm受温度T、压强p影响，选项未给T、p，无法计算，A错误。B项：元素符号左上角为质量数，质量数=质子数+中子数，18O中子数=18-8=10，1mol 18O含中子数10NA，B正确。C项：Fe与S反应生成FeS，Fe显+2价；因Fe量少，应代入Fe量计算，n(Fe)=0.5mol，n(e-)=2n(Fe)=1mol，N(e-)=NA，C错误。D项：MnO2与浓盐酸反应，但不与稀盐酸反应；n(Cl2)=0.3mol时盐酸变稀，反应停止，故n(Cl2)<0.3mol，D错误。"
+    },
+    {
+      "num": 4,
+      "answer": "A",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：12C质子数=原子序数=6，质量数=12，摩尔质量12g/mol，n=m/M=12g/12g/mol=1mol，质子数=6×NA=6NA，A正确。B项：常温常压下气体摩尔体积≠22.4L/mol，标准状况下Vm=22.4L/mol，常温常压（25℃,101kPa）Vm=24.5L/mol；n(CO2)=6.72L/24.5L/mol，σ键数=6.72/24.5×2×NA≠0.6NA，B错误。C项：pH=-lgc(H+)，c(H+)=0.1mol/L，n(H+)=0.1mol，但N=n×NA=0.1NA≠0.2NA，C错误。D项：SO2与O2反应可逆，生成SO3分子数小于NA，D错误。"
+    },
+    {
+      "num": 5,
+      "answer": "A",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：3H2O摩尔质量=22g/mol，2.2g超重水物质的量=2.2/22=0.1mol，每个3H2O含电子数=1×2+8=10，总电子数=0.1×10×NA=NA，A正确。B项：ClO-水解，1L 0.1mol/L NaClO中n(HClO)+n(ClO-)=0.1NA，ClO-数目<0.1NA，B错误。C项：过量C与1mol SiO2反应：2C+SiO2→Si+2CO↑，Si从+4→0，得4e-，转移电子数=4NA，C错误。D项：CH4与Cl2取代为连锁反应，每取代1个H消耗1个Cl2并生成1个HCl，n(Cl2)=n(HCl)，D错误。"
+    },
+    {
+      "num": 6,
+      "answer": "A",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "A项：H-C≡C-H含3个σ键，摩尔质量=26g/mol，26g该物质为1mol，故含3mol σ键，A正确。"
+    }
+  ]
+}

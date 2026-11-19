@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="sans-serif" font-size="13">
+<rect x="0" y="0" width="640" height="420" fill="white"/>
+<line x1="145.6" y1="40" x2="145.6" y2="360" stroke="#eee"/>
+<line x1="145.6" y1="360" x2="145.6" y2="365" stroke="black"/>
+<text x="145.6" y="380" text-anchor="middle">20</text>
+<line x1="221.2" y1="40" x2="221.2" y2="360" stroke="#eee"/>
+<line x1="221.2" y1="360" x2="221.2" y2="365" stroke="black"/>
+<text x="221.2" y="380" text-anchor="middle">40</text>
+<line x1="296.8" y1="40" x2="296.8" y2="360" stroke="#eee"/>
+<line x1="296.8" y1="360" x2="296.8" y2="365" stroke="black"/>
+<text x="296.8" y="380" text-anchor="middle">60</text>
+<line x1="372.4" y1="40" x2="372.4" y2="360" stroke="#eee"/>
+<line x1="372.4" y1="360" x2="372.4" y2="365" stroke="black"/>
+<text x="372.4" y="380" text-anchor="middle">80</text>
+<line x1="448.0" y1="40" x2="448.0" y2="360" stroke="#eee"/>
+<line x1="448.0" y1="360" x2="448.0" y2="365" stroke="black"/>
+<text x="448.0" y="380" text-anchor="middle">100</text>
+<line x1="523.6" y1="40" x2="523.6" y2="360" stroke="#eee"/>
+<line x1="523.6" y1="360" x2="523.6" y2="365" stroke="black"/>
+<text x="523.6" y="380" text-anchor="middle">120</text>
+<line x1="599.2" y1="40" x2="599.2" y2="360" stroke="#eee"/>
+<line x1="599.2" y1="360" x2="599.2" y2="365" stroke="black"/>
+<text x="599.2" y="380" text-anchor="middle">140</text>
+<line x1="70" y1="200.0" x2="610" y2="200.0" stroke="#eee"/>
+<line x1="65" y1="200.0" x2="70" y2="200.0" stroke="black"/>
+<text x="62" y="204.0" text-anchor="end">2000</text>
+<line x1="70" y1="280.0" x2="610" y2="280.0" stroke="#eee"/>
+<line x1="65" y1="280.0" x2="70" y2="280.0" stroke="black"/>
+<text x="62" y="284.0" text-anchor="end">4000</text>
+<line x1="70" y1="360.0" x2="610" y2="360.0" stroke="#eee"/>
+<line x1="65" y1="360.0" x2="70" y2="360.0" stroke="black"/>
+<text x="62" y="364.0" text-anchor="end">6000</text>
+<line x1="70" y1="40" x2="70" y2="360" stroke="black" stroke-width="1.5"/>
+<line x1="70" y1="360" x2="610" y2="360" stroke="black" stroke-width="1.5"/>
+<text x="340.0" y="405" text-anchor="middle">质荷比(m/Z)</text>
+<text x="20" y="200.0" text-anchor="middle" transform="rotate(-90 20 200.0)">相对强度%</text>
+<polyline points="70.0,40.0 259.0,40.0 259.0,120.0 296.8,40.0 296.8,88.0 372.4,40.0 372.4,161.6 415.6,40.0 415.6,120.0 448.0,40.0 448.0,139.2 485.8,40.0 485.8,88.0 523.6,40.0 523.6,132.8 561.4,40.0 561.4,273.6 599.2,40.0 599.2,276.8" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="70.0" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="259.0" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="259.0" cy="120.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="296.8" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="296.8" cy="88.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="372.4" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="372.4" cy="161.6" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="415.6" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="415.6" cy="120.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="448.0" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="448.0" cy="139.2" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="485.8" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="485.8" cy="88.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="523.6" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="523.6" cy="132.8" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="561.4" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="561.4" cy="273.6" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="599.2" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="599.2" cy="276.8" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="55" text-anchor="end" fill="#c0392b">质谱峰</text>
+</svg>

@@ -137,37 +137,7 @@ public static class ReactionMatcher
         var seen = new HashSet<string>(StringComparer.Ordinal);
 
         // 分子模式：反应物集精确相等（或子集）；含离子的条目留给离子模式
-        IEnumerable<ReactionEntry> molecular = allowSubset
-            ? library.All.Where(e => e.Reactants.Count > 0 && e.Reactants.All(reactantSet.Contains))
-            : library.FindByReactants(reactants);
-        foreach (var entry in molecular)
-        {
-            // 电离/水解/沉淀溶解平衡（⇌）条目不是"发生到底"的反应，不作为推断证据
-            if (entry.ReactionType == ReactionType.IonEquilibrium)
-            {
-                continue;
-            }
-
-            if (entry.Reactants.Any(r => r.Contains('^')))
-            {
-                continue;
-            }
-
-            if (!ReactionLibrary.ConditionsSatisfied(tokens, entry.Conditions))
-            {
-                continue;
-            }
-
-            if (requiredProduct is not null && !ContainsProduct(entry, requiredProduct))
-            {
-                continue;
-            }
-
-            if (seen.Add(entry.Id))
-            {
-                matches.Add(new ReactionMatch { Entry = entry, IsIonic = false });
-            }
-        }
+        CollectMolecular(matches, seen, reactants, reactantSet, tokens, library, requiredProduct, allowSubset);
 
         // 离子模式：条目反应物（含离子）全部落在电离池内
         var pool = BuildIonPool(reactants);
@@ -209,6 +179,20 @@ public static class ReactionMatcher
             }
         }
 
+        // 水溶液溶剂约定：离子模式已恒含 H2O；分子精确模式下，若未命中且查询未显式含 H2O，
+        // 补入溶剂 H2O 再检索一次（如 Na2CO3 + CO2 + H2O → NaHCO3，知识库条目显式列出 H2O）。
+        // 仅精确集模式（allowSubset=false）生效，避免子集模式扩大命中面引入误匹配。
+        if (matches.Count == 0 && !allowSubset && !reactantSet.Contains("H2O"))
+        {
+            var withWater = new List<string>(reactants) { "H2O" };
+            var withWaterSet = new HashSet<string>(reactantSet, StringComparer.Ordinal) { "H2O" };
+            CollectMolecular(matches, seen, withWater, withWaterSet, tokens, library, requiredProduct, false);
+            if (matches.Count > 0)
+            {
+                reactantSet = withWaterSet;
+            }
+        }
+
         // 条件特异性优先：查询带条件时，优先采纳自身带条件标注的条目
         if (tokens.Count > 0)
         {
@@ -230,6 +214,50 @@ public static class ReactionMatcher
         }
 
         return matches;
+    }
+
+    /// <summary>分子模式收集命中：精确集（FindByReactants）或子集（allowSubset）匹配，跳过离子/平衡条目。</summary>
+    private static void CollectMolecular(
+        List<ReactionMatch> matches,
+        HashSet<string> seen,
+        IReadOnlyCollection<string> reactantKeySource,
+        HashSet<string> reactantSet,
+        IReadOnlySet<string> tokens,
+        ReactionLibrary library,
+        string? requiredProduct,
+        bool allowSubset)
+    {
+        IEnumerable<ReactionEntry> molecular = allowSubset
+            ? library.All.Where(e => e.Reactants.Count > 0 && e.Reactants.All(reactantSet.Contains))
+            : library.FindByReactants(reactantKeySource);
+        foreach (var entry in molecular)
+        {
+            // 电离/水解/沉淀溶解平衡（⇌）条目不是"发生到底"的反应，不作为推断证据
+            if (entry.ReactionType == ReactionType.IonEquilibrium)
+            {
+                continue;
+            }
+
+            if (entry.Reactants.Any(r => r.Contains('^')))
+            {
+                continue;
+            }
+
+            if (!ReactionLibrary.ConditionsSatisfied(tokens, entry.Conditions))
+            {
+                continue;
+            }
+
+            if (requiredProduct is not null && !ContainsProduct(entry, requiredProduct))
+            {
+                continue;
+            }
+
+            if (seen.Add(entry.Id))
+            {
+                matches.Add(new ReactionMatch { Entry = entry, IsIonic = false });
+            }
+        }
     }
 
     /// <summary>

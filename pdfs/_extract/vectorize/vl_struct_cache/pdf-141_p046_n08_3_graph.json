@@ -1,0 +1,63 @@
+{
+  "id": "pdf-141",
+  "type": "graph",
+  "img": "pdf_images/p046_n08_3.png",
+  "key": "pdf-141_p046_n08_3_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"M\", \"label\": \"M\"},\n    {\"id\": \"Y\", \"label\": \"Y\"},\n    {\"id\": \"W\", \"label\": \"W\"},\n    {\"id\": \"X\", \"label\": \"X\"},\n    {\"id\": \"Z\", \"label\": \"Z\"}\n  ],\n  \"edges\": [\n    {\"from\": \"Y\", \"to\": \"W\", \"cond\": \"\"},\n    {\"from\": \"Y\", \"to\": \"X\", \"cond\": \"\"},\n    {\"from\": \"M\", \"to\": \"W\", \"cond\": \"\"},\n    {\"from\": \"M\", \"to\": \"X\", \"cond\": \"\"},\n    {\"from\": \"W\", \"to\": \"Z\", \"cond\": \"O₂\"},\n    {\"from\": \"Z\", \"to\": \"M\", \"cond\": \"H₂O\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "M",
+        "label": "M"
+      },
+      {
+        "id": "Y",
+        "label": "Y"
+      },
+      {
+        "id": "W",
+        "label": "W"
+      },
+      {
+        "id": "X",
+        "label": "X"
+      },
+      {
+        "id": "Z",
+        "label": "Z"
+      }
+    ],
+    "edges": [
+      {
+        "from": "Y",
+        "to": "W",
+        "cond": ""
+      },
+      {
+        "from": "Y",
+        "to": "X",
+        "cond": ""
+      },
+      {
+        "from": "M",
+        "to": "W",
+        "cond": ""
+      },
+      {
+        "from": "M",
+        "to": "X",
+        "cond": ""
+      },
+      {
+        "from": "W",
+        "to": "Z",
+        "cond": "O₂"
+      },
+      {
+        "from": "Z",
+        "to": "M",
+        "cond": "H₂O"
+      }
+    ]
+  }
+}

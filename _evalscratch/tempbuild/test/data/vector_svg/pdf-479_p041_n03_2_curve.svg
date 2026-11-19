@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="sans-serif" font-size="13">
+<rect x="0" y="0" width="640" height="420" fill="white"/>
+<line x1="134.8" y1="40" x2="134.8" y2="360" stroke="#eee"/>
+<line x1="134.8" y1="360" x2="134.8" y2="365" stroke="black"/>
+<line x1="221.2" y1="40" x2="221.2" y2="360" stroke="#eee"/>
+<line x1="221.2" y1="360" x2="221.2" y2="365" stroke="black"/>
+<line x1="307.6" y1="40" x2="307.6" y2="360" stroke="#eee"/>
+<line x1="307.6" y1="360" x2="307.6" y2="365" stroke="black"/>
+<line x1="394.0" y1="40" x2="394.0" y2="360" stroke="#eee"/>
+<line x1="394.0" y1="360" x2="394.0" y2="365" stroke="black"/>
+<line x1="480.4" y1="40" x2="480.4" y2="360" stroke="#eee"/>
+<line x1="480.4" y1="360" x2="480.4" y2="365" stroke="black"/>
+<line x1="70" y1="120.0" x2="610" y2="120.0" stroke="#eee"/>
+<line x1="65" y1="120.0" x2="70" y2="120.0" stroke="black"/>
+<text x="62" y="124.0" text-anchor="end">-1</text>
+<line x1="70" y1="200.0" x2="610" y2="200.0" stroke="#eee"/>
+<line x1="65" y1="200.0" x2="70" y2="200.0" stroke="black"/>
+<text x="62" y="204.0" text-anchor="end">0</text>
+<line x1="70" y1="280.0" x2="610" y2="280.0" stroke="#eee"/>
+<line x1="65" y1="280.0" x2="70" y2="280.0" stroke="black"/>
+<text x="62" y="284.0" text-anchor="end">1</text>
+<line x1="70" y1="340.0" x2="610" y2="340.0" stroke="#eee"/>
+<line x1="65" y1="340.0" x2="70" y2="340.0" stroke="black"/>
+<text x="62" y="344.0" text-anchor="end">4</text>
+<line x1="70" y1="360.0" x2="610" y2="360.0" stroke="#eee"/>
+<line x1="65" y1="360.0" x2="70" y2="360.0" stroke="black"/>
+<text x="62" y="364.0" text-anchor="end">5</text>
+<line x1="70" y1="40" x2="70" y2="360" stroke="black" stroke-width="1.5"/>
+<line x1="70" y1="360" x2="610" y2="360" stroke="black" stroke-width="1.5"/>
+<text x="340.0" y="405" text-anchor="middle">物质类别</text>
+<text x="20" y="200.0" text-anchor="middle" transform="rotate(-90 20 200.0)">化合价</text>
+<circle cx="134.8" cy="200.0" r="5" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="55" text-anchor="end" fill="#c0392b">a</text>
+<circle cx="221.2" cy="120.0" r="5" fill="#2980b9" stroke="white" stroke-width="1"/>
+<text x="605" y="73" text-anchor="end" fill="#2980b9">b</text>
+<circle cx="307.6" cy="340.0" r="5" fill="#27ae60" stroke="white" stroke-width="1"/>
+<text x="605" y="91" text-anchor="end" fill="#27ae60">c</text>
+<circle cx="394.0" cy="280.0" r="5" fill="#8e44ad" stroke="white" stroke-width="1"/>
+<text x="605" y="109" text-anchor="end" fill="#8e44ad">d</text>
+<circle cx="480.4" cy="120.0" r="5" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="127" text-anchor="end" fill="#c0392b">e</text>
+<circle cx="480.4" cy="280.0" r="5" fill="#2980b9" stroke="white" stroke-width="1"/>
+<text x="605" y="145" text-anchor="end" fill="#2980b9">f</text>
+<circle cx="480.4" cy="340.0" r="5" fill="#27ae60" stroke="white" stroke-width="1"/>
+<text x="605" y="163" text-anchor="end" fill="#27ae60">g</text>
+</svg>

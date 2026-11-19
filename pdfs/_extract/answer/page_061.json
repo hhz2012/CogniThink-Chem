@@ -1,0 +1,18 @@
+{
+  "page_idx": 61,
+  "raw": "[\n  {\n    \"num\": 5,\n    \"answer\": \"(2)(NH4)2SO4 △ 2NH3↑ + SO3↑ + H2O, (3)Fe + Cu2+ = Fe2+ + Cu\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"黄铜矿主要成分为CuFeS2，含SiO2等杂质，粉碎后加(NH4)2SO4通空气焙烧生成(NH4)2SO4和SO3；SO3与水作用得H2SO4，吸收NH3形成(NH4)2SO4溶液A；固体B为SiO2、CuSO4及含铁化合物，加水分解得CuSO4滤液C；向CuSO4中加过量铁粉置换得粗铜和FeSO4溶液，粗铜再精炼。铵盐受热分解产生SO3，反应为非氧化还原反应；Fe活动性大于Cu，发生置换：Fe + Cu2+ = Fe2+ + Cu；粗铜含Fe杂质，Fe更活泼，优先被氧化为Fe2+，导致阴极析出Cu减少。\"\n  },\n  {\n    \"num\": 6,\n    \"answer\": \"(1)ds 3d10 4s1, (2)Cu2Se + 4H2O2 + 4H+ = 2Cu2+ + H2SeO3 + 5H2O, (3)使Ag+转化为AgCl沉淀，提高银元素的回收率\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"题(1)考查电子排布式，Cu原子序数29，基态为[Ar]3d10 4s1，简写为ds 3d10 4s1；题(2)为Cu2Se与H2O2在酸性条件下反应，Se从-2价升至+4价（H2SeO3），Cu从+1升至+2，配平得：Cu2Se + 4H2O2 + 4H+ = 2Cu2+ + H2SeO3 + 5H2O；题(3)利用Cl-使Ag+沉淀为AgCl，降低溶液中Ag+浓度，促进其他含银物质溶解或转化，从而提高银回收率。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 5,
+      "answer": "(2)(NH4)2SO4 △ 2NH3↑ + SO3↑ + H2O, (3)Fe + Cu2+ = Fe2+ + Cu",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "黄铜矿主要成分为CuFeS2，含SiO2等杂质，粉碎后加(NH4)2SO4通空气焙烧生成(NH4)2SO4和SO3；SO3与水作用得H2SO4，吸收NH3形成(NH4)2SO4溶液A；固体B为SiO2、CuSO4及含铁化合物，加水分解得CuSO4滤液C；向CuSO4中加过量铁粉置换得粗铜和FeSO4溶液，粗铜再精炼。铵盐受热分解产生SO3，反应为非氧化还原反应；Fe活动性大于Cu，发生置换：Fe + Cu2+ = Fe2+ + Cu；粗铜含Fe杂质，Fe更活泼，优先被氧化为Fe2+，导致阴极析出Cu减少。"
+    },
+    {
+      "num": 6,
+      "answer": "(1)ds 3d10 4s1, (2)Cu2Se + 4H2O2 + 4H+ = 2Cu2+ + H2SeO3 + 5H2O, (3)使Ag+转化为AgCl沉淀，提高银元素的回收率",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "题(1)考查电子排布式，Cu原子序数29，基态为[Ar]3d10 4s1，简写为ds 3d10 4s1；题(2)为Cu2Se与H2O2在酸性条件下反应，Se从-2价升至+4价（H2SeO3），Cu从+1升至+2，配平得：Cu2Se + 4H2O2 + 4H+ = 2Cu2+ + H2SeO3 + 5H2O；题(3)利用Cl-使Ag+沉淀为AgCl，降低溶液中Ag+浓度，促进其他含银物质溶解或转化，从而提高银回收率。"
+    }
+  ]
+}

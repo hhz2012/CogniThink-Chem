@@ -1,0 +1,24 @@
+{
+  "page_idx": 17,
+  "raw": "[\n  {\n    \"num\": 1,\n    \"answer\": \"A\",\n    \"module\": \"模块2 离子方程式书写\",\n    \"explanation\": \"A项：饱和Na2CO3溶液与过量CO2反应生成NaHCO3，因溶解度小且消耗水，NaHCO3析出，离子方程式不可拆分，应为2Na+ + CO3^2- + CO2 + H2O = 2NaHCO3↓；B项：少量NaHSO4完全电离出H+和SO4^2-，与Ba(OH)2反应时，按化学计量关系应为H+ + SO4^2- + Ba2+ + OH- = BaSO4↓ + H2O，选项错误；C项：明矾净水原理是Al3+水解产生Al(OH)3胶体吸附悬浮颗粒，离子方程式为Al3+ + 3H2O ⇌ Al(OH)3(胶体) + 3H+，选项错误；D项：向硫酸铜中加氨水先得蓝色沉淀Cu(OH)2，过量氨水得深蓝色[Cu(NH3)4]2+，离子方程式应为Cu2+ + 4NH3·H2O = [Cu(NH3)4]2+ + 4H2O，选项错误。\"\n  },\n  {\n    \"num\": 2,\n    \"answer\": \"B\",\n    \"module\": \"模块2 离子方程式书写\",\n    \"explanation\": \"A项：FeO与稀硝酸反应涉及Fe2+还原性与NO3-氧化性，正确离子方程式为3FeO + 10H+ + NO3- = 3Fe3+ + NO↑ + 5H2O，选项错误；B项：考虑SO3^2-与Cl2的氧化还原，及过量SO3^2-与H+继续反应生成HSO3-，总反应为3SO3^2- + Cl2 + H2O = SO4^2- + 2Cl- + 2HSO3-，选项正确；C项：AgOH遇过量氨水溶解生成[Ag(NH3)2]+，离子方程式为Ag+ + 2NH3·H2O = [Ag(NH3)2]+ + 2H2O，选项错误；D项：醋酸为弱酸不可拆，正确式为IO3- + 5I- + 6CH3COOH = 3I2 + 3H2O + 6CH3COO-，选项错误。\"\n  },\n  {\n    \"num\": 3,\n    \"answer\": \"A\",\n    \"module\": \"模块2 离子方程式书写\",\n    \"explanation\": \"A项：少量NaHCO3（1 mol）电离出1 mol HCO3-，与Ba(OH)2反应时，Ba2+和OH-各需1 mol参与，再消耗1 mol Ba2+生成BaCO3，离子方程式为OH- + HCO3- + Ba2+ = BaCO3↓ + H2O，选项正确；B项：NaH与水反应为NaH + H2O = NaOH + H2↑，Na2O是碱性氧化物而非可溶性碱性氧化物，选项错误；C项：氢碘酸与Fe(OH)3反应中Fe3+氧化I-生成I2，离子方程式为2Fe(OH)3 + 6H+ + 2I- = 2Fe2+ + I2 + 6H2O，选项错误；D项：牺牲阳极法中铜门作正极，氧气还原反应为O2 + 4e- + 2H2O = 4OH-，选项错误。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 1,
+      "answer": "A",
+      "module": "模块2 离子方程式书写",
+      "explanation": "A项：饱和Na2CO3溶液与过量CO2反应生成NaHCO3，因溶解度小且消耗水，NaHCO3析出，离子方程式不可拆分，应为2Na+ + CO3^2- + CO2 + H2O = 2NaHCO3↓；B项：少量NaHSO4完全电离出H+和SO4^2-，与Ba(OH)2反应时，按化学计量关系应为H+ + SO4^2- + Ba2+ + OH- = BaSO4↓ + H2O，选项错误；C项：明矾净水原理是Al3+水解产生Al(OH)3胶体吸附悬浮颗粒，离子方程式为Al3+ + 3H2O ⇌ Al(OH)3(胶体) + 3H+，选项错误；D项：向硫酸铜中加氨水先得蓝色沉淀Cu(OH)2，过量氨水得深蓝色[Cu(NH3)4]2+，离子方程式应为Cu2+ + 4NH3·H2O = [Cu(NH3)4]2+ + 4H2O，选项错误。"
+    },
+    {
+      "num": 2,
+      "answer": "B",
+      "module": "模块2 离子方程式书写",
+      "explanation": "A项：FeO与稀硝酸反应涉及Fe2+还原性与NO3-氧化性，正确离子方程式为3FeO + 10H+ + NO3- = 3Fe3+ + NO↑ + 5H2O，选项错误；B项：考虑SO3^2-与Cl2的氧化还原，及过量SO3^2-与H+继续反应生成HSO3-，总反应为3SO3^2- + Cl2 + H2O = SO4^2- + 2Cl- + 2HSO3-，选项正确；C项：AgOH遇过量氨水溶解生成[Ag(NH3)2]+，离子方程式为Ag+ + 2NH3·H2O = [Ag(NH3)2]+ + 2H2O，选项错误；D项：醋酸为弱酸不可拆，正确式为IO3- + 5I- + 6CH3COOH = 3I2 + 3H2O + 6CH3COO-，选项错误。"
+    },
+    {
+      "num": 3,
+      "answer": "A",
+      "module": "模块2 离子方程式书写",
+      "explanation": "A项：少量NaHCO3（1 mol）电离出1 mol HCO3-，与Ba(OH)2反应时，Ba2+和OH-各需1 mol参与，再消耗1 mol Ba2+生成BaCO3，离子方程式为OH- + HCO3- + Ba2+ = BaCO3↓ + H2O，选项正确；B项：NaH与水反应为NaH + H2O = NaOH + H2↑，Na2O是碱性氧化物而非可溶性碱性氧化物，选项错误；C项：氢碘酸与Fe(OH)3反应中Fe3+氧化I-生成I2，离子方程式为2Fe(OH)3 + 6H+ + 2I- = 2Fe2+ + I2 + 6H2O，选项错误；D项：牺牲阳极法中铜门作正极，氧气还原反应为O2 + 4e- + 2H2O = 4OH-，选项错误。"
+    }
+  ]
+}

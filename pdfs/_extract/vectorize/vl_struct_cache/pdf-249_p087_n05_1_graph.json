@@ -1,0 +1,54 @@
+{
+  "id": "pdf-249",
+  "type": "graph",
+  "img": "pdf_images/p087_n05_1.png",
+  "key": "pdf-249_p087_n05_1_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"I\", \"label\": \"I\"},\n    {\"id\": \"II\", \"label\": \"II\"},\n    {\"id\": \"III\", \"label\": \"III\"},\n    {\"id\": \"IV\", \"label\": \"IV\"}\n  ],\n  \"edges\": [\n    {\"from\": \"I\", \"to\": \"II\", \"cond\": \"H₂O₂\"},\n    {\"from\": \"II\", \"to\": \"III\", \"cond\": \"H₂O₂\"},\n    {\"from\": \"III\", \"to\": \"I\", \"cond\": \"O₂,2H₂O\"},\n    {\"from\": \"IV\", \"to\": \"I\", \"cond\": \"\"},\n    {\"from\": \"III\", \"to\": \"IV\", \"cond\": \"H₂O\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "I",
+        "label": "I"
+      },
+      {
+        "id": "II",
+        "label": "II"
+      },
+      {
+        "id": "III",
+        "label": "III"
+      },
+      {
+        "id": "IV",
+        "label": "IV"
+      }
+    ],
+    "edges": [
+      {
+        "from": "I",
+        "to": "II",
+        "cond": "H₂O₂"
+      },
+      {
+        "from": "II",
+        "to": "III",
+        "cond": "H₂O₂"
+      },
+      {
+        "from": "III",
+        "to": "I",
+        "cond": "O₂,2H₂O"
+      },
+      {
+        "from": "IV",
+        "to": "I",
+        "cond": ""
+      },
+      {
+        "from": "III",
+        "to": "IV",
+        "cond": "H₂O"
+      }
+    ]
+  }
+}

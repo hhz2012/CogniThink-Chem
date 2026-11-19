@@ -1,0 +1,15 @@
+{
+  "id": "pdf-170",
+  "images": [
+    "pdf_images/p057_n04_r0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "晶体结构图",
+      "reason": "图片展示了NiO晶胞的原子排布（大球与小球分别代表Ni²⁺和O²⁻），是计算晶胞中Ni²⁺个数的唯一依据，题干文字未描述具体结构。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"晶体结构图\",\n    \"reason\": \"图片展示了NiO晶胞的原子排布（大球与小球分别代表Ni²⁺和O²⁻），是计算晶胞中Ni²⁺个数的唯一依据，题干文字未描述具体结构。\"\n  }\n]"
+}

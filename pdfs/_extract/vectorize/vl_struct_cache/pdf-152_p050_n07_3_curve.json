@@ -1,0 +1,111 @@
+{
+  "id": "pdf-152",
+  "type": "curve",
+  "img": "pdf_images/p050_n07_3.png",
+  "key": "pdf-152_p050_n07_3_curve",
+  "raw": "{\n  \"xLabel\": \"物质类别\",\n  \"yLabel\": \"化合价\",\n  \"xTicks\": [\n    {\"value\": null, \"x\": 0.1},\n    {\"value\": null, \"x\": 0.28},\n    {\"value\": null, \"x\": 0.48},\n    {\"value\": null, \"x\": 0.68},\n    {\"value\": null, \"x\": 0.88}\n  ],\n  \"yTicks\": [\n    {\"value\": -3, \"y\": 0.125},\n    {\"value\": 0, \"y\": 0.5},\n    {\"value\": 2, \"y\": 0.625},\n    {\"value\": 4, \"y\": 0.75},\n    {\"value\": 5, \"y\": 0.875}\n  ],\n  \"series\": [\n    {\n      \"name\": \"a\",\n      \"points\": [[0.1, 0.125]]\n    },\n    {\n      \"name\": \"b\",\n      \"points\": [[0.28, 0.5]]\n    },\n    {\n      \"name\": \"c\",\n      \"points\": [[0.48, 0.625]]\n    },\n    {\n      \"name\": \"d\",\n      \"points\": [[0.48, 0.75]]\n    },\n    {\n      \"name\": \"e\",\n      \"points\": [[0.68, 0.875]]\n    },\n    {\n      \"name\": \"f\",\n      \"points\": [[0.88, 0.125]]\n    }\n  ]\n}",
+  "data": {
+    "xLabel": "物质类别",
+    "yLabel": "化合价",
+    "xTicks": [
+      {
+        "value": null,
+        "x": 0.1
+      },
+      {
+        "value": null,
+        "x": 0.28
+      },
+      {
+        "value": null,
+        "x": 0.48
+      },
+      {
+        "value": null,
+        "x": 0.68
+      },
+      {
+        "value": null,
+        "x": 0.88
+      }
+    ],
+    "yTicks": [
+      {
+        "value": -3,
+        "y": 0.125
+      },
+      {
+        "value": 0,
+        "y": 0.5
+      },
+      {
+        "value": 2,
+        "y": 0.625
+      },
+      {
+        "value": 4,
+        "y": 0.75
+      },
+      {
+        "value": 5,
+        "y": 0.875
+      }
+    ],
+    "series": [
+      {
+        "name": "a",
+        "points": [
+          [
+            0.1,
+            0.125
+          ]
+        ]
+      },
+      {
+        "name": "b",
+        "points": [
+          [
+            0.28,
+            0.5
+          ]
+        ]
+      },
+      {
+        "name": "c",
+        "points": [
+          [
+            0.48,
+            0.625
+          ]
+        ]
+      },
+      {
+        "name": "d",
+        "points": [
+          [
+            0.48,
+            0.75
+          ]
+        ]
+      },
+      {
+        "name": "e",
+        "points": [
+          [
+            0.68,
+            0.875
+          ]
+        ]
+      },
+      {
+        "name": "f",
+        "points": [
+          [
+            0.88,
+            0.125
+          ]
+        ]
+      }
+    ]
+  }
+}

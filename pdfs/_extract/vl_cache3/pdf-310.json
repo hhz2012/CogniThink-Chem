@@ -1,0 +1,15 @@
+{
+  "id": "pdf-310",
+  "images": [
+    "pdf_images/p108_n06_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "转化关系图",
+      "reason": "图中清晰展示了光阳极、阴极反应路径及HCO₃⁻/HCO₄⁻/H₂O₂/Mn(II)/Mn(IV)/·OH等物质间的循环转化关系，特别是阴极O₂还原生成H₂O₂的路径及Mn循环中H₂O₂的双重作用，这些关键机理未在题干文字中完整描述，是判断选项B、C、D正误所必需的信息。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"转化关系图\",\n    \"reason\": \"图中清晰展示了光阳极、阴极反应路径及HCO₃⁻/HCO₄⁻/H₂O₂/Mn(II)/Mn(IV)/·OH等物质间的循环转化关系，特别是阴极O₂还原生成H₂O₂的路径及Mn循环中H₂O₂的双重作用，这些关键机理未在题干文字中完整描述，是判断选项B、C、D正误所必需的信息。\"\n  }\n]"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "pdf-212",
+  "images": [
+    "pdf_images/p075_n06_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "转化关系图",
+      "reason": "图片展示了化合物M的离子结构式，明确给出了X⁺、Y³⁺阳离子与含Z、W的阴离子[ZW₃]²⁻的组成及配位方式，是推断W、X、Y、Z元素种类及成键特征的关键依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"转化关系图\",\n    \"reason\": \"图片展示了化合物M的离子结构式，明确给出了X⁺、Y³⁺阳离子与含Z、W的阴离子[ZW₃]²⁻的组成及配位方式，是推断W、X、Y、Z元素种类及成键特征的关键依据。\"\n  }\n]"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "pdf-351",
+  "type": "molecule",
+  "img": "pdf_images/p120_n02_1.png",
+  "key": "pdf-351_p120_n02_1_molecule",
+  "raw": "{\"name\": \"5-hydroxy-2,7-dimethoxy-3-(4-hydroxy-3-methoxybenzyl)chroman-4-one\", \"smiles\": \"COc1ccc(cc1O)CC2CC(=O)c3c(cc(OC)c(O)c3C)O2\", \"note\": \"该结构为黄酮类衍生物，含苯并吡喃酮母核（chroman-4-one），左侧为4-羟基-3-甲氧基苄基取代基，右侧苯环上有5-位羟基、7-位甲氧基及8-位甲基；实际为5-羟基-2,7-二甲氧基-3-(4-羟基-3-甲氧基苄基)色原酮（即一种异黄酮类似物），但根据标准命名与连接方式，更准确为chroman-4-one骨架：C2位连接苄基，C3位无取代（此处C3为CH2-苄基连接点），C4为羰基，C5-OH，C6-H，C7-OCH3，C8-CH3，C9-H，C10-OCH3；SMILES按环编号顺序构建，确保O原子在吡喃环中正确成环。\"}",
+  "data": {
+    "name": "5-hydroxy-2,7-dimethoxy-3-(4-hydroxy-3-methoxybenzyl)chroman-4-one",
+    "smiles": "COc1ccc(cc1O)CC2CC(=O)c3c(cc(OC)c(O)c3C)O2",
+    "note": "该结构为黄酮类衍生物，含苯并吡喃酮母核（chroman-4-one），左侧为4-羟基-3-甲氧基苄基取代基，右侧苯环上有5-位羟基、7-位甲氧基及8-位甲基；实际为5-羟基-2,7-二甲氧基-3-(4-羟基-3-甲氧基苄基)色原酮（即一种异黄酮类似物），但根据标准命名与连接方式，更准确为chroman-4-one骨架：C2位连接苄基，C3位无取代（此处C3为CH2-苄基连接点），C4为羰基，C5-OH，C6-H，C7-OCH3，C8-CH3，C9-H，C10-OCH3；SMILES按环编号顺序构建，确保O原子在吡喃环中正确成环。"
+  }
+}

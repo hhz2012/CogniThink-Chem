@@ -1,0 +1,102 @@
+{
+  "id": "pdf-088",
+  "type": "graph",
+  "img": "pdf_images/p024_n04_2.png",
+  "key": "pdf-088_p024_n04_2_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"SO2\", \"label\": \"SO₂\"},\n    {\"id\": \"Na2SO3溶液\", \"label\": \"Na₂SO₃溶液\"},\n    {\"id\": \"吸收后溶液\", \"label\": \"吸收后溶液\"},\n    {\"id\": \"NH4HSO3溶液\", \"label\": \"NH₄HSO₃溶液\"},\n    {\"id\": \"(NH4)2SO4溶液\", \"label\": \"(NH₄)₂SO₄溶液\"},\n    {\"id\": \"Na2SO3溶液_2\", \"label\": \"Na₂SO₃溶液\"},\n    {\"id\": \"Ca(OH)2、O2\", \"label\": \"Ca(OH)₂、O₂\"},\n    {\"id\": \"CaSO4\", \"label\": \"CaSO₄\"},\n    {\"id\": \"高温催化\", \"label\": \"高温催化\"},\n    {\"id\": \"S\", \"label\": \"S\"},\n    {\"id\": \"生物质热解气\", \"label\": \"生物质热解气\\n(主要成分为CH₄、CO、H₂)\"}\n  ],\n  \"edges\": [\n    {\"from\": \"SO2\", \"to\": \"吸收后溶液\", \"cond\": \"方法1\"},\n    {\"from\": \"SO2\", \"to\": \"Na2SO3溶液\", \"cond\": \"方法1\"},\n    {\"from\": \"SO2\", \"to\": \"NH4HSO3溶液\", \"cond\": \"方法2\"},\n    {\"from\": \"NH4HSO3溶液\", \"to\": \"(NH4)2SO4溶液\", \"cond\": \"O₂\"},\n    {\"from\": \"SO2\", \"to\": \"Na2SO3溶液_2\", \"cond\": \"方法3\"},\n    {\"from\": \"Na2SO3溶液_2\", \"to\": \"CaSO4\", \"cond\": \"Ca(OH)₂、O₂\"},\n    {\"from\": \"SO2\", \"to\": \"高温催化\", \"cond\": \"方法4\"},\n    {\"from\": \"生物质热解气\", \"to\": \"高温催化\", \"cond\": \"\"},\n    {\"from\": \"高温催化\", \"to\": \"S\", \"cond\": \"\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "SO2",
+        "label": "SO₂"
+      },
+      {
+        "id": "Na2SO3溶液",
+        "label": "Na₂SO₃溶液"
+      },
+      {
+        "id": "吸收后溶液",
+        "label": "吸收后溶液"
+      },
+      {
+        "id": "NH4HSO3溶液",
+        "label": "NH₄HSO₃溶液"
+      },
+      {
+        "id": "(NH4)2SO4溶液",
+        "label": "(NH₄)₂SO₄溶液"
+      },
+      {
+        "id": "Na2SO3溶液_2",
+        "label": "Na₂SO₃溶液"
+      },
+      {
+        "id": "Ca(OH)2、O2",
+        "label": "Ca(OH)₂、O₂"
+      },
+      {
+        "id": "CaSO4",
+        "label": "CaSO₄"
+      },
+      {
+        "id": "高温催化",
+        "label": "高温催化"
+      },
+      {
+        "id": "S",
+        "label": "S"
+      },
+      {
+        "id": "生物质热解气",
+        "label": "生物质热解气\n(主要成分为CH₄、CO、H₂)"
+      }
+    ],
+    "edges": [
+      {
+        "from": "SO2",
+        "to": "吸收后溶液",
+        "cond": "方法1"
+      },
+      {
+        "from": "SO2",
+        "to": "Na2SO3溶液",
+        "cond": "方法1"
+      },
+      {
+        "from": "SO2",
+        "to": "NH4HSO3溶液",
+        "cond": "方法2"
+      },
+      {
+        "from": "NH4HSO3溶液",
+        "to": "(NH4)2SO4溶液",
+        "cond": "O₂"
+      },
+      {
+        "from": "SO2",
+        "to": "Na2SO3溶液_2",
+        "cond": "方法3"
+      },
+      {
+        "from": "Na2SO3溶液_2",
+        "to": "CaSO4",
+        "cond": "Ca(OH)₂、O₂"
+      },
+      {
+        "from": "SO2",
+        "to": "高温催化",
+        "cond": "方法4"
+      },
+      {
+        "from": "生物质热解气",
+        "to": "高温催化",
+        "cond": ""
+      },
+      {
+        "from": "高温催化",
+        "to": "S",
+        "cond": ""
+      }
+    ]
+  }
+}

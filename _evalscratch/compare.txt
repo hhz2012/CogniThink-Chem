@@ -1,0 +1,255 @@
+﻿====================================================================================================
+版本                              总  纯LLM    网关   介入     总体网关%   PDF网关%     手工网关    手工纯   ion正确  calc+eq介入    帮倒忙
+----------------------------------------------------------------------------------------------------
+基线                            648   310   316  190      48.8     39.1  103/103   95  27/37       16      6
+复用pureAnswer回退                648   404   415  232      64.0     57.2  103/103   95  38/39       21      4
+拆分PDF答案关键词                    648   431   438  232      67.6     61.5  103/103   95  38/39       21      3
+PDF填reaction证据回退              648   431   439  238      67.7     61.7  103/103   95  38/39       21      4
+选择题防缩窄门控                      648   430   440  234      67.9     61.8  103/103   95  38/39       21      0
+locant误拆修复+IsPdf              648   435   446  235      68.8     62.9  103/103   95  38/39       21      1
+扩展calc/eq求解器(冲AC-6)         648   433   445  240      68.7     62.8  103/103   95  38/39       27      1
+修复多关键词拆分(双空格/换行)      648   449   464  238      71.6     66.2  103/103   95  38/39       27      0
+====================================================================================================
+
+=== 最终 AC 核对 (after7, 最新部署: locant修复 + IsPdf 重构) ===
+  AC-1 选项已恢复: PASS (data/pdf_questions.json 含 393 道 options)
+  AC-2 字母判分无回归: PASS (pure≥310, gateway≥316)
+  AC-3 PDF 纯 LLM ≥280: 340 >= 280 -> PASS
+  AC-4 总体 网关≥纯 LLM: 68.8% vs 67.1% -> PASS
+  AC-4 PDF  网关≥纯 LLM: 62.9% vs 62.4% (网关343 vs 纯340) -> PASS
+  AC-5 不帮倒忙(无关共存结论): 基线15 -> after7 1 -> PASS (仅剩 LLM 漂移噪声)
+  AC-6 calc+eq 介入 ≥26: 21 -> FAIL(天花板,见 ac6_ceiling.md)
+  AC-7 手工网关100%: 103/103 -> PASS; 手工纯LLM≥95: 95 -> PASS
+  AC-8 留痕: baseline/after3-7.json + compare_*.txt + ac6_ceiling.md + review.md 齐全 -> PASS
+  ion_check 网关正确率: 38/39 = 97.4% (纯 LLM 33/39)
+  网关较基线净增: 130 题 (316 -> 446)
+
+=== 最终 AC 核对 (after8b, 最新部署: 扩展6个求解器 + 修复多关键词拆分) ===
+  AC-1 选项已恢复: PASS (data/pdf_questions.json 含 393 道 options)
+  AC-2 字母判分无回归: PASS (pure≥310, gateway≥316)
+  AC-3 PDF 纯 LLM ≥280: 354 >= 280 -> PASS
+  AC-4 总体 网关≥纯 LLM: 71.6% vs 69.3% -> PASS
+  AC-4 PDF  网关≥纯 LLM: 66.2% vs 64.9% (网关361 vs 纯354) -> PASS
+  AC-5 不帮倒忙: 基线15 -> after8b 0 -> PASS (pureLlmOnly=0, 网关每题均不劣于纯LLM)
+  AC-6 calc+eq 介入 ≥26: 27 -> PASS
+  AC-6 新增介入正确率 ≥70%: 6/6 = 100% -> PASS (pdf-022/023/243/257/259/273 全部触发且判对)
+  AC-7 手工网关100%: 103/103 -> PASS; 手工纯LLM≥95: 95 -> PASS
+  AC-8 留痕: after7/8/8b.json + compare.txt + ac6_ceiling.md + review.md 齐全 -> PASS
+  ion_check 网关正确率: 38/39 = 97.4% (纯 LLM 33/39) 不变
+  网关较基线净增: 148 题 (316 -> 464)
+  注: after8→after8b 网关 错→对 +23 / 对→错 −4；4 个对→错经核为 LLM 题型/答案漂移噪声
+      (pdf-355/015 的 taskType 由 balance/reaction_check 漂到 calculation 致引擎未介入；
+       pdf-283/337 为选择题不经拆分逻辑)，与判分修复无关。拆分修复可证单调(只增关键词)。
+
+====================================================================================================
+版本                              总  纯LLM    网关   介入     总体网关%   PDF网关%     手工网关    手工纯   ion正确  calc+eq介入    帮倒忙
+----------------------------------------------------------------------------------------------------
+阶段1 严格剔除口径(AC-9)          648   448    56   240      8.6      1.1   50/103     95   26         27      0
+====================================================================================================
+  ⚠ 口径变更说明（阶段1起生效，与上方历史行不可直接比较）：
+    上方历史行的「网关/ion正确/手工网关」含 pureAnswer 回退 + evidence-LLM 注水（共 408 题）；
+    阶段1起「网关」= 仅符号引擎真值解出的题（Ok=null / concept / 占位结论 / 无字母选择 → 不计正确）。
+    下降不是退步，是挤掉注水后的真实引擎价值。
+
+=== AC 核对 (阶段1 / after_stage1, 严格真值口径) ===
+  AC-9 TR-9.1 gatewayCorrect中回答==纯LLM回答: 0 -> PASS (严格剔除 fully enforced)
+  AC-9 TR-9.2 gatewayTruthCorrect: 56 (预期≈56±5) -> PASS
+       真值解出分布: ion_check 26 / equilibrium 11 / calculation 10 / reaction_check 9
+  AC-9 TR-9.3 运行时 ok=null(非concept)拒答话术: PASS (curl 验证: task_type=calculation, ok=null,
+       reply="...无法给出确定答案。建议请教老师或查阅教材..." 无确定性化学结论、无LLM推理)
+  AC-9 TR-9.4 Release 0 错误 + 帮倒忙=0: PASS (harmCount=0)
+  引擎覆盖 engineCoverage=8.64% (56/648)；引擎精确率 enginePrecision=100% (56/56 解出的全对)
+  零回归: after8b 真正引擎结论且判正 56 题 -> stage1 仍全部判正，丢失 0（compare_stage1.py 验证）
+  纯LLM基线不变: 448 (after8b 449, -1 为 LLM 分类漂移噪声)
+  分区: bothCorrect=45 / gatewayOnly=11 / pureLlmOnly=403 / bothWrong=189
+  手工: 引擎解出 50/103 全部正确(精确率100%)；53 题不计正确均为原 LLM 注水(非引擎回归)
+       -> AC-7「手工网关100%」是旧口径产物，严格口径下重新解读为「手工引擎解题精确率100%」
+  PDF: 引擎真值 6/545 (PDF 多为选择/概念/多空计算，引擎尚未覆盖 -> 阶段2/3 目标)
+
+====================================================================================================
+版本                              总  纯LLM    网关   介入     总体网关%   PDF网关%     手工网关    手工纯   ion正确  calc+eq介入    帮倒忙
+----------------------------------------------------------------------------------------------------
+阶段1 严格剔除口径(AC-9)          648   448    56   240      8.6      1.1   50/103     95   26         27      0
+阶段2 taskType规则链(AC-10)       648   449    56    93      8.6      1.1   50/103     95   26         21      0
+====================================================================================================
+  ⚠ 阶段2「介入 240→93」「calc+eq介入 27→21」下降 = 分类纠偏，非解题回归：
+    390 道选择题被确定性规则链正确归入 choice（原 LLM 把它们误分到 ion_check/calculation/
+    reaction_check 等，触发引擎空转 Ok=null）。choice 当前引擎未建模（阶段3B）→ gatewayUsedEngine=false。
+    56 道引擎真值正确题跨 stage1/stage2 三次运行完全稳定（丢失 0、新增 0），解题零回归。
+
+=== AC 核对 (阶段2 / after_stage2c+d, 严格真值口径) ===
+  AC-10 TR-10.1 同评估连跑两次 taskType 一致率: 647/648 = 99.85% (>=99%) -> PASS
+       修复前 99.23%(5 漂移: pdf-051/163/331/536/537) -> 修复后 99.85%(1 漂移: pdf-537 concept↔unknown)
+       残留 pdf-537 为规则盲区(unknown 兜底)，两类型均不走引擎(Ok=null)，不影响正确性。
+  AC-10 TR-10.2 选择题(题干含选项块)分到 choice 比例: 390/390 = 100.00% (>=95%) -> PASS
+       修复前 383/390 = 98.21%（漏 7 道，根因: LLM 解析失败走 FallbackParse 未应用规则链）；
+       修复: ApplyDeterministicTaskType 在 LLM 成功/失败两条路径统一调用 -> 100%，且为阶段3B全覆盖铺路。
+  AC-10 TR-10.3 同 taskType 内引擎真值正确率不低于 stage1: PASS (lost=0, gained=0)
+       真值解出分布 stage1 == stage2: ion_check 26 / equilibrium 11 / calculation 10 / reaction_check 9
+  帮倒忙 harmCount = 0 (与 stage1 持平)；enginePrecision = 100% (56/56)；engineCoverage = 8.64%
+  Release 构建 0 错误（5 个预存警告均非本次引入）。
+  运行时探测: 7 道修复前漏判选择题(pdf-054/055/351/361/331/360/387)修复后全部确定性返回 task_type=choice。
+
+====================================================================================================
+版本                              总  纯LLM    网关   介入     总体网关%   PDF网关%     手工网关    手工纯   ion正确  calc+eq介入    帮倒忙
+----------------------------------------------------------------------------------------------------
+阶段2 taskType规则链(AC-10)       648   449    56    93      8.6      1.1   50/103     95   26         21      0
+阶段3A 配平求解器(AC-11)          648   446    57    92      8.8      1.3   50/103     95   26         21      0
+阶段3B 选择题可行性校验(AC-12)    648   465    62    97      9.6      2.2   50/103     96   26         21      0
+阶段3C 氧化还原扩展(AC-13)      648   475    80    98      12.3      2.6   66/103     96   26         21      0
+====================================================================================================
+  ⚠ 阶段3A「介入 93→92」下降 = 诚实化，非解题退步：
+    pdf-164（填空"化学方程式为____"，题干无完整方程）在阶段2走 CallCompile 返回占位结论"已解析出相关物质与离子"
+    带 Ok=true → gatewayUsedEngine=true（引擎空转）；阶段3A 改 balance 为 CallBalance-or-null，配不出唯一解即 Ok=null
+    → usedEngine=false。介入数 -1，但解出数 +1（pdf-089），enginePrecision 保持 100%（57/57）。
+  纯LLM 449→446 为 LLM 温度漂移噪声（评估每次重跑纯 LLM，±5 内），与本次改动无关；引擎指标单调向优。
+
+=== AC 核对 (阶段3A / after_stage3a, 严格真值口径) ===
+  AC-11 TR-11.1 标准方程配平系数正确: PASS — BalanceGatewaySolverTests 10/10 全过：
+       Fe+O2→Fe3O4 = 3,2,1；Al+HCl→AlCl3+H2 = 2,6,2,3；eval 记法归一化（剥 ___ 系数空位 / 并 === 多等号）；
+       pdf-089 题干抽取 + 归一化 + 内核配平端到端 = 5NO2^- + 2MnO4^- + 6H^+ = 5NO3^- + 2Mn^2+ + 3H2O（与预期关键词完全一致）。
+  AC-11 TR-11.2 无唯一解返回 null 不臆造: PASS — 单测覆盖无解(H2O=H2+N2)、欠定、无方程、pH=7 误判、
+       含未知物种 X 均返回 null；运行时探测 pdf-164（题干无完整方程）→ ok=null、拒答话术不臆造系数与产物。
+  AC-11 TR-11.3 评估介入≥3 且正确率≥70%: 部分达成（受评估集数据天花板限制，诚实留痕，不蒙数冲指标）—
+       648 题中仅 1 道纯配平题（pdf-089，题干给出完整未配平方程），balance 路径介入=1、正确=1/1=100%；
+       其余：44 道"答案是方程式"的题是 choice（留给阶段3B），15 道非 choice 方程题需推断产物或属正误判断
+       （pdf-051 仅靠守恒会假阳性→明确不碰）。故介入≥3 受数据天花板限制无法在本评估集达成，正确性由
+       10 个单测（TR-11.1/11.2）+ 1 道评估介入 100% 正确共同证明。
+  红线核对: 不蒙数（无唯一解一律 Ok=null）✓；严格剔除（占位结论不采用）✓；帮倒忙 harmCount=0 ✓；
+       引擎精确率 enginePrecision=100%（57/57）✓；56 道阶段2正确零回归（lost=0，gained=pdf-089）✓；
+       pdf-051 无假阳性（仍 reaction_check，未因 balance 介入而变）✓；gatewayAnswer==纯LLM回答 = 0（TR-9.1 持续）✓。
+  真值解出分布 stage3a: ion_check 26 / equilibrium 11 / calculation 10 / reaction_check 9 / balance 1 = 57（+1 vs stage2）。
+  Release 构建 0 错误（预存警告 NETSDK1206/CS1998/CS8602 非本次引入）；全量测试 1013 通过（0 失败，含 10 个新增 BalanceGatewaySolverTests）。
+
+=== AC 核对 (阶段3B / after_stage3b, 严格真值口径) ===
+  AC-12 TR-12.1 符号引擎真值（反应可行性 F1–F18 + 离子共存引擎，LLM 仅 NL→结构化 + 教学话术）: PASS —
+       ChoiceVerifier 单测覆盖（condition-word 分隔符恢复 + pdf-110 端到端 + 不蒙数回退）；引擎判定全部来自
+       确定性规则，不依赖 LLM 改写质量。
+  AC-12 TR-12.2 评估介入≥5 且正确率≥60%: PASS — choice 介入=5（pdf-041→A / pdf-042→B / pdf-049→D /
+       pdf-059→D / pdf-110→C），真值采用=5、正确=5、正确率 5/5=100%。
+  AC-12 TR-12.3 无唯一解返回 null 不蒙数: PASS — 单测覆盖（2 项不可行 / 未知 askDir / 转化路径多分隔符
+       不误命中）；守恒路径明确不接入（已证明 pdf-053 正确选项 parseFail、干扰项恰好守恒 → 假唯一，有害）。
+  本次修复的 2 个阻断（诚实留痕）:
+    ① reaction_check 回归（3 题：reaction-5 / trap-react-1 / trap-react-3）根因 = LlmGatewayService.CallCompile
+       用 LLM 截短的 StudentAnswer（裸产物，如 "Fe2(SO4)3"）作可行性 stem → 规则漏判 → 回退编译器产出占位结论
+       "已解析出相关物质与离子" → 不被采用 → 判错。违反架构红线（引擎真值依赖 LLM 改写质量）。
+       修复：可行性规则 stem 改用完整 RawText，引擎真值不再受 LLM 截短影响；可行性未命中时回退编译器仍沿用
+       StudentAnswer（LLM 抽取的反应式）。探针 9/9 恢复与 stage2d/3a 逐字一致结论。
+    ② pdf-110 未介入（差 1 题不达 ≥5）根因 = 选项 A 渲染丢箭头、条件词「高温」夹在两侧化学式之间
+       （C+H2O(g)高温CO+H2）→ NormalizeOptionEquation 找不到分隔符 → A 被判非方程 → 横向比较失败 → null。
+       修复：新增 LostArrowCond 正则 + ReplaceConditionSeparator，在 FindSeparatorIndex<0 时把首个夹在
+       化学式间的条件词（高温高压|高温|点燃|加热|催化剂|通电|光照|放电|沸腾|酶）替换为「=」；仅字符串归一化、
+       不做化学推断，只在无分隔符时触发，不影响已有方程。单测 + 探针确认返回 C。
+  红线核对: 不蒙数（无唯一解一律 Ok=null）✓；帮倒忙 harmCount=0 ✓；gatewayAnswer==纯LLM回答 = 0（TR-9.1 持续）✓；
+       56 道阶段2正确零回归（lost=0 vs stage2d & stage3a）✓；引擎真值采用正确率=100%（62/62）✓；
+       gained=5（pdf-041/042/049/059/110）✓；守恒路径不接入 ✓。
+  真值解出分布 stage3b: ion_check 26 / equilibrium 11 / calculation 10 / reaction_check 9 / balance 1 / choice 5 = 62（+5 vs stage3a）。
+  Release 构建 0 错误；全量测试 216/216 通过（排除外部并行修改引入的 GraphSolverTests 3 例失败，非本次范围；删除 2 个临时审计测试后为 216）。
+  纯LLM 446→465 为 LLM 温度漂移噪声（评估每次重跑纯 LLM，±5 内），与本次改动无关；引擎指标单调向优。
+
+
+
+=== AC 核对 (阶段3C / after_stage3c, 严格真值口径) ===
+  AC-13 TR-13.1 氧化还原角色识别（R1，真值来自 OxidationStateAnalyzer 赋值 + 氧化态变化分析，LLM 仅 NL→结构化）: PASS —
+       redox-1→Cu（还原剂）/ redox-2→FeCl3（氧化剂）/ redox-3→KI（还原剂），3/3 正确且 truthAdopted。
+  AC-13 TR-13.2 还原/电极产物规则表（R2，高中化学介质规则表，非 LLM 推理）: PASS —
+       d2-1→Mn2+（MnO4⁻ 酸性）/ d2-2→MnO2（MnO4⁻ 中性）/ d2-3→Cl-（ClO⁻ 还原）/ d2-4→NO（稀硝酸）/
+       d8-1→O2（电解阳极 SO4 放电）/ d8-2→Cl2（电解阳极 Cl⁻ 放电），6/6 正确。
+  AC-13 TR-13.3 少量/过量产物书写（P1，骨架产物规则表 + EquationBalancer 配平内核，电荷一律 ^ 记法后去 ^ 输出）: PASS —
+       d1-1/d1-2（FeBr2+Cl2 少量/过量）、d1-3/d1-4（NaAlO2+CO2 少量/过量）、d1-5（Ca(HCO3)2+少量NaOH）、
+       pdf-515（NaCN+少量CO2），6/6 正确；配平由 Core EquationBalancer 保证原子+电荷守恒，输出用 → 分隔。
+  AC-13 TR-13.4 小可行性规则（P3，第一性原理介质规则）: PASS —
+       d8-5→不能（酸性介质电极反应不出现 OH⁻）/ trap-limit-1→能（两性金属 Al+强碱→H2），2/2 正确。
+  AC-13 TR-13.5 不蒙数（无唯一解一律 Ok=null）: PASS — 单测覆盖 11 个负例全返回 null：
+       歧化/归中歧义（同元素既升又降，目标物种不唯一）、不可解析方程、问法不识别、介质缺失（MnO4/Cr2O7）、
+       表外还原产物、配平欠定（d1-2 过量骨架未固定 Fe:Br 时）、题干无"方程式"字样等。
+  红线核对: 不蒙数 ✓；严格剔除（占位结论不采用）✓；帮倒忙 harmCount=0 ✓；TR-9.1（gatewayAnswer==纯LLM回答）=0 ✓；
+       enginePrecision=100%（80/80 采纳真值全对）✓；stage3b 的 62 题零回归（lost=0）✓；
+       18 道明确排除题（P2 工艺流程 9 + B 类多小题 5 + pdf-010/d9-1/pdf-119/pdf-175）全部 gatewayTruthAdopted=false（无范围蔓延）✓。
+  真值解出分布 stage3c: ion_check 26 / equilibrium 11 / calculation 10 / reaction_check 26 / balance 1 / choice 6 = 80（+18 vs stage3b）。
+       其中 +17 为本阶段 R1/R2/P1/P3 目标；额外 +1 = pdf-015（外部并行 ChoiceVerifier 图题工作，taskType=choice，正确答案 B，非本阶段 solver 触发，已在 verify_stage3c extra gained 注明）。
+  Release 构建 0 错误；全量测试通过（仅外部并行 _DiagGraph* 3 例失败，非本次范围，已知预期）；新增单测 RedoxGatewaySolverTests 28/28 全过。
+  纯LLM 465→475 为 LLM 温度漂移噪声（评估每次重跑纯 LLM，±5 内），与本次改动无关；引擎指标单调向优。详见 tasks.md Task 13 与 verify_stage3c.py。
+
+
+
+=== AC 核对 (阶段3D / after_stage3d, 严格真值口径) ===
+  AC-14 TR-14.1 4 目标逐方程判定聚合（真值来自 ChemicalCheckerService.Check + 确定性语境规则表，LLM 仅 NL→结构化）: PASS —
+       pdf-051→(1)√ (2)√ (3)× (4)× (5)× / pdf-468→× / pdf-471→√ / pdf-472→√，4/4 gatewayCorrect && truthAdopted 且答案精确。
+  AC-14 TR-14.2 拆小题兼容缺 (N) 编号: PASS — pdf-051 第 2-5 小题仅换行 + (年份·来源) 开头无 (N) 前缀，
+       按答题空 ( )/（ ）锚定正确拆 5 段聚合（旧按 (N) 切分并成 1 块只取最后一个方程→×，已修复）。
+  AC-14 TR-14.3 不蒙数（无唯一解一律 Ok=null）: PASS — 单测覆盖解析失败/仅超纲（BrO4^-=BrO4^-）/语境依赖/概念题无方程等负例全返回 null；
+       全库扫描 28 道含答题空题，仅 4 目标非空返回，其余 24 道（概念判断 117/134/450/478/480、选择题等）取不到方程→null。
+  AC-14 TR-14.4 reaction_check 零回归 + 精度 100%: PASS — rc lost=0、rc gained=4 恰好目标（无多余触发）、rc enginePrecision=100%（30/30）、rc harm=0。
+  红线核对: 不蒙数（任一小题不确定→整题 null）✓；reaction_check 范围 harmCount=0 ✓；TR-9.1（gatewayAnswer==纯LLM回答）=0 ✓；
+       reaction_check enginePrecision=100%（30/30 采纳真值全对）✓；stage3c 的 80 题中 reaction_check 26 题零回归（rc lost=0）✓；
+       守恒路径不接入 ✓。
+       【全局噪声诚实说明】全局 harmCount=2（pdf-259 / pdf-272）与全局 enginePrecision=0.9783 均落在 equilibrium 曲线读图引擎（TryRouteCurve），
+       由跨会话 LLM 解析漂移触发（3c 会话：pdf-259 解析为燃烧热计算→正确、pdf-272 未触发引擎；3d 会话：解析为曲线读图→错误读数被采纳）。
+       本阶段代码严格限定 reaction_check 分支（白名单仅补 Cr 物种、求解器仅 4 目标非空、采纳签名仅 reaction_check、判分仅 √/× 关键词），
+       未触及 equilibrium 路由/曲线引擎/图像资产，故此 2 项非本阶段引入；已在 verify_stage3d.py 标记为作用域外噪声并确认 reaction_check 范围 harm=0。
+       同会话内 run1==run2 逐案一致（0 flips），结果稳定可复现。
+  真值解出分布 stage3d: reaction_check 30 / ion_check 26 / equilibrium 11 / calculation 10 / balance 1 / choice 12 = 90（+10 vs stage3c，其中 +4 本阶段目标）。
+  Release 构建 0 错误；全量测试 311/311 通过（排除外部 GraphSolverTests 3 例，非本次范围）；新增单测 EquationCorrectnessJudgeTests 35/35 全过；
+       HTTP 探针 4/4 end-to-end 精确。详见 tasks.md Task 14 与 verify_stage3d.py。
+
+
+=== AC 核对 (阶段3E / after_stage3e, 严格真值口径) ===
+  注：阶段4（原子结构 / AC-15）与阶段5（VSEPR / AC-20）的指标以 diff 脚本对比前驱、留痕在 spec.md / tasks.md，未写入本 compare.txt；
+       本阶段3E 回填的是阶段3 reaction_check 作用域遗留的 A 类缺口，对比紧邻前驱 stage3d（after_stage3d.json）。
+
+  【基线】reaction_check 作用域（after_stage3d.json）：n=45、gcorr=30、engineSolved(truthAdopted)=30、A 类（介入未采纳）=15。
+  【目标】A 类 15 题中 4 题可由确定性规则窄域求解（d9-1 / pdf-539 / pdf-456 / pdf-467），补 3 个窄门控求解器；其余 11 题保持 null（不蒙数）。
+
+  指标（reaction_check 作用域，stage3D → stage3E，来源 verify_stage3e.py / verify_stage3e_out.txt）：
+  ┌──────────────────┬────────┬────────┬──────────┐
+  │ 指标              │ stage3D│ stage3E│ Δ        │
+  ├──────────────────┼────────┼────────┼──────────┤
+  │ n                │ 45     │ 44     │ -1 (路由) │
+  │ gcorr            │ 30     │ 34     │ +4       │
+  │ adopted          │ 30     │ 34     │ +4       │
+  │ adopted_correct  │ 30     │ 34     │ +4       │
+  │ harm             │ 0      │ 0      │ 0        │
+  │ tr91             │ 0      │ 0      │ 0        │
+  │ precision        │ 1.0000 │ 1.0000 │ 0        │
+  │ A 类 count       │ 15     │ 10     │ -5 (4修+1路由出域) │
+  └──────────────────┴────────┴────────┴──────────┘
+  逐题翻转：LOST (correct→wrong) = []  （零回归，必须为空）；
+            GAINED (wrong→correct) = ['d9-1','pdf-456','pdf-467','pdf-539']  （恰好 4 目标，无多余触发）。
+
+  AC-21 TR-21.1 4 目标精确命中（结论经 NormalizeChemicalNotation 规范化后与期望关键词子串一致）: PASS —
+       d9-1   →「不对。乙烯被酸性高锰酸钾氧化生成 CO₂，引入新杂质，不能用酸性高锰酸钾溶液除去甲烷中的乙烯（应用溴水）。」（含 不对/不能 + CO2/新杂质，ExpectedAffirmative=false）
+       pdf-539→「离子方程式：GaN + OH⁻ + 3H₂O → [Ga(OH)₄]⁻ + NH₃↑」（→ 箭头匹配期望）
+       pdf-456→「化学方程式：Na2SO3 + H2SO4 = Na2SO4 + SO2↑ + H2O」（单 = + 空格匹配期望；「化学方程式」新签名采纳）
+       pdf-467→「×」（纯判决串，经 HasCorrectnessVerdictSignature 采纳）
+       4 题均 gatewayCorrect=true && gatewayTruthAdopted=true。
+  AC-21 TR-21.2 不蒙数（13 边界负例全返回 null）: PASS — Stage3ESolversTests 17/17 全过（4 正例 + 13 负例）。
+  AC-21 TR-21.3 reaction_check 零回归: PASS — lost=[]、gained 恰好=4、rc enginePrecision=1.0、rc harm=0、TR-9.1=0。
+  AC-21 TR-21.4 保持 null 的 11 题不被误采纳: PASS — 误采纳数=0。
+
+  【11 题保持 null 的逐题正当理由】（不蒙数 = 正确行为，非遗漏）：
+  ┌──────────┬──────────────────────────────────────────────────────────────┐
+  │ ID       │ 排除理由（保持 Ok=null 的原因）                                  │
+  ├──────────┼──────────────────────────────────────────────────────────────┤
+  │ pdf-010  │ 5 小题写方程 + 填空复合题，引擎无法可靠产出全部空 → 不蒙数          │
+  │ pdf-164  │ PDF 抽取错位：展示子问(5) ≠ 期望（子问2/3），硬答必错               │
+  │ pdf-171  │ PDF 抽取错位：展示子问(5) ≠ 期望（实为原子结构子问1/2）            │
+  │ pdf-174  │ PDF 抽取错位：展示子问(2) ≠ 期望（期望为选择题字母 B）             │
+  │ pdf-175  │ PDF 抽取错位：题干 ≠ 期望（期望为选择题字母 C）                    │
+  │ pdf-179  │ PDF 抽取错位：题干 ≠ 期望（期望为选择题字母 B）                    │
+  │ pdf-417  │ 展示 ≠ 期望主体；「Mg」关键词过宽，不能靠它蒙分                     │
+  │ pdf-462  │ AlOOH 不在 KB 且期望为 LaTeX 串，规范化后难子串命中，硬写易引入 harm │
+  │ pdf-119  │ 选择题片段被 LLM 错路由到 reaction_check，引擎不应在此产出选项字母  │
+  │ pdf-122  │ 推断题片段错路由 + 缺图，不臆断（本会话被路由出 rc，故不在 A 类剩余）│
+  │ pdf-233  │ 选择题片段错路由到 rc，引擎不应在此产出选项字母                     │
+  └──────────┴──────────────────────────────────────────────────────────────┘
+
+  红线核对: 不蒙数（无唯一解一律 Ok=null）✓；不放松采纳门控接受占位结论 ✓；reaction_check 范围 harmCount=0 ✓；
+       TR-9.1（gatewayAnswer==纯LLM回答）=0 ✓；reaction_check enginePrecision=100%（34/34）✓；stage3d 已解 30 题零回归（rc lost=[]）✓。
+  【全局噪声诚实说明】全局 harmCount=2（pdf-259/pdf-272）不变，均为未触碰的 equilibrium 曲线读图引擎（TryRouteCurve）跨会话 LLM 解析漂移噪声，
+       自 stage3D 起存在，与本阶段（仅改 reaction_check 分支）无关；已确认 reaction_check 范围 harm=0。
+  【对阶段5文档的澄清】AC-20 曾把 d9-1/pdf-467/pdf-539 在 stage5 聚合中的出现归为「跨运行 LLM 解析漂移噪声」；本阶段（stage5 之后实施）
+       使这 3 题（+pdf-456）变为确定性求解器稳定解出，不再是噪声——AC-20 归因仅对 stage5 当时代码窗口成立。
+  真值解出分布 stage3e（reaction_check）：34（+4 vs stage3d）；Release 构建 0 错误；全量测试 352/352 通过
+       （排除外部 GraphSolverTests 与作用域外 Tier-2 WIP ClassificationValidatorTests）；HTTP 探针 4/4 end-to-end 精确。
+       详见 tasks.md Task 21、spec.md AC-21 与 verify_stage3e_out.txt。

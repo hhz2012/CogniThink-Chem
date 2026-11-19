@@ -1,0 +1,30 @@
+{
+  "page_idx": 122,
+  "raw": "[\n  {\n    \"num\": 1,\n    \"answer\": \"CH3COOCH2CH2OH + H2O\",\n    \"module\": \"模块7 羧酸 羧酸衍生物\",\n    \"explanation\": \"根据“酸脱羟基醇脱氢”原理，乙酸与乙二醇物质的量之比为1:1时，仅1个羟基参与酯化，生成CH3COOCH2CH2OH和H2O。\"\n  },\n  {\n    \"num\": 2,\n    \"answer\": \"CH3CH2OOC-COOCH2CH3 + 2H2O\",\n    \"module\": \"模块7 羧酸 羧酸衍生物\",\n    \"explanation\": \"乙二酸与乙醇物质的量之比为1:2，两个羧基均酯化，生成CH3CH2OOC-COOCH2CH3，并注意脱水系数为2。\"\n  },\n  {\n    \"num\": 3,\n    \"answer\": \"C4H4O4, (C4H2O3)n + (2n-1)H2O\",\n    \"module\": \"模块7 羧酸 羧酸衍生物\",\n    \"explanation\": \"①两分子乙二酸与两分子乙二醇发生分子内酯化形成六元环酯（含2个酯键），结构为C4H4O4；②缩聚反应中n mol HOOC-COOH与n mol HOCH2CH2OH生成聚酯(C4H2O3)n及(2n-1)H2O。\"\n  },\n  {\n    \"num\": 4,\n    \"answer\": \"C5H8O4, [C5H6O3]n + (2n-1)H2O\",\n    \"module\": \"模块7 羧酸 羧酸衍生物\",\n    \"explanation\": \"①2分子2-羟基丙酸（乳酸）酯化成六元环酯，分子式C5H8O4；②n mol该酸缩聚得聚酯[C5H6O3]n，脱去(2n-1)H2O。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 1,
+      "answer": "CH3COOCH2CH2OH + H2O",
+      "module": "模块7 羧酸 羧酸衍生物",
+      "explanation": "根据“酸脱羟基醇脱氢”原理，乙酸与乙二醇物质的量之比为1:1时，仅1个羟基参与酯化，生成CH3COOCH2CH2OH和H2O。"
+    },
+    {
+      "num": 2,
+      "answer": "CH3CH2OOC-COOCH2CH3 + 2H2O",
+      "module": "模块7 羧酸 羧酸衍生物",
+      "explanation": "乙二酸与乙醇物质的量之比为1:2，两个羧基均酯化，生成CH3CH2OOC-COOCH2CH3，并注意脱水系数为2。"
+    },
+    {
+      "num": 3,
+      "answer": "C4H4O4, (C4H2O3)n + (2n-1)H2O",
+      "module": "模块7 羧酸 羧酸衍生物",
+      "explanation": "①两分子乙二酸与两分子乙二醇发生分子内酯化形成六元环酯（含2个酯键），结构为C4H4O4；②缩聚反应中n mol HOOC-COOH与n mol HOCH2CH2OH生成聚酯(C4H2O3)n及(2n-1)H2O。"
+    },
+    {
+      "num": 4,
+      "answer": "C5H8O4, [C5H6O3]n + (2n-1)H2O",
+      "module": "模块7 羧酸 羧酸衍生物",
+      "explanation": "①2分子2-羟基丙酸（乳酸）酯化成六元环酯，分子式C5H8O4；②n mol该酸缩聚得聚酯[C5H6O3]n，脱去(2n-1)H2O。"
+    }
+  ]
+}

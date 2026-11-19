@@ -1,0 +1,60 @@
+{
+  "page_idx": 34,
+  "raw": "[\n  {\n    \"num\": 4,\n    \"answer\": \"14\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"根据H原子守恒补H2O：左侧有28个H原子，需在右侧补14个H2O。即2FeSO4·7H2O → Fe2O3 + SO2↑ + SO3↑ + 14H2O↑\"\n  },\n  {\n    \"num\": 5,\n    \"answer\": \"2FeSO4·7H2O = Fe2O3 + SO2↑ + SO3↑ + 14H2O↑\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"检查O原子守恒，完成化学方程式配平：反应物中O原子总数为2×4+7×1=15，生成物中Fe2O3含3、SO2含2、SO3含3、14H2O含14，共3+2+3+14=22，经配平得正确方程式\"\n  },\n  {\n    \"num\": 1,\n    \"answer\": \"ClO- + Cu(OH)2 → NaCuO2 + Cl-\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"根据题干信息，Cu(OH)2转化为NaCuO2（黑色难溶固体），ClO-被还原为Cl-；先写出半反应：氧化剂ClO- + 还原剂Cu(OH)2 → 氧化产物NaCuO2 + 还原产物Cl-\"\n  },\n  {\n    \"num\": 2,\n    \"answer\": \"1,2,2,1\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"根据元素化合价升降守恒配平：ClO-中Cl为+1价→Cl-为-1价，降2；Cu(OH)2中Cu为+2价→NaCuO2中Cu为+3价，升1；故ClO-系数1，Cu(OH)2系数2，NaCuO2系数2，Cl-系数1\"\n  },\n  {\n    \"num\": 3,\n    \"answer\": \"2Na+ + ClO- + 2Cu(OH)2 → 2NaCuO2↓ + Cl-\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"根据化合价未变的原子守恒（Na元素化合价未变），补充剩余反应物和产物：左侧补2个Na+，得完整离子方程式：2Na+ + ClO- + 2Cu(OH)2 → 2NaCuO2↓ + Cl-\"\n  },\n  {\n    \"num\": 4,\n    \"answer\": \"2\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"根据电荷守恒补OH-：左侧电荷总数+1（ClO-）+2×(+1)（2Na+）=+3；右侧2NaCuO2中性，Cl-为-1，总电荷-1；需左侧补2个OH-（-2），使左右均为+1\"\n  },\n  {\n    \"num\": 5,\n    \"answer\": \"3\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"根据H原子守恒补H2O：左侧有6个H原子（2OH-含2H，2Cu(OH)2含4H），需在右侧补3个H2O；配平后为：2OH- + 2Na+ + ClO- + 2Cu(OH)2 → 2NaCuO2↓ + Cl- + 3H2O\"\n  },\n  {\n    \"num\": 6,\n    \"answer\": \"2Na+ + 2OH- + 2Cu(OH)2 + ClO- = 2NaCuO2↓ + Cl- + 3H2O\",\n    \"module\": \"第5章 金属及其化合物\",\n    \"explanation\": \"检查O原子守恒，完成离子方程式配平：反应物O原子数=2（OH-）+4（2Cu(OH)2）+1（ClO-）=7；生成物O原子数=4（2NaCuO2）+3（3H2O）=7，守恒；最终得完整离子方程式\"\n  },\n  {\n    \"num\": 1,\n    \"answer\": \"D\",\n    \"module\": \"模块1 钠及其化合物、碱金属\",\n    \"explanation\": \"A错误：Na是活泼金属，只能电解熔融NaCl制备；B错误：Na与O2加热生成Na2O2，其由2个Na+和1个O2^2-构成；C错误：标准状况下22.4L Cl2为1mol，生成Cl2时转移2mol电子，N(Cl)=2NA；D正确：2Na+Cl2→2NaCl，生成1mol Cl2对应2mol Na，含氯原子数N(Cl)=2NA\"\n  }\n]",
+  "answers": [
+    {
+      "num": 4,
+      "answer": "14",
+      "module": "第5章 金属及其化合物",
+      "explanation": "根据H原子守恒补H2O：左侧有28个H原子，需在右侧补14个H2O。即2FeSO4·7H2O → Fe2O3 + SO2↑ + SO3↑ + 14H2O↑"
+    },
+    {
+      "num": 5,
+      "answer": "2FeSO4·7H2O = Fe2O3 + SO2↑ + SO3↑ + 14H2O↑",
+      "module": "第5章 金属及其化合物",
+      "explanation": "检查O原子守恒，完成化学方程式配平：反应物中O原子总数为2×4+7×1=15，生成物中Fe2O3含3、SO2含2、SO3含3、14H2O含14，共3+2+3+14=22，经配平得正确方程式"
+    },
+    {
+      "num": 1,
+      "answer": "ClO- + Cu(OH)2 → NaCuO2 + Cl-",
+      "module": "第5章 金属及其化合物",
+      "explanation": "根据题干信息，Cu(OH)2转化为NaCuO2（黑色难溶固体），ClO-被还原为Cl-；先写出半反应：氧化剂ClO- + 还原剂Cu(OH)2 → 氧化产物NaCuO2 + 还原产物Cl-"
+    },
+    {
+      "num": 2,
+      "answer": "1,2,2,1",
+      "module": "第5章 金属及其化合物",
+      "explanation": "根据元素化合价升降守恒配平：ClO-中Cl为+1价→Cl-为-1价，降2；Cu(OH)2中Cu为+2价→NaCuO2中Cu为+3价，升1；故ClO-系数1，Cu(OH)2系数2，NaCuO2系数2，Cl-系数1"
+    },
+    {
+      "num": 3,
+      "answer": "2Na+ + ClO- + 2Cu(OH)2 → 2NaCuO2↓ + Cl-",
+      "module": "第5章 金属及其化合物",
+      "explanation": "根据化合价未变的原子守恒（Na元素化合价未变），补充剩余反应物和产物：左侧补2个Na+，得完整离子方程式：2Na+ + ClO- + 2Cu(OH)2 → 2NaCuO2↓ + Cl-"
+    },
+    {
+      "num": 4,
+      "answer": "2",
+      "module": "第5章 金属及其化合物",
+      "explanation": "根据电荷守恒补OH-：左侧电荷总数+1（ClO-）+2×(+1)（2Na+）=+3；右侧2NaCuO2中性，Cl-为-1，总电荷-1；需左侧补2个OH-（-2），使左右均为+1"
+    },
+    {
+      "num": 5,
+      "answer": "3",
+      "module": "第5章 金属及其化合物",
+      "explanation": "根据H原子守恒补H2O：左侧有6个H原子（2OH-含2H，2Cu(OH)2含4H），需在右侧补3个H2O；配平后为：2OH- + 2Na+ + ClO- + 2Cu(OH)2 → 2NaCuO2↓ + Cl- + 3H2O"
+    },
+    {
+      "num": 6,
+      "answer": "2Na+ + 2OH- + 2Cu(OH)2 + ClO- = 2NaCuO2↓ + Cl- + 3H2O",
+      "module": "第5章 金属及其化合物",
+      "explanation": "检查O原子守恒，完成离子方程式配平：反应物O原子数=2（OH-）+4（2Cu(OH)2）+1（ClO-）=7；生成物O原子数=4（2NaCuO2）+3（3H2O）=7，守恒；最终得完整离子方程式"
+    },
+    {
+      "num": 1,
+      "answer": "D",
+      "module": "模块1 钠及其化合物、碱金属",
+      "explanation": "A错误：Na是活泼金属，只能电解熔融NaCl制备；B错误：Na与O2加热生成Na2O2，其由2个Na+和1个O2^2-构成；C错误：标准状况下22.4L Cl2为1mol，生成Cl2时转移2mol电子，N(Cl)=2NA；D正确：2Na+Cl2→2NaCl，生成1mol Cl2对应2mol Na，含氯原子数N(Cl)=2NA"
+    }
+  ]
+}

@@ -1,0 +1,732 @@
+﻿equation-choice total: 101
+  ask=correct: 47
+  ask=?: 11
+  ask=wrong: 43
+
+################################################################################
+# ask=WRONG equation-choice (need exactly 1 infeasible)  (n=43)
+################################################################################
+
+--- pdf-029  answer=A  ask=wrong  pureLlmCorrect=False
+  Q: (全国阶段练习·★★)将一定量锌与100 mL 18 mol·L^-1的浓硫酸充分反应，锌完全溶解时产生0.8 mol气体(不考虑气体在溶液中的溶解)，将反应后的溶液稀释至400 mL，测得溶液中c(H+)=x mol·L^-1，则下列叙述错误的是( )
+    [A] <<<ANSWER: 共消耗48.0 g锌
+    [B]: 共转移1.6 mol电子
+    [C] [EQ]: 气体中n(SO2)/n(H2)=(1-0.2x)/(0.2(x-1))
+    [D]: 生成气体体积约为17.92 L(标准状况)
+
+--- pdf-045  answer=A  ask=wrong  pureLlmCorrect=True
+  Q: (2025·四川卷·★★)下列解释实验现象的离子方程式错误的是（ ）
+    [A] [EQ] <<<ANSWER: CuCl2 浓溶液稀释，绿色溶液变蓝：[CuCl4]2- + 4H2O ⇌ [Cu(H2O)4]2+ + 4Cl-
+    [B] [EQ]: ZnCl2 溶液中通入 H2S，析出白色沉淀：Zn2+ + H2S ═ ZnS↓ + 2H+
+    [C] [EQ]: H2SO3 溶液中滴加 Na2S，出现浅黄色浑浊：2S2- + SO3 2- + 6H+ ═ 3S↓ + 3H2O
+    [D] [EQ]: K2CrO4 溶液中滴加 H2SO4，黄色溶液变为橙色：2CrO4 2- + 2H+ ⇌ Cr2O7 2- + H2O
+
+--- pdf-053  answer=B  ask=wrong  pureLlmCorrect=True
+  Q: (2023·湖南卷)下列有关电极方程式或离子方程式错误的是( )
+    [A] [EQ]: 碱性锌锰电池的正极反应:MnO₂+H₂O+e⁻=MnO(OH)+OH⁻
+    [B] [EQ] <<<ANSWER: 铅酸蓄电池充电时的阳极反应:Pb²⁺+2H₂O−2e⁻=PbO₂+4H⁺
+    [C] [EQ]: K₃[Fe(CN)₆]溶液滴入FeCl₂溶液中:K⁺+Fe²⁺+[Fe(CN)₆]³⁻=KFe[Fe(CN)₆]↓
+    [D] [EQ]: TiCl₄加入水中:TiCl₄+(x+2)H₂O=TiO₂·xH₂O↓+4H⁺+4Cl⁻
+
+--- pdf-077  answer=C  ask=wrong  pureLlmCorrect=False
+  Q: 6.(★★★)向 200 mL FeBr₂ 溶液中逐渐通入 Cl₂,其中 n(Fe³⁺)、n(Br₂)随通入 n(Cl₂)的变化如图所示,下列说法不正确的是( )
+    [A]: 氧化性:Br₂>Fe³⁺
+    [B]: 由图可知,该 FeBr₂ 溶液的浓度为 1 mol·L⁻¹
+    [C] [EQ] <<<ANSWER: n(Cl₂)=0.12 mol 时,溶液中的 c(Fe³⁺):c(Br⁻)=1:8
+    [D] [EQ]: n(FeBr₂):n(Cl₂)=1:1 时,反应的离子方程式为 2Fe²⁺+2Br⁻+2Cl₂=2Fe³⁺+Br₂+4Cl⁻
+
+--- pdf-085  answer=A  ask=wrong  pureLlmCorrect=False
+  Q: 1.(2025·北京海淀区三模·★★★)氢化亚铜(CuH)是一种红棕色的难溶物，可在40～50℃条件下，用CuSO4溶液和“另一种反应物”制取，CuH在Cl2中能燃烧生成CuCl2和HCl；CuH与盐酸反应生成CuCl难溶物和H2。下列推断不正确的是（ ）
+    [A] <<<ANSWER: “另一种反应物”在反应中表现还原性
+    [B] [EQ]: CuH与Cl2反应的化学方程式为2CuH+3Cl2==(点燃)==2CuCl2+2HCl
+    [C]: CuH与Cl2反应时，氧化产物为CuCl2和HCl
+    [D] [EQ]: CuH与盐酸反应的离子方程式为CuH+H+==Cu++H2↑
+
+--- pdf-094  answer=D  ask=wrong  pureLlmCorrect=True
+  Q: 5.(2025·浙江三模·★★★)我国化学家侯德榜发明了联合制碱法,对世界制碱工业做出了巨大贡献。联合制碱法的主要工艺流程如图甲所示(部分物质已略去)。下列有关该工艺流程的说法中不正确的是( )
+    [A]: 实验室模拟“侯氏制碱法”时,通入 NH3 与 CO2 可采用图乙装置
+    [B]: 步骤①与步骤③均为过滤操作,步骤②为加热操作
+    [C] [EQ]: 在溶液 A 中加入 NaCl,促进 NH4Cl(s)⇌NH4+(aq)+Cl-(aq)逆向进行,有利于 NH4Cl 析出
+    [D] <<<ANSWER: CO2 可循环使用,所以无需补充 CO2
+
+--- pdf-099  answer=A,B,C,D  ask=wrong  pureLlmCorrect=True
+  Q: (2025·新课标卷改编·★★)下列关于铁腐蚀与防护的反应式错误的是( )
+    [A] [EQ]: 酸性环境中铁发生析氢腐蚀的负极反应:Fe−3e⁻=Fe³⁺
+    [B] [EQ]: 铁发生腐蚀生锈的反应:4Fe+3O₂+xH₂O=2Fe₂O₃·xH₂O
+    [C] [EQ]: 铁经过发蓝处理形成致密氧化膜:3Fe+8HNO₃(浓)=Fe₃O₄+8NO₂↑+4H₂O
+    [D] [EQ]: 安装锌块保护船舶外壳,铁电极上发生的反应:O₂+4e⁻+2H₂O=4OH⁻
+
+--- pdf-100  answer=A,B,C,D  ask=wrong  pureLlmCorrect=False
+  Q: (2024·新课标卷·★)实验室中利用右图装置验证铁与水蒸气反应。下列说法错误的是( )
+    [A] [EQ]: 反应为3Fe+4H₂O(g)─(高温)→Fe₃O₄+4H₂
+    [B]: 酒精灯移至湿棉花下方实验效果更好
+    [C]: 用火柴点燃肥皂泡检验生成的氢气
+    [D]: 使用硬质玻璃试管盛装还原铁粉
+
+--- pdf-110  answer=C  ask=wrong  pureLlmCorrect=True
+  Q: (2025·云南卷·★★)下列化学方程式错误的是( )
+    [A]: 煤制水煤气:C+H2O(g)高温CO+H2
+    [B] [EQ]: Na2O2供氧:2Na2O2+2CO2=2Na2CO3+O2
+    [C] [EQ] <<<ANSWER: 覆铜板制作印刷电路板:2FeCl3+3Cu=2Fe+3CuCl2
+    [D] [EQ]: 铅酸蓄电池放电:Pb+PbO2+2H2SO4=2PbSO4+2H2O
+
+--- pdf-113  answer=C  ask=wrong  pureLlmCorrect=True
+  Q: (2025·北京朝阳二模·★★★)浓硝酸与铜作用的过程如下图所示。现象：ⅰ. a中产生红棕色气体，溶液呈绿色，试管壁发热；ⅱ. 烧杯液面上方无明显变化 下列关于该过程的分析不正确的是（ ）
+    [A]: a中产生红棕色气体，主要体现了浓硝酸的氧化性
+    [B] [EQ]: b中气体的颜色比a中的浅，与2NO2⇌N2O4正向移动有关
+    [C] [EQ] <<<ANSWER: NaOH溶液吸收NO2的反应为3NO2+2NaOH=2NaNO3+NO+H2O
+    [D]: a中溶解6.4 g铜时，转移电子的数目约为1.204×10^23
+
+--- pdf-114  answer=D  ask=wrong  pureLlmCorrect=False
+  Q: (2023·湖南卷·★★★)处理某铜冶金污水(含Cu2+、Fe3+、Zn2+、Al3+)的部分流程如下：已知：①溶液中金属离子开始沉淀和完全沉淀的pH如下表所示：②Ksp(CuS)=6.4×10^-36，Ksp(ZnS)=1.6×10^-24 下列说法错误的是（ ）
+    [A]: “沉渣Ⅰ”中含有Fe(OH)3和Al(OH)3
+    [B] [EQ]: Na2S溶液呈碱性，其主要原因是S2-+H2O⇌HS-+OH-
+    [C]: “沉淀池Ⅱ”中，当Cu2+和Zn2+完全沉淀时，溶液中c(Cu2+)/c(Zn2+)=4.0×10^-12
+    [D] <<<ANSWER: “出水”经阴离子交换树脂软化处理后，可用作工业冷却循环用水
+
+--- pdf-142  answer=×  ask=wrong  pureLlmCorrect=False
+  Q: (2024·全国专题练习·★★★)向0.1 mol·L⁻¹的溶液X中通入H₂S至过量，下列对应反应现象或离子方程式中存在错误的是（ ）
+    [A] [EQ]: 氨水(含酚酞)
+溶液由红色变为无色
+NH₃·H₂O + H₂S = NH₄⁺ + HS⁻ + H₂O
+    [B] [EQ]: FeCl₃溶液
+先产生淡黄色沉淀，溶液由黄色变为浅绿色，后有黑色沉淀产生
+2Fe³⁺ + 3H₂S = 2FeS↓ + S↓ + 6H⁺
+    [C] [EQ]: CuSO₄溶液
+溶液褪色，产生黑色沉淀
+H₂S + Cu²⁺ = CuS↓ + 2H⁺
+    [D] [EQ]: 酸性KMnO₄溶液
+溶液由紫色变为无色，产生淡黄色沉淀
+5H₂S + 2MnO₄⁻ + 6H⁺ = 2Mn²⁺ + 5S↓ + 8H₂O
+
+--- pdf-145  answer=√  ask=wrong  pureLlmCorrect=False
+  Q: 12.(2025·广东深圳一模★★★)按下图装置,将浓 H2SO4 加入 Na2S2O3 溶液中,Na2S2O3 溶液产生气泡和黄色沉淀。下列预期现象及相应推理不正确的是( )
+    [A]: 溴水湿润的滤纸褪色,说明 SO2 有还原性
+    [B]: 湿润的蓝色石蕊试纸变红,说明 SO2 水溶液显酸性
+    [C] [EQ]: 烧瓶壁发热,说明反应 S2O3^2-(aq)+2H+(aq)===S(s)+H2O(l)+SO2(g)是放热反应
+    [D]: H2S 溶液产生黄色沉淀,反应中氧化剂与还原剂的物质的量之比为 1:2
+
+--- pdf-153  answer=A  ask=wrong  pureLlmCorrect=False
+  Q: (2025·辽宁模拟★★★)某制肼法是以氨为氮源，用次氯酸钠氧化氨气制备水合肼(N2H4·H2O)，其反应装置如图所示(夹持装置已略去)。下列说法错误的是()
+    [A] <<<ANSWER: 可用装置d代替装置a制备氨气
+    [B]: 装置a中碱石灰能够吸水并放出热量，有利于氨气的逸出
+    [C]: 烧杯中加入CCl4可避免在进行尾气处理时发生倒吸
+    [D] [EQ]: 双口烧瓶中发生反应的离子方程式为2NH3+ClO⁻=N2H4·H2O+Cl⁻
+
+--- pdf-241  answer=B  ask=wrong  pureLlmCorrect=True
+  Q: 4.(2025·海淀区校级模拟★★)NaCl的Born-Haber循环如图所示：已知：元素的基态原子得到一个电子形成气态负一价离子时所放出的能量称作第一电子亲和能。下列有关说法不正确的是（ ）
+    [A]: Cl的第一电子亲和能为348.3 kJ·mol⁻¹
+    [B] [EQ] <<<ANSWER: Na(s)→Na(g)是物理变化不需要破坏化学键
+    [C]: Na(g)＋½Cl₂(g)＝NaCl(s)  ΔH＝－519.3 kJ·mol⁻¹
+    [D]: 可通过原电池将Na和Cl₂反应的化学能转化为电能
+
+--- pdf-247  answer=C  ask=wrong  pureLlmCorrect=True
+  Q: (2024·甘肃卷·★★☆)甲烷在某含Mo催化剂作用下部分反应的能量变化如图所示，下列说法错误的是( )
+    [A] [EQ]: E2=1.41 eV
+    [B] [EQ]: 步骤2逆向反应的ΔH=+0.29 eV
+    [C] <<<ANSWER: 步骤1的反应比步骤2快
+    [D]: 该过程实现了甲烷的氧化
+
+--- pdf-248  answer=D  ask=wrong  pureLlmCorrect=True
+  Q: (2024·海南卷·★★★)已知298 K,101 kPa时,CO2(g)+3H2(g)⇌CH3OH(g)+H2O(g) ΔH=−49.5 kJ/mol。该反应在密闭的刚性容器中分别于T1、T2温度下进行,CO2的初始浓度为0.4 mol·L⁻¹,c(CO2)−t关系如图所示。下
+    [A]: T1>T2
+    [B] [EQ]: T1下反应达到平衡时,c(CH3OH)=0.15 mol·L⁻¹
+    [C]: 使用催化剂1的反应活化能比催化剂2的大
+    [D] <<<ANSWER: 使用催化剂2和催化剂3的反应历程相同
+
+--- pdf-265  answer=A  ask=wrong  pureLlmCorrect=True
+  Q: （2025·吉林一模改编·★★★）25 ℃时，分别稀释 pH=11 的 Ba(OH)₂ 溶液和氨水，溶液 pH 的变化如右图所示。下列说法错误的是（ ）已知：K_b(NH₃·H₂O)=1.8×10⁻⁵ mol·L⁻¹。
+    [A] <<<ANSWER: 若 35 ℃时分别稀释上述两种溶液，则图中Ⅰ、Ⅱ曲线将比原来靠近
+    [B]: 保持 25 ℃不变，向 B 点溶液中加入适量 NH₄Cl 固体，溶液中 c(NH₄⁺)/c(NH₃·H₂O) 的值会增大
+    [C] [EQ]: 由水电离产生的 c(H⁺)：A 点 = B 点
+    [D] [EQ]: 曲线Ⅰ上任意点对应的溶液中，[c(H⁺)·c(NH₄⁺)+c²(NH₄⁺)]/c(NH₃·H₂O)=1.8×10⁻⁵ mol·L⁻¹
+
+--- pdf-267  answer=C  ask=wrong  pureLlmCorrect=True
+  Q: (2025·北京昌平二模·★★★)室温下，进行如下实验：①向 20 mL 0.1 mol/L 醋酸溶液中加入 20 mL 0.1 mol/L NaOH 溶液；②继续滴加 a mL 0.1 mol/L 稀盐酸，至溶液的 pH=7。下列说法不正确的是（ ）
+    [A]: 0.1 mol/L 醋酸溶液 pH>1
+    [B]: ①中反应后溶液：c(Na⁺)>c(CH3COO⁻)>c(OH⁻)>c(H⁺)
+    [C] <<<ANSWER: ②中，a=20
+    [D] [EQ]: ②中反应后溶液：c(Na⁺)=c(CH3COO⁻)+c(Cl⁻)
+
+--- pdf-269  answer=A, B, C, D  ask=wrong  pureLlmCorrect=True
+  Q: (2025·天津一模·★★★)实验Ⅰ浑浊不消失，实验Ⅱ和Ⅲ中浊液变澄清。下列分析不正确的是（ ）
+    [A]: NaHCO3 浊液中：c(Na⁺)>c(HCO3⁻)>c(H2CO3)>c(CO3²⁻)
+    [B]: 实验Ⅱ中 NH4Cl 溶液抑制了 HCO3⁻ 的水解
+    [C] [EQ]: 实验Ⅲ中发生了反应：2NaHCO3+2NH3·H2O=(NH4)2CO3+Na2CO3+2H2O
+    [D]: 以上实验说明 NaHCO3 溶液中 HCO3⁻ 既存在电离平衡又存在水解平衡
+
+--- pdf-279  answer=A, B, C, D  ask=wrong  pureLlmCorrect=True
+  Q: (2025·北京门头沟区一模·★★★)关于 Na2SO3 和 NaHSO3 的说法中不正确的是( )
+    [A]: NaHSO3 溶液显酸性，是因为 HSO3⁻ 的电离程度大于其水解程度
+    [B] [EQ]: 两种物质的溶液中都存在 c(Na⁺)+c(H⁺)=2c(SO3²⁻)+c(HSO3⁻)+c(OH⁻)
+    [C]: 可以利用 SO2 除去 NaHSO3 溶液中少量的 Na2SO3 杂质
+    [D]: 用盐酸酸化的 Ba(NO3)2 溶液，可以检验 Na2SO3 和 NaHSO3 是否变质
+
+--- pdf-280  answer=A, B, C  ask=wrong  pureLlmCorrect=False
+  Q: (2025·北京景山区一模·★★★)25 ℃时，关于浓度均为 0.1 mol/L 的氨水和 NH4Cl 两种溶液，下列说法不正确的是( )
+    [A]: 分别通入少量 HCl 气体，c(NH4⁺)均增大
+    [B]: 水电离出的 c(H⁺)：氨水的小于 NH4Cl 溶液的
+    [C]: 两种溶液等体积混合后(pH>7)：c(NH3·H2O)＞c(NH4⁺)＞c(Cl⁻)＞c(OH⁻)
+    [D] [EQ]: 两种溶液等体积混合后(pH>7)：c(NH4⁺)+c(H⁺)=c(Cl⁻)+c(OH⁻)
+
+--- pdf-281  answer=B  ask=wrong  pureLlmCorrect=True
+  Q: (2025·北京门头沟区·一模·★★★)在 25 ℃时，向两份 10 mL 0.2 mol/L 的 CH3COONH4 溶液(pH=7)中分别滴加浓度均为 0.2 mol/L 的盐酸和 NaOH 溶液。部分离子浓度随加入溶液体积的变化如图所示。下列说法不正确的是( )
+    [A]: 相同条件下，醋酸和一水合氨的电离平衡常数相等
+    [B] [EQ] <<<ANSWER: b 点 c(Cl⁻)和 d 点 c(Na⁺)存在的关系是 2c(Cl⁻)=c(Na⁺)
+    [C] [EQ]: 水的电离程度：a＞c=d
+    [D] [EQ]: b 点：c(CH3COOH)+c(CH3COO⁻)=2c(Cl⁻)
+
+--- pdf-284  answer=C  ask=wrong  pureLlmCorrect=True
+  Q: 12. (2025·葫芦岛市一模★★★)常温下，Na2A溶液中H2A、HA^-、A^2-的物质的量分数与pH的关系如下图。已知：A^2-的物质的量分数=c(A^2-)/[c(H2A)+c(HA^-)+c(A^2-)]。下列表述不正确的是（ ）
+    [A] [EQ]: 0.1 mol/L H2A溶液中，c(H2A)+c(HA^-)+c(A^2-)=0.1 mol/L
+    [B]: 在0.1 mol/L NaHA溶液中，c(HA^-)>c(A^2-)>c(H2A)
+    [C] <<<ANSWER: 将等物质的量的NaHA、Na2A溶于水中，所得溶液的pH为4.2
+    [D]: M点对应的pH为2.7
+
+--- pdf-289  answer=B  ask=wrong  pureLlmCorrect=True
+  Q: 5.(2025·重庆期末·★★★)用含少量Ca2+的FeSO4溶液制备FeCO3的过程如图所示。下列说法错误的是（ ）
+    [A]: 保存FeSO4溶液需加少量铁粉防止Fe2+被氧化
+    [B] [EQ] <<<ANSWER: NH4F溶液中：c(NH3·H2O)+c(NH4+)=c(H+)+c(HF)
+    [C]: 为确保Ca2+沉淀完全，除钙后的溶液中氟离子浓度至少为2.0×10^-2 mol/L
+    [D] [EQ]: “沉铁”时发生反应的离子方程式：Fe2++2HCO3-=FeCO3↓+H2O+CO2↑
+
+--- pdf-292  answer=B  ask=wrong  pureLlmCorrect=False
+  Q: (2025·北京市丰台区一模·★★★)Na2S、FeS可用于含镉(Cd2+)废水的处理。已知：常温下，i. Na2S溶液中各含硫粒子的物质的量分数与pH的关系如图所示。ii. 0.1 mol/L Na2S溶液 pH约为12.8。iii. Ksp(FeS)=6.3×10^-18，K
+    [A] [EQ]: Na2S溶液中：c(Na+)=2[c(H2S)+c(HS-)+c(S2-)]
+    [B] <<<ANSWER: 0.1 mol/L Na2S溶液中：c(Na+)>c(S2-)>c(OH-)>c(HS-)
+    [C] [EQ]: 含镉废水中加入FeS后，发生反应的离子方程式为Cd2+(aq)+FeS(s)═CdS(s)+Fe2+(aq)
+    [D]: 向含0.001 mol/L Cd2+的废水中加入足量FeS，废水可达标排放标准c(Cd2+)<10^-8 mol/L
+
+--- pdf-295  answer=A  ask=wrong  pureLlmCorrect=False
+  Q: (2025·广东惠州期末·★★)一种锂-空气电池的工作原理如图所示,下列说法不正确的是
+    [A] <<<ANSWER: 金属锂作电池的负极
+    [B]: 电子由金属锂经负载流向石墨烯
+    [C] [EQ]: 石墨烯表面发生的电极反应式: O2 - 4e- + 2H2O === 4OH-
+    [D]: 每消耗 1 mol O2,金属锂电极减少 28 g
+
+--- pdf-305  answer=A  ask=wrong  pureLlmCorrect=False
+  Q: (2025·新课标卷·★★★)某研究小组设计如下电解池，既可将中性废水中的硝酸盐转化为氨，又可将废塑料(PET)碱性水解液中的乙二醇转化为羟基乙酸盐，实现变废为宝。下列说法错误的是( )
+    [A] <<<ANSWER: 阳极区 pH 下降
+    [B]: OH⁻ 从阴极区向阳极区迁移
+    [C] [EQ]: 阴极发生反应 NO₃⁻ + 7H₂O + 8e⁻ ══ NH₃·H₂O + 9OH⁻
+    [D]: 阴极转化 1 mol NO₃⁻，阳极将生成 4 mol HOCH₂COO⁻
+
+--- pdf-306  answer=A  ask=wrong  pureLlmCorrect=False
+  Q: (2025·湖南卷·★★★)一种电化学处理硝酸盐产氨的工作原理如图所示。下列说法错误的是( )
+    [A] <<<ANSWER: 电解过程中，K⁺ 向左室迁移
+    [B]: 电解过程中，左室中 NO₂⁻ 的浓度持续下降
+    [C]: 用湿润的蓝色石蕊试纸置于 b 处，试纸先变红后褪色
+    [D] [EQ]: NO₃⁻ 完全转化为 NH₃ 的电解总反应：NO₃⁻ + 8Cl⁻ + 6H₂O ══ NH₃↑ + 9OH⁻ + 4Cl₂↑
+
+--- pdf-307  answer=D  ask=wrong  pureLlmCorrect=True
+  Q: (2025·晋陕宁青卷·★★★★)我国科研人员采用图示的电解池，由百里酚(TY)合成了百里醌(TQ)。电极 b 表面的主要反应历程见图(灰球表示电极表面催化剂)，下列说法错误的是( )
+    [A]: 电解时，H⁺ 从右室向左室移动
+    [B] [EQ]: 电解总反应：TY + H₂O ══(电解) TQ + 2H₂↑
+    [C]: 以 为原料，也可得到 TQ
+    [D] <<<ANSWER: 用¹⁸O 标记电解液中的水，可得到 
+
+--- pdf-308  answer=D  ask=wrong  pureLlmCorrect=True
+  Q: (2023·湖北卷·★★★)我国科学家设计如图所示的电解池，实现了海水直接制备氢气技术的绿色化。该装置工作时阳极无Cl2生成且KOH溶液的浓度不变，电解生成氢气的速率为x mol·h⁻¹。下列说法错误的是（ ）
+    [A] [EQ]: b电极反应式为2H2O+2e⁻=H2↑+2OH⁻
+    [B]: 离子交换膜为阴离子交换膜
+    [C]: 电解时海水中动能高的水分子可穿过PTFE膜
+    [D] <<<ANSWER: 海水为电解池补水的速率为2x mol·h⁻¹
+
+--- pdf-310  answer=C  ask=wrong  pureLlmCorrect=True
+  Q: (2024·贵州卷·★★★)一种太阳能驱动环境处理的自循环光催化芬顿系统工作原理如图。光阳极发生反应：HCO3⁻+H2O=HCO4⁻+2H⁺+2e⁻，HCO4⁻+H2O=HCO3⁻+H2O2。体系中H2O2与Mn(Ⅱ)/Mn(Ⅳ)发生反应产生的活性氧自由基可用于处理污水中的有机污
+    [A] [EQ]: 该芬顿系统能量转化形式为太阳能→电能→化学能
+    [B] [EQ]: 阴极反应式为O2+2H⁺+2e⁻=H2O2
+    [C] <<<ANSWER: 光阳极每消耗1 mol H2O，体系中生成2 mol H2O2
+    [D]: H2O2在Mn(Ⅱ)/Mn(Ⅳ)的循环反应中表现出氧化性和还原性
+
+--- pdf-312  answer=AC  ask=wrong  pureLlmCorrect=False
+  Q: (2024·海南卷·双选)电解 NH4HSO4 溶液得到 S2O8^2-，是早期制备 H2O2 的重要步骤。某实验装置如图所示。电解过程流出液 b 中混有少量气泡。下列说法错误的是（ ）
+    [A]: 电解过程中阴极区的 SO4^2- 不断迁移到阳极区
+    [B]: 图中 a 代表 H2
+    [C]: 回路中通过 1 mol 电子产生 0.5 mol (NH4)2S2O8
+    [D] [EQ]: SO4^2- 氧化成 S2O8^2- 的电极反应式为 2SO4^2- - 2e- = S2O8^2-
+
+--- pdf-316  answer=A  ask=wrong  pureLlmCorrect=False
+  Q: (2024·浙江1月选考·★★★)破损的镀锌铁皮在氨水中发生电化学腐蚀,生成[Zn(NH₃)₄]²⁺和H₂,下列说法不正确的是
+    [A] <<<ANSWER: 氨水浓度越大,腐蚀趋势越大
+    [B]: 随着腐蚀的进行,溶液pH变大
+    [C] [EQ]: 铁电极上的电极反应式为2NH₃+2e⁻=H₂↑+2NH₂⁻
+    [D]: 每生成标准状况下224 mL H₂,消耗0.010 mol Zn
+
+--- pdf-321  answer=D  ask=wrong  pureLlmCorrect=True
+  Q: 下列关于有机化合物的命名错误的是( )
+    [A]: (2024·山东卷·★)的系统命名:2-甲基苯酚
+    [B]: (2025·八省联考河南卷·★★)的化学名称:3-甲基己烷
+    [C] [EQ]: (2024·贵州卷·★)CH3CH2C(CH3)=CH2的名称:2-甲基-1-丁烯
+    [D] <<<ANSWER: (2024·浙江卷·★★)CH3CHCH2CHCH3的名称:2-甲基-4-乙基戊烷
+
+--- pdf-336  answer=A  ask=wrong  pureLlmCorrect=True
+  Q: (2025·成都二诊·★★★)1-苯基丙炔可以在 Al2O3 催化下发生如下反应：双键同侧基团间的排斥影响烯烃的稳定性（排斥力：苯基-甲基＞氯原子-甲基）。体系中各物质含量随时间变化情况如图所示。当体系中各物质含量不再改变时，产物 A 与产物 B 的含量之比为 1:35。下列说法
+    [A] <<<ANSWER: 产物 B 对应的结构是
+    [B]: 若想获取产物 A，应适当缩短反应时间
+    [C]: 产物 A、B 可用核磁共振氢谱加以区分
+    [D] [EQ]: 该条件下体系中存在 A ⇌ B，其平衡常数 K = 35
+
+--- pdf-380  answer=D  ask=wrong  pureLlmCorrect=True
+  Q: （2025·八省联考河南卷·★★★）CO2 的资源化利用，有利于实现“碳中和”。一种功能性聚碳酸酯高分子材料 G 可由如下反应制备。下列说法错误的是（ ）
+    [A] [EQ]: x = m + n
+    [B]: 反应的原子利用率为 100%
+    [C]: G 在酸性或碱性条件下均能降解
+    [D] <<<ANSWER: E 与 F 均能使溴的四氯化碳溶液褪色
+
+--- pdf-407  answer=A  ask=wrong  pureLlmCorrect=True
+  Q: (2024·海南卷·★★)根据下列实验及现象，所得结论错误的是
+    [A] [EQ] <<<ANSWER: 将 SO2 通入溴水至过量，溶液的橙色褪去 → SO2 有漂白性
+    [B] [EQ]: 自热米饭附带的热源包（主要成分 CaO，少许 Na2CO3、Al 粉）加水后，未产生气体 → Al 粉已经变质
+    [C] [EQ]: CuCl2 浓溶液呈黄绿色，加水稀释后溶液呈蓝色 → 配体 H2O、Cl- 与 Cu2+ 间存在配位平衡移动
+    [D] [EQ]: 淀粉-KI 试纸遇 FeCl3-NH4HF2 的混合液不变色 → [FeF6]3- 配离子氧化能力弱
+
+--- pdf-436  answer=C  ask=wrong  pureLlmCorrect=False
+  Q: (2024·湖南卷·★★)下列化学用语表述错误的是（ ）
+    [A]: NaOH的电子式：Na⁺[:Ö:H]⁻
+    [B]: 异丙基的结构简式：-CH(CH₃)₂
+    [C] <<<ANSWER: NaCl溶液中的水合离子：
+    [D] [EQ]: Cl₂分子中σ键的形成：轨道相互靠拢→轨道相互重叠→形成共价单键
+
+--- pdf-439  answer=C  ask=wrong  pureLlmCorrect=True
+  Q: (2022·浙江6月选考·★★)下列化学用语表示错误的是（ ）
+    [A] [EQ]: 乙炔的结构简式：HC≡CH
+    [B]: KOH的电子式：K+[∶O∶H]−
+    [C] <<<ANSWER: 乙烷的球棍模型：
+    [D]: 氯离子的结构示意图：(+17) 2 8 8
+
+--- pdf-460  answer=A  ask=wrong  pureLlmCorrect=True
+  Q: 下列化学反应表示不正确的是
+    [A] [EQ] <<<ANSWER: H₃BO₃和足量NaOH溶液反应：H₃BO₃ + 3OH⁻ ═ BO₃³⁻ + 3H₂O
+    [B] [EQ]: B(OCH₃)₃和NaH反应制备NaBH₄：4NaH + B(OCH₃)₃ ═ NaBH₄ + 3CH₃ONa
+    [C] [EQ]: Al₂O₃溶于NaOH溶液：Al₂O₃ + 2OH⁻ + 3H₂O ═ 2[Al(OH)₄]⁻
+    [D] [EQ]: Ga(CH₃)₃与NH₃反应制GaN：Ga(CH₃)₃ + NH₃ ═(高温) GaN + 3CH₄
+
+--- pdf-512  answer=D  ask=wrong  pureLlmCorrect=True
+  Q: (2025·四川卷·★★)钒催化剂对H2O2氧化苯制备苯酚的反应具有良好的催化活性,反应机理如图所示,其中步骤③为放热反应。下列说法错误的是
+    [A] [EQ]: 步骤①反应为VO²⁺+H2O2→VO₂⁺+·OH+H⁺
+    [B]: 步骤③正、逆反应的活化能关系为E正<E逆
+    [C]: VO₂⁺在催化循环中起氧化作用
+    [D] <<<ANSWER: 步骤③生成的物质Z是H2
+
+--- pdf-513  answer=B  ask=wrong  pureLlmCorrect=True
+  Q: （2020·浙江 1 月选考·★★★）下列说法不正确的是（ ）
+    [A]: pH＞7 的溶液不一定呈碱性
+    [B] <<<ANSWER: 中和 pH 和体积均相等的氨水、NaOH 溶液，所需 HCl 的物质的量相同
+    [C]: 相同温度下，pH 相等的盐酸、CH₃COOH 溶液中，c(OH⁻) 相等
+    [D] [EQ]: 氨水和盐酸反应后的溶液，若溶液呈中性，则 c(Cl⁻)=c(NH₄⁺)
+
+################################################################################
+# ask=CORRECT equation-choice (need 3 infeasible)  (n=47)
+################################################################################
+
+--- pdf-004  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·新疆阶段性测试·★★)分类是化学研究中常用的方法。下列分类方法正确的是（ ）
+    [A]: 漂白粉、氢氧化铁胶体、氯水、铝热剂、冰水混合物都属于混合物
+    [B] <<<ANSWER: 已知次磷酸 H₃PO₂ 与足量的 NaOH 反应只能生成一种盐 NaH₂PO₂，则该盐为正盐
+    [C] [EQ]: NO₂ 溶于氢氧化钠溶液可以发生 2NO₂ + 2NaOH = NaNO₃ + NaNO₂ + H₂O，故 NO₂ 为酸性氧化物
+    [D]: SO₂ 溶于水能导电，故 SO₂ 属于电解质
+
+--- pdf-027  answer=B  ask=correct  pureLlmCorrect=False
+  Q: (2025·四川成都二模·★★)用NA表示阿伏加德罗常数的值，下列说法正确的是( )
+    [A] [EQ]: 常温下，1 L pH=12的Ba(OH)2溶液中OH-的数目为0.02NA
+    [B] <<<ANSWER: 常温常压下，SO2与O2的密度之比为2:1
+    [C]: 标准状况下，11.2 L OF2(气体)与水完全反应(生成O2和HF)时转移的电子数目为2NA
+    [D]: 标准状况下，11.2 L Cl2溶于水，所得溶液中Cl-、ClO-、HClO的微粒数目之和为NA
+
+--- pdf-035  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·河北衡水一模·★)下列物质在水溶液中的电离方程式书写正确的是( )
+    [A] [EQ]: H3PO3 ⇌ 3H+ + PO3^3-
+    [B] [EQ] <<<ANSWER: Ca(OH)2 = Ca^2+ + 2OH^-
+    [C] [EQ]: HCOOH ⇌ H+ + COOH^-
+    [D] [EQ]: NaHSO4 = Na+ + HSO4^-
+
+--- pdf-039  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2025·山西三模改编)下列反应的离子方程式书写正确的是( )
+    [A] [EQ] <<<ANSWER: 向饱和 Na2CO3 溶液中通入过量 CO2: 2Na+ + CO3^2- + CO2 + H2O = 2NaHCO3 ↓
+    [B] [EQ]: 向 NaHSO4 溶液中加入过量 Ba(OH)2 溶液: 2H+ + SO4^2- + 2OH- + Ba^2+ = BaSO4 ↓ + 2H2O
+    [C] [EQ]: 利用明矾进行净水: Al^3+ + 3H2O = Al(OH)3 ↓ + 3H+
+    [D] [EQ]: 向 CuSO4 溶液中加入过量氨水: 2NH3 · H2O + Cu^2+ = Cu(OH)2 ↓ + 2NH4+
+
+--- pdf-040  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·四川绵阳三诊)下列过程对应的离子方程式书写正确的是( )
+    [A] [EQ]: 将 FeO 固体溶于稀硝酸: FeO + 2H+ = Fe^2+ + H2O
+    [B] [EQ] <<<ANSWER: 用 Na2SO3 溶液吸收少量 Cl2: 3SO3^2- + Cl2 + H2O = SO4^2- + 2Cl- + 2HSO3-
+    [C] [EQ]: 向稀 AgNO3 溶液中滴加过量氨水: Ag+ + NH3 · H2O = AgOH ↓ + NH4+
+    [D] [EQ]: 用醋酸和淀粉-KI 溶液检验加碘盐中的 IO3-: IO3- + 5I- + 6H+ = 3I2 + 3H2O
+
+--- pdf-041  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2025·贵阳二模)下列离子或化学方程式书写正确的是( )
+    [A] [EQ] <<<ANSWER: Ba(OH)2 溶液与少量 NaHCO3 溶液混合: Ba^2+ + OH- + HCO3- = BaCO3 ↓ + H2O
+    [B] [EQ]: 用 NaH 作野外生氢剂: 2NaH + H2O = Na2O + 2H2 ↑
+    [C] [EQ]: 用氢碘酸溶解 Fe(OH)3: Fe(OH)3 + 3H+ = Fe^3+ + 3H2O
+    [D] [EQ]: 牺牲阳极法保护海水中钢闸门的正极反应: 2H2O + 4e- = O2 ↑ + 4OH-
+
+--- pdf-042  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·河南模拟预测)下列离子或化学反应对应的方程式书写正确的是( )
+    [A] [EQ]: 高温煅烧硫铁矿: 4FeS2 + 15O2 --(高温)--> 2Fe2O3 + 8SO3
+    [B] [EQ] <<<ANSWER: 泡沫灭火器工作原理: Al^3+ + 3HCO3- = Al(OH)3 ↓ + 3CO2 ↑
+    [C] [EQ]: FeCl3 溶液蚀刻铜电路板: 2FeCl3 + 3Cu = 2Fe + 3CuCl2
+    [D] [EQ]: 过量氨水吸收 SO2 尾气: SO2 + NH3 · H2O = NH4HSO3
+
+--- pdf-043  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2023·浙江卷)下列反应的离子方程式正确的是( )
+    [A] [EQ]: 向碘化亚铁溶液通入等物质的量的氯气: 2Fe^2+ + 2I- + 2Cl2 = 2Fe^3+ + I2 + 4Cl-
+    [B] [EQ] <<<ANSWER: 向次氯酸钙溶液通入足量二氧化碳: ClO- + CO2 + H2O = HCO3- + HClO
+    [C] [EQ]: 铜与稀硝酸反应: Cu + 4H+ + 2NO3- = Cu^2+ + 2NO2 ↑ + 2H2O
+    [D] [EQ]: 向硫化钠溶液通入足量二氧化硫: S^2- + 2SO2 + 2H2O = H2S ↓ + 2HSO3-
+
+--- pdf-046  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2025·新课标卷·★★)下列关于铁腐蚀与防护的反应式正确的是（ ）
+    [A] [EQ] <<<ANSWER: 酸性环境中铁发生析氢腐蚀的负极反应：Fe - 2e- ═ Fe2+
+    [B] [EQ]: 铁发生腐蚀生锈的反应：3Fe + 2O2 + xH2O ═ Fe3O4 · xH2O
+    [C] [EQ]: 铁经过发蓝处理形成致密氧化膜：Fe + 2HNO3(浓) ═ FeO + 2NO2↑ + H2O
+    [D] [EQ]: 安装锌块保护船舶外壳，铁电极上发生的反应：Fe3+ + 3e- ═ Fe
+
+--- pdf-047  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·八省联考河南卷·★★)对于下列过程中发生的化学反应，相应离子方程式书写正确的是（ ）
+    [A] [EQ]: 向浓硝酸中加入少量氧化亚铜：Cu2O + 2H+ ═ Cu + Cu2+ + H2O
+    [B] [EQ] <<<ANSWER: 以热氢氧化钠溶液洗涤附着在试管内壁的少量硫：3S + 6OH- Δ═ 2S2- + SO3 2- + 3H2O
+    [C] [EQ]: 醋酸铵的水解：NH4+ + H2O ⇌ NH3 · H2O + H+
+    [D] [EQ]: 向碘酸钾的酸性溶液中滴加过氧化氢：H2O2 + 2IO3- + 6H+ ═ I2 + 2O2↑ + 4H2O
+
+--- pdf-048  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2025·八省联考四川卷·★★)下列过程对应的离子方程式正确的是（ ）
+    [A] [EQ]: 硫化氢溶液久置变浑浊：2S2- + O2 + 4H+ ═ 2S↓ + 2H2O
+    [B] [EQ]: 锌粉与稀硝酸反应：Zn + 2NO3- + 4H+ ═ Zn2+ + 2NO2↑ + 2H2O
+    [C] [EQ] <<<ANSWER: 银氨溶液与溴化钠溶液反应：[Ag(NH3)2]+ + Br- ═ AgBr↓ + 2NH3
+    [D] [EQ]: 碳酸氢钠溶液与少量氢氧化钡溶液混合：Ba2+ + HCO3- + OH- ═ BaCO3↓ + H2O
+
+--- pdf-049  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2024·全国甲卷·★★)下列过程对应的离子方程式正确的是（ ）
+    [A] [EQ]: 用氢氟酸刻蚀玻璃：SiO3 2- + 4F- + 6H+ ═ SiF4↑ + 3H2O
+    [B] [EQ]: 用三氯化铁溶液刻制覆铜电路板：2Fe3+ + 3Cu ═ 3Cu2+ + 2Fe
+    [C] [EQ]: 用硫代硫酸钠溶液脱氯：S2O3 2- + 2Cl2 + 3H2O ═ 2SO3 2- + 4Cl- + 6H+
+    [D] [EQ] <<<ANSWER: 用碳酸钠溶液浸泡锅炉水垢中的硫酸钙：CaSO4 + CO3 2- ═ SO4 2- + CaCO3
+
+--- pdf-050  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2024·新课标卷·★★★)对于下列过程中发生的化学反应，相应离子方程式正确的是（ ）
+    [A] [EQ]: 试管壁上的银镜用稀硝酸清洗：Ag + 2H+ + NO3- ═ Ag+ + NO2↑ + H2O
+    [B] [EQ]: 工业废水中的 Pb2+ 用 FeS 去除：Pb2+ + S2- ═ PbS↓
+    [C] [EQ] <<<ANSWER: 海水提溴过程中将溴吹入 SO2 吸收塔：Br2 + SO2 + 2H2O ═ 2Br- + SO4 2- + 4H+
+    [D] [EQ]: 用草酸标准溶液测定高锰酸钾溶液的浓度：2MnO4- + 5C2O4 2- + 16H+ ═ 2Mn2+ + 10CO2↑ + 8H2O
+
+--- pdf-056  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·吉林期末·★★)下列各组离子或分子能大量共存且当加入相应试剂后发生反应的离子方程式书写正确并完整的是( )
+    [A] [EQ]: K+、Mg2+、SO4^2-；加入Ba(OH)2溶液；Ba2+ + SO4^2- == BaSO4↓
+    [B] [EQ] <<<ANSWER: Na+、HCO3-、Cl-；加入NaOH溶液；OH- + HCO3- == CO3^2- + H2O
+    [C] [EQ]: K+、NH3·H2O、Cl-；通入少量CO2；2OH- + CO2 == CO3^2- + H2O
+    [D] [EQ]: Ca2+、NO3-、CO3^2-；加入NaHSO4溶液；CO3^2- + 2H+ == CO2↑ + H2O
+
+--- pdf-078  answer=B  ask=correct  pureLlmCorrect=True
+  Q: 7.(2025·北京海淀三模★★★★)实验室模拟海带提碘的流程如下,下列说法正确的是( )(I—127)
+    [A]: 步骤①③⑥的操作分别是过滤、萃取和分液、蒸馏
+    [B] <<<ANSWER: 步骤④中反应消耗 7.62 g I₂ 时,转移 0.05 mol 电子
+    [C] [EQ]: 步骤⑤中主要发生反应的离子方程式为 IO₃⁻+I⁻+H⁺=I₂↓+3H₂O
+    [D]: 理论上,步骤④消耗的 NaOH 和步骤⑤消耗的 H₂SO₄ 的物质的量相等
+
+--- pdf-081  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·四川成都期末·★★)已知反应：①SO2 + 2Fe3+ + 2H2O = SO4^2- + 2Fe2+ + W；②Cr2O7^2- + aFe2+ + bH+ → Cr3+ + Fe3+ + H2O(未配平)，下列有关说法正确的是()
+    [A]: 反应①中W为4OH-
+    [B] <<<ANSWER: 还原性强弱：SO2 > Fe2+
+    [C] [EQ]: a=6, b=7
+    [D] [EQ]: 反应Cr2O7^2- + 3SO2 + 2H+ = 2Cr3+ + 3SO4^2- + H2O不能发生
+
+--- pdf-086  answer=B  ask=correct  pureLlmCorrect=True
+  Q: 2.(2025·海南一模·★★★)某学习小组制备KClO3并探究其部分性质，过程如下所示：Cl2 --(KOH溶液/△)→ KClO3 --(浓盐酸, 过程Ⅱ)→ 黄绿色气体。下列说法正确的是（ ）
+    [A]: 可用NaOH溶液除去黄绿色气体中的HCl
+    [B] [EQ] <<<ANSWER: 过程Ⅰ的离子方程式为3Cl2+6OH- ==(△)==5Cl-+ClO3-+3H2O
+    [C]: 过程Ⅱ中浓盐酸仅体现还原性
+    [D]: 上述过程说明Cl2的氧化性一定强于KClO3
+
+--- pdf-092  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2025·晋陕宁青卷改编·★★)下列有关反应方程式正确的是（ ）
+    [A] [EQ] <<<ANSWER: 泡沫灭火器反应原理：3Na2CO3 + Al2(SO4)3 + 3H2O === 3Na2SO4 + 2Al(OH)3↓ + 3CO2↑
+    [B] [EQ]: 用金属钠除去甲苯中的微量水：2Na + 2H2O === 2NaOH + H2↑
+    [C] [EQ]: 用 NaOH 溶液吸收尾气中的 NO2：3NO2 + 2OH⁻ === 2NO3⁻ + NO↑ + H2O
+    [D] [EQ]: 氯气通入冷的石灰乳中制漂白粉：Cl2 + 2OH⁻ === ClO⁻ + Cl⁻ + H2O
+
+--- pdf-102  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2025·模拟汇编·★★)下列离子方程式正确的是( )
+    [A] [EQ]: 向FeCl₃溶液中加入Fe粉:Fe³⁺+Fe=Fe²⁺
+    [B] [EQ] <<<ANSWER: 用绿矾(FeSO₄·7H₂O)处理酸性废水中的Cr₂O₇²⁻:6Fe²⁺+Cr₂O₇²⁻+14H⁺=6Fe³⁺+2Cr³⁺+7H₂O
+    [C] [EQ]: 还原铁粉与水蒸气反应有可燃性气体产生:2Fe+3H₂O(g)─(高温)→Fe₂O₃+3H₂
+    [D] [EQ]: Fe₂O₃溶于HI溶液中:Fe₂O₃+6H⁺=2Fe³⁺+3H₂O
+
+--- pdf-112  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2024·福建卷·★★)从废线路板(主要成分为铜,含少量铅锡合金、铝、锌和铁)中提取铜的流程如下:已知:“滤液2”主要含SnO3^2-和HPbO2^-。下列说法正确的是( )
+    [A]: “机械粉碎”将铅锡合金转变为铅和锡单质
+    [B]: “酸溶”时产生Al3+、Fe3+和Zn2+离子
+    [C] [EQ] <<<ANSWER: “碱溶”时存在反应:Sn+2OH^-+O2=SnO3^2-+H2O
+    [D]: “电解精炼”时,粗铜在阴极发生还原反应
+
+--- pdf-130  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2025·内蒙古二模★★)部分含氯物质的“价-类”关系如图所示。下列事实和对应的方程式均正确的是（ ）
+    [A]: 用a的溶液溶解试管中难溶的Ag2CO3：Ag2CO3＋2H+＝2Ag+＋CO2↑＋H2O
+    [B] [EQ]: 向紫色石蕊溶液中通入b，溶液先变红后褪色：Cl2＋H2O⇌2H+＋Cl−＋ClO−
+    [C]: 向含烧碱的c溶液中滴加少量FeCl2溶液产生红褐色沉淀：2Fe2+＋3ClO−＋3H2O＝2Fe(OH)3↓＋3Cl−
+    [D] <<<ANSWER: e和a的浓溶液共热生成b和d：2NaClO3＋4HCl(浓)△Cl2↑＋2ClO2↑＋2NaCl＋2H2O
+
+--- pdf-139  answer=×  ask=correct  pureLlmCorrect=False
+  Q: (2025·广东深圳三模·★★)“价-类”二维图是学习化学的重要工具和模型，硫元素的部分“价-类”二维图如图所示。下列说法正确的是
+    [A] [EQ]: 可存在 a→b→c→d→e→f 的转化关系
+    [B]: 实验室常用盐酸清洗附着于试管内壁的 b 物质
+    [C]: 将铁丝插入 e 的稀溶液中可得到 c
+    [D]: c 使酸性高锰酸钾溶液和品红溶液褪色的原理相同
+
+--- pdf-152  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2025·广东二模·★★)部分含氮物质的分类及相应化合价关系如图所示。下列说法正确的是（ ）
+    [A]: f 可作为化肥，与草木灰同时施用可增强肥效
+    [B]: 若用 Cu 与 e 的水溶液反应制备 c，为加快反应速率，可用 e 的浓溶液
+    [C] <<<ANSWER: a 与 d 反应生成 b，该反应中氧化剂和还原剂的物质的量之比为 3 : 4
+    [D] [EQ]: 工业制备 e：b→a→d→e
+
+--- pdf-253  answer=A  ask=correct  pureLlmCorrect=True
+  Q: （2025·台州二模·★★）下列说法正确的是（ ）
+    [A] [EQ] <<<ANSWER: 常温下，反应 2N2O(g) ⇌ 2N2(g) + O2(g)  ΔH > 0 能自发进行，表明熵变是决定该反应能否自发进行的主要因素
+    [B] [EQ]: 合成氨反应 N2(g) + 3H2(g) ⇌ 2NH3(g)  ΔH < 0，使用铁触媒作催化剂可降低反应活化能，同等程度改变正、逆反应速率，但活化分子的百分数并没有改变
+    [C]: 在新制氯水平衡体系中加入少量 NaCl 固体，溶液中的平衡均逆向移动，溶液的 pH 增大，HClO 的浓度减小
+    [D] [EQ]: 已知 CH4 的燃烧热为 ΔH1，CH4(g) + 2O2(g) ⇌ CO2(g) + 2H2O(g)  ΔH2，H2O(l) ⇌ H2O(g)  ΔH3，则 ΔH1 = ΔH2 + ΔH3
+
+--- pdf-254  answer=A  ask=correct  pureLlmCorrect=True
+  Q: （2024·江西卷·★★★）温度 T 下，向 1 L 真空刚性容器中加入 1 mol (CH3)2CHOH，反应达到平衡时，c(Y) = 0.4 mol/L，(CH3)2CHOH(g) ⇌ (CH3)2CO(g) + H2(g)，下列说法正确的是（ ）
+    [A] <<<ANSWER: 再充入 1 mol X 和 1 mol Y，此时 v正 < v逆
+    [B] [EQ]: 再充入 1 mol X，平衡时 c(Y) = 0.8 mol/L
+    [C]: 再充入 1 mol N2，平衡向右移动
+    [D]: 若温度升高，X 的转化率增大，则上述反应 ΔH < 0
+
+--- pdf-256  answer=D  ask=correct  pureLlmCorrect=True
+  Q: （2024·重庆卷·★★★）醋酸甲酯制乙醇的反应为 CH3COOCH3(g) + 2H2(g) ⇌ CH3CH2OH(g) + CH3OH(g)。三个10 L恒容密闭容器中分别加入1 mol醋酸甲酯和9.8 mol氢气，在不同温度下，反应t分钟时醋酸甲酯物质的量n如图所示。下列说
+    [A]: 该反应的 ΔH > 0
+    [B] [EQ]: 容器甲中平均反应速率 v(H2) = 4/(5t) mol/(L·min)
+    [C]: 容器乙中当前状态下反应速率 v正 < v逆
+    [D] <<<ANSWER: 容器丙中乙醇的体积分数为8%
+
+--- pdf-266  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2025·北京昌平二模·★★★)相同温度下，关于盐酸和醋酸两种溶液的比较，下列说法正确的是（ ）
+    [A] [EQ] <<<ANSWER: pH 相等的两溶液中：c(CH3COO⁻)=c(Cl⁻)
+    [B]: 分别中和 pH 相等、体积相等的两溶液，所需 NaOH 的物质的量相同
+    [C]: 相同浓度的两溶液，分别与完全相同的 Mg 条反应，反应速率相同
+    [D] [EQ]: 相同浓度的两溶液，分别与 NaOH 固体反应后呈中性的溶液中：c(CH3COO⁻)=c(Cl⁻)
+
+--- pdf-268  answer=A, B, C, D  ask=correct  pureLlmCorrect=True
+  Q: (2025·北京东城二模·★★★)25 ℃时，下列说法正确的是（ ）
+    [A]: 2 mL 0.1 mol/L 的醋酸和盐酸分别与足量锌反应，生成 H2 的量基本相同
+    [B] [EQ]: Na2CO3 溶液中：2c(Na⁺)=c(CO3²⁻)+c(HCO3⁻)+c(H2CO3)
+    [C]: 将 0.1 mol/L 醋酸溶液稀释后，c(CH3COO⁻)/c(CH3COOH) 减小
+    [D] [EQ]: pH=3 的盐酸和 pH=11 的 NaOH 溶液等体积混合，所得溶液 pH>7
+
+--- pdf-270  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2021·浙江 1 月选考·★★★)25 ℃时，下列说法正确的是（ ）
+    [A]: NaHA 溶液呈酸性，可以推测 H2A 为强酸
+    [B]: 可溶性正盐 BA 溶液呈中性，可以推测 BA 为强酸强碱盐
+    [C]: 0.010 mol·L⁻¹、0.10 mol·L⁻¹ 的醋酸溶液的电离度分别为 α₁、α₂，则 α₁<α₂
+    [D] [EQ] <<<ANSWER: 100 mL pH=10.00 的 Na2CO3 溶液中水电离出 H⁺ 的物质的量为 1.0×10⁻⁵ mol
+
+--- pdf-282  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2025·浙江三模·★★★)下列说法正确的是( )
+    [A] [EQ]: 0.1 mol/L 的 HCN 溶液与 0.1 mol/L 的 KCN 溶液等体积混合：c(HCN)+c(CN⁻)=0.2 mol/L
+    [B] [EQ]: 向氨水中逐滴加入盐酸，当氨水中水的电离程度最大时：c(NH4⁺)=c(Cl⁻)
+    [C] [EQ]: 等体积、等浓度的醋酸溶液和醋酸钠溶液混合：2c(CH3COOH)+2c(CH3COO⁻)=c(Na⁺)
+    [D] [EQ] <<<ANSWER: 碳酸氢钠和碳酸钠物质的量之比为 2∶1 的混合溶液中：3c(H⁺)+c(HCO3⁻)+4c(H2CO3)=2c(CO3²⁻)+3c(OH⁻)
+
+--- pdf-283  answer=B  ask=correct  pureLlmCorrect=True
+  Q: 11. (2025·江苏苏州三模★★★)室温下，用FeSO4溶液与氨水-NH4HCO3混合溶液反应，制备FeCO3。已知Ka1(H2CO3)=4.3×10^-7，Ka2(H2CO3)=7.1×10^-11。下列说法正确的是（ ）
+    [A]: 0.1 mol/L氨水中：c(OH^-)>c(H^+)+c(NH4^+)
+    [B] [EQ] <<<ANSWER: 0.1 mol/L NH4HCO3溶液(pH=7.8)中：c(H2CO3)>c(CO3^2-)
+    [C] [EQ]: 0.1 mol/L氨水与0.1 mol/L NH4HCO3溶液等体积混合：c(HCO3^-)+c(H2CO3)+c(CO3^2-)=2c(NH4^+)+2c(NH3·H2O)
+    [D]: 制得FeCO3沉淀后的上层清液中：c(Fe^2+)·c(CO3^2-)<Ksp(FeCO3)
+
+--- pdf-291  answer=C  ask=correct  pureLlmCorrect=True
+  Q: 7.(2024·重庆卷·★★★)某兴趣小组探究[Cu(NH3)4](NO3)2的生成过程。若向3 mL 0.1 mol/L Cu(NO3)2溶液中逐滴加入1 mol/L氨水，则下列说法正确的是（ ）
+    [A] [EQ]: 产生少量沉淀时(pH=4.8)，溶液中c(NH4+)<c(OH-)
+    [B] [EQ]: 产生大量沉淀时(pH=6.0)，溶液中c(NH4+)>c(NO3-)
+    [C] <<<ANSWER: 沉淀部分溶解时，溶液中c(Cu2+)<c(NH4+)
+
+--- pdf-298  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2024·全国甲卷·★★★★☆)科学家使用 δ-MnO2 研制了一种 MnO2-Zn 可充电电池(如图所示)。电池工作一段时间后，MnO2 电极上检测到 MnOOH 和少量 ZnMn2O4。下列叙述正确的是（ ）
+    [A]: 充电时，Zn2+ 向阳极方向迁移
+    [B] [EQ]: 充电时，会发生反应：Zn + 2MnO2 = ZnMn2O4
+    [C] [EQ] <<<ANSWER: 放电时，正极反应有：MnO2 + H2O + e- = MnOOH + OH-
+    [D]: 放电时，Zn 电极质量减少 0.65 g，MnO2 电极生成了 0.020 mol MnOOH
+
+--- pdf-299  answer=B  ask=correct  pureLlmCorrect=True
+  Q: (2024·江西卷·★★★★☆)我国学者发明了一种新型多功能甲醛-硝酸盐电池，可同时处理废水中的甲醛和硝酸根离子(如图)。下列说法正确的是（ ）
+    [A] [EQ]: CuAg 电极反应式为 2HCHO + 2H2O - 4e- = 2HCOO- + H2↑ + 2OH-
+    [B] [EQ] <<<ANSWER: CuRu 电极反应式为 NO3- + 6H2O + 8e- = NH3↑ + 9OH-
+    [C]: 放电过程中，OH- 通过质子交换膜从左室传递到右室
+    [D]: 处理废水过程中溶液 pH 不变，无需补加 KOH
+
+--- pdf-300  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2024·福建卷·★★★★☆)一种兼具合成功能的新型锂电池工作原理如图。电解质为含 Li+ 有机溶液。放电过程中产生 (CF3SO2)2NLi，充电过程中电解 LiCl 产生 Cl2。下列说法正确的是（ ）
+    [A]: 交换膜为阴离子交换膜
+    [B]: 电解质溶液可替换为 LiCl 水溶液
+    [C]: 理论上每生成 1 mol Cl2，需消耗 2 mol Li
+    [D] [EQ] <<<ANSWER: 放电时总反应：6Li + N2 + 4CF3SO2Cl = 2(CF3SO2)2NLi + 4LiCl
+
+--- pdf-303  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2023·山东卷·不定项选择★★★)利用热再生氨电池可实现CuSO4电镀废液的浓缩再生。电池装置如图所示，甲、乙两室均预加相同的CuSO4电镀废液，向甲室加入足量氨水后电池开始工作。下列说法正确的是（ ）
+    [A]: 甲室Cu电极为正极
+    [B]: 隔膜为阳离子交换膜
+    [C] [EQ] <<<ANSWER: 电池总反应为Cu²⁺ + 4NH₃ ═ [Cu(NH₃)₄]²⁺
+    [D]: NH₃扩散到乙室将对电池电动势产生影响
+
+--- pdf-309  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2025·山西三模·★★★)工业上用单池双膜三液装置(如下图)，依据电解原理电解NH4NO3制备HNO3和NH3·H2O，下列说法正确的是（ ）
+    [A]: 导线X接外电源的负极
+    [B] [EQ]: N电极的电极反应式为2NH4⁺+2e⁻=2NH3↑+H2↑
+    [C] <<<ANSWER: 每产生标准状况下22.4 L气体A时，Ⅲ室溶液的质量理论上减少4 g
+    [D]: 离子交换膜Ⅱ为阳离子交换膜
+
+--- pdf-311  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2024·重庆卷·★★★)我国科研工作者研发了一种新型复合电极材料，可将CO2电催化转化为甲酸，如图是电解装置示意图。下列说法正确的是（ ）
+    [A]: 电解时电极N上产生OH⁻
+    [B]: 电解时电极M上发生氧化反应
+    [C]: 阴、阳离子交换膜均有两种离子通过
+    [D] [EQ] <<<ANSWER: 总反应为2CO2+2H2O==(电解)==2HCOOH+O2
+
+--- pdf-315  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2024·广东卷·★★)我国自主设计建造的浮式生产储卸油装置“海葵一号”将在珠江口盆地海域使用,其钢铁外壳镶嵌了锌块,以利用电化学原理延缓外壳的腐蚀。下列有关说法正确的是
+    [A]: 钢铁外壳为负极
+    [B]: 镶嵌的锌块可永久使用
+    [C]: 该法为外加电流法
+    [D] [EQ] <<<ANSWER: 锌发生反应:Zn−2e⁻=Zn²⁺
+
+--- pdf-317  answer=B  ask=correct  pureLlmCorrect=False
+  Q: (2023·广东卷·★★)负载有Pt和Ag的活性炭,可选择性去除Cl⁻实现废酸的纯化,其工作原理如图。下列说法正确的是
+    [A]: Ag作原电池正极
+    [B] <<<ANSWER: 电子由Ag经活性炭流向Pt
+    [C] [EQ]: Pt表面发生的电极反应式:O₂+2H₂O+4e⁻=4OH⁻
+    [D]: 每消耗标准状况下11.2 L O₂,最多去除1 mol Cl⁻
+
+--- pdf-422  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2025·湖南卷·★★★)加热条件下，浓硫酸与木炭发生反应：C + 2H_2SO_4(浓) ==(△)== CO_2↑ + 2H_2O + 2SO_2↑，设 N_A 为阿伏加德罗常数的值。下列叙述正确的是( )
+    [A] <<<ANSWER: 12 g ^12C 含质子数为 6N_A
+    [B]: 常温常压下，6.72 L CO_2 含 σ 键数目为 0.6N_A
+    [C] [EQ]: 1.0 L pH=1 的稀硫酸中含 H^+ 数目为 0.2N_A
+    [D]: 64 g SO_2 与 16 g O_2 充分反应得到 SO_3 的分子数为 N_A
+
+--- pdf-424  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2024·广东卷·★★)设 N_A 为阿伏加德罗常数的值。下列说法正确的是( )
+    [A] [EQ] <<<ANSWER: 26 g H—C≡C—H 中含有 σ 键的数目为 3N_A
+    [B]: 1 L 1 mol/L NH_4NO_3 溶液中含 NH_4^+ 的数目为 N_A
+
+--- pdf-426  answer=D  ask=correct  pureLlmCorrect=False
+  Q: (2024·江西卷·★★★)我国学者把游离态氮固定在碳上(示踪反应如下)，制得的[N=C=N]^2-可用于合成核酸的结构单元。阿伏加德罗常数的值为NA，下列说法正确的是（ ） 15N2 + C(石墨) + 2LiH --(20 atm,550℃,5 h)--> Li2[15NC1
+    [A]: 22.4 L 15N2含有的中子数为16NA
+    [B]: 12 g C(石墨)中sp2杂化轨道含有的电子数为6NA
+    [C] [EQ]: 1 mol [N=C=N]^2-中含有的π键数为4NA
+    [D] <<<ANSWER: 生成1 mol H2时，总反应转移的电子数为6NA
+
+--- pdf-427  answer=A  ask=correct  pureLlmCorrect=True
+  Q: (2023·全国甲卷·★★★)NA为阿伏加德罗常数的值，下列说法正确的是（ ）
+    [A] <<<ANSWER: 0.5 mol异丁烷分子中共价键的数目为6.5NA
+    [B]: 标准状况下，2.24 L SO3中电子的数目为4.00NA
+    [C] [EQ]: 1.0 L pH=2的H2SO4溶液中H+的数目为0.02NA
+    [D]: 1.0 L 1.0 mol/L的Na2CO3溶液中CO3^2-的数目为1.0NA
+
+--- pdf-440  answer=C  ask=correct  pureLlmCorrect=True
+  Q: (2023·江苏·★★)反应：NH4Cl + NaNO2 = NaCl + N2↑ + 2H2O 应用于石油开采，下列说法表示正确的是（ ）
+    [A]: NH4+的电子式为H:N:H（上下各一个H，N上有一对孤对电子）
+    [B]: NO2−中N元素的化合价为+5
+    [C] [EQ] <<<ANSWER: N2分子中存在N≡N键
+    [D]: H2O为非极性分子
+
+--- pdf-457  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2025·重庆阶段练习·★★)常温下，下列给定条件的溶液中，一定能大量共存的离子组是
+    [A]: 加入Al能放出H2的溶液中：Cl⁻、S₂O₃²⁻、SO₄²⁻、NH₄⁺
+    [B]: 0.1 mol/L NaHCO₃溶液中：Cl⁻、NH₄⁺、Fe³⁺、SO₄²⁻
+    [C]: 用惰性电极电解CuSO₄溶液后的溶液中：NO₃⁻、Fe²⁺、K⁺、Na⁺
+    [D] [EQ] <<<ANSWER: 常温下Kw/c(H⁺)=1×10⁻³ mol/L的溶液中：K⁺、Na⁺、CO₃²⁻、[Al(OH)₄]⁻
+
+--- pdf-479  answer=D  ask=correct  pureLlmCorrect=True
+  Q: (2025·广东肇庆二模·★★)部分含 F 或 Cl 物质的分类与相应化合价关系如图所示。下列说法正确的是（ ）
+    [A]: a 一定能与 H2O 反应生成相应的 b 和 d
+    [B] [EQ]: 若存在 a→b→e 的转化，则 e 的水溶液一定呈中性
+    [C]: 若 b 存在分子间氢键，则其沸点一定高于同周期其他元素的氢化物
+    [D] <<<ANSWER: 若 c 可用作自来水消毒剂，则 f 或 g 均能与 b 的浓溶液反应制得 a
+
+################################################################################
+# ask=? equation-choice  (n=11)
+################################################################################
+
+--- pdf-013  answer=D  ask=?  pureLlmCorrect=True
+  Q: (2024·云南学业考试·★★)下列物质转化不能实现的是( )
+    [A] [EQ]: SiO2(s) --(C,高温)--> (粗)Si(s) --(HCl,300℃)--> SiHCl3(g) --(H2,1100℃)--> 高纯 Si(s)
+    [B] [EQ]: NaCl(aq) --(NH3,CO2)--> NaHCO3(s) --(△)--> Na2CO3(s)
+    [C] [EQ]: CaCO3(s) --(高温)--> CaO(s) --(H2O)--> Ca(OH)2(aq) --(Cl2)--> Ca(ClO)2(aq)
+    [D] [EQ] <<<ANSWER: N2(g) --(H2,高温,高压,催化剂)--> NH3(g) --(O2,催化剂,△)--> NO(g) --(H2O)--> HNO3(aq)
+
+--- pdf-016  answer=D  ask=?  pureLlmCorrect=True
+  Q: (2025·江苏南通模拟·★★★)铁的单质及许多化合物均具有重要用途。K2FeO4 可用作净水剂，K2FeO4 在水中不稳定，会生成 Fe(OH)3 胶体，碱性条件下 KClO 的氧化性大于 K2FeO4。下列有关铁及其化合物的相关转化，在指定条件下能实现的是（ ）
+    [A] [EQ]: Fe --(H2O,高温)--> Fe2O3 --(Al,高温)--> Fe
+    [B] [EQ]: Fe2O3 --(KClO,KOH)--> K2FeO4 --(H2O)--> H2
+    [C] [EQ]: FeCl3(aq) --(蒸干,灼烧)--> Fe2O3 --(H2O)--> Fe(OH)3
+    [D] [EQ] <<<ANSWER: Fe --(Cl2,△)--> FeCl3 --(Cu)--> FeCl2
+
+--- pdf-017  answer=A  ask=?  pureLlmCorrect=True
+  Q: (2025·江苏无锡期中·★★★)元素及其化合物的转化在工业生产中具有极其重要的用途。下列物质间转化能实现的是（ ）
+    [A] [EQ] <<<ANSWER: 工业制取漂白粉：饱和食盐水 --(电解)--> Cl2 --(澄清石灰水)--> 漂白粉
+    [B] [EQ]: 工业制镁：MgCl2 溶液 --(蒸干)--> 无水 MgCl2 --(熔融电解)--> Mg
+    [C] [EQ]: 工业制取硫酸：S --(过量 O2,点燃)--> SO3 --(水)--> H2SO4
+    [D] [EQ]: 工业制取纯碱：饱和食盐水 --(①过量 NH3,②过量 CO2)--> NaHCO3 固体 --(△)--> Na2CO3 固体
+
+--- pdf-037  answer=D  ask=?  pureLlmCorrect=True
+  Q: 7.(2025·模拟组合题★★★)下列图示与得出结论相符的是(水合离子用相应离子符号表示)()
+    [A] [EQ]: (2025·北京期中)CH3COOH在水中电离如图甲所示,则电离方程式为CH3COOH⇌CH3COO⁻+H⁺
+    [B] [EQ]: (2025·北京期中)电解CuCl2溶液如图乙所示,电解方程式为CuCl2=Cu²⁺+2Cl⁻
+    [C]: (2025·湖北一模)向冰醋酸中加水,溶液导电能力的变化曲线如图丙所示,b点表示醋酸溶液的电离程度最大
+    [D] <<<ANSWER: (2025·湖北一模)向稀硫酸中加入Ba(OH)2溶液,溶液导电能力变化如图丁所示,则C点对应溶液中含有较多的Ba²⁺和OH⁻
+
+--- pdf-052  answer=B  ask=?  pureLlmCorrect=True
+  Q: (2023·北京卷)下列离子方程式与所给事实不相符的是( )
+    [A] [EQ]: Cl₂制备84消毒液(主要成分是NaClO):Cl₂+2OH⁻=Cl⁻+ClO⁻+H₂O
+    [B] [EQ] <<<ANSWER: 食醋去除水垢中的CaCO₃:CaCO₃+2H⁺=Ca²⁺+H₂O+CO₂↑
+    [C] [EQ]: 利用覆铜板制作印刷电路板:2Fe³⁺+Cu=2Fe²⁺+Cu²⁺
+    [D] [EQ]: Na₂S去除废水中的Hg²⁺:Hg²⁺+S²⁻=HgS↓
+
+--- pdf-103  answer=B  ask=?  pureLlmCorrect=True
+  Q: (2024·广东卷·★★)部分含Mg或Al或Fe物质的分类与相应化合价关系如图。下列推断合理的是( )
+    [A] [EQ]: 若a在沸水中可生成e,则a→f的反应一定是化合反应
+    [B] [EQ] <<<ANSWER: 在g→f→e→d转化过程中,一定存在物质颜色的变化
+    [C]: 加热c的饱和溶液,一定会形成能产生丁达尔效应的红棕色分散系
+    [D]: 若b和d均能与同一物质反应生成c,则组成a的元素一定位于元素周期表p区
+
+--- pdf-144  answer=×  ask=?  pureLlmCorrect=False
+  Q: (2025·河北秦皇岛一模·★★★)硫及其化合物的转化具有重要应用。下列含硫物质间的转化均能一步实现的是（ ）
+    [A] [EQ]: FeS₂ --[O₂(g), 高温]→ SO₃ --[H₂O(l)]→ H₂SO₄
+    [B] [EQ]: SO₂ --[CaCl₂溶液]→ CaSO₃ --[O₂]→ CaSO₄
+    [C] [EQ]: 稀硫酸 --[Cu, △]→ SO₂ --[过量NaOH溶液]→ Na₂SO₃溶液
+    [D] [EQ]: Na₂S₂O₃ --[稀硫酸, △]→ S --[Cu]→ Cu₂S
+
+--- pdf-250  answer=B  ask=?  pureLlmCorrect=True
+  Q: (2024·安徽卷·★★★)某温度下,在密闭容器中充入一定量的X(g),发生下列反应:X(g)⇌Y(g)(ΔH1<0),Y(g)⇌Z(g)(ΔH2<0),测得各气体浓度与反应时间的关系如右图所示。下列反应进程示意图符合题意的是( )
+    [A] [EQ]: 能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量低于Y
+    [B] [EQ] <<<ANSWER: 能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态2能量高于过渡态1，Y能量低于X，Z能量低于Y
+    [C] [EQ]: 能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态1能量高于过渡态2，Y能量高于X，Z能量低于Y
+    [D] [EQ]: 能量图：X→过渡态1→Y→过渡态2→Z，其中过渡态1能量高于过渡态2，Y能量低于X，Z能量高于Y
+
+--- pdf-252  answer=BFH  ask=?  pureLlmCorrect=False
+  Q: （★★）勒夏特列原理在工农业生产和日常生活中都具有重要的意义，下列相关事实不能用勒夏特列原理解释的是
+    [A] [EQ]: 溴水中存在平衡 Br2 + H2O ⇌ HBr + HBrO，当加入少量硝酸银固体后，溶液颜色变浅
+    [B] [EQ]: 反应 2HI(g) ⇌ H2(g) + I2(g) 达到平衡后，缩小容器体积可使体系颜色变深
+    [C] [EQ]: Na(l) + KCl(l) ⇌ NaCl(l) + K(g)，工业上将钾蒸气从反应体系中分离出来，以制备金属钾
+    [D]: 可用浓氨水和 NaOH 固体快速制氨气
+    [E]: 实验室用排饱和食盐水的方法收集氯气
+    [F]: 用 H2O2 溶液制取氧气时加入少量 MnO2
+    [G]: 工业上生产硫酸的过程中使用过量的空气以提高 SO2 的利用率
+    [H]: 500 ℃左右比室温更有利于合成氨的反应
+
+--- pdf-374  answer=B  ask=?  pureLlmCorrect=True
+  Q: (★★★)下列高分子化合物是由两种单体通过加聚反应而制得的是( )
+    [A] [EQ]: [-CH2-C(CH3)=CH-CH2-]n
+    [B] <<<ANSWER: [-CH2-CH(CH3)-CH2-CH2-]n
+    [C]: [-CH2-CH(C6H5)-]n
+    [D]: [-NH-CH2-C(O)-NH-CH(C6H5)-CH2-O-]n
+
+--- pdf-403  answer=B  ask=?  pureLlmCorrect=False
+  Q: (2024·山东卷改编·★★★)由下列事实或现象能得出相应结论的是( )
+    [A]: 向酸性KMnO4溶液中加入草酸,紫色褪去
+    [B] <<<ANSWER: 铅蓄电池使用过程中两电极的质量均增加
+    [C]: 向等物质的量浓度的NaCl、Na2CrO4混合溶液中滴加AgNO3溶液,先生成AgCl白色沉淀
+    [D] [EQ]: 2NO2⇌N2O4为基元反应,将盛有NO2的密闭烧瓶浸入冷水,红棕色变浅

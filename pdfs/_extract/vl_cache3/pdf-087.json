@@ -1,0 +1,15 @@
+{
+  "id": "pdf-087",
+  "images": [
+    "pdf_images/p024_n03_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "转化关系图",
+      "reason": "图中展示了H₂S脱硫的两步循环过程，明确标出反应物、产物（如X）、中间体Fe₂(SO₄)₃/FeSO₄及T·F菌的作用位置，是判断选项A、C、D正误的关键依据，文字题干未描述具体转化路径。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"转化关系图\",\n    \"reason\": \"图中展示了H₂S脱硫的两步循环过程，明确标出反应物、产物（如X）、中间体Fe₂(SO₄)₃/FeSO₄及T·F菌的作用位置，是判断选项A、C、D正误的关键依据，文字题干未描述具体转化路径。\"\n  }\n]"
+}

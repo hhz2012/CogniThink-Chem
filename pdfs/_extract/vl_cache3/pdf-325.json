@@ -1,0 +1,15 @@
+{
+  "id": "pdf-325",
+  "images": [
+    "pdf_images/p113_n01_0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "微观示意图",
+      "reason": "该图展示了p-p π键形成时两个p轨道的侧面重叠方式，是判断D选项正误所必需的视觉依据，题干文字未描述具体重叠形态。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"微观示意图\",\n    \"reason\": \"该图展示了p-p π键形成时两个p轨道的侧面重叠方式，是判断D选项正误所必需的视觉依据，题干文字未描述具体重叠形态。\"\n  }\n]"
+}

@@ -1,0 +1,15 @@
+{
+  "id": "pdf-330",
+  "images": [
+    "pdf_images/p114_n03_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "物质结构式",
+      "reason": "图片为化合物A的键线式，是确定其碳骨架、取代基位置及空间构型的唯一依据，题干文字未描述具体结构。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"物质结构式\",\n    \"reason\": \"图片为化合物A的键线式，是确定其碳骨架、取代基位置及空间构型的唯一依据，题干文字未描述具体结构。\"\n  }\n]"
+}

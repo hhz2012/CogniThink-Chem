@@ -1,0 +1,62 @@
+{
+  "id": "pdf-404",
+  "type": "graph",
+  "img": "pdf_images/p133_n10_1.png",
+  "key": "pdf-404_p133_n10_1_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"CaCO3\", \"label\": \"5 g 碳酸钙\"},\n    {\"id\": \"solution1\", \"label\": \"煮沸 趁热过滤\"},\n    {\"id\": \"solution2\", \"label\": \"冷水冷却\"},\n    {\"id\": \"solution3\", \"label\": \"冰水浴\"},\n    {\"id\": \"CaO2·8H2O\", \"label\": \"CaO₂·8H₂O\"},\n    {\"id\": \"CaO2\", \"label\": \"CaO₂\"}\n  ],\n  \"edges\": [\n    {\"from\": \"CaCO3\", \"to\": \"solution1\", \"cond\": \"20 mL 6 mol·L⁻¹ 盐酸\"},\n    {\"from\": \"solution1\", \"to\": \"solution2\", \"cond\": \"3 mol·L⁻¹ NaOH溶液\"},\n    {\"from\": \"solution2\", \"to\": \"solution3\", \"cond\": \"30% H₂O₂\"},\n    {\"from\": \"solution3\", \"to\": \"CaO2·8H2O\", \"cond\": \"抽滤 冰水洗涤\"},\n    {\"from\": \"CaO2·8H2O\", \"to\": \"CaO2\", \"cond\": \"105 ℃ 烘干1 h\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "CaCO3",
+        "label": "5 g 碳酸钙"
+      },
+      {
+        "id": "solution1",
+        "label": "煮沸 趁热过滤"
+      },
+      {
+        "id": "solution2",
+        "label": "冷水冷却"
+      },
+      {
+        "id": "solution3",
+        "label": "冰水浴"
+      },
+      {
+        "id": "CaO2·8H2O",
+        "label": "CaO₂·8H₂O"
+      },
+      {
+        "id": "CaO2",
+        "label": "CaO₂"
+      }
+    ],
+    "edges": [
+      {
+        "from": "CaCO3",
+        "to": "solution1",
+        "cond": "20 mL 6 mol·L⁻¹ 盐酸"
+      },
+      {
+        "from": "solution1",
+        "to": "solution2",
+        "cond": "3 mol·L⁻¹ NaOH溶液"
+      },
+      {
+        "from": "solution2",
+        "to": "solution3",
+        "cond": "30% H₂O₂"
+      },
+      {
+        "from": "solution3",
+        "to": "CaO2·8H2O",
+        "cond": "抽滤 冰水洗涤"
+      },
+      {
+        "from": "CaO2·8H2O",
+        "to": "CaO2",
+        "cond": "105 ℃ 烘干1 h"
+      }
+    ]
+  }
+}

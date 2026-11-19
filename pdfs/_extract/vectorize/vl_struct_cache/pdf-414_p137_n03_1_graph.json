@@ -1,0 +1,62 @@
+{
+  "id": "pdf-414",
+  "type": "graph",
+  "img": "pdf_images/p137_n03_1.png",
+  "key": "pdf-414_p137_n03_1_graph",
+  "raw": "{\n  \"nodes\": [\n    {\"id\": \"工业绿矾 (FeSO₄·7H₂O)\", \"label\": \"工业绿矾 (FeSO₄·7H₂O)\"},\n    {\"id\": \"FeSO₄ 溶液\", \"label\": \"FeSO₄ 溶液\"},\n    {\"id\": \"沉淀：Fe(OH)₂和Fe(OH)₃\", \"label\": \"沉淀：Fe(OH)₂和Fe(OH)₃\"},\n    {\"id\": \"产品Fe₃O₄\", \"label\": \"产品Fe₃O₄\"},\n    {\"id\": \"溶液a\", \"label\": \"溶液a\"},\n    {\"id\": \"产品Na₂SO₄\", \"label\": \"产品Na₂SO₄\"}\n  ],\n  \"edges\": [\n    {\"from\": \"工业绿矾 (FeSO₄·7H₂O)\", \"to\": \"FeSO₄ 溶液\", \"cond\": \"加50~80℃的热水溶解\\n过滤除杂\"},\n    {\"from\": \"FeSO₄ 溶液\", \"to\": \"沉淀：Fe(OH)₂和Fe(OH)₃\", \"cond\": \"①适量NaOH溶液\\n②通一定量空气\"},\n    {\"from\": \"FeSO₄ 溶液\", \"to\": \"溶液a\", \"cond\": \"①适量NaOH溶液\\n②通一定量空气\"},\n    {\"from\": \"沉淀：Fe(OH)₂和Fe(OH)₃\", \"to\": \"产品Fe₃O₄\", \"cond\": \"加热\"},\n    {\"from\": \"溶液a\", \"to\": \"产品Na₂SO₄\", \"cond\": \"操作A\"}\n  ]\n}",
+  "data": {
+    "nodes": [
+      {
+        "id": "工业绿矾 (FeSO₄·7H₂O)",
+        "label": "工业绿矾 (FeSO₄·7H₂O)"
+      },
+      {
+        "id": "FeSO₄ 溶液",
+        "label": "FeSO₄ 溶液"
+      },
+      {
+        "id": "沉淀：Fe(OH)₂和Fe(OH)₃",
+        "label": "沉淀：Fe(OH)₂和Fe(OH)₃"
+      },
+      {
+        "id": "产品Fe₃O₄",
+        "label": "产品Fe₃O₄"
+      },
+      {
+        "id": "溶液a",
+        "label": "溶液a"
+      },
+      {
+        "id": "产品Na₂SO₄",
+        "label": "产品Na₂SO₄"
+      }
+    ],
+    "edges": [
+      {
+        "from": "工业绿矾 (FeSO₄·7H₂O)",
+        "to": "FeSO₄ 溶液",
+        "cond": "加50~80℃的热水溶解\n过滤除杂"
+      },
+      {
+        "from": "FeSO₄ 溶液",
+        "to": "沉淀：Fe(OH)₂和Fe(OH)₃",
+        "cond": "①适量NaOH溶液\n②通一定量空气"
+      },
+      {
+        "from": "FeSO₄ 溶液",
+        "to": "溶液a",
+        "cond": "①适量NaOH溶液\n②通一定量空气"
+      },
+      {
+        "from": "沉淀：Fe(OH)₂和Fe(OH)₃",
+        "to": "产品Fe₃O₄",
+        "cond": "加热"
+      },
+      {
+        "from": "溶液a",
+        "to": "产品Na₂SO₄",
+        "cond": "操作A"
+      }
+    ]
+  }
+}

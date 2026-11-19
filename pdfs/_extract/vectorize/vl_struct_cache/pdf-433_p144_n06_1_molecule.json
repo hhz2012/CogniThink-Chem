@@ -1,0 +1,12 @@
+{
+  "id": "pdf-433",
+  "type": "molecule",
+  "img": "pdf_images/p144_n06_1.png",
+  "key": "pdf-433_p144_n06_1_molecule",
+  "raw": "{\"name\": \"正戊烷\", \"smiles\": \"CCCCC\", \"note\": \"图中为直链烷烃结构，5个碳原子依次单键连接，每个碳满足四价（黑球为C，白球为H），符合正戊烷（n-pentane）的结构特征。\"}",
+  "data": {
+    "name": "正戊烷",
+    "smiles": "CCCCC",
+    "note": "图中为直链烷烃结构，5个碳原子依次单键连接，每个碳满足四价（黑球为C，白球为H），符合正戊烷（n-pentane）的结构特征。"
+  }
+}

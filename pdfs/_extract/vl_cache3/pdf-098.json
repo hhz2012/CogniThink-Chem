@@ -1,0 +1,43 @@
+{
+  "id": "pdf-098",
+  "images": [
+    "pdf_images/p028_n09_0.png",
+    "pdf_images/p028_n09_1.png",
+    "pdf_images/p028_n09_2.png",
+    "pdf_images/p028_n09_3.png",
+    "pdf_images/p028_n09_4.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "工艺流程图",
+      "reason": "展示了侯氏制碱法的核心物质转化路径（浓氨水+NaCl→饱和氨盐水→通CO₂生成NaHCO₃和母液→分别处理得Na₂CO₃和NH₄Cl），是理解整个实验逻辑与各问题背景的必需信息。"
+    },
+    {
+      "index": 1,
+      "meaningful": true,
+      "type": "实验装置图",
+      "reason": "呈现装置A（启普发生器原理）的结构细节，含CaCO₃颗粒、稀盐酸、活塞a等，用于对比装置B并回答第(2)问中装置A的优点（如可随时控制反应启停）。"
+    },
+    {
+      "index": 2,
+      "meaningful": true,
+      "type": "实验装置图",
+      "reason": "展示装置B（锥形瓶+分液漏斗）的构造，含CaCO₃颗粒、稀盐酸、导管a，与装置A对比，并为第(3)问选择仪器及连接顺序提供关键接口信息（如a口为气体出口）。"
+    },
+    {
+      "index": 3,
+      "meaningful": true,
+      "type": "实验装置图",
+      "reason": "显示雾化装置结构（U形管浸于饱和氨盐水中，b、c为气体进出口），直接对应第(4)问中“雾化装置优点”及气体通入方式，是解题必需的装置细节。"
+    },
+    {
+      "index": 4,
+      "meaningful": true,
+      "type": "实验装置图",
+      "reason": "提供三个洗气/吸收装置（d：饱和食盐水；e/f：饱和NaHCO₃溶液；g/h：NaOH溶液）及其接口标识，用于第(3)问中选择并排列制备NaHCO₃所需的气体净化与反应装置连接顺序。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"工艺流程图\",\n    \"reason\": \"展示了侯氏制碱法的核心物质转化路径（浓氨水+NaCl→饱和氨盐水→通CO₂生成NaHCO₃和母液→分别处理得Na₂CO₃和NH₄Cl），是理解整个实验逻辑与各问题背景的必需信息。\"\n  },\n  {\n    \"index\": 1,\n    \"meaningful\": true,\n    \"type\": \"实验装置图\",\n    \"reason\": \"呈现装置A（启普发生器原理）的结构细节，含CaCO₃颗粒、稀盐酸、活塞a等，用于对比装置B并回答第(2)问中装置A的优点（如可随时控制反应启停）。\"\n  },\n  {\n    \"index\": 2,\n    \"meaningful\": true,\n    \"type\": \"实验装置图\",\n    \"reason\": \"展示装置B（锥形瓶+分液漏斗）的构造，含CaCO₃颗粒、稀盐酸、导管a，与装置A对比，并为第(3)问选择仪器及连接顺序提供关键接口信息（如a口为气体出口）。\"\n  },\n  {\n    \"index\": 3,\n    \"meaningful\": true,\n    \"type\": \"实验装置图\",\n    \"reason\": \"显示雾化装置结构（U形管浸于饱和氨盐水中，b、c为气体进出口），直接对应第(4)问中“雾化装置优点”及气体通入方式，是解题必需的装置细节。\"\n  },\n  {\n    \"index\": 4,\n    \"meaningful\": true,\n    \"type\": \"实验装置图\",\n    \"reason\": \"提供三个洗气/吸收装置（d：饱和食盐水；e/f：饱和NaHCO₃溶液；g/h：NaOH溶液）及其接口标识，用于第(3)问中选择并排列制备NaHCO₃所需的气体净化与反应装置连接顺序。\"\n  }\n]"
+}

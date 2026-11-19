@@ -1,0 +1,22 @@
+{
+  "id": "pdf-313",
+  "images": [
+    "pdf_images/p109_n09_1.png",
+    "pdf_images/p109_n09_2.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": false,
+      "type": "其他",
+      "reason": "仅为题干文字的排版呈现，无额外解题信息。"
+    },
+    {
+      "index": 1,
+      "meaningful": true,
+      "type": "实验装置图",
+      "reason": "展示了含质子交换膜的电解池结构、a/b电极反应物与产物流向，是判断电极极性及书写电极反应式的关键依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": false,\n    \"type\": \"其他\",\n    \"reason\": \"仅为题干文字的排版呈现，无额外解题信息。\"\n  },\n  {\n    \"index\": 1,\n    \"meaningful\": true,\n    \"type\": \"实验装置图\",\n    \"reason\": \"展示了含质子交换膜的电解池结构、a/b电极反应物与产物流向，是判断电极极性及书写电极反应式的关键依据。\"\n  }\n]"
+}

@@ -1,0 +1,24 @@
+{
+  "page_idx": 138,
+  "raw": "[\n  {\n    \"num\": 14,\n    \"answer\": \"B\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"解析：A项，浓硫酸和Cu常温不反应，需加热才生成SO2; B项，Na与H2O反应放热致U形管红墨水左低右高，可证放热；C项，仅观察气泡不能确定气体成分，需检验H2；D项，①步向超分子加甲苯分离C70，②步向超分子加氯仿分离C60，③应蒸馏而非分液。\"\n  },\n  {\n    \"num\": 15,\n    \"answer\": \"D\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"解析：利用Li与液氨反应制备[e(NH3)n]−，碱石灰吸水并促NH3·H2O分解；锂片表面Li2O阻碍反应需打磨；干燥管用P2O5吸过量NH3，不可用CaCl2因生成CaCl2·8NH3；Li具强还原性，双口烧瓶中发生Li + nNH3 → Li+ + [e(NH3)n]−。\"\n  },\n  {\n    \"num\": 16,\n    \"answer\": \"C\",\n    \"module\": \"一化·高考化学核心方法（基础+中档）\",\n    \"explanation\": \"解析：A项，浓H2SO4与CuSO4作用使N全转为NH4+以确保测定准确；B项，过量NaOH增大OH−浓度促使NH3·H2O ⇌ NH4+ + OH−逆移，利于NH3蒸出；C项，用HCl吸收NH3后，以NaOH滴定过量HCl，甲基红作指示剂（酸性变色），计算n(N)=n(HCl)−n(NaOH)；D项，NO3−在浓H2SO4/K2SO4/CuSO4下不转为NH4+，无法测定。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 14,
+      "answer": "B",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "解析：A项，浓硫酸和Cu常温不反应，需加热才生成SO2; B项，Na与H2O反应放热致U形管红墨水左低右高，可证放热；C项，仅观察气泡不能确定气体成分，需检验H2；D项，①步向超分子加甲苯分离C70，②步向超分子加氯仿分离C60，③应蒸馏而非分液。"
+    },
+    {
+      "num": 15,
+      "answer": "D",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "解析：利用Li与液氨反应制备[e(NH3)n]−，碱石灰吸水并促NH3·H2O分解；锂片表面Li2O阻碍反应需打磨；干燥管用P2O5吸过量NH3，不可用CaCl2因生成CaCl2·8NH3；Li具强还原性，双口烧瓶中发生Li + nNH3 → Li+ + [e(NH3)n]−。"
+    },
+    {
+      "num": 16,
+      "answer": "C",
+      "module": "一化·高考化学核心方法（基础+中档）",
+      "explanation": "解析：A项，浓H2SO4与CuSO4作用使N全转为NH4+以确保测定准确；B项，过量NaOH增大OH−浓度促使NH3·H2O ⇌ NH4+ + OH−逆移，利于NH3蒸出；C项，用HCl吸收NH3后，以NaOH滴定过量HCl，甲基红作指示剂（酸性变色），计算n(N)=n(HCl)−n(NaOH)；D项，NO3−在浓H2SO4/K2SO4/CuSO4下不转为NH4+，无法测定。"
+    }
+  ]
+}

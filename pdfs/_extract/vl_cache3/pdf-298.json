@@ -1,0 +1,15 @@
+{
+  "id": "pdf-298",
+  "images": [
+    "pdf_images/p105_n04_0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "实验装置图",
+      "reason": "图中明确标出Zn电极、ZnSO4水溶液及电流表连接方式，确认电池为Zn为负极、δ-MnO2为正极的原电池结构，是判断电极反应和离子迁移方向的关键依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"实验装置图\",\n    \"reason\": \"图中明确标出Zn电极、ZnSO4水溶液及电流表连接方式，确认电池为Zn为负极、δ-MnO2为正极的原电池结构，是判断电极反应和离子迁移方向的关键依据。\"\n  }\n]"
+}

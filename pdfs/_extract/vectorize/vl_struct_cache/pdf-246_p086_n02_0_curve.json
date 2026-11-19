@@ -1,0 +1,13 @@
+{
+  "id": "pdf-246",
+  "type": "curve",
+  "img": "pdf_images/p086_n02_0.png",
+  "key": "pdf-246_p086_n02_0_curve",
+  "raw": "{\n  \"xLabel\": \"反应进程\",\n  \"yLabel\": \"能量\",\n  \"xTicks\": [],\n  \"yTicks\": []\n}",
+  "data": {
+    "xLabel": "反应进程",
+    "yLabel": "能量",
+    "xTicks": [],
+    "yTicks": []
+  }
+}

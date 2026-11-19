@@ -1,0 +1,1202 @@
+[
+ {
+  "id": "pdf-001",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025,湖南阶段性考试,又)分类法是一种行之有效,简单易行的科学方法,人们在认识事 物时可以采取多种分类方法以补充单一分类法的不足。下列关于FeSO,的分类错误的是 〈) A.属于硫酸盐 B.属于氧化物 C.属于亚铁盐 D.属于电",
+  "expected": "关键词: B,属于氧化物"
+ },
+ {
+  "id": "pdf-002",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "2. (2025 .四川月考,支又)对下列吊组物质的分类正确的是( ) A.L酸性氧化物:二氦化硫、干冰氧化铝 B.同素异形体:“ C.混合物:钢铁,氯水漂白粉 D.,电解质氯化钠,水,乙醇",
+  "expected": "关键词: C,混合物:钢铁,氯水漂白粉"
+ },
+ {
+  "id": "pdf-005",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "5. (2025 .天津阶段性测试「又)碳纳米管是一种仅由碳元素组成的纯净物,其直径为10一100 nm, 被认为是一种未来的材料。下列有关碳纳米管的说法正确的是( ) AL碳纳米管属于胶体 B碳纳米管是一种新型化合物 C碳纳米管与Coo互",
+  "expected": "关键词: C"
+ },
+ {
+  "id": "pdf-006",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "6. (2025 .河北阶段性测试,又史)中国的化学工作者已成功研制出碱金属与Coo形成的球碳 盐Ky Coo ,实验测知该物质属于离子化合物,具有良好的超导性。下列有关说法正确的是 ( ) 一化-高考化学核心方法(基砌+中档\\\\ EE p",
+  "expected": "关键词: C,io中只有离子键"
+ },
+ {
+  "id": "pdf-011",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "1. (2022 .湖北卷,支)化学与生活密切相关,下列不涉及化学变化的是(。) A.加人明矾后泥水变澄清 B.北京冬奠会用水快速制冰 C.炖排骨汤时加点醋显道更鲜 D.切开的茄子放置后切面变色",
+  "expected": "关键词: A,加人明矾后泥水变澄清"
+ },
+ {
+  "id": "pdf-012",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "2. (2025 ,伟傲合肥防段练习,又又)下列叙述中正确的是( ) D石墨在一定条件下转化为金刚石是化学变化 OC转化为“C是化学变化 G)氖,氖用作“人造太阳“的核聚变燃料,发生的不是化学变化 @@用铂丝蘸取NasCOs、NasSOu、",
+  "expected": "关键词: C,c. OOOO"
+ },
+ {
+  "id": "pdf-016",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "6. (2025 ,江苏南通模拟,又食又)铁的单质及许多化合物均具有重要用途。K。FeOu可用作 浑水剂,K,FeO,在水中不稳定,会生成Fe(OH);胶体,碱性条件下KCIO的氧化性大于 K。FeOu。下列有关铁及其化合物的相关转化,在指",
+  "expected": "关键词: D,Fe -心Fe"
+ },
+ {
+  "id": "pdf-017",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "7. (2025 ,江苏无钧期中,又又灭)元素及其化合物的转化在工业生产中具有极 下列物质间转化能实现的是(。) C工业制取硫酸:S =EOso, *+H,S0, 燎 澄清石灰水漂自粉 熔磕电解Mg 重要的用途。 A.工业制取漂白粉:饱和食",
+  "expected": "关键词: C,O固体"
+ },
+ {
+  "id": "pdf-020",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "2. (2025 ,陕西西安交大附中高考模拟.又)下列物质属于非电解质的是( ) A.硫酸钡 B.二氧化硫 C.氮化氧 D.氯气",
+  "expected": "关键词: D,氯气"
+ },
+ {
+  "id": "pdf-021",
+  "taskType": "equilibrium",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,河南南阳一模,又又)下列有关电解质的说法正确的是( ) B强电解质溶液的导电性比弱电解质溶液的导电性强 C强电解质都易溶于水 . (2025,江苏南京模拟.又又)下列关于化合物、单质混合物.电解质的正确组合是( ) i乞",
+  "expected": "关键词: B,生石灰磷胆矾"
+ },
+ {
+  "id": "pdf-022",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "5. (2025 .河北衡水一横,大)下列物质在水溶液中的电离方程式书写正确的是( ) A.H,;PO, ==3H* +PO; C.OOH D.NaHSO, ==Na* +HSO;",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-023",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "6. (2025 .云南昆明一中高考标拟.又火)将少量氨氦化钠固体加人下列溶液中,溶液导电能力 变化最大的是(“) (008 } 阮朋沥沥肖吊p浩/人一化-高考化学枭心方法(垮础+中档) A.0. 1 mol + L硫酸滨液 B., 0,1",
+  "expected": "关键词: C,熙饲水"
+ },
+ {
+  "id": "pdf-029",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "2. (2025。青岛三模,支又)下列颜料制取过程不属于氧化还原反应的是( ) A.矾红(FeO3):绿矾每斤,人黄土四两,人罐熬炼,则成矾红 B.胡粉[2Pb C.O]:生益州山谷及越尚山有铜处,铜精熙则生空青 D.空青[",
+  "expected": "关键词: B,胡粉[2Pb"
+ },
+ {
+  "id": "pdf-030",
+  "taskType": "balance",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "3. (2025 ,湖南卷,又又)NaSbOs是一种合成聚酬的催化剂,可用“硝酸钠法“制备,反应的化 学方程式为4NaNOs十4Sb一3O。掣'1N…】S[)()…十2N()十Z〉】()g。下列说法错误的是( ) D反应中消耗3 mol O",
+  "expected": "关键词: B,NO5的空间结构为平面三角形"
+ },
+ {
+  "id": "pdf-035",
+  "taskType": "balance",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "1. (2025,天津和平区二模,又又)利用CHOH可将废水中的NO;转化为对环境无害的物 质后排放,反应原理为H十CH,OH+TNO *X十CO。十H。O(未配平)。下列说法正确 的是( ) B氧化剂与还原剂物质的量之比为6 : 5 (2",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-041",
+  "taskType": "equilibrium",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "2.(2025 ,四川卷,支又)下列与物质性质相关的说法正确的是( ) BL淀粉难溶于水,说明其结构中不含亲水基团 D树溶液焰色试验呈黄色,说明其溶质是氯化钠 A.油脂产生“哈喇“味,因其发生了水解反应 C.硝酸银溶液存于棕色瓶中,因其受光",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-042",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "3. (2025 ,晋陕宁青卷改编,支又)下列有关反应方程式正确的是( ) 3CO, + B用金属钠除去甲茉中的微量水:2Na+2H。O一一2NaOH十H, 4 C用NaOH溶液吸收尾气中的NO。:3NOs十20H 2NO;十NO4十HuO",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-043",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "4 (2025 ,山西太原期末,支又)过氦化钠可用作潜水装置中CO。吸收剂和供氧剂。设N、为 阿伏加德罗常数的值,下列说法正确的是( ) E沥述莲泓孙李林口圆/丨一化-高考化学枭心方法(基础+中桐) A.44 g B.1 mol Na, O",
+  "expected": "关键词: C,1 L 1 mol/L Na,CO,溶液"
+ },
+ {
+  "id": "pdf-045",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "6. (2025 .广东惠州期札,口食)“劳动创造并福生活“,下列劳动项目与所述化学知识没有关联 的是(。) 选项劳动项目化学知识 |B ure ee, SiO,与HF能发生反应 C用石膏改良盐碱地(含Na, CO, ) K ,,(CaSO",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-050",
+  "taskType": "equilibrium",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "8. (2023 .江苏卷.一又又)室温下,探究0. 1 mol + L-1FeSO滨液的性质,下列实验方案能达 到探究目的的是(。) 迷项探究目的实验方案 甸2 mL FeSO,溶液中滴加几滴新制氯水,再滴加 Wy 1 3 | |向2 m",
+  "expected": "关键词: C,| Fe*是否水解eet"
+ },
+ {
+  "id": "pdf-060",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "3. (2024 .江西卷,友又)景德镇青花贼素有“国资“的美誉,是以黏土为原料,用含钻,铁的颜料 着色,上釉后一次性高温烧制而成的青蓝色彩瓷。下列关于青花瓷说法正确的是( ) 心 . (2025 ,湖北三模,又又又)“中国紫“是目前被确认",
+  "expected": "关键词: D,其结构中一个Si周围连接3个O"
+ },
+ {
+  "id": "pdf-061",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "5. (2025 ,黑龙江哈尔滨二模改编,又又又)硼氨化钠(NaBHL )具有优良的还原性,在有机化 NaOH iti CaO MgH; | 1 砌精矿一[消解] _-[陈百、一祖制擅作[制又|--NaBH 1 1 滢渣1滤渣2 已知:〇偏",
+  "expected": "关键词: A,步骤"
+ },
+ {
+  "id": "pdf-071",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,河南安阳一模,一又史)关于物质的处理方法,下列说法正确的是( ) AL蒸馋法:将水蒸气通人酒糟中蒸出白酶 C氧化法:用SOa漂白草幅 【一化“高考化学枭心方河(春砌+中木沥+eRRRLAM————————— B.盐析-过",
+  "expected": "关键词: C,L的SO,通过何和食盐水得到纯净的SO"
+ },
+ {
+  "id": "pdf-073",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "9. (2024 .全国专题练习,又又口)向0. mol + L“的滨液X中通入HoS至过量,下列对应反 应现象或离于方程式中存在错误的是( ) 选项滨液X现象离二方程式 、NH; * H,O十HaS一一NHI十 A史酚酮)‖溶液桂 氨水(",
+  "expected": "关键词: C,CuSO,溶液游液褐色,产生黑色沉清| "
+ },
+ {
+  "id": "pdf-083",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025 +四川卷。支口又)一种主要成分为Cas(PO,a和KAISisO的高钾磷矿,通过如下流程 Fa BA 水浇厂一弘燃城 | | r医招-医口-命-一e y Bie浦液 下列说法错误的是(。) A.“电炉煅烧“必须隔绝空气 B",
+  "expected": "关键词: C,O分离"
+ },
+ {
+  "id": "pdf-085",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,黑吉辽蒙卷,支火又)棣工厂采用如下工艺回收废渣(含有ZnS, PbSO, . FeS和 CuCD中的Zn, Pb元素。 Zn (NH,):S 涛波浩波 (NH,)2S,0;+NHy 1,0 i > ZnS Cu溥波 Ho",
+  "expected": "关键词: C,u(S,0;)3 >十4NH"
+ },
+ {
+  "id": "pdf-088",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "6. (2025,江苏一模,友又)张青莲教授精确测得铜(CIn,原子序数为49)的相对原子质量为 114, 818土0. 003,该值被采用为国际标准数据。下列铋元素的一种核素表示正确的是( ) A.圭In B.朋In C.{In D., ",
+  "expected": "关键词: B,朋In"
+ },
+ {
+  "id": "pdf-091",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "1.(2025,四川卷,支又又)生产磷肥时,利用纯碱滨液吸收SUP,的反应如下; 3SiF,十 2Na,CO; +2H,O0 H, SiO, +2Na,SiF;¥十2CO。。下列说法错误的是( ) A.NasSiF中含有配位键 B.SiF,",
+  "expected": "关键词: B,SiF,和Hy O都是由极性键构成的极性"
+ },
+ {
+  "id": "pdf-097",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "1. (2023,山东卷,支又)下列分子属于极性分子的是( ) B.NF; C.SO; D.SiF;",
+  "expected": "关键词: D,SiF;"
+ },
+ {
+  "id": "pdf-106",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "3. (2024 .山东卷,支)下列物质均为共价晶体且成键结构相似,其中熔点最低的是( ) L. (2025,湖北卷,支又支)下列关于物质性质或应用解释错误的是( ) 选项性质或应用解释 | A |石蜡油的流动性比水的差|石蜡油的分子间作用",
+  "expected": "关键词: B,| NH,滨于水显碱性NH,可结合水中的"
+ },
+ {
+  "id": "pdf-117",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,吉林期末,友又又)在标准压强101 kPa,298 K下,由最稳定的单质合成1 mol物质 卫的反应焰变,叫做物质日的标准摩尔生成焰,用符号AHA(kJ . mol )表示。部分物质的 是( ) -300 -250 -2",
+  "expected": "关键词: C,l反应的化学能转化为电能"
+ },
+ {
+  "id": "pdf-121",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "1.(2024 .江苏卷,支又)下列说法正确的是( ) A.g催化能提高生成 B.ORE, MnO,能加快化学反应速率 C.HOs制O D.SO,与O反应中,V。O;能凑小该反应的焰变",
+  "expected": "关键词: B,ORE, MnO,能加快化学反应速率"
+ },
+ {
+  "id": "pdf-145",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025 .湖北武汉防段练习,大文)下列有关有机化合物分子绪构和性质的分析中正确的是 (多追)。 CH;—-CH—CH, CH;—CH;—CH, CH;-CH;-CH—CH, CH;—CH;—CH,、 Bo dy dae cen b",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-159",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "5. (2024 ,广西卷.友又)6-硝基胡椒酸是合成心血管药物夺索利酸的中间体,其合成路线中的 棠一步如下: 0 NO, @H 6 NO, x Y(6-硝基胡椒酸) 下列有关X和Y的说法正确的是( ) A.所含官能团的个数相等 B.都能发",
+  "expected": "关键词: D,均能溶于碱性水滨液"
+ },
+ {
+  "id": "pdf-166",
+  "taskType": "structure_verify",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "9. (2025 .山东二补,支又又)一种有机催化剂催化修饰色氨酸的反应如下。下列说法正确的 是( ) OH COOH COOH OH OH oH ‘NH, 0傲化剂H HO re On 06 Q on ~ ty 3 +H.O Ho PY ",
+  "expected": "关键词: C,[能使溶水褪色"
+ },
+ {
+  "id": "pdf-169",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "5. (2024。 成。Fons 有利于实现“碳中和“。 as ) I言′(〕产牛勿[吾〈〕分子式和Y的分子式相同 碳碳双键进一步交联形成网状结构 碳双键的加聚反应生成的高分子难以降解 新课标卷,又口又)一种点击化学方法合成聚硫酸酯(W)的",
+  "expected": "关键词: A,双酚A是苯酣的同系物,可与甲醛发生聚合反"
+ },
+ {
+  "id": "pdf-171",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "7. (2025 ,河北期札.又又口灭)下列有关化学材料的说法正确的是( ) B合成酚醛树脂的单体是苯酚和甲醇 H c. meni ann CH, coo Coon A.聚对茉二甲酸乙二酬( C.H,OH经缩聚反应制得 D.fronton ",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-172",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "8 (2025 .八省联考河南卷.大又火)CO的资源化利用,有利于实现*碳中和“。一种功能性 林碳酸酯高分子材料G可由如下反应制备。 Q A o_o] OL LO nL)“Q«sco, it v¥ /矢。丁 E G FABER) 9, (2",
+  "expected": "关键词: B,LIL"
+ },
+ {
+  "id": "pdf-180",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025 .淀江1月选考卷。友)关于实验垮安全,下列说法不正确的是(。) C水银易挥发,若不愚有水银酒落,无需处理 A.若不愚将坡酸河到皮肤上,应立即用大量水冲洗,然后用3%一5% NaH B.实验室制备 C.l时,可用NaOH滨液",
+  "expected": "关键词: C,l时,可用NaOH滨液吸收尾气"
+ },
+ {
+  "id": "pdf-184",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "5. (2024 .北京卷,又又)下列实验的对应操作中,不合理的是( ) ] “A 4 | 眼普注视御形瓶中溶液| | | 定NaOH滨液|*稀释浓硫酸|溶波获得NaC晶体|量浓度的KCL滨波 A.用H C.L| D.配制一定物质的",
+  "expected": "关键词: C,L|"
+ },
+ {
+  "id": "pdf-186",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "7. (2025 ,湖南卷,又又又)化学实验充满着五颜六色的变化。下列描述错误的是( ) 狂′丨〈(亨}薹U_Fc…重l】 溶波溶液箩暑霆蓁_皇堑色 E浩k沥人ss河/人一化-高老化学核心方法(基础+中档) C.溶液呈紫色 D.,试纸变为蓝",
+  "expected": "关键词: A"
+ },
+ {
+  "id": "pdf-187",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "8. (2024 ,广东卷,又又)提纯2. 0 g荼甲酸粗品(含少量NaC和泥沙)的过程如下。其中,操 作又为( ) 认-国-国a图- A.加热蒸馏 B.加水稀释 C.冷却结晶 D.萃取分液",
+  "expected": "关键词: C,冷却结晶"
+ },
+ {
+  "id": "pdf-200",
+  "taskType": "structure_verify",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "3. (2024 +东北三省卷,友史)下列化学用语或表述正确的是( ) A.中二数为1的氨核素FHe B.SiO.的晏体类型:分子晶体 C.F,的共价键类型:p-p o键 D.PCI,的空间结构:平面三角形",
+  "expected": "关键词: A,中二数为1的氨核素FHe"
+ },
+ {
+  "id": "pdf-201",
+  "taskType": "structure_verify",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "4 (2023 ,湖南卷,支史)下列化学用语表述错误的是( ) B中二数为10的氦原子:%O D基态N原孔的价层电子排布tN + tf A.HCIO的电子式:H:b:G: C.NH,分二的VSEPR模型oF",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-205",
+  "taskType": "structure_verify",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "8. (2024 ,贵州卷,又又)下列叙述正确的是( ) A.KBr的电子式为K+CBr ] B.:聚乙炔的结构简式:上 C.SO的空间结构:平面三角形 D.CH3CH,C(CH,;) =CHyz的名称:2-甲基-2-丁烯",
+  "expected": "关键词: B,:聚乙炔的结构简式:上"
+ },
+ {
+  "id": "pdf-206",
+  "taskType": "structure_verify",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "9. (2024 ,广西卷,又又)光照时,纳米TiO。能使水产生羟基自由基OH,可用于处理废水。 下列表述正确的是(。) A.基态Ti的价层电子排布式:3d B.+»OW的电子式为5:H C.H,0的VSEPR #2!:@-Q-@ D.O的",
+  "expected": "关键词: C,H,0的VSEPR #2!:@-Q-@"
+ },
+ {
+  "id": "pdf-211",
+  "taskType": "concept",
+  "llm_ok": true,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025 +新课标卷。支)化学与人类生活密切相关。下列叙述正确的是( ) C碳化硅抗氦化且耐高温,可用作固体电解质 D聚氯乙烯塑料制品耐腐蚀,可用作食品包装 A.硫酸铜具有杀菌作用,可用作饮用水消毒剂 B.小苏打遇酸能产生气体,可用",
+  "expected": "关键词: B,小苏打遇酸能产生气体,可用作食品膨松剂"
+ },
+ {
+  "id": "pdf-009",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "9. (2025 +广西月考.支)下列说法中正确的是( ) Q〇酸性氧化物在一定条件下均能与碱发生反应 @)金属氧化物不一定都是碱性氦化物,但碱性氧化物一定都是金属氧化物 G@)蔻糖和水分别属于非电解质和电解质 @向稀氨水中滴加少量饱和氯化",
+  "expected": "关键词: D,9@0G@O"
+ },
+ {
+  "id": "pdf-026",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "3. (2025 ,资阳二模,又)下列离子或化学方程式书写正确的是( ) B用NaH作野外生氡剂:2NaH+H,O <Na:O+2H 4 C用氧碘酸溶解Fe(OH)a:Fe(OH)3十3H+—=Fe** +3H,0 2025 ,河南模拟预测",
+  "expected": "关键词: B,r-"
+ },
+ {
+  "id": "pdf-054",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "2. (2025,云南卷,又又)下列化学方程式错误的是( ) C覆铜板制作印刷电路板:2FeCl十3Cu一一2Fe十3CuCl D铅酸营电池放电:Pb+PbO,十2H,SO,——2PbSO, +2H,O A.煤制水煤气: B.Na,O,供氦",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-059",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": true,
+  "used": true,
+  "truth": false,
+  "question": "2. (2025 ,浙江三模,一又)物质的性质决定物质的用途,下列说法不正确的是(。) D过氧乙酸具有强氧化性,故可用来杀菌消 里里斤沥述前肉水不江弛/人一化-高考化学枭心方法(基础+中档) A.碳化硅熔点高,故可用作砂纸和砂轮的磨料 B.",
+  "expected": "关键词: B,HF能与SiO,反应,故可用氧氟酸溶蚀玻"
+ },
+ {
+  "id": "pdf-167",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "10. (2025 ,八省联考四川卷,友又)下列关于生物有机分子的说法错误的是( ) C:蛋白质的空间结构发生变化会导致其生物活性改变 Dy核酸可以看作磷酸,戊精和碱基通过一定方式结合而成的分子 BRI合成高分子 1, (2024。 A,线",
+  "expected": "关键词: B,蔗糖和麦芽精的水解产物都含有葡萄精"
+ },
+ {
+  "id": "pdf-199",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": true,
+  "used": false,
+  "truth": false,
+  "question": "2. (2025 ,八省联考河南卷,皮史)下列化学用语或图示正确的是( ) \\ A.CaO的电子式:Ca“[0:T B.Li「的结构示意:@泞 C.tte st. 2-2. ae D.z L",
+  "expected": "关键词: D,z L"
+ },
+ {
+  "id": "pdf-010",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "10. (2025 ,长沙月考。支又灯)(1)取少量FeO,粉未(红棕色)于烧杯中,加人适量盐酸,发生 反应的化学方程式为,反应后得到的FeCl饱和溱 液呈棕黄色。用此溶液进行以下实验。 (2)取少量溶液于试管中,滴人NaOH溶液,可观察到",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-013",
+  "taskType": "reaction_check",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "3. (2024 ,云南学业考该,又又)下列物质转化不能实现的是( ) NH, .CO, 高温H,O Ch H 0 HO A.SiO. (dor B.Na C.> HNO; (aq) D.N2(g) fare arent NH (@) Te",
+  "expected": "关键词: C,> HNO; (aq)"
+ },
+ {
+  "id": "pdf-024",
+  "taskType": "equilibrium",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "7. (2025 ,褪拟组合题,支口又)下列图示与得出结论相符的是(水合离子用相应离子符号表 示)( ) 导电能力 u' 导电能力 0 pared°V{Ba(OH), 8968) 乙i丁 CHncoo-+HY 滨液的电离程度最大 点对应溶液",
+  "expected": "关键词: A,l(OH,4 +3H*"
+ },
+ {
+  "id": "pdf-049",
+  "taskType": "equilibrium",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "7. (2023 .浙江卷。发发发)探究铁及其化合物的性质,下列实验方案,现象和结论都正确的是 ( ) 选项实验方案现象结论 」as .短时间内无明显| Fe“的氦化能力比Zn“ 8 |向Fe(SO溶波中演加KSCN |溶液先变成血红| F",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-131",
+  "taskType": "equilibrium",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "6. (2025 ,浙江宁波期中,支又必)25“C时,部分物质的电离平衡常数如表所示: 化学式| CH; COOH H,CO, HClO HCN | HLC,0, 电离平衡_ | Ky =4.5X107【_ | Ky =5.6X10? 1.",
+  "expected": "关键词: C,L )"
+ },
+ {
+  "id": "pdf-133",
+  "taskType": "calculation",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "11. (2025 .江苏苏州三模,又又友)室温下,用FeSO溶液与氨水-NH, HCO,混合溶液反应, 制备FeCOs。已知K, (H,CO,)=4. 3X 10-7, K,, (H。CO3)一7. 1X10一。下列说法正确 的是( ) ",
+  "expected": "关键词: D,z制得Fe"
+ },
+ {
+  "id": "pdf-194",
+  "taskType": "unknown",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "17. (2024 ,贵州卷。又又又)根据下列实验操作及现象所推出的结论正确的是( ) 选项实验操作及现象结论 原电池,连通后铜片上有固体沉积作负极 向洁净试管中加人新制银氨溶液,滴人几滴乙醛,振 荔,水浴加热,试管壁上出现银镜 向苯酚浊液",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-207",
+  "taskType": "structure_verify",
+  "llm_ok": true,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "10. (2024 .湖南卷。又又)下列化学用语表述错误的是( ) 一CH一CH B异丙基的结构简式: bu, ee 轨道相互靠抢轨道相互重叙“形成共价单键 A.EF 2©5p ase C.l RP D.c分孔h ,键的形戎.真固**—GO",
+  "expected": "关键词: C,l RP"
+ },
+ {
+  "id": "pdf-003",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,湖北月考,又又)下列物质分类正确的是( ) A.H。SO,是强酸 B.a(OH)。、NH是碱 C.l, NaHSO,是盐",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-004",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "4 (2025 ,新疆阶段性测试, We) PR AE CATE FE PE ES IP RT TK AE A FE ( ) AL漂白粉,氢氧化铁胶体,氯水错热剂.冰水混合物都属于混合物 B已知次磷酸H:PO与足量的NaOH反应只能生成一种",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-007",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "7. (2025 .辽宁期未,支)下列关于分散系的说法错误的是( ) AL自然界中的云、雾、烟都是胶体 B按照分散剂的状态不同,胶体可分为液溶胶气溶胺和固溶胶 C.将固体疏酸钡粉碎到直径为1~~100 nm时,该硫酸钡属于胶体 D.分散系都",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-008",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "8. (2025 ,广西月考.又)下列关于胶体的性质制备和应用叙述错误的是( ) AL当日光从窗隙射人时,观察到一李光线 By向氢氧化铁胶体中逐滴加人稀盐酸,先产生红褐色沉淀,后沉淀逐渐溶解并消失 Co将饱和氮化铁溶液滴人氢氧化钠溶液中所形",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-025",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "2. (2025 ,四川绮阳三诊,友又)下列过程对应的离子方程式书写正确的是( ) D,用醋酸和淀粉-KI溶液检验加碘盐中的IO7 :IO5 +51 +6H*—=31,+3H,0 A.gOH 4十NHY B.用NasSO溶液吸收少量 C.向",
+  "expected": "关键词: B,用NasSO溶液吸收少量"
+ },
+ {
+  "id": "pdf-027",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "10. (2025 .全国模拟预测,支又又)向2 mL 0. 2 mol * L“的CuSO,溶液中滴加过量的 0.2 mol * L“的NasSOs溶液,溶液变为蓝绿色,最终产生棕黄色沉淀,已知该沉淀中含有 4.—=2Culy十l十4OH",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-036",
+  "taskType": "balance",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "3. (2025 ,浙江省嘉兴市高三一横,又又又)膏(PH)是一种较强的还原剂,可利用白磷(CP1)和 过量碱液来制备,反应原理为P,十KOH+TH。O一*PH *十KHPO。(未配平)。下列说法 正确的是( ) B氧化剂与还原剂物质的量之",
+  "expected": "关键词: C,eO,和一种无毒的气"
+ },
+ {
+  "id": "pdf-039",
+  "taskType": "balance",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "5. (2025 ,汇编,又又又又)掉要求书写下列方程式: (DJNaNO可作为食品防腐剂,但由于NaNO,具有一定的毒性,因此食品中用量和残留量 均有严格规定。可用酸性KMnO, i NaNO,残留量,配平反应:, _NOI十_MnOz ",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-046",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "7. (2022 .湖北卷,又又)疏代碳酸钠能用于处理废水中的重金属离子,可通过如下反应制备: A.Na, B.Na, C.该制备反应是熵减过程D. CS,的热稳定性比CO。的高 D.)一一Nas",
+  "expected": "关键词: B,Na,"
+ },
+ {
+  "id": "pdf-048",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "6. (2025,江苏南通三模,又又)FeS在酸性条件下可发生反应:FeS:十HSO, FeSO, +S+ H,S4. VA FeS为原料制取FeSO, + 7H, O晶体的实验操作或原理不能达到实验目的的是 装置甲制取含FeSO的悬测液 ",
+  "expected": "关键词: A"
+ },
+ {
+  "id": "pdf-051",
+  "taskType": "balance",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "9. (2025 ,湖北武汉模拟预测「又食食)某实验小纬探究SOa与K,FeOi的反应,实验如下。 装置操作及现象 A |一饷压滴液漪斗 ′实验一:向装置B中通人SOa,产生暗红褐色沉淀X 和溶液Y(略显红色);继续通入SO一段时间后,滨 ",
+  "expected": "关键词: D,A HC. Oy调节溶液pH,降低十4价"
+ },
+ {
+  "id": "pdf-053",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "1. (2023 .上海卷。支)战国时期人们用青铜浇铸形成各样的青铜器,青铜比纯铜更便于制成形 态各异的容器的原因是( ) A.熔点低 B.密度大 C.硬度大 D.不易被腐蚀",
+  "expected": "关键词: C,硬度大"
+ },
+ {
+  "id": "pdf-058",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "8. (2025 .黑吉辽蒙卷,又又)微粒邋逊时的色彩变化是化学馈赠的视觉浪漫。下列对颜色变 化的解释错误的是(。) 选项颜色变化解释 空气中灼烧过的铜丝伸人乙醇 中,黑色铜丝恢复光亮的紫红色目, , Z“ M'昌「(熹′)丨熹〉)悬浊液中",
+  "expected": "关键词: B,, 13Mg(OF"
+ },
+ {
+  "id": "pdf-062",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "7.(2025,辽宁模拟预测改编,又口食贞)锑用于宇航器件的构筑。一种从锋铣硅酸盘 稀硫酸“含HA的煤油过量NaOH | 热熔[玲璋忘 分波过滤 、| hones eit水相1含NaA的煤油滤液2 回答下列问题: (2)“酸浸过滤“步骠中,",
+  "expected": "关键词: C,若b存在分子间氧键,则其沸点一定高于同周"
+ },
+ {
+  "id": "pdf-070",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "2. (2025 ,淀江演州二模,又又史)关于硫的性质,下列说法不正确的是( ) A.浓硫酸可干燥SO。 B.S与 C.向NasS和NasSO的混合溶液中滴加稀硫酸,滨液变淅浊,说明氦化性:SOf二S D.1 mol FeS,与氧气在沸腾炉",
+  "expected": "关键词: D,1 mol FeS,与氧气在沸腾炉中完全"
+ },
+ {
+  "id": "pdf-087",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "8. (2024 ,新课标卷,又又口又)钻及其化合物在制造合金、碱性材料、催化剂及陶资釉等方面 有着广泛应用。一种从湿法炼锌产生的废渣(主要含CovZn、Pb、Fe的单质或氧化物)中富集 回收得到含锰高钴成品的工艺如下; Co(OH); [",
+  "expected": "关键词: C,可通过质谱法区分“K和“K"
+ },
+ {
+  "id": "pdf-090",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "8. (2025 ,江苏模执预测改编.又又)我国科学家对量子材料的研究处于国际领先水平,近年来 对石墨烯.硅烯,错烯等低维量子材料的研究发展迅速。下列说法正确的是( ) C硅和错都位于金属和非金属元素分界线处,属于过渡元素 D金刚石和错常用",
+  "expected": "关键词: B,第一电离能:"
+ },
+ {
+  "id": "pdf-092",
+  "taskType": "vsepr",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "2. (2023 ,湖北卷,支又食)价层电子对互斥理论可以预测枸些微粒的空间结构。下列说法正 确的是( ) A.CH,和H,O的VSEPR模型均为四面佛 B.SO和 C.CF,和SF,均为非极性分子 D.XeF,与XeO。的键角相等",
+  "expected": "关键词: B,SO和"
+ },
+ {
+  "id": "pdf-093",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2024 .河北卷,口支一)从徽观视角探析物质结构及性质是学习化学的有效方法。下列实 例与解释不符的是( ) 选项实例解释 | ~ |工 | |拓电子对与成键电子对的斥力大于成键 旦| CO,,CH,O,CCL,键角依次凑j电子对之",
+  "expected": "关键词: A,电负性:"
+ },
+ {
+  "id": "pdf-094",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "5.(2024 ,甘肃卷,支目口)温室气体N。O在催化剂作用下可分解为O和N ,也可作为氧化 剂氧化荃制苯酚。据此完成下面小题。 (L)下列说法错误的是( ) EIFEI3EEXRINFTRIESNNS0ZF8JhV“第8章“物质结构与性质",
+  "expected": "关键词: C,N,O  N—O比N—N更易断裂"
+ },
+ {
+  "id": "pdf-096",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "10. (2025 ,河北衡水一模,又口口)下列化学用语表达错误的是(。) B中子数为20的氮原子的核素符号:CI Sete eed第8章物质结构与性质元素周期律一c A.HCI分于中sp 0键的电子云轮廉图:CC =) C.SCl的结构式",
+  "expected": "关键词: D,NF,分于的VSEPR模型:四面体形"
+ },
+ {
+  "id": "pdf-098",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "2. (2025 +湖南卷,又又义)下列有关物质性质的解释错误的是( ) 选项性质解释 C熔点:Fe二Na Fe比Na的金属性骏 D沸点:FHo0二HoS H,O分子间存在氧键 A.WHE« B.熔H;NH;NO;<NH,NO; C.,H;",
+  "expected": "关键词: B,熔H;NH;NO;<NH,NO;"
+ },
+ {
+  "id": "pdf-099",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,湖南三模,支又史)将铜加热后伸人有氮气的集气瓶,然后向燃烧后的固体中加人少 量的水使其溶解,得到深绿色溶液。再逐滴加水,滨液由深绿色变成浅蓝色,最后再滴加稀氨 水。具体操作过程如下,下列说法不正确的是( ) Cu和Cl ",
+  "expected": "关键词: A,M中溶液阳离子为["
+ },
+ {
+  "id": "pdf-115",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "1. (2025,天津期中,支)下列说法正确的是( ) 能量+ 反应物个能量CO,(g)+H,(¢) .生成物 生成物反应物目CO@TO0、 反52梁反应过程反应过程 图甲图乙] B图乙表示石墨变成金刚石的能量变化,说明金刚石比石墨稳定 C",
+  "expected": "关键词: B,a(OH)。, 8H,O和NH,"
+ },
+ {
+  "id": "pdf-116",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "2. (2025 ,日照期未,又又)反应CHs(g) -CH,(g)十CH,(g)十Hu(g) _AH ,可经两步完 下列说法错误的是( ) 反应进程 kJ + mol! (078) 一化-高考化学核心方法(基础+中档\\ WE wa add",
+  "expected": "关键词: C,Ha (g)"
+ },
+ {
+  "id": "pdf-118",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "5. (2025 ,湖南高考节选,又口)已知。 (080) E沥东胡人口J胡/人一化-高老化学核心方法(基础+中档) A.高温自发 B.低温自发 C.高温低温均自发 D.高温低温均不自发",
+  "expected": "关键词: C,高温低温均自发"
+ },
+ {
+  "id": "pdf-119",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "6. (2023,全国乙卷,又又)已知下列热化学方程式: 方程式@〇:FeSO, + 7H,0(s) FeSO, (s)+7H,0(g) AH, =a kJ/mol PERO . FeSO, + xH,O(s)——FeSO,(s)+-2H,",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-120",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "7. (2021 .海南高考.口口史)碳及其化合物间的转化广泛存在于自然界及人类的生产和生 活中。 出2 804 kJ热量。 回答下列问题: 式为 (2)25 C ,100 kPa时,气态分子断开1 mol化学键的蒸变称为键热。 已知O =",
+  "expected": "关键词: D,)经光合作用生成葡萄糖["
+ },
+ {
+  "id": "pdf-130",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "5. (2025 ,白城一模,口又史)25 C时,浓度均为0.2 mol/L的NaHCO;和NasCOs滨液中,下 列判断不正确的是( ) B存在的粒二种类相同 A.均存在电离平衡和水解平衙 C.O5 )均增大 D.分别加人NaOH固体,恢",
+  "expected": "关键词: D,分别加人NaOH固体,恢复到原温度,c("
+ },
+ {
+  "id": "pdf-132",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "10. (2025 +浙江三模,又又又)下列说法正确的是( ) mol/L C等体积,等浓度的醋酸溶液和醋酸钠溶液混合:2c(CHCOOH十2c(CHCOO )一c(Na ) 4c(HoCO3)一2c(CO )十Sc(OH ) (095) ",
+  "expected": "关键词: D,碳酸氢钠和碳酸钠物质的量之比为2 : 1"
+ },
+ {
+  "id": "pdf-136",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "5. (2025 ,重庆期末,又命央) 列说法错误的是( ) NHJF谟液过量NH4HCOs溶波 FeSO._ ra] [ >FeCO; EL: D24 cM\" )<1, 0107 mol/L,可认为M“已沉清完全。 O#ilt F .K ",
+  "expected": "关键词: B,NFHF溶液中:c"
+ },
+ {
+  "id": "pdf-139",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "10. (2025,北京东城,三模,又又叶) NasCOs溶液可以处理锅炉水垢中的CaSOu,使其转化 为疏松.易溶于酸的CaCO;。某兴趣小组模拟上述过程: @)向滴有酚酞的1 mol/L Na,CO溶液中加人等体积的浊液a,溶液红色变浅",
+  "expected": "关键词: B,@)中滨液红色变浅可证明有"
+ },
+ {
+  "id": "pdf-144",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025 ,天津河西期中,支又)按碳的骨架对有机化合物进行分类,下列说法正确的是( ) D〔〉OH属二芳香族化合物 . (2023 ,浙江卷改编,又又)下列说法正确的是( ) H | 1 cl H HO OH .下列关于有机化合物的",
+  "expected": "关键词: D,z pp x Henini oa eel"
+ },
+ {
+  "id": "pdf-149",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "6. (2025 .北京昌平二楼,又食口)以2-丁烯为原料合成G的路线如下,其中有2种化学环 O0CCHb cl 0 (110) `】 co 一一一一一一一一一第12章“有机化学“// RSET ee 境不同的H原子。 CH,OH i CH",
+  "expected": "关键词: C,产物"
+ },
+ {
+  "id": "pdf-150",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "1.(2025 ,河北承德期中,又又)下列卤代烃既能发生消去反应生成烯烃,又能发生水解反应生 成醇的是(。) Hy C 、、i @CH,Cl @CH,CHBrCH, @) IO @〔〕c}【5 @拥「蓝唰 CH, CH, @ct-CH-C-",
+  "expected": "关键词: D,O@O®"
+ },
+ {
+  "id": "pdf-154",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "2. (2024,重庆卷,又又又)橙花和橙叶经水蒸气熙馏可得精油,X和Y是该精油中的两种化 学成分。| A爻存在 B.X的分子内脱水产物中官能团种类数大于2 C.Y不存在顺反异构体 D.Y在酸",
+  "expected": "关键词: C,Y不存在顺反异构体"
+ },
+ {
+  "id": "pdf-155",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 + 效成分绿原酸的结构简式如下 C,与等量绿原酸反应时,所需 的量之 Dy能发生酯化、加成\\消去\\氧化、加聚反应 A.所有碳原子均可能共 B.1 mol绿原酸",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-163",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,浙江期中,又又去)下列有关说法不正确的是( ) 琴点或者明锐的衍射峰 A.X射线衍射实验中,当单一波长的X射线通过石英玻璋粉未时,会在记录仪上产生分立的 B.可用蒸馈的方法分离 C.io D.利用超分子的分二识别特征,可",
+  "expected": "关键词: A,X射线衍射实验中,当单一波长的X射线通过"
+ },
+ {
+  "id": "pdf-168",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2025 ,广东阶段练习。支食贞)化学与 A“奋斗者号“潜水器含钪合金,其熔点 生产生活,科技密切相关。下列说法正确的是( \\强度 酷加聚合成,透明度高 ) CH3 , }薹_[一r`′【-{_C}】Z_亘一】\\'【-{一匡彗_(二",
+  "expected": "关键词: A,CO。与爻的化学计量比为1 :"
+ },
+ {
+  "id": "pdf-170",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "6. (2025 .北京海淀期中,又又)光学性能优良的高分子材料聚碳酸异山梨醇酪可由如下反应 制备。 0 0 Q 怀a一命alya O O O 2n 异山梨醇碳酸二甲酬聚碳酸异山梨醇酯 下列说法错误的是(。) A.反应式中a为2一1,X为甲",
+  "expected": "关键词: A,反应式中a为2一1,X为甲醇"
+ },
+ {
+  "id": "pdf-173",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "10. (2025“八省联考内蒙古卷。又又)聚乙烯醇(PVA)广泛应用于建筑.医药,纺织,造纸,包 装等诸多领域,可用如下方法制备。 Q ncacn ,兵日 下列说法错误的是( ) A.可用作高吸水性材料 B.@@分别为绮聚反应.水解反应 ",
+  "expected": "关键词: B,@@分别为绮聚反应.水解反应"
+ },
+ {
+  "id": "pdf-176",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025 .上海俊汇期札*支灵j|了万狗称为“立方烯“,是一种合成的炳,它的分二式为 _具二氯代物共有种。",
+  "expected": "关键词: A"
+ },
+ {
+  "id": "pdf-178",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "4. (2025,新疆伊牛期末,支又)已知一C; H的结构有8种,分子式为CFnaO的有机化合物 属于醛类的同分异构体的种数为(不考虑立 体异构)(。) H 中间体,H的同分异构体有多种,其中除苯环外不含其他环,含有3个取代基,且与H具有相",
+  "expected": "关键词: D,g RII"
+ },
+ {
+  "id": "pdf-179",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "6. (2025 ,四川南充期中,口食食央)下列关了 F有机化合物的说法正确的是(。) OH Cc Cnet a D立方烷(盲)的六氯取代有2种 A.C Hs含3个甲基的同分异构体有2种 B.Cs HyoO.属于羧酸的同分异构体有4种 C.",
+  "expected": "关键词: D,16种"
+ },
+ {
+  "id": "pdf-181",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "2. (2024 +东北三省卷编,支)下列实验操作或处理方法错误的是(。) A点燃F前,先检验其纯度 B金属K着火,用湿抹布盖灭 D苯酚沾到皮肤上,先后用乙醇.水冲浇 C.硝酸具有腐蚀性和挥发性,使用时应注意防护和通风",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-182",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2024 .山东卷。友又)下列囹示实验中,操作规范的是( ) B阚试纸测止溶液熹卜 D向试管中滴加溶液",
+  "expected": "关键词: C"
+ },
+ {
+  "id": "pdf-185",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "6. (2024 ,贵州卷。皮又又)下列装置不能达到实验目的的是( ) B.图@)可用于除去 C.l, D.图@可用于制备明矾晁体",
+  "expected": "关键词: B,图@)可用于除去"
+ },
+ {
+  "id": "pdf-189",
+  "taskType": "unknown",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "12. (2025 .河北沧州一模,又又友)图示装置不能完成相应气体的发生和收集实验的是(加热、 除杂和尾气处理装置略)(。) 选项|气体试剂 A.Cl |二氧化锰和沫盐酸 B.| H C.| CH,乙醇和浓硫酸 D.| CO, |大理石和",
+  "expected": "关键词: A,Cl |二氧化锰和沫盐酸"
+ },
+ {
+  "id": "pdf-190",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "13. (2024 +海南卷,支友)根据下列实验及现象,所得结论错误的是( ) - 选项实验及现象结论 热f热源主OQ,少 配体H,O,Cl与Cu’*间存 在配位平衡移动 A.l粉)加水后,未产生气体 C.l,-NH, HF,的混合液不变色",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-191",
+  "taskType": "reaction_check",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": true,
+  "truth": false,
+  "question": "14. (2025,湖北黄石一模改编,又又)下列图示的实验操作能达到实验目的的是(》 肥皂液 奇 | 明铁粉与水蒸气反应生成H。滤,操作G)为分液 C.,操作〇@)为过 D.用杯酚分离",
+  "expected": "关键词: C,,操作〇@)为过"
+ },
+ {
+  "id": "pdf-193",
+  "taskType": "calculation",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "16. (2025 ,淀江1月选考眼,又又又)蛋白质中N元素含量可按下列步骤测定: 浓HSO4、K.SO, acl er cs el 步骤I步骤工步骤人 下列说法不正确的是(。) AL步骤I ,须加人过量浓HsSOu,以确保N元素完全转化为",
+  "expected": "关键词: D,尿素["
+ },
+ {
+  "id": "pdf-198",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "1. (2025 ,四川卷。支友)下列化学用语或图示正确的是( ) C基态Fe价层电子的轨道表示式门T门 A.中子数为21的钾核素史K B.CaC,的电子式:Ca“FC8C二 D.PCL分子的球棍模型a",
+  "expected": "关键词: A,中子数为21的钾核素史K"
+ },
+ {
+  "id": "pdf-203",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "6. (2024 .甘肃卷。又灯)下列化学用语表述错误的是( ) 5 3 A.Ca A CI”的最外层电子排布图均为菜|人]眼闪 B.PH,和H,S的电子式分别为H定H和H:8:h C.CH—CHCH;CH,CH; ak ag D.CCC ",
+  "expected": "关键词: B,PH,和H,S的电子式分别为H定H和H:"
+ },
+ {
+  "id": "pdf-204",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "7. (2024 +浙江6月选考。又贞)下列表示不正确的是(。) ACO, fH FRIES: B CL HEH T ZH CQO C.NH压l瓷T空丨司i真充才莫型:& D.3,3-二甲基戊烷的键线式: SX",
+  "expected": "关键词: B"
+ },
+ {
+  "id": "pdf-208",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "11. (2023,浙江1月选考,友又)下列化学用语表示正确的是( ) (140) E洁[不沥生河/人一化“高考化学枭心方法(基础+中档) we¢6 A.中子数为18 KRU B.E,的空间结构:曼(平面三角形〉 C.L VERE Gs >",
+  "expected": "关键词: B,E,的空间结构:曼(平面三角形〉"
+ },
+ {
+  "id": "pdf-209",
+  "taskType": "structure_verify",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "12. (2024 .宁夏银川一中,又火)下列化学用语表示正确的是(。) Ch: C:B:C: A.HS分二的球棍模型:@@一儡胜一@ C.2-丁烯的键线式:ZNJZ D.基态氧原子核外电子的空间运动状态有8种",
+  "expected": "关键词: C,2-丁烯的键线式:ZNJZ"
+ },
+ {
+  "id": "pdf-212",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "2. (2024 .甘肃卷,支)化学与生活息息相关,下列对应关系错误的是( ) 选项物质性质途 A次氯酸钠氧化性衣物漂白 c |聚乳酸|生物可降解性制作一次性餐具 D活性热|吸附性分解室内甲醛 B.|氢气|可燃性制作燃料电池",
+  "expected": "关键词: B,|氢气|可燃性制作燃料电池"
+ },
+ {
+  "id": "pdf-213",
+  "taskType": "concept",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "3. (2022 .海南卷。又又)化学物质在体育领域有广泛用途。下列说法错误的是(。) C木糖醇可用作运动饮料的甜味剂 D“复方氯乙烷气雾剂“可用于运动中急性损伤的镇痛 A.涤纶可作为制作运动服的材料 B.纤维素可以为运动员提供能量",
+  "expected": "关键词: D"
+ },
+ {
+  "id": "pdf-214",
+  "taskType": "equilibrium",
+  "llm_ok": false,
+  "gw_ok": false,
+  "used": false,
+  "truth": false,
+  "question": "4. (2024 +质州卷,支)厨房中处处有化学。下列说法错误的是( ) 选项生活情境涉及化学知识 |水溶性物质 |环化合物 | ,蛋白中硫元素与蛋黄中铁元素生成的 | Ky XY AS AE党昌炎乡 > |仁煮的鸡蛇蛋黄表面常君炜绿色|和",
+  "expected": "关键词: D"
+ }
+]

@@ -1,0 +1,12 @@
+{
+  "id": "pdf-361",
+  "type": "molecule",
+  "img": "pdf_images/p122_n08_3.png",
+  "key": "pdf-361_p122_n08_3_molecule",
+  "raw": "{\"name\": \"Acacetin-7-O-(2''-acetoxyethyl) ether\", \"smiles\": \"COC1=CC(=C(C=C1)C2C(C3=CC(=C(C=C3)OCC(=O)C)OC2)C4=CC(=C(C=C4)CO)C=C)O\", \"note\": \"结构含黄酮骨架（A环：3',4'-二羟基-5'-甲氧基苯基；C环：2,3-二氢苯并呋喃；B环：4'-甲氧基-3'-羟基苯基），C7位连有-CH2CH2OC(O)CH3取代基，B环侧链为-CH=CHCH2OH。关键官能团：酚羟基（2个）、甲氧基（2个）、酯基、烯醇、伯醇。\"}",
+  "data": {
+    "name": "Acacetin-7-O-(2''-acetoxyethyl) ether",
+    "smiles": "COC1=CC(=C(C=C1)C2C(C3=CC(=C(C=C3)OCC(=O)C)OC2)C4=CC(=C(C=C4)CO)C=C)O",
+    "note": "结构含黄酮骨架（A环：3',4'-二羟基-5'-甲氧基苯基；C环：2,3-二氢苯并呋喃；B环：4'-甲氧基-3'-羟基苯基），C7位连有-CH2CH2OC(O)CH3取代基，B环侧链为-CH=CHCH2OH。关键官能团：酚羟基（2个）、甲氧基（2个）、酯基、烯醇、伯醇。"
+  }
+}

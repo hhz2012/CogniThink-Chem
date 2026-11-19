@@ -1,0 +1,15 @@
+{
+  "id": "pdf-205",
+  "images": [
+    "pdf_images/p073_n06_1.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": true,
+      "type": "晶体结构图",
+      "reason": "图中展示了立方晶胞内Al（×）、Co（●）、O（○）的原子位置分布，是确定Co位置及Al配位数的唯一依据。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": true,\n    \"type\": \"晶体结构图\",\n    \"reason\": \"图中展示了立方晶胞内Al（×）、Co（●）、O（○）的原子位置分布，是确定Co位置及Al配位数的唯一依据。\"\n  }\n]"
+}

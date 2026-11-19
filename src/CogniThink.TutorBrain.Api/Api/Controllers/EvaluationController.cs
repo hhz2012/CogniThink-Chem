@@ -74,11 +74,11 @@ public sealed class EvaluationController : ControllerBase
         note = r.Case.Note
     };
 
-    /// <summary>网关模式（LLM解析→引擎计算）vs 纯LLM 准确率对比</summary>
+    /// <summary>网关模式（LLM解析→引擎计算）vs 纯LLM 准确率对比；assetsOnly=true 仅跑有结构化图形资产的子集</summary>
     [HttpGet("gateway-vs-llm")]
-    public async Task<IActionResult> GatewayVsLlm(CancellationToken ct)
+    public async Task<IActionResult> GatewayVsLlm(CancellationToken ct, [FromQuery] bool assetsOnly = false)
     {
-        var summary = await _gatewayEvaluation.EvaluateAsync(ct);
+        var summary = await _gatewayEvaluation.EvaluateAsync(ct, assetsOnly);
 
         return Ok(new
         {
@@ -87,7 +87,18 @@ public sealed class EvaluationController : ControllerBase
             pureLlmCorrect = summary.PureLlmCorrect,
             gatewayAccuracy = Math.Round(summary.GatewayAccuracy, 4),
             gatewayCorrect = summary.GatewayCorrect,
+            gatewayTruthCorrect = summary.GatewayTruthCorrect,
             gatewayEngineUsed = summary.GatewayEngineUsed,
+            engineSolved = summary.EngineSolved,
+            engineCoverage = Math.Round(summary.EngineCoverage, 4),
+            enginePrecision = Math.Round(summary.EnginePrecision, 4),
+            harmCount = summary.HarmCount,
+            assetBreakdown = new
+            {
+                graph = new { cases = summary.GraphCases, structuredHits = summary.GraphStructuredHits },
+                curve = new { cases = summary.CurveCases, structuredHits = summary.CurveStructuredHits },
+                molecule = new { cases = summary.MoleculeCases, structuredHits = summary.MoleculeStructuredHits }
+            },
             llmAvailable = summary.LlmAvailable,
             bothCorrect = summary.BothCorrect.Count,
             gatewayOnlyCorrect = summary.GatewayOnlyCorrect.Count,
@@ -115,6 +126,7 @@ public sealed class EvaluationController : ControllerBase
         gatewayOk = r.GatewayOk,
         gatewayAnswer = r.GatewayAnswer,
         gatewayCorrect = r.GatewayCorrect,
-        gatewayUsedEngine = r.GatewayUsedEngine
+        gatewayUsedEngine = r.GatewayUsedEngine,
+        gatewayTruthAdopted = r.GatewayTruthAdopted
     };
 }

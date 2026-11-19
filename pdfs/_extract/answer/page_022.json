@@ -1,0 +1,30 @@
+{
+  "page_idx": 22,
+  "raw": "[\n  {\n    \"num\": 9,\n    \"answer\": \"B\",\n    \"module\": \"第4章 氧化还原反应\",\n    \"explanation\": \"A选项错误：酸性高锰酸钾中MnO4-可与Cl-发生氧化还原反应，不能大量共存；B正确：CO2不与Na+、Ba2+、CH3COO-、Br-反应；C错误：Fe3+在酸性环境中具强氧化性，Fe2+会被氧化，不能大量共存；D错误：金属铁遇非氧化性酸产生H2，说明溶液呈酸性，S2O3^2-与H+反应生成S、SO2和H2O，不能共存。\"\n  },\n  {\n    \"num\": 10,\n    \"answer\": \"C\",\n    \"module\": \"第4章 氧化还原反应\",\n    \"explanation\": \"CuSO4与Na2SO3反应生成棕黄色沉淀含Cu2+及可能的SO3^2-、OH-；加KI生成I2说明有Cu2+；试管3未检出I2说明原沉淀含SO3^2-（与I2缓慢反应）；试管4出现SO4^2-沉淀证明原沉淀含SO3^2-；A错误因步骤1有I2产生且被SO3^2-还原；B错误因试剂1若为BaCl2，原沉淀含SO3^2-则试管4应有BaSO3；C正确：棕黄沉淀必含Cu2+和SO3^2-，但无法确定OH-；D错误：若有Cu(OH)2则含OH-。\"\n  },\n  {\n    \"num\": 11,\n    \"answer\": \"B\",\n    \"module\": \"第4章 氧化还原反应\",\n    \"explanation\": \"e为氨时a、b为NH4NO3、Ba(OH)2（但无法确定具体）；f为白色沉淀，因NH4NO3不沉淀，Ba(OH)2与Na2CO3或AlCl3可沉淀，故a为NH4NO3、b为Ba(OH)2；c、d混合有沉淀和气体，AlCl3与Na2CO3双水解生成Al(OH)3和CO2，结合f为Al(OH)3+g=CO2，得f为Al(OH)3、g为CO2，b与c反应生成Al(OH)3，故c为AlCl3、d为Na2CO3；A错：NH4NO3水溶液酸性，但正盐水解规律不支持‘谁强显谁性’直接判断；B对：f为Al(OH)3，b为Ba(OH)2可溶于过量Ba(OH)2；C错：AlCl3通入过量氨仍生成Al(OH)3不溶解；D错：BaCO3可溶于硝酸。\"\n  },\n  {\n    \"num\": 1,\n    \"answer\": \"B\",\n    \"module\": \"模块1 氧化还原反应及其相关概念\",\n    \"explanation\": \"氧化还原反应本质是电子转移，特征是元素化合价变化；苯酚无色晶体，具还原性（酚羟基），露置空气中被O2氧化成粉红色苯醌，发生氧化反应；选项B正确描述了该过程。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 9,
+      "answer": "B",
+      "module": "第4章 氧化还原反应",
+      "explanation": "A选项错误：酸性高锰酸钾中MnO4-可与Cl-发生氧化还原反应，不能大量共存；B正确：CO2不与Na+、Ba2+、CH3COO-、Br-反应；C错误：Fe3+在酸性环境中具强氧化性，Fe2+会被氧化，不能大量共存；D错误：金属铁遇非氧化性酸产生H2，说明溶液呈酸性，S2O3^2-与H+反应生成S、SO2和H2O，不能共存。"
+    },
+    {
+      "num": 10,
+      "answer": "C",
+      "module": "第4章 氧化还原反应",
+      "explanation": "CuSO4与Na2SO3反应生成棕黄色沉淀含Cu2+及可能的SO3^2-、OH-；加KI生成I2说明有Cu2+；试管3未检出I2说明原沉淀含SO3^2-（与I2缓慢反应）；试管4出现SO4^2-沉淀证明原沉淀含SO3^2-；A错误因步骤1有I2产生且被SO3^2-还原；B错误因试剂1若为BaCl2，原沉淀含SO3^2-则试管4应有BaSO3；C正确：棕黄沉淀必含Cu2+和SO3^2-，但无法确定OH-；D错误：若有Cu(OH)2则含OH-。"
+    },
+    {
+      "num": 11,
+      "answer": "B",
+      "module": "第4章 氧化还原反应",
+      "explanation": "e为氨时a、b为NH4NO3、Ba(OH)2（但无法确定具体）；f为白色沉淀，因NH4NO3不沉淀，Ba(OH)2与Na2CO3或AlCl3可沉淀，故a为NH4NO3、b为Ba(OH)2；c、d混合有沉淀和气体，AlCl3与Na2CO3双水解生成Al(OH)3和CO2，结合f为Al(OH)3+g=CO2，得f为Al(OH)3、g为CO2，b与c反应生成Al(OH)3，故c为AlCl3、d为Na2CO3；A错：NH4NO3水溶液酸性，但正盐水解规律不支持‘谁强显谁性’直接判断；B对：f为Al(OH)3，b为Ba(OH)2可溶于过量Ba(OH)2；C错：AlCl3通入过量氨仍生成Al(OH)3不溶解；D错：BaCO3可溶于硝酸。"
+    },
+    {
+      "num": 1,
+      "answer": "B",
+      "module": "模块1 氧化还原反应及其相关概念",
+      "explanation": "氧化还原反应本质是电子转移，特征是元素化合价变化；苯酚无色晶体，具还原性（酚羟基），露置空气中被O2氧化成粉红色苯醌，发生氧化反应；选项B正确描述了该过程。"
+    }
+  ]
+}

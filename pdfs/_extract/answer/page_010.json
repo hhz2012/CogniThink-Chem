@@ -1,0 +1,18 @@
+{
+  "page_idx": 10,
+  "raw": "[\n  {\n    \"num\": 8,\n    \"answer\": \"D\",\n    \"module\": \"第2章 化学计量\",\n    \"explanation\": \"本题突破口是“W是一种短周期金属元素的单质”，短周期金属单质有Li、Be、Na、Mg、Al，反应中只能作还原剂；V为氧化剂，常见无色气体氧化剂为O2；X为含W的氧化物；Y为Na2CO3、Na2CO3与HCl反应生成NaCl；Z为NaCl，由Z(NaCl)制得W(Na)可用电解熔融NaCl；A项：O2难溶于水且不与水反应，可用排水法收集，正确；B项：Na2O2与H2O反应生成O2，方程式为2Na2O2+2H2O=4NaOH+O2↑，正确；C项：Na2CO3易溶于水，CO3^2-水解使溶液显碱性，正确；D项：电解NaCl溶液得NaOH、H2、Cl2，无法得Na单质，错误。\"\n  },\n  {\n    \"num\": 1,\n    \"answer\": \"D\",\n    \"module\": \"模块1 化学计量中的重要物理量\",\n    \"explanation\": \"A项：摩尔(mol)是物质的量的单位，不是物理量，错误；B项：1 mol CO2含1 mol碳原子和2 mol氧原子，但题目未明确粒子类型，错误；C项：CuSO4·5H2O摩尔质量为250 g/mol，正确说法应为250 g·mol⁻¹，单位表述不规范，错误；D项：0℃、101 kPa为标准状况，1 mol任何气体体积约22.4 L，正确。\"\n  }\n]",
+  "answers": [
+    {
+      "num": 8,
+      "answer": "D",
+      "module": "第2章 化学计量",
+      "explanation": "本题突破口是“W是一种短周期金属元素的单质”，短周期金属单质有Li、Be、Na、Mg、Al，反应中只能作还原剂；V为氧化剂，常见无色气体氧化剂为O2；X为含W的氧化物；Y为Na2CO3、Na2CO3与HCl反应生成NaCl；Z为NaCl，由Z(NaCl)制得W(Na)可用电解熔融NaCl；A项：O2难溶于水且不与水反应，可用排水法收集，正确；B项：Na2O2与H2O反应生成O2，方程式为2Na2O2+2H2O=4NaOH+O2↑，正确；C项：Na2CO3易溶于水，CO3^2-水解使溶液显碱性，正确；D项：电解NaCl溶液得NaOH、H2、Cl2，无法得Na单质，错误。"
+    },
+    {
+      "num": 1,
+      "answer": "D",
+      "module": "模块1 化学计量中的重要物理量",
+      "explanation": "A项：摩尔(mol)是物质的量的单位，不是物理量，错误；B项：1 mol CO2含1 mol碳原子和2 mol氧原子，但题目未明确粒子类型，错误；C项：CuSO4·5H2O摩尔质量为250 g/mol，正确说法应为250 g·mol⁻¹，单位表述不规范，错误；D项：0℃、101 kPa为标准状况，1 mol任何气体体积约22.4 L，正确。"
+    }
+  ]
+}

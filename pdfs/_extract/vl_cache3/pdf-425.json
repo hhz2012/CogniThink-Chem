@@ -1,0 +1,15 @@
+{
+  "id": "pdf-425",
+  "images": [
+    "pdf_images/p142_n07_0.png"
+  ],
+  "judgments": [
+    {
+      "index": 0,
+      "meaningful": false,
+      "type": "其他",
+      "reason": "图片仅为题干文字的重复排版，未提供任何额外解题信息。"
+    }
+  ],
+  "raw": "[\n  {\n    \"index\": 0,\n    \"meaningful\": false,\n    \"type\": \"其他\",\n    \"reason\": \"图片仅为题干文字的重复排版，未提供任何额外解题信息。\"\n  }\n]"
+}
