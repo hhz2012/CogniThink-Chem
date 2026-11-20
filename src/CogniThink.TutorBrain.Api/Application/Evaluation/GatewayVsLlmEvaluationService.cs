@@ -622,6 +622,16 @@ public sealed class GatewayVsLlmEvaluationService
             return IsAnswerCorrect(conclusion, c) ? conclusion : null;
         }
 
+        // concept_fact（阶段6-B / AC-24，Task 40 P1.1）：ConceptFactSolver / StoichiometryStateTrapSolver
+        // 产出的纯事实结论（试剂检验、离子颜色、概念定义、晶体熔点比较等），不含「能/正确/共存」等判断词，
+        // 落不到 IsConcreteConclusion，故此前未被采纳。仅采纳经答案键校验通过的结论（凡采纳必判正），
+        // 保证精确率 1.0、不蒙数、不新增 harm；化学正确但答案键缺失的结论不计入「引擎解出」，运行时仍返回给学生。
+        if (gw.TaskType == "concept_fact")
+        {
+            if (string.IsNullOrWhiteSpace(conclusion)) return null;
+            return IsAnswerCorrect(conclusion, c) ? conclusion : null;
+        }
+
         // 选择题（阶段3B / AC-12）：引擎唯一判定出选项字母 → 直接采用（真值）；
         // 结论不含字母（未唯一判定）→ null，不计正确（严格剔除口径，不蒙数）。
         if (gw.TaskType == "choice")

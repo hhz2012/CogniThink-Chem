@@ -27,13 +27,8 @@ Thumbs.db
 .tmp/
 *.log
 
-## _evalscratch 自包含发布产物（体积巨大，仅本地评估用，不入版本库）
-_evalscratch/apirel/
-_evalscratch/testbuild/
-_evalscratch/tempbuild/
-## RDKit 原生库（单个 >100MB 触发 GitHub 单文件硬限制；构建产物可复原，不入版本库）
-_evalscratch/**/RDKFuncs.so
-_evalscratch/**/RDKFuncs.dll
+## _evalscratch 评估暂存目录（探针脚本、构建产物、json 转储等，仅本地评估用，不入版本库）
+_evalscratch/
 
 ## 本地开发密钥（含 API Key，禁止提交）
 appsettings.Development.json

@@ -61,6 +61,28 @@ internal static class FactChoiceMatcher
     }
 
     /// <summary>
+    /// 关键词子串匹配，但当关键词以数字开头时要求数字前边界：
+    /// 避免 "6种" 命中 "16种"、"2" 命中 "12" 等纯计数选项的跨数字子串歧义，
+    /// 否则一个选项会命中多条事实，触发红线整题弃判（如 pdf-393 三取代苯计数）。
+    /// 关键词以数字结尾时不设后边界——化学式/离子式（如 2CrO4、C3H8N6）后常接电荷数字，
+    /// 不应被误判为同一数字的延续。非数字开头关键词行为与 string.Contains 完全一致。
+    /// </summary>
+    private static bool OptContains(string text, string keyword)
+    {
+        if (keyword.Length == 0) return false;
+        var kwStartIsDigit = char.IsDigit(keyword[0]);
+        var idx = text.IndexOf(keyword, StringComparison.Ordinal);
+        while (idx >= 0)
+        {
+            var prevIsDigit = idx > 0 && char.IsDigit(text[idx - 1]);
+            if (!kwStartIsDigit || !prevIsDigit)
+                return true;
+            idx = text.IndexOf(keyword, idx + 1, StringComparison.Ordinal);
+        }
+        return false;
+    }
+
+    /// <summary>
     /// 用指定事实库对一道选择题唯一求解。不能唯一判定返回 null。
     /// </summary>
     /// <param name="req">题干+选项渲染文本。</param>
@@ -87,8 +109,8 @@ internal static class FactChoiceMatcher
             var optN = NormOpt(opts[L]);
             var matched = facts
                 .Where(f => f.Match.Count > 0
-                            && f.Match.All(k => optN.Contains(NormOpt(k)))
-                            && f.StemMatch.All(k => stemN.Contains(NormOpt(k))))
+                            && f.Match.All(k => OptContains(optN, NormOpt(k)))
+                            && f.StemMatch.All(k => OptContains(stemN, NormOpt(k))))
                 .ToList();
 
             // 红线：任一选项无法干净判定（0 条或 ≥2 条命中）→ 整题返回 null，不蒙数。
