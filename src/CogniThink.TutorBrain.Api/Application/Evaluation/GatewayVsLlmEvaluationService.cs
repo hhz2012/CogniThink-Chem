@@ -488,13 +488,13 @@ public sealed class GatewayVsLlmEvaluationService
         return list;
     }
 
-    /// <summary>若 answer 是单字母选项（A/B/C/D），返回该字母（小写）</summary>
+    /// <summary>若 answer 是单字母选项（A/B/C/D，兼容题库小写 a-d，如 pdf-544 answer="a"），返回该字母（小写）</summary>
     private static bool TryGetChoiceLetter(string? answer, out char letter)
     {
         letter = default;
         if (string.IsNullOrWhiteSpace(answer)) return false;
         var t = answer.Trim();
-        if (t.Length == 1 && t[0] is >= 'A' and <= 'D')
+        if (t.Length == 1 && t[0] is (>= 'A' and <= 'D') or (>= 'a' and <= 'd'))
         {
             letter = char.ToLowerInvariant(t[0]);
             return true;
@@ -510,19 +510,25 @@ public sealed class GatewayVsLlmEvaluationService
     }
 
     /// <summary>
-    /// 若 answer 是由纯选项字母（A-Z，可含空白/逗号/顿号/分号等分隔符）构成的多字母答案（≥2 个），
-    /// 返回全部字母（小写）。排除 "2s2 2p3；AB" 这类混合答案（含数字/其它字符），避免多选判分误作用于多空题。
+    /// 若 answer 含 ≥2 个选项字母（A-Z，可含空白/逗号/顿号/分号等分隔符），返回全部字母（小写）。
+    /// 按分隔符拆段后取所有「纯字母片段」合并：兼容混合答案（如 pdf-518 "10⁻⁵；BD"，前半填空值 +
+    /// 后半选择字母 → 取 "BD"）。纯字母答案（"BD" / "A,C" / "A C"）行为与原实现字节级一致。
     /// 支持到 A-Z 是因为题库存在含 E/F/G/H 选项的多选题（如 pdf-329 含 E）。
+    /// 两个调用点（IsAnswerCorrect、TryAdoptMultiSelectConclusion）均被 c.Type=="choice" 门控，
+    /// 故仅影响选择题，不会误伤多空填空（"2s2 2p3；AB" 等 fill 题走不到此分支）。
     /// </summary>
     private static bool TryGetMultiChoiceLetters(string? answer, out List<char> letters)
     {
         letters = new List<char>();
         if (string.IsNullOrWhiteSpace(answer)) return false;
-        var cleaned = Regex.Replace(answer.Trim(), @"[\s,，、;；/\\]+", "");
-        if (cleaned.Length < 2) return false;
-        if (!cleaned.All(ch => ch is (>= 'A' and <= 'Z') or (>= 'a' and <= 'z'))) return false;
-        foreach (var ch in cleaned) letters.Add(char.ToLowerInvariant(ch));
-        return true;
+        var segments = Regex.Split(answer.Trim(), @"[\s,，、;；/\\]+");
+        foreach (var seg in segments)
+        {
+            if (seg.Length == 0) continue;
+            if (!seg.All(ch => ch is (>= 'A' and <= 'Z') or (>= 'a' and <= 'z'))) continue;
+            foreach (var ch in seg) letters.Add(char.ToLowerInvariant(ch));
+        }
+        return letters.Count >= 2;
     }
 
     /// <summary>
@@ -1681,12 +1687,15 @@ public sealed class GatewayVsLlmEvaluationService
             return items.Select(x =>
             {
                 var question = x.Question ?? string.Empty;
-                // 选择题把选项渲染进题干，让纯 LLM 与网关都能看到选项
+                // 选择题把选项渲染进题干，让纯 LLM 与网关都能看到选项。
+                // 选项键归一化大写：题库存在小写 a-d 键（如 pdf-544），而 IsChoiceQuestion / ParseOptions
+                // 的选项标记正则只认大写 A-Z，不转大写会导致分类不到 choice、选项解析为空（路由缺口）。
+                // 不动原始数据 / answer，仅渲染时归一化。
                 if (x.Type == "choice" && x.Options is { Count: > 0 })
                 {
                     var rendered = string.Join("\n", x.Options
                         .OrderBy(kv => kv.Key, StringComparer.Ordinal)
-                        .Select(kv => $"{kv.Key}. {kv.Value}"));
+                        .Select(kv => $"{kv.Key.ToUpperInvariant()}. {kv.Value}"));
                     question = question + "\n" + rendered;
                 }
                 return new QaTestCase

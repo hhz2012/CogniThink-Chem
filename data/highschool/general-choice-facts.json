@@ -6158,6 +6158,10 @@
     {"id": "GC-065-S7", "match": ["Cl₂ 用于自来水消毒"], "stemMatch": ["氧化还原反应的有"], "verdict": true, "reason": "Cl2消毒时与水反应Cl2+H2O=HCl+HClO，Cl化合价发生变化(歧化)，涉及氧化还原反应，正确。"},
     {"id": "GC-065-S8", "match": ["银氨溶液用于检验醛基"], "stemMatch": ["氧化还原反应的有"], "verdict": true, "reason": "银氨溶液检验醛基(银镜反应)中醛基被氧化、Ag+被还原，涉及氧化还原反应，正确。"},
     {"id": "GC-065-S9", "match": ["铂丝蘸取硫酸钠固体", "火焰呈黄色"], "stemMatch": ["氧化还原反应的有"], "verdict": false, "reason": "焰色试验(灼烧Na元素火焰呈黄色)是电子跃迁的物理现象，无新物质生成，不涉及氧化还原反应，错误。"},
-    {"id": "GC-065-S10", "match": ["浸润 KMnO₄ 溶液的硅藻土", "乙烯"], "stemMatch": ["氧化还原反应的有"], "verdict": true, "reason": "KMnO4具有强氧化性，能氧化乙烯，涉及氧化还原反应，正确。"}
+    {"id": "GC-065-S10", "match": ["浸润 KMnO₄ 溶液的硅藻土", "乙烯"], "stemMatch": ["氧化还原反应的有"], "verdict": true, "reason": "KMnO4具有强氧化性，能氧化乙烯，涉及氧化还原反应，正确。"},
+    {"id": "GC-518-A", "match": ["稀盐酸"], "stemMatch": ["电离程度增大", "CH3COOH"], "verdict": false, "reason": "加入稀盐酸增大c(H+)，同离子效应抑制CH3COOH电离，使电离程度减小，错误。"},
+    {"id": "GC-518-B", "match": ["加热"], "stemMatch": ["电离程度增大", "CH3COOH"], "verdict": true, "reason": "弱电解质电离吸热，加热促进CH3COOH电离，使电离程度增大，正确。"},
+    {"id": "GC-518-C", "match": ["冰醋酸"], "stemMatch": ["电离程度增大", "CH3COOH"], "verdict": false, "reason": "加入冰醋酸使CH3COOH浓度增大，弱电解质浓度越大电离度（电离程度）越小，错误。"},
+    {"id": "GC-518-D", "match": ["加水稀释"], "stemMatch": ["电离程度增大", "CH3COOH"], "verdict": true, "reason": "加水稀释使离子结合成分子的概率减小，促进CH3COOH电离，使电离程度增大，正确。"}
   ]
 }

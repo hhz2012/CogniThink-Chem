@@ -110,6 +110,10 @@
     { "id": "EF-312-A", "match": ["阴极区", "迁移到阳极区"], "stemMatch": ["NH4HSO4"], "verdict": false, "reason": "装置含质子交换膜，只允许 H+ 通过，SO4^2- 不能由阴极区迁移到阳极区，说法错误。" },
     { "id": "EF-312-B", "match": ["a 代表 H2"], "stemMatch": ["NH4HSO4"], "verdict": true, "reason": "a 极为阴极，H+ 得电子生成 H2，故 a 代表 H2，说法正确。" },
     { "id": "EF-312-C", "match": ["1 mol 电子", "0.5 mol"], "stemMatch": ["NH4HSO4"], "verdict": false, "reason": "阳极存在生成 O2 的副反应，实际产生 (NH4)2S2O8 的量小于 0.5 mol，说法错误。" },
-    { "id": "EF-312-D", "match": ["电极反应式", "S2O8"], "stemMatch": ["NH4HSO4"], "verdict": true, "reason": "SO4^2- 氧化为 S2O8^2- 的电极反应为 2SO4^2- - 2e- = S2O8^2-，配平正确，说法正确。" }
+    { "id": "EF-312-D", "match": ["电极反应式", "S2O8"], "stemMatch": ["NH4HSO4"], "verdict": true, "reason": "SO4^2- 氧化为 S2O8^2- 的电极反应为 2SO4^2- - 2e- = S2O8^2-，配平正确，说法正确。" },
+    { "id": "EF-544-A", "match": ["湿润的pH试纸"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": false, "reason": "pH试纸预先湿润会稀释待测液，导致pH测定不准确，操作不规范。" },
+    { "id": "EF-544-B", "match": ["干燥清洁的玻璃片"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": true, "reason": "将pH试纸置于干燥清洁的玻璃片上可防止杂质干扰，操作规范。" },
+    { "id": "EF-544-C", "match": ["滴在pH试纸中央"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": true, "reason": "用滴管吸取少量待测液滴在pH试纸中央，操作规范。" },
+    { "id": "EF-544-D", "match": ["标准比色卡"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": true, "reason": "观察试纸颜色变化并与标准比色卡比较以读数，操作规范。" }
   ]
 }

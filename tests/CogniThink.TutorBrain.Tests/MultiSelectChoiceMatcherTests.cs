@@ -88,12 +88,16 @@ public class MultiSelectChoiceMatcherTests
     }
 
     [Fact]
-    public void MixedAnswer_DoesNotTriggerMultiSelectLetterGrading()
+    public void MixedAnswer_LetterSegmentGradedOnlyForChoiceType()
     {
-        // "2s2 2p3；AB" 是多空混合答案：不应被多选字母判分分支捕获，
-        // 无命中关键词时仅答 "AB" 判错（回退到原关键词/无关键词路径）。
-        var c = ChoiceCase("2s2 2p3；AB");
-        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("AB", c));
+        // "2s2 2p3；AB" 这类混合答案：仅当题型为 choice 时才拆出纯字母片段 AB 参与判分
+        // （调用点 c.Type=="choice" 门控，兼容 pdf-518 的 "10⁻⁵；BD"）；fill 类型不触发。
+        var choice = ChoiceCase("2s2 2p3；AB");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("AB", choice));
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("正确选项为 AB", choice));
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("正确选项为 A", choice));
+        var fill = new QaTestCase { Type = "fill", Answer = "2s2 2p3；AB", AnswerKeywords = new List<string>() };
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("AB", fill));
     }
 
     [Fact]
@@ -213,12 +217,63 @@ public class MultiSelectChoiceMatcherTests
     }
 
     [Fact]
-    public void Grading_MultiSelect_MixedAnswer_StillRejected_After_AzRangeExtension()
+    public void Grading_MultiSelect_MixedAnswer_ExtractsLetterSegment()
     {
-        // A-Z 扩展后，混合答案（含数字/其它字符）仍被 TryGetMultiChoiceLetters 排除，不误入多字母判分。
-        var c = ChoiceCase("2s2 2p3；AB");
-        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("AB", c));
-        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("2s2 2p3；AB", c));
+        // pdf-518 混合答案 "10⁻⁵；BD"（前半填空值 + 后半选择字母）：拆出纯字母片段 BD 参与多字母判分。
+        var c = ChoiceCase("10⁻⁵；BD");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("正确选项为 BD", c));
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("答案：B 和 D", c));
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("正确选项为 B", c));   // 缺 D → 半对不算对
+        // 仅选择题走字母判分：fill 类型的混合答案不触发多字母判分（调用点 c.Type=="choice" 门控）。
+        var fill = new QaTestCase { Type = "fill", Answer = "2s2 2p3；AB", AnswerKeywords = new List<string>() };
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("AB", fill));
+    }
+
+    [Fact]
+    public void Grading_SingleSelect_LowercaseAnswer_LetterScored()
+    {
+        // pdf-544 answer="a"（小写）：TryGetChoiceLetter 认 a-d，结论含独立 A 即判正；大写行为不变。
+        var cLower = ChoiceCase("a");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("A", cLower));
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("错误选项为 A", cLower));
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("错误选项为 B", cLower));
+        var cUpper = ChoiceCase("A");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("A", cUpper));
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("B", cUpper));
+    }
+
+    [Fact]
+    public void Pdf518_RendersOptions_ClassifiedChoice_MultiSelectReturnsBD_GradedCorrect()
+    {
+        var c = GatewayVsLlmEvaluationService.BuildTestCases().First(x => x.Id == "pdf-518");
+        Assert.Equal("choice", c.Type);
+        Assert.Contains("B. 加热该 CH3COOH 溶液", c.Question);
+        Assert.Equal("choice", LlmGatewayService.ClassifyTaskDeterministic(c.Question));
+
+        var req = new EngineRequest { RawText = c.Question };
+        var r = MultiSelectChoiceValidator.TryDecide(req);
+        Assert.NotNull(r);
+        Assert.Equal("BD", r!.AnswerLetter);
+        Assert.Equal("正确选项为 BD", r.FinalResult);
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(r.FinalResult, c));
+    }
+
+    [Fact]
+    public void Pdf544_LowercaseKeysRenderedUppercase_ExperimentReturnsA_GradedCorrect()
+    {
+        var c = GatewayVsLlmEvaluationService.BuildTestCases().First(x => x.Id == "pdf-544");
+        Assert.Equal("choice", c.Type);
+        // 小写 a-d 键已归一化大写渲染，分类正则与 ParseOptions 才能识别
+        Assert.Contains("A. 用镊子夹取湿润的pH试纸", c.Question);
+        Assert.DoesNotContain("a. 用镊子夹取湿润的pH试纸", c.Question);
+        Assert.Equal("choice", LlmGatewayService.ClassifyTaskDeterministic(c.Question));
+
+        var req = new EngineRequest { RawText = c.Question };
+        var r = ExperimentChoiceValidator.TryDecide(req);
+        Assert.NotNull(r);
+        Assert.Equal("A", r!.AnswerLetter);
+        Assert.Equal("错误选项为 A", r.FinalResult);
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(r.FinalResult, c));
     }
 
     // ===== 第一梯队 3 题：正向断言（校验器返回预期多字母 + 判分正确）+ 路由护栏（首个非空=预期校验器）=====

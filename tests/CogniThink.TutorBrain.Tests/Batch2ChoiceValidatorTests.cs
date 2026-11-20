@@ -27,6 +27,8 @@ public class Batch2ChoiceValidatorTests
         ["pdf-395"] = "C",
         ["pdf-460"] = "A",
         ["pdf-492"] = "B",
+        // pdf-544：题干「不规范的是」（WrongDir 选非），Experiment 校验器选 verdict==false 的 A（湿润试纸不规范）
+        ["pdf-544"] = "A",
         ["pdf-094"] = "D",
         ["pdf-455"] = "D",
 

@@ -69,6 +69,17 @@
 
 ---
 
+## F 类：题面文本完整但 choice 引擎未触发——路由缺口 + 事实覆盖缺失，已按方案 C 策展自解（GAIN=2/LOSS=0/HARM=0）
+
+> 这两条的选择子题题面文本**完整**、化学上可判定，但 checkpoint 显示 `usedEngine=False`。经探针验证（证据：`_evalscratch/probe_f_routing.txt`、`probe_f_scope.txt`、`probe_f_engine.txt`），根因是两层：① `Type` 标为 `"fill"` 而非 `"choice"`，`GenPdfQuestions` 不渲染选项进题干 → `ClassifyTaskDeterministic` 的选择题正则（行首大写 `A-D`+`\.`/`．`/`、`）匹配不到，被"电离"/"ph"关键词截走到 equilibrium / calculation → 不进 `CallChoice`；② pdf-544 选项键为**小写 a-d**，`ChoiceVerifier.ParseOptions` 用 `[A-Z]` 解析不出。**但把路由/解析修好后（选项入题干、归一化大写、强制 `taskType=choice`），真实跑全部 13 个 choice 校验器仍全部返回 `null`**——binding constraint 是事实库无覆盖（缺"加热/稀释醋酸→电离程度增大""pH 试纸不能预先湿润"等规则）。用户已裁定走**方案 C 单题策展**（原则 #1 的显式例外）：修路由 + 判分兼容小写/混合答案 + 单题策展事实，并跑全量 757 题 eval diff 兜底。结果：checkpoint `curate_4q`→`f_curated`，gatewayCorrect 512→514、engineSolved 512→514，**GAIN=2、LOSS=0、HARM=0、precision=1**；1086 单元测试全绿（含全库零 harm 护栏），详见下表。
+
+| id | taskType | 题面现状 | 未触发原因（已确认） | 建议下一步 |
+|----|----------|----------|----------------------|-----------|
+| pdf-518 | equilibrium | 填空+选择混合题：前半填 `c(CH₃COO⁻)`，后半选择「使 0.10 mol·L⁻¹ CH₃COOH 电离程度增大的是」A 加盐酸 / B 加热 / C 加冰醋酸 / D 稀释，文本完整，化学上 **BD 正确**；`answer="10⁻⁵；BD"` | `Type="fill"` → 选项未渲染 → 被"电离"截走到 equilibrium，不进 `CallChoice`；即便修好路由，13 个校验器仍全 `null`（缺电离平衡移动的事实覆盖） | 已策展自解（GAIN +1）：`pdf_questions` Type `fill`→`choice`；`GenPdfQuestions` 选项键 `ToUpper` 渲染；`TryGetMultiChoiceLetters` 按分隔符拆纯字母片段，兼容混合答案 `"10⁻⁵；BD"`→`BD`；`general-choice-facts` 加 `GC-518-A/B/C/D`（stemMatch 锁「电离程度增大」「CH3COOH」防跨题，全库仅 1 处命中→零暴露），A 假/B 真/C 假/D 真。端到端输出「正确选项为 BD」并判正 |
+| pdf-544 | calculation | 大题第(2)小问「测定溶液 pH 不规范的是」，选项 a–d（a 湿润试纸 / b 干燥玻璃片 / c 滴中央 / d 比色），题面自洽，`answer="a"` | `Type="fill"` → 未渲染；且选项键**小写 a-d**，`ParseOptions` 用 `[A-Z]` 解析不出；即便归一化大写修好路由，校验器仍全 `null`（缺"pH 试纸不能预先湿润"的事实覆盖） | 已策展自解（GAIN +1）：`pdf_questions` Type `fill`→`choice`；`GenPdfQuestions` 小写键渲染为大写；`TryGetChoiceLetter` 认小写 `a`（`answer="a"`）；`WrongDir` 正则（`FactChoiceMatcher` + `MultiSelectChoiceValidator`）加「不规范」（全库仅本题题干命中→零暴露）；`experiment-facts` 加 `EF-544-A/B/C/D`（stemMatch 锁「测定溶液pH」「不规范」），A 假/B/C/D 真。端到端输出「错误选项为 A」并判正 |
+
+---
+
 ## 处理原则（固化，防止回退到硬编码路线）
 
 1. **引擎是唯一真值源**：化学判定走 `IStatementJudge` 聚合器（事实库/计数/氧化还原电子），不向 `general-choice-facts` 追加单题策展条目。
