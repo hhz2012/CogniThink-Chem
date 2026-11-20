@@ -1186,6 +1186,9 @@
   - **测试现状**：TutorBrain **927 通过 / 0 失败**；Chem **905 通过 / 0 失败**。运行前必须删除 `tests/` 下重生的 `_Tmp*.cs` 探针（其未处理异常会致测试主机崩溃）。
   - **离子补齐核查（c3）结论**：`ion_check` 现 **26/26 全对**；未解决 choice 中无题因缺离子被阻塞（B 类 choice 仅 2 道曲线占位）。按零风险原则不做投机性离子正则新增。
   - **当前未解决分布（fix2，共 321 未判正）**：choice 179（B 类曲线占位 2 + C 类 177，多为图片依赖 / 多步推理 / 含变量计算）、unknown 72（其中 14 道 d2/d7/d8/d9 诊断题差路由，其余多为工艺流程填空）、calculation 37、equilibrium 18、reaction_check 9、atomic_structure 4、concept 1。剩余 choice 的主要缺口是新求解器能力（图像/曲线解析、计数/多步推理引擎），非简单事实匹配可解。
+  - **P3 batch1 纯文本选择题事实策展（已完成，+3，tag=choice_p3_now）**：审计 PURE_TEXT 未解题，策展 3 道四选项纯文字可匹配、备注核真、与存储 answer 一致的题（pdf-029→A / pdf-079→C / pdf-254→A），新增 12 条 `GC-*` 事实（`general-choice-facts.json`），`Batch3ChoiceValidatorTests.ConceptTruth` 同步 0→3。`choice_fix2 → choice_p3_now`：gatewayCorrect **436→439（+3）**，engineSolved 436→439，coverage 0.5760→0.5799，precision 1.0→1.0，harm 0，diff **LOST=0**；TutorBrain 927→**930**，Chem 905→905。
+  - **P3 batch2 纯文本选择题事实策展（已完成，+7，tag=choice_p3_b2）**：审计全部 37 道 PURE_TEXT 未解题，策展 7 道干净候选（pdf-321→D / pdf-378→B / pdf-380→D / pdf-350→D / pdf-352→A / pdf-358→A / pdf-525→D），新增 28 条 `GC-*` 事实（每题 4 选项独立 verdict 核算化学真值，`stemMatch` 限定题干）；`ConceptTruth` 同步 3→**10**。护栏 `Concept_ZeroFalsePositive_AcrossAllBuildTestCases` / `Concept_Coverage_MatchesTruthTable` / `Concept_AdoptedAnswers_AreGradedCorrect` / `Concept_NoOverlap_WithExperimentOrganicAndStructure` 全绿。`choice_p3_now → choice_p3_b2`：gatewayCorrect **439→446（+7）**，engineSolved 439→446，coverage 0.5799→**0.5892**，precision 1.0→1.0，harm 0，diff **LOST=0**（7 道全部 gatewayAnswer 字母与存储 answer 一致：321=D、378=B、380=D、350=D、352=A、358=A、525=D）；TutorBrain 930→**937**，Chem 905→905。
+  - **当前未解决分布（p3_b2，共 311 未判正）**：choice 169（多数为图片依赖 FIGURE，需图像/曲线解析器，超出事实匹配范围；其余为多步推理 / 含变量计算 / 存储 answer 与真值矛盾，不硬编码）、unknown 72、calculation 37、equilibrium 18、reaction_check 9、atomic_structure 4、concept 1。
 
 ## Task 41：双选/多选第一梯队——共性前置（选项解析 & 判分字母范围 A–Z）+ 策展 pdf-225/329/360（+3，零冲突零回归）
 
@@ -1431,3 +1434,30 @@
   - **不定项选择题**：`isMultiSelect` 正则只认「双选|多选」不认「不定项」；且 pdf-115 因实验表格缺失仍不可解。
   - **answer 与化学真值冲突**（pdf-075/185/213/280 等）：需核对官方题源修正存储 answer 后才能策展。
   - **复杂定量计算**：绝大多数需 NA 计算器 / 计量求解器 / 核素解析器。
+
+## Task 49：核对源 PDF/答案册修复 5 道留痕题 + 纠正 pdf-163 错配（数据卫生，零回归零 harm）
+
+- **Status**: pending
+- **Priority**: high
+- **Depends On**: Task 47（其留痕待源核的 5 题：pdf-171/176/233/415/416）
+- **Goal**: 以源 PDF（习题册）与答案册 OCR 为唯一真值，修复 Task 47 留痕的 5 道数据键错位/题干截断题；核对中发现 Task 47 把 Au/Ag 流程子题(4)的答案错配给了 pdf-163（实为钛酸钡 BaTiO 流程题），一并按源卷纠正。仅改 `pdf_questions.json` 的数据键/题干/选项，不改引擎逻辑；严守冻结红线（不蒙数、零回归、零 harm、分类链只加不删）。
+
+- **真值来源（已逐题核对源卷，非猜测）**：
+
+  | id | 题型 | 正确 answer / answerKeywords | 源卷位置（exercise / answer OCR） |
+  |----|------|------------------------------|----------------------------------|
+  | pdf-171 | fill（蛇纹石"矿化"离子方程式） | `5Mg²⁺ + 4CO₂ + 10OH⁻ = Mg₅(CO₃)₄(OH)₂·4H₂O↓`（含 →/无↓等变体，OR 匹配） | exercise p.057；answer p.059 num1⑤ + p.059 num3 + p.060 num2（p.060 明确碱性条件"左侧需补 10 个 OH⁻"） |
+  | pdf-176 | fill（沉铜前滤液1多次循环目的） | `提高H2SO4和Na2SO3的利用率，降低生产成本；除杂更彻底，使所得金、银产品品质提升；减少废水产生`（关键词数组 OR） | exercise p.058 sub-4；answer p.060 num4 item(4)——即 Task 47 被错挂到 pdf-163 的那条 |
+  | pdf-163 | fill（钛酸钡流程：焙烧后直接酸浸是否可行） | `不可行`；原因：产物中硫化物与酸反应生成有毒 H₂S 污染空气；CaS 与盐酸反应生成可溶 CaCl₂，使 BaCl₂ 混有 CaCl₂ 杂质无法除去，降低产品纯度（关键词数组 OR） | exercise p.055 sub-4；answer p.057 num4 item(4)——移除 Task 47 错挂的 Au/Ag 答案，归还 pdf-176 |
+  | pdf-415 | fill（粗盐步骤④盐酸调 pH 3～4 除离子） | `OH⁻、CO₃²⁻`（含 `OH-,CO3^2-`/`OH-和CO3^2-` 等变体） | exercise p.137；answer p.139 num2 item(4) |
+  | pdf-416 | choice（粗盐"一系列操作"填字母） | `C`（蒸发至大量晶体析出后趁热过滤；NaCl 溶解度随温度变化小） | exercise p.137 sub-5；answer p.139 num2 item(5) |
+  | pdf-233 | choice（元素推断原创题） | `B`（答案已确认）；补全题干"…下列说法一定正确的是（ ）"、从源 PDF 渲染 exercise p.082 读出 A/B/C/D 选项、`type` 由 `other` 改 `choice` | exercise p.081（题干截断）+ p.082（图+选项）；answer p.082 num6（B，含完整解析） |
+
+  说明：`pdfs/questions_parsed.json` 虽含 `src_page/ans_page/num`，但错位题的 `ans_page` 被 num-LCS 错配（如 pdf-171/176 的 ans_page 指向元素周期律答案 66/67），故以上真值均以**关键词在 answer/ 与 exercise/ OCR 中反查**所得，不以 questions_parsed.json 的 ans_page 为准。
+
+- **Acceptance Criteria Addressed**: AC-9（harm=0、不蒙数）、AC-19（零回归）、Task 47 确立的数据键卫生红线（只校正键以匹配引擎化学正确结论，不迁就错键）
+- **Test Requirements**:
+  - `rule` TR-49.1：`pdf_questions.json` 严格 `JsonDocument.Parse`（无 `AllowTrailingCommas`）通过、条目数 545 不变；6 个目标 id 的 `answerKeywords`/`answer`/`note`/`question`/`options`/`type` 已按上表更新；替换字段时保留原行尾随逗号状态，不引入新尾随逗号；改前有备份、改后与备份逐行 diff 仅触及目标字段。证据：探针输出 + `_evalscratch/pdf_questions_before_keyfix2.bak.json`。
+  - `rule` TR-49.2：用活体 `NormalizeChemicalNotation`+`Contains` 模拟各题化学正确结论（pdf-171 方程式 / pdf-415 离子 / pdf-416 字母 C / pdf-233 选项 B 等），6 题均判正。证据：探针输出。
+  - `rule` TR-49.3：fresh eval `tag=after_keyfix2`（`llmAvailable=False`）与 `checkpoint_after_keyfix` 逐例 diff：`LOST=[]`（correct→wrong 翻转=0）、`lostAdopted=[]`、`enginePrecision=1.0`、`harm=0`；gained 仅含化学正确结论。证据：diff 脚本输出 + `_summary.txt`。
+  - `rule` TR-49.4：`dotnet test` Chem + TutorBrain 全绿（0 失败）；护栏锁保持（`AtomicStructureSolverTests` `brokenKeys={pdf-166,pdf-190}`、9 项触发集；`VseprSolverTests` `brokenKeys` 空），本次 6 个 id 不在锁内故无需同步。证据：测试输出。

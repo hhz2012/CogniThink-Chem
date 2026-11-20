@@ -192,7 +192,19 @@ public class Batch3ChoiceValidatorTests
         // 每题 4 选项 verdict 独立核算化学真值、与存储 answer 一致；stemMatch 均非空且唯一。
         ["pdf-029"] = "A",
         ["pdf-079"] = "C",
-        ["pdf-254"] = "A"
+        ["pdf-254"] = "A",
+        // batch2（Task 40 P3）：纯文本选择题事实求解，4 选项纯文字可匹配、备注核真、stemMatch 限定题干。
+        // pdf-321（有机命名，错误项=D）、pdf-378（聚碳酸异山梨醇酯官能团，错误项=B）、
+        // pdf-380（聚碳酸酯 G，错误项=D）、pdf-350（蛇抱菌素，正确项=D）、
+        // pdf-352（氘代甲醛加成，错误项=A）、pdf-358（6-硝基胡椒酸 X/Y，正确项=A）、
+        // pdf-525（C—O/C—Br 键能，正确项=D）。
+        ["pdf-321"] = "D",
+        ["pdf-378"] = "B",
+        ["pdf-380"] = "D",
+        ["pdf-350"] = "D",
+        ["pdf-352"] = "A",
+        ["pdf-358"] = "A",
+        ["pdf-525"] = "D"
     };
 
     public static IEnumerable<object[]> ConceptCases =>
