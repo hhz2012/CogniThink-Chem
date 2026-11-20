@@ -26,7 +26,7 @@ internal static class MultiSelectChoiceValidator
 
     // 选错误项的问法标记（与 FactChoiceMatcher.WrongDir 同口径，避免性质选择题误伤）。
     private static readonly Regex WrongDir = new(
-        @"错误|不正确|不相符|不符|不具有对应|不能达到|无法达到|不能实现|不能用来|不属于|不合理|不可行|不能说明|不能证明|不能用于|没有关联",
+        @"错误|不正确|不相符|不符|不具有对应|不能达到|无法达到|不能实现|不能用来|不能用|不属于|不合理|不可行|不能说明|不能证明|不能用于|没有关联",
         RegexOptions.Compiled);
 
     // 聚合真值源：事实库（四个库）+ 计数 + 氧化还原电子转移计数（Task 4）。

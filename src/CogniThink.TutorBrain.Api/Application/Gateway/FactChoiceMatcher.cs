@@ -46,7 +46,7 @@ internal static class FactChoiceMatcher
     // 不能用于 / 没有关联。刻意不加宽泛的「无关」「不能」等，避免误伤性质选择题；任何回归由
     // Batch3ChoiceValidatorTests 全量 723 题的零假阳性 / 零伤害护栏兜底。
     private static readonly Regex WrongDir = new(
-        @"错误|不正确|不相符|不符|不具有对应|不能达到|无法达到|不能实现|不能用来|不属于|不合理|不可行|不能说明|不能证明|不能用于|没有关联", RegexOptions.Compiled);
+        @"错误|不正确|不相符|不符|不具有对应|不能达到|无法达到|不能实现|不能用来|不能用|不属于|不合理|不可行|不能说明|不能证明|不能用于|没有关联", RegexOptions.Compiled);
 
     /// <summary>
     /// 选项/题干归一化：先复用 <see cref="ClassificationValidator.Norm"/>（上下标→ASCII、全角→半角、去空白），

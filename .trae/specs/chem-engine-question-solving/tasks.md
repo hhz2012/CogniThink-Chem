@@ -1197,6 +1197,41 @@
     - **验证**：TutorBrain **980/0/0**、Chem **905/0/0**；EvalRunner 全库 757 题两组 diff 均干净——`engine_before→engine_after`（引擎改动）与 `base_pre5b→after_5b`（数据改动）：**GAIN=0、LOST=0、answer-changed=0**，correct 均 448/757，precision=1.0、harm=0。未新增任何单题 `general-choice-facts` 条目。
     - **结论**：剩余 34 道纯文本未判正中仅 4 道为引擎能力缺口（pdf-075 需选项文本恢复后 `RedoxElectronStatementJudge` 生效；pdf-115/252/491 多选），其余为数据缺陷（子项缺失 / 图像依赖 / 键冲突）——已登记，不再硬编码；引擎泛化能力就位，待数据回填 / 图像轨道接续后兑现奖励。
 
+  - **外部 spec `image-ocr-choice-coverage` quick win 集成（已提交 `0ddb5f6`，用户批准"全保留"）**：外部并发工作线，与 `choice-generalization` 的引擎泛化路线**并列、非替代**——在其选项数据回填基础上叠加逐题事实策展。两层内容：
+    1. **选项数据回填（`pdf_questions.json`，纯数据不动 answer 键）**：新建 C# OCR 工具 `src/CogniThink.TutorBrain.PdfOcrRepair`（已入 sln，不被 Api 引用），从源 PDF 恢复 11 题被截断的 C/D 选项（pdf-006/158/288/291/297/302/381/398/424/432/437），逐条对照渲染图核真，JSON round-trip 字节一致。**该 diff 不含任何 answer/answerKeywords 行**，与 `80b9efc` 的 10 处答案键修复零冲突叠加。单独数据效应（EvalRunner 串行 `orig_serial → repaired_serial`）：engineSolved 450→448（−2：pdf-006/424 因 C/D 恢复后 Concept 契约要求四选项全命中事实、新 C/D 无事实 → 诚实 null），precision=1、harm=0——属数据正确性提升暴露的覆盖缺口，非回归。
+    2. **逐题事实策展（`general-choice-facts.json` + 真值表）**：为恢复可解性追加 `GC-*` 事实——救回 pdf-006（GC-522-C/D）、pdf-424（GC-525-NA-C/D），并新增 9 题（pdf-101/269/279/211/246/185/367/399/505），每题 4 选项各 1 条 verdict 唯一指向正确项、`stemMatch` 全库唯一。`Batch3ChoiceValidatorTests.ConceptTruth` 覆盖 **131→140**；护栏四件套（零假阳性 / 覆盖数 / 采纳判正 / 无重叠）全绿。
+    - **EvalRunner 终态（当前 HEAD `0ddb5f6`，tag=`after_extwip`，757/757 完成、0 失败）**：engineSolved **448→459（+11）**，coverage 0.5918→**0.6063**，precision 1.0→1.0、harm 0→0。逐题 diff 前驱（`after_5b`，`80b9efc` 后等价态）：**LOST=0**（448 道前驱正确全部保留），GAINED={pdf-006, pdf-424, pdf-101, pdf-269, pdf-279, pdf-211, pdf-246, pdf-185, pdf-367, pdf-399, pdf-505}，与策展清单逐题吻合。
+    - **全量测试**：TutorBrain **991/0/0**、Chem **905/0/0**；`dotnet build` 0 错误。
+    - **说明**：含逐题硬编码事实，与"停止逐题硬编码"方向存在张力，经用户知情后批准保留；选项回填对应 Task 40 P4「批量修复 ~52 道 OCR 抽取残缺题」的部分落地（11 题）。`bin/obj` 被 `.gitignore` 排除，未误提交构建产物；`_evalscratch/` 评估产物未入版本库。
+    - **提交后工作树追加（未提交，已验证，待用户决定是否提交）**：外部代理在 `0ddb5f6` 之上又策展一轮——`GC-550-A/B/C/D`（pdf-302 室温钠-硫电池，错误项=A，stemMatch「室温钠-硫电池」全库唯一），`ConceptTruth` **140→141**。验证：TutorBrain **992/0/0**（+1）；EvalRunner tag=`after_extwip2`（757/757，0 失败）：engineSolved **459→460**，coverage **0.6077**，precision=1.0、harm=0；diff `after_extwip→after_extwip2` **LOST=0、仅 GAINED=pdf-302**。当前工作树真实状态以此为准（前述 140/459/991 为 `0ddb5f6` 提交态快照）。
+
+  - **剩余纯文本 choice 未判正归因（29 题，基于 `after_extwip2`）**：当前 choice 未判正 156 题 = FIGURE 带图 127 + 纯文本无图 29。经查这 29 题 `gatewayAnswer` 全部为 null（无任何校验器短路错判），故策展/求解路径通畅——前面 9 个专用校验器均未接管，Concept 会运行。逐题归因四类：
+    - **数据缺陷（15 题，不碰，需题源/原图核对）**：①子项/结构/图示缺失——pdf-009/012（组合选择子项①~⑦缺，B 类已登记）、pdf-020/065（计数题子项缺）、pdf-337（卤代烃①~⑥结构缺）、pdf-319/394（选项依赖缺失结构图）、pdf-436/437（选项含缺失图示占位）；②note 损坏/键错矛盾——pdf-197（题面拼接两道题 + answer="A,B,C,D"，已登记保持 null）、pdf-263（题干问"有几项"但选项为叙述，answer=B 与 note 矛盾）、pdf-213（note 同时判 A、D 错误，与 answer=A 矛盾）、pdf-331（answer=A 与 note 判 A 正确矛盾）、pdf-376（note 判 A/B/C/D 全正确，与 answer=B 矛盾）、pdf-381（note 损坏混乱，D 类已登记）。
+    - **需引擎能力（3 题，不宜硬编码事实）**：pdf-075（氧化还原电子转移计数，需 `RedoxElectronStatementJudge` 生效——`80b9efc` 已标记的能力缺口，其选项现已由外部回填）；pdf-233/237（元素推断题，需元素推断求解器）。
+    - **多选候选（3 题，需 MultiSelect 路径，非 Concept 单答案策展）**：pdf-115（AC，4 选项完整·实验结论）、pdf-252（BFH，8 选项·勒夏特列）、pdf-491（AC，3 选项·Cr 结构）。`stemMatch` 预检均有全库唯一片语（钧瓷 / 勒夏特列原理 / Cr原子）。
+    - **可策展候选（8 题，Concept GC-* 事实）**：`stemMatch` 全库唯一性预检通过（每题均找到唯一片语），且四选项 verdict 可据 note 唯一指向正确 answer。note 四选项结论完整、较干净的 5 题——pdf-148（D·试剂对应）、pdf-158（D·沉镉沉锰）、pdf-280（C·氨水/NH₄Cl 浓度比较）、pdf-291（C·铜氨配合离子浓度）、pdf-382（B·PVA 反应类型）；note 未覆盖全部选项、策展前需补核的 3 题——pdf-384（C，D 项 note 未分析）、pdf-349（B，C/D 项 note 未分析）、pdf-405（C·实验操作-结论匹配）。
+    - **方向判断**：若继续短期提覆盖，可策展上述 8 题（预计 +8，前提逐题护栏四件套验证零假阳性）；若坚守"停止硬编码"方向，则纯文本余量至此基本枯竭——剩余 15 数据缺陷待题源/原图、3 引擎能力、3 多选，均非逐题事实可解。FIGURE 带图 127 题另需图像轨道（不在本分析范围）。
+
+  - **本轮：纯文本 choice 策展收尾 + 引擎 WrongDir 缺口修复（未提交，tag=`after_b6pure3`）**：基于 `after_b6pure` 基线（facts=720、ConceptTruth=180、engineSolved=499、coverage 0.6592、precision=1、harm=0）重算未判正纯文本 choice 集；逐题研判后策展 2 道多选、修复 1 处引擎缺口，并发代理同期策展 6 道。
+    1. **策展 2 道多选（化学与数据集答案一致，走事实库不进 ConceptTruth 字典）**：
+       - pdf-252（answer=BFH，8 选项·勒夏特列，题干"不能用勒夏特列原理解释"）→ 新增 `GC-659-A..H` 共 8 条（A/C/D/E/G=正确·可解释，B/F/H=错误·不可解释），`stemMatch=["勒夏特列原理","不能用勒夏特列原理解释"]` 全库唯一。
+       - pdf-491（answer=AC，3 选项·基态 Cr 原子）→ 新增 `GC-660-A..C` 共 3 条（A/C=正确，B=错误），`stemMatch=["基态Cr原子","下列叙述正确的是"]` 全库唯一。
+       - 写入：`general-choice-facts.json` 在稳定锚点 `GC-658-D` 之后插入（文件中部、非末尾，规避并发代理末尾移动靶），高位 id 段 659/660 规避代理 5xx 段碰撞。经多轮代理并发写入后核验 `GC-659-A`/`GC-660-C` 仍在位。
+       - 预检：stemMatch 全库 cross-count=1；每选项恰好命中 1 条事实、零跨库碰撞；候选唯一且等于数据集答案。
+    2. **引擎缺口修复：`WrongDir` 正则漏匹配裸"不能用"**：首次全量测试暴露 pdf-252 被多选路径判为 ACDEG（选了正确项）而非 BFH。根因——`MultiSelectChoiceValidator.WrongDir` 与 `FactChoiceMatcher.WrongDir`（号称同口径、逐字相同）正则只匹配"不能用来/不能用于/不能达到/…"，**不匹配裸"不能用"**，而 pdf-252 题干为"不能**用**勒夏特列原理解释"→ `askWrong=false` → 多选选了真项。先量化爆炸半径：全库扫描仅 2 题含"不能用"——pdf-252（choice，触发）与 pdf-471（task=unknown、answer `√`，非多选不触发），零回归风险。遂在两文件正则同步插入 `不能用|`（保持同口径）。
+    3. **验证**：
+       - 全量测试全绿：TutorBrain **1037 通过 / 0 失败 / 0 跳过**、Chem **905 / 0 / 0**，EXIT=0（修复前快照为 1032 通过 / 2 失败，2 失败均由 pdf-252 引起）。
+       - 终验 eval `after_b6pure3`（facts=755，757/757 完成、0 失败）：engineSolved **499→507（+8）**，coverage 0.6592→**0.6697**，precision=1，harm=0。diff `after_b6pure→after_b6pure3`：**GAINED={pdf-252, pdf-288, pdf-292, pdf-310, pdf-330, pdf-348, pdf-351, pdf-491}，LOST=0**；其中 pdf-252/491 为本轮策展，其余 6 道为并发代理策展（多为图像/结构题）。pdf-252→BFH、pdf-491→AC 逐题核验判正。
+       - 并发代理期间 facts 计数波动（720→755→743→755：代理 17:04 暂态移除 `GC-584/585/586`，17:07 重新加回），本轮 11 条事实始终完好；全量测试与 eval 均以稳定快照为准，零回归。
+    4. **剩余纯文本 choice 未判正 = 15 题，全部数据阻塞，纯文本事实策展余量枯竭**（源题库 `pdf_questions.json` 自 13:58 未被修改，无内容回填）：
+       - **引用子项/结构/图示缺失（10 题）**：pdf-009/012（①~⑦ 子项缺）、pdf-020/065（计数子项缺）、pdf-337（卤代烃 ①~⑥ 结构缺）、pdf-319（C/D 选项结构缺）、pdf-376（合成路线缺）、pdf-382（制备路线缺）、pdf-394（C 选项环结构缺）、pdf-405（实验结论列缺）。
+       - **数据集答案键错误（2 题，不得策展，否则写入化学错误 verdict）**：pdf-237（2024 重庆卷第 12 题，权威解析答案=A，数据集误标 B；R=H / X=B / Y=F / Z=N）；pdf-075（内部矛盾：A、C 均为假但数据集答案 B）。需源数据订正 answer 键。
+       - **格式/数据错乱（2 题）**：pdf-263（题干问"正确的有几项"但选项为叙述、answer=B 格式错乱）；pdf-197（题面拼接两道题 + answer=`A,B,C,D`）。
+       - **多选实验方案缺失（1 题）**：pdf-115（answer=AC，"进行如下实验"的甲/乙方案在图中缺失，暂排除）。
+       - 另排查 `unknown` 纯文本未判正 60 题：仅 pdf-162 看似选择，实为大型流程题第(3)小问（小写 a/b/c/d + answer 拼接串），非干净单选，当前框架不可策展。
+    5. **当前真实指标（工作树态，未提交）**：facts=**755 条**（代理 `GC-560~586` + 本轮 `GC-659/660`）；`ConceptTruth`=**186**（代理贡献 180→186，多选策展不进字典）；engineSolved=**507**、coverage=**0.6697**、precision=1、harm=0。
+    6. **红线核对**：零假阳性 ✓（全题库护栏 + eval precision=1）；零 harm ✓（`Concept_AdoptedAnswers_AreGradedCorrect`、`FullBank_AnyMultiSelectConclusion_GradedCorrect_NoHarm`、`FullBank_AfterRedoxWiring_MultiSelectAndCounting_NoWrongAdoption` 全绿）；不蒙数 ✓（每选项恰好 1 条命中、候选唯一才断言，不可判返回 null）；策展事实化学正确 ✓（不为过判分写入错误 verdict，故 pdf-237/075 拒绝策展）；零回归 ✓（LOST=0、全量两套 0 失败）。
+
 ## Task 41：双选/多选第一梯队——共性前置（选项解析 & 判分字母范围 A–Z）+ 策展 pdf-225/329/360（+3，零冲突零回归）
 
 - **Status**: done
