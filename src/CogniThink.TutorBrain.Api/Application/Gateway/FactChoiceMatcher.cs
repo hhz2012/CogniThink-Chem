@@ -86,14 +86,32 @@ internal static class FactChoiceMatcher
     /// <summary>单条陈述的判定结论（供 <see cref="IStatementJudge"/> 链路复用）。</summary>
     internal enum StatementVerdict { True, False, Undecided }
 
-    // 四个选择题事实库键（与 Concept / Experiment / Organic / Structure 四个校验器一一对应）。
+    // 通用概念选择事实库键（ConceptChoiceValidator 加载）。
+    private const string GeneralFactKey = "general-choice-facts";
+
+    /// <summary>
+    /// 红线 #6 隔离：单题策展事实单独存放于此文件（不污染 <c>general-choice-facts</c> 通用库），
+    /// 由 Concept 校验与 <see cref="JudgeStatement"/> 合并加载，行为与迁出前字节级一致。
+    /// </summary>
+    private const string CuratedFactKey = "choice-curated-facts";
+
+    // 选择题事实库键（与 Concept / Experiment / Organic / Structure 四个校验器一一对应），
+    // 末尾追加单题策展库：<see cref="JudgeStatement"/> 遍历全部键，保证迁出后仍能命中（stemMatch 全库唯一，不跨题误命中）。
     private static readonly string[] ChoiceFactKeys =
     {
-        "general-choice-facts",
+        GeneralFactKey,
         "experiment-facts",
         "organic-facts",
         "structure-periodic-facts",
+        CuratedFactKey,
     };
+
+    /// <summary>容错加载某事实库的 statements；文件缺失/解析失败返回 null（静默降级，不拖垮链路）。</summary>
+    private static List<FactStatement>? TryLoadFacts(RuleStore store, string key)
+    {
+        try { return store.Query<FactData>(key)?.Statements; }
+        catch { return null; }
+    }
 
     /// <summary>
     /// 用全部四个选择题事实库判定单条化学陈述的真伪（供 <see cref="FactBaseStatementJudge"/> 复用）。
@@ -146,8 +164,24 @@ internal static class FactChoiceMatcher
 
         var askDir = WrongDir.IsMatch(stem) ? "wrong" : "correct";
 
-        var facts = RuleStore.Load().Query<FactData>(factKey)?.Statements;
-        if (facts is null || facts.Count == 0) return null;
+        var store = RuleStore.Load();
+        var facts = store.Query<FactData>(factKey)?.Statements;
+        if (facts is null) return null;
+
+        // 红线 #6 隔离：单题策展事实单独存放，仅 Concept 校验（general 键）合并加载，不污染其它校验器。
+        if (factKey == GeneralFactKey)
+        {
+            var curated = TryLoadFacts(store, CuratedFactKey);
+            if (curated is not null && curated.Count > 0)
+            {
+                var merged = new List<FactStatement>(facts.Count + curated.Count);
+                merged.AddRange(facts);
+                merged.AddRange(curated);
+                facts = merged;
+            }
+        }
+
+        if (facts.Count == 0) return null;
 
         var stemN = NormOpt(stem);
         var letters = opts.Keys.OrderBy(k => k, StringComparer.Ordinal).ToList();

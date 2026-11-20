@@ -190,7 +190,8 @@ public sealed class GatewayVsLlmEvaluationService
 
         // 模式2：网关模式（LLM解析→引擎计算）；配图随题干传入解析 LLM
         // imageAssets 在 Task 4 接入结构化推理时传入；此处默认 null = 旧行为（位图+VL）
-        var gwResult = await _gateway.ProcessStudentMessageAsync(c.Question, c.Images, imageAssets: c.ImageAssets, ct: ct);
+        // 传入题库存储 type（如 judge），供网关按权威题型标记路由（见 ProcessStudentMessageAsync）。
+        var gwResult = await _gateway.ProcessStudentMessageAsync(c.Question, c.Images, imageAssets: c.ImageAssets, questionType: c.Type, ct: ct);
         result.GatewayConclusion = gwResult.EngineResponse.FinalResult;
         result.GatewayOk = gwResult.EngineResponse.Ok;
         result.TaskType = gwResult.TaskType;
@@ -636,6 +637,14 @@ public sealed class GatewayVsLlmEvaluationService
         {
             if (string.IsNullOrWhiteSpace(conclusion)) return null;
             return IsAnswerCorrect(conclusion, c) ? conclusion : null;
+        }
+
+        // judgment（正误判断填 √/×）：仅采纳经答案键校验通过的 √/× 判决串（凡采纳必判正，precision=1）。
+        // 错误/不完整的判决不被采纳 → 不计「引擎解出」也不新增 harm，严守零假阳性。
+        if (gw.TaskType == "judgment")
+        {
+            if (string.IsNullOrWhiteSpace(conclusion)) return null;
+            return HasCorrectnessVerdictSignature(conclusion) && IsAnswerCorrect(conclusion, c) ? conclusion : null;
         }
 
         // 选择题（阶段3B / AC-12）：引擎唯一判定出选项字母 → 直接采用（真值）；

@@ -384,7 +384,15 @@ public class Batch3ChoiceValidatorTests
         // 攻 SVG 硬骨头批次27：元素推断HSO3F(错项=A)+气体定律隔板(错项=C)+无机推断浓硫酸/C(正确项=A)。计数 227→230。
         ["pdf-232"] = "A",
         ["pdf-021"] = "C",
-        ["pdf-141"] = "A"
+        ["pdf-141"] = "A",
+        // 攻 SVG 硬骨头批次28：S+NaOH歧化/NA(错项=A)+铜价类图(正确项=D)+硫价类图(正确项=A)。计数 230→233。
+        ["pdf-140"] = "A",
+        ["pdf-014"] = "D",
+        ["pdf-139"] = "A",
+        // 攻 SVG 硬骨头批次29：醋酸甲酯制乙醇动力学(正确项=D)+Au-Cu合金晶胞(错项=C)+有机催化剂修饰色氨酸(正确项=C)。计数 233→236。
+        ["pdf-256"] = "D",
+        ["pdf-219"] = "C",
+        ["pdf-371"] = "C"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

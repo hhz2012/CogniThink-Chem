@@ -88,10 +88,19 @@ public sealed partial class LlmGatewayService
     /// 网关主入口：学生文本 → 教学回复
     /// </summary>
     /// <param name="imagePaths">题目配图相对路径（相对 data/ 目录）；模型支持视觉时会随题干传给解析 LLM。</param>
-    public async Task<GatewayResult> ProcessStudentMessageAsync(string rawText, IReadOnlyList<string>? imagePaths = null, IReadOnlyList<ImageAsset>? imageAssets = null, CancellationToken ct = default)
+    /// <param name="questionType">题库存储的题型标记（如 judge/choice/fill）；为 judge 时强制走判断分支，
+    /// 避免被 equilibrium/calculation/unknown 错分而使现有判断求解器不可达。null/空表示无标记（运行时默认）。</param>
+    public async Task<GatewayResult> ProcessStudentMessageAsync(string rawText, IReadOnlyList<string>? imagePaths = null, IReadOnlyList<ImageAsset>? imageAssets = null, string? questionType = null, CancellationToken ct = default)
     {
         // 1. LLM 识别任务 + 组装引擎请求
         var engineRequest = await ParseStudentInputAsync(rawText, imagePaths, imageAssets, ct);
+
+        // 题库存储 type=="judge" 是正误判断题的权威信号：确定性分类链会把部分判断题
+        // （含 mol/电离/计算 等字样的题干）错分到 calculation/equilibrium/unknown，
+        // 导致 MultiSub/ConceptVerdict 等判断求解器不可达。此处以存储类型覆盖，零回归
+        // （已判正题中 type=judge 的 pdf-467/pdf-472 仍由相同求解器解出）。
+        if (string.Equals(questionType, "judge", StringComparison.OrdinalIgnoreCase))
+            engineRequest.TaskType = "judgment";
 
         // 2. 调用引擎（黑盒）
         var engineResponse = await CallEngineAsync(engineRequest, imageAssets, ct);
@@ -259,6 +268,11 @@ public sealed partial class LlmGatewayService
         // 1. 选择题：行首出现 A./B．/C、 选项块
         if (Regex.IsMatch(text, @"(^|\n)\s*[A-D][\.．、]\s"))
             return "choice";
+        // 正误判断（填 √/×）：显式信号识别，使判断题在无存储 type 标记时也能进入 judgment 分支
+        // （否则会被 equilibrium/calculation/unknown 截走，现有判断求解器不可达）。
+        // 回归预检查：已判正题中无一命中"正误/填√/填×"信号，零回归；type=judge 的强制覆盖见 ProcessStudentMessageAsync。
+        if (lower.Contains("正误") || lower.Contains("填√") || lower.Contains("填×"))
+            return "judgment";
         if (lower.Contains("共存"))
             return "ion_check";
         if (lower.Contains("配平") || lower.Contains("平了吗") || lower.Contains("系数为") || lower.Contains("化学计量数"))
@@ -443,6 +457,16 @@ public sealed partial class LlmGatewayService
             }
             case "reaction_check":
                 return Task.FromResult(CallCompile(req));
+
+            case "judgment":
+                // 正误判断题（填 √/×）：复用现有判断求解器链（方程正误 → 概念断言 → …），
+                // 仅在可唯一判定时返回 √/× 结论；否则 null，由评估侧不采纳（零假阳性）。
+                return Task.FromResult(CallJudgment(req) ?? new EngineResponse
+                {
+                    Ok = null,
+                    ConstraintNote = "【高中限定】未唯一判定各小题正误（含概念/事实/方程式任一不确定），不臆造 √/×",
+                    Confidence = 1.0
+                });
 
             case "calculation":
                 return Task.FromResult(CallCalculation(req));
@@ -636,6 +660,41 @@ public sealed partial class LlmGatewayService
             ConstraintNote = "【高中限定】人教版规则，不引入大学特例",
             Confidence = 1.0
         };
+    }
+
+    /// <summary>
+    /// 正误判断题求解（judgment 分支）。复用与 reaction_check 相同的判断求解器链：
+    /// 多小题方程正误 → 氧化还原/产物 → 概念断言 → 已知方程/除杂陷阱；不命中即返回 null
+    /// （不回退编译器，避免"已匹配到相关反应"等占位结论噪声）。
+    /// 仅在可唯一判定时产出 √/× 结论；评估侧凡采纳必判正（precision=1）。
+    /// Task 2 将在此链中插入概念正误聚合器（CompositeStatementJudge）。
+    /// </summary>
+    private EngineResponse? CallJudgment(EngineRequest req)
+    {
+        var correctness = MultiSubCorrectnessSolver.TrySolve(req);
+        if (correctness is not null) return correctness;
+
+        // Task 2：概念正误聚合（方程小题 + 概念小题，全部确定才输出 √/× 序列；任一不确定 → null）。
+        // 纯方程题已被上方 MultiSub 命中，此处只接管混合/纯概念正误判断题，不影响既有已判正题。
+        var aggregated = JudgmentStatementAggregator.TrySolve(req);
+        if (aggregated is not null) return aggregated;
+
+        var redox = RedoxGatewaySolver.TrySolve(req);
+        if (redox is not null) return redox;
+
+        var product = ProductWriterSolver.TrySolve(req);
+        if (product is not null) return product;
+
+        var concept = ConceptVerdictSolver.TrySolve(req);
+        if (concept is not null) return concept;
+
+        var known = KnownEquationWriterSolver.TrySolve(req);
+        if (known is not null) return known;
+
+        var trap = ImpurityTrapSolver.TrySolve(req);
+        if (trap is not null) return trap;
+
+        return null;
     }
 
     /// <summary>

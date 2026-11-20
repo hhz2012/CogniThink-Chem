@@ -72,13 +72,13 @@ public static class MultiSubCorrectnessSolver
         }
     }
 
-    private sealed record SubBlock(int Index, string Text);
+    internal sealed record SubBlock(int Index, string Text);
 
     /// <summary>
     /// 是否为"判断方程式书写正误，填 √/×"题型。
     /// 仅此类题才进入拆分；其余题（含概念判断题、选择题）直接返回空 → 由后续分支接管，零回归。
     /// </summary>
-    private static bool LooksLikeJudgmentQuestion(string text)
+    internal static bool LooksLikeJudgmentQuestion(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) return false;
         // 明确的正误判断信号（pdf-051 / pdf-134 / pdf-480 等题干都含）
@@ -96,7 +96,7 @@ public static class MultiSubCorrectnessSolver
     /// 按编号切分会把 5 个小题并成 1 块；改按答题空切分可正确拆出 5 段。</para>
     /// 仅保留以答题空结尾的片段；编号取段内 (N)，缺省按顺序补未占用正整数。
     /// </summary>
-    private static List<SubBlock> SplitSubQuestions(string text)
+    internal static List<SubBlock> SplitSubQuestions(string text)
     {
         if (!LooksLikeJudgmentQuestion(text)) return new List<SubBlock>();
 
@@ -153,7 +153,7 @@ public static class MultiSubCorrectnessSolver
     /// 无法识别单等号 "A = B"（pdf-051 等多用单等号）。
     /// 归一化后再校验（===/→/⇌/--条件--> 归一化为 =），排除 pH=7 之类非方程。
     /// </summary>
-    private static (string? equation, string? context) ExtractEquationAndContext(string subText)
+    internal static (string? equation, string? context) ExtractEquationAndContext(string subText)
     {
         // 去首个编号 (N)
         var withoutIndex = SubMarker.Replace(subText, string.Empty, 1).Trim();
@@ -193,8 +193,20 @@ public static class MultiSubCorrectnessSolver
 
     private static bool ContainsElementLetter(string s) => s.Any(char.IsLetter);
 
+    /// <summary>
+    /// 提取小题的核心陈述文本：去首个 (N) 编号、去结尾答题空 ( )/（ ）。
+    /// 供 <see cref="JudgmentStatementAggregator"/> 把非方程小题作为陈述送入陈述判定链；
+    /// 与 <see cref="ExtractEquationAndContext"/> 共用同一套去编号/去答题空口径。
+    /// </summary>
+    internal static string ExtractSubCore(string subText)
+    {
+        var withoutIndex = SubMarker.Replace(subText, string.Empty, 1).Trim();
+        var core = TrailingBlank.Replace(withoutIndex, string.Empty, 1).TrimEnd().Trim();
+        return core;
+    }
+
     /// <summary>N=1 输出单字符；N&gt;1 输出 "(1)√ (2)× ..."。</summary>
-    private static string FormatVerdict(List<char> symbols)
+    internal static string FormatVerdict(List<char> symbols)
     {
         if (symbols.Count == 1) return symbols[0].ToString();
         return string.Join(" ", symbols.Select((s, i) => $"({i + 1}){s}"));

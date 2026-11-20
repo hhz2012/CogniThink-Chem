@@ -43,10 +43,19 @@ public class ClassificationDeterministicTests
     public void Equilibrium_酸性由强到弱_归类为equilibrium()
         => Assert.Equal("equilibrium", Classify("HClO4、H2SO4、H3PO4酸性由强到弱排序"));
 
-    // ---- 新增：reaction_check 扩展 ----
+    // ---- 新增：judgment（正误判断填 √/×）----
     [Fact]
-    public void Reaction_正误判断_归类为reaction_check()
-        => Assert.Equal("reaction_check", Classify("正误判断，正确的填√，错误的填×"));
+    public void Judgment_正误判断_归类为judgment()
+        => Assert.Equal("judgment", Classify("正误判断，正确的填√，错误的填×"));
+
+    [Fact]
+    public void Judgment_书写的正误_归类为judgment_不被unknown截走()
+        // pdf-051 式题干："判断…书写的正误，正确的填√，错误的填×"（不含"正误判断"整词）
+        => Assert.Equal("judgment", Classify("判断下列离子方程式书写的正误，正确的填√，错误的填×"));
+
+    [Fact]
+    public void Judgment_填对勾叉信号_归类为judgment()
+        => Assert.Equal("judgment", Classify("下列说法是否正确，正确的填√，错误的填×"));
 
     [Fact]
     public void Reaction_是否可行_归类为reaction_check()
