@@ -27,4 +27,7 @@
     <Content Include="data\vector_svg\**\*" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="CogniThink.TutorBrain.Tests" />
+  </ItemGroup>
 </Project>

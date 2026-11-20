@@ -1,0 +1,28 @@
+﻿  正在确定要还原的项目…
+  所有项目均是最新的，无法还原。
+C:\Program Files\dotnet\sdk\8.0.424\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(284,5): warning NETSDK1206: 找到了特定于版本或特定于发行版的运行时标识符: ubuntu.22.04-x64, win10-x64。受影响的库: RDKitDotNetCore。在 .NET 8.0 及更高版本中，默认情况下找不到特定于版本和特定于发行版的运行时标识符的资产。有关详细信息，请参阅 https://aka.ms/dotnet/rid-usage。 [D:\github\CogniThink-Chem\src\CogniThink.Chem.Core\CogniThink.Chem.Core.csproj]
+  CogniThink.Chem.Core -> D:\github\CogniThink-Chem\src\CogniThink.Chem.Core\bin\Debug\net8.0\CogniThink.Chem.Core.dll
+D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\Application\AdaptiveTeachingOrchestrator.cs(78,13): warning CS8602: 解引用可能出现空引用。 [D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj]
+D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\Application\AdaptiveTeachingOrchestrator.cs(110,13): warning CS8602: 解引用可能出现空引用。 [D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj]
+C:\Program Files\dotnet\sdk\8.0.424\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(284,5): warning NETSDK1206: 找到了特定于版本或特定于发行版的运行时标识符: ubuntu.22.04-x64, win10-x64。受影响的库: RDKitDotNetCore。在 .NET 8.0 及更高版本中，默认情况下找不到特定于版本和特定于发行版的运行时标识符的资产。有关详细信息，请参阅 https://aka.ms/dotnet/rid-usage。 [D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj]
+  CogniThink.TutorBrain.Api -> D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\bin\Debug\net8.0\CogniThink.TutorBrain.Api.dll
+D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\DiagnosticErrorPronePointsTests.cs(261,23): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\DiagnosticErrorPronePointsTests.cs(269,23): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\DiagnosticTeachingEngineTests.cs(181,23): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+C:\Program Files\dotnet\sdk\8.0.424\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(284,5): warning NETSDK1206: 找到了特定于版本或特定于发行版的运行时标识符: ubuntu.22.04-x64, win10-x64。受影响的库: RDKitDotNetCore。在 .NET 8.0 及更高版本中，默认情况下找不到特定于版本和特定于发行版的运行时标识符的资产。有关详细信息，请参阅 https://aka.ms/dotnet/rid-usage。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+  CogniThink.TutorBrain.Tests -> D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\bin\Debug\net8.0\CogniThink.TutorBrain.Tests.dll
+
+已成功生成。
+
+C:\Program Files\dotnet\sdk\8.0.424\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(284,5): warning NETSDK1206: 找到了特定于版本或特定于发行版的运行时标识符: ubuntu.22.04-x64, win10-x64。受影响的库: RDKitDotNetCore。在 .NET 8.0 及更高版本中，默认情况下找不到特定于版本和特定于发行版的运行时标识符的资产。有关详细信息，请参阅 https://aka.ms/dotnet/rid-usage。 [D:\github\CogniThink-Chem\src\CogniThink.Chem.Core\CogniThink.Chem.Core.csproj]
+D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\Application\AdaptiveTeachingOrchestrator.cs(78,13): warning CS8602: 解引用可能出现空引用。 [D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj]
+D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\Application\AdaptiveTeachingOrchestrator.cs(110,13): warning CS8602: 解引用可能出现空引用。 [D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj]
+C:\Program Files\dotnet\sdk\8.0.424\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(284,5): warning NETSDK1206: 找到了特定于版本或特定于发行版的运行时标识符: ubuntu.22.04-x64, win10-x64。受影响的库: RDKitDotNetCore。在 .NET 8.0 及更高版本中，默认情况下找不到特定于版本和特定于发行版的运行时标识符的资产。有关详细信息，请参阅 https://aka.ms/dotnet/rid-usage。 [D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj]
+D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\DiagnosticErrorPronePointsTests.cs(261,23): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\DiagnosticErrorPronePointsTests.cs(269,23): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\DiagnosticTeachingEngineTests.cs(181,23): warning CS1998: 此异步方法缺少 "await" 运算符，将以同步方式运行。请考虑使用 "await" 运算符等待非阻止的 API 调用，或者使用 "await Task.Run(...)" 在后台线程上执行占用大量 CPU 的工作。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+C:\Program Files\dotnet\sdk\8.0.424\Sdks\Microsoft.NET.Sdk\targets\Microsoft.NET.Sdk.targets(284,5): warning NETSDK1206: 找到了特定于版本或特定于发行版的运行时标识符: ubuntu.22.04-x64, win10-x64。受影响的库: RDKitDotNetCore。在 .NET 8.0 及更高版本中，默认情况下找不到特定于版本和特定于发行版的运行时标识符的资产。有关详细信息，请参阅 https://aka.ms/dotnet/rid-usage。 [D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\CogniThink.TutorBrain.Tests.csproj]
+    8 个警告
+    0 个错误
+
+已用时间 00:00:21.93

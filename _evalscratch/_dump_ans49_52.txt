@@ -1,0 +1,112 @@
+﻿
+########## an49 (page 49) ##########
+  --- num=1 type=None ---
+    answer: ×,×,√,×,√,×,×,×,×,×,×,√,×,×,×
+    module: 模块3 硫及其化合物
+    explanation: 解析：(1)酸性KMnO4溶液能与SO2发生氧化还原反应而褪色，而CO2不能和酸性KMnO4溶液反应，故可用酸性KMnO4溶液区分二者；但CO2和SO2均会与澄清石灰水反应生成白色沉淀（分别为CaCO3、CaSO3），因此澄清石灰水无法区分二者。(2)饱和Na2CO3溶液不仅与杂质SO2反应，还会与目标气体CO2反应，导致CO2被消耗，应改用饱和NaHCO3溶液除去CO2中少量的SO2。
+  --- num=2 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: 饱和Na2CO3溶液不仅与杂质SO2反应，还会与目标气体CO2反应，导致CO2被消耗，目标气体损失，违反“不减”原则，应使用饱和NaHCO3溶液除去CO2中少量的SO2。
+  --- num=3 type=None ---
+    answer: √
+    module: 模块3 硫及其化合物
+    explanation: SO2具有还原性，向葡萄酒中添加适量SO2可起到抗氧化作用，防止其中某些成分被氧化，起到保质作用。
+  --- num=4 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: BaCO3能与胃酸（主要成分HCl）反应生成可溶性钡盐，导致人体重金属离子中毒，应使用难溶于胃酸的BaSO4作“钡餐”。
+  --- num=5 type=None ---
+    answer: √
+    module: 模块3 硫及其化合物
+    explanation: 少量SO2通入Ca(ClO)2溶液中发生氧化还原反应，因CaSO4微溶，离子方程式为Ca2+ + 3ClO− + SO2 + H2O = CaSO4↓ + Cl− + 2HClO；注意两点：①Ca(ClO)2过量时，过量ClO−会与生成的H+结合为HClO；②CaSO4微溶，应以沉淀形式出现在产物中。
+  --- num=6 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: Cl2、SO2等气体均可使品红溶液褪色，若溶液中含KClO，其离子方程式为Cl− + ClO− + 2H+ = Cl2↑ + H2O；K2SO3(SO3^2− + 2H+ = SO2↑ + H2O)或KHSO3(HSO3− + H+ = SO2↑ + H2O)等也可能产生SO2、CO3^2−、SO3^2−或Ag+等干扰。
+  --- num=7 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: 向待测液中滴加BaCl2溶液，生成白色沉淀，溶液中可能有SO4^2−、CO3^2−、SO3^2−或Ag+等；需进一步验证。
+  --- num=8 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: SO2通入BaCl2溶液中不产生沉淀（若发生反应，化学方程式为SO2 + BaCl2 + H2O = BaSO3 + 2HCl），该反应违背“强酸制弱酸”原理，无法发生；但SO2通入Ba(NO3)2溶液中，SO2会与H2O反应生成H2SO3，使溶液呈酸性，SO2可被NO3−(H+)氧化为SO4^2−，最终生成BaSO4沉淀，此处类比迁移不合理。
+  --- num=9 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: 常温下Cu与浓H2SO4不反应，需加热装置；制备装置不合理；因SO2溶于水且常温下能和H2O反应生成H2SO3，故不能用排水法收集，可用向上排空气法收集SO2（密度比空气大），收集装置也不合理。
+  --- num=10 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: 胆矾(CuSO4·5H2O)遇浓H2SO4变白，体现的是浓硫酸的吸水性（CuSO4·5H2O中有结晶水）；浓硫酸使纸张变黑是脱水性（主要成分为纤维素中H和O原子按2:1比例脱去），体现的是浓硫酸的脱水性（纸张中没有结晶水和自由水），二者原理不同。
+  --- num=11 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: 用Na2SO3溶液吸收足量Cl2，SO3^2−具有还原性，Cl2具有氧化性，SO3^2−和HSO3−可被Cl2氧化为SO4^2−，题中离子方程式产物HSO3−不应出现，正确离子方程式为SO3^2− + Cl2 + H2O = 2H+ + 2Cl− + SO4^2−。
+  --- num=12 type=None ---
+    answer: √
+    module: 模块3 硫及其化合物
+    explanation: Na2SO3溶液变质会生成Na2SO4；取少许溶液加入盐酸酸化（排除未完全变质的Na2SO3的干扰），离子方程式为SO3^2− + 2H+ = SO2↑ + H2O；再加BaCl2溶液，若出现白色沉淀(BaSO4)，则Na2SO3溶液变质；若无白色沉淀，则未变质，可用此法检验是否变质。
+  --- num=13 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: SO2能使品红溶液褪色；Cl2与水反应产生的HClO有漂白性，若将Cl2通入品红溶液中，也会使品红溶液褪色，故能使品红溶液褪色的气体不一定是SO2。（若加热褪色后的品红溶液，溶液颜色恢复，可证明通入的气体为SO2）
+  --- num=14 type=None ---
+    answer: ×
+    module: 模块3 硫及其化合物
+    explanation: 向Na2S2O3溶液中加入稀H2SO4，反应的化学方程式为Na2S2O3 + H2SO4 = S↓ + SO2↑ + Na2SO4 + H2O，该反应生成S单质沉淀和SO2气体。
+
+########## an50 (page 50) ##########
+  --- num=2 type=None ---
+    answer: C
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: 解析A：浓硫酸具强吸水性且不与SO2反应，可用于干燥SO2；B：S单质氧化性较弱，仅能将Cu氧化至低价态生成Cu2S，Fe反应生成FeS，Cl2氧化性强可得高价态产物如CuCl2、FeCl3；C：Na2S与Na2SO3混合液中滴加稀H2SO4发生归中反应2S2- + SO3^2- + 6H+ = 3S↓ + 3H2O，氧化剂为SO3^2-，氧化产物为S，故SO3^2- > S > SO4^2-，C错误；D：FeS2与O2高温反应4FeS2 + 11O2 = 2Fe2O3 + 8SO2，Fe从+2→+3，S从-1→+4，1 mol FeS2转移11 mol电子，D正确。
+  --- num=3 type=None ---
+    answer: A
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: A：蒸馏法利用沸点差异分离乙醇与水，正确；B：盐析是加高浓度轻金属盐或铵盐使蛋白质沉淀，不使其变性，而CuSO4为重金属盐会使蛋白质变性，B错误；C：SO2漂白是与有色物质结合生成不稳定无色物，非氧化还原，C错误；D：SO2溶于水后HCl与SO2均被吸收，应使用饱和NaHSO3溶液除HCl，因SO2 + H2O ⇌ H2SO3 ⇌ H+ + HSO3-，饱和NaHSO3含高浓度HSO3-，抑制SO2溶解，减少损失，D错误。
+  --- num=4 type=None ---
+    answer: D
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: A：SO2漂白性与非金属性无关，A错；B：H2SO3与Na2CO3反应生成NaHCO3，说明H2SO3酸性强于HCO3-，但不能直接比较非金属性，应比较最高价含氧酸（H2SO4 vs H2CO3），B错；C：KMnO4溶液褪色是因SO2还原性，与非金属性强弱无关，C错；D：Na2CO3水解显碱性说明H2CO3为弱酸，Na2SO4不水解说明H2SO4为强酸，最高价含氧酸酸性H2SO4 > H2CO3，故非金属性S > C，D正确。
+  --- num=5 type=None ---
+    answer: B
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: A：FeS与稀硫酸常温反应FeS + H2SO4 = FeSO4 + H2S↑，符合强酸制弱酸，可用此法制H2S，A正确；B：浓硫酸具强氧化性，H2S具强还原性，二者存在S元素稳定中间价态，会发生归中反应，故不能用浓硫酸干燥H2S，B错误。题目问‘错误’选项，故选B。
+
+########## an51 (page 51) ##########
+  --- num=6 type=None ---
+    answer: A
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: 根据“价-类二维图”，a为H2S、b为S、c为SO2、d为H2SO3、e为H2SO4、f为硫酸盐。a→b→c→d→e→f的转化中，H2S→S→SO2→H2SO3→H2SO4→硫酸盐，H2S在O2中不完全燃烧可生成S、S与O2在点燃条件下反应生成SO2，SO2与H2O反应可生成H2SO3，H2SO3可被O2、H2O2等氧化为H2SO4，H2SO4可与碱或某些盐反应生成硫酸盐，A选项正确。
+  --- num=7 type=None ---
+    answer: A
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: 由化学方程式可知，反应中S元素的化合价既升高又降低，Na2S是反应的还原产物，Na2SO3是氧化产物，则发生氧化反应（化合价升高）与发生还原反应（化合价降低）的S的物质的量之比是1:2，A选项错误。B项：1个S8分子含6个S—S键，1 mol S8含6NA个S—S键，B正确。C项：S8、S6、S4是硫元素形成的不同单质，互为同素异形体，转化属化学变化，C正确。D项：Na2SO3与稀H2SO4反应为复分解反应，体现稀硫酸酸性，D正确。
+  --- num=8 type=None ---
+    answer: A
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: M、Y为浓硫酸、碳，碳与浓硫酸反应：C + 2H2SO4(浓) → CO2↑ + 2SO2↑ + 2H2O，S元素化合价从+6降至+4，浓硫酸起氧化作用，A正确。B项：Na燃烧生成Na2O2，能与CO2反应，但金属钠着火不能用CO2扑灭，应用沙土，B错误。C项：SO2通入石蕊溶液变红但不褪色，C错误。D项：SO3与H2O剧烈放热，易形成酸雾，工业用98.3%浓硫酸吸收SO3制H2SO4，D错误。
+  --- num=9 type=None ---
+    answer: B
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: A项：氨水呈碱性使酚酞变红，通入过量H2S后生成NH4HS和H2O，碱性减弱，红色褪去，离子方程式无误，A正确。B项：FeS是难溶物，不溶于非氧化性强酸（如H2SO4、HCl），FeS与H+不会以两种产物共存于同一离子方程式；实际应为Fe2+ + S2- + 2H+ → Fe2+ + H2S↑，现象中“黑色沉淀”与产物不符，应为淡黄色沉淀S，B错误。C项：Cu2+与H2S生成CuS黑色沉淀，不溶于强酸，C正确。D项：MnO4-将H2S氧化为S，自身被还原为Mn2+，溶液紫色褪去并生成淡黄色S沉淀，离子方程式无误，D正确。
+  --- num=10 type=None ---
+    answer: A
+    module: 一化·高考化学核心方法（基础+中档）
+    explanation: 98%浓硫酸浓度过大，主要以H2SO4分子形式存在，H+浓度小，反应速率慢；实验室一般用质量分数70%的硫酸和亚硫酸钠固体制备SO2。若硫酸浓度太小，会导致大量SO2溶解在稀硫酸中，A选项错误。
+
+########## an52 (page 52) ##########
+  --- num=11 type=None ---
+    answer: D
+    module: 模块4 氮及其化合物
+    explanation: A项错误：FeS2与O2在高温下生成SO2，但该转化第一步无法一步实现；B项错误：SO2与CaCl2溶液不反应；C项错误：稀H2SO4与Cu不反应，浓硫酸与Cu需加热才反应；D项正确：Na2S2O3与稀H2SO4反应生成Na2SO4、S、SO2和H2O，S与Cu反应生成Cu2S，两步均可实现。
+  --- num=12 type=None ---
+    answer: D
+    module: 模块4 氮及其化合物
+    explanation: A项正确：溴水中Br2氧化SO2生成H2SO4和HBr，S元素价态升高，体现SO2还原性；B项正确：SO2为酸性氧化物，与H2O生成H2SO3使石蕊变红；C项错误：烧瓶发热是浓硫酸稀释放热，不能说明H2S被氧化；D项正确：SO2与H2S反应生成S沉淀，H2S中S为-2价被氧化，是还原剂，SO2为氧化剂，物质的量比1:2。
+  --- num=13 type=None ---
+    answer: (1)分液漏斗 (2)排出装置中的空气 (3)BaSO3 (4)b (5)0.032
+    module: 模块4 氮及其化合物
+    explanation: (1)仪器a为分液漏斗；(2)通N2排空气防O2干扰SO2检验；(3)BaCl2与SO2不反应，滴加NH3·H2O后生成BaSO3白色沉淀；(4)KMnO4褪色说明SO2还原KMnO4，体现还原性，b正确；(5)根据I2消耗量计算n(SO2)=2.5×10⁻⁵ mol，得m(SO2)=1.6×10⁻³ g，样品中SO2含量=0.032 g/kg。

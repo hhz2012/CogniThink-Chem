@@ -1,0 +1,15 @@
+=== Classification wrong=0 ===
+=== TransformationChain wrong=0 ===
+=== NaChoice wrong=0 ===
+=== IonicEquation wrong=0 ===
+=== Redox wrong=1 ===
+  pdf-099 ans=A,B,C,D got=A snapCorrect=True | (2025·新课标卷改编·★★)下列关于铁腐蚀与防护的反应式错误的是( ) A. 酸性环境中铁发生析氢腐蚀的负极反应:Fe−3e⁻=Fe³⁺ B. 铁发生腐蚀生锈的反应:4Fe+3O₂+xH₂O=2Fe₂O₃·xH₂O 
+=== Equilibrium wrong=1 ===
+  pdf-268 ans=A, B, C, D got=A snapCorrect=True | (2025·北京东城二模·★★★)25 ℃时，下列说法正确的是（ ） A. 2 mL 0.1 mol/L 的醋酸和盐酸分别与足量锌反应，生成 H2 的量基本相同 B. Na2CO3 溶液中：2c(Na⁺)=c(CO3²⁻
+=== Organic wrong=0 ===
+=== Structure wrong=1 ===
+  pdf-210 ans=A, C, D got=A snapCorrect=True | (2025·湖北卷·★★★)下列关于物质性质或应用解释错误的是( ) A. 石蜡油的流动性比水的差；石蜡油的分子间作用力比水的小 B. NH3溶于水显碱性；NH3可结合水中的质子 C. OF2可以氧化H2O；OF2中O显
+=== Experiment wrong=2 ===
+  pdf-149 ans=A, B, C, D got=A snapCorrect=True | (2025·海南模拟预测·★★)下列实验操作正确且能达到相应实验目的的是（ ） A. 吸收 NH3，防止污染空气 B. 验证 Cl2 的助燃性 C. 转移溶液 D. 测量 NO 的体积并读数
+  pdf-404 ans=A, B, C, D got=A snapCorrect=True | (2025·湖北襄阳一模·★★★)过氧化钙是水产养殖中广泛使用的供氧剂,实验室以碳酸钙为原料制备过氧化钙的流程如图所示。下列说法不正确的是( ) A. “煮沸”的主要目的是除去HCl B. “冰水浴”的作用是防止H2O2
+=== Concept wrong=0 ===

@@ -1,0 +1,4 @@
+totalCases=723  choiceCases=487
+[choice] baselineCorrect=188  patchedCorrect=198  delta=10
+gains(10)=pdf-039,pdf-040,pdf-043,pdf-047,pdf-048,pdf-050,pdf-056,pdf-157,pdf-339,pdf-435
+harm(0)=

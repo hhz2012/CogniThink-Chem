@@ -1,0 +1,11 @@
+    public void 选择题不触发()
+    {
+        // 生产钩子不介入选择题；题库中选择题仅 pdf-486（填空+双选复合题，生产 choice 路由不经原子求解器，零 harm）会触发求解器，
+        // 其余选择题一律不触发，不蒙数、不损害精确率。
+        var firedIds = GatewayVsLlmEvaluationService.GenPdfQuestions()
+            .Where(c => c.Type == "choice" && Solve(c.Question) is not null)
+            .Select(c => c.Id)
+            .OrderBy(x => x)
+            .ToList();
+        Assert.Equal(new[] { "pdf-486" }, firedIds);
+    }

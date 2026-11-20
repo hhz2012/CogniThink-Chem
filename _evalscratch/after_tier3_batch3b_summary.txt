@@ -1,0 +1,6 @@
+baseline correct = 242
+patched  correct = 253  (+11)
+conceptHits = 21
+gains = 11  [pdf-034->C, pdf-052->B, pdf-086->B, pdf-102->B, pdf-129->B, pdf-343->B, pdf-407->A, pdf-411->D, pdf-440->C, pdf-446->B, pdf-503->B]
+harm = 0  []
+potentialLoss (concept hit baseline-solved) = 10  [pdf-004, pdf-118, pdf-245, pdf-372, pdf-396, pdf-442, pdf-451, pdf-493, pdf-496, pdf-497]

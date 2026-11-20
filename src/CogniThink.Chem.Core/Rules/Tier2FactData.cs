@@ -68,3 +68,30 @@ public sealed class NaParticleFact
     public List<string> HydrolyzableIons { get; set; } = new(); // 溶于水会水解的离子（使其实际浓度低于名义）
     public string Note { get; set; } = "";
 }
+
+/// <summary>
+/// 计数事实库：data/highschool/counting-facts.json。
+/// 收录无法用构造异构枚举器计算的计数（笼状、苯环、萘等固定结构的取代物数/等效氢数）。
+/// 引擎枚举能算的（烷烃/烷基）不进此表，保持"计算是真值源"。
+/// 每条经化学核对；匹配走精确子串 + 数目比对，歧义则不判（零假阳性）。
+/// </summary>
+public sealed class CountingFactData
+{
+    public string Version { get; set; } = "";
+    public string Source { get; set; } = "";
+    public List<CountingFact> Facts { get; set; } = new();
+}
+
+public sealed class CountingFact
+{
+    /// <summary>条目 id，如 "CUBANE-2CL"。</summary>
+    public string Id { get; set; } = "";
+    /// <summary>选项文本必须同时包含这里的全部子串才命中（如 ["立方烷","六氯"]）。</summary>
+    public List<string> MatchAllOf { get; set; } = new();
+    /// <summary>选项文本若含这里任一子串则不命中（如苯的事实排除"甲苯"，避免误中）。</summary>
+    public List<string> Exclude { get; set; } = new();
+    /// <summary>正确数目。</summary>
+    public int Count { get; set; }
+    /// <summary>核对依据（供讲解/留痕）。</summary>
+    public string Note { get; set; } = "";
+}

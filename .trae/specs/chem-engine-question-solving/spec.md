@@ -284,6 +284,7 @@
 - **Then**: 逐步查表判定可行性，全链可行则该选项「能实现」成立；问能实现→唯一定位全可行链，问不能实现→唯一定位含不可行步的链；任一步缺规则/无唯一解→`null`
 - **Pass Condition**: 新建 ≥20 道链题全部被确定性解出正确字母；现有 pdf-013/015/016/017 被解出；全 648 题无新增假阳性、零回归；规则库 ≥50 条有向转化步
 - **Evidence**: `TransformationChainValidatorTests`（新题全对 + 现有 4 题 + 负例：缺步/歧义/非链题→null）+ 全题库护栏单测 + 数据文件统计
+- **Measured（LLM 无关确定性评估，隔离 Tier 2-B 增量）**: 对比 `_evalscratch/after_tier2a.json`（Tier 2-A 基线）→ `_evalscratch/after_tier2b.json`（本次），脚本 `_evalscratch/diff_tier2b.py`，8 项验收全 PASS：题库 679→723（+44：24 t2t + 20 t2n），引擎采纳 138→184（**+46**）、gatewayCorrect 136→182（+46）、精确率 0.9855→**0.9891**（不降反升）；**0 新增 harm、0 道 correct→wrong 回归、0 道丢失解出**；新增解出 46/46 全对（零假阳性）；24/24 道 t2t 全部 adopted 且 correct；pdf-013→D、pdf-015→B、pdf-016→D 被解出。其中 **AC-17 自身贡献 +26**（24 道 t2t + pdf-013/016 由 `TransformationChainValidator` 新解），其余 +20 为 t2n（AC-18 / `NaChoiceValidator`，同提交）。**pdf-017 诚实返回 null**：A/D 两链均可行→无唯一解→不蒙数，未计入解出（题面与标答矛盾，按本条「无唯一解→null」处置）。评估产物由进程内确定性引擎列重算生成（活评 API 本环境反复被杀，详见 Task 19 Notes）：选择题由真实 C# `CallChoice` 管线逐案计算（`_TmpTier2EvalDump` → `_choice_dump.json`，调用生产 `IsAnswerCorrect` 判分），非选择题复用 Tier 2-A 基线逐案结果（Tier 2-B 为加法性改动，非 choice 路径不变），`merge_tier2b.py` 合并且 flip 报告确认 0 丢失 / 0 回归。
 
 ### AC-18：NA 选择逐选项计算校验（Tier 2-C）
 - **Type**: `rule`
@@ -292,6 +293,7 @@
 - **Then**: 由每式粒子数事实 + 化学计量计算期望值，与 k 比对判定选项对错（含条件陷阱：22.4 L 无标况→错、SO₃ 标况固态→错、水解离子→实际<名义、可逆/稀酸→<声称）；唯一判定则返回选项字母；任一选项解析不全/缺事实/无唯一解→整题 `null`（保守，不蒙数）
 - **Pass Condition**: 新建 ≥18 道 NA 选择题（选项格式可被干净解析）全部被确定性解出正确字母；现有可干净解析的 NA 题（pdf-026/093/419/421/422/423/424/425/427 中可解析者）被解出；全 648 题无新增假阳性、零回归；事实库 ≥40 个化学式
 - **Evidence**: `NaChoiceValidatorTests`（新题全对 + 现有可解析题 + 负例：解析不全/缺事实→整题 null、非 NA 题不触发）+ 全题库护栏单测 + 数据文件统计
+- **Measured（LLM 无关确定性评估，隔离 AC-18 增量）**: 对比 `_evalscratch/after_tier2a.json`（Tier 2-A 基线）→ `_evalscratch/after_tier2c.json`（本次），脚本 `_evalscratch/diff_tier2c.py`（输出留痕 `_evalscratch/diff_tier2c.out.txt`），9 项验收全 PASS：题库 679→699（+20，仅 t2n），引擎采纳 138→158（**+20**）、gatewayCorrect 136→156（+20）、精确率 0.9855→**0.9873**（+0.0018，不降反升）、pureLlmCorrect 500→500（+0，纯 LLM 列不变）；**0 新增 harm、0 道 correct→wrong 回归、0 道丢失解出**；新增解出 20/20 全对（零假阳性）且**全部为 t2n**（隔离：非 t2n 采纳集为空，零越界）；20/20 道 t2n 全部 adopted 且 correct；10 道 pdf NA 真题（pdf-026/093/419/421-427）**诚实返回 null**（adopted=False，OCR/解析不可干净计算→不蒙数，未新增采纳，符合保守优先与「可解析者被解出」的奖励未达约定）。评估方法：NA-only 确定性转储（`_TmpNaEvalDump` → `_na_dump.json`，仅调用 `NaChoiceValidator.TryDecide` 遍历全题库 723 题，采纳集锁定为 20 t2n、naWrong=0），`merge_tier2c.py` 仅覆盖/新增 NA 采纳的题——对基线 679 题 flip 报告 0 adopted / 0 lost / 0 regress（零回归由构造保证），非 NA 题与 pureLlm 列原样复用基线（Tier 2-C 为加法性改动，非 choice 路径不变）。本隔离结果与 AC-17 Measured 中「其余 +20 为 t2n（AC-18 / `NaChoiceValidator`）」完全吻合，两者互不污染。
 
 ### AC-19：Tier 2 集成、度量与零回归（Tier 2 总闸门）
 - **Type**: `rule`

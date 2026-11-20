@@ -1,0 +1,16 @@
+=== gateway /process probe: Task 27 choice (5 key fixes + 3 gains) ===
+
+pdf-008   want=C tt=choice  engOk=True   letterHit=True  final='错误选项为 C'
+pdf-154   want=B tt=choice  engOk=True   letterHit=True  final='正确选项为 B'
+pdf-186   want=A tt=choice  engOk=True   letterHit=True  final='正确选项为 A'
+pdf-326   want=D tt=choice  engOk=True   letterHit=True  final='正确选项为 D'
+pdf-502   want=B tt=choice  engOk=True   letterHit=True  final='正确选项为 B'
+pdf-005   want=C tt=choice  engOk=True   letterHit=True  final='正确选项为 C'
+pdf-053   want=B tt=choice  engOk=True   letterHit=True  final='B。依据事实库与守恒判定：问错误项：B'
+pdf-513   want=D tt=choice  engOk=True   letterHit=False  final='错误选项为 B'
+server stopped
+
+--- summary (n=8) ---
+taskType=choice  = 8/8
+engineOk=True   = 8/8
+final letter hit= 7/8

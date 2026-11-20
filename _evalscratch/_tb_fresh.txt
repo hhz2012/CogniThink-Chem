@@ -1,0 +1,9 @@
+﻿D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\bin\Debug\net8.0\CogniThink.TutorBrain.Tests.dll (.NETCoreApp,Version=v8.0)的测试运行
+dotnet : 找不到提供的测试源文件“D:\github\CogniThink-Chem\tests\CogniThink.TutorBrain.Tests\bin\Debug\net8.0\CogniThink.TutorBrain
+.Tests.dll”。
+所在位置 行:15 字符: 2224
++ ... M = 'dumb'; dotnet test tests/CogniThink.TutorBrain.Tests/CogniThink. ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (找不到提供的测试源文件“D:\...ain.Tests.dll”。:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

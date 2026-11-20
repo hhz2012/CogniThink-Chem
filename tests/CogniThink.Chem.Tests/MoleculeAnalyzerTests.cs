@@ -121,4 +121,56 @@ M  END
         Assert.Contains("苯环", r.FunctionalGroups);
         Assert.Equal(4, r.DegreeOfUnsaturation);
     }
+
+    /// <summary>Task 40：手性碳数（numAtomStereoCenters）——2-丁醇 1、2-丙醇 0、酒石酸 2。</summary>
+    [Theory]
+    [InlineData("CCC(O)C", 1)]
+    [InlineData("CC(O)C", 0)]
+    [InlineData("OC(=O)C(O)C(O)C(=O)O", 2)]
+    public void 手性碳数_正确(string smiles, int expected)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        Assert.Equal(expected, r.ChiralCenterCount);
+    }
+
+    /// <summary>Task 40：等效氢组数 = 一氯代物种数（¹³C 标记规范去重）。</summary>
+    [Theory]
+    [InlineData("c1ccccc1", 1)]
+    [InlineData("CC", 1)]
+    [InlineData("CCC", 2)]
+    [InlineData("CC(C)C", 2)]
+    [InlineData("Cc1ccccc1", 4)]
+    public void 等效氢组数_正确(string smiles, int expected)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        Assert.Equal(expected, r.EquivalentHydrogenGroups);
+    }
+
+    /// <summary>Task 40：最多可加成 H₂ mol 数（苯 3、乙烯 1、乙炔 2、乙醛 1）。</summary>
+    [Theory]
+    [InlineData("c1ccccc1", 3)]
+    [InlineData("C=C", 1)]
+    [InlineData("C#C", 2)]
+    [InlineData("CC=O", 1)]
+    public void 可加成H2数_正确(string smiles, int expected)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        Assert.Equal(expected, r.AddableH2Count);
+    }
+
+    /// <summary>Task 40：sp²/sp³ 碳数统计。</summary>
+    [Theory]
+    [InlineData("c1ccccc1", 6, 0)]
+    [InlineData("CC=O", 1, 1)]
+    [InlineData("C=C", 2, 0)]
+    public void 杂化碳数_正确(string smiles, int sp2, int sp3)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        Assert.Equal(sp2, r.Sp2CarbonCount);
+        Assert.Equal(sp3, r.Sp3CarbonCount);
+    }
 }

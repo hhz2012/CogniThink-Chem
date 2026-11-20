@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="sans-serif" font-size="13">
+<rect x="0" y="0" width="640" height="420" fill="white"/>
+<line x1="70.0" y1="40" x2="70.0" y2="360" stroke="#eee"/>
+<line x1="70.0" y1="360" x2="70.0" y2="365" stroke="black"/>
+<text x="70.0" y="380" text-anchor="middle">0</text>
+<line x1="178.0" y1="40" x2="178.0" y2="360" stroke="#eee"/>
+<line x1="178.0" y1="360" x2="178.0" y2="365" stroke="black"/>
+<text x="178.0" y="380" text-anchor="middle">20</text>
+<line x1="286.0" y1="40" x2="286.0" y2="360" stroke="#eee"/>
+<line x1="286.0" y1="360" x2="286.0" y2="365" stroke="black"/>
+<text x="286.0" y="380" text-anchor="middle">40</text>
+<line x1="394.0" y1="40" x2="394.0" y2="360" stroke="#eee"/>
+<line x1="394.0" y1="360" x2="394.0" y2="365" stroke="black"/>
+<text x="394.0" y="380" text-anchor="middle">60</text>
+<line x1="502.0" y1="40" x2="502.0" y2="360" stroke="#eee"/>
+<line x1="502.0" y1="360" x2="502.0" y2="365" stroke="black"/>
+<text x="502.0" y="380" text-anchor="middle">80</text>
+<line x1="610.0" y1="40" x2="610.0" y2="360" stroke="#eee"/>
+<line x1="610.0" y1="360" x2="610.0" y2="365" stroke="black"/>
+<text x="610.0" y="380" text-anchor="middle">100</text>
+<line x1="70" y1="360.0" x2="610" y2="360.0" stroke="#eee"/>
+<line x1="65" y1="360.0" x2="70" y2="360.0" stroke="black"/>
+<text x="62" y="364.0" text-anchor="end">0</text>
+<line x1="70" y1="306.7" x2="610" y2="306.7" stroke="#eee"/>
+<line x1="65" y1="306.7" x2="70" y2="306.7" stroke="black"/>
+<text x="62" y="310.7" text-anchor="end">10</text>
+<line x1="70" y1="253.3" x2="610" y2="253.3" stroke="#eee"/>
+<line x1="65" y1="253.3" x2="70" y2="253.3" stroke="black"/>
+<text x="62" y="257.3" text-anchor="end">20</text>
+<line x1="70" y1="200.0" x2="610" y2="200.0" stroke="#eee"/>
+<line x1="65" y1="200.0" x2="70" y2="200.0" stroke="black"/>
+<text x="62" y="204.0" text-anchor="end">30</text>
+<line x1="70" y1="146.7" x2="610" y2="146.7" stroke="#eee"/>
+<line x1="65" y1="146.7" x2="70" y2="146.7" stroke="black"/>
+<text x="62" y="150.7" text-anchor="end">40</text>
+<line x1="70" y1="93.3" x2="610" y2="93.3" stroke="#eee"/>
+<line x1="65" y1="93.3" x2="70" y2="93.3" stroke="black"/>
+<text x="62" y="97.3" text-anchor="end">50</text>
+<line x1="70" y1="40.0" x2="610" y2="40.0" stroke="#eee"/>
+<line x1="65" y1="40.0" x2="70" y2="40.0" stroke="black"/>
+<text x="62" y="44.0" text-anchor="end">60</text>
+<line x1="70" y1="40" x2="70" y2="360" stroke="black" stroke-width="1.5"/>
+<line x1="70" y1="360" x2="610" y2="360" stroke="black" stroke-width="1.5"/>
+<text x="340.0" y="405" text-anchor="middle">温度/℃</text>
+<text x="20" y="200.0" text-anchor="middle" transform="rotate(-90 20 200.0)">溶解度 g/100 g水</text>
+<polyline points="70.0,226.7 178.0,216.0 286.0,205.3 394.0,184.0 448.0,173.3 502.0,157.3 556.0,136.0 610.0,66.7" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="70.0" cy="226.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="178.0" cy="216.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="286.0" cy="205.3" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="394.0" cy="184.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="448.0" cy="173.3" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="502.0" cy="157.3" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="556.0" cy="136.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="610.0" cy="66.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="55" text-anchor="end" fill="#c0392b">KCl</text>
+<polyline points="70.0,216.0 178.0,213.3 286.0,210.7 394.0,208.0 448.0,208.0 502.0,208.0 556.0,208.0 610.0,208.0" fill="none" stroke="#2980b9" stroke-width="2.5"/>
+<circle cx="70.0" cy="216.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="178.0" cy="213.3" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="286.0" cy="210.7" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="394.0" cy="208.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="448.0" cy="208.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="502.0" cy="208.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="556.0" cy="208.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="610.0" cy="208.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<text x="605" y="73" text-anchor="end" fill="#2980b9">NaCl</text>
+</svg>

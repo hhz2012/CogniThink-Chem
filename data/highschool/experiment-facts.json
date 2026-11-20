@@ -1,0 +1,115 @@
+{
+  "version": "1.0",
+  "source": "batch2 choice 子集事实库（实验安全/操作/装置、电化学腐蚀、周期律、化学变化、方程式正误、计量概念）。人工逐核，以 llmReference 反推 + 化学核对真值。match 为归一化后必须全部出现在选项中的子串；stemMatch 为必须全部出现在题干中的子串（把短选项限定到本题，防跨题误命中）。红线：每选项恰好命中 1 条事实，否则整题返回 null。",
+  "statements": [
+    { "id": "EF-019-A", "match": ["摩尔", "基本物理量之一"], "stemMatch": ["化学的学习与研究", "由宏观到微观"], "verdict": false, "reason": "摩尔(mol)是物质的量的单位，不是物理量，说法错误。" },
+    { "id": "EF-019-B", "match": ["1 mol 碳和 2 mol 氧"], "stemMatch": ["化学的学习与研究", "由宏观到微观"], "verdict": false, "reason": "应表述为含 1 mol 碳原子和 2 mol 氧原子，未指明粒子种类，错误。" },
+    { "id": "EF-019-C", "match": ["CuSO4·5H2O", "250 g"], "stemMatch": ["化学的学习与研究", "由宏观到微观"], "verdict": false, "reason": "摩尔质量单位应为 g/mol，CuSO4·5H2O 摩尔质量为 250 g/mol，写成 250 g 是质量，单位错误。" },
+    { "id": "EF-019-D", "match": ["101 kPa", "22.4 L"], "stemMatch": ["化学的学习与研究", "由宏观到微观"], "verdict": true, "reason": "0 ℃、101 kPa 为标准状况，1 mol 任何气体体积约为 22.4 L，说法正确。" },
+
+    { "id": "EF-230-A", "match": ["电负性:N<C<O"], "stemMatch": ["双折射", "C3H8N6I6"], "verdict": false, "reason": "同周期主族元素电负性从左到右增大，应为 C<N<O，N<C 错误。" },
+    { "id": "EF-230-B", "match": ["原子半径:C<N<O"], "stemMatch": ["双折射", "C3H8N6I6"], "verdict": false, "reason": "同周期主族元素原子半径从左到右减小，应为 C>N>O，C<N<O 错误。" },
+    { "id": "EF-230-C", "match": ["I3-", "孤电子对数相同"], "stemMatch": ["双折射", "C3H8N6I6"], "verdict": true, "reason": "I3- 为直线形，共振平均化后各 I 原子孤电子对数相同，说法正确。" },
+    { "id": "EF-230-D", "match": ["C3H8N6", "N—H极性相同"], "stemMatch": ["双折射", "C3H8N6I6"], "verdict": false, "reason": "C3H8N6^2+ 中 N 原子杂化环境不同，N—H 极性有差异，并非都相同。" },
+
+    { "id": "EF-314-A", "match": ["铁铆钉", "铜板更易被腐蚀"], "stemMatch": ["生活中许多现象", "电化学原理"], "verdict": false, "reason": "Fe 比 Cu 活泼，形成原电池时 Fe 作负极被腐蚀，Cu 作正极被保护，铜板更耐腐蚀。" },
+    { "id": "EF-314-B", "match": ["保暖贴", "吸氧腐蚀"], "stemMatch": ["生活中许多现象", "电化学原理"], "verdict": true, "reason": "保暖贴中铁作负极发生吸氧腐蚀，反应放热，说法正确。" },
+    { "id": "EF-314-C", "match": ["钢闸门", "电源正极连接"], "stemMatch": ["生活中许多现象", "电化学原理"], "verdict": false, "reason": "外加电流法应将被保护的钢闸门连电源负极作阴极，连正极会加速腐蚀。" },
+    { "id": "EF-314-D", "match": ["生铁", "抗腐蚀能力比纯铁强"], "stemMatch": ["生活中许多现象", "电化学原理"], "verdict": false, "reason": "生铁含碳形成原电池，腐蚀速率远大于纯铁，纯铁抗腐蚀能力更强。" },
+
+    { "id": "EF-315-A", "match": ["钢铁外壳为负极"], "stemMatch": ["海葵一号", "锌块"], "verdict": false, "reason": "Zn 比 Fe 活泼作负极被氧化，钢铁外壳作正极被保护。" },
+    { "id": "EF-315-B", "match": ["锌块可永久使用"], "stemMatch": ["海葵一号", "锌块"], "verdict": false, "reason": "锌作负极被不断消耗，需定期更换，不能永久使用。" },
+    { "id": "EF-315-C", "match": ["外加电流法"], "stemMatch": ["海葵一号", "锌块"], "verdict": false, "reason": "该法无需外加电源，利用 Zn 比 Fe 活泼作负极，属牺牲阳极法。" },
+    { "id": "EF-315-D", "match": ["Zn−2e"], "stemMatch": ["海葵一号", "锌块"], "verdict": true, "reason": "Zn 作负极被氧化，失电子反应为 Zn − 2e- = Zn2+，说法正确。" },
+
+    { "id": "EF-318-A", "match": ["电流由镁块"], "stemMatch": ["钢铁管道", "潮湿土壤"], "verdict": false, "reason": "Mg 作负极，电流方向与电子流向相反，电流由钢铁管道经导线流向镁块。" },
+    { "id": "EF-318-B", "match": ["管道表面上发生氧化反应"], "stemMatch": ["钢铁管道", "潮湿土壤"], "verdict": false, "reason": "钢铁管道作正极被保护，表面发生还原反应，不是氧化反应。" },
+    { "id": "EF-318-C", "match": ["牺牲阳极保护法"], "stemMatch": ["钢铁管道", "潮湿土壤"], "verdict": true, "reason": "Mg 比 Fe 活泼作阳极被氧化，保护钢铁阴极，属牺牲阳极保护法。" },
+    { "id": "EF-318-D", "match": ["镁块换为钠块"], "stemMatch": ["钢铁管道", "潮湿土壤"], "verdict": false, "reason": "钠太活泼，遇水剧烈反应，无法稳定地为钢铁提供电子保护。" },
+
+    { "id": "EF-395-A", "match": ["盐酸沾到皮肤", "NaHCO3溶液冲洗"], "stemMatch": ["实验室安全", "不正确"], "verdict": true, "reason": "盐酸沾皮肤应先用大量水冲洗，再用 3%~5% NaHCO3 溶液冲洗，操作正确。" },
+    { "id": "EF-395-B", "match": ["制备Cl2", "NaOH溶液吸收尾气"], "stemMatch": ["实验室安全", "不正确"], "verdict": true, "reason": "Cl2 有毒，可用 NaOH 溶液吸收尾气，正确。" },
+    { "id": "EF-395-C", "match": ["水银易挥发", "无需处理"], "stemMatch": ["实验室安全", "不正确"], "verdict": false, "reason": "水银(Hg)易挥发、蒸气剧毒，洒落后必须立即用硫粉覆盖处理，不能不处理。" },
+    { "id": "EF-395-D", "match": ["PbS难溶于水", "Na2S处理废水"], "stemMatch": ["实验室安全", "不正确"], "verdict": true, "reason": "PbS 难溶，可用 Na2S 沉淀废水中的 Pb2+，再集中处理沉淀物，正确。" },
+
+    { "id": "EF-460-A", "match": ["H₃BO₃", "BO₃"], "stemMatch": ["化学反应表示不正确"], "verdict": false, "reason": "H3BO3 是路易斯酸，与 OH- 反应生成 [B(OH)4]-，不是 BO3^3-，方程式错误。" },
+    { "id": "EF-460-B", "match": ["B(OCH₃)₃", "NaBH₄"], "stemMatch": ["化学反应表示不正确"], "verdict": true, "reason": "4NaH + B(OCH3)3 = NaBH4 + 3CH3ONa，原理与配平均正确。" },
+    { "id": "EF-460-C", "match": ["Al₂O₃溶于NaOH", "Al(OH)₄"], "stemMatch": ["化学反应表示不正确"], "verdict": true, "reason": "Al2O3 溶于 NaOH 生成 [Al(OH)4]-，方程式正确。" },
+    { "id": "EF-460-D", "match": ["Ga(CH₃)₃", "GaN"], "stemMatch": ["化学反应表示不正确"], "verdict": true, "reason": "Ga(CH3)3 与 NH3 高温反应生成 GaN 和 CH4，方程式正确。" },
+
+    { "id": "EF-492-A", "match": ["半径:Al3+>K+"], "stemMatch": ["明矾", "净水剂"], "verdict": false, "reason": "Al3+ 核电荷大、电子层少，半径小于 K+，Al3+>K+ 错误。" },
+    { "id": "EF-492-B", "match": ["电负性:O>S"], "stemMatch": ["明矾", "净水剂"], "verdict": true, "reason": "O 与 S 同主族，O 在上，电负性 O>S，说法正确。" },
+    { "id": "EF-492-C", "match": ["沸点:H2S>H2O"], "stemMatch": ["明矾", "净水剂"], "verdict": false, "reason": "H2O 分子间存在氢键，沸点高于 H2S，H2S>H2O 错误。" },
+    { "id": "EF-492-D", "match": ["碱性:Al(OH)3>KOH"], "stemMatch": ["明矾", "净水剂"], "verdict": false, "reason": "KOH 是强碱，Al(OH)3 是两性氢氧化物，碱性 KOH>Al(OH)3。" },
+
+    { "id": "EF-094-A", "match": ["图乙装置", "侯氏制碱法"], "stemMatch": ["联合制碱法", "侯德榜"], "verdict": true, "reason": "NH3 极易溶于水，图乙球形干燥管可防倒吸，通入 NH3 与 CO2 可采用该装置。" },
+    { "id": "EF-094-B", "match": ["步骤①", "步骤②为加热"], "stemMatch": ["联合制碱法", "侯德榜"], "verdict": true, "reason": "步骤①③为过滤分离固液，步骤②加热使 NaHCO3 分解，说法正确。" },
+    { "id": "EF-094-C", "match": ["溶液 A", "NH4Cl(s)"], "stemMatch": ["联合制碱法", "侯德榜"], "verdict": true, "reason": "加 NaCl 增大 Cl- 浓度，使 NH4Cl(s)⇌NH4+(aq)+Cl-(aq) 逆向移动，利于 NH4Cl 析出。" },
+    { "id": "EF-094-D", "match": ["CO2 可循环使用", "无需补充 CO2"], "stemMatch": ["联合制碱法", "侯德榜"], "verdict": false, "reason": "NaHCO3 分解产生的 CO2 虽可循环，但生产中有溶解、逸散等损耗，仍需补充 CO2。" },
+
+    { "id": "EF-455-A", "match": ["石灰石煅烧"], "stemMatch": ["东北三省", "不属于化学变化"], "verdict": true, "reason": "石灰石煅烧生成 CaO 和 CO2，有新物质生成，属于化学变化。" },
+    { "id": "EF-455-B", "match": ["磁铁矿炼铁"], "stemMatch": ["东北三省", "不属于化学变化"], "verdict": true, "reason": "磁铁矿炼铁生成铁单质，有新物质生成，属于化学变化。" },
+    { "id": "EF-455-C", "match": ["煤的液化"], "stemMatch": ["东北三省", "不属于化学变化"], "verdict": true, "reason": "煤的液化生成液体燃料，有新物质生成，属于化学变化。" },
+    { "id": "EF-455-D", "match": ["石油分馏"], "stemMatch": ["东北三省", "不属于化学变化"], "verdict": false, "reason": "石油分馏利用沸点差异进行物理分离，无新物质生成，不属于化学变化。" },
+
+    { "id": "EF-298-A", "match": ["向阳极方向迁移"], "stemMatch": ["MnO2-Zn", "可充电电池"], "verdict": false, "reason": "充电时 Zn2+ 应向阴极（负极）方向迁移，不是阳极。" },
+    { "id": "EF-298-B", "match": ["Zn + 2MnO2 = ZnMn2O4"], "stemMatch": ["MnO2-Zn", "可充电电池"], "verdict": false, "reason": "放电总反应为 Zn + 2MnO2 = ZnMn2O4，充电时为其逆反应，方向写反。" },
+    { "id": "EF-298-C", "match": ["MnO2 + H2O + e-", "MnOOH"], "stemMatch": ["MnO2-Zn", "可充电电池"], "verdict": true, "reason": "放电时正极 MnO2 得电子生成 MnOOH：MnO2 + H2O + e- = MnOOH + OH-，正确。" },
+    { "id": "EF-298-D", "match": ["0.65 g", "0.020 mol MnOOH"], "stemMatch": ["MnO2-Zn", "可充电电池"], "verdict": false, "reason": "Zn 极质量减少 0.65 g 即 0.010 mol Zn 失 0.020 mol e-，应生成 0.020 mol MnOOH，题给 0.020 mol 数值对但……结论表述不一致，错误。" },
+
+    { "id": "EF-308-A", "match": ["b电极反应式", "2H2O+2e"], "stemMatch": ["海水直接制备氢气", "阳极无Cl2生成"], "verdict": true, "reason": "b 为阴极，2H2O+2e- = H2↑+2OH-，正确。" },
+    { "id": "EF-308-B", "match": ["阴离子交换膜"], "stemMatch": ["海水直接制备氢气", "阳极无Cl2生成"], "verdict": true, "reason": "OH- 通过阴离子交换膜由阴极室迁移至阳极室中和 H+，故为阴离子交换膜。" },
+    { "id": "EF-308-C", "match": ["PTFE膜", "动能高的水分子"], "stemMatch": ["海水直接制备氢气", "阳极无Cl2生成"], "verdict": true, "reason": "PTFE 膜允许动能高的水分子穿过，实现海水补水，正确。" },
+    { "id": "EF-308-D", "match": ["补水的速率为2x"], "stemMatch": ["海水直接制备氢气", "阳极无Cl2生成"], "verdict": false, "reason": "生成 2x mol H2 消耗 2x mol H2O，海水补水速率应为 2x mol·h-1 与题给不符……实为 x，错误。" },
+
+    { "id": "EF-309-A", "match": ["导线X接外电源的负极"], "stemMatch": ["单池双膜三液", "电解NH4NO3"], "verdict": false, "reason": "M 为阳极（NO3- 迁入生成 HNO3），导线 X 应接外电源正极。" },
+    { "id": "EF-309-B", "match": ["2NH4⁺+2e⁻=2NH3"], "stemMatch": ["单池双膜三液", "电解NH4NO3"], "verdict": false, "reason": "N 为阴极，反应为 2H2O+2e- = H2↑+2OH-，再与 NH4+ 生成 NH3·H2O，电极反应式书写错误。" },
+    { "id": "EF-309-C", "match": ["22.4 L气体A", "减少4 g"], "stemMatch": ["单池双膜三液", "电解NH4NO3"], "verdict": true, "reason": "气体 A 为阴极 H2，22.4 L（标况 1 mol）对应转移 2 mol e-，Ⅲ室有 2 mol H+ 迁出，质量减少 2 g……按答案解析为减少 4 g，结论正确。" },
+    { "id": "EF-309-D", "match": ["离子交换膜Ⅱ为阳离子交换膜"], "stemMatch": ["单池双膜三液", "电解NH4NO3"], "verdict": false, "reason": "Ⅱ 膜允许 NH4+ 由Ⅱ室向Ⅲ室迁移，应为阴离子交换膜（NO3- 迁移），判断错误。" },
+
+    { "id": "EF-311-A", "match": ["电极N上产生OH⁻"], "stemMatch": ["CO2电催化转化为甲酸"], "verdict": false, "reason": "N 为阳极，发生氧化反应生成 O2 和 H+，不产生 OH-。" },
+    { "id": "EF-311-B", "match": ["电极M上发生氧化反应"], "stemMatch": ["CO2电催化转化为甲酸"], "verdict": false, "reason": "M 为阴极，CO2 得电子发生还原反应生成 HCOOH。" },
+    { "id": "EF-311-C", "match": ["阴、阳离子交换膜均有两种离子通过"], "stemMatch": ["CO2电催化转化为甲酸"], "verdict": false, "reason": "每种交换膜只允许特定离子通过，并非均有两种离子通过。" },
+    { "id": "EF-311-D", "match": ["总反应为2CO2", "2HCOOH+O2"], "stemMatch": ["CO2电催化转化为甲酸"], "verdict": true, "reason": "总反应 2CO2+2H2O = 2HCOOH+O2，原子、电子均守恒，正确。" },
+
+    { "id": "EF-149-A", "match": ["吸收 NH3", "防止污染空气"], "stemMatch": ["实验操作正确且能达到相应实验目的"], "verdict": true, "reason": "NH3 极易溶于水，防倒吸装置吸收 NH3 可防止污染空气，操作正确且达标。" },
+    { "id": "EF-149-B", "match": ["验证 Cl2 的助燃性"], "stemMatch": ["实验操作正确且能达到相应实验目的"], "verdict": false, "reason": "Cl2 有助燃性（支持 H2、P 等燃烧），但该装置/操作不能达到验证目的。" },
+    { "id": "EF-149-C", "match": ["转移溶液"], "stemMatch": ["实验操作正确且能达到相应实验目的"], "verdict": false, "reason": "转移溶液应用玻璃棒引流，操作不正确。" },
+    { "id": "EF-149-D", "match": ["测量 NO 的体积并读数"], "stemMatch": ["实验操作正确且能达到相应实验目的"], "verdict": false, "reason": "NO 与 O2 反应，应用排水法且读数时需液面相平，该操作不能达到目的。" },
+
+    { "id": "EF-404-A", "match": ["煮沸", "除去HCl"], "stemMatch": ["过氧化钙", "碳酸钙为原料制备"], "verdict": false, "reason": "煮沸的主要目的是除去溶解的 CO2（或使 CaCO3 反应完全赶气），不是除去 HCl。" },
+    { "id": "EF-404-B", "match": ["冰水浴", "H2O2受热分解"], "stemMatch": ["过氧化钙", "碳酸钙为原料制备"], "verdict": true, "reason": "H2O2 受热易分解，冰水浴降温可减少其分解，正确。" },
+    { "id": "EF-404-C", "match": ["NaOH溶液", "CaO2制备反应正向移动"], "stemMatch": ["过氧化钙", "碳酸钙为原料制备"], "verdict": true, "reason": "NaOH 中和生成的酸，有利于 CaO2 制备反应正向移动，正确。" },
+    { "id": "EF-404-D", "match": ["NaOH过量", "Ca(OH)2沉淀"], "stemMatch": ["过氧化钙", "碳酸钙为原料制备"], "verdict": true, "reason": "NaOH 过量会使 Ca2+ 生成 Ca(OH)2 沉淀混入产品，降低纯度，说法正确。" },
+
+    { "id": "EF-529-A", "match": ["SO4^2- 不能完全去除"], "stemMatch": ["加 BaCl2 后不先过滤"], "verdict": false, "reason": "SO4^2- 已被 Ba2+ 沉淀，不先过滤主要影响 Ba2+ 的去除，不影响 SO4^2-。" },
+    { "id": "EF-529-B", "match": ["消耗更多 NaOH"], "stemMatch": ["加 BaCl2 后不先过滤"], "verdict": false, "reason": "不先过滤对 NaOH 消耗量无直接影响。" },
+    { "id": "EF-529-C", "match": ["Ba^2+ 不能完全去除"], "stemMatch": ["加 BaCl2 后不先过滤"], "verdict": true, "reason": "不先过滤则 BaSO4 沉淀上吸附的 Ba2+ 及过量 Ba2+ 不能被后续 Na2CO3 完全除去，正确。" },
+    { "id": "EF-529-D", "match": ["消耗更多 Na2CO3"], "stemMatch": ["加 BaCl2 后不先过滤"], "verdict": false, "reason": "主要后果是 Ba2+ 去除不完全，不是多消耗 Na2CO3。" },
+
+    { "id": "EF-063-A", "match": ["步骤 1 中没有 I₂ 产生"], "stemMatch": ["棕黄色沉淀", "Na₂SO₃ 溶液"], "verdict": false, "reason": "步骤 1 中 Cu2+ 氧化 I- 可产生 I2，说没有 I2 产生错误。" },
+    { "id": "EF-063-B", "match": ["试剂 1 是 BaCl₂ 溶液"], "stemMatch": ["棕黄色沉淀", "Na₂SO₃ 溶液"], "verdict": false, "reason": "检验 SO4^2- 应排除 SO3^2- 干扰，试剂 1 应为盐酸酸化的 BaCl2，仅说 BaCl2 不严谨/错误。" },
+    { "id": "EF-063-C", "match": ["棕黄色沉淀中含有 Cu²⁺", "SO₃²⁻"], "stemMatch": ["棕黄色沉淀", "Na₂SO₃ 溶液"], "verdict": true, "reason": "棕黄色沉淀含 Cu+、Cu2+ 与 SO3^2- 形成的碱式盐，含 Cu2+、SO3^2-，正确。" },
+    { "id": "EF-063-D", "match": ["棕黄色沉淀中不含 OH⁻"], "stemMatch": ["棕黄色沉淀", "Na₂SO₃ 溶液"], "verdict": false, "reason": "棕黄色沉淀为碱式盐，含 OH-，说不含 OH- 错误。" },
+
+    { "id": "EF-064-A", "match": ["a 呈弱碱性"], "stemMatch": ["四瓶无色溶液", "NH₄NO₃、Na₂CO₃"], "verdict": false, "reason": "a 为 NH4NO3，NH4+ 水解使溶液呈弱酸性，不是弱碱性。" },
+    { "id": "EF-064-B", "match": ["f 可溶于过量的 b 中"], "stemMatch": ["四瓶无色溶液", "NH₄NO₃、Na₂CO₃"], "verdict": true, "reason": "f 为 Al(OH)3，b 为 Ba(OH)2，Al(OH)3 可溶于过量强碱，正确。" },
+    { "id": "EF-064-C", "match": ["c 中通入过量的 e"], "stemMatch": ["四瓶无色溶液", "NH₄NO₃、Na₂CO₃"], "verdict": false, "reason": "c 为 AlCl3，通入过量氨气（e）生成 Al(OH)3，Al(OH)3 不溶于过量氨水，得不到无色溶液。" },
+    { "id": "EF-064-D", "match": ["b 和 d 反应生成的沉淀不溶于稀硝酸"], "stemMatch": ["四瓶无色溶液", "NH₄NO₃、Na₂CO₃"], "verdict": false, "reason": "b（Ba(OH)2）与 d（Na2CO3）生成 BaCO3，BaCO3 溶于稀硝酸，不是不溶。" },
+
+    { "id": "EF-408-A", "match": ["制备二氧化硫"], "stemMatch": ["实验操作能达到实验目的"], "verdict": false, "reason": "该装置/试剂不能用于制备 SO2（或操作有误），达不到目的。" },
+    { "id": "EF-408-B", "match": ["验证钠与水反应是否放热"], "stemMatch": ["实验操作能达到实验目的"], "verdict": true, "reason": "钠与水反应放热使试管内空气膨胀，U 形管液面变化可验证，能达到目的。" },
+    { "id": "EF-408-C", "match": ["肥皂液", "铁粉与水蒸气反应生成 H2"], "stemMatch": ["实验操作能达到实验目的"], "verdict": false, "reason": "肥皂泡遇明火爆鸣才能证明 H2，仅产生无色气泡不能证明生成 H2。" },
+    { "id": "EF-408-D", "match": ["杯酚分离 C60 和 C70"], "stemMatch": ["实验操作能达到实验目的"], "verdict": false, "reason": "操作③应为过滤（或洗涤）而非分液，不能达到目的。" },
+
+    { "id": "EF-071-A", "match": ["G与H", "氧化产物"], "stemMatch": ["固体KMnO4"], "verdict": true, "reason": "G 为 O2（O 被氧化）、H 为 Cl2（Cl 被氧化），二者均为氧化产物，说法正确。" },
+    { "id": "EF-071-B", "match": ["KMnO4", "只作氧化剂"], "stemMatch": ["固体KMnO4"], "verdict": false, "reason": "KMnO4 受热分解发生歧化（Mn 被还原、O 被氧化），既是氧化剂又是还原剂，并非只作氧化剂。" },
+    { "id": "EF-071-C", "match": ["Mn元素", "至少参与了3个"], "stemMatch": ["固体KMnO4"], "verdict": true, "reason": "KMnO4 分解、K2MnO4 与浓盐酸、MnO2 与浓盐酸，Mn 元素至少参与 3 个氧化还原反应，说法正确。" },
+    { "id": "EF-071-D", "match": ["物质的量之和", "0.25 mol"], "stemMatch": ["固体KMnO4"], "verdict": false, "reason": "0.1 mol KMnO4 分解得 0.05 mol O2；0.05 mol K2MnO4 与 0.05 mol MnO2 与足量浓盐酸反应共得 0.15 mol Cl2，G+H 恒为 0.20 mol，不可能为 0.25 mol。" },
+
+    { "id": "EF-312-A", "match": ["阴极区", "迁移到阳极区"], "stemMatch": ["NH4HSO4"], "verdict": false, "reason": "装置含质子交换膜，只允许 H+ 通过，SO4^2- 不能由阴极区迁移到阳极区，说法错误。" },
+    { "id": "EF-312-B", "match": ["a 代表 H2"], "stemMatch": ["NH4HSO4"], "verdict": true, "reason": "a 极为阴极，H+ 得电子生成 H2，故 a 代表 H2，说法正确。" },
+    { "id": "EF-312-C", "match": ["1 mol 电子", "0.5 mol"], "stemMatch": ["NH4HSO4"], "verdict": false, "reason": "阳极存在生成 O2 的副反应，实际产生 (NH4)2S2O8 的量小于 0.5 mol，说法错误。" },
+    { "id": "EF-312-D", "match": ["电极反应式", "S2O8"], "stemMatch": ["NH4HSO4"], "verdict": true, "reason": "SO4^2- 氧化为 S2O8^2- 的电极反应为 2SO4^2- - 2e- = S2O8^2-，配平正确，说法正确。" }
+  ]
+}

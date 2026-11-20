@@ -1,0 +1,176 @@
+﻿===== pdf-335 (file=organic) =====
+  A: matches=OF-335-A=vTrue  [乙烯与 HCl 反应的中间体为 CH3—CH2+]
+  B: matches=OF-335-B=vFalse  [乙烯与氯水反应无 CH2ClCH2OH 生成]
+  C: matches=OF-335-C=vTrue  [卤化氢与乙烯反应的活性：HBr > HCl]
+  D: matches=OF-335-D=vTrue  [烯烃双键碳上连接的甲基越多，与 Br2 的反应越容易]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-366 (file=organic) =====
+  A: matches=OF-366-A=vTrue  [葡萄糖氧化生成CO2和H2O的反应是放热反应]
+  B: matches=OF-366-B=vTrue  [核酸可看作磷酸、戊糖和碱基通过一定方式结合而成的生物大分子]
+  C: matches=OF-366-C=vFalse  [由氨基乙酸形成的二肽中存在两个氨基和两个羧基]
+  D: matches=OF-366-D=vTrue  [向饱和的NaCl溶液中加入少量鸡蛋清溶液会发生盐析]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-369 (file=organic) =====
+  A: matches=OF-369-A=vFalse  [酸催化下，n mol 苯酚与 n mol 甲醛反应生成线型酚醛树脂，同时生成(2n−1)mol H2O]
+  B: matches=OF-369-B=vTrue  [向饱和(NH4)2SO4 溶液中滴加几滴鸡蛋清溶液，出现沉淀，加蒸馏水后沉淀溶解]
+  C: matches=OF-369-C=vTrue  [植物油氢化后所得的硬化油不易被空气氧化变质，可作为制造肥皂的原料]
+  D: matches=OF-369-D=vTrue  [ATP(如图)中的磷酸与核糖之间通过磷酯键连接]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-373 (file=organic) =====
+  A: matches=OF-373-A=vTrue  [线型聚乙烯塑料为长链高分子，受热易软化]
+  B: matches=OF-373-B=vFalse  [聚四氟乙烯由四氟乙烯加聚合成，受热易分解]
+  C: matches=OF-373-C=vTrue  [尼龙66由己二酸和己二胺缩聚合成，强度高、韧性好]
+  D: matches=OF-373-D=vTrue  [聚甲基丙烯酸酯(有机玻璃)由甲基丙烯酸酯加聚合成，透明度高]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-374 (file=organic) =====
+  A: matches=OF-374-A=vFalse  [[-CH2-C(CH3)=CH-CH2-]n]
+  B: matches=OF-374-B=vTrue  [[-CH2-CH(CH3)-CH2-CH2-]n]
+  C: matches=OF-374-C=vFalse  [[-CH2-CH(C6H5)-]n]
+  D: matches=OF-374-D=vFalse  [[-NH-CH2-C(O)-NH-CH(C6H5)-CH2-O-]n]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-375 (file=organic) =====
+  A: matches=OF-375-A=vFalse  [“奋斗者号”潜水器含钛合金，其熔点、强度都高于纯钛金属]
+  B: matches=OF-375-B=vTrue  [高强度芳纶纤维(聚对苯二甲酰对苯二胺)可通过缩聚反应合成]
+  C: matches=OF-375-C=vFalse  [美缝剂——环氧彩砂中的石英砂与金刚砂互为同素异形体]
+  D: matches=OF-375-D=vFalse  [利用CO2合成脂肪酸，实现了无机小分子向有机高分子的转变]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-379 (file=organic) =====
+  A: matches=OF-379-A=vTrue  [聚对苯二甲酸乙二酯(PET)由对苯二甲酸和乙二醇经缩聚反应制得]
+  B: matches=OF-379-B=vFalse  [合成酚醛树脂的单体是苯酚和甲醇]
+  C: matches=OF-379-C=vFalse  [酚醛树脂(—[C6H3(OH)—CH2]n—OH)具有固定的熔、沸点]
+  D: matches=OF-379-D=vFalse  [有机玻璃(—[CH2—C(CH3)(COOCH3)]n—)是由—[CH2—C(CH3)(COOH)]n— 和 CH3OH 经缩聚反应制得]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-385 (file=organic) =====
+  A: matches=OF-385-A=vFalse  [乙烯]
+  B: matches=OF-385-B=vFalse  [光气(COCl2)]
+  C: matches=OF-385-C=vTrue  [对二甲苯]
+  D: matches=OF-385-D=vFalse  [氯苯]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-392 (file=organic) =====
+  A: matches=OF-392-A=vFalse  [4 种]
+  B: matches=OF-392-B=vFalse  [6 种]
+  C: matches=OF-392-C=vTrue  [8 种]
+  D: matches=OF-392-D=vFalse  [9 种]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-443 (file=organic) =====
+  A: matches=OF-443-A=vTrue  [涤纶可作为制作运动服的材料]
+  B: matches=OF-443-B=vFalse  [纤维素可以为运动员提供能量]
+  C: matches=OF-443-C=vTrue  [木糖醇可用作运动饮料的甜味剂]
+  D: matches=OF-443-D=vTrue  [“复方氯乙烷气雾剂”可用于运动中急性损伤的镇痛]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-447 (file=organic) =====
+  A: matches=OF-447-A=vFalse  [制造电极的石墨烯]
+  B: matches=OF-447-B=vTrue  [制造减震弹簧的高碳钢]
+  C: matches=OF-447-C=vFalse  [制造防弹装甲的高强度芳纶纤维]
+  D: matches=OF-447-D=vFalse  [制造耐温度剧变仪器的高硼玻璃]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-448 (file=organic) =====
+  A: matches=OF-448-A=vTrue  [太保鼎(西周)的材质是青铜,青铜属于合金]
+  B: matches=OF-448-B=vTrue  [《雪景寒林图》(北宋)的材质是绢(蚕丝织品),绢属于天然高分子制品]
+  C: matches=OF-448-C=vTrue  [白釉龙柄联腹传瓶(隋),其材质是陶瓷,陶瓷属于无机非金属材料]
+  D: matches=OF-448-D=vFalse  [乾隆款珐琅彩芍药雉鸡图玉壶春瓶(清),其珐琅彩由矿物颜料经高温烧制而成,该颜料属于有机化合物]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-449 (file=organic) =====
+  A: matches=OF-449-A=vTrue  [羊毛可用于制毛笔,主要成分为蛋白质]
+  B: matches=OF-449-B=vTrue  [松木可用于制墨,墨的主要成分是单质碳]
+  C: matches=OF-449-C=vTrue  [竹子可用于造纸,纸的主要成分是纤维素]
+  D: matches=OF-449-D=vFalse  [大理石可用于制砚台,主要成分为硅酸盐]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-069 (file=structure) =====
+  A: matches=SF-069-A=vFalse  [该反应是在强酸性环境中进行的]
+  B: matches=SF-069-B=vTrue  [SiH4沸点比(CH3)4Si低]
+  C: matches=SF-069-C=vFalse  [该反应的现象之一是溶液变成紫红色]
+  D: matches=SF-069-D=vFalse  [该反应中SiH4被还原]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-154 (file=structure) =====
+  A: matches=SF-154-A=vFalse  [该过程属于氮的固定]
+  B: matches=SF-154-B=vTrue  [“固定”过程体现超分子的识别功能]
+  C: matches=SF-154-C=vFalse  [温度升高有利于N2O4的固定]
+  D: matches=SF-154-D=vFalse  [转化为HNO3的原子利用率为83%]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-181 (file=structure) =====
+  A: matches=SF-181-A=vFalse  [二者互为同素异形体]
+  B: matches=SF-181-B=vFalse  [二者属于同种核素]
+  C: matches=SF-181-C=vTrue  [¹⁴N比¹⁵N少一个中子]
+  D: matches=SF-181-D=vFalse  [¹⁴N比¹⁵N少一个质子]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-183 (file=structure) =====
+  A: matches=SF-183-A=vTrue  [³₁H原子核外电子数为1]
+  B: matches=SF-183-B=vFalse  [³₁H原子核内中子数为3]
+  C: matches=SF-183-C=vTrue  [³₁H₂与H₂化学性质基本相同]
+  D: matches=SF-183-D=vTrue  [³₁H₂O具有放射性]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-186 (file=structure) =====
+  A: matches=SF-186-A=vTrue  [113/49 In]
+  B: matches=SF-186-B=vFalse  [49/11 In]
+  C: matches=SF-186-C=vFalse  [49/114 In]
+  D: matches=SF-186-D=vFalse  [49/115 In]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-192 (file=structure) =====
+  A: matches=SF-192-A=vFalse  [CS2]
+  B: matches=SF-192-B=vTrue  [NF3]
+  C: matches=SF-192-C=vFalse  [SO3]
+  D: matches=SF-192-D=vFalse  [SiF4]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-200 (file=structure) =====
+  A: matches=SF-200-A=vFalse  [晶体在三维空间里呈周期性有序排列，因此在各个不同的方向上具有相同的物理性质]
+  B: matches=SF-200-B=vFalse  [晶体在熔化过程中需要不断地吸热，温度不断地升高]
+  C: matches=SF-200-C=vTrue  [普通玻璃在各个不同的方向上力学、热学、电学、光学性质相同]
+  D: matches=SF-200-D=vFalse  [晶体和非晶体之间不可以相互转化]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-209 (file=structure) =====
+  A: matches=SF-209-A=vFalse  [金刚石(C)]
+  B: matches=SF-209-B=vTrue  [单晶硅(Si)]
+  C: matches=SF-209-C=vFalse  [金刚砂(SiC)]
+  D: matches=SF-209-D=vFalse  [氮化硼(BN,立方相)]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-210 (file=structure) =====
+  A: matches=SF-210-A=vFalse  [石蜡油的流动性比水的差；石蜡油的分子间作用力比水的小]
+  B: matches=SF-210-B=vTrue  [NH3溶于水显碱性；NH3可结合水中的质子]
+  C: matches=SF-210-C=vTrue  [OF2可以氧化H2O；OF2中O显正电性]
+  D: matches=SF-210-D=vTrue  [石墨作为润滑剂；石墨层间靠范德华力维系]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-320 (file=structure) =====
+  A: matches=SF-320-A=vFalse  [32S2和34S4互为同位素]
+  B: matches=SF-320-B=vTrue  [C70和纳米碳管互为同素异形体]
+  C: matches=SF-320-C=vFalse  [H-C-Cl和Cl-C-Cl互为同分异构体]
+  D: matches=SF-320-D=vFalse  [(双酚A)和苯酚互为同系物]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-326 (file=structure) =====
+  A: matches=SF-326-A=vFalse  [721分光光度计能产生X射线，可用于晶体结构的测定]
+  B: matches=SF-326-B=vFalse  [常规质谱法测得某有机化合物的相对分子质量为72，可推断其分子式一定为C5H12]
+  C: matches=SF-326-C=vFalse  [乙酸和甲酸甲酯的核磁共振氢谱信号的化学位移和峰面积比完全相同]
+  D: matches=SF-326-D=vTrue  [通过有机化合物的红外光谱图可获得有机化合物分子中所含的化学键或官能团信息]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-430 (file=structure) =====
+  A: matches=SF-430-A=vFalse  [中子数为1的氦核素：1/2 He]
+  B: matches=SF-430-B=vFalse  [SiO2的晶体类型：分子晶体]
+  C: matches=SF-430-C=vTrue  [F2的共价键类型：p-p σ键]
+  D: matches=SF-430-D=vFalse  [PCl3的空间结构：平面三角形]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-499 (file=structure) =====
+  A: matches=SF-499-A=vTrue  [Na2SiF6 中含有配位键]
+  B: matches=SF-499-B=vFalse  [SiF4 和 H2O 都是由极性键构成的极性分子]
+  C: matches=SF-499-C=vTrue  [CO2 和 SiO2 晶体分别为分子晶体和共价晶体]
+  D: matches=SF-499-D=vTrue  [CO3^2- 的 VSEPR 模型和空间结构都为平面三角形]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-500 (file=structure) =====
+  A: matches=SF-500-A=vTrue  [CH4 和 H2O 的 VSEPR 模型均为四面体]
+  B: matches=SF-500-B=vFalse  [SO3^2- 和 CO3^2- 的空间结构均为平面三角形]
+  C: matches=SF-500-C=vFalse  [CF4 和 SF4 均为非极性分子]
+  D: matches=SF-500-D=vFalse  [XeF2 与 XeO2 的键角相等]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-501 (file=structure) =====
+  A: matches=SF-501-A=vTrue  [原子光谱是不连续的线状谱线；原子的能级是量子化的]
+  B: matches=SF-501-B=vFalse  [CO2、CH2O、CCl4 键角依次减小；孤电子对与成键电子对的斥力大于成键电子对之间的斥力]
+  C: matches=SF-501-C=vTrue  [CsCl 晶体中 Cs+ 与 8 个 Cl- 配位，而 NaCl 晶体中 Na+ 与 6 个 Cl- 配位；Cs+ 比 Na+ 的半径大]
+  D: matches=SF-501-D=vTrue  [逐个断开 CH4 中的 C—H，每步所需能量不同；各步中的 C—H 所处化学环境不同]
+  => ALL OPTIONS EXACT-1 MATCH
+===== pdf-502 (file=structure) =====
+  A: matches=SF-502-A=vFalse  [电负性：C > O]
+  B: matches=SF-502-B=vTrue  [价电子数：S > N]
+  C: matches=SF-502-C=vFalse  [原子半径：N > C]
+  D: matches=SF-502-D=vFalse  [键角：NH3 > CH4]
+  => ALL OPTIONS EXACT-1 MATCH
+
+=== SUMMARY: 29 questions checked, 0 with non-exact-1 options ===

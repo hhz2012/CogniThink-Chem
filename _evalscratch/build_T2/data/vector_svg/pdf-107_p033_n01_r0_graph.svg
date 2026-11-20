@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="350.3781605026119" y1="320.0" x2="175.70115144765452" y2="78.19605574624505" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="573.5059670924554" y1="221.48751544425423" x2="175.70115144765452" y2="78.19605574624505" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="175.70115144765452" y1="78.19605574624505" x2="86.8784051460265" y2="252.44660325153922" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="175.70115144765452" y1="78.19605574624505" x2="491.57142760046577" y2="286.58487508305404" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="491.57142760046577" y1="286.58487508305404" x2="132.39862938985635" y2="285.3782872317617" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="132.39862938985635" y1="285.3782872317617" x2="569.7770753655705" y2="143.15078023388367" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="132.39862938985635" y1="285.3782872317617" x2="78.31057145752825" y2="138.22887778004153" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="78.31057145752825" y1="138.22887778004153" x2="274.8503259865623" y2="313.28390236101086" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="158.58044872204528" y="213.7563900705262" width="36" height="18" fill="white"/>
+<text x="176.58044872204528" y="227.7563900705262" text-anchor="middle" fill="#c0392b">6 mol·L⁻¹盐酸</text>
+<line x1="274.8503259865623" y1="313.28390236101086" x2="325.6562388113032" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="325.6562388113032" y1="60.0" x2="473.2505159170006" y2="81.72043582736669" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="473.2505159170006" y1="81.72043582736669" x2="122.25288254543632" y2="106.32358169159477" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="122.25288254543632" y1="106.32358169159477" x2="425.3257067107322" y2="307.56463333566944" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="122.25288254543632" y1="106.32358169159477" x2="549.5589538206743" y2="259.5420275399648" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="425.3257067107322" y1="307.56463333566944" x2="66.87393266245489" y2="214.8218654660677" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="66.87393266245489" y1="214.8218654660677" x2="403.4216729050949" y2="62.922784680902424" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="403.4216729050949" y1="62.922784680902424" x2="526.2890195655698" y2="110.47942954476821" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="526.2890195655698" y1="110.47942954476821" x2="199.32067991422483" y2="307.6761344721685" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="549.5589538206743" y1="259.5420275399648" x2="247.83276132556563" y2="62.036639139586335" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="580.0" y1="182.32417246359063" x2="325.6562388113032" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="60.0" y1="176.1848412350908" x2="66.87393266245489" y2="214.8218654660677" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<circle cx="350.3781605026119" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="350.3781605026119" y="325.0" text-anchor="middle" font-weight="bold">碳素电极</text>
+<circle cx="573.5059670924554" cy="221.48751544425423" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="573.5059670924554" y="226.48751544425423" text-anchor="middle" font-weight="bold">氧化铝</text>
+<circle cx="175.70115144765452" cy="78.19605574624505" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="175.70115144765452" y="83.19605574624505" text-anchor="middle" font-weight="bold">电解</text>
+<circle cx="86.8784051460265" cy="252.44660325153922" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="86.8784051460265" y="257.4466032515392" text-anchor="middle" font-weight="bold">铝锭</text>
+<circle cx="491.57142760046577" cy="286.58487508305404" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="491.57142760046577" y="291.58487508305404" text-anchor="middle" font-weight="bold">炭渣</text>
+<circle cx="132.39862938985635" cy="285.3782872317617" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="132.39862938985635" y="290.3782872317617" text-anchor="middle" font-weight="bold">焙烧</text>
+<circle cx="569.7770753655705" cy="143.15078023388367" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="569.7770753655705" y="148.15078023388367" text-anchor="middle" font-weight="bold">尾气处理</text>
+<circle cx="78.31057145752825" cy="138.22887778004153" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="78.31057145752825" y="143.22887778004153" text-anchor="middle" font-weight="bold">浸取</text>
+<circle cx="274.8503259865623" cy="313.28390236101086" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="274.8503259865623" y="318.28390236101086" text-anchor="middle" font-weight="bold">浸取液</text>
+<circle cx="325.6562388113032" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="325.6562388113032" y="65.0" text-anchor="middle" font-weight="bold">还原</text>
+<circle cx="473.2505159170006" cy="81.72043582736669" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="473.2505159170006" y="86.72043582736669" text-anchor="middle" font-weight="bold">原料液</text>
+<circle cx="122.25288254543632" cy="106.32358169159477" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="122.25288254543632" y="111.32358169159477" text-anchor="middle" font-weight="bold">LAEM提取</text>
+<circle cx="425.3257067107322" cy="307.56463333566944" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="425.3257067107322" y="312.56463333566944" text-anchor="middle" font-weight="bold">I室溶液</text>
+<circle cx="66.87393266245489" cy="214.8218654660677" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="66.87393266245489" y="219.8218654660677" text-anchor="middle" font-weight="bold">调pH</text>
+<circle cx="403.4216729050949" cy="62.922784680902424" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="403.4216729050949" y="67.92278468090242" text-anchor="middle" font-weight="bold">结晶</text>
+<circle cx="526.2890195655698" cy="110.47942954476821" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="526.2890195655698" y="115.47942954476821" text-anchor="middle" font-weight="bold">晶体</text>
+<circle cx="199.32067991422483" cy="307.6761344721685" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="199.32067991422483" y="312.6761344721685" text-anchor="middle" font-weight="bold">冰晶石</text>
+<circle cx="549.5589538206743" cy="259.5420275399648" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="549.5589538206743" y="264.5420275399648" text-anchor="middle" font-weight="bold">II室溶液</text>
+<circle cx="247.83276132556563" cy="62.036639139586335" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="247.83276132556563" y="67.03663913958633" text-anchor="middle" font-weight="bold">镓</text>
+<circle cx="580.0" cy="182.32417246359063" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="187.32417246359063" text-anchor="middle" font-weight="bold">铝片</text>
+<circle cx="60.0" cy="176.1848412350908" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="181.1848412350908" text-anchor="middle" font-weight="bold">含F⁻废液</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

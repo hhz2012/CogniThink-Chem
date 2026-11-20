@@ -19,7 +19,7 @@
   { "id": "I-S-SO3", "ions": ["S^2-", "SO3^2-"], "type": "Redox", "result": "酸性条件下 S^2- 与 SO3^2- 发生归中反应生成 S 单质沉淀", "condition": "酸性", "knowledgeIds": ["C-REDOX"] },
   { "id": "I-H-AC", "ions": ["H+", "CH3COO-"], "type": "WeakElectrolyte", "result": "生成弱电解质 CH3COOH", "knowledgeIds": ["C-ION-REACTION"] },
   { "id": "I-OH-NH4", "ions": ["OH-", "NH4+"], "type": "WeakElectrolyte", "result": "生成弱电解质 NH3·H2O，加热放出 NH3", "knowledgeIds": ["C-ION-REACTION"] },
-  { "id": "I-FE3-SCN", "ions": ["Fe3+", "SCN-"], "type": "Complexation", "result": "生成血红色络合物，用于检验 Fe3+", "knowledgeIds": ["C-FE"] },
+  { "id": "I-FE3-SCN", "ions": ["Fe3+", "SCN-"], "type": "Complexation", "result": "生成血红色络合物，用于检验 Fe3+", "knowledgeIds": ["C-FE", "C-COEXIST"] },
   { "id": "I-FE3-I", "ions": ["Fe3+", "I-"], "type": "Redox", "result": "Fe3+ 将 I- 氧化为 I2，自身被还原为 Fe2+", "knowledgeIds": ["C-REDOX", "C-FE"] },
   { "id": "I-MNO4-FE2", "ions": ["MnO4-", "Fe2+"], "type": "Redox", "result": "酸性条件下 MnO4- 将 Fe2+ 氧化为 Fe3+，自身褪色", "condition": "酸性", "knowledgeIds": ["C-REDOX"] },
   { "id": "I-NO3-FE2", "ions": ["NO3-", "Fe2+"], "type": "Redox", "result": "酸性条件下 NO3- 具强氧化性，将 Fe2+ 氧化为 Fe3+", "condition": "酸性", "knowledgeIds": ["C-REDOX", "C-COEXIST"] },

@@ -1,0 +1,16 @@
+===== pdf-049 =====
+qbankAnswer='D' note=A项：HF为弱酸，不能拆，玻璃主成分SiO₂与HF反应生成SiF₄气体和水，方程式为4HF+SiO₂=SiF₄↑+2H₂O，A错误；B项：Cu还原性弱于Fe，不能置换Fe，正确离子方程式为Cu+2Fe³⁺=Cu²⁺+2Fe²⁺，B错误；C项：SO₃²⁻具还原性，可被Cl₂氧化为SO₄²⁻，最终产物为SO₄²⁻，离子方程式为S₂O₃²⁻+4Cl₂+5H₂O=8Cl⁻+2SO₄²⁻+10H⁺，C错误；D项：CaSO₄不溶于酸，可用Na₂CO₃溶液浸泡转化为CaCO₃，再用酸除去，离子方程式为CaSO₄+CO₃²⁻=SO₄²⁻+CaCO₃，D正确。
+[IonicEquationValidator] -> null
+[ChoiceVerifier] THROW Parameter count mismatch.
+===== pdf-460 =====
+qbankAnswer='A' note=[千问求解] H₃BO₃为路易斯酸，与OH⁻反应生成B(OH)₄⁻而非BO₃³⁻；其余选项反应原理和配平正确。
+[IonicEquationValidator] -> null
+[ChoiceVerifier] THROW Parameter count mismatch.
+===== pdf-049 =====
+qbankAnswer='D' note=A项：HF为弱酸，不能拆，玻璃主成分SiO₂与HF反应生成SiF₄气体和水，方程式为4HF+SiO₂=SiF₄↑+2H₂O，A错误；B项：Cu还原性弱于Fe，不能置换Fe，正确离子方程式为Cu+2Fe³⁺=Cu²⁺+2Fe²⁺，B错误；C项：SO₃²⁻具还原性，可被Cl₂氧化为SO₄²⁻，最终产物为SO₄²⁻，离子方程式为S₂O₃²⁻+4Cl₂+5H₂O=8Cl⁻+2SO₄²⁻+10H⁺，C错误；D项：CaSO₄不溶于酸，可用Na₂CO₃溶液浸泡转化为CaCO₃，再用酸除去，离子方程式为CaSO₄+CO₃²⁻=SO₄²⁻+CaCO₃，D正确。
+[IonicEquationValidator] -> null
+[ChoiceVerifier] THROW Parameter count mismatch.
+===== pdf-460 =====
+qbankAnswer='A' note=[千问求解] H₃BO₃为路易斯酸，与OH⁻反应生成B(OH)₄⁻而非BO₃³⁻；其余选项反应原理和配平正确。
+[IonicEquationValidator] -> null
+[ChoiceVerifier] THROW Parameter count mismatch.

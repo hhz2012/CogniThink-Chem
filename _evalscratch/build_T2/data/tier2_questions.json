@@ -1,0 +1,1202 @@
+[
+  {
+    "id": "t2c-01",
+    "question": "下列物质属于电解质的是（ ）",
+    "options": {
+      "A": "CO2",
+      "B": "HCl",
+      "C": "蔗糖",
+      "D": "乙醇"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-02",
+    "question": "下列物质属于非电解质的是（ ）",
+    "options": {
+      "A": "NaCl",
+      "B": "H2SO4",
+      "C": "SO2",
+      "D": "NaOH"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-03",
+    "question": "下列物质不属于电解质的是（ ）",
+    "options": {
+      "A": "HNO3",
+      "B": "KOH",
+      "C": "BaSO4",
+      "D": "乙醇"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-04",
+    "question": "下列物质中，属于弱电解质的是（ ）",
+    "options": {
+      "A": "HCl",
+      "B": "CH3COOH",
+      "C": "NaOH",
+      "D": "NaCl"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-05",
+    "question": "下列物质中，属于强电解质的是（ ）",
+    "options": {
+      "A": "CH3COOH",
+      "B": "H2CO3",
+      "C": "HClO",
+      "D": "HNO3"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-06",
+    "question": "下列物质属于非电解质的是（ ）",
+    "options": {
+      "A": "氯气",
+      "B": "氯化氢",
+      "C": "氨气",
+      "D": "氢氧化钠"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-07",
+    "question": "下列物质分类正确的是（ ）",
+    "options": {
+      "A": "H2SO4 是碱",
+      "B": "NaOH 是酸",
+      "C": "NaCl 是盐",
+      "D": "CO2 是碱"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-08",
+    "question": "下列关于物质分类的说法正确的是（ ）",
+    "options": {
+      "A": "HCl 是酸",
+      "B": "Na2CO3 是碱",
+      "C": "CO2 是盐",
+      "D": "CaO 是酸"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-09",
+    "question": "下列物质属于氧化物的是（ ）",
+    "options": {
+      "A": "H2SO4",
+      "B": "NaOH",
+      "C": "H2O",
+      "D": "NaCl"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-10",
+    "question": "下列物质属于盐的是（ ）",
+    "options": {
+      "A": "HNO3",
+      "B": "KOH",
+      "C": "CaCO3",
+      "D": "CH4"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-11",
+    "question": "下列各组物质的分类正确的是（ ）",
+    "options": {
+      "A": "酸：HCl、NaOH、NaCl",
+      "B": "碱：KOH、Ba(OH)2、Ca(OH)2",
+      "C": "盐：CO2、SO2、H2O",
+      "D": "氧化物：H2SO4、HNO3、HCl"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-12",
+    "question": "下列分类正确的是（ ）",
+    "options": {
+      "A": "电解质：NaCl、HCl、CO2",
+      "B": "非电解质：蔗糖、乙醇、SO2",
+      "C": "强酸：HCl、CH3COOH、H2CO3",
+      "D": "弱电解质：NaOH、KOH、Ba(OH)2"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-13",
+    "question": "下列物质分类正确的是（ ）",
+    "options": {
+      "A": "酸性氧化物：CO2、SO2、CaO",
+      "B": "碱性氧化物：Na2O、CaO、Fe2O3",
+      "C": "两性氧化物：CO2、SO2、SiO2",
+      "D": "不成盐氧化物：CO、NO、SO3"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-14",
+    "question": "下列分类正确的是（ ）",
+    "options": {
+      "A": "单质：O2、N2、CO2",
+      "B": "化合物：H2O、CO2、NaCl",
+      "C": "混合物：H2O、CO2、NaCl",
+      "D": "纯净物：空气、氯水、钢铁"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-15",
+    "question": "下列物质分类正确的是（ ）",
+    "options": {
+      "A": "离子化合物：NaCl、KCl、HCl",
+      "B": "共价化合物：CO2、CH4、NaCl",
+      "C": "离子化合物：NaOH、CaO、NaCl",
+      "D": "共价化合物：H2O、HCl、KCl"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-16",
+    "question": "下列各组物质互为同素异形体的是（ ）",
+    "options": {
+      "A": "氧气、臭氧",
+      "B": "¹²C、¹³C",
+      "C": "水、过氧化氢",
+      "D": "氧化钠、过氧化钠"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-17",
+    "question": "下列各组物质互为同位素的是（ ）",
+    "options": {
+      "A": "O2、O3",
+      "B": "氕、氘",
+      "C": "红磷、白磷",
+      "D": "金刚石、石墨"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-18",
+    "question": "下列各组互为同素异形体的是（ ）",
+    "options": {
+      "A": "白磷、红磷",
+      "B": "¹⁴N、¹⁵N",
+      "C": "CO、CO2",
+      "D": "水、过氧化氢"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-19",
+    "question": "下列各组互为同位素的是（ ）",
+    "options": {
+      "A": "氧气、臭氧",
+      "B": "¹²C、¹⁴C",
+      "C": "白磷、红磷",
+      "D": "金刚石、石墨"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-20",
+    "question": "下列各组物质中，互为同素异形体的是（ ）",
+    "options": {
+      "A": "CO2 和 SO2",
+      "B": "金刚石和石墨",
+      "C": "H2O 和 H2O2",
+      "D": "Na2O 和 Na2O2"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-21",
+    "question": "下列物质属于纯净物的是（ ）",
+    "options": {
+      "A": "钢铁",
+      "B": "氯水",
+      "C": "干冰",
+      "D": "漂白粉"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-22",
+    "question": "下列物质属于混合物的是（ ）",
+    "options": {
+      "A": "H2O",
+      "B": "Cl2",
+      "C": "钢铁",
+      "D": "CO2"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-23",
+    "question": "下列物质属于单质的是（ ）",
+    "options": {
+      "A": "HCl",
+      "B": "O2",
+      "C": "H2O",
+      "D": "NaCl"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-24",
+    "question": "下列物质属于化合物的是（ ）",
+    "options": {
+      "A": "Fe",
+      "B": "Cu",
+      "C": "H2SO4",
+      "D": "C"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-25",
+    "question": "下列属于共价化合物的是（ ）",
+    "options": {
+      "A": "NaCl",
+      "B": "KCl",
+      "C": "CO2",
+      "D": "CaO"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-26",
+    "question": "下列属于离子化合物的是（ ）",
+    "options": {
+      "A": "HCl",
+      "B": "CO2",
+      "C": "CH4",
+      "D": "NaOH"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-27",
+    "question": "下列物质属于有机物的是（ ）",
+    "options": {
+      "A": "NaCl",
+      "B": "H2SO4",
+      "C": "乙醇",
+      "D": "CaCO3"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-28",
+    "question": "下列不属于有机物的是（ ）",
+    "options": {
+      "A": "CH4",
+      "B": "乙醇",
+      "C": "蔗糖",
+      "D": "碳酸"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-29",
+    "question": "下列属于钠盐的是（ ）",
+    "options": {
+      "A": "NaCl",
+      "B": "KCl",
+      "C": "CaCO3",
+      "D": "NH4Cl"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-30",
+    "question": "下列属于硫酸盐的是（ ）",
+    "options": {
+      "A": "NaCl",
+      "B": "CuSO4",
+      "C": "KNO3",
+      "D": "Na2CO3"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2c-31",
+    "question": "下列各组均为强酸的是（ ）",
+    "options": {
+      "A": "HCl、H2SO4、HNO3",
+      "B": "HCl、CH3COOH、H2CO3",
+      "C": "NH3·H2O、Cu(OH)2、Fe(OH)3",
+      "D": "NaOH、KOH、Ba(OH)2"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-A 物质分类选择题（事实库查表，ClassificationValidator 确定性求解）"
+  },
+  {
+    "id": "t2n-01",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "1 mol H2O 中含有的电子数为 10NA",
+      "B": "1 mol H2O 中含有的中子数为 10NA",
+      "C": "1 mol CO2 中含有的原子数为 2NA",
+      "D": "1 mol NH3 中含有的质子数为 7NA"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-02",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "18 g H2O 中含有的中子数为 10NA",
+      "B": "44 g CO2 中含有的 σ 键数目为 2NA",
+      "C": "16 g O2 中含有的 π 键数目为 2NA",
+      "D": "28 g N2 中含有的共价键数目为 2NA"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-03",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "1 mol CH4 中含有的电子数为 10NA",
+      "B": "1 mol CO2 中含有的质子数为 22NA",
+      "C": "1 mol H2O 中含有的中子数为 10NA",
+      "D": "1 mol NaCl 中含有的离子数为 2NA"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-04",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "标准状况下，22.4 L CO2 中含有的原子数为 2NA",
+      "B": "标准状况下，11.2 L O2 中含有的 π 键数目为 NA",
+      "C": "标准状况下，22.4 L SO3 中含有的电子数为 40NA",
+      "D": "标准状况下，22.4 L N2 中含有的共价键数目为 3NA"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-05",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "1 mol H2O 晶体中含有的氢键数目为 2NA",
+      "B": "1 mol H2O 中含有的 σ 键数目为 4NA",
+      "C": "1 mol CO2 中含有的 π 键数目为 2NA",
+      "D": "1 mol C2H2 中含有的 σ 键数目为 3NA"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-06",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "2 g H2 中含有的原子数为 NA",
+      "B": "16 g CH4 中含有的电子数为 8NA",
+      "C": "17 g NH3 中含有的质子数为 10NA",
+      "D": "36 g H2O 中含有的中子数为 20NA"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-07",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "1 mol Na2O2 晶体中含有的离子数为 4NA",
+      "B": "1 mol NaCl 中含有的离子数为 2NA",
+      "C": "1 mol NaOH 中含有的离子数为 2NA",
+      "D": "1 mol CaCO3 中含有的离子数为 2NA"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-08",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "26 g C2H2 中含有的 π 键数目为 3NA",
+      "B": "26 g C2H2 中含有的 σ 键数目为 3NA",
+      "C": "58 g C4H10 中含有的共价键数目为 12NA",
+      "D": "16 g O2 中含有的 π 键数目为 NA"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-09",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "标准状况下，22.4 L H2 中含有的质子数为 2NA",
+      "B": "标准状况下，11.2 L CO2 中含有的 σ 键数目为 NA",
+      "C": "1 mol H2S 中含有的原子数为 3NA",
+      "D": "标准状况下，22.4 L SO2 中含有的 π 键数目为 2NA"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-10",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "1 mol Ne 中含有的电子数为 10NA",
+      "B": "1 mol He 中含有的中子数为 0NA",
+      "C": "1 mol Ar 中含有的电子数为 8NA",
+      "D": "1 mol Cl2 中含有的质子数为 17NA"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-11",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "44 g CO2 中含有的电子数为 22NA",
+      "B": "44 g CO2 中含有的中子数为 22NA",
+      "C": "44 g CO2 中含有的原子数为 2NA",
+      "D": "44 g CO2 中含有的 σ 键数目为 2NA"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-12",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "0.5 mol H2O 中含有的中子数为 5NA",
+      "B": "0.5 mol CO2 中含有的 π 键数目为 2NA",
+      "C": "0.5 mol CH4 中含有的原子数为 2NA",
+      "D": "0.5 mol H2O 中含有的电子数为 5NA"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-13",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "1 mol H2O2 中含有的 σ 键数目为 3NA",
+      "B": "1 mol H2O2 中含有的 π 键数目为 NA",
+      "C": "1 mol O3 中含有的原子数为 3NA",
+      "D": "1 mol N2O 中含有的原子数为 3NA"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-14",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "1 mol KO2 晶体中含有的离子数为 2NA",
+      "B": "1 mol KO2 晶体中含有的离子数为 3NA",
+      "C": "1 mol Na2O2 晶体中含有的离子数为 4NA",
+      "D": "1 mol CaO 中含有的离子数为 3NA"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-15",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "56 g Fe 中含有的电子数为 26NA",
+      "B": "64 g Cu 中含有的质子数为 29NA",
+      "C": "27 g Al 中含有的中子数为 13NA",
+      "D": "24 g Mg 中含有的原子数为 NA"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-16",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "1 mol C2H6 中含有的共价键数目为 6NA",
+      "B": "1 mol C2H4 中含有的 σ 键数目为 5NA",
+      "C": "1 mol C2H4 中含有的 π 键数目为 2NA",
+      "D": "1 mol C6H6 中含有的 σ 键数目为 6NA"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-17",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "标准状况下，22.4 L H2O 中含有的分子数为 NA",
+      "B": "标准状况下，22.4 L CO2 中含有的电子数为 22NA",
+      "C": "标准状况下，11.2 L O2 中含有的原子数为 NA",
+      "D": "标准状况下，22.4 L N2 中含有的中子数为 14NA"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-18",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "1 mol NO 中含有的质子数为 14NA",
+      "B": "1 mol NO2 中含有的电子数为 22NA",
+      "C": "1 mol CO 中含有的共价键数目为 3NA",
+      "D": "1 mol N2O 中含有的中子数为 20NA"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-19",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法错误的是（ ）",
+    "options": {
+      "A": "1 mol HCl 中含有的质子数目为 18NA",
+      "B": "1 mol NaCl 中含有的中子数目为 28NA",
+      "C": "1 mol NaCl 中含有的电子数目为 28NA",
+      "D": "1 mol NaCl 中含有的质子数目为 28NA"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2n-20",
+    "question": "设 NA 为阿伏加德罗常数的值。下列说法正确的是（ ）",
+    "options": {
+      "A": "1 mol Ca(OH)2 中含有的离子数为 2NA",
+      "B": "1 mol Ca(OH)2 中含有的原子数为 4NA",
+      "C": "1 mol Ca(OH)2 中含有的质子数目为 36NA",
+      "D": "1 mol Ca(OH)2 中含有的电子数目为 38NA"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-C NA 粒子计数选择题（事实库查表，NaChoiceValidator 保守确定性求解）"
+  },
+  {
+    "id": "t2t-01",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "Na --(O2,常温)--> Na2O --(H2O)--> NaOH --(CO2)--> Na2CO3",
+      "B": "SiO2 --(H2O)--> H2SiO3 --(NaOH)--> Na2SiO3",
+      "C": "Fe --(HCl)--> FeCl3 --(NaOH)--> Fe(OH)3",
+      "D": "S --(O2,点燃)--> SO3 --(H2O)--> H2SO4"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-02",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "Fe --(Cl2,点燃)--> FeCl3 --(NaOH)--> Fe(OH)3 --(△)--> Fe2O3",
+      "B": "Fe2O3 --(H2O)--> Fe(OH)3 --(HCl)--> FeCl3",
+      "C": "Fe --(H2O,高温)--> Fe2O3 --(CO,高温)--> Fe",
+      "D": "FeCl3 --(Cu)--> Fe --(HCl)--> FeCl2"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-03",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "SiO2 --(C,高温)--> Si --(O2,△)--> SiO2 --(NaOH)--> Na2SiO3",
+      "B": "Al2O3 --(H2O)--> Al(OH)3 --(NaOH)--> NaAlO2",
+      "C": "MgO --(H2O)--> Mg(OH)2 --(HCl)--> MgCl2",
+      "D": "CuO --(H2O)--> Cu(OH)2 --(H2SO4)--> CuSO4"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-04",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "N2 --(H2,高温,高压,催化剂)--> NH3 --(HCl)--> NH4Cl --(Ca(OH)2,△)--> NH3",
+      "B": "N2 --(O2,放电)--> NO2 --(H2O)--> HNO3",
+      "C": "NH3 --(O2)--> NO --(O2,H2O)--> HNO3",
+      "D": "NO --(H2O)--> HNO3 --(Cu)--> NO2"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-05",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "CaCO3 --(高温)--> CaO --(H2O)--> Ca(OH)2 --(CO2)--> CaCO3",
+      "B": "CaCO3 --(H2O)--> Ca(OH)2 --(CO2)--> CaCO3",
+      "C": "Ca(OH)2 --(CO2)--> CaCO3 --(H2O)--> Ca(OH)2",
+      "D": "CaO --(H2O)--> Ca(OH)2 --(CO2)--> CaCO3 --(H2O)--> Ca(OH)2"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-06",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "S --(O2,点燃)--> SO2 --(O2,催化剂,△)--> SO3 --(H2O)--> H2SO4",
+      "B": "S --(O2,点燃)--> SO3 --(H2O)--> H2SO4",
+      "C": "SO2 --(O2)--> SO3 --(H2O)--> H2SO4",
+      "D": "H2SO4(稀) --(Cu,△)--> SO2 --(O2,催化剂,△)--> SO3"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-07",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "Cl2 --(NaOH)--> NaClO --(CO2,H2O)--> HClO --(光照)--> HCl",
+      "B": "Fe --(HCl)--> FeCl3 --(NaOH)--> Fe(OH)3",
+      "C": "Cu --(HCl)--> CuCl2 --(NaOH)--> Cu(OH)2",
+      "D": "SiO2 --(H2O)--> H2SiO3 --(NaOH)--> Na2SiO3"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-08",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "Cu --(O2,△)--> CuO --(H2,△)--> Cu --(Cl2,点燃)--> CuCl2 --(NaOH)--> Cu(OH)2",
+      "B": "Cu --(HCl)--> CuCl2 --(NaOH)--> Cu(OH)2 --(△)--> CuO",
+      "C": "Cu --(H2O)--> Cu(OH)2 --(H2SO4)--> CuSO4 --(Fe)--> Cu",
+      "D": "CuO --(H2O)--> Cu(OH)2 --(HCl)--> CuCl2 --(Fe)--> Cu"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-09",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "Al --(O2)--> Al2O3 --(NaOH)--> NaAlO2 --(CO2,H2O)--> Al(OH)3 --(△)--> Al2O3",
+      "B": "Al --(H2O)--> Al(OH)3 --(NaOH)--> NaAlO2",
+      "C": "Al2O3 --(H2O)--> Al(OH)3 --(HCl)--> AlCl3",
+      "D": "Al --(H2O)--> Al(OH)3 --(HCl)--> AlCl3"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-10",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "Mg --(O2,点燃)--> MgO --(HCl)--> MgCl2 --(NaOH)--> Mg(OH)2 --(△)--> MgO",
+      "B": "MgO --(H2O)--> Mg(OH)2 --(HCl)--> MgCl2",
+      "C": "MgCl2 溶液 --(蒸干)--> 无水MgCl2 --(熔融电解)--> Mg",
+      "D": "MgO --(H2O)--> Mg(OH)2 --(△)--> MgO"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-11",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "Na --(O2,点燃)--> Na2O2 --(CO2)--> Na2CO3",
+      "B": "Cu --(H2O)--> Cu(OH)2 --(H2SO4)--> CuSO4",
+      "C": "CaCO3 --(高温)--> CaO --(H2O)--> Ca(OH)2",
+      "D": "Cl2 --(NaOH)--> NaClO --(CO2,H2O)--> HClO"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-12",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "N2 --(H2,高温,高压,催化剂)--> NH3 --(HCl)--> NH4Cl",
+      "B": "NH3 --(O2,催化剂,△)--> NO --(O2,H2O)--> HNO3",
+      "C": "N2 --(O2,放电)--> NO2 --(H2O)--> HNO3",
+      "D": "NH4Cl --(Ca(OH)2,△)--> NH3 --(HNO3)--> NH4NO3"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-13",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "SiO2 --(C,高温)--> Si --(O2,△)--> SiO2",
+      "B": "Na2SiO3 --(HCl)--> H2SiO3 --(△)--> SiO2",
+      "C": "SiO2 --(H2O)--> H2SiO3 --(NaOH)--> Na2SiO3",
+      "D": "Si --(O2,△)--> SiO2 --(NaOH)--> Na2SiO3"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-14",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "Fe --(Cl2,点燃)--> FeCl3 --(NaOH)--> Fe(OH)3",
+      "B": "Fe --(HCl)--> FeCl2 --(NaOH)--> Fe(OH)2 --(O2,H2O)--> Fe(OH)3",
+      "C": "Fe2O3 --(H2SO4)--> FeSO4 --(NaOH)--> Fe(OH)2",
+      "D": "Fe(OH)3 --(△)--> Fe2O3 --(CO,高温)--> Fe"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-15",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "S --(O2,点燃)--> SO2 --(H2O)--> H2SO3",
+      "B": "SO2 --(O2,催化剂,△)--> SO3 --(H2O)--> H2SO4",
+      "C": "S --(O2,点燃)--> SO3 --(H2O)--> H2SO4",
+      "D": "H2SO3 --(△)--> SO2 --(H2S)--> S"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-16",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "NaCl --(电解)--> Cl2 --(H2,点燃)--> HCl",
+      "B": "HCl --(MnO2,△)--> Cl2 --(NaOH)--> NaClO",
+      "C": "NaClO --(CO2,H2O)--> HClO --(光照)--> HCl",
+      "D": "Cu --(HCl)--> CuCl2 --(NaOH)--> Cu(OH)2"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-17",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "NH3 --(O2,催化剂,△)--> NO --(O2)--> NO2 --(H2O)--> HNO3",
+      "B": "NO --(O2)--> NO2 --(H2O)--> HNO3",
+      "C": "NO --(H2O)--> HNO3 --(Cu)--> NO2",
+      "D": "HNO3 --(Cu)--> NO2 --(H2O)--> HNO3"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-18",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "NaHCO3 --(△)--> Na2CO3 --(HCl)--> CO2",
+      "B": "CO2 --(NaOH)--> Na2CO3 --(Ca(OH)2)--> CaCO3",
+      "C": "CaCO3 --(H2O)--> Ca(OH)2 --(CO2)--> CaCO3",
+      "D": "CaCO3 --(高温)--> CaO --(H2O)--> Ca(OH)2"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-19",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "BaCl2 --(H2SO4)--> BaSO4",
+      "B": "AgNO3 --(HCl)--> AgCl",
+      "C": "BaSO4 --(HNO3)--> BaCl2",
+      "D": "AgNO3 --(Cu)--> Ag"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-20",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "H2O --(电解)--> H2 --(Cl2,点燃)--> HCl",
+      "B": "H2 --(O2,点燃)--> H2O --(电解)--> O2",
+      "C": "KMnO4 --(△)--> O2 --(H2,点燃)--> H2O",
+      "D": "Na --(O2)--> NaOH --(HCl)--> NaCl"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-21",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "FeSO4 --(NaOH)--> Fe(OH)2 --(O2,H2O)--> Fe(OH)3 --(HCl)--> FeCl3",
+      "B": "Fe --(HCl)--> FeCl3 --(NaOH)--> Fe(OH)3",
+      "C": "Fe2O3 --(H2SO4)--> FeSO4 --(NaOH)--> Fe(OH)2",
+      "D": "FeCl3 --(Cu)--> Fe --(H2SO4)--> FeSO4"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-22",
+    "question": "下列物质间转化能实现的是",
+    "options": {
+      "A": "CH4 --(O2,点燃)--> CO2 --(Ca(OH)2)--> CaCO3 --(高温)--> CaO",
+      "B": "S --(O2,点燃)--> SO3 --(H2O)--> H2SO4",
+      "C": "MgO --(H2O)--> Mg(OH)2 --(HCl)--> MgCl2",
+      "D": "Al2O3 --(H2O)--> Al(OH)3 --(NaOH)--> NaAlO2"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-23",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "AgCl --(HNO3)--> AgNO3 --(Cu)--> Ag",
+      "B": "AgNO3 --(HCl)--> AgCl",
+      "C": "AgNO3 --(Cu)--> Ag",
+      "D": "BaCl2 --(H2SO4)--> BaSO4"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t2t-24",
+    "question": "下列物质间转化不能实现的是",
+    "options": {
+      "A": "K2FeO4 --(H2O)--> H2 --(O2,点燃)--> H2O",
+      "B": "Na2O2 --(H2O)--> NaOH --(CO2)--> Na2CO3",
+      "C": "Na2O2 --(CO2)--> O2 --(H2,点燃)--> H2O",
+      "D": "NaOH --(CO2)--> NaHCO3 --(△)--> Na2CO3"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  }
+]

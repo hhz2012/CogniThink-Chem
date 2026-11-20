@@ -1,0 +1,19 @@
+=== gateway /process probe: 11 concept candidates (live pipeline) ===
+
+test-1       tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='检验 Fe3+ 可用 KSCN（硫氰化钾）溶液：滴加 KSCN 溶液，溶液变为血红色。'
+test-2       tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='检验 Cl- 可用 AgNO3（硝酸银）溶液：滴加 AgNO3 溶液生成不溶于稀硝酸的白色沉淀。'
+test-3       tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='检验 SO4^2- 可用 BaCl2（氯化钡）或 Ba(NO3)2（硝酸钡）溶液：生成不溶于稀硝酸的白色沉淀（含 Ba2...'
+test-4       tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='检验 NH4+：加入 NaOH（氢氧化钠）溶液并加热，产生的气体使湿润的红色石蕊试纸变蓝（氨气 NH3）。'
+test-5       tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='检验 CO3^2-：加入盐酸（HCl）产生气体，将气体通入澄清石灰水，石灰水变浑浊。'
+property-1   tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='Fe3+ 的水溶液呈黄色（棕黄色）。'
+property-2   tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='MnO4- 的水溶液呈紫红色（紫色）。'
+concept-1    tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='电解质是在水溶液中或熔融状态下能够导电的化合物。'
+concept-2    tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='氧化还原反应是有电子转移（元素化合价发生变化）的反应，氧化与还原同时发生。'
+concept-3    tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='强电解质在水溶液中完全电离，弱电解质在水溶液中部分电离。'
+pdf-510      tt=concept_fact   engOk=True   finalHit=True replyHit=True  final='金刚石 > C60。金刚石是原子晶体，C—C 共价键强；C60 是分子晶体，分子间以范德华力结合，作用力弱，故金刚石熔点...'
+server stopped
+
+--- summary ---
+taskType=concept_fact = 11/11
+engineOk=True       = 11/11
+finalHit(keyword)   = 11/11

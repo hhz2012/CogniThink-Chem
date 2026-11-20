@@ -1,0 +1,6 @@
+tag=choice_after1 total=757 llmAvailable=False
+pureLlmCorrect=0 (0%)
+gatewayCorrect=407 gatewayTruthCorrect=407
+gatewayEngineUsed=430 engineSolved=408 coverage=0.539 precision=0.9975
+harmCount=0
+bothCorrect=0 gatewayOnly=407 pureLlmOnly=0 bothWrong=350

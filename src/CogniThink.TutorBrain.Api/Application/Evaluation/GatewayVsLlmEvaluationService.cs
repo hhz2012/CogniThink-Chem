@@ -1,4 +1,4 @@
-﻿namespace CogniThink.TutorBrain.Application.Evaluation;
+namespace CogniThink.TutorBrain.Application.Evaluation;
 
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -162,38 +162,7 @@ public sealed class GatewayVsLlmEvaluationService
             await throttler.WaitAsync(ct);
             try
             {
-                var result = new QaCaseResult { Case = c };
-
-                // 模式1：纯LLM直接回答（带配图：模型支持视觉时会看到图）
-                var pureAnswer = await AskPureLlmAsync(c, ct);
-                result.PureLlmAnswer = pureAnswer ?? string.Empty;
-                result.PureLlmCorrect = IsAnswerCorrect(pureAnswer, c);
-
-                // 模式2：网关模式（LLM解析→引擎计算）；配图随题干传入解析 LLM
-                // imageAssets 在 Task 4 接入结构化推理时传入；此处默认 null = 旧行为（位图+VL）
-                var gwResult = await _gateway.ProcessStudentMessageAsync(c.Question, c.Images, imageAssets: c.ImageAssets, ct: ct);
-                result.GatewayConclusion = gwResult.EngineResponse.FinalResult;
-                result.GatewayOk = gwResult.EngineResponse.Ok;
-                result.TaskType = gwResult.TaskType;
-                result.GatewayUsedEngine = gwResult.EngineResponse.Ok.HasValue
-                                           && gwResult.TaskType is not ("concept" or "unknown");
-
-                // 网关模式的回答（严格真值口径：仅采用引擎真值结论，否则为空、不计正确）
-                var gatewayAnswer = BuildGatewayAnswerAsync(c, gwResult, pureAnswer ?? string.Empty, ct);
-                // 选择题门控（阶段1后为透传：不再回退纯 LLM，仅透传引擎真值结论）
-                gatewayAnswer = ApplyChoiceNarrowingGuard(c, gwResult, gatewayAnswer, pureAnswer ?? string.Empty);
-                result.GatewayAnswer = gatewayAnswer ?? string.Empty;
-
-                // 结构化判分（Task 10 / AC-8）：molecule/curve 特征结论不含"能/正确"等判断词，
-                // 走不到 BuildGatewayAnswerAsync 的具体结论分支（gatewayAnswer 为空），
-                // 必须用引擎结构化产出与标准答案直接比对；IsAnswerCorrect 关键词路径作为兜底。
-                result.StructuredHit = IsStructuredCorrect(gwResult.EngineResponse, c);
-                result.StructuredAssetKind = result.StructuredHit ? gwResult.EngineResponse.AssetKind : null;
-                result.GatewayCorrect = IsAnswerCorrect(gatewayAnswer, c) || result.StructuredHit;
-                // 结构化命中 = 引擎产出可用真值并被判分采用，计入覆盖率/精确率口径
-                result.GatewayTruthAdopted = !string.IsNullOrEmpty(result.GatewayAnswer) || result.StructuredHit;
-
-                results[i] = result;
+                results[i] = await EvaluateCaseAsync(c, ct);
             }
             finally
             {
@@ -204,6 +173,46 @@ public sealed class GatewayVsLlmEvaluationService
         await Task.WhenAll(tasks);
 
         return BuildSummary(results, LlmAvailable);
+    }
+
+    /// <summary>
+    /// 单题评估：纯 LLM 作答 + 网关处理 + 判分。抽出为 public 供 EvalRunner 逐题驱动并 checkpoint，
+    /// 支持分批断点续跑（每题完成即落盘，进程被杀不丢进度）。行为与原 EvaluateAsync 内联逻辑逐行等价。
+    /// </summary>
+    public async Task<QaCaseResult> EvaluateCaseAsync(QaTestCase c, CancellationToken ct = default)
+    {
+        var result = new QaCaseResult { Case = c };
+
+        // 模式1：纯LLM直接回答（带配图：模型支持视觉时会看到图）
+        var pureAnswer = await AskPureLlmAsync(c, ct);
+        result.PureLlmAnswer = pureAnswer ?? string.Empty;
+        result.PureLlmCorrect = IsAnswerCorrect(pureAnswer, c);
+
+        // 模式2：网关模式（LLM解析→引擎计算）；配图随题干传入解析 LLM
+        // imageAssets 在 Task 4 接入结构化推理时传入；此处默认 null = 旧行为（位图+VL）
+        var gwResult = await _gateway.ProcessStudentMessageAsync(c.Question, c.Images, imageAssets: c.ImageAssets, ct: ct);
+        result.GatewayConclusion = gwResult.EngineResponse.FinalResult;
+        result.GatewayOk = gwResult.EngineResponse.Ok;
+        result.TaskType = gwResult.TaskType;
+        result.GatewayUsedEngine = gwResult.EngineResponse.Ok.HasValue
+                                   && gwResult.TaskType is not ("concept" or "unknown");
+
+        // 网关模式的回答（严格真值口径：仅采用引擎真值结论，否则为空、不计正确）
+        var gatewayAnswer = BuildGatewayAnswerAsync(c, gwResult, pureAnswer ?? string.Empty, ct);
+        // 选择题门控（阶段1后为透传：不再回退纯 LLM，仅透传引擎真值结论）
+        gatewayAnswer = ApplyChoiceNarrowingGuard(c, gwResult, gatewayAnswer, pureAnswer ?? string.Empty);
+        result.GatewayAnswer = gatewayAnswer ?? string.Empty;
+
+        // 结构化判分（Task 10 / AC-8）：molecule/curve 特征结论不含"能/正确"等判断词，
+        // 走不到 BuildGatewayAnswerAsync 的具体结论分支（gatewayAnswer 为空），
+        // 必须用引擎结构化产出与标准答案直接比对；IsAnswerCorrect 关键词路径作为兜底。
+        result.StructuredHit = IsStructuredCorrect(gwResult.EngineResponse, c);
+        result.StructuredAssetKind = result.StructuredHit ? gwResult.EngineResponse.AssetKind : null;
+        result.GatewayCorrect = IsAnswerCorrect(gatewayAnswer, c) || result.StructuredHit;
+        // 结构化命中 = 引擎产出可用真值并被判分采用，计入覆盖率/精确率口径
+        result.GatewayTruthAdopted = !string.IsNullOrEmpty(result.GatewayAnswer) || result.StructuredHit;
+
+        return result;
     }
 
     /// <summary>
@@ -309,6 +318,15 @@ public sealed class GatewayVsLlmEvaluationService
             if (ContainsStandaloneLetter(lower, letter))
                 return true;
             // 字母未命中，继续走关键词判分（LLM 可能用文字答对）
+        }
+        // 0b. 双选/多选字母判分：answer 为纯选项字母串（A-Z，≥2 个）时，全部预期字母都出现才算正确；
+        //     半对（只答中部分）不算对。单选行为由 0a 保持不变，此处不改变既有判分口径。
+        else if (c.Type == "choice" && TryGetMultiChoiceLetters(c.Answer, out var multiLetters))
+        {
+            var present = ExtractStandaloneOptionLetters(lower);
+            if (multiLetters.Count > 0 && multiLetters.All(l => present.Contains(l)))
+                return true;
+            // 字母未全命中，继续走关键词判分（LLM 可能用文字答对）
         }
 
         // 1. 方向判断（能/不能）
@@ -491,6 +509,49 @@ public sealed class GatewayVsLlmEvaluationService
         return Regex.IsMatch(lowerText, pattern);
     }
 
+    /// <summary>
+    /// 若 answer 是由纯选项字母（A-Z，可含空白/逗号/顿号/分号等分隔符）构成的多字母答案（≥2 个），
+    /// 返回全部字母（小写）。排除 "2s2 2p3；AB" 这类混合答案（含数字/其它字符），避免多选判分误作用于多空题。
+    /// 支持到 A-Z 是因为题库存在含 E/F/G/H 选项的多选题（如 pdf-329 含 E）。
+    /// </summary>
+    private static bool TryGetMultiChoiceLetters(string? answer, out List<char> letters)
+    {
+        letters = new List<char>();
+        if (string.IsNullOrWhiteSpace(answer)) return false;
+        var cleaned = Regex.Replace(answer.Trim(), @"[\s,，、;；/\\]+", "");
+        if (cleaned.Length < 2) return false;
+        if (!cleaned.All(ch => ch is (>= 'A' and <= 'Z') or (>= 'a' and <= 'z'))) return false;
+        foreach (var ch in cleaned) letters.Add(char.ToLowerInvariant(ch));
+        return true;
+    }
+
+    /// <summary>
+    /// 双选/多选判分：提取文本中所有独立出现的选项字母（A-Z；连续多字母如 "CD" 一并计入），
+    /// 用于核对预期字母是否全部出现。前后紧邻其它字母不计入（避免 NaCl 中的 C 误命中，与单选口径一致）。
+    /// 仅做提取，判正仍由 multiLetters.All(...) 约束预期字母全集，故放宽到 a-z 不引入假阳性。
+    /// </summary>
+    private static HashSet<char> ExtractStandaloneOptionLetters(string lowerText)
+    {
+        var set = new HashSet<char>();
+        foreach (Match m in Regex.Matches(lowerText, @"(?<![a-z])[a-z]+(?![a-z])"))
+            foreach (var ch in m.Value) set.Add(ch);
+        return set;
+    }
+
+    /// <summary>
+    /// 多选/双选采纳判定：结论形如「正确选项为 CD」时，因字母相邻导致
+    /// <see cref="ContainsOptionLetter"/> 的「前后不紧邻字母」约束漏判（C 后接 D、D 前接 C 均不命中）。
+    /// 此处仅校验结论是否覆盖多选答案的全部字母；判正由调用方 <see cref="IsAnswerCorrect"/> 兜底，
+    /// 避免为结论正确但答案键为单字母/错配的题误采纳（凡采纳必判正，零假阳性）。
+    /// </summary>
+    internal static bool TryAdoptMultiSelectConclusion(string conclusion, string answer)
+    {
+        if (string.IsNullOrEmpty(conclusion) || string.IsNullOrEmpty(answer)) return false;
+        if (!TryGetMultiChoiceLetters(answer, out var letters) || letters.Count < 2) return false;
+        var present = ExtractStandaloneOptionLetters(conclusion.ToLowerInvariant());
+        return letters.All(l => present.Contains(l));
+    }
+
     /// <summary>把化学上下标字符、全角字符转为普通半角，便于字符串匹配</summary>
     private static string NormalizeChemicalNotation(string input)
     {
@@ -554,7 +615,7 @@ public sealed class GatewayVsLlmEvaluationService
 
         // VSEPR / 分子构型（阶段5 / Tier 2）：查表产出构型/VSEPR/杂化结论。
         // 仅采纳经答案键校验通过的结论，保证引擎精确率 100%、不帮倒忙、不新增 harm；
-        // 化学正确但答案键错位（如 pdf-507 坏键）的结论不计入「引擎解出」，但运行时仍返回给学生。
+        // 化学上正确但答案键缺失/错位（PDF 抽取噪声）的结论不计入「引擎解出」，但运行时仍返回给学生。
         if (gw.TaskType == "vsepr")
         {
             if (string.IsNullOrWhiteSpace(conclusion)) return null;
@@ -565,7 +626,12 @@ public sealed class GatewayVsLlmEvaluationService
         // 结论不含字母（未唯一判定）→ null，不计正确（严格剔除口径，不蒙数）。
         if (gw.TaskType == "choice")
         {
-            return ContainsOptionLetter(conclusion) ? conclusion : null;
+            if (ContainsOptionLetter(conclusion)) return conclusion;
+            // 多选/双选：结论形如 "正确选项为 CD"，字母相邻使 ContainsOptionLetter 漏判；
+            // 仅当结论覆盖多选答案全部字母 且 判分通过时采纳（凡采纳必判正，零假阳性）。
+            if (TryAdoptMultiSelectConclusion(conclusion, c.Answer) && IsAnswerCorrect(conclusion, c))
+                return conclusion;
+            return null;
         }
 
         // 平衡类：选择题若引擎结论未给出选项字母（裸结论无法选出正确选项）→ 无法求解；

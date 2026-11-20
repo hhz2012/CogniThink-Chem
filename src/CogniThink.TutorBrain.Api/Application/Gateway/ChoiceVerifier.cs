@@ -89,9 +89,13 @@ public static class ChoiceVerifier
 
     // ===================== 选项解析 =====================
 
-    // 行首选项标记：A. / B．/ C、（与确定性分类器 IsChoiceQuestion 保持一致）
+    // 行首选项标记：A. / B．/ C、。字母范围 A–Z：题库中存在 5 选项及以上的选择题
+    // （如 pdf-329 含选项 E、另有题含到 G），若只认 A–D 会把 E 及之后的选项文本拼进
+    // 前一选项，导致 FactChoiceMatcher 中该选项命中多条事实而整题返回 null。
+    // 注意：IsChoiceQuestion 仅用于「是否选择题」的检测（出现任一 A–D 标记即可），
+    // 故保持 A–D；此处是「拆出全部选项」的解析，需覆盖到所有出现的选项字母。
     private static readonly Regex OptionMarker =
-        new(@"(^|\n)\s*(?<letter>[A-D])[\.．、]\s", RegexOptions.Compiled);
+        new(@"(^|\n)\s*(?<letter>[A-Z])[\.．、]\s", RegexOptions.Compiled);
 
     // 设为 internal 供 Tier 2 各分类/转化链/NA 校验器复用同一套选项拆分（行首 A. / B．/ C、），
     // 保证跨校验器选项解析口径一致；不改动判定逻辑。

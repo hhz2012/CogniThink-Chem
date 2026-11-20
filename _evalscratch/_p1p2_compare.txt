@@ -1,0 +1,15 @@
+====================================================================================================
+阶段6-P1：数据键校正（pdf-108/173/507）—— engineSolved 266→269（+3），零 harm / precision 1.0 / LOST=[]
+----------------------------------------------------------------------------------------------------
+  数据修复（不改引擎逻辑）：pdf-108 键 Ga 抽取文本→3d⁸4s²；pdf-173 键 "B"→3d¹⁰4s¹；pdf-507 键单串→数组 ["平面三角形","5sp³"]。
+  逐题翻转（仅 3 题，其余 720 不变）：
+    pdf-108  bothWrong → bothCorrect                      (gw F→T, llm F→T)
+    pdf-173  bothWrong → bothCorrect                      (gw F→T, llm F→T)
+    pdf-507  pureLlmOnlyCorrect → gatewayOnlyCorrect      (gw F→T, llm T→F)
+  聚合：engineSolved 266→269（+3）；harm 0；enginePrecision 1.000000；LOST=[]
+        bothCorrect 245→247；gatewayOnlyCorrect 21→22；pureLlmOnlyCorrect 306→305；bothWrong 151→149
+        gatewayCorrect 266→269；pureLlmCorrect 551→552
+  证据：_evalscratch/verify_stage6_p1_out.txt（人类可读）、_evalscratch/after_stage6_p1.json（机器快照）
+  回归：dotnet test TutorBrain 916 + Chem 905 = 1821 通过 / 0 失败 / 0 跳过。
+  红线核对：引擎唯一真值源 ✓；不蒙数 ✓；只收紧采纳闸门（数据键校正，不迁就错键）✓；零回归 LOST=[] ✓；
+            零新增 harm（harm=0、0 采纳但判错）✓；分类规则链只加分支不删除 ✓。

@@ -1,0 +1,20 @@
+--- pdf-060 ans=[D] validator=>null snapCorrect=False
+  STEM: (2022·重庆卷·★★)下列操作中，不会影响溶液中K+、Al3+、Fe3+、Ba2+、Cl-、NO3-等离子大量共存的是( )
+  A: ions=[Fe^3+,H^1+] conflict=
+      opt: 加入ZnSO4
+  B: ions=[Fe^3+,H^1+] conflict=
+      opt: 加入Fe粉
+  C: ions=[Fe^3+,H^1+] conflict=
+      opt: 通入NH3
+  D: ions=[Fe^3+,H^1+] conflict=
+      opt: 通入CO2
+--- pdf-457 ans=[D] validator=>null snapCorrect=False
+  STEM: (2025·重庆阶段练习·★★)常温下，下列给定条件的溶液中，一定能大量共存的离子组是
+  A: ions=[Cl^1-,S2O3^2-,SO4^2-,NH4^1+] conflict=
+      opt: 加入Al能放出H2的溶液中：Cl⁻、S₂O₃²⁻、SO₄²⁻、NH₄⁺
+  B: ions=[Cl^1-,NH4^1+,Fe^3+,SO4^2-] conflict=
+      opt: 0.1 mol/L NaHCO₃溶液中：Cl⁻、NH₄⁺、Fe³⁺、SO₄²⁻
+  C: ions=[NO3^1-,Fe^2+,K^1+,Na^1+] conflict=
+      opt: 用惰性电极电解CuSO₄溶液后的溶液中：NO₃⁻、Fe²⁺、K⁺、Na⁺
+  D: ions=[K^1+,Na^1+,CO3^2-,[Al(OH)4]^1-,OH^1-] conflict=
+      opt: 常温下Kw/c(H⁺)=1×10⁻³ mol/L的溶液中：K⁺、Na⁺、CO₃²⁻、[Al(OH)₄]⁻

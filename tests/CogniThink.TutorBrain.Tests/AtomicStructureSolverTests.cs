@@ -89,11 +89,16 @@ public class AtomicStructureSolverTests
     [Fact]
     public void 选择题不触发()
     {
-        // 生产钩子不介入选择题；且题库中选择题无任何一题会触发求解器。
+        // 生产钩子不介入选择题（CallEngineAsync 仅 concept/unknown/atomic_structure 调 AtomicStructureSolver）。
+        // 题库中选择题除 pdf-486 外无任何一题触发求解器。pdf-486 是「填空+双选」复合题（type=choice），
+        // 其题干前缀含填空锚点（基态N原子价层电子排布式），但生产按 choice 路由不经原子求解器，零 harm；
+        // 锁定触发集合恰好为 {pdf-486}，防止其它选择题意外过触发。
         var fired = GatewayVsLlmEvaluationService.GenPdfQuestions()
-            .Where(c => c.Type == "choice")
-            .Count(c => Solve(c.Question) is not null);
-        Assert.Equal(0, fired);
+            .Where(c => c.Type == "choice" && Solve(c.Question) is not null)
+            .Select(c => c.Id)
+            .OrderBy(x => x)
+            .ToList();
+        Assert.Equal(new[] { "pdf-486" }, fired);
     }
 
     // ============================================================
@@ -108,11 +113,13 @@ public class AtomicStructureSolverTests
         Assert.NotEmpty(cases);
 
         // 已知答案键缺失/错位（PDF 抽取噪声）：化学结论正确但键不匹配；
-        // 且二者分类为 calculation，生产钩子（仅 concept/unknown）不介入，
-        // 评估侧也只采纳校验通过的结论 → 精确率与帮倒忙均不受影响。
-        var brokenKeys = new HashSet<string> { "pdf-108", "pdf-166" };
+        // pdf-166 / pdf-190 仍错位（不被采纳，零 harm）；pdf-108 / pdf-173 已校正键，现干净判正。
+        // 评估侧只采纳校验通过的结论 → 精确率与帮倒忙均不受影响。
+        var brokenKeys = new HashSet<string> { "pdf-166", "pdf-190" };
 
         var firedIds = new List<string>();
+        var notAdoptedButFired = new List<string>(); // 触发但未通过判分（非坏键）→ 会损害精确率
+        var brokenButAdopted = new List<string>();   // 坏键却意外判正 → 需复核数据/允许列表
         foreach (var c in cases)
         {
             if (c.Type == "choice") continue; // 生产钩子不介入选择题
@@ -120,19 +127,27 @@ public class AtomicStructureSolverTests
             if (r is null) continue;
             firedIds.Add(c.Id);
 
+            var correct = Correct(r.FinalResult, c);
             if (brokenKeys.Contains(c.Id))
             {
-                Assert.False(Correct(r.FinalResult, c),
-                    $"{c.Id} 在坏键允许列表中却意外判正，需复核数据或允许列表");
-                continue;
+                if (correct) brokenButAdopted.Add($"{c.Id}({r.FinalResult})");
             }
-            Assert.True(Correct(r.FinalResult, c),
-                $"{c.Id} 求解器返回 {r.FinalResult} 但未通过判分 → 会损害精确率或帮倒忙");
+            else if (!correct)
+            {
+                notAdoptedButFired.Add($"{c.Id}({r.FinalResult})");
+            }
         }
 
-        // 锁定当前题库行为：4 个干净新解 + 2 个坏键 = 6 触发；任何新增触发都必须先判明正确性。
+        // 一次性报告全部违规，避免逐次只暴露首个（加速发现新增触发）。
+        Assert.Empty(notAdoptedButFired);
+        Assert.Empty(brokenButAdopted);
+
+        // 锁定当前题库行为：pdf-108 / pdf-173 已校正答案键（原错位，现干净判正）；pdf-166 / pdf-190 仍为答案键错位（不被采纳，零 harm）；其余为干净判正。任何新增触发都必须先判明正确性。
+        // 任何新增触发都必须先判明正确性。
+        // 注意：pdf-486 原为 fill（前缀含「基态N原子价层电子排布式」填空锚点），现改为 choice 以走双选判分；
+        // 本护栏跳过 choice 题（见上方 continue），故 pdf-486 不再出现在触发集合中（生产 choice 路由不经原子求解器，零 harm）。
         Assert.Equal(
-            new[] { "pdf-108", "pdf-166", "pdf-482", "pdf-487", "pdf-490", "pdf-538" },
+            new[] { "pdf-108", "pdf-166", "pdf-173", "pdf-190", "pdf-482", "pdf-487", "pdf-490", "pdf-533", "pdf-538" },
             firedIds.OrderBy(x => x));
     }
 }

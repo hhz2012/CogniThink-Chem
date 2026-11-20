@@ -1,0 +1,4340 @@
+[
+  {
+    "id": "ion-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-6",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "reaction-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u751F\u6210H2\u3002\u6D53\u786B\u9178\u662F\u5F3A\u6C27\u5316\u6027\u9178\uFF0C\u4E0E\u91D1\u5C5E\u53CD\u5E94\u65F6\u9178\u6839\u88AB\u8FD8\u539F\uFF08\u5982NO3-\u2192NO\uFF09\uFF0C\u4E0D\u751F\u6210H2\u3002"
+  },
+  {
+    "id": "reaction-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u53CD\u5E94\u3002Cu\u5728\u91D1\u5C5E\u6D3B\u52A8\u6027\u987A\u5E8F\u4E2D\u6392\u5728H\u4E4B\u540E\uFF0C\u4E0D\u80FD\u7F6E\u6362\u7A00\u9178\u4E2D\u7684H\u002B\u3002"
+  },
+  {
+    "id": "test-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u68C0\u9A8C Fe3\u002B \u53EF\u7528 KSCN\uFF08\u786B\u6C30\u5316\u94BE\uFF09\u6EB6\u6DB2\uFF1A\u6EF4\u52A0 KSCN \u6EB6\u6DB2\uFF0C\u6EB6\u6DB2\u53D8\u4E3A\u8840\u7EA2\u8272\u3002"
+  },
+  {
+    "id": "test-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u68C0\u9A8C Cl- \u53EF\u7528 AgNO3\uFF08\u785D\u9178\u94F6\uFF09\u6EB6\u6DB2\uFF1A\u6EF4\u52A0 AgNO3 \u6EB6\u6DB2\u751F\u6210\u4E0D\u6EB6\u4E8E\u7A00\u785D\u9178\u7684\u767D\u8272\u6C89\u6DC0\u3002"
+  },
+  {
+    "id": "redox-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u8FD8\u539F\u5242\u662F Cu"
+  },
+  {
+    "id": "concept-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u7535\u89E3\u8D28\u662F\u5728\u6C34\u6EB6\u6DB2\u4E2D\u6216\u7194\u878D\u72B6\u6001\u4E0B\u80FD\u591F\u5BFC\u7535\u7684\u5316\u5408\u7269\u3002"
+  },
+  {
+    "id": "ion-7",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-8",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-9",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-10",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-11",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-12",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-13",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "ion-14",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "reaction-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u80FD\u751F\u6210H2\u3002Zn\u5728\u91D1\u5C5E\u6D3B\u52A8\u6027\u987A\u5E8F\u4E2D\u6392\u5728H\u4E4B\u524D\uFF0C\u80FD\u4E0E\u975E\u6C27\u5316\u6027\u9178\u53D1\u751F\u7F6E\u6362\u53CD\u5E94\u751F\u6210H2\u3002"
+  },
+  {
+    "id": "reaction-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u80FD\u53CD\u5E94\u3002Cu\u7684\u91D1\u5C5E\u6D3B\u52A8\u6027\u5F3A\u4E8EAg\uFF0C\u80FD\u5C06Ag\u4ECE\u5176\u76D0\u6EB6\u6DB2\u4E2D\u7F6E\u6362\u51FA\u6765\u3002"
+  },
+  {
+    "id": "reaction-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u5BF9\u3002\u7A00\u786B\u9178/\u7A00\u76D0\u9178\u53EA\u80FD\u628AFe\u6C27\u5316\u4E3A\u002B2\u4EF7\uFF08\u751F\u6210FeSO4/FeCl2\uFF09\uFF0C\u4E0D\u80FD\u751F\u6210\u002B3\u4EF7\u94C1\u76D0\u3002"
+  },
+  {
+    "id": "reaction-6",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u76F4\u63A5\u7F6E\u6362\u51FA\u91D1\u5C5E\u3002Na\u975E\u5E38\u6D3B\u6CFC\uFF0C\u4F1A\u5148\u4E0E\u76D0\u6EB6\u6DB2\u4E2D\u7684\u6C34\u53CD\u5E94\u751F\u6210\u78B1\u548CH2\uFF0C\u4E0D\u80FD\u7F6E\u6362\u51FA\u76D0\u4E2D\u7684\u91D1\u5C5E\u3002"
+  },
+  {
+    "id": "test-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u68C0\u9A8C SO4^2- \u53EF\u7528 BaCl2\uFF08\u6C2F\u5316\u94A1\uFF09\u6216 Ba(NO3)2\uFF08\u785D\u9178\u94A1\uFF09\u6EB6\u6DB2\uFF1A\u751F\u6210\u4E0D\u6EB6\u4E8E\u7A00\u785D\u9178\u7684\u767D\u8272\u6C89\u6DC0\uFF08\u542B Ba2\u002B\uFF09\u3002"
+  },
+  {
+    "id": "test-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u68C0\u9A8C NH4\u002B\uFF1A\u52A0\u5165 NaOH\uFF08\u6C22\u6C27\u5316\u94A0\uFF09\u6EB6\u6DB2\u5E76\u52A0\u70ED\uFF0C\u4EA7\u751F\u7684\u6C14\u4F53\u4F7F\u6E7F\u6DA6\u7684\u7EA2\u8272\u77F3\u854A\u8BD5\u7EB8\u53D8\u84DD\uFF08\u6C28\u6C14 NH3\uFF09\u3002"
+  },
+  {
+    "id": "test-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u68C0\u9A8C CO3^2-\uFF1A\u52A0\u5165\u76D0\u9178\uFF08HCl\uFF09\u4EA7\u751F\u6C14\u4F53\uFF0C\u5C06\u6C14\u4F53\u901A\u5165\u6F84\u6E05\u77F3\u7070\u6C34\uFF0C\u77F3\u7070\u6C34\u53D8\u6D51\u6D4A\u3002"
+  },
+  {
+    "id": "redox-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6C27\u5316\u5242\u662F FeCl3"
+  },
+  {
+    "id": "redox-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u8FD8\u539F\u5242\u662F KI"
+  },
+  {
+    "id": "concept-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6C27\u5316\u8FD8\u539F\u53CD\u5E94\u662F\u6709\u7535\u5B50\u8F6C\u79FB\uFF08\u5143\u7D20\u5316\u5408\u4EF7\u53D1\u751F\u53D8\u5316\uFF09\u7684\u53CD\u5E94\uFF0C\u6C27\u5316\u4E0E\u8FD8\u539F\u540C\u65F6\u53D1\u751F\u3002"
+  },
+  {
+    "id": "concept-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5F3A\u7535\u89E3\u8D28\u5728\u6C34\u6EB6\u6DB2\u4E2D\u5B8C\u5168\u7535\u79BB\uFF0C\u5F31\u7535\u89E3\u8D28\u5728\u6C34\u6EB6\u6DB2\u4E2D\u90E8\u5206\u7535\u79BB\u3002"
+  },
+  {
+    "id": "property-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Fe3\u002B \u7684\u6C34\u6EB6\u6DB2\u5448\u9EC4\u8272\uFF08\u68D5\u9EC4\u8272\uFF09\u3002"
+  },
+  {
+    "id": "property-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "MnO4- \u7684\u6C34\u6EB6\u6DB2\u5448\u7D2B\u7EA2\u8272\uFF08\u7D2B\u8272\uFF09\u3002"
+  },
+  {
+    "id": "trap-ion-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "trap-ion-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "trap-ion-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "trap-ion-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "trap-ion-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "trap-ion-6",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "trap-ion-7",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "trap-react-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u5BF9\u3002\u7A00\u786B\u9178/\u7A00\u76D0\u9178\u53EA\u80FD\u628AFe\u6C27\u5316\u4E3A\u002B2\u4EF7\uFF08\u751F\u6210FeSO4/FeCl2\uFF09\uFF0C\u4E0D\u80FD\u751F\u6210\u002B3\u4EF7\u94C1\u76D0\u3002"
+  },
+  {
+    "id": "trap-react-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u53CD\u5E94\u3002Cu\u5728\u91D1\u5C5E\u6D3B\u52A8\u6027\u987A\u5E8F\u4E2D\u6392\u5728H\u4E4B\u540E\uFF0C\u4E0D\u80FD\u7F6E\u6362\u7A00\u9178\u4E2D\u7684H\u002B\u3002"
+  },
+  {
+    "id": "trap-react-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u5BF9\u3002\u7A00\u786B\u9178/\u7A00\u76D0\u9178\u53EA\u80FD\u628AFe\u6C27\u5316\u4E3A\u002B2\u4EF7\uFF08\u751F\u6210FeSO4/FeCl2\uFF09\uFF0C\u4E0D\u80FD\u751F\u6210\u002B3\u4EF7\u94C1\u76D0\u3002"
+  },
+  {
+    "id": "trap-limit-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u80FD\u3002Al \u662F\u4E24\u6027\u91D1\u5C5E\uFF0C\u4E0E\u5F3A\u78B1\u6EB6\u6DB2\u53CD\u5E94\u751F\u6210 H2\u3002"
+  },
+  {
+    "id": "trap-limit-2",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "trap-limit-3",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d1-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u79BB\u5B50\u65B9\u7A0B\u5F0F\uFF1A2Fe2\u002B \u002B Cl2 \u2192 2Fe3\u002B \u002B 2Cl-"
+  },
+  {
+    "id": "d1-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u79BB\u5B50\u65B9\u7A0B\u5F0F\uFF1A2Fe2\u002B \u002B 4Br- \u002B 3Cl2 \u2192 2Fe3\u002B \u002B 2Br2 \u002B 6Cl-"
+  },
+  {
+    "id": "d1-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u79BB\u5B50\u65B9\u7A0B\u5F0F\uFF1A2AlO2- \u002B CO2 \u002B 3H2O \u2192 2Al(OH)3 \u002B CO32-"
+  },
+  {
+    "id": "d1-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u79BB\u5B50\u65B9\u7A0B\u5F0F\uFF1AAlO2- \u002B CO2 \u002B 2H2O \u2192 Al(OH)3 \u002B HCO3-"
+  },
+  {
+    "id": "d1-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u79BB\u5B50\u65B9\u7A0B\u5F0F\uFF1ACa2\u002B \u002B HCO3- \u002B OH- \u2192 CaCO3 \u002B H2O"
+  },
+  {
+    "id": "d2-1",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d2-2",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d2-3",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d2-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u8FD8\u539F\u4EA7\u7269\u662F NO"
+  },
+  {
+    "id": "d3-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "d3-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58\u3002Fe2\u002B\u5728\u6EB6\u6DB2\u4E2D\u5448\u6D45\u7EFF\u8272\uFF0C\u65E0\u8272\u6EB6\u6DB2\u4E2D\u4E0D\u80FD\u5B58\u5728\u3002"
+  },
+  {
+    "id": "d3-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58\u3002\u52A0\u94DD\u653EH2\u8BF4\u660E\u6EB6\u6DB2\u53EF\u80FD\u5448\u9178\u6027\uFF0C\u9178\u6027\u6761\u4EF6\u4E0B\u8FD9\u4E9B\u79BB\u5B50\u4E0D\u80FD\u5171\u5B58\u3002"
+  },
+  {
+    "id": "d3-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53EF\u4EE5\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "d3-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u5927\u91CF\u5171\u5B58"
+  },
+  {
+    "id": "d4-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "I- \u5148\u6C89\u6DC0\u3002\u5F00\u59CB\u6C89\u6DC0\u6240\u9700Ag\u002B\u6D53\u5EA6\u6700\u5C0F\uFF088.5\u00D710^-17 mol/L\uFF09\uFF0C\u6700\u5148\u8FBE\u5230\u6EB6\u5EA6\u79EF\u3002"
+  },
+  {
+    "id": "d4-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Cl- \u5148\u6C89\u6DC0\u3002\u5F00\u59CB\u6C89\u6DC0\u6240\u9700Ag\u002B\u6D53\u5EA6\u6700\u5C0F\uFF081.8\u00D710^-10 mol/L\uFF09\uFF0C\u6700\u5148\u8FBE\u5230\u6EB6\u5EA6\u79EF\u3002"
+  },
+  {
+    "id": "d4-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Na2CO3 \u6EB6\u6DB2\u7684\u7535\u8377\u5B88\u6052\u5F0F\u4E3A\uFF1Ac(Na^\u002B) \u002B c(H^\u002B) = 2c(CO3^2-) \u002B c(HCO3^-) \u002B c(OH^-)"
+  },
+  {
+    "id": "d4-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5E73\u8861\u5411\u6B63\u5411\uFF08\u53F3\uFF09\u79FB\u52A8\uFF0C\u7535\u79BB\u7A0B\u5EA6\u589E\u5927\u3002"
+  },
+  {
+    "id": "d5-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u662F\u3002\u6807\u51C6\u72B6\u51B5\u4E0B SO3 \u662F\u56FA\u4F53\uFF0C22.4 L \u4E0D\u662F 1 mol \u6C14\u4F53\uFF0C\u4E0D\u80FD\u7528 22.4 L/mol \u8BA1\u7B97\uFF0C\u6545\u5206\u5B50\u6570\u4E0D\u662F NA\u3002"
+  },
+  {
+    "id": "d5-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u662F\u3002\u6807\u51C6\u72B6\u51B5\u4E0B \u5DF1\u70F7 \u662F\u6DB2\u4F53\uFF0C22.4 L \u4E0D\u662F 1 mol \u6C14\u4F53\uFF0C\u4E0D\u80FD\u7528 22.4 L/mol \u8BA1\u7B97\uFF0C\u6545\u5206\u5B50\u6570\u4E0D\u662F NA\u3002"
+  },
+  {
+    "id": "d5-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u5BF9\u3002N2 \u002B 3H2 \u21CC 2NH3 \u662F\u53EF\u9006\u53CD\u5E94\uFF0C\u4E0D\u80FD\u5B8C\u5168\u8FDB\u884C\uFF0C\u751F\u6210 NH3 \u5C11\u4E8E 2 mol\u3002"
+  },
+  {
+    "id": "d5-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u662F\u3002Cu \u4ECE 0 \u4EF7\u5347\u81F3 \u002B2 \u4EF7\uFF0C1 mol Cu \u5931\u53BB 2 mol \u7535\u5B50\uFF0C\u8F6C\u79FB\u7535\u5B50\u6570\u4E3A 2NA\u3002"
+  },
+  {
+    "id": "d5-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "D2O\uFF08\u91CD\u6C34\uFF09\u7684\u6469\u5C14\u8D28\u91CF\u4E3A 20 g/mol\uFF08D \u76F8\u5BF9\u539F\u5B50\u8D28\u91CF\u4E3A 2\uFF0C2\u00D72 \u002B 16 = 20\uFF09\u3002"
+  },
+  {
+    "id": "d6-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E09\u89D2\u9525\u5F62 \u4E09\u89D2\u9525"
+  },
+  {
+    "id": "d6-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "V\u5F62 \u89D2\u5F62 V\u578B \u5F2F\u66F2 \u6298\u7EBF\u5F62"
+  },
+  {
+    "id": "d6-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5E73\u9762\u4E09\u89D2\u5F62 \u5E73\u9762\u6B63\u4E09\u89D2"
+  },
+  {
+    "id": "d6-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "V\u5F62 \u89D2\u5F62 V\u578B \u5F2F\u66F2"
+  },
+  {
+    "id": "d6-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E09\u89D2\u9525\u5F62 \u4E09\u89D2\u9525"
+  },
+  {
+    "id": "d7-1",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d7-2",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d7-3",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d7-4",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d8-1",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d8-2",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d8-3",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d8-4",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d8-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u80FD\u3002\u9178\u6027\u7535\u89E3\u8D28\u6EB6\u6DB2\u4E2D\uFF0C\u7535\u6781\u53CD\u5E94\u5F0F\u4E0D\u51FA\u73B0 OH-\u3002"
+  },
+  {
+    "id": "d9-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u5BF9\u3002\u4E59\u70EF\u88AB\u9178\u6027\u9AD8\u9530\u9178\u94BE\u6C27\u5316\u751F\u6210 CO\u2082\uFF0C\u5F15\u5165\u65B0\u6742\u8D28\uFF0C\u4E0D\u80FD\u7528\u9178\u6027\u9AD8\u9530\u9178\u94BE\u6EB6\u6DB2\u9664\u53BB\u7532\u70F7\u4E2D\u7684\u4E59\u70EF\uFF08\u5E94\u7528\u6EB4\u6C34\uFF09\u3002"
+  },
+  {
+    "id": "d9-2",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d9-3",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d9-4",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "d10-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u76EE\u6807\u53CD\u5E94\u7684 \u0394H = \u002B571.6 kJ/mol\uFF08Hess \u5B9A\u5F8B\u7EBF\u6027\u7EC4\u5408\u6C42\u89E3\uFF09\u3002"
+  },
+  {
+    "id": "d10-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u76EE\u6807\u53CD\u5E94\u7684 \u0394H = -110.5 kJ/mol\uFF08Hess \u5B9A\u5F8B\u7EBF\u6027\u7EC4\u5408\u6C42\u89E3\uFF09\u3002"
+  },
+  {
+    "id": "d10-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5BF9\u3002\u0394H = \u53CD\u5E94\u7269\u603B\u952E\u80FD \u2212 \u751F\u6210\u7269\u603B\u952E\u80FD\uFF1B\u65AD\u952E\u5438\u70ED\u3001\u6210\u952E\u653E\u70ED\uFF0C\u516C\u5F0F\u6B63\u786E\u3002"
+  },
+  {
+    "id": "d10-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u8D1F\u3002\u71C3\u70E7\u4E3A\u653E\u70ED\u53CD\u5E94\uFF0C\u0394H \u003C 0\uFF0C\u70ED\u5316\u5B66\u65B9\u7A0B\u5F0F\u4E2D \u0394H \u7684\u7B26\u53F7\u4E3A\u8D1F\u3002"
+  },
+  {
+    "id": "calc-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "O2\u8FC7\u91CF\uFF0CH2\u5B8C\u5168\u53CD\u5E94\u3002\u751F\u6210H2O 2 mol\uFF0C\u5269\u4F59O2 0 mol\u3002"
+  },
+  {
+    "id": "calc-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u88AB\u6C27\u5316\u7684Br-\u7684\u7269\u8D28\u7684\u91CF\u4E3A0.6 mol\u3002\uFF08Fe2\u002B\u5148\u88AB\u6C27\u5316\uFF0C\u6D88\u80170.5 mol Cl2\uFF0C\u5269\u4F590.3 mol Cl2\u6C27\u5316Br-\uFF09"
+  },
+  {
+    "id": "calc-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Fe\u8FC7\u91CF\uFF0C\u7A00\u785D\u9178\u4E0D\u8DB3\uFF0C\u4EA7\u7269\u53EA\u6709Fe2\u002B\u3002n(Fe2\u002B)=1.5 mol\uFF0Cn(Fe3\u002B)=0 mol\uFF0C\u5269\u4F59Fe 1.5 mol\uFF0C\u751F\u6210NO 1 mol\u3002"
+  },
+  {
+    "id": "calc-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Fe\u4E0E\u7A00\u785D\u9178\u53CC\u4EA7\u7269\u5171\u5B58\u3002n(Fe2\u002B)=1.5 mol\uFF0Cn(Fe3\u002B)=1.5 mol\uFF0C\u751F\u6210NO 2.5 mol\u3002"
+  },
+  {
+    "id": "calc-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "O2\u8FC7\u91CF\uFF0CH2\u5B8C\u5168\u53CD\u5E94\u3002\u751F\u6210H2O 1 mol\uFF0C\u5269\u4F59O2 0.5 mol\u3002"
+  },
+  {
+    "id": "calc-6",
+    "correct": true,
+    "threw": false,
+    "finalResult": "H2\u8FC7\u91CF\uFF0CO2\u5B8C\u5168\u53CD\u5E94\u3002\u751F\u6210H2O 2 mol\uFF0C\u5269\u4F59H2 2 mol\u3002"
+  },
+  {
+    "id": "eq-1",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Br- \u5148\u6C89\u6DC0\u3002\u5F00\u59CB\u6C89\u6DC0\u6240\u9700Ag\u002B\u6D53\u5EA6\u6700\u5C0F\uFF085\u00D710^-13 mol/L\uFF09\uFF0C\u6700\u5148\u8FBE\u5230\u6EB6\u5EA6\u79EF\u3002"
+  },
+  {
+    "id": "eq-2",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Cl- \u5148\u6C89\u6DC0\u3002\u5F00\u59CB\u6C89\u6DC0\u6240\u9700Ag\u002B\u6D53\u5EA6\u6700\u5C0F\uFF081.8\u00D710^-10 mol/L\uFF09\uFF0C\u6700\u5148\u8FBE\u5230\u6EB6\u5EA6\u79EF\u3002"
+  },
+  {
+    "id": "eq-3",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5E73\u8861\u65F6\uFF1An(N2)=0.5 mol\uFF0Cn(H2)=1.5 mol\uFF0Cn(NH3)=1 mol\u3002"
+  },
+  {
+    "id": "eq-4",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5E73\u8861\u5411\u9006\u5411\uFF08\u5DE6\uFF09\u79FB\u52A8\uFF0C\u7535\u79BB\u7A0B\u5EA6\u51CF\u5C0F\u3002"
+  },
+  {
+    "id": "eq-5",
+    "correct": true,
+    "threw": false,
+    "finalResult": "Cl- \u5148\u6C89\u6DC0\u3002\u5F00\u59CB\u6C89\u6DC0\u6240\u9700Ag\u002B\u6D53\u5EA6\u6700\u5C0F\uFF081.8\u00D710^-10 mol/L\uFF09\uFF0C\u6700\u5148\u8FBE\u5230\u6EB6\u5EA6\u79EF\u3002"
+  },
+  {
+    "id": "eq-6",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5E73\u8861\u65F6\uFF1An(SO2)=0.8 mol\uFF0Cn(O2)=0.4 mol\uFF0Cn(SO3)=1.2 mol\u3002"
+  },
+  {
+    "id": "pdf-001",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-002",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-003",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-004",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-005",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-006",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-007",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-008",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-009",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-010",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u5339\u914D\u5230\u76F8\u5173\u53CD\u5E94"
+  },
+  {
+    "id": "pdf-011",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-012",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-013",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-014",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-015",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u4E0D\u7B26\u5408\u8981\u6C42\u7684\u662F\u9009\u9879 B"
+  },
+  {
+    "id": "pdf-016",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-017",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-018",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-019",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-020",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-021",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-022",
+    "correct": true,
+    "threw": false,
+    "finalResult": "(1) \u8BE5H2SO4\u7684\u7269\u8D28\u7684\u91CF\u6D53\u5EA6\u4E3A 18.4 mol/L\u3002(2) \u9700\u91CF\u53D6\u4E0A\u8FF0\u6D53\u6EB6\u6DB2\u7684\u4F53\u79EF\u4E3A 25 mL\u3002"
+  },
+  {
+    "id": "pdf-023",
+    "correct": true,
+    "threw": false,
+    "finalResult": "(1) NaHCO3\u4E0ENa2CO3\u7684\u7269\u8D28\u7684\u91CF\u4E4B\u6BD4\u4E3A 4 : 3\u3002(2) \u76D0\u9178\u7684\u7269\u8D28\u7684\u91CF\u6D53\u5EA6\u4E3A 0.5 mol/L\u3002(3) \u751F\u6210CO2\u5728\u6807\u51C6\u72B6\u51B5\u4E0B\u7684\u4F53\u79EF\u4E3A 784 mL\u3002"
+  },
+  {
+    "id": "pdf-024",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-025",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-026",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-027",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-028",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-029",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-030",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-031",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-032",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-033",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-034",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-035",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-036",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-037",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u66F2\u7EBF\u300C\u4E19\u300D\u7684\u6700\u5927\u503C\u70B9\u4E3A (x=0.35, y=0.85)\uFF08\u6CE8\uFF1Ax \u8F74\u65E0\u523B\u5EA6\uFF0Cx \u4E3A\u5F52\u4E00\u5316\u76F8\u5BF9\u4F4D\u7F6E\uFF080~1\uFF09\uFF1By \u8F74\u65E0\u523B\u5EA6\uFF0Cy \u4E3A\u5F52\u4E00\u5316\u76F8\u5BF9\u4F4D\u7F6E\uFF080~1\uFF09\uFF09"
+  },
+  {
+    "id": "pdf-038",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-039",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-040",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-041",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-042",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-043",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-044",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-045",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-046",
+    "correct": true,
+    "threw": false,
+    "finalResult": "A\u3002\u4F9D\u636E\u4E8B\u5B9E\u5E93\u4E0E\u5B88\u6052\u5224\u5B9A\uFF1A\u95EE\u6B63\u786E\u9879\uFF1AA"
+  },
+  {
+    "id": "pdf-047",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-048",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-049",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-050",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-051",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-052",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-053",
+    "correct": true,
+    "threw": false,
+    "finalResult": "B\u3002\u4F9D\u636E\u4E8B\u5B9E\u5E93\u4E0E\u5B88\u6052\u5224\u5B9A\uFF1A\u95EE\u9519\u8BEF\u9879\uFF1AB"
+  },
+  {
+    "id": "pdf-054",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-055",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-056",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-057",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-058",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-059",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-060",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-061",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-062",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-063",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-064",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-065",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-066",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-067",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-068",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-069",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-070",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-071",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-072",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-073",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-074",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-075",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-076",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-077",
+    "correct": false,
+    "threw": false,
+    "finalResult": "x=0.12 \u65F6\uFF0C\u66F2\u7EBF\u300CFe\u00B3\u207A\u300D\u7684 y = 0.5\uFF08\u6CE8\uFF1Ay \u8F74\u65E0\u523B\u5EA6\uFF0Cy \u4E3A\u5F52\u4E00\u5316\u76F8\u5BF9\u4F4D\u7F6E\uFF080~1\uFF09\uFF09"
+  },
+  {
+    "id": "pdf-078",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-079",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-080",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-081",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-082",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-083",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-084",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-085",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-086",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-087",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-088",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-089",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u914D\u5E73\u7ED3\u679C\uFF1A5NO2^- \u002B 2MnO4^- \u002B 6H^\u002B = 5NO3^- \u002B 2Mn^2\u002B \u002B 3H2O\uFF08\u5DF2\u914D\u5E73\uFF0C\u539F\u5B50\u4E0E\u7535\u8377\u5B88\u6052\uFF09"
+  },
+  {
+    "id": "pdf-090",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-091",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-092",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-093",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-094",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-095",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-096",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-097",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-098",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-099",
+    "correct": true,
+    "threw": false,
+    "finalResult": "A\u3002\u4F9D\u636E\u4E8B\u5B9E\u5E93\u4E0E\u5B88\u6052\u5224\u5B9A\uFF1A\u95EE\u9519\u8BEF\u9879\uFF1AA"
+  },
+  {
+    "id": "pdf-100",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-101",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-102",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-103",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-104",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-105",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-106",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-107",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-108",
+    "correct": false,
+    "threw": false,
+    "finalResult": "3d\u20784s\u00B2 3d\u2078 4s\u00B2 3d84s2 3d8 4s2"
+  },
+  {
+    "id": "pdf-109",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-110",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-111",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-112",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-113",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-114",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-115",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-116",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-117",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-118",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-119",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-120",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-121",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-122",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-123",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-124",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-125",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-126",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-127",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-128",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-129",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-130",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-131",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-132",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-133",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-134",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u5339\u914D\u5230\u76F8\u5173\u53CD\u5E94"
+  },
+  {
+    "id": "pdf-135",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-136",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-137",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-138",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-139",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-140",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-141",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-142",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-143",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-144",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-145",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-146",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-147",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-148",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-149",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-150",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-151",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-152",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-153",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-154",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-155",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-156",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-157",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-158",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-159",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-160",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-161",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-162",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-163",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u89E3\u6790\u51FA\u76F8\u5173\u7269\u8D28\u4E0E\u79BB\u5B50"
+  },
+  {
+    "id": "pdf-164",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-165",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-166",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-167",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-168",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-169",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-170",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-171",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u89E3\u6790\u51FA\u76F8\u5173\u7269\u8D28\u4E0E\u79BB\u5B50"
+  },
+  {
+    "id": "pdf-172",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-173",
+    "correct": false,
+    "threw": false,
+    "finalResult": "3d\u00B9\u20704s\u00B9 3d\u00B9\u2070 4s\u00B9 3d104s1 3d10 4s1"
+  },
+  {
+    "id": "pdf-174",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u5339\u914D\u5230\u76F8\u5173\u53CD\u5E94"
+  },
+  {
+    "id": "pdf-175",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u5339\u914D\u5230\u76F8\u5173\u53CD\u5E94"
+  },
+  {
+    "id": "pdf-176",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-177",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-178",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-179",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-180",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-181",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-182",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-183",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-184",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-185",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-186",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-187",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-188",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-189",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-190",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-191",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-192",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-193",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-194",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-195",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-196",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-197",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-198",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-199",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5206\u5B50\u5F0F C10H12O3\uFF1B\u4E0D\u9971\u548C\u5EA6 \u03A9=5\uFF1B\u73AF\u6570 1\uFF1B\u4E2D\u5FC3\u539F\u5B50 C \u6742\u5316 sp\u00B3\uFF08sp3\uFF09\uFF0C\u4EF7\u5C42\u7535\u5B50\u5BF9 4\uFF0C\u5B64\u7535\u5B50\u5BF9 0\uFF1B\u5206\u5B50\u6781\u6027\uFF1A\u6781\u6027\uFF1B\u5B98\u80FD\u56E2\uFF1A\u82EF\u73AF\u3001\u7F9F\u57FA\u3001\u7FA7\u57FA"
+  },
+  {
+    "id": "pdf-200",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-201",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-202",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-203",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-204",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-205",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-206",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-207",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-208",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5206\u5B50\u5F0F C56H34\uFF1B\u4E0D\u9971\u548C\u5EA6 \u03A9=40\uFF1B\u73AF\u6570 20\uFF1B\u4E2D\u5FC3\u539F\u5B50 C \u6742\u5316 sp\u00B3\uFF08sp3\uFF09\uFF0C\u4EF7\u5C42\u7535\u5B50\u5BF9 4\uFF0C\u5B64\u7535\u5B50\u5BF9 0\uFF1B\u5206\u5B50\u6781\u6027\uFF1A\u6781\u6027\uFF1B\u5B98\u80FD\u56E2\uFF1A\u82EF\u73AF\u3001\u78B3\u78B3\u53CC\u952E"
+  },
+  {
+    "id": "pdf-209",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-210",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-211",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-212",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-213",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-214",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-215",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-216",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-217",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-218",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-219",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-220",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-221",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-222",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-223",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-224",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-225",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-226",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-227",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-228",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-229",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-230",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-231",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-232",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-233",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u5339\u914D\u5230\u76F8\u5173\u53CD\u5E94"
+  },
+  {
+    "id": "pdf-234",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-235",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-236",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-237",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-238",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-239",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-240",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-241",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-242",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u76EE\u6807\u53CD\u5E94\u7684 \u0394H = -126 kJ/mol\uFF08Hess \u5B9A\u5F8B\u7EBF\u6027\u7EC4\u5408\u6C42\u89E3\uFF09\u3002"
+  },
+  {
+    "id": "pdf-243",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u76EE\u6807\u65B9\u7A0B\u7531\u5DF2\u77E5\u65B9\u7A0B\u7EBF\u6027\u7EC4\u5408\u5F97\u5230\uFF0C\u0394H = a\u002Bc-2b kJ/mol\u3002"
+  },
+  {
+    "id": "pdf-244",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-245",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-246",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-247",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-248",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-249",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-250",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-251",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-252",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-253",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-254",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-255",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-256",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-257",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u53CD\u5E94\u2461\u662F\u53CD\u5E94\u2460\u7684\u9006\u53CD\u5E94\uFF0C\u0394H2 = \u002B92 kJ/mol\u3002"
+  },
+  {
+    "id": "pdf-258",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-259",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u916F\u5316\u53CD\u5E94\u7684 \u0394H = -3 kJ/mol\uFF08\u71C3\u70E7\u70ED\u6CD5\uFF1A\u0394H = \u03A3\u0394Hc(\u53CD\u5E94\u7269) \u2212 \u03A3\u0394Hc(\u4EA7\u7269) = (-874)\u002B(-1367)\u2212(-2238)\uFF09\u3002"
+  },
+  {
+    "id": "pdf-260",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u76EE\u6807\u53CD\u5E94\u7684 \u0394H = \u002B11 kJ/mol\uFF08Hess \u5B9A\u5F8B\u7EBF\u6027\u7EC4\u5408\u6C42\u89E3\uFF09\u3002"
+  },
+  {
+    "id": "pdf-261",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-262",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-263",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-264",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-265",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-266",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-267",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-268",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-269",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-270",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-271",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-272",
+    "correct": false,
+    "threw": false,
+    "finalResult": "x=2.5 \u65F6\uFF0C\u66F2\u7EBF\u300CH\u2082C\u2082O\u2084\u300D\u7684 y = 0.8"
+  },
+  {
+    "id": "pdf-273",
+    "correct": true,
+    "threw": false,
+    "finalResult": "NaNO2\u6EB6\u6DB2\u4E2D\u79BB\u5B50\u603B\u6D53\u5EA6\u66F4\u5927\u3002"
+  },
+  {
+    "id": "pdf-274",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-275",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-276",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-277",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-278",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-279",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-280",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-281",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-282",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-283",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-284",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-285",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-286",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-287",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-288",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-289",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-290",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-291",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-292",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-293",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-294",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-295",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-296",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-297",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-298",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-299",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-300",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-301",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-302",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-303",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-304",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-305",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-306",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-307",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-308",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-309",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-310",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-311",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-312",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-313",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-314",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-315",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-316",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-317",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-318",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-319",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-320",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-321",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-322",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-323",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-324",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-325",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-326",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-327",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-328",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-329",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-330",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-331",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-332",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-333",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-334",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-335",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-336",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-337",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-338",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-339",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-340",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-341",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-342",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-343",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-344",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-345",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-346",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-347",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-348",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-349",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-350",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-351",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-352",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-353",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-354",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-355",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-356",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-357",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5206\u5B50\u5F0F C29H42O7\uFF1B\u4E0D\u9971\u548C\u5EA6 \u03A9=9\uFF1B\u73AF\u6570 4\uFF1B\u4E2D\u5FC3\u539F\u5B50 C \u6742\u5316 sp\u00B3\uFF08sp3\uFF09\uFF0C\u4EF7\u5C42\u7535\u5B50\u5BF9 4\uFF0C\u5B64\u7535\u5B50\u5BF9 0\uFF1B\u5206\u5B50\u6781\u6027\uFF1A\u6781\u6027\uFF1B\u5B98\u80FD\u56E2\uFF1A\u78B3\u78B3\u53CC\u952E\u3001\u7F9F\u57FA\u3001\u7FA7\u57FA\u3001\u916E\u7FB0\u57FA"
+  },
+  {
+    "id": "pdf-358",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-359",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-360",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-361",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-362",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-363",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-364",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-365",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-366",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-367",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-368",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-369",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-370",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-371",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-372",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-373",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-374",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-375",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-376",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-377",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-378",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-379",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-380",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-381",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-382",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-383",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-384",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-385",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-386",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-387",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-388",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-389",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-390",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-391",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5206\u5B50\u5F0F C11H18O\uFF1B\u4E0D\u9971\u548C\u5EA6 \u03A9=3\uFF1B\u73AF\u6570 2\uFF1B\u4E2D\u5FC3\u539F\u5B50 C \u6742\u5316 sp\u00B3\uFF08sp3\uFF09\uFF0C\u4EF7\u5C42\u7535\u5B50\u5BF9 4\uFF0C\u5B64\u7535\u5B50\u5BF9 0\uFF1B\u5206\u5B50\u6781\u6027\uFF1A\u6781\u6027\uFF1B\u5B98\u80FD\u56E2\uFF1A\u916E\u7FB0\u57FA"
+  },
+  {
+    "id": "pdf-392",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-393",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-394",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-395",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-396",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-397",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-398",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-399",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-400",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-401",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-402",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-403",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-404",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-405",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-406",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-407",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-408",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-409",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-410",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-411",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-412",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-413",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-414",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-415",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-416",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-417",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u5339\u914D\u5230\u76F8\u5173\u53CD\u5E94"
+  },
+  {
+    "id": "pdf-418",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-419",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-420",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-421",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-422",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-423",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-424",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-425",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-426",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-427",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-428",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-429",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-430",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-431",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-432",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-433",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-434",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-435",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-436",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-437",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-438",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-439",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-440",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-441",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-442",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-443",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-444",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-445",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-446",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-447",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-448",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-449",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-450",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-451",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-452",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-453",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-454",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-455",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-456",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u5316\u5B66\u65B9\u7A0B\u5F0F\uFF1ANa2SO3 \u002B H2SO4 = Na2SO4 \u002B SO2\u2191 \u002B H2O"
+  },
+  {
+    "id": "pdf-457",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-458",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-459",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-460",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-461",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-462",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-463",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-464",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-465",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-466",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-467",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u00D7"
+  },
+  {
+    "id": "pdf-468",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-469",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-470",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-471",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-472",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u221A"
+  },
+  {
+    "id": "pdf-473",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-474",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-475",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-476",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-477",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-478",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5DF2\u5339\u914D\u5230\u76F8\u5173\u53CD\u5E94"
+  },
+  {
+    "id": "pdf-479",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-480",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-481",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-482",
+    "correct": true,
+    "threw": false,
+    "finalResult": "1s\u00B2 1s2"
+  },
+  {
+    "id": "pdf-483",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-484",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-485",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-486",
+    "correct": true,
+    "threw": false,
+    "finalResult": "2s\u00B22p\u00B3 2s\u00B2 2p\u00B3 2s22p3 2s2 2p3"
+  },
+  {
+    "id": "pdf-487",
+    "correct": true,
+    "threw": false,
+    "finalResult": "5s\u00B25p\u00B3 5s\u00B2 5p\u00B3 5s25p3 5s2 5p3"
+  },
+  {
+    "id": "pdf-488",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-489",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-490",
+    "correct": true,
+    "threw": false,
+    "finalResult": "4d\u20755s\u00B9 4d\u2075 5s\u00B9 4d55s1 4d5 5s1"
+  },
+  {
+    "id": "pdf-491",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-492",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-493",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-494",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-495",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-496",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "pdf-497",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-498",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-499",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-500",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "pdf-501",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-502",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-503",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-504",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-505",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-506",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-507",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5E73\u9762\u4E09\u89D2\u5F62 \u5E73\u9762\u6B63\u4E09\u89D2"
+  },
+  {
+    "id": "pdf-508",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u56DB\u9762\u4F53 \u6B63\u56DB\u9762\u4F53\u5F62 \u56DB\u9762\u4F53"
+  },
+  {
+    "id": "pdf-509",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-510",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u91D1\u521A\u77F3 \u003E C60\u3002\u91D1\u521A\u77F3\u662F\u539F\u5B50\u6676\u4F53\uFF0CC\u2014C \u5171\u4EF7\u952E\u5F3A\uFF1BC60 \u662F\u5206\u5B50\u6676\u4F53\uFF0C\u5206\u5B50\u95F4\u4EE5\u8303\u5FB7\u534E\u529B\u7ED3\u5408\uFF0C\u4F5C\u7528\u529B\u5F31\uFF0C\u6545\u91D1\u521A\u77F3\u7194\u70B9\u9AD8\u4E8E C60\u3002"
+  },
+  {
+    "id": "pdf-511",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-512",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-513",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "pdf-514",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u7531\u5F31\u5230\u5F3A\uFF1AHCN \u003C H2CO3 \u003C CH3COOH\uFF08\u4F9D\u636E 25 \u2103 \u7535\u79BB\u5E38\u6570 Ka\uFF1AHCN=4.9\u00D710^-10\u3001H2CO3=4.5\u00D710^-7\u3001CH3COOH=1.75\u00D710^-5\uFF09"
+  },
+  {
+    "id": "pdf-515",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u79BB\u5B50\u65B9\u7A0B\u5F0F\uFF1ACN- \u002B CO2 \u002B H2O \u2192 HCN \u002B HCO3-"
+  },
+  {
+    "id": "pdf-516",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-517",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-518",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-519",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-520",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-521",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-522",
+    "correct": false,
+    "threw": false,
+    "finalResult": "\u5206\u5B50\u5F0F C6H3Br3O\uFF1B\u4E0D\u9971\u548C\u5EA6 \u03A9=4\uFF1B\u73AF\u6570 1\uFF1B\u4E2D\u5FC3\u539F\u5B50 C \u6742\u5316 sp\u00B2\uFF08sp2\uFF09\uFF0C\u4EF7\u5C42\u7535\u5B50\u5BF9 3\uFF0C\u5B64\u7535\u5B50\u5BF9 0\uFF1B\u5206\u5B50\u6781\u6027\uFF1A\u6781\u6027\uFF1B\u5B98\u80FD\u56E2\uFF1A\u82EF\u73AF\u3001\u7F9F\u57FA\u3001\u5364\u539F\u5B50"
+  },
+  {
+    "id": "pdf-523",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-524",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-525",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-526",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-527",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-528",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-529",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "pdf-530",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-531",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-532",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-533",
+    "correct": true,
+    "threw": false,
+    "finalResult": "[Kr]4d\u00B9\u20705s\u00B25p\u2074"
+  },
+  {
+    "id": "pdf-534",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-535",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-536",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-537",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-538",
+    "correct": true,
+    "threw": false,
+    "finalResult": "4s\u00B24p\u00B9 4s\u00B2 4p\u00B9 4s24p1 4s2 4p1"
+  },
+  {
+    "id": "pdf-539",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u79BB\u5B50\u65B9\u7A0B\u5F0F\uFF1AGaN \u002B OH\u207B \u002B 3H\u2082O \u2192 [Ga(OH)\u2084]\u207B \u002B NH\u2083\u2191"
+  },
+  {
+    "id": "pdf-540",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-541",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-542",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-543",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-544",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "pdf-545",
+    "correct": false,
+    "threw": false,
+    "finalResult": ""
+  },
+  {
+    "id": "t2c-01",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-02",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-03",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2c-04",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-05",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2c-06",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-07",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-08",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2c-09",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-10",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-11",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-12",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-13",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-14",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-15",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-16",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2c-17",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-18",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2c-19",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-20",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-21",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-22",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-23",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-24",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-25",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-26",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2c-27",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2c-28",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2c-29",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2c-30",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2c-31",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2n-01",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2n-02",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2n-03",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2n-04",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2n-05",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2n-06",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2n-07",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2n-08",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2n-09",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2n-10",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2n-11",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2n-12",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2n-13",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2n-14",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2n-15",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2n-16",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2n-17",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2n-18",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2n-19",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2n-20",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2t-01",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-02",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-03",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-04",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-05",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-06",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-07",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-08",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-09",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-10",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-11",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A B"
+  },
+  {
+    "id": "t2t-12",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2t-13",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2t-14",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2t-15",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2t-16",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2t-17",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2t-18",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2t-19",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A C"
+  },
+  {
+    "id": "t2t-20",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A D"
+  },
+  {
+    "id": "t2t-21",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-22",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u6B63\u786E\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-23",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  },
+  {
+    "id": "t2t-24",
+    "correct": true,
+    "threw": false,
+    "finalResult": "\u9519\u8BEF\u9009\u9879\u4E3A A"
+  }
+]

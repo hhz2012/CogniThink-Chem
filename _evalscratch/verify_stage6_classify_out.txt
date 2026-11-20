@@ -1,0 +1,61 @@
+=== Stage 6 / Task 23 verification: classification + atomic-structure guard ===
+
+--- top-level metrics (stage3f -> stage5 -> stage6) ---
+  totalCases          : 679 -> 648 -> 723
+  gatewayCorrect      : 137 -> 99 -> 184
+  gatewayTruthCorrect : 137 -> 99 -> 184
+  gatewayEngineUsed   : 151 -> 116 -> 202
+  engineSolved        : 137 -> 101 -> 184
+  enginePrecision     : 1 -> 0.9802 -> 1
+  harmCount           : 0 -> 2 -> 0
+
+--- case-id intersection flips ---
+  baseline(3f)<->new : common=679  LOST=0  GAINED=3
+  stage5<->new       : common=648  LOST=0  GAINED=10
+  LOST(3f->6) : []   (must be empty)
+  LOST(5->6)  : []   (must be empty)
+  GAINED(3f->6): [pdf-013, pdf-016, pdf-486]
+  GAINED(5->6) : [pdf-001, pdf-002, pdf-003, pdf-013, pdf-016, pdf-031, pdf-032, pdf-259, pdf-456, pdf-486]
+
+--- atomic_structure scope (stage6) ---
+  n               : 9
+  gcorr           : 5
+  adopted         : 5
+  adopted_correct : 5
+  harm            : 0
+  engUsed         : 6
+  precision       : 1.0000
+
+--- global harm scan (adopted && !correct && pureLlmCorrect) ---
+  stage6 global harm count = 0
+
+--- trigger case check (10 atomic-structure triggers) ---
+  pdf-108: tt=calculation gwCorr=False adopted=False engUsed=False ans=''
+  pdf-166: tt=calculation gwCorr=False adopted=False engUsed=False ans=''
+  pdf-173: tt=atomic_structure gwCorr=False adopted=False engUsed=True ans=''
+  pdf-190: tt=equilibrium gwCorr=False adopted=False engUsed=False ans=''
+  pdf-482: tt=atomic_structure gwCorr=True adopted=True engUsed=True ans='1s² 1s2'
+  pdf-486: tt=atomic_structure gwCorr=True adopted=True engUsed=True ans='2s²2p³ 2s² 2p³ 2s22p3 2s2 2p3'
+  pdf-487: tt=atomic_structure gwCorr=True adopted=True engUsed=True ans='5s²5p³ 5s² 5p³ 5s25p3 5s2 5p3'
+  pdf-490: tt=atomic_structure gwCorr=True adopted=True engUsed=True ans='4d⁵5s¹ 4d⁵ 5s¹ 4d55s1 4d5 5s1'
+  pdf-533: tt=calculation gwCorr=False adopted=False engUsed=False ans=''
+  pdf-538: tt=atomic_structure gwCorr=True adopted=True engUsed=True ans='4s²4p¹ 4s² 4p¹ 4s24p1 4s2 4p1'
+
+--- red lines ---
+  new harmCount == 0                      : PASS
+  global harm scan empty                  : PASS
+  enginePrecision == 1.0 (not dropped)    : PASS
+  LOST(3f->6) empty                       : PASS
+  LOST(5->6) empty                        : PASS
+  GAINED contains pdf-486                 : PASS
+  GAINED contains pdf-533                 : FAIL
+  pdf-486 adopted & correct               : PASS
+  pdf-533 adopted & correct               : FAIL
+  pdf-173 NOT adopted (broken key, non-harm): PASS
+  pdf-190 NOT adopted (broken key, non-harm): PASS
+  pdf-482 stays correct                   : PASS
+  pdf-487 stays correct                   : PASS
+  pdf-490 stays correct                   : PASS
+  pdf-538 stays correct                   : PASS
+
+OVERALL: FAIL

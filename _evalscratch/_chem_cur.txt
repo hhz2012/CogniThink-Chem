@@ -1,0 +1,1 @@
+﻿D:\github\CogniThink-Chem\tests\CogniThink.Chem.Tests\bin\Debug\net8.0\CogniThink.Chem.Tests.dll (.NETCoreApp,Version=v8.0)的测试运行

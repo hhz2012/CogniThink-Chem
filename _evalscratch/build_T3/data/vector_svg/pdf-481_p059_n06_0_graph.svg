@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="322.415012732767" y1="320.0" x2="580.0" y2="155.87484362942655" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="580.0" y1="155.87484362942655" x2="199.41591793951662" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="371.7079589697583" y="95.93742181471328" width="36" height="18" fill="white"/>
+<text x="389.7079589697583" y="109.93742181471328" text-anchor="middle" fill="#c0392b">滤渣1</text>
+<line x1="199.41591793951662" y1="60.0" x2="60.0" y2="157.06221796126732" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="111.7079589697583" y="96.53110898063366" width="36" height="18" fill="white"/>
+<text x="129.7079589697583" y="110.53110898063366" text-anchor="middle" fill="#c0392b">滤渣2</text>
+<line x1="60.0" y1="157.06221796126732" x2="524.8145276328958" y2="267.57742368314314" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="274.4072638164479" y="200.31982082220523" width="36" height="18" fill="white"/>
+<text x="292.4072638164479" y="214.31982082220523" text-anchor="middle" fill="#c0392b">滤液3</text>
+<line x1="60.0" y1="157.06221796126732" x2="442.9767852201806" y2="60.64640351533121" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<line x1="524.8145276328958" y1="267.57742368314314" x2="109.39045140383098" y2="273.21047552088703" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<circle cx="322.415012732767" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="322.415012732767" y="325.0" text-anchor="middle" font-weight="bold">铜阳极泥</text>
+<circle cx="580.0" cy="155.87484362942655" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="160.87484362942655" text-anchor="middle" font-weight="bold">氧化酸浸</text>
+<circle cx="199.41591793951662" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="199.41591793951662" y="65.0" text-anchor="middle" font-weight="bold">除金</text>
+<circle cx="60.0" cy="157.06221796126732" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="162.06221796126732" text-anchor="middle" font-weight="bold">银转化</text>
+<circle cx="524.8145276328958" cy="267.57742368314314" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="524.8145276328958" y="272.57742368314314" text-anchor="middle" font-weight="bold">银还原</text>
+<circle cx="109.39045140383098" cy="273.21047552088703" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="109.39045140383098" y="278.21047552088703" text-anchor="middle" font-weight="bold">Ag</text>
+<circle cx="442.9767852201806" cy="60.64640351533121" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="442.9767852201806" y="65.6464035153312" text-anchor="middle" font-weight="bold">PbSO₄</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

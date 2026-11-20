@@ -1,0 +1,40 @@
+===== pdf-154 =====
+qbankAnswer='A,B,D'
+[HIT] StructurePeriodicValidator: answer=B final=正确选项为 B
+===== pdf-326 =====
+qbankAnswer='A'
+[HIT] StructurePeriodicValidator: answer=D final=正确选项为 D
+===== pdf-502 =====
+qbankAnswer='D'
+[HIT] StructurePeriodicValidator: answer=B final=正确选项为 B
+===== pdf-049 =====
+qbankAnswer='D'
+[HIT] IonicEquationValidator: answer=B final=正确选项为 B
+===== pdf-186 =====
+qbankAnswer='B'
+[HIT] StructurePeriodicValidator: answer=A final=正确选项为 A
+===== pdf-008 =====
+qbankAnswer='A, B, C, D'
+[HIT] EquilibriumChoiceValidator: answer=C final=错误选项为 C
+===== pdf-460 =====
+qbankAnswer='A'
+[HIT] IonicEquationValidator: answer=D final=错误选项为 D
+===== pdf-154 =====
+qbankAnswer='A,B,D'
+[HIT] StructurePeriodicValidator: answer=B final=正确选项为 B
+===== pdf-326 =====
+qbankAnswer='A'
+[HIT] StructurePeriodicValidator: answer=D final=正确选项为 D
+===== pdf-502 =====
+qbankAnswer='D'
+[HIT] StructurePeriodicValidator: answer=B final=正确选项为 B
+===== pdf-049 =====
+qbankAnswer='D'
+===== pdf-186 =====
+qbankAnswer='B'
+[HIT] StructurePeriodicValidator: answer=A final=正确选项为 A
+===== pdf-008 =====
+qbankAnswer='A, B, C, D'
+[HIT] EquilibriumChoiceValidator: answer=C final=错误选项为 C
+===== pdf-460 =====
+qbankAnswer='A'

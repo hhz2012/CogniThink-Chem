@@ -1,0 +1,3 @@
+total=723 gains=59 losses=12 unchanged=652 exceptions=49
+GAIN_IDS=[pdf-005,pdf-007,pdf-008,pdf-011,pdf-033,pdf-035,pdf-036,pdf-046,pdf-053,pdf-054,pdf-055,pdf-057,pdf-058,pdf-061,pdf-062,pdf-069,pdf-091,pdf-096,pdf-099,pdf-124,pdf-131,pdf-154,pdf-181,pdf-183,pdf-186,pdf-192,pdf-200,pdf-209,pdf-210,pdf-264,pdf-266,pdf-268,pdf-270,pdf-276,pdf-277,pdf-320,pdf-326,pdf-335,pdf-366,pdf-369,pdf-373,pdf-374,pdf-375,pdf-379,pdf-385,pdf-392,pdf-430,pdf-441,pdf-443,pdf-444,pdf-447,pdf-448,pdf-449,pdf-452,pdf-499,pdf-500,pdf-501,pdf-502,pdf-513]
+LOSS_IDS=[test-1,test-2,concept-1,test-3,test-4,test-5,concept-2,concept-3,property-1,property-2,pdf-208,pdf-510]

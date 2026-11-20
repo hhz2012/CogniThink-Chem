@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>CogniThink.TutorBrain.EvalRunner</RootNamespace>
+    <AssemblyName>CogniThink.TutorBrain.EvalRunner</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- 显式引用配置绑定包，避免仅靠 Web SDK 传递引用在编译期丢失扩展方法 -->
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj" />
+  </ItemGroup>
+
+  <!-- 把 API 项目的 data/ 整棵链接到本项目输出目录的 data/，保证：
+       1) BuildTestCases() 从 AppContext.BaseDirectory/data 读到 pdf_questions.json / tier2_questions.json
+       2) ChemicalKnowledgeBase.Load 能找到 data/chemistry
+       3) LlmProxyService.ChatWithImagesAsync 能从 data/pdf_images 读到配图 -->
+  <ItemGroup>
+    <Content Include="..\CogniThink.TutorBrain.Api\data\**\*" LinkBase="data" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

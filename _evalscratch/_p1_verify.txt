@@ -1,0 +1,6 @@
+pdf-108 kw=[3d⁸4s²]: gateway=True pureLlm=True
+pdf-108 kw=[3d84s2]: gateway=True pureLlm=True
+pdf-173 kw=[3d¹⁰4s¹]: gateway=True pureLlm=True
+pdf-507 kw=[平面三角形]: gateway=True pureLlm=False
+pdf-507 kw=[平面三角形,5sp³]: gateway=True pureLlm=False
+pdf-507 kw=[(1)平面三角形 (2)5sp³]: gateway=False pureLlm=False

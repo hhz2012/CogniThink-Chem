@@ -1,0 +1,19 @@
+{
+  "_comment": "电极反应/半反应/方程 正确性事实库（T1 redox_balance + other）。字符串须与 RedoxChoiceValidator.NormRedoxEq 的归一化结果精确一致。correct=已知正确，incorrect=已知错误。每条在 T1 中唯一出现于单一题目，且仅在该题全部 4 个选项均命中事实时才作答，避免假阳性。",
+  "correct": [
+    "Fe-2E=Fe2+",
+    "4Fe+3O2+xH2O=2Fe2O3·xH2O",
+    "3Fe+8HNO3=Fe3O4+8NO2+4H2O",
+    "O2+4E+2H2O=4OH^-",
+    "MnO2+H2O+E=MnO(OH)+OH^-",
+    "K^++Fe^2++[Fe(CN)6]^3-=KFe[Fe(CN)6]",
+    "TiCl4+(x+2)H2O=TiO2·xH2O+4H^++4Cl^-"
+  ],
+  "incorrect": [
+    "Fe-3E=Fe^3+",
+    "3Fe+2O2+xH2O=Fe3O4·xH2O",
+    "Fe+2HNO3=FeO+2NO2+H2O",
+    "Fe3++3E=Fe",
+    "Pb^2++2H2O-2E=PbO2+4H^+"
+  ]
+}

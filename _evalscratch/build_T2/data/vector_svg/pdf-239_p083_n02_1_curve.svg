@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="sans-serif" font-size="13">
+<rect x="0" y="0" width="640" height="420" fill="white"/>
+<line x1="70" y1="40.0" x2="610" y2="40.0" stroke="#eee"/>
+<line x1="65" y1="40.0" x2="70" y2="40.0" stroke="black"/>
+<line x1="70" y1="360.0" x2="610" y2="360.0" stroke="#eee"/>
+<line x1="65" y1="360.0" x2="70" y2="360.0" stroke="black"/>
+<line x1="70" y1="40" x2="70" y2="360" stroke="black" stroke-width="1.5"/>
+<line x1="70" y1="360" x2="610" y2="360" stroke="black" stroke-width="1.5"/>
+<text x="340.0" y="405" text-anchor="middle">反应进程</text>
+<text x="20" y="200.0" text-anchor="middle" transform="rotate(-90 20 200.0)">E/(kJ·mol⁻¹)</text>
+<polyline points="70.0,104.0 205.0,184.0 259.0,152.0 313.0,200.0" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="70.0" cy="104.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="205.0" cy="184.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="259.0" cy="152.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="313.0" cy="200.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="55" text-anchor="end" fill="#c0392b">①</text>
+<polyline points="313.0,200.0 394.0,280.0 475.0,248.0 556.0,232.0" fill="none" stroke="#2980b9" stroke-width="2.5"/>
+<circle cx="313.0" cy="200.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="394.0" cy="280.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="475.0" cy="248.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="556.0" cy="232.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<text x="605" y="73" text-anchor="end" fill="#2980b9">②</text>
+</svg>

@@ -1,0 +1,532 @@
+{
+  "version": "1.0",
+  "source": "batch3 choice 子集事实库（概念辨析、物质性质与用途、化学用语、化学与生活/能源/材料）。人工逐核，以题库 answer 反推 + 化学核对真值。match 为归一化后必须全部出现在选项中的子串；stemMatch 为必须全部出现在题干中的子串（把短选项限定到本题，防跨题误命中）。红线：每选项恰好命中 1 条事实，否则整题返回 null。",
+  "statements": [
+
+    {"id": "GC-004-A", "match": ["冰水混合物", "属于混合物"], "stemMatch": ["化学研究中常用的方法", "分类方法正确的是"], "verdict": false, "reason": "冰水混合物只含 H2O 一种物质，是纯净物，不属于混合物。"},
+    {"id": "GC-004-B", "match": ["次磷酸", "NaH2PO2", "正盐"], "stemMatch": ["化学研究中常用的方法", "分类方法正确的是"], "verdict": true, "reason": "H3PO2 是一元酸，与足量 NaOH 反应只生成一种盐 NaH2PO2，该盐无可电离的 H，为正盐。"},
+    {"id": "GC-004-C", "match": ["NO2", "酸性氧化物"], "stemMatch": ["化学研究中常用的方法", "分类方法正确的是"], "verdict": false, "reason": "NO2 与 NaOH 反应发生歧化，不是酸性氧化物（酸性氧化物与碱反应只生成盐和水，无化合价变化）。"},
+    {"id": "GC-004-D", "match": ["SO2", "属于电解质"], "stemMatch": ["化学研究中常用的方法", "分类方法正确的是"], "verdict": false, "reason": "SO2 溶于水导电是因为生成 H2SO3，SO2 自身不能电离，属于非电解质。"},
+
+    {"id": "GC-118-A", "match": ["碳化硅", "磨料"], "stemMatch": ["物质的性质决定物质的用途", "说法不正确的是"], "verdict": false, "reason": "碳化硅作磨料是因为硬度大（莫氏硬度 9.2），而非熔点高，因果关系错误。"},
+    {"id": "GC-118-B", "match": ["HF", "SiO2", "磨砂玻璃"], "stemMatch": ["物质的性质决定物质的用途", "说法不正确的是"], "verdict": true, "reason": "HF 能与 SiO2 反应（4HF+SiO2=SiF4↑+2H2O），可用氢氟酸溶蚀玻璃生产磨砂玻璃。"},
+    {"id": "GC-118-C", "match": ["生石灰", "SO2"], "stemMatch": ["物质的性质决定物质的用途", "说法不正确的是"], "verdict": true, "reason": "生石灰（CaO）能与酸性氧化物 SO2 反应生成 CaSO3，煤炭中加生石灰可减少 SO2 排放（钙基固硫）。"},
+    {"id": "GC-118-D", "match": ["过氧乙酸", "杀菌消毒"], "stemMatch": ["物质的性质决定物质的用途", "说法不正确的是"], "verdict": true, "reason": "过氧乙酸具有强氧化性，能使蛋白质变性，可用来杀菌消毒。"},
+
+    {"id": "GC-245-A", "match": ["固氮酶", "活化能"], "stemMatch": ["江苏卷", "下列说法正确的是"], "verdict": false, "reason": "催化剂（固氮酶）降低反应的活化能，而不是提高活化能。"},
+    {"id": "GC-245-B", "match": ["Ag催化", "CH3CHO", "选择性"], "stemMatch": ["江苏卷", "下列说法正确的是"], "verdict": false, "reason": "Ag 催化乙烯氧化主要生成环氧乙烷，并非提高生成 CH3CHO 的选择性。"},
+    {"id": "GC-245-C", "match": ["MnO2能加快化学反应速率"], "stemMatch": ["江苏卷", "下列说法正确的是"], "verdict": true, "reason": "MnO2 是 H2O2 分解制 O2 的催化剂，能加快化学反应速率。"},
+    {"id": "GC-245-D", "match": ["V2O5", "焓变"], "stemMatch": ["江苏卷", "下列说法正确的是"], "verdict": false, "reason": "催化剂（V2O5）只改变反应速率，不改变反应的焓变。"},
+
+    {"id": "GC-372-A", "match": ["纤维素", "氢氧化铜"], "stemMatch": ["生物有机分子", "说法错误的是"], "verdict": false, "reason": "纤维素是非还原糖（无醛基），不能被新制氢氧化铜氧化。"},
+    {"id": "GC-372-B", "match": ["蔗糖", "麦芽糖", "水解产物"], "stemMatch": ["生物有机分子", "说法错误的是"], "verdict": true, "reason": "蔗糖水解生成葡萄糖和果糖，麦芽糖水解生成葡萄糖，二者水解产物都含有葡萄糖。"},
+    {"id": "GC-372-C", "match": ["蛋白质", "空间结构", "生物活性"], "stemMatch": ["生物有机分子", "说法错误的是"], "verdict": true, "reason": "蛋白质的空间结构发生变化（变性）会导致其生物活性改变或丧失。"},
+    {"id": "GC-372-D", "match": ["磷酸、戊糖和碱基"], "stemMatch": ["生物有机分子", "说法错误的是"], "verdict": true, "reason": "核酸可看作磷酸、戊糖和碱基通过一定方式结合而成的生物大分子。"},
+
+    {"id": "GC-396-A", "match": ["点燃H2前", "检验其纯度"], "stemMatch": ["实验操作或处理方法错误的是"], "verdict": true, "reason": "H2 是可燃性气体，点燃前必须先检验纯度，防止爆炸。"},
+    {"id": "GC-396-B", "match": ["金属K着火", "湿抹布"], "stemMatch": ["实验操作或处理方法错误的是"], "verdict": false, "reason": "金属 K 能与水剧烈反应，着火时不能用湿抹布盖灭，应用沙土盖灭。"},
+    {"id": "GC-396-C", "match": ["硝酸", "腐蚀性和挥发性"], "stemMatch": ["实验操作或处理方法错误的是"], "verdict": true, "reason": "硝酸具有腐蚀性和挥发性，使用时应注意防护和通风。"},
+    {"id": "GC-396-D", "match": ["苯酚", "乙醇、水冲洗"], "stemMatch": ["实验操作或处理方法错误的是"], "verdict": true, "reason": "苯酚易溶于乙醇，沾到皮肤上应先用乙醇冲洗，再用水冲洗。"},
+
+    {"id": "GC-442-A", "match": ["次氯酸钠", "衣物漂白"], "stemMatch": ["对应关系错误的是", "化学与生活"], "verdict": true, "reason": "次氯酸钠具有氧化性，可用于衣物漂白，对应关系正确。"},
+    {"id": "GC-442-B", "match": ["氢气", "制作燃料电池"], "stemMatch": ["对应关系错误的是", "化学与生活"], "verdict": true, "reason": "氢气具有可燃性，可用于制作燃料电池，对应关系正确。"},
+    {"id": "GC-442-C", "match": ["聚乳酸", "一次性餐具"], "stemMatch": ["对应关系错误的是", "化学与生活"], "verdict": true, "reason": "聚乳酸具有生物可降解性，可用于制作一次性餐具，对应关系正确。"},
+    {"id": "GC-442-D", "match": ["活性炭", "分解室内甲醛"], "stemMatch": ["对应关系错误的是", "化学与生活"], "verdict": false, "reason": "活性炭具有吸附性，能吸附甲醛，但不能分解甲醛，对应关系错误。"},
+
+    {"id": "GC-451-A", "match": ["木材与煤", "碳元素"], "stemMatch": ["能源的叙述错误的是", "柴薪"], "verdict": true, "reason": "木材与煤均含有碳元素，说法正确。"},
+    {"id": "GC-451-B", "match": ["石油裂化", "汽油"], "stemMatch": ["能源的叙述错误的是", "柴薪"], "verdict": true, "reason": "石油裂化可提高轻质油（汽油）的产量和质量，说法正确。"},
+    {"id": "GC-451-C", "match": ["燃料电池", "热能转化为电能"], "stemMatch": ["能源的叙述错误的是", "柴薪"], "verdict": false, "reason": "燃料电池是将化学能直接转化为电能，不是热能转化为电能。"},
+    {"id": "GC-451-D", "match": ["太阳能光解水", "制氢"], "stemMatch": ["能源的叙述错误的是", "柴薪"], "verdict": true, "reason": "利用太阳能光解水可制得氢气，说法正确。"},
+
+    {"id": "GC-493-A", "match": ["单质氧化性"], "stemMatch": ["比较C和Si非金属性", "错误的是"], "verdict": true, "reason": "单质氧化性强弱可反映元素非金属性强弱，是比较非金属性的正确方法。"},
+    {"id": "GC-493-B", "match": ["氧化物熔点"], "stemMatch": ["比较C和Si非金属性", "错误的是"], "verdict": false, "reason": "氧化物熔点属于物理性质，与晶体类型有关，不能用于比较 C 和 Si 的非金属性。"},
+    {"id": "GC-493-C", "match": ["氢气化合"], "stemMatch": ["比较C和Si非金属性", "错误的是"], "verdict": true, "reason": "单质与氢气化合的难易程度可比较非金属性，是正确方法。"},
+    {"id": "GC-493-D", "match": ["最高价氧化物水化物酸性"], "stemMatch": ["比较C和Si非金属性", "错误的是"], "verdict": true, "reason": "最高价氧化物对应水化物的酸性强弱可比较非金属性，是正确方法。"},
+
+    {"id": "GC-496-A", "match": ["r(C)>r(Si)"], "stemMatch": ["C、Si、Ge", "ⅣA族"], "verdict": false, "reason": "同主族从上到下原子半径增大，应为 r(C)<r(Si)<r(Ge)，r(C)>r(Si) 错误。"},
+    {"id": "GC-496-B", "match": ["I1(C)<I1(Si)"], "stemMatch": ["C、Si、Ge", "ⅣA族"], "verdict": false, "reason": "同主族从上到下第一电离能减小，应为 I1(C)>I1(Si)>I1(Ge)，I1(C)<I1(Si) 错误。"},
+    {"id": "GC-496-C", "match": ["碳单质", "共价晶体"], "stemMatch": ["C、Si、Ge", "ⅣA族"], "verdict": false, "reason": "碳单质有多种同素异形体（如 C60、石墨），并非均为共价晶体，说法错误。"},
+    {"id": "GC-496-D", "match": ["Si元素附近", "半导体材料"], "stemMatch": ["C、Si、Ge", "ⅣA族"], "verdict": true, "reason": "在元素周期表中 Si 元素附近（金属与非金属分界处）可寻找新半导体材料，说法正确。"},
+
+    {"id": "GC-497-A", "match": ["H2O<NH3"], "stemMatch": ["Mg、Ca、Sr", "同一主族"], "verdict": false, "reason": "O 的非金属性强于 N，气态氢化物稳定性 H2O>NH3，H2O<NH3 错误。"},
+    {"id": "GC-497-B", "match": ["Sr(OH)2<Ca(OH)2"], "stemMatch": ["Mg、Ca、Sr", "同一主族"], "verdict": false, "reason": "同主族从上到下金属性增强，最高价氧化物水化物碱性增强，应为 Sr(OH)2>Ca(OH)2，Sr(OH)2<Ca(OH)2 错误。"},
+    {"id": "GC-497-C", "match": ["r(Mg2+)<r(O2-)"], "stemMatch": ["Mg、Ca、Sr", "同一主族"], "verdict": true, "reason": "Mg2+ 与 O2- 电子层结构相同，Mg2+ 核电荷数更大，半径更小，r(Mg2+)<r(O2-) 正确。"},
+    {"id": "GC-497-D", "match": ["I1(N)<I1(O)"], "stemMatch": ["Mg、Ca、Sr", "同一主族"], "verdict": false, "reason": "N 的 2p 轨道半满（2p3）较稳定，第一电离能 N>O，I1(N)<I1(O) 错误。"},
+
+    {"id": "GC-034-A", "match": ["烧碱", "冰水混合物"], "stemMatch": ["化合物、单质、混合物、电解质"], "verdict": false, "reason": "冰水混合物只含 H2O 一种物质，是纯净物，不属于混合物，该组合错误。"},
+    {"id": "GC-034-B", "match": ["生石灰", "胆矾"], "stemMatch": ["化合物、单质、混合物、电解质"], "verdict": false, "reason": "胆矾（CuSO4·5H2O）是结晶水合物，属于纯净物而非混合物，该组合错误。"},
+    {"id": "GC-034-C", "match": ["干冰", "氨水", "CaCO3"], "stemMatch": ["化合物、单质、混合物、电解质"], "verdict": true, "reason": "干冰（CO2）是化合物，铁是单质，氨水是混合物，CaCO3 是电解质，组合正确。"},
+    {"id": "GC-034-D", "match": ["空气", "小苏打"], "stemMatch": ["化合物、单质、混合物、电解质"], "verdict": false, "reason": "空气是混合物而非化合物，小苏打（NaHCO3）是纯净物而非混合物，该组合错误。"},
+
+    {"id": "GC-052-A", "match": ["84消毒液", "NaClO"], "stemMatch": ["离子方程式与所给事实不相符"], "verdict": true, "reason": "Cl2 与冷 NaOH 溶液反应制 84 消毒液（NaClO）：Cl2+2OH-=Cl-+ClO-+H2O，与事实相符。"},
+    {"id": "GC-052-B", "match": ["食醋", "CaCO3+2H+"], "stemMatch": ["离子方程式与所给事实不相符"], "verdict": false, "reason": "食醋的主要成分醋酸是弱酸，书写离子方程式时不能拆成 H+，应写 CH3COOH，该式与事实不相符。"},
+    {"id": "GC-052-C", "match": ["覆铜板", "印刷电路板"], "stemMatch": ["离子方程式与所给事实不相符"], "verdict": true, "reason": "利用覆铜板制作印刷电路板的反应为 2Fe3++Cu=2Fe2++Cu2+，与事实相符。"},
+    {"id": "GC-052-D", "match": ["Na2S", "HgS"], "stemMatch": ["离子方程式与所给事实不相符"], "verdict": true, "reason": "Na2S 去除废水中 Hg2+ 的反应为 Hg2++S2-=HgS↓，与事实相符。"},
+
+    {"id": "GC-086-A", "match": ["NaOH溶液", "黄绿色气体中的HCl"], "stemMatch": ["制备KClO3", "黄绿色气体"], "verdict": false, "reason": "NaOH 溶液不仅吸收 HCl，也会与 Cl2（黄绿色气体）反应，不能用其除去 Cl2 中的 HCl，应使用饱和食盐水。"},
+    {"id": "GC-086-B", "match": ["过程Ⅰ", "3Cl2+6OH-"], "stemMatch": ["制备KClO3", "黄绿色气体"], "verdict": true, "reason": "Cl2 与热 KOH 溶液反应制 KClO3：3Cl2+6OH-=(△)=5Cl-+ClO3-+3H2O，配平正确。"},
+    {"id": "GC-086-C", "match": ["过程Ⅱ", "仅体现还原性"], "stemMatch": ["制备KClO3", "黄绿色气体"], "verdict": false, "reason": "过程Ⅱ中 KClO3 与浓盐酸反应，浓盐酸既作还原剂（被氧化为 Cl2）又提供 Cl- 体现酸性，并非仅体现还原性。"},
+    {"id": "GC-086-D", "match": ["氧化性", "一定强于KClO3"], "stemMatch": ["制备KClO3", "黄绿色气体"], "verdict": false, "reason": "过程Ⅱ中 KClO3 氧化 HCl 生成 Cl2，说明该条件下氧化性 KClO3>Cl2，「Cl2 氧化性一定强于 KClO3」错误。"},
+
+    {"id": "GC-102-A", "match": ["向FeCl3溶液中加入Fe粉", "Fe3++Fe=Fe2+"], "stemMatch": ["模拟汇编", "离子方程式正确的是"], "verdict": false, "reason": "Fe3++Fe=Fe2+ 电荷不守恒（左边 +3，右边 +2），正确应为 2Fe3++Fe=3Fe2+。"},
+    {"id": "GC-102-B", "match": ["绿矾", "Cr2O72-"], "stemMatch": ["模拟汇编", "离子方程式正确的是"], "verdict": true, "reason": "绿矾（FeSO4·7H2O）中 Fe2+ 还原 Cr2O72-：6Fe2++Cr2O72-+14H+=6Fe3++2Cr3++7H2O，配平正确。"},
+    {"id": "GC-102-C", "match": ["还原铁粉与水蒸气", "2Fe+3H2O"], "stemMatch": ["模拟汇编", "离子方程式正确的是"], "verdict": false, "reason": "还原铁粉与水蒸气反应生成 Fe3O4（不是 Fe2O3）和 H2：3Fe+4H2O(g)=(高温)=Fe3O4+4H2，该式错误。"},
+    {"id": "GC-102-D", "match": ["Fe2O3溶于HI", "Fe2O3+6H+"], "stemMatch": ["模拟汇编", "离子方程式正确的是"], "verdict": false, "reason": "HI 中 I- 具有还原性，会被生成的 Fe3+ 氧化为 I2，正确式应包含氧化还原，不能只写 Fe2O3+6H+=2Fe3++3H2O。"},
+
+    {"id": "GC-129-A", "match": ["ICl", "熔融状态下能导电"], "stemMatch": ["卤素互化物", "化学性质与卤素单质类似"], "verdict": false, "reason": "ICl 是共价化合物（分子晶体），熔融状态下不电离、不能导电。"},
+    {"id": "GC-129-B", "match": ["BrCl与H2O反应", "既不是氧化剂也不是还原剂"], "stemMatch": ["卤素互化物", "化学性质与卤素单质类似"], "verdict": true, "reason": "BrCl 与 H2O 反应生成 HBrO 和 HCl，Br 仍为 +1、Cl 仍为 -1，无化合价变化，BrCl 既不是氧化剂也不是还原剂。"},
+    {"id": "GC-129-C", "match": ["IBr和Fe反应", "FeI3+FeBr3"], "stemMatch": ["卤素互化物", "化学性质与卤素单质类似"], "verdict": false, "reason": "Fe3+ 能氧化 I-，不能生成 FeI3；IBr 与 Fe 反应应生成 FeI2 和 FeBr3（或 Fe2+ 产物），该式错误。"},
+    {"id": "GC-129-D", "match": ["I2的氧化性", "强于BrCl"], "stemMatch": ["卤素互化物", "化学性质与卤素单质类似"], "verdict": false, "reason": "BrCl 中 Br 为 +1 价，氧化性强于 Br2 和 I2，I2 的氧化性弱于 BrCl。"},
+
+    {"id": "GC-343-A", "match": ["溴水可以一次性鉴别", "溴乙烷、乙醇、乙醛和苯酚"], "stemMatch": ["四川绵阳阶段练习", "下列说法不正确的是"], "verdict": true, "reason": "溴水与溴乙烷萃取分层、与乙醇互溶、与乙醛褪色、与苯酚生成白色沉淀，现象不同可一次性鉴别，说法正确。"},
+    {"id": "GC-343-B", "match": ["苯甲酸及其钠盐", "钠盐溶液pH小于7"], "stemMatch": ["四川绵阳阶段练习", "下列说法不正确的是"], "verdict": false, "reason": "苯甲酸钠是强碱弱酸盐，苯甲酸根水解使溶液呈碱性，pH 大于 7，该说法错误。"},
+    {"id": "GC-343-C", "match": ["1-溴丁烷", "消去反应"], "stemMatch": ["四川绵阳阶段练习", "下列说法不正确的是"], "verdict": true, "reason": "1-溴丁烷在 NaOH 乙醇溶液中加热发生消去反应生成 1-丁烯，能使溴水褪色，可推测为消去反应，说法正确。"},
+    {"id": "GC-343-D", "match": ["苯酚、乙醇、甲醛", "杀菌消毒"], "stemMatch": ["四川绵阳阶段练习", "下列说法不正确的是"], "verdict": true, "reason": "苯酚、乙醇、甲醛均能使蛋白质变性，可用于杀菌消毒，说法正确。"},
+
+    {"id": "GC-407-A", "match": ["SO2通入溴水", "SO2有漂白性"], "stemMatch": ["海南卷", "所得结论错误的是"], "verdict": false, "reason": "SO2 使溴水褪色是因为 SO2 具有还原性，将 Br2 还原为 Br-，并非漂白性，结论错误。"},
+    {"id": "GC-407-B", "match": ["热源包", "Al粉已经变质"], "stemMatch": ["海南卷", "所得结论错误的是"], "verdict": true, "reason": "热源包中 Al 粉在碱性条件下（CaO 与水生成 Ca(OH)2）反应放出 H2，未产生气体说明 Al 粉已被氧化变质，结论正确。"},
+    {"id": "GC-407-C", "match": ["CuCl2浓溶液", "配位平衡移动"], "stemMatch": ["海南卷", "所得结论错误的是"], "verdict": true, "reason": "CuCl2 浓溶液中存在 [CuCl4]2- 与 [Cu(H2O)4]2+ 的配位平衡，加水稀释平衡移动使溶液由黄绿色变蓝，结论正确。"},
+    {"id": "GC-407-D", "match": ["淀粉-KI试纸", "[FeF6]3-"], "stemMatch": ["海南卷", "所得结论错误的是"], "verdict": true, "reason": "F- 与 Fe3+ 形成稳定的 [FeF6]3-，降低了 Fe3+ 的氧化能力，不能氧化 I- 使淀粉-KI 试纸变色，结论正确。"},
+
+    {"id": "GC-411-A", "match": ["双液原电池", "Zn作正极,Cu作负极"], "stemMatch": ["贵州卷", "所推出的结论正确的是"], "verdict": false, "reason": "Zn 比 Cu 活泼，在原电池中 Zn 作负极、Cu 作正极，结论错误。"},
+    {"id": "GC-411-B", "match": ["银氨溶液", "乙醛有氧化性"], "stemMatch": ["贵州卷", "所推出的结论正确的是"], "verdict": false, "reason": "乙醛发生银镜反应时被氧化，体现还原性，而非氧化性，结论错误。"},
+    {"id": "GC-411-C", "match": ["苯酚浊液", "苯酚的酸性比H2CO3强"], "stemMatch": ["贵州卷", "所推出的结论正确的是"], "verdict": false, "reason": "苯酚浊液加 Na2CO3 变澄清是因为苯酚酸性强于 HCO3-（生成 HCO3-），但苯酚酸性弱于 H2CO3，结论错误。"},
+    {"id": "GC-411-D", "match": ["BaCl2溶液", "稀HNO3有氧化性"], "stemMatch": ["贵州卷", "所推出的结论正确的是"], "verdict": true, "reason": "BaCl2 溶液中通 SO2 无现象，加稀 HNO3 后，HNO3 将 SO2 或亚硫酸根氧化为 SO42-，生成 BaSO4 白色沉淀，说明稀 HNO3 有氧化性，结论正确。"},
+
+    {"id": "GC-440-A", "match": ["NH4+的电子式", "孤对电子"], "stemMatch": ["石油开采", "下列说法表示正确的是"], "verdict": false, "reason": "NH4+ 中 N 与 4 个 H 形成 4 个 σ 键，无孤对电子，该电子式描述错误。"},
+    {"id": "GC-440-B", "match": ["NO2-中N元素的化合价", "+5"], "stemMatch": ["石油开采", "下列说法表示正确的是"], "verdict": false, "reason": "NO2- 中 O 为 -2 价，整体电荷为 -1，故 N 为 +3 价，不是 +5 价。"},
+    {"id": "GC-440-C", "match": ["N2分子中存在", "N≡N键"], "stemMatch": ["石油开采", "下列说法表示正确的是"], "verdict": true, "reason": "N2 分子中两个 N 原子间以 N≡N 三键结合，说法正确。"},
+    {"id": "GC-440-D", "match": ["H2O为非极性分子"], "stemMatch": ["石油开采", "下列说法表示正确的是"], "verdict": false, "reason": "H2O 分子为 V 形结构，正、负电荷中心不重合，是极性分子，不是非极性分子。"},
+
+    {"id": "GC-446-A", "match": ["过氧碳酸钠", "较强氧化性"], "stemMatch": ["家务劳动", "下列相关解释错误的是"], "verdict": true, "reason": "过氧碳酸钠（Na2CO4）具有较强氧化性，能漂白衣物，解释正确。"},
+    {"id": "GC-446-B", "match": ["酿米酒需晾凉米饭", "乙醇受热易挥发"], "stemMatch": ["家务劳动", "下列相关解释错误的是"], "verdict": false, "reason": "晾凉米饭后加酒曲是为了防止高温使酒曲中的酵母菌失活或酶变性，不是因为乙醇受热易挥发，解释错误。"},
+    {"id": "GC-446-C", "match": ["柠檬酸去除水垢", "酸性强于碳酸"], "stemMatch": ["家务劳动", "下列相关解释错误的是"], "verdict": true, "reason": "柠檬酸酸性强于碳酸，能与水垢（CaCO3）反应将其溶解，解释正确。"},
+    {"id": "GC-446-D", "match": ["碱液清洗厨房油污", "油脂可碱性水解"], "stemMatch": ["家务劳动", "下列相关解释错误的是"], "verdict": true, "reason": "油脂在碱性条件下发生水解（皂化反应）生成可溶于水的高级脂肪酸盐和甘油，故碱液可清洗油污，解释正确。"},
+
+    {"id": "GC-503-A", "match": ["原子半径:O<N<C"], "stemMatch": ["温室气体N2O", "下列说法错误的是"], "verdict": true, "reason": "同周期元素从左到右原子半径逐渐减小，故原子半径 C>N>O，即 O<N<C，说法正确。"},
+    {"id": "GC-503-B", "match": ["第一电离能:C<N<O"], "stemMatch": ["温室气体N2O", "下列说法错误的是"], "verdict": false, "reason": "N 的 2p 轨道半充满（2p3）较稳定，第一电离能 N>O，故正确顺序为 C<O<N，「C<N<O」错误。"},
+    {"id": "GC-503-C", "match": ["在水中的溶解度:苯<苯酚"], "stemMatch": ["温室气体N2O", "下列说法错误的是"], "verdict": true, "reason": "苯酚能与水形成分子间氢键，在水中溶解度大于苯，说法正确。"},
+    {"id": "GC-503-D", "match": ["苯和苯酚中C的杂化方式相同"], "stemMatch": ["温室气体N2O", "下列说法错误的是"], "verdict": true, "reason": "苯和苯酚中苯环上的 C 均采取 sp2 杂化，杂化方式相同，说法正确。"},
+
+    {"id": "GC-157-A", "match": ["电炉煅烧", "必须隔绝空气"], "stemMatch": ["高钾磷矿", "下列说法错误的是"], "verdict": true, "reason": "白磷（P4）和 CO 在高温下均能与空气中的 O2 反应，电炉煅烧必须隔绝空气，说法正确。"},
+    {"id": "GC-157-B", "match": ["浸渣的主要成分", "CaSiO3"], "stemMatch": ["高钾磷矿", "下列说法错误的是"], "verdict": true, "reason": "煅烧反应生成的 CaSiO3 不溶于水和后续碱液，成为浸渣的主要成分，说法正确。"},
+    {"id": "GC-157-C", "match": ["炉气水洗", "P4溶于水"], "stemMatch": ["高钾磷矿", "下列说法错误的是"], "verdict": false, "reason": "白磷（P4）难溶于水，炉气水洗不能使 P4 溶于水，说法错误。"},
+    {"id": "GC-157-D", "match": ["中和沉淀", "控制溶液的pH"], "stemMatch": ["高钾磷矿", "下列说法错误的是"], "verdict": true, "reason": "KAlO2 的中和沉淀需控制 pH 才能使 Al 元素完全沉淀，说法正确。"},
+
+    {"id": "GC-339-A", "match": ["溴水中加入苯", "溴与苯发生了加成反应"], "stemMatch": ["河南洛阳期中", "结论正确的是"], "verdict": false, "reason": "苯使溴水褪色是萃取（物理变化），并非与溴发生加成反应，结论错误。"},
+    {"id": "GC-339-B", "match": ["1-氯丁烷", "含有氯元素"], "stemMatch": ["河南洛阳期中", "结论正确的是"], "verdict": false, "reason": "未先用稀硝酸酸化，加入 AgNO3 后生成的沉淀可能是 Ag2O，不能证明 1-氯丁烷中含有氯元素，结论错误。"},
+    {"id": "GC-339-C", "match": ["石蜡油加强热", "气体中含有不饱和烃"], "stemMatch": ["河南洛阳期中", "结论正确的是"], "verdict": true, "reason": "石蜡油加强热裂解产生不饱和烃，能使 Br2 的 CCl4 溶液褪色，结论正确。"},
+    {"id": "GC-339-D", "match": ["盐酸与NaHCO3", "碳酸的酸性大于苯酚"], "stemMatch": ["河南洛阳期中", "结论正确的是"], "verdict": false, "reason": "盐酸易挥发，生成的 CO2 中混有 HCl，HCl 也能使苯酚钠溶液变浑浊，未除杂不能证明碳酸酸性大于苯酚，结论错误。"},
+
+    {"id": "GC-435-A", "match": ["KBr的电子式", "[:Br:]"], "stemMatch": ["贵州卷", "下列叙述正确的是"], "verdict": false, "reason": "KBr 的电子式中 Br 周围应有 8 个电子（4 对），该式只画出 2 个电子，书写错误。"},
+    {"id": "GC-435-B", "match": ["聚乙炔", "[CH=CH]"], "stemMatch": ["贵州卷", "下列叙述正确的是"], "verdict": true, "reason": "聚乙炔的重复结构单元为 -CH=CH-，结构简式可写为 -[CH=CH]n-，书写正确。"},
+    {"id": "GC-435-C", "match": ["SO32-的空间结构", "平面三角形"], "stemMatch": ["贵州卷", "下列叙述正确的是"], "verdict": false, "reason": "SO3^2- 中心 S 原子有 1 对孤对电子，价层电子对数为 4，空间结构为三角锥形，不是平面三角形。"},
+    {"id": "GC-435-D", "match": ["CH3CH2C(CH3)=CH2的名称", "2-甲基-2-丁烯"], "stemMatch": ["贵州卷", "下列叙述正确的是"], "verdict": false, "reason": "该物质应从靠近双键的一端编号，名称为 2-甲基-1-丁烯，不是 2-甲基-2-丁烯。"},
+
+    {"id": "GC-039-A", "match": ["饱和Na2CO3溶液中通入过量CO2", "2NaHCO3"], "stemMatch": ["山西三模改编", "离子方程式书写正确的是"], "verdict": true, "reason": "饱和 Na2CO3 溶液通过量 CO2 生成溶解度较小的 NaHCO3 而析出，离子方程式配平正确。"},
+    {"id": "GC-039-B", "match": ["加入过量Ba(OH)2", "2H++SO4^2-"], "stemMatch": ["山西三模改编", "离子方程式书写正确的是"], "verdict": false, "reason": "Ba(OH)2 过量时，1 mol NaHSO4 电离出的 1 mol H+ 和 1 mol SO4^2- 只需 1 mol Ba2+ 和 1 mol OH- 沉淀，该式系数错误。"},
+    {"id": "GC-039-C", "match": ["明矾进行净水", "Al(OH)3↓"], "stemMatch": ["山西三模改编", "离子方程式书写正确的是"], "verdict": false, "reason": "明矾净水是 Al3+ 水解生成 Al(OH)3 胶体，应用可逆号且不标沉淀符号，该式错误。"},
+    {"id": "GC-039-D", "match": ["CuSO4溶液中加入过量氨水", "Cu(OH)2↓"], "stemMatch": ["山西三模改编", "离子方程式书写正确的是"], "verdict": false, "reason": "CuSO4 溶液中加入过量氨水生成可溶的 [Cu(NH3)4]^2+，不会生成 Cu(OH)2 沉淀，该式错误。"},
+
+    {"id": "GC-040-A", "match": ["FeO固体溶于稀硝酸", "FeO+2H+"], "stemMatch": ["四川绵阳三诊", "离子方程式书写正确的是"], "verdict": false, "reason": "稀硝酸具有强氧化性，会将 Fe2+ 氧化为 Fe3+，且还原产物为 NO，该式错误。"},
+    {"id": "GC-040-B", "match": ["Na2SO3溶液吸收少量Cl2", "2HSO3-"], "stemMatch": ["四川绵阳三诊", "离子方程式书写正确的是"], "verdict": true, "reason": "少量 Cl2 氧化部分 SO3^2- 为 SO4^2-，生成的 H+ 被剩余 SO3^2- 结合为 HSO3-，该式配平正确。"},
+    {"id": "GC-040-C", "match": ["稀AgNO3溶液中滴加过量氨水", "AgOH↓"], "stemMatch": ["四川绵阳三诊", "离子方程式书写正确的是"], "verdict": false, "reason": "AgNO3 溶液中滴加过量氨水生成可溶的 [Ag(NH3)2]+，不会生成 AgOH 沉淀，该式错误。"},
+    {"id": "GC-040-D", "match": ["醋酸和淀粉-KI", "IO3-+5I-"], "stemMatch": ["四川绵阳三诊", "离子方程式书写正确的是"], "verdict": false, "reason": "醋酸是弱酸，书写离子方程式时不能拆成 H+，应写 CH3COOH，该式错误。"},
+
+    {"id": "GC-043-A", "match": ["碘化亚铁溶液通入等物质的量的氯气", "2Fe^2++2I-"], "stemMatch": ["浙江卷", "下列反应的离子方程式正确的是"], "verdict": false, "reason": "I- 还原性强于 Fe2+，等物质的量 Cl2 只能氧化 I-，不会氧化 Fe2+，该式错误。"},
+    {"id": "GC-043-B", "match": ["次氯酸钙溶液通入足量二氧化碳", "HCO3-+HClO"], "stemMatch": ["浙江卷", "下列反应的离子方程式正确的是"], "verdict": true, "reason": "足量 CO2 与次氯酸钙反应生成 HCO3- 和 HClO（强酸制弱酸），该式正确。"},
+    {"id": "GC-043-C", "match": ["铜与稀硝酸反应", "2NO2↑"], "stemMatch": ["浙江卷", "下列反应的离子方程式正确的是"], "verdict": false, "reason": "铜与稀硝酸反应的还原产物是 NO 不是 NO2，且该式配平错误。"},
+    {"id": "GC-043-D", "match": ["硫化钠溶液通入足量二氧化硫", "H2S↓"], "stemMatch": ["浙江卷", "下列反应的离子方程式正确的是"], "verdict": false, "reason": "Na2S 溶液中通入足量 SO2 发生归中反应生成 S 沉淀，不会生成 H2S，该式错误。"},
+
+    {"id": "GC-047-A", "match": ["浓硝酸中加入少量氧化亚铜", "Cu2O+2H+"], "stemMatch": ["八省联考河南卷", "相应离子方程式书写正确的是"], "verdict": false, "reason": "浓硝酸具有强氧化性，会将 Cu+ 氧化为 Cu2+，不会发生歧化生成 Cu，该式错误。"},
+    {"id": "GC-047-B", "match": ["洗涤附着在试管内壁的少量硫", "2S2-+SO32-"], "stemMatch": ["八省联考河南卷", "相应离子方程式书写正确的是"], "verdict": true, "reason": "硫与热 NaOH 溶液发生歧化反应生成 S2-、SO3^2- 和 H2O：3S+6OH-=2S2-+SO3^2-+3H2O，该式正确。"},
+    {"id": "GC-047-C", "match": ["醋酸铵的水解", "NH4++H2O⇌"], "stemMatch": ["八省联考河南卷", "相应离子方程式书写正确的是"], "verdict": false, "reason": "醋酸铵中 CH3COO- 和 NH4+ 都发生水解且相互促进，只写 NH4+ 的水解不完整，该式错误。"},
+    {"id": "GC-047-D", "match": ["碘酸钾的酸性溶液中滴加过氧化氢", "2IO3-"], "stemMatch": ["八省联考河南卷", "相应离子方程式书写正确的是"], "verdict": false, "reason": "该式电子转移不守恒（IO3- 得 10e- 而 H2O2 仅失 4e-），配平错误。"},
+
+    {"id": "GC-048-A", "match": ["硫化氢溶液久置变浑浊", "2S2-+O2"], "stemMatch": ["八省联考四川卷", "下列过程对应的离子方程式正确的是"], "verdict": false, "reason": "H2S 是弱酸，书写离子方程式时不能拆成 S2- 和 H+，应写分子式 H2S，该式错误。"},
+    {"id": "GC-048-B", "match": ["锌粉与稀硝酸反应", "2NO2↑"], "stemMatch": ["八省联考四川卷", "下列过程对应的离子方程式正确的是"], "verdict": false, "reason": "锌粉与稀硝酸反应的还原产物是 NO（或更低价氮），不是 NO2，且该式配平错误。"},
+    {"id": "GC-048-C", "match": ["银氨溶液与溴化钠溶液反应", "[Ag(NH3)2]+"], "stemMatch": ["八省联考四川卷", "下列过程对应的离子方程式正确的是"], "verdict": true, "reason": "AgBr 的溶度积很小，Br- 能破坏银氨配离子生成 AgBr 沉淀：[Ag(NH3)2]++Br-=AgBr↓+2NH3，该式正确。"},
+    {"id": "GC-048-D", "match": ["碳酸氢钠溶液与少量氢氧化钡", "Ba2++HCO3-+OH-"], "stemMatch": ["八省联考四川卷", "下列过程对应的离子方程式正确的是"], "verdict": false, "reason": "Ba(OH)2 少量时，1 mol Ba2+ 对应 2 mol OH-，需与 2 mol HCO3- 反应，该式漏掉 1 个 OH- 和 1 个 HCO3-，错误。"},
+
+    {"id": "GC-050-A", "match": ["银镜用稀硝酸清洗", "Ag+2H++NO3-"], "stemMatch": ["新课标卷", "相应离子方程式正确的是"], "verdict": false, "reason": "银镜与稀硝酸反应的还原产物是 NO 不是 NO2，且该式配平错误。"},
+    {"id": "GC-050-B", "match": ["Pb2+用FeS去除", "Pb2++S2-"], "stemMatch": ["新课标卷", "相应离子方程式正确的是"], "verdict": false, "reason": "FeS 是难溶物，书写离子方程式时不能拆成 S2-，应写分子式 FeS：Pb2++FeS=PbS+Fe2+，该式错误。"},
+    {"id": "GC-050-C", "match": ["海水提溴过程中将溴吹入SO2吸收塔", "Br2+SO2+2H2O"], "stemMatch": ["新课标卷", "相应离子方程式正确的是"], "verdict": true, "reason": "海水提溴时 SO2 吸收 Br2 生成 HBr 和 H2SO4：Br2+SO2+2H2O=2Br-+SO4^2-+4H+，该式正确。"},
+    {"id": "GC-050-D", "match": ["草酸标准溶液测定高锰酸钾", "5C2O42-"], "stemMatch": ["新课标卷", "相应离子方程式正确的是"], "verdict": false, "reason": "草酸（H2C2O4）是弱酸，作为反应物书写离子方程式时应写分子式，不能拆成 C2O4^2-，该式错误。"},
+
+    {"id": "GC-056-A", "match": ["Mg2+、SO4^2-", "加入Ba(OH)2溶液"], "stemMatch": ["吉林期末", "能大量共存且当加入相应试剂"], "verdict": false, "reason": "加入 Ba(OH)2 溶液时，Mg2+ 也会与 OH- 生成 Mg(OH)2 沉淀，该离子方程式只写 BaSO4 不完整，错误。"},
+    {"id": "GC-056-B", "match": ["HCO3-、Cl-", "加入NaOH溶液", "OH-+HCO3-"], "stemMatch": ["吉林期末", "能大量共存且当加入相应试剂"], "verdict": true, "reason": "Na+、HCO3-、Cl- 能大量共存，加入 NaOH 后 OH- 与 HCO3- 反应生成 CO3^2- 和 H2O，该式正确且完整。"},
+    {"id": "GC-056-C", "match": ["NH3·H2O、Cl-", "通入少量CO2", "2OH-+CO2"], "stemMatch": ["吉林期末", "能大量共存且当加入相应试剂"], "verdict": false, "reason": "NH3·H2O 是弱碱，书写离子方程式时不能拆成 OH-，应写 NH3·H2O，该式错误。"},
+    {"id": "GC-056-D", "match": ["Ca2+、NO3-、CO3^2-", "加入NaHSO4溶液"], "stemMatch": ["吉林期末", "能大量共存且当加入相应试剂"], "verdict": false, "reason": "Ca2+ 与 CO3^2- 会生成 CaCO3 沉淀，不能大量共存，不满足题目前提，该选项错误。"},
+
+    {"id": "GC-081-A", "match": ["W为4OH-"], "stemMatch": ["SO2 + 2Fe3+ + 2H2O", "aFe2+ + bH"], "verdict": false, "reason": "反应①在酸性溶液中进行，由电荷守恒 W 应为 4H+，不是 4OH-。"},
+    {"id": "GC-081-B", "match": ["还原性强弱", "Fe2"], "stemMatch": ["SO2 + 2Fe3+ + 2H2O", "aFe2+ + bH"], "verdict": true, "reason": "反应①中 SO2 被 Fe3+ 氧化，SO2 是还原剂、Fe2+ 是还原产物，故还原性 SO2 > Fe2+。"},
+    {"id": "GC-081-C", "match": ["a=6", "b=7"], "stemMatch": ["SO2 + 2Fe3+ + 2H2O", "aFe2+ + bH"], "verdict": false, "reason": "配平 Cr2O7^2- + aFe2+ + bH+ 得 a=6、b=14（电荷守恒），b 不是 7。"},
+    {"id": "GC-081-D", "match": ["不能发生", "Cr2O7"], "stemMatch": ["SO2 + 2Fe3+ + 2H2O", "aFe2+ + bH"], "verdict": false, "reason": "酸性条件下 Cr2O7^2- 可被 SO2 还原，该反应能够发生，并非不能发生。"},
+
+    {"id": "GC-253-A", "match": ["2N2O", "熵变是决定"], "stemMatch": ["台州二模", "下列说法正确的是"], "verdict": true, "reason": "该反应气体分子数增加、ΔS>0，ΔH>0 却能自发进行，说明 ΔG<0 由熵增贡献，熵变是主要决定因素。"},
+    {"id": "GC-253-B", "match": ["铁触媒", "活化分子的百分数并没有改变"], "stemMatch": ["台州二模", "下列说法正确的是"], "verdict": false, "reason": "催化剂（铁触媒）降低反应活化能，使更多普通分子成为活化分子，活化分子的百分数增大，并非没有改变。"},
+    {"id": "GC-253-C", "match": ["新制氯水", "NaCl 固体", "平衡均逆向移动"], "stemMatch": ["台州二模", "下列说法正确的是"], "verdict": false, "reason": "加入 NaCl 使 Cl2 水解平衡逆向移动，但 HClO 的电离平衡因 H+ 浓度减小而正向移动，并非所有平衡均逆向移动。"},
+    {"id": "GC-253-D", "match": ["CH4 的燃烧热", "2H2O(g)"], "stemMatch": ["台州二模", "下列说法正确的是"], "verdict": false, "reason": "燃烧热对应生成 H2O(l)，由盖斯定律 ΔH1=ΔH2-2ΔH3，不是 ΔH1=ΔH2+ΔH3。"},
+
+    {"id": "GC-282-A", "match": ["HCN", "KCN", "0.2 mol/L"], "stemMatch": ["浙江三模", "下列说法正确的是"], "verdict": false, "reason": "等体积混合后二者浓度均变为 0.05 mol/L，由物料守恒 c(HCN)+c(CN-)=0.1 mol/L，不是 0.2 mol/L。"},
+    {"id": "GC-282-B", "match": ["水的电离程度最大", "c(NH4"], "stemMatch": ["浙江三模", "下列说法正确的是"], "verdict": false, "reason": "水的电离程度最大时为恰好生成 NH4Cl 的点，溶液因 NH4+ 水解呈酸性，由电荷守恒 c(NH4+)<c(Cl-)，不相等。"},
+    {"id": "GC-282-C", "match": ["醋酸溶液和醋酸钠", "2c(CH3COOH"], "stemMatch": ["浙江三模", "下列说法正确的是"], "verdict": false, "reason": "等体积等浓度混合时 n(醋酸)+n(醋酸根)=2n(Na+)，物料守恒应为 c(CH3COOH)+c(CH3COO-)=2c(Na+)，该式系数颠倒，错误。"},
+    {"id": "GC-282-D", "match": ["碳酸氢钠和碳酸钠", "3c(H"], "stemMatch": ["浙江三模", "下列说法正确的是"], "verdict": true, "reason": "NaHCO3 与 Na2CO3 按 2∶1 混合，联立电荷守恒与物料守恒消去 c(Na+) 即得该式，正确。"},
+
+    {"id": "GC-428-A", "match": ["中子数为21", "钾核素"], "stemMatch": ["四川卷", "化学用语或图示正确的是"], "verdict": false, "reason": "中子数为 21 的钾原子质量数应为 19+21=40，核素符号应为 40/19 K，不是 21/19 K。"},
+    {"id": "GC-428-B", "match": ["CaC2的电子式"], "stemMatch": ["四川卷", "化学用语或图示正确的是"], "verdict": true, "reason": "CaC2 为离子化合物，C2^2- 中两碳以三键结合且各带一对孤对电子，电子式 Ca2+[:C:::C:]2- 书写正确。"},
+    {"id": "GC-428-C", "match": ["基态Fe3", "轨道表示式"], "stemMatch": ["四川卷", "化学用语或图示正确的是"], "verdict": false, "reason": "Fe3+ 价层电子为 3d5，依洪特规则应分占 5 个简并 d 轨道且自旋平行，图中成对排布违反洪特规则，错误。"},
+    {"id": "GC-428-D", "match": ["PCl3", "键角120"], "stemMatch": ["四川卷", "化学用语或图示正确的是"], "verdict": false, "reason": "PCl3 中心 P 有一对孤对电子，分子为三角锥形，键角约 100°，不是 120°。"},
+
+    {"id": "GC-429-A", "match": ["CaO的电子式"], "stemMatch": ["八省联考河南卷", "化学用语或图示正确的是"], "verdict": true, "reason": "CaO 为离子化合物，Ca2+ 与 O2- 通过离子键结合，O2- 最外层达 8 电子，电子式书写正确。"},
+    {"id": "GC-429-B", "match": ["Li+的结构示意图", "外层1"], "stemMatch": ["八省联考河南卷", "化学用语或图示正确的是"], "verdict": false, "reason": "Li+ 核外只有 1 个电子层、2 个电子，图中画出 2 个电子层且最外层 1 个电子，实为 Li 原子，错误。"},
+    {"id": "GC-429-C", "match": ["中子数为38", "镓原子"], "stemMatch": ["八省联考河南卷", "化学用语或图示正确的是"], "verdict": false, "reason": "中子数为 38 的镓原子质量数应为 31+38=69，核素符号应为 69/31 Ga，不是 38/31 Ga。"},
+    {"id": "GC-429-D", "match": ["2-乙基戊烷"], "stemMatch": ["八省联考河南卷", "化学用语或图示正确的是"], "verdict": false, "reason": "主链应选包含乙基的最长碳链（6 个碳），正确名称为 3-甲基己烷，2-乙基戊烷未选最长主链，命名错误。"},
+
+    {"id": "GC-439-A", "match": ["乙炔的结构简式"], "stemMatch": ["浙江6月选考", "化学用语表示错误的是"], "verdict": true, "reason": "乙炔分子中含碳碳三键，结构简式为 HC≡CH，书写正确。"},
+    {"id": "GC-439-B", "match": ["KOH的电子式"], "stemMatch": ["浙江6月选考", "化学用语表示错误的是"], "verdict": true, "reason": "KOH 为离子化合物，K+ 与 OH- 通过离子键结合，OH- 内 O 与 H 以共价键结合，电子式正确。"},
+    {"id": "GC-439-C", "match": ["乙烷的球棍模型"], "stemMatch": ["浙江6月选考", "化学用语表示错误的是"], "verdict": false, "reason": "乙烷的球棍模型应正确表示其空间结构（C 原子 sp3 杂化、键角约 109.5°），图中模型错误。"},
+    {"id": "GC-439-D", "match": ["氯离子的结构示意图"], "stemMatch": ["浙江6月选考", "化学用语表示错误的是"], "verdict": true, "reason": "Cl- 核内 17 个质子，核外 18 个电子排布为 2、8、8，结构示意图正确。"},
+
+    {"id": "GC-445-A", "match": ["清洗铁锅", "吸氧腐蚀"], "stemMatch": ["青少年帮厨", "解释合理的是"], "verdict": true, "reason": "铁锅生锈主要发生吸氧腐蚀（需 O2 和 H2O），及时擦干保持干燥可减缓腐蚀，解释合理。"},
+    {"id": "GC-445-B", "match": ["烹煮食物", "NaCl 长时间受热而分解"], "stemMatch": ["青少年帮厨", "解释合理的是"], "verdict": false, "reason": "NaCl 热稳定性强，长时间受热不会分解；后期加盐与减少碘流失等有关，解释不合理。"},
+    {"id": "GC-445-C", "match": ["白糖熬制成焦糖", "充分炭化"], "stemMatch": ["青少年帮厨", "解释合理的是"], "verdict": false, "reason": "白糖熬制焦糖是蔗糖脱水、裂解的焦糖化反应，并非充分炭化为碳单质，解释不合理。"},
+    {"id": "GC-445-D", "match": ["食用纯碱", "NaHCO3 中和"], "stemMatch": ["青少年帮厨", "解释合理的是"], "verdict": false, "reason": "食用纯碱是 Na2CO3（小苏打才是 NaHCO3），用 Na2CO3 中和发酵产生的酸，解释张冠李戴，不合理。"},
+
+    {"id": "GC-446-A", "match": ["矾红", "熬炼"], "stemMatch": ["颜料制取", "不属于氧化还原"], "verdict": true, "reason": "绿矾中 Fe 为 +2 价，熬炼生成 Fe2O3 时 Fe 升至 +3 价，有化合价变化，属于氧化还原反应。"},
+    {"id": "GC-446-B", "match": ["胡粉", "铅片"], "stemMatch": ["颜料制取", "不属于氧化还原"], "verdict": true, "reason": "铅片中 Pb 为 0 价，生成胡粉时 Pb 升至 +2 价，有化合价变化，属于氧化还原反应。"},
+    {"id": "GC-446-C", "match": ["蜃灰", "煅之"], "stemMatch": ["颜料制取", "不属于氧化还原"], "verdict": false, "reason": "贝壳主要成分为 CaCO3，煅烧分解为 CaO 和 CO2，各元素化合价均未变，不属于氧化还原反应。"},
+    {"id": "GC-446-D", "match": ["空青", "铜精熏"], "stemMatch": ["颜料制取", "不属于氧化还原"], "verdict": true, "reason": "铜单质中 Cu 为 0 价，生成空青 Cu2(OH)2CO3 时 Cu 升至 +2 价，有化合价变化，属于氧化还原反应。"},
+
+    {"id": "GC-447-A", "match": ["熔点低"], "stemMatch": ["青铜比纯铜", "浇铸"], "verdict": true, "reason": "合金的熔点一般低于其组成纯金属，青铜熔点比纯铜低，更易熔化浇铸成型。"},
+    {"id": "GC-447-B", "match": ["密度大"], "stemMatch": ["青铜比纯铜", "浇铸"], "verdict": false, "reason": "密度大不是便于浇铸的原因，浇铸难易主要取决于熔点高低。"},
+    {"id": "GC-447-C", "match": ["硬度大"], "stemMatch": ["青铜比纯铜", "浇铸"], "verdict": false, "reason": "硬度大不是便于浇铸的原因，浇铸主要利用熔点较低、易熔化的性质。"},
+    {"id": "GC-447-D", "match": ["不易被腐蚀"], "stemMatch": ["青铜比纯铜", "浇铸"], "verdict": false, "reason": "不易被腐蚀不是便于浇铸的原因，与浇铸成型无关。"},
+
+    {"id": "GC-448-A", "match": ["c(CO3"], "stemMatch": ["MgCO3", "数值变小"], "verdict": true, "reason": "滴加盐酸时 H+ 与 CO3^2- 反应，使 c(CO3^2-) 减小。"},
+    {"id": "GC-448-B", "match": ["c(Mg"], "stemMatch": ["MgCO3", "数值变小"], "verdict": false, "reason": "滴加盐酸消耗 CO3^2-，MgCO3 沉淀溶解平衡右移，c(Mg^2+) 增大而非变小。"},
+    {"id": "GC-448-C", "match": ["c(H"], "stemMatch": ["MgCO3", "数值变小"], "verdict": false, "reason": "滴加浓盐酸引入 H+，c(H+) 增大而非变小。"},
+    {"id": "GC-448-D", "match": ["K_sp"], "stemMatch": ["MgCO3", "数值变小"], "verdict": false, "reason": "Ksp 只与温度有关，温度不变时 K_sp(MgCO3) 保持不变，不会变小。"},
+
+    {"id": "GC-449-A", "match": ["不饱和烃"], "stemMatch": ["柠檬烯"], "verdict": true, "reason": "柠檬烯分子中含有碳碳双键且只含 C、H，属于不饱和烃。"},
+    {"id": "GC-449-B", "match": ["采取", "杂化"], "stemMatch": ["柠檬烯"], "verdict": true, "reason": "柠檬烯中碳碳双键上的碳原子为 sp² 杂化，其余碳原子为 sp³ 杂化。"},
+    {"id": "GC-449-C", "match": ["1,4-加成"], "stemMatch": ["柠檬烯"], "verdict": false, "reason": "柠檬烯的两个碳碳双键不共轭，不具有 1,3-丁二烯结构单元，不能发生 1,4-加成。"},
+    {"id": "GC-449-D", "match": ["聚合反应"], "stemMatch": ["柠檬烯"], "verdict": true, "reason": "柠檬烯含碳碳双键，可发生加聚反应生成聚合物。"},
+
+    {"id": "GC-450-A", "match": ["加热蒸馏"], "stemMatch": ["苯甲酸粗品", "操作X"], "verdict": false, "reason": "苯甲酸与 NaCl 均可溶，加热蒸馏不能分离提纯苯甲酸粗品。"},
+    {"id": "GC-450-B", "match": ["加水稀释"], "stemMatch": ["苯甲酸粗品", "操作X"], "verdict": false, "reason": "加水稀释不能使苯甲酸析出，无法提纯。"},
+    {"id": "GC-450-C", "match": ["冷却结晶"], "stemMatch": ["苯甲酸粗品", "操作X"], "verdict": true, "reason": "苯甲酸溶解度受温度影响大，趁热过滤除泥沙后冷却结晶可析出苯甲酸，NaCl 因溶解度受温度影响小而留在母液中。"},
+    {"id": "GC-450-D", "match": ["萃取分液"], "stemMatch": ["苯甲酸粗品", "操作X"], "verdict": false, "reason": "苯甲酸与 NaCl 均溶于水，萃取分液不能分离。"},
+
+    {"id": "GC-451-A", "match": ["大米", "麦芽糖"], "stemMatch": ["劳动项目"], "verdict": true, "reason": "大米主要成分为淀粉，淀粉在淀粉酶作用下水解生成麦芽糖，解释合理。"},
+    {"id": "GC-451-B", "match": ["次氯酸钠", "呈碱性"], "stemMatch": ["劳动项目"], "verdict": false, "reason": "次氯酸钠消毒是因其水解生成的 HClO 具有强氧化性，与溶液呈碱性无关，解释不合理。"},
+    {"id": "GC-451-C", "match": ["氮肥", "蛋白质"], "stemMatch": ["劳动项目"], "verdict": true, "reason": "氮是小麦合成蛋白质的必需元素，小麦不能固氮，需施氮肥补充，解释合理。"},
+    {"id": "GC-451-D", "match": ["肥皂", "亲水基"], "stemMatch": ["劳动项目"], "verdict": true, "reason": "肥皂主要成分为高级脂肪酸钠，含亲水基和疏水基，可乳化油污，解释合理。"},
+
+    {"id": "GC-452-A", "match": ["溶液褪色"], "stemMatch": ["五颜六色的变化"], "verdict": true, "reason": "乙烯能被酸性高锰酸钾氧化，使溶液紫红色褪去，描述正确。"},
+    {"id": "GC-452-B", "match": ["产生红色沉淀"], "stemMatch": ["五颜六色的变化"], "verdict": false, "reason": "KOH 溶液与 CuSO4 溶液反应生成蓝色 Cu(OH)2 沉淀，而非红色沉淀，描述错误。"},
+    {"id": "GC-452-C", "match": ["溶液呈紫色"], "stemMatch": ["五颜六色的变化"], "verdict": true, "reason": "苯酚与 FeCl3 溶液发生显色反应，溶液呈紫色，描述正确。"},
+    {"id": "GC-452-D", "match": ["试纸变为蓝色"], "stemMatch": ["五颜六色的变化"], "verdict": true, "reason": "浓氨水挥发出的 NH3 溶于水显碱性，能使湿润的红色石蕊试纸变为蓝色，描述正确。"},
+
+    {"id": "GC-453-A", "match": ["a、b", "NaOH"], "stemMatch": ["相转移催化剂"], "verdict": true, "reason": "物质 a 含酚羟基可与 NaOH 中和，物质 b 含 —Cl 可在 NaOH 溶液中水解，故 a、b 均可与 NaOH 溶液反应。"},
+    {"id": "GC-453-B", "match": ["增加KI", "苯中的溶解度"], "stemMatch": ["相转移催化剂"], "verdict": true, "reason": "冠醚 c 可识别 K+ 起相转移催化作用，能增加 KI 在苯等有机溶剂中的溶解度。"},
+    {"id": "GC-453-C", "match": ["静电相互作用"], "stemMatch": ["相转移催化剂"], "verdict": true, "reason": "冠醚中 O 原子电负性大、电子云密度高，K+ 带正电，二者之间存在静电相互作用。"},
+    {"id": "GC-453-D", "match": ["自组装特性"], "stemMatch": ["相转移催化剂"], "verdict": false, "reason": "物质 c 与 K+ 形成物质 d 利用的是超分子的分子识别特性，而非自组装特性。"},
+
+    {"id": "GC-454-A", "match": ["物质Ⅰ", "苯甲醇"], "stemMatch": ["KF不溶于乙腈"], "verdict": true, "reason": "物质Ⅰ为卤代烃，可在 NaOH 水溶液中发生水解反应生成苯甲醇。"},
+    {"id": "GC-454-B", "match": ["KF", "离子化合物"], "stemMatch": ["KF不溶于乙腈"], "verdict": true, "reason": "KF 是离子化合物、极性强，依据相似相溶，不溶于极性弱的有机溶剂。"},
+    {"id": "GC-454-C", "match": ["K+与C原子之间"], "stemMatch": ["KF不溶于乙腈"], "verdict": false, "reason": "物质Ⅱ为 K+ 与 18-冠-6 形成的超分子，冠醚与 K+ 结合主要靠 K+ 与 O 原子间的作用，而非与 C 原子之间。"},
+    {"id": "GC-454-D", "match": ["KMnO4", "溶解度"], "stemMatch": ["KF不溶于乙腈"], "verdict": true, "reason": "冠醚 18-冠-6 可识别 K+ 形成超分子，从而增大 KMnO4 在有机溶剂中的溶解度。"},
+
+    {"id": "GC-455-A", "match": ["手性碳原子"], "stemMatch": ["橙花和橙叶"], "verdict": true, "reason": "X 分子中连有四个不同原子或基团的碳原子有 2 个，故存在 2 个手性碳原子。"},
+    {"id": "GC-455-B", "match": ["官能团种类数大于2"], "stemMatch": ["橙花和橙叶"], "verdict": false, "reason": "X 中醇羟基邻位碳有 H，分子内脱水生成的产物只含碳碳双键一种官能团，官能团种类数不大于 2，故「大于 2」错误。"},
+    {"id": "GC-455-C", "match": ["顺反异构体"], "stemMatch": ["橙花和橙叶"], "verdict": true, "reason": "Y 分子中碳碳双键两端连有相同基团，不存在顺反异构体。"},
+    {"id": "GC-455-D", "match": ["羧酸和醇"], "stemMatch": ["橙花和橙叶"], "verdict": true, "reason": "Y 在酸性条件下水解生成羧酸和醇两类产物。"},
+
+    {"id": "GC-456-A", "match": ["电负性", "X>Y"], "stemMatch": ["价层电子排布是3d10"], "verdict": false, "reason": "X为H、Y为O，电负性O>H，故「X>Y」错误。"},
+    {"id": "GC-456-B", "match": ["两种单质", "非极性分子"], "stemMatch": ["价层电子排布是3d10"], "verdict": false, "reason": "Y为O，形成的单质O₂为非极性分子，但O₃为极性分子，并非两种均为非极性分子。"},
+    {"id": "GC-456-C", "match": ["强电解质"], "stemMatch": ["价层电子排布是3d10"], "verdict": false, "reason": "X、Y、Z为H、O、Cl，形成的HClO为弱电解质，故并非均为强电解质。"},
+    {"id": "GC-456-D", "match": ["铁管", "不易被腐蚀"], "stemMatch": ["价层电子排布是3d10"], "verdict": true, "reason": "M为Zn，比Fe活泼，铁管上镶嵌Zn形成原电池时Zn作负极被氧化而保护铁管，铁管不易被腐蚀。"},
+
+    {"id": "GC-457-A", "match": ["键角", "YX3+>YX3-"], "stemMatch": ["三个不同短周期", "核电荷数相差2"], "verdict": true, "reason": "YX₃⁺为CH₃⁺（sp²杂化，键角120°），YX₃⁻为CH₃⁻（sp³杂化，键角约109°28′），故键角YX₃⁺>YX₃⁻，说法正确。"},
+    {"id": "GC-457-B", "match": ["分子的极性", "Y2X2>X2Z2"], "stemMatch": ["三个不同短周期", "核电荷数相差2"], "verdict": false, "reason": "Y₂X₂为C₂H₂（直线形，非极性分子），X₂Z₂为H₂O₂（结构不对称，极性分子），极性应为Y₂X₂<X₂Z₂，故「Y₂X₂>X₂Z₂」错误。"},
+    {"id": "GC-457-C", "match": ["共价晶体熔点", "Y>M"], "stemMatch": ["三个不同短周期", "核电荷数相差2"], "verdict": true, "reason": "Y为C、M为Si，共价晶体金刚石的熔点高于晶体硅，故熔点Y>M，说法正确。"},
+    {"id": "GC-457-D", "match": ["热稳定性", "YX4>MX4"], "stemMatch": ["三个不同短周期", "核电荷数相差2"], "verdict": true, "reason": "非金属性C>Si，故气态氢化物热稳定性CH₄>SiH₄，即YX₄>MX₄，说法正确。"},
+
+    {"id": "GC-458-A", "match": ["X和Z", "同一主族"], "stemMatch": ["化学电源的电解质"], "verdict": true, "reason": "X为N、Z为P，二者均位于第ⅤA族，属于同一主族，说法正确。"},
+    {"id": "GC-458-B", "match": ["非金属性", "X>Y>Z"], "stemMatch": ["化学电源的电解质"], "verdict": false, "reason": "非金属性F>N>P，即Y>X>Z，故「X>Y>Z」错误。"},
+    {"id": "GC-458-C", "match": ["气态氢化物的稳定性", "Z>Y"], "stemMatch": ["化学电源的电解质"], "verdict": false, "reason": "非金属性F>P，故氢化物稳定性HF>PH₃，即Y>Z，故「Z>Y」错误。"},
+    {"id": "GC-458-D", "match": ["原子半径", "Y>X>W"], "stemMatch": ["化学电源的电解质"], "verdict": false, "reason": "同周期主族元素原子半径从左到右递减，Li>N>F，即W>X>Y，故「Y>X>W」错误。"},
+
+    {"id": "GC-459-A", "match": ["元素电负性", "E>Y>Z"], "stemMatch": ["XYZ4ME4"], "verdict": true, "reason": "E为O、Y为N、Z为H，电负性O>N>H，故E>Y>Z，说法正确。"},
+    {"id": "GC-459-B", "match": ["氢化物沸点", "M>Y>E"], "stemMatch": ["XYZ4ME4"], "verdict": false, "reason": "M为P、Y为N、E为O，氢化物PH₃、NH₃、H₂O均为分子晶体，H₂O分子间氢键最多、沸点最高，顺序应为E>Y>M，故「M>Y>E」错误。"},
+    {"id": "GC-459-C", "match": ["第一电离能", "X>E>Y"], "stemMatch": ["XYZ4ME4"], "verdict": false, "reason": "X为Mg、E为O、Y为N，第一电离能N>O（N的2p轨道半充满较稳定）>Mg，即Y>E>X，故「X>E>Y」错误。"},
+    {"id": "GC-459-D", "match": ["空间结构", "三角锥形"], "stemMatch": ["XYZ4ME4"], "verdict": false, "reason": "YZ₃为NH₃（三角锥形），但YE₃⁻为NO₃⁻（N为sp²杂化，平面三角形），并非均为三角锥形，说法错误。"},
+
+    {"id": "GC-460-A", "match": ["WYZ2", "强酸"], "stemMatch": ["W36X18Y2Z6M"], "verdict": false, "reason": "WYZ₂为HNO₂，属于弱酸，不是强酸，说法错误。"},
+    {"id": "GC-460-B", "match": ["MZW", "强碱"], "stemMatch": ["W36X18Y2Z6M"], "verdict": true, "reason": "M为K、Z为O、W为H，MZW为KOH，属于强碱，说法正确。"},
+    {"id": "GC-460-C", "match": ["M2Z2", "共价化合物"], "stemMatch": ["W36X18Y2Z6M"], "verdict": false, "reason": "M₂Z₂为K₂O₂，由K⁺和O₂²⁻构成，属于离子化合物，不是共价化合物，说法错误。"},
+    {"id": "GC-460-D", "match": ["X2W2", "离子化合物"], "stemMatch": ["W36X18Y2Z6M"], "verdict": false, "reason": "X₂W₂为C₂H₂（乙炔），属于共价化合物（分子晶体），不是离子化合物，说法错误。"},
+
+    {"id": "GC-461-A", "match": ["加入ZnSO4"], "stemMatch": ["不会影响", "大量共存"], "verdict": false, "reason": "ZnSO4电离出SO4²⁻，与溶液中Ba²⁺生成BaSO4沉淀，影响Ba²⁺的大量共存。"},
+    {"id": "GC-461-B", "match": ["加入Fe粉"], "stemMatch": ["不会影响", "大量共存"], "verdict": false, "reason": "Fe粉将Fe³⁺还原为Fe²⁺，且酸性条件下NO3⁻可氧化Fe，均影响离子大量共存。"},
+    {"id": "GC-461-C", "match": ["通入NH3"], "stemMatch": ["不会影响", "大量共存"], "verdict": false, "reason": "NH3溶于水生成NH3·H2O，与Al³⁺、Fe³⁺生成氢氧化物沉淀，影响离子大量共存。"},
+    {"id": "GC-461-D", "match": ["通入CO2"], "stemMatch": ["不会影响", "大量共存"], "verdict": true, "reason": "原溶液因Al³⁺、Fe³⁺水解呈酸性，酸性条件下通入CO2不与K⁺、Al³⁺、Fe³⁺、Ba²⁺、Cl⁻、NO3⁻反应，不影响其大量共存。"},
+
+    {"id": "GC-462-A", "match": ["先出现紫红色", "还原性:I⁻>Br⁻"], "stemMatch": ["操作及现象", "得出结论错误"], "verdict": true, "reason": "还原性I⁻>Br⁻，氯水先氧化I⁻生成I2使CCl4层呈紫红色，结论「还原性I⁻>Br⁻」正确。"},
+    {"id": "GC-462-B", "match": ["溶液变蓝", "氧化性:Cl₂>I₂"], "stemMatch": ["操作及现象", "得出结论错误"], "verdict": true, "reason": "Cl2将I⁻氧化为I2，淀粉遇I2变蓝，说明氧化性Cl2>I2，结论正确。"},
+    {"id": "GC-462-C", "match": ["紫红色褪去", "Fe²⁺有还原性"], "stemMatch": ["操作及现象", "得出结论错误"], "verdict": false, "reason": "FeCl2溶液中的Cl⁻在酸性条件下也能还原MnO4⁻使紫红色褪去，无法确定是Fe²⁺还原，结论「Fe²⁺有还原性」不能由该实验得出，错误。"},
+    {"id": "GC-462-D", "match": ["银镜", "甲酸具有还原性"], "stemMatch": ["操作及现象", "得出结论错误"], "verdict": true, "reason": "甲酸含醛基结构，能被银氨溶液氧化产生银镜，说明甲酸具有还原性，结论正确。"},
+
+    {"id": "GC-463-A", "match": ["机械粉碎", "铅和锡单质"], "stemMatch": ["废线路板", "滤液2"], "verdict": false, "reason": "「机械粉碎」是物理过程，只增大接触面积，不能将铅锡合金转变为铅和锡单质。"},
+    {"id": "GC-463-B", "match": ["酸溶", "Fe3+和Zn2+"], "stemMatch": ["废线路板", "滤液2"], "verdict": false, "reason": "酸溶使用非氧化性酸（盐酸），铁只能被氧化为Fe²⁺，不能生成Fe³⁺。"},
+    {"id": "GC-463-C", "match": ["碱溶", "Sn+2OH"], "stemMatch": ["废线路板", "滤液2"], "verdict": true, "reason": "「碱溶」时Sn在碱性条件下被O2氧化，反应Sn+2OH⁻+O2=SnO3²⁻+H2O配平正确（Sn：0→+4失4e⁻，O2：0→-2得4e⁻），说法正确。"},
+    {"id": "GC-463-D", "match": ["电解精炼", "粗铜在阴极"], "stemMatch": ["废线路板", "滤液2"], "verdict": false, "reason": "电解精炼铜时粗铜作阳极发生氧化反应，纯铜在阴极析出，故「粗铜在阴极发生还原反应」错误。"},
+
+    {"id": "GC-464-A", "match": ["H3XO3", "NaOH溶液"], "stemMatch": ["中子轰击", "α粒子"], "verdict": true, "reason": "由核反应守恒推得X为B、Y为Li；H3BO3（硼酸）是弱酸，可用于中和溅在皮肤上的NaOH溶液，说法正确。"},
+    {"id": "GC-464-B", "match": ["Y单质", "Y2O2"], "stemMatch": ["中子轰击", "α粒子"], "verdict": false, "reason": "Y为Li，Li在空气中燃烧生成Li2O而非Li2O2，说法错误。"},
+    {"id": "GC-464-C", "match": ["X和氢元素", "离子化合物"], "stemMatch": ["中子轰击", "α粒子"], "verdict": false, "reason": "X为B，硼的氢化物（如B2H6）为共价化合物，不是离子化合物，说法错误。"},
+    {"id": "GC-464-D", "match": ["⁶Y和⁷Y", "同素异形体"], "stemMatch": ["中子轰击", "α粒子"], "verdict": false, "reason": "⁶Li和⁷Li互为同位素（同种元素的不同核素），不是同素异形体，说法错误。"},
+
+    {"id": "GC-465-A", "match": ["加入Al能放出H2", "S₂O₃²⁻"], "stemMatch": ["给定条件的溶液", "大量共存"], "verdict": false, "reason": "加入Al放出H2的溶液可能呈酸性或碱性；酸性时S₂O₃²⁻分解，碱性时NH₄⁺不能存在，故不一定能大量共存。"},
+    {"id": "GC-465-B", "match": ["NaHCO₃溶液", "Fe³⁺"], "stemMatch": ["给定条件的溶液", "大量共存"], "verdict": false, "reason": "Fe³⁺与HCO₃⁻发生双水解反应，不能在NaHCO3溶液中大量共存。"},
+    {"id": "GC-465-C", "match": ["电解CuSO₄", "Fe²⁺"], "stemMatch": ["给定条件的溶液", "大量共存"], "verdict": false, "reason": "惰性电极电解CuSO4后溶液含Cu²⁺和H⁺呈酸性，NO₃⁻在酸性条件下氧化Fe²⁺，不能共存。"},
+    {"id": "GC-465-D", "match": ["Kw/c(H⁺)", "[Al(OH)₄]⁻"], "stemMatch": ["给定条件的溶液", "大量共存"], "verdict": true, "reason": "Kw/c(H⁺)=1×10⁻³ mol/L即c(OH⁻)=10⁻³ mol/L，溶液呈碱性；K⁺、Na⁺、CO₃²⁻、[Al(OH)₄]⁻在碱性条件下可大量共存，说法正确。"},
+
+    {"id": "GC-466-A", "match": ["相同条件下", "N2 比 O2 稳定"], "stemMatch": ["下列说法错误的是"], "verdict": true, "reason": "N≡N键能远大于O=O键能，故相同条件下N2比O2稳定，说法正确。"},
+    {"id": "GC-466-B", "match": ["N2O 与 NO2+", "空间结构相同"], "stemMatch": ["下列说法错误的是"], "verdict": true, "reason": "N2O和NO2⁺均与CO2等电子，空间结构均为直线形，二者空间结构相同，说法正确。"},
+    {"id": "GC-466-C", "match": ["N—O 比 N—N 更易断裂"], "stemMatch": ["下列说法错误的是"], "verdict": false, "reason": "N2O中N—N键能小于N—O键能，N—N更易断裂，故「N—O比N—N更易断裂」错误。"},
+    {"id": "GC-466-D", "match": ["σ 键和大 π 键", "不相等"], "stemMatch": ["下列说法错误的是"], "verdict": true, "reason": "N2O为直线形分子，含2个σ键和1个三中心四电子大π键（Π₃⁴），σ键与大π键数目不相等，说法正确。"},
+
+    {"id": "GC-467-A", "match": ["化合价为+1价"], "stemMatch": ["XePtF6", "第一个稀有气体化合物"], "verdict": true, "reason": "XePtF6 中 Pt 为 +5 价、F 为 -1 价，由化合物电中性得 Xe 为 +1 价，说法正确。"},
+    {"id": "GC-467-B", "match": ["强氧化性"], "stemMatch": ["XePtF6", "第一个稀有气体化合物"], "verdict": true, "reason": "XePtF6 能将 H2O 中 -2 价的 O 氧化为 O2，说明其具有强氧化性，说法正确。"},
+    {"id": "GC-467-C", "match": ["每生成1 mol O2"], "stemMatch": ["XePtF6", "第一个稀有气体化合物"], "verdict": true, "reason": "生成 1 mol O2 时，2 mol O 由 -2 价升至 0 价，共转移 4 mol 电子，说法正确。"},
+    {"id": "GC-467-D", "match": ["HF是还原产物"], "stemMatch": ["XePtF6", "第一个稀有气体化合物"], "verdict": false, "reason": "反应中 H、F 元素化合价均未变化，HF 既不是氧化产物也不是还原产物（还原产物为 Xe、PtO2），说法错误。"},
+
+    {"id": "GC-468-A", "match": ["泡沫灭火器反应原理"], "stemMatch": ["晋陕宁青", "反应方程式正确"], "verdict": false, "reason": "泡沫灭火器的反应原理是 NaHCO3 与 Al2(SO4)3 双水解，原题写成 Na2CO3 且方程式不配平，错误。"},
+    {"id": "GC-468-B", "match": ["金属钠除去甲苯"], "stemMatch": ["晋陕宁青", "反应方程式正确"], "verdict": true, "reason": "金属钠与甲苯不反应，但可与微量水反应 2Na+2H2O=2NaOH+H2↑ 而除水，方程式正确。"},
+    {"id": "GC-468-C", "match": ["吸收尾气中的 NO2"], "stemMatch": ["晋陕宁青", "反应方程式正确"], "verdict": false, "reason": "NO2 与 NaOH 反应的正确离子方程式为 2NO2+2OH-=NO3-+NO2-+H2O，题给方程式电荷不守恒且产物错误。"},
+    {"id": "GC-468-D", "match": ["石灰乳中制漂白粉"], "stemMatch": ["晋陕宁青", "反应方程式正确"], "verdict": false, "reason": "石灰乳是 Ca(OH)2 悬浊液，应写化学式 Ca(OH)2 而非 OH-，且制漂白粉的反应为 2Cl2+2Ca(OH)2=CaCl2+Ca(ClO)2+2H2O，题给写法错误。"},
+
+    {"id": "GC-469-A", "match": ["推电子基团"], "stemMatch": ["物质性质的解释错误"], "verdict": true, "reason": "-CH3 是推电子基团，使羧基极性减弱、酸性降低，故乙酸酸性弱于甲酸，解释正确。"},
+    {"id": "GC-469-B", "match": ["C2H5NH3NO3"], "stemMatch": ["物质性质的解释错误"], "verdict": true, "reason": "C2H5NH3+ 体积大于 NH4+，离子键更弱，故 C2H5NH3NO3 熔点低于 NH4NO3，解释正确。"},
+    {"id": "GC-469-C", "match": ["Fe比Na的金属性弱"], "stemMatch": ["物质性质的解释错误"], "verdict": false, "reason": "Fe 熔点高于 Na 是因为 Fe 的金属键更强（价电子数多、原子半径小），与金属性强弱无因果关系，解释错误。"},
+    {"id": "GC-469-D", "match": ["H2O分子间存在氢键"], "stemMatch": ["物质性质的解释错误"], "verdict": true, "reason": "H2O 分子间存在氢键而 H2S 无分子间氢键，故 H2O 沸点高于 H2S，解释正确。"},
+
+    {"id": "GC-470-A", "match": ["[Cu(NH3)4]2+"], "stemMatch": ["[CuCl4]2-", "[Cu(H2O)4]2+"], "verdict": true, "reason": "氨水与 Cu2+ 生成深蓝色的 [Cu(NH3)4]2+，故 M 中阳离子为 [Cu(NH3)4]2+、溶液显深蓝色，说法正确。"},
+    {"id": "GC-470-B", "match": ["配位数为4"], "stemMatch": ["[CuCl4]2-", "[Cu(H2O)4]2+"], "verdict": true, "reason": "[CuCl4]2- 中 Cu2+ 与 4 个 Cl- 配位，配位数为 4，说法正确。"},
+    {"id": "GC-470-C", "match": ["配位键的键能比M中"], "stemMatch": ["[CuCl4]2-", "[Cu(H2O)4]2+"], "verdict": false, "reason": "NH3 中 N 电负性小于 O、给出孤电子对能力更强，与 Cu2+ 形成的配位键强于 H2O，故 M（[Cu(NH3)4]2+）中配位键键能更大，题说反，错误。"},
+    {"id": "GC-470-D", "match": ["滴加乙醇溶液"], "stemMatch": ["[CuCl4]2-", "[Cu(H2O)4]2+"], "verdict": true, "reason": "乙醇极性小于水，加入后降低 [Cu(NH3)4]SO4 的溶解度，析出深蓝色晶体，说法正确。"},
+
+    {"id": "GC-471-A", "match": ["石英玻璃粉末"], "stemMatch": ["浙江期中", "说法不正确的是"], "verdict": false, "reason": "石英玻璃为非晶态（玻璃态）物质，X 射线衍射只产生弥散的衍射环，不会出现分立斑点或明锐衍射峰，说法错误。"},
+    {"id": "GC-471-B", "match": ["分离CH2Cl2"], "stemMatch": ["浙江期中", "说法不正确的是"], "verdict": true, "reason": "CH2Cl2、CHCl3、CCl4 互溶且沸点不同，可用蒸馏法分离，说法正确。"},
+    {"id": "GC-471-C", "match": ["双分子膜具有自组装性"], "stemMatch": ["浙江期中", "说法不正确的是"], "verdict": true, "reason": "磷脂等两亲分子通过非共价作用自发形成有序的双分子膜，体现分子自组装特性，说法正确。"},
+    {"id": "GC-471-D", "match": ["分离C60和C70"], "stemMatch": ["浙江期中", "说法不正确的是"], "verdict": true, "reason": "利用超分子的分子识别特性可选择性结合 C60 或 C70，实现二者分离，说法正确。"},
+
+    {"id": "GC-472-A", "match": ["均能发生水解反应"], "stemMatch": ["天津南开一模", "说法错误的是"], "verdict": false, "reason": "蛋白质、核酸可水解，但糖类中的单糖不能水解，故并非「糖类、蛋白质和核酸均能水解」，说法错误。"},
+    {"id": "GC-472-B", "match": ["磷酸、戊糖和碱基"], "stemMatch": ["天津南开一模", "说法错误的是"], "verdict": true, "reason": "核酸水解得到磷酸、戊糖和碱基，可看作三者通过一定方式结合而成的生物大分子，说法正确。"},
+    {"id": "GC-472-C", "match": ["淀粉和纤维素的基本结构单元相同"], "stemMatch": ["天津南开一模", "说法错误的是"], "verdict": true, "reason": "淀粉和纤维素的基本结构单元均为葡萄糖单元，二者结构单元相同但聚合度（单元数目）不同，说法正确。"},
+    {"id": "GC-472-D", "match": ["高吸水性树脂"], "stemMatch": ["天津南开一模", "说法错误的是"], "verdict": true, "reason": "带强亲水基的丙烯酸钠在一定条件下加交联剂聚合，可得到网状高吸水性树脂，说法正确。"},
+
+    {"id": "GC-473-A", "match": ["焦炭、一氧化碳、氢气"], "stemMatch": ["可持续发展", "化学与人类社会"], "verdict": true, "reason": "部分中等活泼金属（如 Zn、Fe 等）可在高温下用焦炭、CO、H2 等还原剂还原其矿物得到，说法正确。"},
+    {"id": "GC-473-B", "match": ["煤的气化是通过物理变化"], "stemMatch": ["可持续发展", "化学与人类社会"], "verdict": false, "reason": "煤的气化是 C+H2O(g)→CO+H2 等反应，有新物质生成，属于化学变化而非物理变化，说法错误。"},
+    {"id": "GC-473-C", "match": ["加入抗氧化剂维生素C"], "stemMatch": ["可持续发展", "化学与人类社会"], "verdict": true, "reason": "维生素 C（抗坏血酸）具有还原性，作抗氧化剂可延缓氧化变质、延长水果罐头保质期，说法正确。"},
+    {"id": "GC-473-D", "match": ["聚合氯化铝"], "stemMatch": ["可持续发展", "化学与人类社会"], "verdict": true, "reason": "聚合氯化铝溶于水水解生成 Al(OH)3 胶体，可吸附细小悬浮物聚集成大颗粒而混凝，说法正确。"},
+
+    {"id": "GC-474-A", "match": ["澄清石灰水", "漂白粉"], "stemMatch": ["江苏无锡期中", "物质间转化能实现的是"], "verdict": false, "reason": "工业制漂白粉须将 Cl2 通入冷的石灰乳（Ca(OH)2 悬浊液），澄清石灰水是 Ca(OH)2 稀溶液、浓度太低，不能用于工业制漂白粉，该转化不能实现。"},
+    {"id": "GC-474-B", "match": ["蒸干", "无水 MgCl2"], "stemMatch": ["江苏无锡期中", "物质间转化能实现的是"], "verdict": false, "reason": "MgCl2 溶液蒸干时 Mg2+ 水解且 HCl 挥发，最终得到 Mg(OH)2 或 MgO，得不到无水 MgCl2（应在 HCl 气流中加热），转化不能实现。"},
+    {"id": "GC-474-C", "match": ["点燃", "SO3"], "stemMatch": ["江苏无锡期中", "物质间转化能实现的是"], "verdict": false, "reason": "S 在过量 O2 中点燃只能生成 SO2，SO2 需在催化剂、加热条件下才能氧化为 SO3，不能一步到 SO3，转化不能实现。"},
+    {"id": "GC-474-D", "match": ["工业制取纯碱"], "stemMatch": ["江苏无锡期中", "物质间转化能实现的是"], "verdict": true, "reason": "侯氏制碱法：饱和食盐水中先通 NH3 再通 CO2，析出 NaHCO3，NaHCO3 受热分解为 Na2CO3，转化能实现。"},
+
+    {"id": "GC-475-A", "match": ["少量 NaHCO3"], "stemMatch": ["贵阳二模", "书写正确的是"], "verdict": true, "reason": "少量 NaHCO3（1 mol HCO3-）与 Ba(OH)2 反应：1 mol HCO3- 消耗 1 mol OH- 和 1 mol Ba2+，离子方程式为 Ba2+ + OH- + HCO3- = BaCO3↓ + H2O，正确。"},
+    {"id": "GC-475-B", "match": ["NaH 作野外生氢剂"], "stemMatch": ["贵阳二模", "书写正确的是"], "verdict": false, "reason": "NaH 与水反应为 NaH + H2O = NaOH + H2↑（H- 与 H+ 归中），产物是 NaOH 而非 Na2O（Na2O 在水中不能稳定存在），方程式错误。"},
+    {"id": "GC-475-C", "match": ["氢碘酸溶解"], "stemMatch": ["贵阳二模", "书写正确的是"], "verdict": false, "reason": "HI 是强酸且 I- 具强还原性，会将 Fe(OH)3 溶解产生的 Fe3+ 还原为 Fe2+，自身被氧化为 I2，并非简单的酸碱中和，方程式错误。"},
+    {"id": "GC-475-D", "match": ["牺牲阳极法保护"], "stemMatch": ["贵阳二模", "书写正确的是"], "verdict": false, "reason": "牺牲阳极法保护钢闸门时，正极（被保护的铁）上发生吸氧腐蚀：O2 + 2H2O + 4e- = 4OH-，题给电极反应（2H2O + 4e- = O2↑ + 4OH-）方向错误，错误。"},
+
+    {"id": "GC-476-A", "match": ["高温煅烧硫铁矿"], "stemMatch": ["河南模拟预测", "书写正确的是"], "verdict": false, "reason": "硫铁矿（FeS2）高温煅烧生成 SO2 而非 SO3：4FeS2 + 11O2 = 2Fe2O3 + 8SO2，SO2 到 SO3 需催化氧化，题给产物错误。"},
+    {"id": "GC-476-B", "match": ["泡沫灭火器工作原理"], "stemMatch": ["河南模拟预测", "书写正确的是"], "verdict": true, "reason": "泡沫灭火器中 Al3+ 与 HCO3- 双水解：Al3+ + 3HCO3- = Al(OH)3↓ + 3CO2↑，方程式正确。"},
+    {"id": "GC-476-C", "match": ["蚀刻铜电路板"], "stemMatch": ["河南模拟预测", "书写正确的是"], "verdict": false, "reason": "Cu 还原性弱于 Fe，不能把 Fe3+ 还原为 Fe 单质，正确反应为 2FeCl3 + Cu = 2FeCl2 + CuCl2，题给方程式错误。"},
+    {"id": "GC-476-D", "match": ["过量氨水吸收 SO2"], "stemMatch": ["河南模拟预测", "书写正确的是"], "verdict": false, "reason": "过量氨水吸收 SO2 生成正盐 (NH4)2SO3（碱性环境），NH4HSO3 是 SO2 过量或氨水不足时的产物，题给方程式错误。"},
+
+    {"id": "GC-477-A", "match": ["CuCl2 浓溶液稀释"], "stemMatch": ["四川卷", "解释实验现象的离子方程式错误的是"], "verdict": true, "reason": "CuCl2 浓溶液呈绿色因含 [CuCl4]2-，稀释时 H2O 替换 Cl- 生成 [Cu(H2O)4]2+ 呈蓝色，离子方程式 [CuCl4]2- + 4H2O ⇌ [Cu(H2O)4]2+ + 4Cl- 正确。"},
+    {"id": "GC-477-B", "match": ["ZnCl2 溶液中通入 H2S"], "stemMatch": ["四川卷", "解释实验现象的离子方程式错误的是"], "verdict": true, "reason": "ZnCl2 溶液中通入 H2S 生成 ZnS 白色沉淀，ZnS 为难溶物写化学式、H2S 为弱酸写化学式，离子方程式 Zn2+ + H2S = ZnS↓ + 2H+ 正确。"},
+    {"id": "GC-477-C", "match": ["H2SO3 溶液中滴加 Na2S"], "stemMatch": ["四川卷", "解释实验现象的离子方程式错误的是"], "verdict": false, "reason": "H2SO3 是弱酸不可拆（题中写成 SO3^2- 错误），且系数不对；酸性条件下 H2SO3 与 S2- 归中的正确离子方程式为 H2SO3 + 2S2- + 4H+ = 3S↓ + 3H2O，题给方程式错误。"},
+    {"id": "GC-477-D", "match": ["K2CrO4 溶液中滴加 H2SO4"], "stemMatch": ["四川卷", "解释实验现象的离子方程式错误的是"], "verdict": true, "reason": "CrO4^2-（黄色）在酸性下转化为 Cr2O7^2-（橙色）：2CrO4^2- + 2H+ ⇌ Cr2O7^2- + H2O，离子方程式正确。"},
+
+    {"id": "GC-478-A", "match": ["氢氟酸刻蚀玻璃"], "stemMatch": ["全国甲卷", "离子方程式正确的是"], "verdict": false, "reason": "HF 是弱酸不能拆，且玻璃主要成分是 SiO2（题中错写为 SiO3^2-）；正确反应为 4HF + SiO2 = SiF4↑ + 2H2O，题给离子方程式错误。"},
+    {"id": "GC-478-B", "match": ["刻制覆铜电路板"], "stemMatch": ["全国甲卷", "离子方程式正确的是"], "verdict": false, "reason": "Cu 不能把 Fe3+ 还原为 Fe 单质，正确离子方程式为 2Fe3+ + Cu = 2Fe2+ + Cu2+，题给方程式错误。"},
+    {"id": "GC-478-C", "match": ["硫代硫酸钠溶液脱氯"], "stemMatch": ["全国甲卷", "离子方程式正确的是"], "verdict": false, "reason": "Cl2 将 S2O3^2- 中 S 氧化到 +6 价（生成 SO4^2- 而非 SO3^2-），正确离子方程式为 S2O3^2- + 4Cl2 + 5H2O = 2SO4^2- + 8Cl- + 10H+，题给方程式错误。"},
+    {"id": "GC-478-D", "match": ["浸泡锅炉水垢中的硫酸钙"], "stemMatch": ["全国甲卷", "离子方程式正确的是"], "verdict": true, "reason": "CaCO3 溶解度小于 CaSO4，可发生沉淀转化：CaSO4 + CO3^2- = SO4^2- + CaCO3，离子方程式正确。"},
+
+    {"id": "GC-479-A", "match": ["表现还原性"], "stemMatch": ["氢化亚铜", "CuH"], "verdict": true, "reason": "制取 CuH 时 CuSO4 中 Cu 由 +2 降为 +1 被还原，故「另一种反应物」被氧化、作还原剂，表现还原性，说法正确。"},
+    {"id": "GC-479-B", "match": ["2CuH+3Cl2"], "stemMatch": ["氢化亚铜", "CuH"], "verdict": true, "reason": "CuH 中 Cu(+1) 和 H(-1) 均被 Cl2 氧化，每个 CuH 失 3e-，每个 Cl2 得 2e-，配平得 2CuH + 3Cl2 = 2CuCl2 + 2HCl，方程式正确。"},
+    {"id": "GC-479-C", "match": ["氧化产物为CuCl2和HCl"], "stemMatch": ["氢化亚铜", "CuH"], "verdict": true, "reason": "CuH 与 Cl2 反应时 Cu 升为 +2（CuCl2）、H 升为 +1（HCl），二者均为氧化产物，说法正确。"},
+    {"id": "GC-479-D", "match": ["CuH+H+==Cu++H2↑"], "stemMatch": ["氢化亚铜", "CuH"], "verdict": false, "reason": "CuCl 是难溶物应写化学式，正确离子方程式为 CuH + H+ + Cl- = CuCl↓ + H2↑；题中写成可溶 Cu+ 且漏写 Cl-，错误。"},
+
+    {"id": "GC-480-A", "match": ["煤制水煤气"], "stemMatch": ["云南卷", "化学方程式错误的是"], "verdict": true, "reason": "高温下 C 还原水蒸气生成水煤气：C + H2O(g) = CO + H2，方程式正确。"},
+    {"id": "GC-480-B", "match": ["Na2O2供氧"], "stemMatch": ["云南卷", "化学方程式错误的是"], "verdict": true, "reason": "Na2O2 与 CO2 反应生成 Na2CO3 和 O2：2Na2O2 + 2CO2 = 2Na2CO3 + O2，方程式正确。"},
+    {"id": "GC-480-C", "match": ["覆铜板制作印刷电路板"], "stemMatch": ["云南卷", "化学方程式错误的是"], "verdict": false, "reason": "Cu 不能置换出 Fe，正确反应为 2FeCl3 + Cu = 2FeCl2 + CuCl2，题给方程式生成 Fe 单质，错误。"},
+    {"id": "GC-480-D", "match": ["铅酸蓄电池放电"], "stemMatch": ["云南卷", "化学方程式错误的是"], "verdict": true, "reason": "铅酸蓄电池放电总反应：Pb + PbO2 + 2H2SO4 = 2PbSO4 + 2H2O，方程式正确。"},
+
+    {"id": "GC-481-A", "match": ["离子种类完全相同"], "stemMatch": ["探究同浓度的Na2CO3", "碳酸铝在水溶液中不能稳定存在"], "verdict": true, "reason": "Na2CO3 溶液（CO3^2- 水解）与 NaHCO3 溶液（HCO3- 电离与水解）中均含 Na+、HCO3-、CO3^2-、H+、OH-，离子种类相同，说法正确。"},
+    {"id": "GC-481-B", "match": ["氢氧化铝和碱式碳酸铝"], "stemMatch": ["探究同浓度的Na2CO3", "碳酸铝在水溶液中不能稳定存在"], "verdict": true, "reason": "铝盐与碳酸盐发生双水解，沉淀可能是 Al(OH)3 和碱式碳酸铝中的一种或二者的混合物，说法正确。"},
+    {"id": "GC-481-C", "match": ["pH前者大于后者，是由于溶解度前者大于后者"], "stemMatch": ["探究同浓度的Na2CO3", "碳酸铝在水溶液中不能稳定存在"], "verdict": false, "reason": "Na2CO3 溶液 pH 大于 NaHCO3 是因为 CO3^2- 的水解程度（Kh1）远大于 HCO3- 的水解程度（Kh2），与二者溶解度大小无因果关系，归因错误。"},
+    {"id": "GC-481-D", "match": ["pH均降低"], "stemMatch": ["探究同浓度的Na2CO3", "碳酸铝在水溶液中不能稳定存在"], "verdict": true, "reason": "CaCl2 滴入 Na2CO3 溶液生成 CaCO3 消耗 CO3^2-，滴入 NaHCO3 溶液发生 Ca2+ + 2HCO3- = CaCO3↓ + CO2 + H2O，两溶液 pH 均降低，说法正确。"},
+
+    {"id": "GC-482-A", "match": ["都属于二次电池"], "stemMatch": ["铅酸蓄电池", "氢氧燃料电池"], "verdict": false, "reason": "铅酸蓄电池可充电、属二次电池；氢氧燃料电池需持续补充燃料、不能充电，不属于二次电池，说法错误。"},
+    {"id": "GC-482-B", "match": ["负极消耗 22.4 L 气体"], "stemMatch": ["铅酸蓄电池", "氢氧燃料电池"], "verdict": false, "reason": "未指明标准状况，不能直接用 22.4 L/mol 计算气体物质的量，说法错误。"},
+    {"id": "GC-482-C", "match": ["H+ 向 PbO2 电极移动"], "stemMatch": ["铅酸蓄电池", "氢氧燃料电池"], "verdict": true, "reason": "铅酸蓄电池工作时 PbO2 为正极，电解液中阳离子 H+ 向正极（PbO2 电极）移动，说法正确。"},
+    {"id": "GC-482-D", "match": ["稀硫酸可用稀盐酸代替"], "stemMatch": ["铅酸蓄电池", "氢氧燃料电池"], "verdict": false, "reason": "盐酸不能代替硫酸，因为 PbO2 会氧化 Cl- 生成 Cl2，损坏电池并产生有毒气体，说法错误。"},
+
+    {"id": "GC-483-A", "match": ["碳的非金属性比硅的强"], "stemMatch": ["从沙滩到用户", "SiHCl3"], "verdict": false, "reason": "反应 SiO2 + 2C = Si + 2CO↑ 是高温下 C 还原 SiO2，体现 C 的还原性，不能据此证明 C 的非金属性强于 Si（比较非金属性应看最高价氧化物对应水化物酸性等），结论错误。"},
+    {"id": "GC-483-B", "match": ["只有 H2 可以循环利用"], "stemMatch": ["从沙滩到用户", "SiHCl3"], "verdict": false, "reason": "整个硅提纯流程中 HCl 也可以循环利用（并非只有 H2），说法错误。"},
+    {"id": "GC-483-C", "match": ["SiHCl3 只作氧化剂"], "stemMatch": ["从沙滩到用户", "SiHCl3"], "verdict": false, "reason": "SiHCl3 中 Si(+4) 被还原为 Si(0)，但其中 H(-1) 被氧化为 H(+1)，故 SiHCl3 既作氧化剂又作还原剂，并非只作氧化剂，说法错误。"},
+    {"id": "GC-483-D", "match": ["SiHCl3 与氢氧化钠溶液反应"], "stemMatch": ["从沙滩到用户", "SiHCl3"], "verdict": true, "reason": "由 SiHCl3 + 3H2O = H2SiO3 + 3HCl + H2↑，再与 NaOH 中和（H2SiO3 + 2OH- = SiO3^2- + 2H2O，3HCl + 3OH- = 3Cl- + 3H2O），合并得 SiHCl3 + 5OH- = SiO3^2- + 3Cl- + H2↑ + 2H2O，离子方程式正确。"},
+
+    {"id": "GC-484-A", "match": ["空间结构呈V形"], "stemMatch": ["二氟化氧", "OF2"], "verdict": true, "reason": "OF2 中 O 为 +2、F 为 -1，中心 O 与 2 个 F 成键，价层电子对数 = 2 + (6 − 2×1)/2 = 4，sp3 杂化且含 2 个孤电子对，分子空间结构为 V 形，说法正确。"},
+    {"id": "GC-484-B", "match": ["转移4 mol电子"], "stemMatch": ["二氟化氧", "OF2"], "verdict": true, "reason": "反应①中 O 由 -2（NaOH 中）升至 +2（OF2 中），每生成 1 mol OF2 转移 4 mol 电子，说法正确。"},
+    {"id": "GC-484-C", "match": ["既是氧化产物又是还原产物"], "stemMatch": ["二氟化氧", "OF2"], "verdict": false, "reason": "反应②中 S 由 0 升至 +4，SO2、SF4 中的 S 均为氧化产物；OF2 中 O 由 +2 降至 -2，还原产物存在于 SO2 中，SF4 中 F 仍为 -1 未参与氧化还原，故 SF4 只是氧化产物、不是还原产物，说法错误。"},
+    {"id": "GC-484-D", "match": ["F2 > OF2 > S"], "stemMatch": ["二氟化氧", "OF2"], "verdict": true, "reason": "反应①中 F2 作氧化剂、OF2 为氧化产物，故氧化性 F2 > OF2；反应②中 OF2 作氧化剂氧化 S，故 OF2 > S；综上氧化性 F2 > OF2 > S，说法正确。"},
+
+    {"id": "GC-485-A", "match": ["pH>1"], "stemMatch": ["继续滴加 a mL 0.1 mol/L 稀盐酸"], "verdict": true, "reason": "醋酸是弱酸，0.1 mol/L 醋酸溶液中 c(H+) < 0.1 mol/L，故 pH > 1，说法正确。"},
+    {"id": "GC-485-B", "match": ["c(Na⁺)>c(CH3COO⁻)>c(OH⁻)>c(H⁺)"], "stemMatch": ["继续滴加 a mL 0.1 mol/L 稀盐酸"], "verdict": true, "reason": "①中 CH3COOH 与 NaOH 恰好中和生成 CH3COONa，CH3COO− 水解消耗自身并生成 OH−，溶液显碱性，故 c(Na+) > c(CH3COO−) > c(OH−) > c(H+)，说法正确。"},
+    {"id": "GC-485-C", "match": ["a=20"], "stemMatch": ["继续滴加 a mL 0.1 mol/L 稀盐酸"], "verdict": false, "reason": "若 a=20，加入的 HCl 与 CH3COONa 等物质的量反应生成等物质的量的 NaCl 和 CH3COOH，溶液因 CH3COOH 电离显酸性（pH < 7）；要使 pH=7 需少加盐酸即 a < 20，说法错误。"},
+    {"id": "GC-485-D", "match": ["c(Na⁺)=c(CH3COO⁻)+c(Cl⁻)"], "stemMatch": ["继续滴加 a mL 0.1 mol/L 稀盐酸"], "verdict": true, "reason": "②中 pH=7 时 c(H+) = c(OH−)，代入电荷守恒式 c(Na+) + c(H+) = c(CH3COO−) + c(Cl−) + c(OH−)，得 c(Na+) = c(CH3COO−) + c(Cl−)，说法正确。"},
+
+    {"id": "GC-486-A", "match": ["c(OH^-)>c(H^+)+c(NH4^+)"], "stemMatch": ["制备FeCO3"], "verdict": false, "reason": "氨水中的电荷守恒为 c(OH−) = c(H+) + c(NH4+)，故 c(OH−) 不可能大于 c(H+) + c(NH4+)，说法错误。"},
+    {"id": "GC-486-B", "match": ["c(H2CO3)>c(CO3^2-)"], "stemMatch": ["制备FeCO3"], "verdict": true, "reason": "NH4HCO3 溶液 pH=7.8 > 7，说明 HCO3− 的水解程度（生成 H2CO3）大于其电离程度（生成 CO3^2-），故 c(H2CO3) > c(CO3^2-)，说法正确。"},
+    {"id": "GC-486-C", "match": ["c(HCO3^-)+c(H2CO3)+c(CO3^2-)=2c(NH4^+)+2c(NH3·H2O)"], "stemMatch": ["制备FeCO3"], "verdict": false, "reason": "等体积混合后 N 元素总量为 C 元素的 2 倍，正确的元素守恒为 2[c(HCO3−) + c(H2CO3) + c(CO3^2-)] = c(NH4+) + c(NH3·H2O)；题给等式系数正好写反，说法错误。"},
+    {"id": "GC-486-D", "match": ["c(CO3^2-)<Ksp(FeCO3)"], "stemMatch": ["制备FeCO3"], "verdict": false, "reason": "制得 FeCO3 沉淀后的上层清液是 FeCO3 的饱和溶液，此时 c(Fe2+)·c(CO3^2-) = Ksp(FeCO3)，并非小于 Ksp，说法错误。"},
+
+    {"id": "GC-487-A", "match": ["Sb 元素的化合价为+5"], "stemMatch": ["硝酸钠法", "NaSbO3"], "verdict": true, "reason": "NaSbO3 中 Na 为 +1、O 为 -2，设 Sb 为 x，则 +1 + x + 3×(-2) = 0，得 x = +5，说法正确。"},
+    {"id": "GC-487-B", "match": ["NO3- 的空间结构为平面三角形"], "stemMatch": ["硝酸钠法", "NaSbO3"], "verdict": true, "reason": "NO3- 中 N 与 3 个 O 形成 3 个 σ 键，价层电子对数 = 3 + (5+1−3×2)/2 = 3，无孤电子对，sp2 杂化，空间结构为平面三角形，说法正确。"},
+    {"id": "GC-487-C", "match": ["氧化剂和还原剂的物质的量之比为 4 : 7"], "stemMatch": ["硝酸钠法", "NaSbO3"], "verdict": false, "reason": "反应中 NaNO3（N 被还原）和 O2（O 被还原）共 7 mol 作氧化剂，Sb 被氧化作还原剂共 4 mol，故氧化剂与还原剂物质的量之比应为 7 : 4，题给 4 : 7 正好颠倒，说法错误。"},
+    {"id": "GC-487-D", "match": ["消耗 3 mol O2,转移 20 mol 电子"], "stemMatch": ["硝酸钠法", "NaSbO3"], "verdict": true, "reason": "反应中 4 mol Sb 由 0 升至 +5，共失去 20 mol 电子；消耗 3 mol O2（方程式计量数）时转移电子即为 20 mol，说法正确。"},
+
+    {"id": "GC-488-A", "match": ["Cu2O"], "stemMatch": ["微粒邂逅"], "verdict": false, "reason": "乙醇还原 CuO 生成 Cu（紫红色），正确反应为 CuO + C2H5OH = CH3CHO + Cu + H2O；题给解释生成 Cu2O（砖红色），与现象及反应事实均不符，解释错误。"},
+    {"id": "GC-488-B", "match": ["2Fe(OH)3"], "stemMatch": ["微粒邂逅"], "verdict": true, "reason": "3Mg(OH)2 + 2Fe3+ = 2Fe(OH)3 + 3Mg2+，沉淀由白色 Mg(OH)2 转化为红褐色 Fe(OH)3，解释正确。"},
+    {"id": "GC-488-C", "match": ["KFe[Fe(CN)6]"], "stemMatch": ["微粒邂逅"], "verdict": true, "reason": "Fe2+ + [Fe(CN)6]3- + K+ = KFe[Fe(CN)6]↓（滕氏蓝），浅绿色溶液出现蓝色浑浊，解释正确。"},
+    {"id": "GC-488-D", "match": ["2CrO4"], "stemMatch": ["微粒邂逅"], "verdict": true, "reason": "Cr2O7^2- + 2OH- = 2CrO4^2- + H2O，溶液由橙色（Cr2O7^2-）变为黄色（CrO4^2-），解释正确。"},
+
+    {"id": "GC-489-A", "match": ["阳极区 pH 下降"], "stemMatch": ["羟基乙酸盐"], "verdict": true, "reason": "阳极乙二醇被氧化为羟基乙酸盐，反应消耗 OH-（HOCH2CH2OH + 5OH- → HOCH2COO- + 4H2O + 4e-），阳极区 OH- 浓度降低，pH 下降，说法正确。"},
+    {"id": "GC-489-B", "match": ["从阴极区向阳极区迁移"], "stemMatch": ["羟基乙酸盐"], "verdict": true, "reason": "阴极反应生成 OH-（NO3- + 7H2O + 8e- = NH3·H2O + 9OH-），阳极消耗 OH-，OH- 通过阴离子交换膜由阴极区向阳极区迁移，说法正确。"},
+    {"id": "GC-489-C", "match": ["NH3·H2O + 9OH-"], "stemMatch": ["羟基乙酸盐"], "verdict": true, "reason": "阴极 NO3- 还原为 NH3，配平得 NO3- + 7H2O + 8e- = NH3·H2O + 9OH-（电荷、原子均守恒），说法正确。"},
+    {"id": "GC-489-D", "match": ["生成 4 mol HOCH2COO-"], "stemMatch": ["羟基乙酸盐"], "verdict": false, "reason": "阴极转化 1 mol NO3- 得 8 mol e-；阳极每生成 1 mol HOCH2COO-（乙二醇 C 由 -1 升至 +3）失 4 mol e-，故应生成 2 mol，题给 4 mol 错误，说法错误。"},
+
+    {"id": "GC-490-A", "match": ["氨水浓度越大"], "stemMatch": ["镀锌铁皮在氨水"], "verdict": true, "reason": "氨水浓度越大，越易生成稳定的 [Zn(NH3)4]2+，降低 Zn2+ 浓度、促进 Zn 氧化，腐蚀趋势越大，说法正确。"},
+    {"id": "GC-490-B", "match": ["溶液pH变大"], "stemMatch": ["镀锌铁皮在氨水"], "verdict": true, "reason": "总反应 Zn + 4NH3 + 2H2O = [Zn(NH3)4]2+ + H2↑ + 2OH- 生成 OH-，随腐蚀进行溶液碱性增强、pH 变大，说法正确。"},
+    {"id": "GC-490-C", "match": ["2NH2-"], "stemMatch": ["镀锌铁皮在氨水"], "verdict": false, "reason": "铁为正极，发生还原反应的是水：2H2O + 2e- = H2↑ + 2OH-；NH2-（氨基负离子）在水溶液中不能稳定存在，题给电极反应式错误，说法错误。"},
+    {"id": "GC-490-D", "match": ["224 mL H2"], "stemMatch": ["镀锌铁皮在氨水"], "verdict": true, "reason": "标况 224 mL H2 = 0.010 mol H2，生成 1 mol H2 转移 2 mol e-、消耗 1 mol Zn（Zn - 2e- = Zn2+），故消耗 0.010 mol Zn，说法正确。"},
+
+    {"id": "GC-504-A", "match": ["Fe³⁺是还原剂"], "stemMatch": ["高铁酸钠", "Na2FeO4"], "verdict": true, "reason": "反应中 Fe 由 +3 升至 +6，Fe³⁺ 被氧化作还原剂；Cl 由 ClO⁻ 中的 +1 降至 Cl⁻ 中的 -1，Cl⁻ 是还原产物，说法正确。"},
+    {"id": "GC-504-B", "match": ["生成1 mol FeO4²⁻,转移电子的数目为3NA"], "stemMatch": ["高铁酸钠", "Na2FeO4"], "verdict": true, "reason": "Fe 由 +3→+6，每生成 1 mol FeO4²⁻ 转移 3 mol 电子即 3NA，说法正确。"},
+    {"id": "GC-504-C", "match": ["氧化性:ClO⁻ > FeO4²⁻"], "stemMatch": ["高铁酸钠", "Na2FeO4"], "verdict": true, "reason": "ClO⁻ 作氧化剂将 Fe³⁺ 氧化为 FeO4²⁻，FeO4²⁻ 是氧化产物，故氧化性 ClO⁻ > FeO4²⁻，说法正确。"},
+    {"id": "GC-504-D", "match": ["生成了胶体"], "stemMatch": ["高铁酸钠", "Na2FeO4"], "verdict": false, "reason": "Na2FeO4 用作消毒剂是因其强氧化性（Fe 为 +6 价）杀菌消毒；还原产物 Fe(OH)3 胶体吸附悬浮物是净水作用，并非消毒的原因，因果关系错误。"},
+
+    {"id": "GC-505-A", "match": ["C6H12O6 是还原剂"], "stemMatch": ["葡萄糖", "NaClO3"], "verdict": true, "reason": "葡萄糖（C6H12O6）中 C 被氧化为 CO2，作还原剂，被 NaClO3 氧化，发生氧化反应，说法正确。"},
+    {"id": "GC-505-B", "match": ["残留氯"], "stemMatch": ["葡萄糖", "NaClO3"], "verdict": true, "reason": "ClO2 消毒不与水中有机物生成氯代副产物，替换 Cl2 能有效减少自来水中的残留氯，说法正确。"},
+    {"id": "GC-505-C", "match": ["还原产物与氧化产物的物质的量之比为 1 : 4"], "stemMatch": ["葡萄糖", "NaClO3"], "verdict": false, "reason": "还原产物 ClO2（Cl +5→+4）、氧化产物 CO2（C 0→+4）。配平：1 mol C6H12O6 失 24 mol e⁻ 生成 6 mol CO2，需 24 mol NaClO3 得 24 mol e⁻ 生成 24 mol ClO2，故还原产物:氧化产物 = 24:6 = 4:1，题给 1:4 颠倒，说法错误。"},
+    {"id": "GC-505-D", "match": ["转移电子数为 NA"], "stemMatch": ["葡萄糖", "NaClO3"], "verdict": true, "reason": "Cl 由 +5→+4，每生成 1 mol ClO2 转移 1 mol 电子即 NA，说法正确。"},
+
+    {"id": "GC-506-A", "match": ["X表示NO2"], "stemMatch": ["CH3OH", "废水中"], "verdict": false, "reason": "题意要求将 NO3⁻ 转化为对环境无害的物质，X 应为 N2（而非污染性的 NO2），说法错误。"},
+    {"id": "GC-506-B", "match": ["氧化剂与还原剂物质的量之比为6:5"], "stemMatch": ["CH3OH", "废水中"], "verdict": true, "reason": "CH3OH 中 C 由 -2→+4 失 6 e⁻（还原剂），NO3⁻ 中 N 由 +5→0 得 5 e⁻（氧化剂），电子守恒得氧化剂:还原剂 = 6:5，说法正确。"},
+    {"id": "GC-506-C", "match": ["可用O3替换CH3OH"], "stemMatch": ["CH3OH", "废水中"], "verdict": false, "reason": "O3 是强氧化剂，不能还原 NO3⁻，无法替换作还原剂的 CH3OH，说法错误。"},
+    {"id": "GC-506-D", "match": ["若生成11.2 L CO2气体"], "stemMatch": ["CH3OH", "废水中"], "verdict": false, "reason": "未指明标准状况，且每生成 1 mol CO2（对应 1 mol CH3OH）转移 6 mol 电子，0.5 mol 应转移 3NA 而非 2NA，说法错误。"},
+
+    {"id": "GC-507-A", "match": ["KH2PO2为酸式盐"], "stemMatch": ["膦", "PH3"], "verdict": false, "reason": "H3PO2（次磷酸）是一元酸，仅一个—OH 上的氢可电离，故 KH2PO2 是正盐而非酸式盐，说法错误。"},
+    {"id": "GC-507-B", "match": ["氧化剂与还原剂物质的量之比为3:1"], "stemMatch": ["膦", "PH3"], "verdict": false, "reason": "P4 发生歧化，1 mol P4 中 1 mol P 被还原为 PH3、3 mol P 被氧化为 KH2PO2，氧化剂与还原剂是同一种物质 P4，物质的量之比应为 1:1，不是 3:1，说法错误。"},
+    {"id": "GC-507-C", "match": ["可用酸性KMnO4溶液吸收"], "stemMatch": ["膦", "PH3"], "verdict": false, "reason": "酸性 KMnO4 会同时氧化乙炔（C2H2，含碳碳三键），不能用于吸收乙炔中的 PH3 杂质，说法错误。"},
+    {"id": "GC-507-D", "match": ["断裂6 mol P—P键"], "stemMatch": ["膦", "PH3"], "verdict": true, "reason": "1 mol P4 含 6 mol P—P 键，发生歧化时 3 mol P 由 0→+1 共失去 3 mol 电子（1 mol P 由 0→-3 得到 3 mol e⁻），故断裂 6 mol P—P 键转移 3 mol 电子即 3NA，说法正确。"},
+
+    {"id": "GC-508-A", "match": ["H2^18O中含有的中子数"], "stemMatch": ["H2C2O4", "KClO3"], "verdict": false, "reason": "¹H 无中子，¹⁸O 含 10 个中子，1 个 H2^18O 分子含 10 个中子，0.1 mol 应含 1.0NA 中子，不是 1.2NA，说法错误。"},
+    {"id": "GC-508-B", "match": ["每生成67.5 g ClO2"], "stemMatch": ["H2C2O4", "KClO3"], "verdict": false, "reason": "67.5 g ClO2 为 1 mol，Cl 由 +5→+4，每生成 1 mol ClO2 转移 1 mol 电子即 NA，不是 2.0NA，说法错误。"},
+    {"id": "GC-508-C", "match": ["H2C2O4溶液中含有的H+数目为0.2NA"], "stemMatch": ["H2C2O4", "KClO3"], "verdict": false, "reason": "未给出溶液体积，且 H2C2O4 是弱酸部分电离，无法得出 H+ 数目为 0.2NA，说法错误。"},
+    {"id": "GC-508-D", "match": ["含σ键数目为2.0NA"], "stemMatch": ["H2C2O4", "KClO3"], "verdict": true, "reason": "标况 22.4 L CO2 为 1 mol，CO2（O=C=O）含 2 个 σ 键，故 σ 键数目为 2.0NA，说法正确。"},
+
+    {"id": "GC-509-A", "match": ["pH=12的Ba(OH)2"], "stemMatch": ["2025·四川成都二模", "阿伏加德罗常数"], "verdict": false, "reason": "pH=12 时 c(OH⁻)=0.01 mol/L，1 L 溶液中 OH⁻ 数目为 0.01NA，不是 0.02NA（pH 已直接确定 OH⁻ 浓度），说法错误。"},
+    {"id": "GC-509-B", "match": ["SO2与O2的密度之比为2:1"], "stemMatch": ["2025·四川成都二模", "阿伏加德罗常数"], "verdict": true, "reason": "同温同压下气体密度之比等于摩尔质量之比，M(SO2):M(O2)=64:32=2:1，说法正确。"},
+    {"id": "GC-509-C", "match": ["OF2(气体)与水完全反应"], "stemMatch": ["2025·四川成都二模", "阿伏加德罗常数"], "verdict": false, "reason": "反应 2OF2 + 2H2O = O2 + 4HF，2 mol OF2 转移 4 mol 电子，标况 11.2 L（0.5 mol）OF2 应转移 1 mol 电子即 NA，不是 2NA，说法错误。"},
+    {"id": "GC-509-D", "match": ["Cl-、ClO-、HClO的微粒数目之和"], "stemMatch": ["2025·四川成都二模", "阿伏加德罗常数"], "verdict": false, "reason": "Cl2 与水反应可逆，部分 Cl2 未反应仍以分子形式存在，由 Cl 守恒知 Cl⁻、ClO⁻、HClO 微粒数之和小于 NA，说法错误。"},
+
+    {"id": "GC-510-A", "match": ["44 g CO2 中 σ 键数目为 2N_A"], "stemMatch": ["过氧化钠", "潜水装置"], "verdict": true, "reason": "44 g CO2 为 1 mol，CO2（O=C=O）含 2 个 σ 键，σ 键数目为 2N_A，说法正确。"},
+    {"id": "GC-510-B", "match": ["Na2O2 晶体中离子数目为 4N_A"], "stemMatch": ["过氧化钠", "潜水装置"], "verdict": false, "reason": "Na2O2 由 2 个 Na⁺ 和 1 个 O2²⁻（过氧根离子）构成，1 mol 晶体含 3 mol 离子即 3N_A，不是 4N_A，说法错误。"},
+    {"id": "GC-510-C", "match": ["Na2CO3 溶液中 CO3²⁻ 数目为 N_A"], "stemMatch": ["过氧化钠", "潜水装置"], "verdict": false, "reason": "CO3²⁻ 会发生水解，1 L 1 mol/L Na2CO3 溶液中 CO3²⁻ 数目小于 N_A，说法错误。"},
+    {"id": "GC-510-D", "match": ["生成 O2 分子数目为 N_A"], "stemMatch": ["过氧化钠", "潜水装置"], "verdict": false, "reason": "反应 2Na2O2 + 2CO2 = 2Na2CO3 + O2，每生成 1 mol O2 转移 2 mol 电子，故转移 1 mol 电子生成 0.5 mol O2 即 0.5N_A，不是 N_A，说法错误。"},
+
+    {"id": "GC-511-A", "match": ["^18O_2 的中子数"], "stemMatch": ["2025·广东卷", "阿伏加德罗常数"], "verdict": false, "reason": "¹⁸O 含 10 个中子、¹⁶O 含 8 个中子，1 个分子相差 2×2=4 个中子，1 mol 应相差 4N_A，不是 2N_A，说法错误。"},
+    {"id": "GC-511-B", "match": ["Fe 与水蒸气完全反应"], "stemMatch": ["2025·广东卷", "阿伏加德罗常数"], "verdict": false, "reason": "3Fe + 4H2O(g) = Fe3O4 + 4H2，1 mol Fe 反应生成 4/3 mol H2，不是 2N_A，说法错误。"},
+    {"id": "GC-511-C", "match": ["NH_4Cl 溶液中，NH_4^+ 的数目"], "stemMatch": ["2025·广东卷", "阿伏加德罗常数"], "verdict": false, "reason": "NH4⁺ 会发生水解，1 L 0.1 mol/L NH4Cl 溶液中 NH4⁺ 数目小于 0.1N_A，说法错误。"},
+    {"id": "GC-511-D", "match": ["形成的共价键数目为 2N_A"], "stemMatch": ["2025·广东卷", "阿伏加德罗常数"], "verdict": true, "reason": "H2 + Cl2 = 2HCl，标况 22.4 L Cl2（1 mol）与足量 H2 反应生成 2 mol HCl，每分子 HCl 含 1 个共价键，共形成 2 mol 共价键即 2N_A，说法正确。"},
+
+    {"id": "GC-512-A", "match": ["H_2O 晶体内氢键的数目"], "stemMatch": ["2025·河北卷"], "verdict": true, "reason": "冰晶体中每个 H2O 分子形成 4 个氢键、每个氢键被 2 个分子共用，故平均每个分子含 2 个氢键，18 g（1 mol）冰含氢键 2N_A，说法正确。"},
+    {"id": "GC-512-B", "match": ["NaF 溶液中阳离子总数为 N_A"], "stemMatch": ["2025·河北卷"], "verdict": false, "reason": "1 L 1 mol/L NaF 溶液中阳离子包括 Na⁺（1 mol）和水电离的 H⁺（少量但 >0），阳离子总数大于 N_A，不等于 N_A，说法错误。"},
+    {"id": "GC-512-C", "match": ["环己烷和戊烯的混合物中碳原子"], "stemMatch": ["2025·河北卷"], "verdict": true, "reason": "环己烷（C6H12）和戊烯（C5H10）最简式均为 CH2（摩尔质量 14 g/mol），28 g 混合物含 2 mol CH2 即 2 mol 碳原子，数目为 2N_A，说法正确。"},
+    {"id": "GC-512-D", "match": ["铅酸蓄电池负极增重 96 g"], "stemMatch": ["2025·河北卷"], "verdict": true, "reason": "负极 Pb + SO4²⁻ → PbSO4 + 2e⁻，每转移 2 mol 电子负极结合 1 mol SO4²⁻（96 g）而增重，故增重 96 g 转移电子 2N_A，说法正确。"},
+
+    {"id": "GC-513-A", "match": ["22.4 L CH_4 中原子的数目"], "stemMatch": ["2025·云南卷", "阿伏加德罗常数"], "verdict": false, "reason": "未指明标准状况，不能用 22.4 L/mol 计算 CH4 的物质的量，说法错误。"},
+    {"id": "GC-513-B", "match": ["^18O 所含中子的数目为 10N_A"], "stemMatch": ["2025·云南卷", "阿伏加德罗常数"], "verdict": true, "reason": "¹⁸O 的质量数为 18、质子数为 8，中子数 = 18−8 = 10，1 mol ¹⁸O 含中子 10N_A，说法正确。"},
+    {"id": "GC-513-C", "match": ["Fe 粉和足量 S 完全反应"], "stemMatch": ["2025·云南卷", "阿伏加德罗常数"], "verdict": false, "reason": "Fe + S = FeS，S 是弱氧化剂将 Fe 氧化为 +2 价，28 g Fe（0.5 mol）转移 1 mol 电子即 N_A，不是 1.5N_A，说法错误。"},
+    {"id": "GC-513-D", "match": ["盐酸与足量 MnO_2 反应"], "stemMatch": ["2025·云南卷", "阿伏加德罗常数"], "verdict": false, "reason": "随反应进行浓盐酸变稀，MnO2 与稀盐酸不反应，反应不能进行完全，生成 Cl2 数目小于 0.3N_A，说法错误。"},
+
+    {"id": "GC-514-A", "match": ["^12C 含质子数为 6N_A"], "stemMatch": ["浓硫酸与木炭发生反应", "阿伏加德罗常数"], "verdict": true, "reason": "¹²C 质子数为 6，12 g ¹²C 为 1 mol，含质子 6N_A，说法正确。"},
+    {"id": "GC-514-B", "match": ["6.72 L CO_2 含 σ 键数目"], "stemMatch": ["浓硫酸与木炭发生反应", "阿伏加德罗常数"], "verdict": false, "reason": "常温常压下气体摩尔体积不是 22.4 L/mol，不能由 6.72 L 直接计算 CO2 物质的量，说法错误。"},
+    {"id": "GC-514-C", "match": ["pH=1 的稀硫酸中含 H^+ 数目"], "stemMatch": ["浓硫酸与木炭发生反应", "阿伏加德罗常数"], "verdict": false, "reason": "pH=1 时 c(H⁺)=0.1 mol/L，1.0 L 溶液含 H⁺ 0.1 mol 即 0.1N_A，不是 0.2N_A，说法错误。"},
+    {"id": "GC-514-D", "match": ["SO_2 与 16 g O_2 充分反应"], "stemMatch": ["浓硫酸与木炭发生反应", "阿伏加德罗常数"], "verdict": false, "reason": "2SO2 + O2 ⇌ 2SO3 是可逆反应，不能进行完全，生成 SO3 分子数小于 N_A，说法错误。"},
+
+    {"id": "GC-515-A", "match": ["超重水"], "stemMatch": ["N_A 代表阿伏加德罗常数的值"], "verdict": true, "reason": "超重水 ³H2O 摩尔质量为 22 g/mol，2.2 g 为 0.1 mol；每个分子含电子 2×1+8=10，0.1 mol 含电子 1 mol 即 N_A，说法正确。"},
+    {"id": "GC-515-B", "match": ["NaClO 溶液中的 ClO^- 数目"], "stemMatch": ["N_A 代表阿伏加德罗常数的值"], "verdict": false, "reason": "ClO⁻ 会发生水解，1 L 0.1 mol/L NaClO 溶液中 ClO⁻ 数目小于 0.1N_A，说法错误。"},
+    {"id": "GC-515-C", "match": ["过量 C 与 1 mol SiO_2 充分反应转移电子"], "stemMatch": ["N_A 代表阿伏加德罗常数的值"], "verdict": false, "reason": "反应 SiO2 + 2C = Si + 2CO（或过量 C 生成 SiC），1 mol SiO2 反应转移 4 mol 电子，不是 3N_A，说法错误。"},
+    {"id": "GC-515-D", "match": ["Cl_2 与足量 CH_4 发生取代反应生成 HCl"], "stemMatch": ["N_A 代表阿伏加德罗常数的值"], "verdict": false, "reason": "取代反应中每取代 1 个 H 生成 1 分子 HCl，1 mol Cl2 提供 1 mol Cl 发生取代，生成 1 mol HCl 即 N_A，不是 2N_A，说法错误。"},
+
+    {"id": "GC-516-A", "match": ["44 g CO2中σ键的数目为2NA"], "stemMatch": ["超氧化钾", "KO2"], "verdict": true, "reason": "44 g CO2 为 1 mol，CO2（O=C=O）含 2 个 σ 键，σ 键数目为 2NA，说法正确。"},
+    {"id": "GC-516-B", "match": ["KO2晶体中离子的数目为3NA"], "stemMatch": ["超氧化钾", "KO2"], "verdict": false, "reason": "KO2 由 K⁺ 和 O2⁻（超氧根离子）构成，1 mol KO2 晶体含 2 mol 离子即 2NA，不是 3NA，说法错误。"},
+    {"id": "GC-516-C", "match": ["K2CO3溶液中CO3^2-的数目为NA"], "stemMatch": ["超氧化钾", "KO2"], "verdict": false, "reason": "CO3²⁻ 会发生水解，1 L 1 mol/L K2CO3 溶液中 CO3²⁻ 数目小于 NA，说法错误。"},
+    {"id": "GC-516-D", "match": ["每转移1 mol电子生成O2的数目为1.5NA"], "stemMatch": ["超氧化钾", "KO2"], "verdict": false, "reason": "反应 4KO2 + 2CO2 = 2K2CO3 + 3O2 中，每生成 3 mol O2 转移 3 mol 电子，故转移 1 mol 电子生成 1 mol O2 即 NA，不是 1.5NA，说法错误。"},
+
+    {"id": "GC-517-A", "match": ["22.4 L 15N2含有的中子数为16NA"], "stemMatch": ["N=C=N"], "verdict": false, "reason": "未指明标准状况不能计算物质的量；且 ¹⁵N 含 7 个中子，1 mol ¹⁵N2 含中子 14NA，不是 16NA，说法错误。"},
+    {"id": "GC-517-B", "match": ["sp2杂化轨道含有的电子数为6NA"], "stemMatch": ["N=C=N"], "verdict": false, "reason": "石墨中 C 为 sp2 杂化，每个 C 原子的 3 个 sp2 杂化轨道各含 1 个电子（第 4 个电子在未杂化 p 轨道），1 mol C 中 sp2 杂化轨道含电子 3NA，不是 6NA，说法错误。"},
+    {"id": "GC-517-C", "match": ["[N=C=N]^2-中含有的π键数为4NA"], "stemMatch": ["N=C=N"], "verdict": false, "reason": "[N=C=N]²⁻ 含两个 C=N 双键，每个双键含 1 个 π 键，共 2 个 π 键，1 mol 含 π 键 2NA，不是 4NA，说法错误。"},
+    {"id": "GC-517-D", "match": ["生成1 mol H2时，总反应转移的电子数为6NA"], "stemMatch": ["N=C=N"], "verdict": true, "reason": "配平反应 ¹⁵N2 + C + 2LiH = Li2[¹⁵NC¹⁵N] + H2：N 由 0→−3（2 mol N 得 6 mol e⁻），C 由 0→+4（失 4 mol e⁻）、LiH 中 H 由 −1→0（2 mol H 失 2 mol e⁻），总转移 6 mol 电子，生成 1 mol H2 时转移电子 6NA，说法正确。"},
+
+    {"id": "GC-518-A", "match": ["异丁烷分子中共价键的数目为6.5NA"], "stemMatch": ["2023·全国甲卷", "NA为阿伏加德罗常数的值"], "verdict": true, "reason": "异丁烷分子式 C4H10，每个分子含 3 个 C—C 键和 10 个 C—H 键共 13 个共价键，0.5 mol 含共价键 6.5 mol 即 6.5NA，说法正确。"},
+    {"id": "GC-518-B", "match": ["标准状况下，2.24 L SO3中电子的数目"], "stemMatch": ["2023·全国甲卷", "NA为阿伏加德罗常数的值"], "verdict": false, "reason": "标准状况下 SO3 是固态（熔点约 16.9℃），不能用 22.4 L/mol 计算其物质的量，说法错误。"},
+    {"id": "GC-518-C", "match": ["pH=2的H2SO4溶液中H+的数目为0.02NA"], "stemMatch": ["2023·全国甲卷", "NA为阿伏加德罗常数的值"], "verdict": false, "reason": "pH=2 时 c(H⁺)=0.01 mol/L，1.0 L 溶液含 H⁺ 0.01 mol 即 0.01NA，不是 0.02NA，说法错误。"},
+    {"id": "GC-518-D", "match": ["Na2CO3溶液中CO3^2-的数目为1.0NA"], "stemMatch": ["2023·全国甲卷", "NA为阿伏加德罗常数的值"], "verdict": false, "reason": "CO3²⁻ 会发生水解，1.0 L 1.0 mol/L Na2CO3 溶液中 CO3²⁻ 数目小于 1.0NA，说法错误。"},
+
+    {"id": "GC-519-A", "match": ["酸性强弱：CH2ICOOH > CH2BrCOOH"], "stemMatch": ["CH3COOH", "CH2FCOOH"], "verdict": false, "reason": "由表中数据 pKa(CH2BrCOOH)=2.90，且 I 的电负性弱于 Br、吸电子诱导效应更弱，故 CH2ICOOH 酸性弱于 CH2BrCOOH，说法错误。"},
+    {"id": "GC-519-B", "match": ["对键合电子的吸引能力强弱：F < Cl < Br"], "stemMatch": ["CH3COOH", "CH2FCOOH"], "verdict": false, "reason": "电负性 F > Cl > Br，对键合电子的吸引能力也是 F > Cl > Br，题给顺序错误。"},
+    {"id": "GC-519-C", "match": ["25℃时的pKa大小：CHF2COOH < CH2FCOOH"], "stemMatch": ["CH3COOH", "CH2FCOOH"], "verdict": true, "reason": "F 原子数越多吸电子诱导效应越强、羧酸酸性越强、pKa 越小；CHF2COOH（2 个 F）酸性强于 CH2FCOOH（1 个 F），故 pKa(CHF2COOH) < pKa(CH2FCOOH)，说法正确。"},
+    {"id": "GC-519-D", "match": ["0.1 mol/L溶液的碱性强弱：CH3COONa < CH2ClCOONa"], "stemMatch": ["CH3COOH", "CH2FCOOH"], "verdict": false, "reason": "CH3COOH 酸性弱于 CH2ClCOOH，其共轭碱 CH3COO⁻ 水解程度更大，故 0.1 mol/L 溶液碱性 CH3COONa > CH2ClCOONa，题给 < 错误。"},
+
+    {"id": "GC-520-A", "match": ["基态Ti的价层电子排布式：3d²"], "stemMatch": ["纳米TiO2", "羟基自由基"], "verdict": false, "reason": "基态 Ti 原子序数为 22，价层电子排布式为 3d²4s²，仅写 3d² 不完整，说法错误。"},
+    {"id": "GC-520-B", "match": ["·OH的电子式为"], "stemMatch": ["纳米TiO2", "羟基自由基"], "verdict": true, "reason": "·OH 羟基自由基含 1 个未成对电子，O 周围共 7 个价电子，电子式书写正确，说法正确。"},
+    {"id": "GC-520-C", "match": ["H₂O的VSEPR模型"], "stemMatch": ["纳米TiO2", "羟基自由基"], "verdict": false, "reason": "H2O 中心 O 价层电子对数为 4，VSEPR 模型应为四面体形；题图所示模型与正确的四面体形 VSEPR 模型不符，说法错误。"},
+    {"id": "GC-520-D", "match": ["O的一种核素：⁸O"], "stemMatch": ["纳米TiO2", "羟基自由基"], "verdict": false, "reason": "⁸O 表示质量数为 8 的核素，即含 8 个质子、0 个中子，不是氧的真实稳定核素（氧的质量数不可能仅为 8），说法错误。"},
+
+    {"id": "GC-521-A", "match": ["Ba 元素的焰色为黄绿色"], "stemMatch": ["中国紫", "BaCuSi2O6"], "verdict": true, "reason": "Ba 元素的焰色反应为黄绿色，说法正确。"},
+    {"id": "GC-521-B", "match": ["Cu 元素的化合价为+2"], "stemMatch": ["中国紫", "BaCuSi2O6"], "verdict": true, "reason": "BaCuSi2O6 中 Ba 为 +2、Si 为 +4、O 为 −2，由化合价代数和为零得 Cu 为 +2，说法正确。"},
+    {"id": "GC-521-C", "match": ["该物质属于硅酸盐材料"], "stemMatch": ["中国紫", "BaCuSi2O6"], "verdict": true, "reason": "BaCuSi2O6 含硅酸根结构单元，属于硅酸盐材料，说法正确。"},
+    {"id": "GC-521-D", "match": ["其结构中一个 Si 周围连接 3 个 O"], "stemMatch": ["中国紫", "BaCuSi2O6"], "verdict": false, "reason": "硅酸盐中 Si 为 sp³ 杂化，与 4 个 O 形成 [SiO4] 四面体结构，一个 Si 周围连接 4 个 O，不是 3 个，说法错误。"},
+
+    {"id": "GC-522-A", "match": ["C₆₀ 与金刚石互为同位素"], "stemMatch": ["球碳盐", "K₃C₆₀"], "verdict": false, "reason": "C₆₀ 与金刚石是同种元素形成的不同单质，互为同素异形体；同位素的研究对象是原子，二者不互为同位素，说法错误。"},
+    {"id": "GC-522-B", "match": ["该晶体在熔融状态下能导电"], "stemMatch": ["球碳盐", "K₃C₆₀"], "verdict": true, "reason": "K₃C₆₀ 属于离子化合物，熔融时离子键被破坏，产生自由移动的离子，故能导电，说法正确。"},
+
+    {"id": "GC-523-A", "match": ["X的中子数为2"], "stemMatch": ["¹⁶₈O＋³₂He→¹³₈O"], "verdict": false, "reason": "由质量数和电荷守恒得 X 为 ⁶₂He（质量数 6、质子数 2），中子数 = 6 − 2 = 4，不为 2，说法错误。"},
+    {"id": "GC-523-B", "match": ["X、Y互为同位素"], "stemMatch": ["¹⁶₈O＋³₂He→¹³₈O"], "verdict": true, "reason": "由守恒得 X 为 ⁶₂He、Y 为 ⁴₂He，二者质子数均为 2（同属 He 元素）而中子数不同，互为同位素，说法正确。"},
+    {"id": "GC-523-C", "match": ["可用作示踪原子研究化学反应历程"], "stemMatch": ["¹⁶₈O＋³₂He→¹³₈O"], "verdict": false, "reason": "¹³O、¹⁵O 的半衰期很短，会迅速衰变，无法在反应历程中稳定存在，不能用作示踪原子，说法错误。"},
+    {"id": "GC-523-D", "match": ["化学键不稳定"], "stemMatch": ["¹⁶₈O＋³₂He→¹³₈O"], "verdict": false, "reason": "自然界不存在 ¹³O₂、¹⁵O₂ 是因为 ¹³O、¹⁵O 具有放射性、半衰期短（原子核不稳定），并非化学键不稳定，说法错误。"},
+
+    {"id": "GC-524-A", "match": ["浊液a中硫酸根离子的浓度为7×10^-3"], "stemMatch": ["锅炉水垢中的CaSO4"], "verdict": true, "reason": "等体积混合后 c(Ca²⁺)=c(SO₄²⁻)，由 Ksp(CaSO₄)=4.9×10⁻⁵ 得 c(SO₄²⁻)=√(4.9×10⁻⁵)≈7×10⁻³ mol/L，说法正确。"},
+    {"id": "GC-524-B", "match": ["②中溶液红色变浅可证明有CaSO4转化为CaCO3"], "stemMatch": ["锅炉水垢中的CaSO4"], "verdict": false, "reason": "②中等体积混合会稀释 Na₂CO₃ 使碱性减弱（红色变浅），且浊液 a 中游离的 Ca²⁺ 可直接与 CO₃²⁻ 生成沉淀，故红色变浅不能证明 CaSO₄ 转化为 CaCO₃，说法错误。"},
+    {"id": "GC-524-C", "match": ["③中溶液红色变浅可证明有CaSO4转化为CaCO3"], "stemMatch": ["锅炉水垢中的CaSO4"], "verdict": true, "reason": "③中将过滤所得 CaSO₄ 沉淀浸泡于 Na₂CO₃ 溶液（无稀释干扰），红色变浅说明 CO₃²⁻ 被消耗，证明有 CaSO₄ 转化为 CaCO₃，说法正确。"},
+    {"id": "GC-524-D", "match": ["1.36 g白色沉淀b中加入1 L的1 mol/L Na2CO3溶液，沉淀几乎全部转化"], "stemMatch": ["锅炉水垢中的CaSO4"], "verdict": true, "reason": "1.36 g CaSO₄ 为 0.01 mol，1 L 1 mol/L Na₂CO₃ 含 1 mol CO₃²⁻（大过量）；沉淀转化平衡常数 K=Ksp(CaSO₄)/Ksp(CaCO₃)≈1.4×10⁴ 很大，故沉淀几乎全部转化，说法正确。"},
+
+    {"id": "GC-525-A", "match": ["26 g H—C≡C—H 中含有 σ 键的数目为 3N_A"], "stemMatch": ["2024·广东卷", "阿伏加德罗常数"], "verdict": true, "reason": "乙炔 (H−C≡C−H) 摩尔质量为 26 g/mol，26 g 为 1 mol；分子含 2 个 C−H σ 键和 1 个 C−C σ 键，共 3 mol σ 键，即 3N_A，说法正确。"},
+    {"id": "GC-525-B", "match": ["1 L 1 mol/L NH_4NO_3 溶液中含 NH_4^+ 的数目为 N_A"], "stemMatch": ["2024·广东卷", "阿伏加德罗常数"], "verdict": false, "reason": "NH₄⁺ 在水溶液中发生水解，实际数目小于 N_A，说法错误。"},
+
+    {"id": "GC-526-A", "match": ["4 L"], "stemMatch": ["CO2和CO的混合气体全部通过足量的Na2O2"], "verdict": false, "reason": "由 2Na₂O₂＋2CO₂=2Na₂CO₃＋O₂，每 2 L CO₂ 反应后气体减少 1 L；总体积由 20 L 变为 16 L，减少 4 L，故 CO₂ 为 8 L、CO 为 12 L，CO 体积不是 4 L，说法错误。"},
+    {"id": "GC-526-B", "match": ["8 L"], "stemMatch": ["CO2和CO的混合气体全部通过足量的Na2O2"], "verdict": false, "reason": "由差量法得原混合气体中 CO₂ 为 8 L、CO 为 12 L，CO 体积不是 8 L，说法错误。"},
+    {"id": "GC-526-C", "match": ["12 L"], "stemMatch": ["CO2和CO的混合气体全部通过足量的Na2O2"], "verdict": true, "reason": "由 2Na₂O₂＋2CO₂=2Na₂CO₃＋O₂ 的差量关系，气体减少 4 L 对应 CO₂ 为 8 L，故原混合气体中 CO 为 20−8=12 L，说法正确。"},
+    {"id": "GC-526-D", "match": ["16 L"], "stemMatch": ["CO2和CO的混合气体全部通过足量的Na2O2"], "verdict": false, "reason": "由差量法得原混合气体中 CO 为 12 L，不是 16 L，说法错误。"}
+  ]
+}

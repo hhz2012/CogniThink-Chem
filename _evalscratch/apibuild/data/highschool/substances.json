@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "source": "人教版《化学·必修第二册》第七章'有机化合物'、《选择性必修3·有机化学基础》；必修第一册'物质的量'结晶水合物与常见无机物",
+  "organics": [
+    "C2H6", "C3H8", "C4H10", "C5H12", "C6H6", "C7H8",
+    "CH3OH", "C2H5OH", "C3H8O3", "C6H5OH",
+    "HCHO", "CH3CHO", "HCOOH",
+    "CH3COOCH2CH3", "HCOOCH3",
+    "C6H12O6", "C12H22O11",
+    "C2H5Cl", "CH3Cl", "CH2Cl2", "CHCl3", "CCl4", "C2H5Br",
+    "C2H4Br2", "C2H4Cl2", "C2H2Br4", "C2H3Cl", "C6H5Br", "C6H5NO2", "C6H12", "C6H3OBr3",
+    "CH3CH2ONa", "C6H5ONa", "CH3COONH4", "HCOONa", "C6H2CH3(NO2)3",
+    "TNT", "C7H5N3O6"
+  ],
+  "otherInorganics": [
+    "H2O2", "O3", "N2O4",
+    "Ca(HCO3)2", "Mg(HCO3)2", "NH4HCO3", "Ca(H2PO4)2",
+    "KMnO4", "K2Cr2O7", "Cu2O", "Ag(NH3)2OH",
+    "NaAlO2", "Ca(ClO)2", "MnCl2", "SiF4",
+    "FeS2", "Cu2S", "CuFeS2",
+    "H3PO4", "NaH2PO4", "Na2HPO4",
+    "AlN", "Si3N4", "SiC",
+    "Na2FeO4",
+    "HCN"
+  ]
+}

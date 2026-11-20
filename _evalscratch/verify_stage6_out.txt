@@ -1,0 +1,49 @@
+=== Task 29 / AC-29 final gate (after_stage3f -> after_stage6) ===
+
+--- top metrics (3f anchor -> stage6 final) ---
+  totalCases        : 679 -> 723  (delta +44)
+  gatewayCorrect    : 137 -> 266  (delta +129)
+  gatewayEngineUsed : 151 -> 285  (delta +134)
+  engineSolved      : 137 -> 266  (delta +129)
+  enginePrecision   : 1 -> 1  (delta +0)
+  harmCount         : 0 -> 0  (delta +0)
+  pureLlmCorrect    : 503 -> 551  (delta +48)
+
+--- LOST / GAINED (common cases) ---
+  3f->stage6 : common=679  LOST=0  GAINED=85
+  concept->s6: common=723  LOST=0  GAINED=70
+  choice->s6 : common=723  LOST=0  GAINED=11
+  calc->s6   : common=723  LOST=0  GAINED=2
+  LOST(3f->s6): []
+  global harm: 0
+
+--- per-taskType solved (adopted & correct) 3f -> stage6 ---
+  ion_check           26 ->  26  (0)
+  equilibrium         11 ->  13  (+2)
+  calculation         11 ->  20  (+9)
+  reaction_check      34 ->  34  (0)
+  balance              1 ->   1  (0)
+  choice              42 -> 147  (+105)
+  concept              0 ->   0  (0)
+  atomic_structure     4 ->   6  (+2)
+  vsepr                7 ->   7  (0)
+  structure_verify     1 ->   1  (0)
+  unknown              0 ->   0  (0)
+
+--- keep-correct guards (calc+eq+choice+artifacts): 93/93
+
+--- red lines ---
+  TR-29.1 engineSolved >= 157                   : PASS
+  TR-29.1 gatewayCorrect >= 157                 : PASS
+  TR-29.2 harmCount==0                          : PASS
+  TR-29.2 global harm empty                     : PASS
+  TR-29.2 enginePrecision==1.0                  : PASS
+  TR-29.2 LOST(3f->s6) empty                    : PASS
+  TR-29.2 LOST(concept->s6) empty               : PASS
+  TR-29.2 LOST(choice->s6) empty                : PASS
+  TR-29.2 LOST(calc->s6) empty                  : PASS
+  keep-correct guards pass                      : PASS
+  pureLlmCorrect final==551                     : PASS
+  engineSolved==266                             : PASS
+
+OVERALL: PASS

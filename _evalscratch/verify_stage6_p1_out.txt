@@ -1,0 +1,22 @@
+loaded cases=723
+--- pdf-507 (oldCat=pureLlmOnlyCorrectCases) fixedKw=[平面三角形 | 5sp³] ---
+  gatewayConclusion=[平面三角形 平面正三角]  gwCorrect False -> True
+  pureLlmAnswer=[(1) 四面体形  
+理由：Sn²⁺价层电子对数为4（2个成键对+2个孤电子对），VSEPR模型为四面体形。  
+
+(2) sp³  
+理由：SnCl₄为正四面体结构，Sn采取sp³杂化，与Cl的3p轨道形成σ键。]  pureCorrect True -> False
+--- pdf-108 (oldCat=bothWrongCases) fixedKw=[3d⁸4s²] ---
+  gatewayConclusion=[3d⁸4s² 3d⁸ 4s² 3d84s2 3d8 4s2]  gwCorrect False -> True
+  pureLlmAnswer=[3d⁸4s²  
+Ni原子序数28，电子排布为[Ar]3d⁸4s²，价电子为最外层4s和次外层3d电子。]  pureCorrect False -> True
+--- pdf-173 (oldCat=bothWrongCases) fixedKw=[3d¹⁰4s¹] ---
+  gatewayConclusion=[3d¹⁰4s¹ 3d¹⁰ 4s¹ 3d104s1 3d10 4s1]  gwCorrect False -> True
+  pureLlmAnswer=[3d¹⁰4s¹。  
+Cu原子序数29，因3d全满更稳定，电子排布为[Ar]3d¹⁰4s¹，价层电子即3d¹⁰4s¹。]  pureCorrect False -> True
+=== aggregates: isolated P1 (only pdf-108/173/507 re-keyed; other 720 unchanged) ===
+old engineSolved(stored)=266
+new engineSolved=269  (delta=3)
+harm=0  precision=1.000000  lost=0
+bothCorrect=247 gatewayOnlyCorrect=22 pureLlmOnlyCorrect=305 bothWrong=149
+gatewayCorrect=269 pureLlmCorrect=552

@@ -10,7 +10,7 @@ namespace CogniThink.TutorBrain.Tests;
 /// <summary>
 /// 网关层 VSEPR / 分子构型确定性求解器（阶段5 / Tier 2）验收 + 护栏测试。
 /// 真值源：高中常见微粒「分子构型 / VSEPR 模型 / 杂化」对照表。
-/// 重点验证：6 道干净填空被解出且判正（d6-1~5 + pdf-508）；pdf-507 为已知坏键（化学结论正确但键错位）不采纳；
+/// 重点验证：7 道干净填空被解出且判正（d6-1~5 + pdf-507 + pdf-508，pdf-507 原坏键已校正为平面三角形）；
 /// 任何边界外/歧义/选择题一律不触发，不蒙数、不损害精确率。
 /// </summary>
 public class VseprSolverTests
@@ -81,7 +81,7 @@ public class VseprSolverTests
     // ============================================================
     // 护栏：遍历全量用例集（手工题 + PDF 真题，与生产完全一致），
     // 凡求解器返回非 null，必须判正 —— 否则会损害精确率或帮倒忙。
-    // 已知坏键（化学结论正确但答案键错位）显式列入允许列表，并锁定触发集合防回归。
+    // 已知坏键（化学结论正确但答案键错位）显式列入允许列表，并锁定触发集合防回归。（pdf-507 已校正，当前无坏键）
     // ============================================================
     [Fact]
     public void Guardrail_全题库无假阳性()
@@ -89,10 +89,10 @@ public class VseprSolverTests
         var cases = GatewayVsLlmEvaluationService.BuildTestCases();
         Assert.NotEmpty(cases);
 
-        // 已知坏键：pdf-507 SnCl2 的 VSEPR 模型，化学上应为平面三角形（3 价层电子对：2 成键+1 孤对），
-        // 但 PDF 抽取答案键错位为「四面体形」。结论正确但键不匹配 → 评估侧不采纳（不计引擎解出），
-        // 精确率与 harm 均不受影响。
-        var brokenKeys = new HashSet<string> { "pdf-507" };
+        // pdf-507 原答案键错位为「四面体形」，化学正确为平面三角形（2 成键+1 孤对，价层 3 对）；
+        // P1 已校正为平面三角形，现干净判正。当前 VSEPR 题库无坏键，精确率与 harm 均不受影响。
+        // （保留 brokenKeys 机制以备未来抽取噪声。）
+        var brokenKeys = new HashSet<string>();
 
         var firedIds = new List<string>();
         foreach (var c in cases)
@@ -112,7 +112,7 @@ public class VseprSolverTests
                 $"{c.Id} 求解器返回 {r.FinalResult} 但未通过判分 → 会损害精确率或帮倒忙");
         }
 
-        // 锁定当前题库行为：5 手工 + pdf-508 干净判正 + pdf-507 坏键 = 7 触发；
+        // 锁定当前题库行为：5 手工 + pdf-507 + pdf-508 干净判正 = 7 触发（pdf-507 原坏键已校正）；
         // 任何新增触发都必须先判明正确性。
         Assert.Equal(
             new[] { "d6-1", "d6-2", "d6-3", "d6-4", "d6-5", "pdf-507", "pdf-508" },

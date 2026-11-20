@@ -39,6 +39,17 @@ public sealed class MoleculeAnalysisResult
     /// <summary>极性近似（高中口径）：true=极性，false=非极性。</summary>
     public bool IsPolar { get; init; }
 
+    /// <summary>手性碳原子数（RDKit numAtomStereoCenters，assignStereochemistry 后）。</summary>
+    public int ChiralCenterCount { get; init; }
+    /// <summary>等效氢组数 = 一氯代物种数（逐带 H 碳 ¹³C 标记 → 规范 SMILES 去重）。</summary>
+    public int EquivalentHydrogenGroups { get; init; }
+    /// <summary>1 mol 该分子最多可加成的 H₂ mol 数（C=C/C=O/C=N 计 1、C#C 计 2、芳环键数/2）。</summary>
+    public int AddableH2Count { get; init; }
+    /// <summary>sp² 杂化的碳原子数。</summary>
+    public int Sp2CarbonCount { get; init; }
+    /// <summary>sp³ 杂化的碳原子数。</summary>
+    public int Sp3CarbonCount { get; init; }
+
     /// <summary>人类可读结论（含可被关键词命中的规范词：极性/非极性、sp³、不饱和度 Ω=n、官能团名）。</summary>
     public string FinalResult { get; init; } = "";
 }
@@ -157,10 +168,57 @@ public static class MoleculeAnalyzer
         }
 
         var polar = EstimatePolarity(formula, features, adj, central);
+
+        // —— 选择题图像判定所需的真值（RDKit，失败不抛异常）——
+        // 手性碳数
+        int chiral = 0;
+        try { RDKFuncs.assignStereochemistry(mol); chiral = (int)RDKFuncs.numAtomStereoCenters(mol); } catch { }
+
+        // sp² / sp³ 碳数（复用已算的 features）
+        int sp2c = 0, sp3c = 0;
+        for (int i = 0; i < atomCount; i++)
+        {
+            if (symbols[i] != "C") continue;
+            if (features[i].Hybridization == "sp2") sp2c++;
+            else if (features[i].Hybridization == "sp3") sp3c++;
+        }
+
+        // 可加成 H₂：双键(含 C=O/C=N) +1、三键 +2、芳环键数/2
+        int addH2 = 0, aromBonds = 0;
+        for (int b = 0; b < bondCount; b++)
+        {
+            using var bond = mol.getBondWithIdx((uint)b);
+            int bi = (int)bond.getBeginAtomIdx(), ei = (int)bond.getEndAtomIdx();
+            bool hasC = bi < atomCount && ei < atomCount && (symbols[bi] == "C" || symbols[ei] == "C");
+            var bt = bond.getBondType().ToString();
+            if (bt == "AROMATIC") aromBonds++;
+            else if (bt == "DOUBLE" && hasC) addH2++;
+            else if (bt == "TRIPLE" && hasC) addH2 += 2;
+        }
+        addH2 += aromBonds / 2;
+
+        // 等效氢组数 = 一氯代物种数：逐带 H 碳 ¹³C 标记 → 规范 SMILES 去重（原地标记/恢复）
+        int equivH = 0;
+        try
+        {
+            var set = new HashSet<string>(StringComparer.Ordinal);
+            for (int i = 0; i < atomCount; i++)
+            {
+                using var a = mol.getAtomWithIdx((uint)i);
+                if (a.getSymbol() != "C" || (int)a.getTotalNumHs() == 0) continue;
+                var oldIso = a.getIsotope();
+                a.setIsotope(13);
+                set.Add(RDKFuncs.MolToSmiles(mol));
+                a.setIsotope(oldIso);
+            }
+            equivH = set.Count;
+        }
+        catch { }
+
         var centralFeat = central >= 0 ? features[central] : null;
         if (centralFeat != null) centralFeat = centralFeat with { IsCentral = true };
 
-        var finalResult = BuildFinalResult(formula, dou, ringCount, groups, centralFeat, polar);
+        var finalResult = BuildFinalResult(formula, dou, ringCount, groups, centralFeat, polar, chiral, equivH, addH2, sp2c, sp3c);
 
         return new MoleculeAnalysisResult
         {
@@ -175,6 +233,11 @@ public static class MoleculeAnalyzer
             CentralAtomStericNumber = centralFeat?.StericNumber ?? 0,
             CentralAtomLonePairs = centralFeat?.LonePairs ?? 0,
             IsPolar = polar,
+            ChiralCenterCount = chiral,
+            EquivalentHydrogenGroups = equivH,
+            AddableH2Count = addH2,
+            Sp2CarbonCount = sp2c,
+            Sp3CarbonCount = sp3c,
             FinalResult = finalResult,
         };
     }
@@ -254,7 +317,8 @@ public static class MoleculeAnalyzer
         _ => canon,
     };
 
-    private static string BuildFinalResult(string formula, int dou, int rings, List<string> groups, AtomFeature? central, bool polar)
+    private static string BuildFinalResult(string formula, int dou, int rings, List<string> groups, AtomFeature? central, bool polar,
+        int chiral, int equivH, int addH2, int sp2c, int sp3c)
     {
         var parts = new List<string> { $"分子式 {formula}", $"不饱和度 Ω={dou}" };
         if (rings > 0) parts.Add($"环数 {rings}");
@@ -264,6 +328,7 @@ public static class MoleculeAnalyzer
         }
         parts.Add($"分子极性：{(polar ? "极性" : "非极性")}");
         parts.Add($"官能团：{(groups.Count > 0 ? string.Join("、", groups) : "无")}");
+        parts.Add($"手性碳 {chiral} 个；等效氢 {equivH} 组（一氯代物 {equivH} 种）；最多加成 H₂ {addH2} mol；sp² 碳 {sp2c} 个，sp³ 碳 {sp3c} 个");
         return string.Join("；", parts);
     }
 

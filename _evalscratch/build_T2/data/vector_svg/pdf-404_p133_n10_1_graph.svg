@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="375.3636692834878" y1="320.0" x2="529.7971716189355" y2="105.40569430049706" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="434.5804204512117" y="200.70284715024854" width="36" height="18" fill="white"/>
+<text x="452.5804204512117" y="214.70284715024854" text-anchor="middle" fill="#c0392b">20 mL 6 mol·L⁻¹ 盐酸</text>
+<line x1="529.7971716189355" y1="105.40569430049706" x2="258.5979596569707" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="376.1975656379531" y="70.70284715024853" width="36" height="18" fill="white"/>
+<text x="394.1975656379531" y="84.70284715024853" text-anchor="middle" fill="#c0392b">3 mol·L⁻¹ NaOH溶液</text>
+<line x1="258.5979596569707" y1="60.0" x2="60.0" y2="152.82800392832957" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="141.29897982848536" y="94.41400196416478" width="36" height="18" fill="white"/>
+<text x="159.29897982848536" y="108.41400196416478" text-anchor="middle" fill="#c0392b">30% H₂O₂</text>
+<line x1="60.0" y1="152.82800392832957" x2="580.0" y2="234.08103498803686" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="302.0" y="181.4545194581832" width="36" height="18" fill="white"/>
+<text x="320.0" y="195.4545194581832" text-anchor="middle" fill="#c0392b">抽滤 冰水洗涤</text>
+<line x1="580.0" y1="234.08103498803686" x2="111.60301664573262" y2="281.38545859308954" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="327.8015083228663" y="245.73324679056321" width="36" height="18" fill="white"/>
+<text x="345.8015083228663" y="259.7332467905632" text-anchor="middle" fill="#c0392b">105 ℃ 烘干1 h</text>
+<circle cx="375.3636692834878" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="375.3636692834878" y="325.0" text-anchor="middle" font-weight="bold">CaCO3</text>
+<circle cx="529.7971716189355" cy="105.40569430049706" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="529.7971716189355" y="110.40569430049706" text-anchor="middle" font-weight="bold">solution1</text>
+<circle cx="258.5979596569707" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="258.5979596569707" y="65.0" text-anchor="middle" font-weight="bold">solution2</text>
+<circle cx="60.0" cy="152.82800392832957" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="157.82800392832957" text-anchor="middle" font-weight="bold">solution3</text>
+<circle cx="580.0" cy="234.08103498803686" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="239.08103498803686" text-anchor="middle" font-weight="bold">CaO2·8H2O</text>
+<circle cx="111.60301664573262" cy="281.38545859308954" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="111.60301664573262" y="286.38545859308954" text-anchor="middle" font-weight="bold">CaO2</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

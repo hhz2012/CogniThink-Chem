@@ -26,7 +26,7 @@ public static class AtomicStructureSolver
 
     // 窗口末尾：元素符号 + 可选电荷后缀 + 可选“原子/离子/的”收尾
     private static readonly Regex SymbolWithCharge = new(
-        @"([A-Z][a-z]?)([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻0-9+\-]*)\s*(?:原子|离子|的)?\s*$",
+        @"([A-Z][a-z]?)([⁰¹²³⁴⁵⁶⁷⁸⁹⁺⁻0-9+\-]*)\s*(?:原子|离子|的)*\s*$",
         RegexOptions.Compiled);
 
     private static readonly Regex ChargePattern = new(

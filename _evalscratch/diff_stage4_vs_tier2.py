@@ -9,7 +9,7 @@ per-case engine outcome.
 """
 import json, sys
 ROOT = r"d:\github\CogniThink-Chem\_evalscratch"
-BASE = ROOT + r"\after_stage4.json"
+BASE = ROOT + "\\" + (sys.argv[1] if len(sys.argv) > 1 else "after_stage4.json")
 NEW  = ROOT + r"\after_tier2.json"
 
 def load(p):
@@ -34,7 +34,7 @@ def per_case(d):
 def main():
     base = load(BASE); new = load(NEW)
     bc = per_case(base); nc = per_case(new)
-    print(f"baseline totalCases={base.get('totalCases')}  new totalCases={new.get('totalCases')}")
+    print(f"baseline={BASE.split(chr(92))[-1]}  base totalCases={base.get('totalCases')}  new totalCases={new.get('totalCases')}")
     print(f"baseline engineSolved={base.get('engineSolved')} harm={base.get('harmCount')} prec={base.get('enginePrecision')}")
     print(f"new      engineSolved={new.get('engineSolved')} harm={new.get('harmCount')} prec={new.get('enginePrecision')}")
 

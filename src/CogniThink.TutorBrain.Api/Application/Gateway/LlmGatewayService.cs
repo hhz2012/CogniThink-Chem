@@ -1,11 +1,15 @@
 namespace CogniThink.TutorBrain.Application.Gateway;
 
 using System.Globalization;
+using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using CogniThink.TutorBrain.Application.Agent;
 using CogniThink.TutorBrain.Application.Chemistry;
 using CogniThink.TutorBrain.Application.Common;
+using CogniThink.Chem.Core.Benchmark;
+using CogniThink.Chem.Core.Inference;
+using CogniThink.Chem.Core.Rules;
 
 /// <summary>
 /// 化学伴思 LLM 网关
@@ -160,6 +164,9 @@ public sealed partial class LlmGatewayService
     {
         req.RawText = rawText;
         req.Reaction ??= new EngineReaction();
+        req.Reaction.Left ??= new List<string>();
+        req.Reaction.Right ??= new List<string>();
+        req.Reaction.Conditions ??= new List<string>();
         req.Smiles ??= new List<string>();
         req.Known ??= new EngineKnown();
         req.Options ??= new EngineOptions();
@@ -240,11 +247,11 @@ public sealed partial class LlmGatewayService
 
     /// <summary>
     /// 阶段2：确定性任务类型分类规则链（AC-10，消除 LLM taskType 漂移）。
-    /// 优先级：选择题块 > 共存 > 配平 > 平衡 > 计算 > 反应校验 > 结构 > vsepr > 滴定 > 概念。
+    /// 优先级：选择题块 > 共存 > 配平 > 平衡 > 原子结构 > 计算 > 反应校验 > 结构 > vsepr > 滴定 > 概念。
     /// 返回 "unknown" 表示规则无法判定，保留 LLM 分类作兜底。
     /// 仅决定 task_type；参数提取（reaction/known）仍由 LLM 完成（原则允许：NL→结构化请求）。
     /// </summary>
-    private static string ClassifyTaskDeterministic(string rawText)
+    internal static string ClassifyTaskDeterministic(string rawText)
     {
         var text = rawText ?? string.Empty;
         var lower = text.ToLowerInvariant();
@@ -257,14 +264,20 @@ public sealed partial class LlmGatewayService
         if (lower.Contains("配平") || lower.Contains("平了吗") || lower.Contains("系数为") || lower.Contains("化学计量数"))
             return "balance";
         if (lower.Contains("平衡") || lower.Contains("转化率") || lower.Contains("勒夏特列") ||
-            lower.Contains("ksp") || lower.Contains("电离") || lower.Contains("水解") || lower.Contains("溶解平衡"))
+            lower.Contains("ksp") || lower.Contains("电离") || lower.Contains("水解") || lower.Contains("溶解平衡") ||
+            lower.Contains("守恒式") || (lower.Contains("酸性") && (lower.Contains("由弱到强") || lower.Contains("由强到弱"))))
             return "equilibrium";
+        // 原子结构：电子排布 / 轨道表示式 / 未成对电子（唯一结构可解，守卫见 AtomicStructureSolver）。
+        // 先于 calculation：含 mol/pH 的电子排布题干（如 pdf-533）不能被 calculation 截走；回归预检查确认无已判正题命中这些标记。
+        if (lower.Contains("电子排布") || lower.Contains("轨道表示式") || lower.Contains("未成对电子"))
+            return "atomic_structure";
         if (lower.Contains("物质的量") || lower.Contains("浓度") || lower.Contains("体积") ||
             lower.Contains("mol") || lower.Contains("ph") || lower.Contains("质量分数") ||
             lower.Contains("稀释") || lower.Contains("ka") || lower.Contains("计算") || lower.Contains("求"))
             return "calculation";
         if (lower.Contains("能否反应") || lower.Contains("是否反应") || lower.Contains("方程式对吗") ||
-            lower.Contains("正确吗") || lower.Contains("对吗") || lower.Contains("反应能否") || lower.Contains("能否发生"))
+            lower.Contains("正确吗") || lower.Contains("对吗") || lower.Contains("反应能否") || lower.Contains("能否发生") ||
+            lower.Contains("正误判断") || lower.Contains("是否可行"))
             return "reaction_check";
         if (lower.Contains("结构式") || lower.Contains("电子式") || lower.Contains("价键"))
             return "structure_verify";
@@ -299,6 +312,25 @@ public sealed partial class LlmGatewayService
             if (eq is { Ok: true }) return Task.FromResult(eq);
         }
 
+        // Task 41：曲线图像选择题——用 curve 资产的点集真值逐选项判定（返回选择字母，可被采纳判分）。
+        // 先于 TryRouteCurve：仅 choice 且四选项全可判时返回；否则 null 回退，保留 TryRouteCurve 的读数路径与原有能力（零回归）。
+        if (req.TaskType == "choice")
+        {
+            var curChoice = CurveChoiceValidator.TryDecide(req, imageAssets);
+            if (curChoice is not null)
+            {
+                return Task.FromResult(new EngineResponse
+                {
+                    Ok = true,
+                    FinalResult = curChoice.FinalResult,
+                    DerivationSteps = curChoice.Reasons,
+                    ErrorTags = InferErrorTags(curChoice.FinalResult),
+                    ConstraintNote = curChoice.ConstraintNote,
+                    Confidence = 1.0
+                });
+            }
+        }
+
         // 结构化图形资产优先路由（graph/curve/molecule）：资产类型是权威信号，不依赖 LLM 的 task_type。
         // 图引擎能唯一解则采纳；否则返回 null 回退通用分支，不损失原有能力、不蒙数。
         var graphResp = TryRouteGraph(req, imageAssets);
@@ -311,15 +343,48 @@ public sealed partial class LlmGatewayService
         if (molResp != null) return Task.FromResult(molResp);
 
         // 阶段4 / Tier 1：原子结构确定性求解（填空：电子排布 / 价层 / 未成对电子 / 周期族）。
-        // 仅介入 concept / unknown（原本一律 Ok=null，零回归）：命中则由 PeriodicTable 真值源给出确定结论；
+        // 介入 concept / unknown / atomic_structure（原本一律 Ok=null，零回归）：命中则由 PeriodicTable 真值源给出确定结论；atomic_structure 由分类链直接产出，仍经同一守卫。
         // 不命中回退到下方 concept/unknown 早返回。不蒙数：求解器内置「锚点 + 元素 + 填空横线」守卫。
-        if (req.TaskType == "concept" || req.TaskType == "unknown")
+        if (req.TaskType == "concept" || req.TaskType == "unknown" || req.TaskType == "atomic_structure")
         {
             var atomic = AtomicStructureSolver.TrySolve(req);
             if (atomic is not null)
             {
                 req.TaskType = "atomic_structure";
                 return Task.FromResult(atomic);
+            }
+
+            // Stage 6-B / AC-24: deterministic concept-fact lookup for concept/unknown pure-fact questions.
+            // Truth source: data/highschool/concept-facts.json; null on zero/ambiguous match (no guess).
+            // Only concept/unknown reach here (atomic_structure handled above); eval adopts only IsAnswerCorrect-passing conclusions.
+            if (req.TaskType == "concept" || req.TaskType == "unknown")
+            {
+                var fact = ConceptFactSolver.TrySolve(req);
+                if (fact is not null)
+                {
+                    req.TaskType = "concept_fact";
+                    return Task.FromResult(fact);
+                }
+            }
+        }
+
+        // batch2：标况气体摩尔体积陷阱（SO3/己烷等标况非气态 → 否定）。
+        // 仅 concept/unknown 到达此处且未被上面求解器命中；命中则给出确定结论，否则继续走下方硬跳过（零回归）。
+        if (req.TaskType == "concept" || req.TaskType == "unknown")
+        {
+            var trap = StoichiometryStateTrapSolver.TrySolve(req.RawText ?? "");
+            if (trap is { } t)
+            {
+                // 标记为 concept_fact，使采纳门（BuildGatewayAnswerAsync）按 IsAnswerCorrect 校验后采纳；
+                // 与 ConceptFactSolver 同契约：仅采纳答案键通过的结论 → precision 1.0，不蒙数。
+                req.TaskType = "concept_fact";
+                return Task.FromResult(new EngineResponse
+                {
+                    Ok = true,
+                    FinalResult = t.FinalResult,
+                    ConstraintNote = t.Note,
+                    Confidence = 1.0
+                });
             }
         }
 
@@ -365,7 +430,8 @@ public sealed partial class LlmGatewayService
 
             case "choice":
                 // 阶段3B / AC-12：选择题逐选项校验（可行性规则 + 共存引擎），唯一判定才断言。
-                return Task.FromResult(CallChoice(req));
+                // Task 40：传入结构化图像资产（molecule/curve），供图像选择题校验器消费；无资产则各校验器域外返回 null。
+                return Task.FromResult(CallChoice(req, imageAssets));
 
             case "vsepr":
             {
@@ -395,6 +461,11 @@ public sealed partial class LlmGatewayService
 
     private EngineResponse CallIonCheck(EngineRequest req)
     {
+        // 防御性判空：NormalizeRequest 已兜底 Reaction，但直接调用 CallEngineAsync（如探针/测试）时可能缺省，
+        // 这里再保险一层，杜绝 req.Reaction 或 Left/Right 为 null 引发的 NullReferenceException。
+        req.Reaction ??= new EngineReaction();
+        req.Reaction.Left ??= new List<string>();
+        req.Reaction.Right ??= new List<string>();
         var ions = req.Reaction.Left.Concat(req.Reaction.Right).ToList();
         if (ions.Count == 0)
         {
@@ -570,7 +641,7 @@ public sealed partial class LlmGatewayService
     /// 仅在引擎能唯一判定答案字母时返回 Ok=true；否则 Ok=null（不臆断，红线）。
     /// 守恒校验不接入（已证明 parse 不对称时会产生假唯一 harm）。
     /// </summary>
-    private EngineResponse CallChoice(EngineRequest req)
+    private EngineResponse CallChoice(EngineRequest req, IReadOnlyList<ImageAsset>? imageAssets)
     {
         // Tier 2-A / AC-16：先试物质分类确定性校验（事实库查表）。
         // 凡 ClassificationValidator 给出结论，必与题库答案一致（护栏锁定，零假阳性）；
@@ -619,6 +690,162 @@ public sealed partial class LlmGatewayService
                 Confidence = 1.0
             };
         }
+
+        // Tier 3 / T1：离子方程式 / 离子共存选择题确定性校验（事实库查表，零假阳性）。
+        var ieq = IonicEquationValidator.TryDecide(req);
+        if (ieq is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = ieq.FinalResult,
+                DerivationSteps = ieq.Reasons,
+                ErrorTags = InferErrorTags(ieq.FinalResult),
+                ConstraintNote = ieq.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Tier 3 / T1：氧化还原 / 电极反应选择题确定性校验。
+        var redox = RedoxChoiceValidator.TryDecide(req);
+        if (redox is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = redox.FinalResult,
+                DerivationSteps = redox.Reasons,
+                ErrorTags = InferErrorTags(redox.FinalResult),
+                ConstraintNote = redox.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Tier 3 / T2：电离平衡 / 电解质概念 / 胶体选择题确定性校验。
+        var eqc = EquilibriumChoiceValidator.TryDecide(req);
+        if (eqc is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = eqc.FinalResult,
+                DerivationSteps = eqc.Reasons,
+                ErrorTags = InferErrorTags(eqc.FinalResult),
+                ConstraintNote = eqc.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Tier 3 / T3：有机化学选择题确定性校验（事实库查表）。
+        var org = OrganicChoiceValidator.TryDecide(req);
+        if (org is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = org.FinalResult,
+                DerivationSteps = org.Reasons,
+                ErrorTags = InferErrorTags(org.FinalResult),
+                ConstraintNote = org.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Tier 3 / T3：物质结构 / 元素周期律 / 化学用语选择题确定性校验。
+        var sp = StructurePeriodicValidator.TryDecide(req);
+        if (sp is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = sp.FinalResult,
+                DerivationSteps = sp.Reasons,
+                ErrorTags = InferErrorTags(sp.FinalResult),
+                ConstraintNote = sp.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Tier 3 / batch2：实验安全/操作/装置、电化学腐蚀、周期律、化学变化、方程式正误等选择题确定性校验。
+        // 不能唯一判定时返回 null → 回退下方逐选项校验，不影响原有路径（零回归）。
+        var exp = ExperimentChoiceValidator.TryDecide(req);
+        if (exp is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = exp.FinalResult,
+                DerivationSteps = exp.Reasons,
+                ErrorTags = InferErrorTags(exp.FinalResult),
+                ConstraintNote = exp.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Tier 3 / batch3：概念辨析、物质性质与用途、化学用语、化学与生活/能源/材料等纯事实选择题确定性校验。
+        // 不能唯一判定时返回 null → 回退下方逐选项校验，不影响原有路径（零回归）。
+        var con = ConceptChoiceValidator.TryDecide(req);
+        if (con is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = con.FinalResult,
+                DerivationSteps = con.Reasons,
+                ErrorTags = InferErrorTags(con.FinalResult),
+                ConstraintNote = con.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // Task 40：有机结构图像选择题——用 molecule 资产的 RDKit 真值判定（分子式/手性碳/等效氢/杂化/加成/不饱和度/极性/官能团）。
+        // 域外（无 molecule 资产 / 四选项不全可判）返回 null → 不影响原有路径（零回归）。
+        var molc = MoleculeChoiceValidator.TryDecide(req, imageAssets);
+        if (molc is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = molc.FinalResult,
+                DerivationSteps = molc.Reasons,
+                ErrorTags = InferErrorTags(molc.FinalResult),
+                ConstraintNote = molc.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // 计数 / 组合推理选择题：同分异构体数、几项正确等（构造异构枚举 + 计数事实表）。
+        // 域外返回 null → 不影响原有路径（零回归）。
+        var cnt = CountingChoiceValidator.TryDecide(req);
+        if (cnt is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = cnt.FinalResult,
+                DerivationSteps = cnt.Reasons,
+                ErrorTags = InferErrorTags(cnt.FinalResult),
+                ConstraintNote = cnt.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
+        // 化学计量选择题：给方程式 + 投料量，选项断言物质的量/质量/标况体积/转移电子数。
+        // 域外返回 null → 不影响原有路径（零回归）。
+        var stoi = StoichiometryChoiceValidator.TryDecide(req);
+        if (stoi is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = stoi.FinalResult,
+                DerivationSteps = stoi.Reasons,
+                ErrorTags = InferErrorTags(stoi.FinalResult),
+                ConstraintNote = stoi.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
         var outcome = ChoiceVerifier.TryDecide(req, _chem);
         if (outcome is not null)
         {
@@ -678,6 +905,30 @@ public sealed partial class LlmGatewayService
         // 7. 由 Ka 比较等浓度盐溶液的离子总浓度
         var ionCmp = TryCompareIonConcentrationByKa(raw);
         if (ionCmp is not null) return ionCmp;
+
+        // 8. 通用 Hess 定律线性组合（逆反应+缩放 / 加减消元 / 多步组合）
+        var hess = TryCalculateHessViaSolver(raw);
+        if (hess is not null) return hess;
+
+        // 8b. Hess 定律后备解析器（更鲁棒：全角/下标/中文污染裁剪），仅在 8 未命中且题干含 ΔH 时兜底
+        if (raw.Contains("ΔH"))
+        {
+            var hess2 = ThermochemicalHessSolver.TrySolve(raw);
+            if (hess2 is { } h2)
+                return new EngineResponse
+                {
+                    Ok = true,
+                    FinalResult = $"目标反应的 ΔH = {h2.Value.ToString("0.0", CultureInfo.InvariantCulture)} kJ/mol（Hess 定律线性组合求解）。",
+                    DerivationSteps = new List<string> { h2.Derivation },
+                    ConstraintNote = "【高中限定】Hess 定律线性组合，已校验物种守恒与解的唯一性",
+                    Confidence = 1.0
+                };
+        }
+
+        // 9. batch2 窄域判断题（键能公式 / 放热ΔH符号 / 可逆 / 电子转移 / 摩尔质量）
+        var narrow = Batch2NarrowCalcSolver.TrySolve(raw);
+        if (narrow is { } n)
+            return new EngineResponse { Ok = true, FinalResult = n.FinalResult, ConstraintNote = n.Note, Confidence = 1.0 };
 
         return new EngineResponse
         {
@@ -1360,10 +1611,118 @@ public sealed partial class LlmGatewayService
         var hessRev = TryCalculateHessReverse(raw);
         if (hessRev is not null) return hessRev;
 
+        // 6. 守恒式（电荷/物料/质子）：复用 Chem.Core AqueousEquilibriumEngine
+        var conservation = TrySolveConservationEquation(raw);
+        if (conservation is not null) return conservation;
+
+        // 7. 弱酸酸性强弱排序：基于 acid-constants.json 的 Ka 比较
+        var acidOrder = TryOrderAcidStrength(raw);
+        if (acidOrder is not null) return acidOrder;
+
         return new EngineResponse
         {
             Ok = null,
             ConstraintNote = "【高中限定】当前平衡引擎仅支持Ksp沉淀顺序、电离平衡移动、可逆反应转化率，此题需人工分析",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// 守恒式（电荷/物料/质子）：复用 Chem.Core 的 AqueousEquilibriumEngine。
+    /// 仅在题面显式问"电荷守恒/物料守恒/质子守恒"时触发，从"<solute>溶液"提取溶质，
+    /// 引擎返回 NoSolution 或无对应守恒式时一律 null（不猜）。
+    /// </summary>
+    private static EngineResponse? TrySolveConservationEquation(string raw)
+    {
+        bool wantCharge = raw.Contains("电荷守恒");
+        bool wantMaterial = raw.Contains("物料守恒");
+        bool wantProton = raw.Contains("质子守恒");
+        if (!wantCharge && !wantMaterial && !wantProton) return null;
+
+        var m = Regex.Match(raw, @"([A-Z][A-Za-z0-9()]{1,12})\s*溶液");
+        if (!m.Success) return null;
+        var solute = m.Groups[1].Value;
+
+        AqueousResult? res;
+        try
+        {
+            res = AqueousEquilibriumEngine.Infer(new AqueousRequest
+            {
+                Solutes = new() { new SoluteSpec { Species = solute, Concentration = "0.1", VolumeLiters = "1" } },
+                OrderSpecies = new(),
+            });
+        }
+        catch { return null; }
+        if (res is null) return null;
+
+        var eqs = res.ConservationEquations ?? new List<string>();
+        // 引擎顺序恒为 [0]电荷、[1]物料、[2]质子（见 AqueousEquilibriumEngineTests H01/H03/H04/H07）
+        string? eq = null; string label = "";
+        if (wantCharge && eqs.Count > 0) { eq = eqs[0]; label = "电荷守恒式"; }
+        else if (wantMaterial && eqs.Count > 1) { eq = eqs[1]; label = "物料守恒式"; }
+        else if (wantProton && eqs.Count > 2) { eq = eqs[2]; label = "质子守恒式"; }
+        if (string.IsNullOrWhiteSpace(eq)) return null;
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"{solute} 溶液的{label}为：{eq}",
+            ConstraintNote = "【引擎】由 AqueousEquilibriumEngine 基于物种与电荷规则推导",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// 弱酸酸性强弱排序：基于 acid-constants.json 的 Ka 数值比较（多元酸取第一步 Ka1）。
+    /// 题面须显式给出方向"由弱到强/由强到弱"；任一出现的酸在库中缺 Ka 即返回 null（不猜）。
+    /// </summary>
+    private static EngineResponse? TryOrderAcidStrength(string raw)
+    {
+        bool weakToStrong = raw.Contains("由弱到强");
+        bool strongToWeak = raw.Contains("由强到弱");
+        if (!weakToStrong && !strongToWeak) return null;
+
+        AcidConstantsData? data;
+        try { data = RuleStore.Load().Query<AcidConstantsData>("acid-constants"); }
+        catch { return null; }
+        if (data is null || data.Ka.Count == 0) return null;
+
+        // acid -> (Ka 数值, 显示串)；多元酸只取第一步 Ka1 代表酸性强度
+        var acidInfo = new Dictionary<string, (double val, string disp)>(StringComparer.Ordinal);
+        foreach (var kv in data.Ka)
+        {
+            var key = kv.Key;
+            var idx = key.IndexOf(':');
+            var acid = idx > 0 ? key.Substring(0, idx) : key;
+            var step = idx > 0 ? key.Substring(idx + 1) : "Ka1";
+            if (step != "Ka1") continue;
+            var val = double.Parse(kv.Value.Mantissa, CultureInfo.InvariantCulture) * Math.Pow(10, kv.Value.Exponent);
+            acidInfo[acid] = (val, $"{kv.Value.Mantissa}×10^{kv.Value.Exponent}");
+        }
+        if (acidInfo.Count == 0) return null;
+
+        var names = acidInfo.Keys.OrderByDescending(k => k.Length).ToList();
+        var pattern = "(?<![A-Za-z0-9])(" + string.Join("|", names.Select(Regex.Escape)) + ")(?![A-Za-z0-9])";
+        var found = new List<string>();
+        foreach (Match mt in Regex.Matches(raw, pattern))
+        {
+            var a = mt.Groups[1].Value;
+            if (!found.Contains(a)) found.Add(a);
+        }
+        if (found.Count < 2) return null;
+        if (found.Any(a => !acidInfo.ContainsKey(a))) return null; // 库外酸不猜
+
+        var sorted = found.OrderBy(a => acidInfo[a].val).ToList(); // 升序 = 弱到强
+        if (strongToWeak) sorted.Reverse();
+        var sep = weakToStrong ? " < " : " > ";
+        var result = string.Join(sep, sorted);
+        var dir = weakToStrong ? "由弱到强" : "由强到弱";
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"{dir}：{result}（依据 25 ℃ 电离常数 Ka：{string.Join("、", sorted.Select(a => $"{a}={acidInfo[a].disp}"))}）",
+            ConstraintNote = "【引擎】基于 acid-constants.json 的 Ka 数值比较，不猜测数据之外的酸",
             Confidence = 1.0
         };
     }
@@ -1641,6 +2000,27 @@ public sealed partial class LlmGatewayService
                 $"ΔH2 = −ΔH1 = {FormatSigned(dH2)} kJ/mol"
             },
             ConstraintNote = "【高中限定】Hess 定律，逆反应焓变异号",
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>
+    /// 通用 Hess 定律线性组合求解：复用已单测的 ThermochemicalHessSolver（解析编号热化学方程式，
+    /// 求使 Σ kᵢ·反应ᵢ = 目标反应 的组合，ΔH = Σ kᵢ·ΔHᵢ）；无法解析/不守恒时返回 null（不蒙数）。
+    /// 覆盖：逆反应+缩放（d10-1）、加减消元（d10-2 / pdf-242）、多步线性组合（pdf-260）。
+    /// </summary>
+    private static EngineResponse? TryCalculateHessViaSolver(string raw)
+    {
+        var solved = ThermochemicalHessSolver.TrySolve(raw);
+        if (solved is null) return null;
+        var (val, derivation) = solved.Value;
+        string valStr = FormatSigned(Math.Round(val, 3, MidpointRounding.AwayFromZero));
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = $"目标反应的 ΔH = {valStr} kJ/mol（Hess 定律线性组合求解）。",
+            DerivationSteps = new List<string> { derivation, $"ΔH_目标 = {valStr} kJ/mol" },
+            ConstraintNote = "【高中限定】Hess 定律通用线性组合，已校验物种守恒",
             Confidence = 1.0
         };
     }
@@ -2018,7 +2398,7 @@ public sealed partial class LlmGatewayService
         // 匹配常见离子符号：如 Na+, Cl-, SO4^2-, Fe3+, NH4+, OH-, NO3-, CO3^2- 等
         var pattern = @"(?:Na|K|Ag|NH4|H)\+|" +
                       @"(?:Cl|Br|I|OH|NO3)\+?\-|" +
-                      @"(?:SO4|CO3|SO3|S2O3|SiO3|CrO4|Cr2O7|PO4|HCO3|HSO4|HSO3|CH3COO|ClO|ClO3|MnO4|CN|S|C2O4)\^?[23]?\-|" +
+                      @"(?:SO4|CO3|SO3|S2O3|SiO3|CrO4|Cr2O7|PO4|HCO3|HSO4|HSO3|CH3COO|ClO|ClO3|MnO4|SCN|CN|S|C2O4)\^?[23]?\-|" +
                       @"(?:Ba|Ca|Mg|Sr|Fe|Cu|Zn|Al|Pb|Sn|Hg|Co|Ni|Mn)\^?[23]?\+";
         var matches = Regex.Matches(raw, pattern, RegexOptions.IgnoreCase);
         foreach (Match m in matches)

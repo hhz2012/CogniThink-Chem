@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="sans-serif" font-size="13">
+<rect x="0" y="0" width="640" height="420" fill="white"/>
+<line x1="70.0" y1="40" x2="70.0" y2="360" stroke="#eee"/>
+<line x1="70.0" y1="360" x2="70.0" y2="365" stroke="black"/>
+<line x1="340.0" y1="40" x2="340.0" y2="360" stroke="#eee"/>
+<line x1="340.0" y1="360" x2="340.0" y2="365" stroke="black"/>
+<line x1="529.0" y1="40" x2="529.0" y2="360" stroke="#eee"/>
+<line x1="529.0" y1="360" x2="529.0" y2="365" stroke="black"/>
+<line x1="70" y1="334.4" x2="610" y2="334.4" stroke="#eee"/>
+<line x1="65" y1="334.4" x2="70" y2="334.4" stroke="black"/>
+<text x="62" y="338.4" text-anchor="end">11</text>
+<line x1="70" y1="241.6" x2="610" y2="241.6" stroke="#eee"/>
+<line x1="65" y1="241.6" x2="70" y2="241.6" stroke="black"/>
+<text x="62" y="245.6" text-anchor="end">9</text>
+<line x1="70" y1="145.6" x2="610" y2="145.6" stroke="#eee"/>
+<line x1="65" y1="145.6" x2="70" y2="145.6" stroke="black"/>
+<text x="62" y="149.6" text-anchor="end">7</text>
+<line x1="70" y1="56.0" x2="610" y2="56.0" stroke="#eee"/>
+<line x1="65" y1="56.0" x2="70" y2="56.0" stroke="black"/>
+<text x="62" y="60.0" text-anchor="end">0</text>
+<line x1="70" y1="40" x2="70" y2="360" stroke="black" stroke-width="1.5"/>
+<line x1="70" y1="360" x2="610" y2="360" stroke="black" stroke-width="1.5"/>
+<text x="340.0" y="405" text-anchor="middle">稀释倍数</text>
+<text x="20" y="200.0" text-anchor="middle" transform="rotate(-90 20 200.0)">pH</text>
+<polyline points="70.0,334.4 151.0,312.0 232.0,289.6 313.0,264.0 394.0,232.0 475.0,200.0 556.0,168.0 610.0,145.6" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="70.0" cy="334.4" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="151.0" cy="312.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="232.0" cy="289.6" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="313.0" cy="264.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="394.0" cy="232.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="475.0" cy="200.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="556.0" cy="168.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="610.0" cy="145.6" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="55" text-anchor="end" fill="#c0392b">I</text>
+<polyline points="70.0,334.4 124.0,280.0 178.0,248.0 232.0,225.6 286.0,206.4 340.0,193.6 394.0,184.0 448.0,174.4 502.0,168.0 556.0,158.4 610.0,145.6" fill="none" stroke="#2980b9" stroke-width="2.5"/>
+<circle cx="70.0" cy="334.4" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="124.0" cy="280.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="178.0" cy="248.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="232.0" cy="225.6" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="286.0" cy="206.4" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="340.0" cy="193.6" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="394.0" cy="184.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="448.0" cy="174.4" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="502.0" cy="168.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="556.0" cy="158.4" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="610.0" cy="145.6" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<text x="605" y="73" text-anchor="end" fill="#2980b9">II</text>
+</svg>

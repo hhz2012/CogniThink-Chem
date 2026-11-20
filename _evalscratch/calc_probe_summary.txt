@@ -1,0 +1,1 @@
+calcTotal=56 calcSolved=20 calcUnsolved=36

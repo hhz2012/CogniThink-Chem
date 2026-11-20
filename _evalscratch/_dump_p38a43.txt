@@ -1,0 +1,72 @@
+﻿
+########## ex38 (page 38) ##########
+  --- num=1 type='choice' ---
+    type: choice
+    question: (1)Si是半导体材料,同族的Ge也是半导体材料,则ⅣA族元素的单质都是半导体材料（ ）
+    options: {}
+  --- num=2 type='choice' ---
+    type: choice
+    question: (2)硅的导电性介于导体和绝缘体之间,可用于制造光导纤维（ ）
+    options: {}
+  --- num=3 type='choice' ---
+    type: choice
+    question: (3)工业制高纯硅:SiO2 --(C,高温)--> Si(粗硅) --(HCl,300℃)--> SiHCl3 --(H2,1100℃)--> Si(纯硅)（ ）
+    options: {}
+  --- num=4 type='choice' ---
+    type: choice
+    question: (4)SiO2可用于生产光导纤维,利用了SiO2的导电性（ ）
+    options: {}
+  --- num=5 type='choice' ---
+    type: choice
+    question: (5)石墨烯、碳纳米管、碳纤维均属于无机非金属材料（ ）
+    options: {}
+  --- num=6 type='choice' ---
+    type: choice
+    question: (6)单晶硅芯片的主要成分可被氢氟酸腐蚀（ ）
+    options: {}
+  --- num=7 type='choice' ---
+    type: choice
+    question: (7)瓷坩埚不可用于加热熔化烧碱或纯碱（ ）
+    options: {}
+  --- num=8 type='choice' ---
+    type: choice
+    question: (8)SiO2可与氢氟酸反应,故SiO2为碱性氧化物（ ）
+    options: {}
+  --- num=9 type='choice' ---
+    type: choice
+    question: (9)用氢氟酸雕刻玻璃:SiO2 + 4H+ + 4F- === SiF4↑ + 2H2O（ ）
+    options: {}
+  --- num=10 type='choice' ---
+    type: choice
+    question: (10)利用CO2合成高级脂肪酸甘油酯,实现无机小分子向有机高分子的转化（ ）
+    options: {}
+  --- num=11 type='choice' ---
+    type: choice
+    question: (11)月面国旗由超细玄武岩纤维纺织而成,属于无机非金属材料（ ）
+    options: {}
+  --- num=12 type='choice' ---
+    type: choice
+    question: (12)盛放强碱溶液不能用磨口玻璃塞的原因:SiO2 + 2OH- === SiO3^2- + H2O（ ）
+    options: {}
+  --- num=13 type='choice' ---
+    type: choice
+    question: (13)用纯碱制备普通玻璃的主要反应:SiO2 + Na2CO3 --(高温)--> Na2SiO3 + CO2↑（ ）
+    options: {}
+  --- num=14 type='choice' ---
+    type: choice
+    question: (14)固体Na2CO3、溶液Na2SiO3证明非金属性:Cl>C>Si（ ）
+    options: {}
+  --- num=2 type='choice' ---
+    type: choice
+    question: (2025·浙江三模·★★)物质的性质决定物质的用途,下列说法不正确的是（ ）
+    options: {"A": "碳化硅熔点高,故可用作砂纸和砂轮的磨料", "B": "HF能与SiO2反应,故可用氢氟酸溶蚀玻璃生产磨砂玻璃", "C": "生石灰能与酸性氧化物反应,故煤炭中加入生石灰可减少煤燃烧时产生的SO2", "D": "过氧乙酸具有强氧化性,故可用来杀菌消毒"}
+
+########## an43 (page 43) ##########
+  --- num=1 type=None ---
+    answer: ×,×,√,×,√,√,√,×,×,×,√,√,√,×
+    module: 第6章 非金属及其化合物
+    explanation: 解析：(1)(×)在元素周期表中，构成半导体材料的元素主要集中在金属和非金属的分界线处，如第ⅣA族的Si、Ge。但第ⅣA族元素不全都位于金属和非金属分界线处，如碳是典型的非金属单质、Pb是典型的金属单质，它们均不是半导体材料。因此第ⅣA族元素的单质并非都是半导体材料。(2)(×)硅的导电性介于导体和绝缘体之间，可以制造半导体，而光导纤维的主要成分为SiO₂，与Si单质的导电性无关。
+  --- num=2 type=None ---
+    answer: A
+    module: 第6章 非金属及其化合物
+    explanation: 解析：A. 碳化硅用作砂纸和砂轮的磨料是因为其硬度高，不是熔点高，A选项错误。B. HF能与SiO₂反应生成SiF₄和H₂O（反应的化学方程式为SiO₂+4HF=SiF₄↑+2H₂O），故可用氢氟酸溶蚀玻璃生产磨砂玻璃，B选项正确。C. 生石灰(CaO)能与煤燃烧时产生的酸性氧化物SO₂反应（CaO+SO₂=CaSO₃，2CaSO₃+O₂=2CaSO₄），将煤中的硫

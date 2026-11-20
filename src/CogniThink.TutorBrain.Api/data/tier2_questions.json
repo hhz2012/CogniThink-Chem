@@ -1198,5 +1198,932 @@
     ],
     "type": "choice",
     "note": "Tier 2-B 物质转化链选择题（TransformationChainValidator 确定性求解，不靠 LLM）"
+  },
+  {
+    "id": "t3count-01",
+    "question": "下列说法正确的是（ ）",
+    "options": {
+      "A": "C5H12 的同分异构体有 3 种",
+      "B": "C6H14 的同分异构体有 4 种",
+      "C": "C4H10 的同分异构体有 3 种",
+      "D": "C7H16 的同分异构体有 8 种"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-02",
+    "question": "下列说法错误的是（ ）",
+    "options": {
+      "A": "C4H9Cl 的同分异构体有 4 种",
+      "B": "C5H11Cl 的同分异构体有 8 种",
+      "C": "C3H7Cl 的同分异构体有 3 种",
+      "D": "C2H5Cl 的同分异构体有 1 种"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-03",
+    "question": "下列说法错误的是（ ）",
+    "options": {
+      "A": "C4H8O2 属于羧酸的同分异构体有 2 种",
+      "B": "C5H10O2 属于羧酸的同分异构体有 4 种",
+      "C": "C3H6O2 属于羧酸的同分异构体有 2 种",
+      "D": "C6H12O2 属于羧酸的同分异构体有 8 种"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-04",
+    "question": "下列说法正确的是（ ）",
+    "options": {
+      "A": "C4H10O 属于醇的同分异构体有 4 种",
+      "B": "C3H8O 属于醇的同分异构体有 3 种",
+      "C": "C2H6O 属于醇的同分异构体有 2 种",
+      "D": "C5H12O 属于醇的同分异构体有 9 种"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-05",
+    "question": "下列说法正确的是（ ）",
+    "options": {
+      "A": "C7H16 含 3 个甲基的同分异构体有 3 种",
+      "B": "C7H16 含 2 个甲基的同分异构体有 2 种",
+      "C": "C6H14 含 2 个甲基的同分异构体有 2 种",
+      "D": "C5H12 含 2 个甲基的同分异构体有 3 种"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-06",
+    "question": "下列说法正确的是（ ）",
+    "options": {
+      "A": "立方烷的二氯代物有 3 种",
+      "B": "立方烷的二氯代物有 2 种",
+      "C": "立方烷的六氯代物有 2 种",
+      "D": "苯的二氯代物有 2 种"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-07",
+    "question": "下列说法错误的是（ ）",
+    "options": {
+      "A": "苯的一氯代物有 1 种",
+      "B": "苯的二氯代物有 3 种",
+      "C": "苯的三氯代物有 4 种",
+      "D": "萘的一氯代物有 2 种"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-08",
+    "question": "下列说法正确的有几项？① C5H12 的同分异构体有 3 种 ② C4H9Cl 的同分异构体有 4 种 ③ C3H7Cl 的同分异构体有 3 种 ④ C2H5Cl 的同分异构体有 1 种",
+    "options": {
+      "A": "1 项",
+      "B": "2 项",
+      "C": "3 项",
+      "D": "4 项"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-09",
+    "question": "下列说法正确的是（ ）",
+    "options": {
+      "A": "C4H8O 属于醛的同分异构体有 2 种",
+      "B": "C3H6O 属于醛的同分异构体有 2 种",
+      "C": "C5H10O 属于醛的同分异构体有 3 种",
+      "D": "C2H4O 属于醛的同分异构体有 2 种"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3count-10",
+    "question": "下列说法错误的是（ ）",
+    "options": {
+      "A": "C6H14 的同分异构体有 5 种",
+      "B": "苯的二氯代物有 3 种",
+      "C": "C5H12 的同分异构体有 4 种",
+      "D": "立方烷的六氯代物有 3 种"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 3 计数/组合推理选择题（CountingChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-01",
+    "question": "在反应 2Al + 3H2SO4 = Al2(SO4)3 + 3H2↑ 中，向足量稀硫酸中加入 0.2 mol Al，下列说法正确的是（ ）",
+    "options": {
+      "A": "生成 H2 的体积（标准状况）为 6.72 L",
+      "B": "转移电子的物质的量为 0.4 mol",
+      "C": "消耗 H2SO4 的物质的量为 0.2 mol",
+      "D": "生成 Al2(SO4)3 的质量为 68.4 g"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-02",
+    "question": "在反应 Zn + 2HCl = ZnCl2 + H2↑ 中，加入 6.5 g Zn，下列说法正确的是（ ）",
+    "options": {
+      "A": "生成 H2 的体积（标准状况）为 2.24 L",
+      "B": "消耗 HCl 的物质的量为 0.1 mol",
+      "C": "生成 ZnCl2 的质量为 27.2 g",
+      "D": "转移电子的物质的量为 0.1 mol"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-03",
+    "question": "在反应 2H2 + O2 = 2H2O 中，消耗 0.5 mol O2，下列说法正确的是（ ）",
+    "options": {
+      "A": "消耗 H2 的体积（标准状况）为 11.2 L",
+      "B": "生成 H2O 的质量为 18 g",
+      "C": "消耗 H2 的物质的量为 0.5 mol",
+      "D": "转移电子的物质的量为 4 mol"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-04",
+    "question": "在反应 Fe + CuSO4 = FeSO4 + Cu 中，加入 0.2 mol Fe，下列说法正确的是（ ）",
+    "options": {
+      "A": "生成 FeSO4 的质量为 15.2 g",
+      "B": "转移电子的物质的量为 0.2 mol",
+      "C": "消耗 CuSO4 的物质的量为 0.1 mol",
+      "D": "生成 Cu 的质量为 12.7 g"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-05",
+    "question": "高温下反应 CaCO3 = CaO + CO2↑ 中，煅烧 0.2 mol CaCO3，下列说法正确的是（ ）",
+    "options": {
+      "A": "生成 CO2 的体积（标准状况）为 4.48 L",
+      "B": "生成 CaO 的质量为 5.6 g",
+      "C": "生成 CO2 的质量为 4.4 g",
+      "D": "生成 CaO 的物质的量为 0.4 mol"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-06",
+    "question": "加热时反应 2KMnO4 = K2MnO4 + MnO2 + O2↑ 中，分解 0.2 mol KMnO4，下列说法错误的是（ ）",
+    "options": {
+      "A": "生成 O2 的体积（标准状况）为 2.24 L",
+      "B": "生成 K2MnO4 的质量为 19.7 g",
+      "C": "生成 MnO2 的物质的量为 0.2 mol",
+      "D": "生成 O2 的质量为 3.2 g"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-07",
+    "question": "在反应 Mg + 2HCl = MgCl2 + H2↑ 中，加入 0.3 mol Mg，下列说法正确的是（ ）",
+    "options": {
+      "A": "转移电子的物质的量为 0.3 mol",
+      "B": "生成 H2 的体积（标准状况）为 6.72 L",
+      "C": "消耗 HCl 的物质的量为 0.3 mol",
+      "D": "生成 MgCl2 的质量为 19.0 g"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t3s-08",
+    "question": "在反应 2CO + O2 = 2CO2 中，消耗 0.5 mol CO，下列说法错误的是（ ）",
+    "options": {
+      "A": "生成 CO2 的体积（标准状况）为 11.2 L",
+      "B": "消耗 O2 的物质的量为 0.25 mol",
+      "C": "生成 CO2 的质量为 44 g",
+      "D": "转移电子的物质的量为 1.0 mol"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Tier 3 化学计量选择题（StoichiometryChoiceValidator 确定性求解）"
+  },
+  {
+    "id": "t4mol-01",
+    "question": "如图为苯的结构简式，下列说法正确的是（ ）",
+    "options": {
+      "A": "分子式为 C6H6",
+      "B": "不饱和度 Ω=3",
+      "C": "一氯代物有 2 种",
+      "D": "1 mol 最多与 2 mol H2 加成"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "c1ccccc1",
+          "name": "苯"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-02",
+    "question": "如图为乙醇的结构简式，下列说法错误的是（ ）",
+    "options": {
+      "A": "分子式为 C2H6O",
+      "B": "含有羟基",
+      "C": "等效氢有 3 组",
+      "D": "是极性分子"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "CCO",
+          "name": "乙醇"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-03",
+    "question": "如图为 2-丁醇的结构简式，下列说法正确的是（ ）",
+    "options": {
+      "A": "含有 1 个手性碳",
+      "B": "含有 2 个手性碳",
+      "C": "一氯代物有 3 种",
+      "D": "不饱和度 Ω=1"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "CCC(O)C",
+          "name": "2-丁醇"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-04",
+    "question": "如图为乙酸的结构简式，下列说法错误的是（ ）",
+    "options": {
+      "A": "含有羧基",
+      "B": "不饱和度 Ω=1",
+      "C": "sp2 杂化的碳有 2 个",
+      "D": "是极性分子"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "CC(=O)O",
+          "name": "乙酸"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-05",
+    "question": "如图为乙醛的结构简式，下列说法正确的是（ ）",
+    "options": {
+      "A": "含有醛基",
+      "B": "1 mol 最多与 2 mol H2 加成",
+      "C": "含有羧基",
+      "D": "sp2 杂化的碳有 2 个"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "CC=O",
+          "name": "乙醛"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-06",
+    "question": "如图为甲苯的结构简式，下列说法错误的是（ ）",
+    "options": {
+      "A": "一氯代物有 4 种",
+      "B": "含有苯环",
+      "C": "1 mol 最多与 3 mol H2 加成",
+      "D": "等效氢有 3 组"
+    },
+    "answer": "D",
+    "answerKeywords": [
+      "D"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "Cc1ccccc1",
+          "name": "甲苯"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-07",
+    "question": "如图为四氯化碳的结构模型，下列说法正确的是（ ）",
+    "options": {
+      "A": "是极性分子",
+      "B": "是非极性分子",
+      "C": "不含有卤原子",
+      "D": "不饱和度 Ω=1"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "ClC(Cl)(Cl)Cl",
+          "name": "四氯化碳"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-08",
+    "question": "如图为苯酚的结构简式，下列说法错误的是（ ）",
+    "options": {
+      "A": "含有苯环",
+      "B": "含有羟基",
+      "C": "一氯代物有 4 种",
+      "D": "不饱和度 Ω=4"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "Oc1ccccc1",
+          "name": "苯酚"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-09",
+    "question": "如图为丙酮的结构简式，下列说法正确的是（ ）",
+    "options": {
+      "A": "含有酮羰基",
+      "B": "含有醛基",
+      "C": "sp2 杂化的碳有 2 个",
+      "D": "不饱和度 Ω=2"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "CC(=O)C",
+          "name": "丙酮"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4mol-10",
+    "question": "如图为乙烯的结构简式，下列说法错误的是（ ）",
+    "options": {
+      "A": "分子式为 C2H4",
+      "B": "含有碳碳双键",
+      "C": "1 mol 最多与 2 mol H2 加成",
+      "D": "sp2 杂化的碳有 2 个"
+    },
+    "answer": "C",
+    "answerKeywords": [
+      "C"
+    ],
+    "type": "choice",
+    "note": "Task 40 有机结构图像选择题（MoleculeChoiceValidator，RDKit 真值）",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "source": "",
+        "payload": {
+          "valid": true,
+          "smiles": "C=C",
+          "name": "乙烯"
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4cur-01",
+    "question": "如图为某变量 y 随 x 变化的曲线，下列说法正确的是（ ）",
+    "options": {
+      "A": "当 x=2.5 时，曲线甲 的 y 为 5.5",
+      "B": "当 x=2 时，曲线甲 的 y 为 3",
+      "C": "当 x=3 时，曲线甲 的 y 为 8",
+      "D": "当 x=1 时，曲线甲 的 y 为 1"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 41 曲线图像选择题（CurveChoiceValidator，曲线资产真值）",
+    "imageAssets": [
+      {
+        "type": "curve",
+        "source": "",
+        "payload": {
+          "xLabel": "x",
+          "yLabel": "y",
+          "xAxisLabeled": true,
+          "yAxisLabeled": true,
+          "series": [
+            {
+              "name": "甲",
+              "points": [
+                [
+                  0.0,
+                  1.0
+                ],
+                [
+                  1.0,
+                  2.0
+                ],
+                [
+                  2.0,
+                  4.0
+                ],
+                [
+                  3.0,
+                  7.0
+                ],
+                [
+                  4.0,
+                  11.0
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4cur-02",
+    "question": "如图为曲线乙的图像，下列说法正确的是（ ）",
+    "options": {
+      "A": "曲线乙 的 y 最大值 为 5",
+      "B": "曲线乙 的 y 最大值 为 6",
+      "C": "曲线乙 的 y 最大值 为 3",
+      "D": "曲线乙 的 y 最大值 为 4"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 41 曲线图像选择题（CurveChoiceValidator，曲线资产真值）",
+    "imageAssets": [
+      {
+        "type": "curve",
+        "source": "",
+        "payload": {
+          "xLabel": "x",
+          "yLabel": "y",
+          "xAxisLabeled": true,
+          "yAxisLabeled": true,
+          "series": [
+            {
+              "name": "乙",
+              "points": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  3.0
+                ],
+                [
+                  2.0,
+                  5.0
+                ],
+                [
+                  3.0,
+                  4.0
+                ],
+                [
+                  4.0,
+                  2.0
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4cur-03",
+    "question": "如图为 A、B 两条曲线，下列说法正确的是（ ）",
+    "options": {
+      "A": "当 x=1 时，曲线 A 的 y 大于 曲线 B 的 y",
+      "B": "当 x=3 时，曲线 A 的 y 大于 曲线 B 的 y",
+      "C": "当 x=2 时，曲线 A 的 y 小于 曲线 B 的 y",
+      "D": "当 x=0 时，曲线 A 的 y 大于 曲线 B 的 y"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 41 曲线图像选择题（CurveChoiceValidator，曲线资产真值）",
+    "imageAssets": [
+      {
+        "type": "curve",
+        "source": "",
+        "payload": {
+          "xLabel": "x",
+          "yLabel": "y",
+          "xAxisLabeled": true,
+          "yAxisLabeled": true,
+          "series": [
+            {
+              "name": "A",
+              "points": [
+                [
+                  0.0,
+                  1.0
+                ],
+                [
+                  1.0,
+                  3.0
+                ],
+                [
+                  2.0,
+                  5.0
+                ],
+                [
+                  3.0,
+                  4.0
+                ]
+              ]
+            },
+            {
+              "name": "B",
+              "points": [
+                [
+                  0.0,
+                  2.0
+                ],
+                [
+                  1.0,
+                  2.0
+                ],
+                [
+                  2.0,
+                  3.0
+                ],
+                [
+                  3.0,
+                  5.0
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4cur-04",
+    "question": "如图为 A、B 两条曲线，下列说法正确的是（ ）",
+    "options": {
+      "A": "曲线 A 与曲线 B 的交点横坐标为 1.5",
+      "B": "曲线 A 与曲线 B 的交点横坐标为 1",
+      "C": "曲线 A 与曲线 B 的交点横坐标为 2",
+      "D": "曲线 A 与曲线 B 的交点横坐标为 0.5"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 41 曲线图像选择题（CurveChoiceValidator，曲线资产真值）",
+    "imageAssets": [
+      {
+        "type": "curve",
+        "source": "",
+        "payload": {
+          "xLabel": "x",
+          "yLabel": "y",
+          "xAxisLabeled": true,
+          "yAxisLabeled": true,
+          "series": [
+            {
+              "name": "A",
+              "points": [
+                [
+                  0.0,
+                  0.0
+                ],
+                [
+                  1.0,
+                  2.0
+                ],
+                [
+                  2.0,
+                  4.0
+                ],
+                [
+                  3.0,
+                  6.0
+                ]
+              ]
+            },
+            {
+              "name": "B",
+              "points": [
+                [
+                  0.0,
+                  6.0
+                ],
+                [
+                  1.0,
+                  4.0
+                ],
+                [
+                  2.0,
+                  2.0
+                ],
+                [
+                  3.0,
+                  0.0
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4cur-05",
+    "question": "如图为甲、乙两条曲线，下列说法正确的是（ ）",
+    "options": {
+      "A": "曲线甲 的 y 最大值 大于 曲线乙 的 y 最大值",
+      "B": "曲线甲 的 y 最大值 小于 曲线乙 的 y 最大值",
+      "C": "曲线甲 的 y 最大值 等于 曲线乙 的 y 最大值",
+      "D": "曲线乙 的 y 最大值 大于 曲线甲 的 y 最大值"
+    },
+    "answer": "A",
+    "answerKeywords": [
+      "A"
+    ],
+    "type": "choice",
+    "note": "Task 41 曲线图像选择题（CurveChoiceValidator，曲线资产真值）",
+    "imageAssets": [
+      {
+        "type": "curve",
+        "source": "",
+        "payload": {
+          "xLabel": "x",
+          "yLabel": "y",
+          "xAxisLabeled": true,
+          "yAxisLabeled": true,
+          "series": [
+            {
+              "name": "甲",
+              "points": [
+                [
+                  0.0,
+                  1.0
+                ],
+                [
+                  1.0,
+                  8.0
+                ],
+                [
+                  2.0,
+                  3.0
+                ]
+              ]
+            },
+            {
+              "name": "乙",
+              "points": [
+                [
+                  0.0,
+                  2.0
+                ],
+                [
+                  1.0,
+                  5.0
+                ],
+                [
+                  2.0,
+                  4.0
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "id": "t4cur-06",
+    "question": "如图为曲线丙的图像，下列说法错误的是（ ）",
+    "options": {
+      "A": "曲线丙 的 y 最小值 为 1",
+      "B": "曲线丙 的 y 最小值 为 2",
+      "C": "当 x=1 时，曲线丙 的 y 为 2",
+      "D": "当 x=3 时，曲线丙 的 y 为 4"
+    },
+    "answer": "B",
+    "answerKeywords": [
+      "B"
+    ],
+    "type": "choice",
+    "note": "Task 41 曲线图像选择题（CurveChoiceValidator，曲线资产真值）",
+    "imageAssets": [
+      {
+        "type": "curve",
+        "source": "",
+        "payload": {
+          "xLabel": "x",
+          "yLabel": "y",
+          "xAxisLabeled": true,
+          "yAxisLabeled": true,
+          "series": [
+            {
+              "name": "丙",
+              "points": [
+                [
+                  0.0,
+                  5.0
+                ],
+                [
+                  1.0,
+                  2.0
+                ],
+                [
+                  2.0,
+                  1.0
+                ],
+                [
+                  3.0,
+                  4.0
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    ]
   }
 ]

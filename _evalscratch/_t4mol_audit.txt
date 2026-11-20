@@ -1,0 +1,42 @@
+=== molecule 资产题：total=41, solved=10, gradedCorrect=10 ===
+NULL  pdf-140
+NULL  pdf-199
+NULL  pdf-208
+NULL  pdf-214
+NULL  pdf-223
+NULL  pdf-327
+NULL  pdf-330
+NULL  pdf-338
+NULL  pdf-344
+NULL  pdf-346
+NULL  pdf-351
+NULL  pdf-353
+NULL  pdf-357
+NULL  pdf-359
+NULL  pdf-361
+NULL  pdf-362
+NULL  pdf-364
+NULL  pdf-369
+NULL  pdf-386
+NULL  pdf-387
+NULL  pdf-391
+NULL  pdf-428
+NULL  pdf-429
+NULL  pdf-431
+NULL  pdf-432
+NULL  pdf-433
+NULL  pdf-434
+NULL  pdf-438
+NULL  pdf-439
+NULL  pdf-494
+NULL  pdf-522
+SOLVE t4mol-01 -> A (graded=OK) answer=[A]
+SOLVE t4mol-02 -> C (graded=OK) answer=[C]
+SOLVE t4mol-03 -> A (graded=OK) answer=[A]
+SOLVE t4mol-04 -> C (graded=OK) answer=[C]
+SOLVE t4mol-05 -> A (graded=OK) answer=[A]
+SOLVE t4mol-06 -> D (graded=OK) answer=[D]
+SOLVE t4mol-07 -> B (graded=OK) answer=[B]
+SOLVE t4mol-08 -> C (graded=OK) answer=[C]
+SOLVE t4mol-09 -> A (graded=OK) answer=[A]
+SOLVE t4mol-10 -> C (graded=OK) answer=[C]

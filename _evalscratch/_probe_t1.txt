@@ -1,0 +1,45 @@
+=== pdf-035 | TryDecide=>B ===
+  A: correct=False [UNRELIABLE=False]  reason=H3PO3 是二元弱酸，不应电离出 PO3^3-
+  B: correct=True  reason=
+  C: correct=False [UNRELIABLE=False]  reason=甲酸根应为 HCOO^-，不能写成 COOH^-
+  D: correct=False [UNRELIABLE=False]  reason=强电解质拆写：NaHSO4 是可溶性盐，在离子方程式中应拆写为离子
+=== pdf-050 | TryDecide=>NULL ===
+  A: correct=False [UNRELIABLE=True]  reason=状态符号：生成物 NO2 是气体，应标 ↑
+  B: correct=False [UNRELIABLE=True]  reason=状态符号：生成物 PbS 难溶于水，应标 ↓
+  C: correct=True  reason=
+  D: correct=False [UNRELIABLE=False]  reason=离子共存：H^+ 与 C2O4^2- 同在反应物一侧，应发生反应，但生成物中未见 H2C2O4、HC2O4^-；状态符号：生成物 CO2 是气体，应标 ↑
+=== pdf-052 | TryDecide=>NULL ===
+  A: correct=True  reason=
+  B: correct=False [UNRELIABLE=True]  reason=状态符号：生成物 CO2 是气体，应标 ↑
+  C: correct=True  reason=
+  D: correct=True  reason=
+=== pdf-054 | TryDecide=>B ===
+  A: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  B: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  C: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  D: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+=== pdf-055 | TryDecide=>D ===
+  A: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  B: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  C: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  D: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+=== pdf-057 | TryDecide=>B ===
+  A: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  B: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  C: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  D: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+=== pdf-058 | TryDecide=>B ===
+  A: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  B: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  C: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  D: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+=== pdf-061 | TryDecide=>C ===
+  A: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  B: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  C: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  D: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+=== pdf-062 | TryDecide=>B ===
+  A: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  B: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  C: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空
+  D: correct=False [UNRELIABLE=True]  reason=方程式无法解析：方程式为空

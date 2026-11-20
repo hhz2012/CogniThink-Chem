@@ -13,7 +13,8 @@
     "H2S:Ka1": { "mantissa": "1.3", "exponent": -7 },
     "H2S:Ka2": { "mantissa": "7.1", "exponent": -15 },
     "H2SO3:Ka1": { "mantissa": "1.5", "exponent": -2 },
-    "H2SO3:Ka2": { "mantissa": "1.0", "exponent": -7 }
+    "H2SO3:Ka2": { "mantissa": "1.0", "exponent": -7 },
+    "HCN": { "mantissa": "4.9", "exponent": -10 }
   },
   "kb": {
     "NH3·H2O": { "mantissa": "1.76", "exponent": -5 }

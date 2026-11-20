@@ -1,0 +1,17 @@
+IonicEquation currently asserts on 8 choice questions:
+pdf-035 got=B ans=B match=True snapCorrect=True ionEqShaped=False coexist=False nEq=4
+   STEM: (2025·河北衡水一模·★)下列物质在水溶液中的电离方程式书写正确的是( )
+pdf-054 got=B ans=B match=True snapCorrect=True ionEqShaped=False coexist=True nEq=0
+   STEM: (2025·八省联考晋陕宁青卷·★★)下列各组离子在水溶液中可以大量共存的是( )
+pdf-055 got=D ans=D match=True snapCorrect=True ionEqShaped=False coexist=True nEq=0
+   STEM: (2024·浙江卷·★★)下列离子组在溶液中能大量共存的是( )
+pdf-057 got=B ans=B match=True snapCorrect=True ionEqShaped=False coexist=True nEq=0
+   STEM: (2025·黑龙江齐齐哈尔二模·★★)常温下，下列各组离子在指定溶液中一定能大量共存的是( )
+pdf-058 got=B ans=B match=True snapCorrect=True ionEqShaped=False coexist=True nEq=0
+   STEM: (2025·安徽一模·★★)下列各组离子在给定溶液中一定能大量共存的是( )
+pdf-059 got=D ans=D match=True snapCorrect=True ionEqShaped=False coexist=True nEq=0
+   STEM: (2022·天津卷改编·★★)25℃时，下列各组离子中可以在水溶液中能大量共存的是( )
+pdf-061 got=C ans=C match=True snapCorrect=True ionEqShaped=False coexist=True nEq=0
+   STEM: (2022·湖北卷·★★★)下列各组离子在给定溶液中能大量共存的是( )
+pdf-062 got=B ans=B match=True snapCorrect=True ionEqShaped=False coexist=True nEq=0
+   STEM: (2025·东北育才学校三模·★★)在溶液中能大量共存的离子组是( )

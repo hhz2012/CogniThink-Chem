@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="380" viewBox="0 0 640 380" font-family="sans-serif" font-size="14">
+<rect width="640" height="380" fill="white"/>
+<line x1="355.6148100367988" y1="320.0" x2="580.0" y2="188.45953466987888" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="449.80740501839944" y="242.22976733493942" width="36" height="18" fill="white"/>
+<text x="467.80740501839944" y="256.2297673349394" text-anchor="middle" fill="#c0392b">i.粉碎
+ii.(NH₄)₂SO₄
+通空气
+焙烧</text>
+<line x1="355.6148100367988" y1="320.0" x2="175.06798026347974" y2="73.00984477403917" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="247.3413951501393" y="184.50492238701958" width="36" height="18" fill="white"/>
+<text x="265.3413951501393" y="198.50492238701958" text-anchor="middle" fill="#c0392b">i.粉碎
+ii.(NH₄)₂SO₄
+通空气
+焙烧</text>
+<line x1="580.0" y1="188.45953466987888" x2="60.0" y2="232.63116366622657" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="302.0" y="198.54534916805272" width="36" height="18" fill="white"/>
+<text x="320.0" y="212.54534916805272" text-anchor="middle" fill="#c0392b">H₂SO₄
+吸收</text>
+<line x1="175.06798026347974" y1="73.00984477403917" x2="514.1484002899019" y2="273.6383764718554" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="326.60819027669083" y="161.32411062294727" width="36" height="18" fill="white"/>
+<text x="344.60819027669083" y="175.32411062294727" text-anchor="middle" fill="#c0392b">水
+浸铜</text>
+<line x1="175.06798026347974" y1="73.00984477403917" x2="172.09378426116433" y2="304.7382633687585" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="155.58088226232204" y="176.87405407139883" width="36" height="18" fill="white"/>
+<text x="173.58088226232204" y="190.87405407139883" text-anchor="middle" fill="#c0392b">水
+浸铜</text>
+<line x1="514.1484002899019" y1="273.6383764718554" x2="521.3122279506744" y2="100.40281821093119" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="499.7303141202881" y="175.02059734139328" width="36" height="18" fill="white"/>
+<text x="517.7303141202881" y="189.02059734139328" text-anchor="middle" fill="#c0392b">过量Fe
+置换</text>
+<line x1="514.1484002899019" y1="273.6383764718554" x2="356.23315696887636" y2="60.0" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="417.1907786293891" y="154.8191882359277" width="36" height="18" fill="white"/>
+<text x="435.1907786293891" y="168.8191882359277" text-anchor="middle" fill="#c0392b">过量Fe
+置换</text>
+<line x1="356.23315696887636" y1="60.0" x2="70.07471111969599" y2="144.61487654839425" stroke="black" stroke-width="1.8" marker-end="url(#arr)"/>
+<rect x="195.1539340442862" y="90.30743827419712" width="36" height="18" fill="white"/>
+<text x="213.1539340442862" y="104.30743827419712" text-anchor="middle" fill="#c0392b">电解</text>
+<circle cx="355.6148100367988" cy="320.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="355.6148100367988" y="325.0" text-anchor="middle" font-weight="bold">黄铜矿</text>
+<circle cx="580.0" cy="188.45953466987888" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="580.0" y="193.45953466987888" text-anchor="middle" font-weight="bold">高温混合气(主要含NH₃)</text>
+<circle cx="175.06798026347974" cy="73.00984477403917" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="175.06798026347974" y="78.00984477403917" text-anchor="middle" font-weight="bold">固体B</text>
+<circle cx="60.0" cy="232.63116366622657" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="60.0" y="237.63116366622657" text-anchor="middle" font-weight="bold">溶液A</text>
+<circle cx="514.1484002899019" cy="273.6383764718554" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="514.1484002899019" y="278.6383764718554" text-anchor="middle" font-weight="bold">滤液C</text>
+<circle cx="172.09378426116433" cy="304.7382633687585" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="172.09378426116433" y="309.7382633687585" text-anchor="middle" font-weight="bold">滤渣D</text>
+<circle cx="521.3122279506744" cy="100.40281821093119" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="521.3122279506744" y="105.40281821093119" text-anchor="middle" font-weight="bold">滤液E</text>
+<circle cx="356.23315696887636" cy="60.0" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="356.23315696887636" y="65.0" text-anchor="middle" font-weight="bold">粗铜</text>
+<circle cx="70.07471111969599" cy="144.61487654839425" r="22" fill="#eaf2f8" stroke="#2980b9" stroke-width="2"/>
+<text x="70.07471111969599" y="149.61487654839425" text-anchor="middle" font-weight="bold">纯铜</text>
+<defs><marker id="arr" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="black"/></marker></defs>
+</svg>

@@ -2,11 +2,16 @@
 import json, sys, time, urllib.request, urllib.error
 OUT = r"d:\github\CogniThink-Chem\_evalscratch\after_tier2.json"
 URL = "http://localhost:5090/api/evaluation/gateway-vs-llm"
+# Lightweight readiness probe (counts only, no LLM / no heavy eval).
+# NEVER probe the eval endpoint itself: its first request triggers the full
+# synchronous evaluation (minutes), and timeout=5 retries stack concurrent
+# full runs until the server overloads and crashes.
+HEALTH_URL = "http://localhost:5090/api/chemistry/health"
 
 # wait for server boot
 for i in range(60):
     try:
-        with urllib.request.urlopen(URL, timeout=5) as r:
+        with urllib.request.urlopen(HEALTH_URL, timeout=5) as r:
             break
     except urllib.error.URLError as e:
         print(f"wait server... ({i}) {e}"); time.sleep(2)

@@ -1,0 +1,52 @@
+=== stage6-G / AC-26 verify (equilibrium coverage extension) ===
+
+--- top metrics (3f -> concept -> choice -> calc -> eq) ---
+  totalCases        : 679 -> 723 -> 723 -> 723 -> 723
+  gatewayCorrect    : 137 -> 196 -> 255 -> 264 -> 266
+  gatewayEngineUsed : 151 -> 215 -> 274 -> 283 -> 285
+  engineSolved      : 137 -> 196 -> 255 -> 264 -> 266
+  enginePrecision   : 1 -> 1 -> 1 -> 1 -> 1
+  harmCount         : 0 -> 0 -> 0 -> 0 -> 0
+  pureLlmCorrect    : 503 -> 551 -> 551 -> 551 -> 551
+
+--- LOST / GAINED (common cases) ---
+  calc->eq    : common=723  LOST=0  GAINED=2
+  concept->eq : common=723  LOST=0  GAINED=70
+  3f->eq      : common=679  LOST=0  GAINED=85
+  LOST(calc->eq): []
+  LOST(concept->eq): []
+  LOST(3f->eq): []
+  GAINED(calc->eq) count: 2
+  global harm: 0
+
+--- equilibrium scope (engineSolved) ---
+  baseline(calc): eq total=31  adopted&corr=11
+  eq            : eq total=31  adopted&corr=13  (net +2)
+
+--- 2 eq gains (must all be equilibrium + engUsed + adopted + correct) ---
+  d4-3      tt=equilibrium engUsed=True adopted=True corr=True  OK
+  pdf-514   tt=equilibrium engUsed=True adopted=True corr=True  OK
+  gains OK: 2/2
+
+--- regression guards: 11 baseline eq solves + 9 calc gains + 59 choice gains + 12 artifacts stay correct ---
+  keep-correct OK: 91/91
+
+--- red lines ---
+  harmCount==0                                  : PASS
+  global harm empty                             : PASS
+  enginePrecision==1.0                          : PASS
+  LOST(calc->eq) empty                          : PASS
+  LOST(concept->eq) empty                       : PASS
+  LOST(3f->eq) empty                            : PASS
+  2/2 gains adopted&correct                     : PASS
+  eq engineSolved net +>=2                      : PASS
+  eq engineSolved net ==2 (exact)               : PASS
+  eq scope solved ==13                          : PASS
+  pureLlmCorrect unchanged (551)                : PASS
+  engineSolved increased (266 vs 264)           : PASS
+  gatewayCorrect 266                            : PASS
+  engineSolved 266                              : PASS
+  all keep-correct guards pass                  : PASS
+  GAINED(calc->eq)==2                           : PASS
+
+OVERALL: PASS

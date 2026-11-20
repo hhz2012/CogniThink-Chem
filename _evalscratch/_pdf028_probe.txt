@@ -1,0 +1,6 @@
+stem=(全国阶段练习·★★)标准状况下，将20 L CO2和CO的混合气体全部通过足量的Na2O2粉末，在相同状况下，气体体积减少到16 L，则原混合气体中CO的体积为( )
+stemN=(全国阶段练习·★★)标准状况下,将20LCO2和CO的混合气体全部通过足量的Na2O2粉末,在相同状况下,气体体积减少到16L,则原混合气体中CO的体积为()
+OPT A raw='4 L' norm='4L' count=1 ids=[GC-526-A]
+OPT B raw='8 L' norm='8L' count=1 ids=[GC-526-B]
+OPT C raw='12 L' norm='12L' count=1 ids=[GC-526-C]
+OPT D raw='16 L' norm='16L' count=1 ids=[GC-526-D]

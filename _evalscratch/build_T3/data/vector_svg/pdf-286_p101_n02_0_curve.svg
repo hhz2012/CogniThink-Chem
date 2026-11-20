@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420" font-family="sans-serif" font-size="13">
+<rect x="0" y="0" width="640" height="420" fill="white"/>
+<line x1="70.0" y1="40" x2="70.0" y2="360" stroke="#eee"/>
+<line x1="70.0" y1="360" x2="70.0" y2="365" stroke="black"/>
+<text x="70.0" y="380" text-anchor="middle">0</text>
+<line x1="147.1" y1="40" x2="147.1" y2="360" stroke="#eee"/>
+<line x1="147.1" y1="360" x2="147.1" y2="365" stroke="black"/>
+<text x="147.1" y="380" text-anchor="middle">1</text>
+<line x1="224.3" y1="40" x2="224.3" y2="360" stroke="#eee"/>
+<line x1="224.3" y1="360" x2="224.3" y2="365" stroke="black"/>
+<text x="224.3" y="380" text-anchor="middle">2</text>
+<line x1="301.4" y1="40" x2="301.4" y2="360" stroke="#eee"/>
+<line x1="301.4" y1="360" x2="301.4" y2="365" stroke="black"/>
+<text x="301.4" y="380" text-anchor="middle">3</text>
+<line x1="378.6" y1="40" x2="378.6" y2="360" stroke="#eee"/>
+<line x1="378.6" y1="360" x2="378.6" y2="365" stroke="black"/>
+<text x="378.6" y="380" text-anchor="middle">4</text>
+<line x1="455.7" y1="40" x2="455.7" y2="360" stroke="#eee"/>
+<line x1="455.7" y1="360" x2="455.7" y2="365" stroke="black"/>
+<text x="455.7" y="380" text-anchor="middle">5</text>
+<line x1="532.9" y1="40" x2="532.9" y2="360" stroke="#eee"/>
+<line x1="532.9" y1="360" x2="532.9" y2="365" stroke="black"/>
+<text x="532.9" y="380" text-anchor="middle">6</text>
+<line x1="610.0" y1="40" x2="610.0" y2="360" stroke="#eee"/>
+<line x1="610.0" y1="360" x2="610.0" y2="365" stroke="black"/>
+<text x="610.0" y="380" text-anchor="middle">7</text>
+<line x1="70" y1="360.0" x2="610" y2="360.0" stroke="#eee"/>
+<line x1="65" y1="360.0" x2="70" y2="360.0" stroke="black"/>
+<text x="62" y="364.0" text-anchor="end">0</text>
+<line x1="70" y1="314.3" x2="610" y2="314.3" stroke="#eee"/>
+<line x1="65" y1="314.3" x2="70" y2="314.3" stroke="black"/>
+<text x="62" y="318.3" text-anchor="end">1</text>
+<line x1="70" y1="268.6" x2="610" y2="268.6" stroke="#eee"/>
+<line x1="65" y1="268.6" x2="70" y2="268.6" stroke="black"/>
+<text x="62" y="272.6" text-anchor="end">2</text>
+<line x1="70" y1="222.9" x2="610" y2="222.9" stroke="#eee"/>
+<line x1="65" y1="222.9" x2="70" y2="222.9" stroke="black"/>
+<text x="62" y="226.9" text-anchor="end">3</text>
+<line x1="70" y1="177.1" x2="610" y2="177.1" stroke="#eee"/>
+<line x1="65" y1="177.1" x2="70" y2="177.1" stroke="black"/>
+<text x="62" y="181.1" text-anchor="end">4</text>
+<line x1="70" y1="131.4" x2="610" y2="131.4" stroke="#eee"/>
+<line x1="65" y1="131.4" x2="70" y2="131.4" stroke="black"/>
+<text x="62" y="135.4" text-anchor="end">5</text>
+<line x1="70" y1="85.7" x2="610" y2="85.7" stroke="#eee"/>
+<line x1="65" y1="85.7" x2="70" y2="85.7" stroke="black"/>
+<text x="62" y="89.7" text-anchor="end">6</text>
+<line x1="70" y1="40.0" x2="610" y2="40.0" stroke="#eee"/>
+<line x1="65" y1="40.0" x2="70" y2="40.0" stroke="black"/>
+<text x="62" y="44.0" text-anchor="end">7</text>
+<line x1="70" y1="40" x2="70" y2="360" stroke="black" stroke-width="1.5"/>
+<line x1="70" y1="360" x2="610" y2="360" stroke="black" stroke-width="1.5"/>
+<text x="340.0" y="405" text-anchor="middle">pc(X)</text>
+<text x="20" y="200.0" text-anchor="middle" transform="rotate(-90 20 200.0)">pc(Ca²⁺)</text>
+<polyline points="70.0,85.7 301.4,40.0 455.7,131.4 610.0,222.9" fill="none" stroke="#c0392b" stroke-width="2.5"/>
+<circle cx="70.0" cy="85.7" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="301.4" cy="40.0" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="455.7" cy="131.4" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<circle cx="610.0" cy="222.9" r="3" fill="#c0392b" stroke="white" stroke-width="1"/>
+<text x="605" y="55" text-anchor="end" fill="#c0392b">L₁</text>
+<polyline points="70.0,85.7 224.3,268.6 301.4,360.0" fill="none" stroke="#2980b9" stroke-width="2.5"/>
+<circle cx="70.0" cy="85.7" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="224.3" cy="268.6" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<circle cx="301.4" cy="360.0" r="3" fill="#2980b9" stroke="white" stroke-width="1"/>
+<text x="605" y="73" text-anchor="end" fill="#2980b9">L₂</text>
+</svg>

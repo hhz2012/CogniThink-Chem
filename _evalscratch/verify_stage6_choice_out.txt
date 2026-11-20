@@ -1,0 +1,134 @@
+=== stage6-E / AC-27 verify (choice coverage extension) ===
+
+--- top metrics (3f -> concept -> choice) ---
+  totalCases        : 679 -> 723 -> 723
+  gatewayCorrect    : 137 -> 196 -> 255
+  gatewayEngineUsed : 151 -> 215 -> 274
+  engineSolved      : 137 -> 196 -> 255
+  enginePrecision   : 1 -> 1 -> 1
+  harmCount         : 0 -> 0 -> 0
+  pureLlmCorrect    : 503 -> 551 -> 551
+
+--- LOST / GAINED (common cases) ---
+  concept->choice: common=723  LOST=0  GAINED=59
+  3f->choice     : common=679  LOST=0  GAINED=74
+  LOST(concept->choice): []
+  LOST(3f->choice): []
+  GAINED(concept->choice) count: 59
+  global harm: 0
+
+--- choice scope ---
+  total n=467  adopted&corr=147  harm=0
+
+--- 59 gains (must all be choice + engUsed + adopted + correct) ---
+  pdf-005    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-007    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-008    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-011    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-033    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-035    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-036    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-046    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-053    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-054    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-055    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-057    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-058    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-061    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-062    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-069    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-091    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-096    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-099    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-124    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-131    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-154    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-181    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-183    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-186    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-192    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-200    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-209    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-210    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-264    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-266    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-268    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-270    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-276    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-277    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-320    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-326    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-335    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-366    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-369    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-373    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-374    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-375    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-379    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-385    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-392    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-430    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-441    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-443    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-444    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-447    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-448    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-449    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-452    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-499    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-500    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-501    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-502    tt=choice  engUsed=True adopted=True corr=True  OK
+  pdf-513    tt=choice  engUsed=True adopted=True corr=True  OK
+  gains OK: 59/59
+
+--- 5 eval-key pollution fixes (must be correct now) ---
+  pdf-008    adopted=True corr=True concl=错误选项为 C
+  pdf-154    adopted=True corr=True concl=正确选项为 B
+  pdf-186    adopted=True corr=True concl=正确选项为 A
+  pdf-326    adopted=True corr=True concl=正确选项为 D
+  pdf-502    adopted=True corr=True concl=正确选项为 B
+
+--- 12 dump-artifact 'losses' (must STAY correct in derived JSON - not real regressions) ---
+  test-1       tt=concept_fact  adopted=True corr=True
+  test-2       tt=concept_fact  adopted=True corr=True
+  test-3       tt=concept_fact  adopted=True corr=True
+  test-4       tt=concept_fact  adopted=True corr=True
+  test-5       tt=concept_fact  adopted=True corr=True
+  concept-1    tt=concept_fact  adopted=True corr=True
+  concept-2    tt=concept_fact  adopted=True corr=True
+  concept-3    tt=concept_fact  adopted=True corr=True
+  property-1   tt=concept_fact  adopted=True corr=True
+  property-2   tt=concept_fact  adopted=True corr=True
+  pdf-208      tt=vsepr         adopted=True corr=True
+  pdf-510      tt=concept_fact  adopted=True corr=True
+
+--- regression guards (previously correct must stay correct) ---
+  pdf-041    tt=choice     adopted=True corr=True
+  pdf-042    tt=choice     adopted=True corr=True
+  pdf-049    tt=choice     adopted=True corr=True
+  pdf-059    tt=choice     adopted=True corr=True
+  pdf-110    tt=choice     adopted=True corr=True
+  pdf-089    tt=balance    adopted=True corr=True
+  pdf-533    tt=atomic_structure adopted=True corr=True
+  pdf-486    tt=atomic_structure adopted=True corr=True
+
+--- red lines ---
+  harmCount==0                                  : PASS
+  global harm empty                             : PASS
+  enginePrecision==1.0                          : PASS
+  LOST(concept->choice) empty                   : PASS
+  LOST(3f->choice) empty                        : PASS
+  choice scope harm==0                          : PASS
+  59/59 gains adopted&correct                   : PASS
+  choice net gained >=20 (concept->choice)      : PASS
+  choice net gained == 59 (exact)               : PASS
+  pureLlmCorrect unchanged (551)                : PASS
+  engineSolved increased (255 vs 196)           : PASS
+  5 key fixes all correct                       : PASS
+  12 artifacts stay correct                     : PASS
+  regression guards all correct                 : PASS
+  gatewayCorrect 255                            : PASS
+  engineSolved 255                              : PASS
+
+OVERALL: PASS

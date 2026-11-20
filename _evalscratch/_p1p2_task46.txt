@@ -1,0 +1,39 @@
+## Task 46：按报告优先级修复 P1 数据键错位（pdf-108/173/507，+3）与 P2 健壮性缺口（LlmGatewayService NRE 守卫）——零回归零 harm
+
+- **Status**: done
+- **Priority**: high
+- **Depends On**: Task 40（盘点报告 `_evalscratch/engine_error_analysis.md` §6 优先级表：P1=数据键错位 pdf-108/173/507；P2=`LlmGatewayService` 潜伏 NRE）
+- **Goal**: 落实报告 §6 的 P1/P2 修复——校正 3 道答案键错位题（引擎结论化学正确但键与题型错配→`IsAnswerCorrect` 判不过→正确未采纳），并为 `LlmGatewayService` 的离子检查请求补空集合守卫，消除潜伏 `NullReferenceException`。严守冻结红线：引擎唯一真值源、不蒙数（无唯一解→null）、只收紧采纳闸门、零回归（LOST=[]）、precision 不降、分类链只加分支。
+
+- **Evidence**:
+  - **P1 数据键校正**（权威源 `src/CogniThink.TutorBrain.Api/data/pdf_questions.json`，引擎逻辑零改动）：
+
+    | id | 字段 | 旧 | 新 | 翻转（old→new） |
+    |----|------|----|----|-----------------|
+    | pdf-108 | answerKeywords / answer / note | Ga 抽取文本（错位） | `3d⁸4s²`（Ni 基态价层电子排布式） | bothWrong → bothCorrect |
+    | pdf-173 | answerKeywords / answer / note | `"B"`（字母键错位） | `3d¹⁰4s¹`（Cu 基态价层电子排布式） | bothWrong → bothCorrect |
+    | pdf-507 | answerKeywords | 单串 `"(1)四面体形 (2)5sp³"` | 数组 `["平面三角形","5sp³"]`（引擎仅答第 1 问，OR 匹配） | pureLlmOnlyCorrect → gatewayOnlyCorrect |
+
+  - **逐题翻转经实测**（临时测试 `_TmpP1Verify.Derive_Stage6_P1_Metrics`，验证后已删除）：加载 `after_stage6_eq.json` 723 例，取活体 `GenPdfQuestions()` 校正后的键重算 `IsAnswerCorrect`，仅这 3 题翻转、其余 720 不变。
+  - **P2 健壮性**（`src/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.cs`）：报告原引 "L442" 为陈旧 PDB 行号；grep 活体确认真实 NRE 点在 `CallIonCheck` 的 `req.Reaction.Left.Concat(req.Reaction.Right)`。已在 `NormalizeRequest`（`req.Reaction ??=` 之后）补 `Left/Right/Conditions ??= new List<string>()`，并在 `CallIonCheck` 入口加防御守卫 + 注释。零行为变更（正常请求本来就非 null）。
+  - **指标（隔离 P1，其他 720 例不变）**：
+
+    | 指标 | stage6 | +P1 | Δ |
+    |------|--------|-----|---|
+    | engineSolved | 266 | **269** | +3 |
+    | harm | 0 | 0 | 0 |
+    | enginePrecision | 1.0 | **1.0** | 持平 |
+    | LOST | [] | **[]** | 持平 |
+    | bothCorrect | 245 | 247 | +2 |
+    | gatewayOnlyCorrect | 21 | 22 | +1 |
+    | pureLlmOnlyCorrect | 306 | 305 | -1 |
+    | bothWrong | 151 | 149 | -2 |
+
+    → 3 次翻转均为「采纳且判正」，0 次「采纳但判错」，故 harm 恒 0、precision 恒 1.0；LOST 为空（无 correct→wrong）。证据：`_evalscratch/verify_stage6_p1_out.txt`（人类可读）、`_evalscratch/after_stage6_p1.json`（机器快照）。
+  - **Task 42 护栏同步收尾**：pdf-486 数据改 fill→choice（Task 42）后，`AtomicStructureSolverTests` 两处护栏锁未同步，导致 2 例失败——本次一并补完并转绿：`选择题不触发` 锁定选择题触发集恰好 `{pdf-486}`；`Guardrail_全题库无假阳性` 触发集期望移除 pdf-486（现为 choice 被护栏 `continue` 跳过）→ 9 项。生产零 harm（choice 走 `CallChoice` 不经原子求解器）。
+
+- **Test**:
+  - 全量回归：`dotnet test` **TutorBrain 916 + Chem 905 = 1821 通过 / 0 失败 / 0 跳过**（含全题库零假阳性护栏）。
+  - `AtomicStructureSolverTests`：`brokenKeys` 由 `{pdf-108,pdf-166,pdf-173,pdf-190}` 收窄为 `{pdf-166,pdf-190}`（pdf-108/173 键已校正，现干净判正）；触发集锁 `{pdf-108, pdf-166, pdf-173, pdf-190, pdf-482, pdf-487, pdf-490, pdf-533, pdf-538}`（9 项，pdf-486 已移至 choice 被跳过）。
+  - `VseprSolverTests`：`brokenKeys` 由 `{pdf-507}` 清空（键已校正，现干净判正）；触发集锁 `{d6-1..d6-5, pdf-507, pdf-508}` 不变，全绿。
+  - 注：Chem 首次重跑出现 1 例瞬态测试主机崩溃（0 失败，构建中间态），杀 testhost 后复跑稳定 905/0；沿用 Task 41/42 已知构建环境坑。

@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "source": "chemist-verified",
+  "facts": [
+    {
+      "id": "BENZENE-1CL",
+      "matchAllOf": ["苯", "一氯代物"],
+      "exclude": ["甲苯", "萘", "二甲苯"],
+      "count": 1,
+      "note": "苯 6 个 H 完全等价，一氯代物仅 1 种。"
+    },
+    {
+      "id": "BENZENE-2CL",
+      "matchAllOf": ["苯", "二氯代物"],
+      "exclude": ["甲苯", "萘", "二甲苯"],
+      "count": 3,
+      "note": "苯二氯代物：邻/间/对 = 3 种。"
+    },
+    {
+      "id": "BENZENE-3CL",
+      "matchAllOf": ["苯", "三氯代物"],
+      "exclude": ["甲苯", "萘", "二甲苯"],
+      "count": 3,
+      "note": "苯三氯代物：连(1,2,3)/偏(1,2,4)/均(1,3,5) = 3 种。"
+    },
+    {
+      "id": "CUBANE-2CL",
+      "matchAllOf": ["立方烷", "二氯"],
+      "exclude": [],
+      "count": 3,
+      "note": "立方烷 8 顶点立方体，二取代顶点间距有 3 种（棱/面对角/体对角）= 3 种。"
+    },
+    {
+      "id": "CUBANE-6CL",
+      "matchAllOf": ["立方烷", "六氯"],
+      "exclude": [],
+      "count": 3,
+      "note": "立方烷六氯代物 = 二氢代物，与二氯代等价 = 3 种。"
+    },
+    {
+      "id": "NAPHTHALENE-1CL",
+      "matchAllOf": ["萘", "一氯代物"],
+      "exclude": [],
+      "count": 2,
+      "note": "萘有 α、β 两种等效氢，一氯代物 = 2 种。"
+    },
+    {
+      "id": "TOLUENE-RING-1CL",
+      "matchAllOf": ["甲苯", "苯环", "一氯代物"],
+      "exclude": [],
+      "count": 3,
+      "note": "甲苯苯环上一氯代物：邻/间/对 = 3 种（不含侧链甲基取代）。"
+    }
+  ]
+}

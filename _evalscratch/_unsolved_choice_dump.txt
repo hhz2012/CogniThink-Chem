@@ -1,0 +1,209 @@
+# solvedByText=294 unsolvedByText=208 totalChoice=502
+pdf-009|type=choice|ans=C|nOpts=4|ask=correct|img=False|stem=(2025·广西月考·★)下列说法中正确的是( )
+pdf-012|type=choice|ans=D|nOpts=4|ask=correct|img=False|stem=(2025·安徽合肥阶段练习·★★)下列叙述中正确的是( )
+pdf-014|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·苏州期末·★★)“价-类二维图”是从元素化合价和物质所属类别两个维度认识元素及其化合物性质的坐标图。如图是铜元素的“价-类二维图”,下列说法正确的是( )
+pdf-018|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·八省联考河南卷·★★★)W 是一种短周期金属元素的单质，V 是无色气体。它们之间的转化关系如图（略去部分生成物和反应条件）。下列说法错误的是（ ）
+pdf-020|type=choice|ans=A|nOpts=4|ask=correct|img=False|stem=(2025·黑龙江哈尔滨期中·★★★)下列叙述正确的个数是( )
+pdf-021|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2025·河北阶段性考试·★★★)某密闭刚性容器中由可滑动隔板将容器分为甲、乙两部分。现向甲室通入 O2，乙室通入 1 mol N2，隔板位置如图所示，则下列说法不正确的是( )
+pdf-029|type=choice|ans=A|nOpts=4|ask=wrong|img=False|stem=(全国阶段练习·★★)将一定量锌与100 mL 18 mol·L^-1的浓硫酸充分反应，锌完全溶解时产生0.8 mol气体(不考虑气体在溶液中的溶解)，将反应后的溶液稀释至400 mL，测得
+pdf-037|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=7.(2025·模拟组合题★★★)下列图示与得出结论相符的是(水合离子用相应离子符号表示)()
+pdf-065|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=(2025·模拟汇编·★★)下列过程涉及氧化还原反应的有( )
+pdf-074|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=(2025·河北模拟预测·★★★)几种离子在水溶液中有如图转化关系。下列说法正确的是
+pdf-075|type=choice|ans=B|nOpts=4|ask=wrong|img=False|stem=(2025·黑龙江省联考·★★★)稀有气体化合物在化学、照明、医疗等众多领域有广泛应用,含Xe化合物的种类较多,氙的氟化物(XeFn)与NaOH溶液反应剧烈,与水反应则较为温和,反应方程式见
+pdf-077|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=6.(★★★)向 200 mL FeBr₂ 溶液中逐渐通入 Cl₂,其中 n(Fe³⁺)、n(Br₂)随通入 n(Cl₂)的变化如图所示,下列说法不正确的是( )
+pdf-078|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=7.(2025·北京海淀三模★★★★)实验室模拟海带提碘的流程如下,下列说法正确的是( )(I—127)
+pdf-079|type=choice|ans=C|nOpts=4|ask=correct|img=False|stem=8.(★★★★)将一定量的 Cl₂ 通入 30 mL 浓度为 10.00 mol·L⁻¹ 的氢氧化钠浓溶液中,加热一段时间后,溶液中形成 NaCl、NaClO、NaClO₃ 共存体系。下列判
+pdf-087|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=3.(2025·四川巴中三模·★★)天然气中含有少量有毒气体H2S，用如图所示流程在常温下可实现天然气在氧化亚铁硫杆菌(T·F菌)作用下催化脱硫。设NA为阿伏加德罗常数的值，下列说法错误的是
+pdf-088|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=4.(2025·广东深圳二模·★★)四种燃煤烟气脱硫方法的原理如图，下列说法不正确的是（ ）
+pdf-090|type=choice|ans=1,3,1,3|nOpts=4|ask=correct|img=True|stem=(2025·黑吉辽蒙卷改编·★★)钠及其化合物的部分转化关系如图。设 N_A 为阿伏加德罗常数的值，下列说法正确的是（ ）
+pdf-095|type=choice|ans=A|nOpts=4|ask=correct|img=False|stem=6.(2025·广东惠州期末·★★)“劳动创造幸福生活”,下列劳动项目与所述化学知识没有关联的是( )
+pdf-100|type=choice|ans=A,B,C,D|nOpts=4|ask=wrong|img=True|stem=(2024·新课标卷·★)实验室中利用右图装置验证铁与水蒸气反应。下列说法错误的是( )
+pdf-101|type=choice|ans=A,B,C,D|nOpts=4|ask=correct|img=False|stem=(2024·广西卷·★★)某小组对Fe₂(SO₄)₃和K₃[Fe(CN)₆]的性质进行探究:Ⅰ.向少量蒸馏水里滴加2滴Fe₂(SO₄)₃溶液,再滴加2滴KSCN溶液。Ⅱ.向少量蒸馏水里滴加2
+pdf-103|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2024·广东卷·★★)部分含Mg或Al或Fe物质的分类与相应化合价关系如图。下列推断合理的是( )
+pdf-104|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·江苏南通三模·★★)FeS2在酸性条件下可发生反应:FeS2+H2SO4=FeSO4+S+H2S↑。以FeS2为原料制取FeSO4·7H2O晶体的实验操作或原理不能达到实验目的的
+pdf-105|type=choice|ans=D|nOpts=4|ask=correct|img=False|stem=(2023·浙江卷·★★★)探究铁及其化合物的性质,下列实验方案、现象和结论都正确的是
+pdf-106|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=(2023·江苏卷·★★★)室温下,探究0.1 mol·L⁻¹FeSO4溶液的性质,下列实验方案能达到探究目的的是
+pdf-111|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2025·北京模拟预测·★★★)从锂离子电池电极材料LiCoO2(含少量金属Cu)中提取Co(OH)2和Li2CO3的回收工艺流程如图所示,得到的Co(OH)2和Li2CO3在空气中煅烧,
+pdf-113|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2025·北京朝阳二模·★★★)浓硝酸与铜作用的过程如下图所示。现象：ⅰ. a中产生红棕色气体，溶液呈绿色，试管壁发热；ⅱ. 烧杯液面上方无明显变化 下列关于该过程的分析不正确的是（ ）
+pdf-114|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2023·湖南卷·★★★)处理某铜冶金污水(含Cu2+、Fe3+、Zn2+、Al3+)的部分流程如下：已知：①溶液中金属离子开始沉淀和完全沉淀的pH如下表所示：②Ksp(CuS)=6.4×
+pdf-115|type=choice|ans=AC|nOpts=4|ask=correct|img=False|stem=（2024·山东卷不定项选择★★★）钧瓷是宋代五大名瓷之一，其中红色钧瓷的发色剂为Cu2O。为探究Cu2O的性质，取等量少许Cu2O分别加入甲、乙两支试管，进行如下实验。下列说法正确的是（ 
+pdf-123|type=choice|ans=C|nOpts=4|ask=correct|img=False|stem=(2024·江西卷·★★)景德镇青花瓷素有“国瓷”的美誉，是以黏土为原料，用含钴、铁的颜料着色，上釉后一次性高温烧制而成的青蓝色彩瓷。下列关于青花瓷说法正确的是（ ）
+pdf-125|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2025·河南二模★★★)甲是由短周期元素构成的一种常见有色气体单质,该气体单质可以用于自来水的杀菌消毒,乙为强碱且焰色呈黄色,丙的摩尔质量大于丁的,它们有如图所示的转化关系(部分条件和产
+pdf-126|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2025·四川巴中三模★★★★)一种制备NaClO2粗产品的工艺流程如图。已知:纯ClO2易分解爆炸,一般用空气稀释到体积分数为10%以下。下列说法正确的是( )
+pdf-127|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=(2025·广东深圳二模★★★)实验室中利用如图所示装置进行Cl2的相关实验,其中能够达到预期目的的是( )
+pdf-128|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·广东二模★★★)有关氯气的微型探究实验装置如图所示。实验时滴入几滴浓盐酸,下列说法正确的是( )
+pdf-130|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·内蒙古二模★★)部分含氯物质的“价-类”关系如图所示。下列事实和对应的方程式均正确的是（ ）
+pdf-132|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·重庆卷★★★)单质M的相关转化如下图所示。下列说法错误的是（ ）
+pdf-135|type=choice|ans=C|nOpts=4|ask=wrong|img=False|stem=(2025·浙江温州二模·★★★)关于硫的性质，下列说法不正确的是（ ）
+pdf-136|type=choice|ans=A|nOpts=4|ask=correct|img=False|stem=(2025·河南安阳一模·★★★)关于物质的处理方法，下列说法正确的是（ ）
+pdf-137|type=choice|ans=D|nOpts=4|ask=correct|img=False|stem=(2025·上海二模·★★★)下列事实中，能用来比较碳元素和硫元素的非金属性强弱的是
+pdf-138|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2025·全国模拟预测·★★)某化学实验小组利用以下装置进行相关实验。其中不能达到预期目的的是
+pdf-139|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=(2025·广东深圳三模·★★)“价-类”二维图是学习化学的重要工具和模型，硫元素的部分“价-类”二维图如图所示。下列说法正确的是
+pdf-140|type=choice|ans=A|nOpts=4|ask=wrong|img=False|stem=(2024·河北模拟预测改编·★★)在加热条件下，硫单质可以与 NaOH 溶液反应：3S + 6NaOH △ 2Na2S + Na2SO3 + 3H2O，NA 为阿伏加德罗常数的值，下列说法
+pdf-141|type=choice|ans=A|nOpts=1|ask=correct|img=True|stem=(2025·河南三模·★★)已知 M 是一种常见酸的浓溶液，可使蔗糖变黑，Y 是一种单质，构成 Y 的原子最外层电子数是次外层电子数的 2 倍。它们之间的转化关系如图所示（反应条件及部分产物
+pdf-142|type=choice|ans=B|nOpts=4|ask=wrong|img=False|stem=(2024·全国专题练习·★★★)向0.1 mol·L⁻¹的溶液X中通入H₂S至过量，下列对应反应现象或离子方程式中存在错误的是（ ）
+pdf-143|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·湖北武汉二模·★★★)实验小组设计下图所示装置，验证SO₂性质，下列说法正确的是（ ）
+pdf-144|type=choice|ans=D|nOpts=4|ask=correct|img=False|stem=(2025·河北秦皇岛一模·★★★)硫及其化合物的转化具有重要应用。下列含硫物质间的转化均能一步实现的是（ ）
+pdf-145|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=12.(2025·广东深圳一模★★★)按下图装置,将浓 H2SO4 加入 Na2S2O3 溶液中,Na2S2O3 溶液产生气泡和黄色沉淀。下列预期现象及相应推理不正确的是( )
+pdf-147|type=choice|ans=A, B, C, D|nOpts=4|ask=correct|img=True|stem=2.（2025·浙江三模·★★）关于化学实验和化工生产的安全，下列说法正确的是（ ）A. 为加快铁屑在稀硫酸中的溶解，采用酒精灯加热比用电热套加热更安全B. 将氨溶于水中制氨水时，为防止倒吸
+pdf-148|type=choice|ans=A, B, C, D|nOpts=4|ask=wrong|img=False|stem=3.（2023·山东卷·★★）实验室中使用盐酸、硫酸和硝酸时，对应关系错误的是（ ）A. 稀盐酸：配制AlCl3溶液B. 稀硫酸：蔗糖和淀粉的水解C. 稀硝酸：清洗附有银镜的试管D. 浓硫酸
+pdf-150|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·广东深圳二模·★★)下列有关 NO 制备及性质验证的实验装置不正确的是（ ）
+pdf-151|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=(2025·北京东城二模·★★★)硝酸是重要的化工原料。下图为制硝酸的流程示意图。下列说法正确的是（ ）
+pdf-152|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=(2025·广东二模·★★)部分含氮物质的分类及相应化合价关系如图所示。下列说法正确的是（ ）
+pdf-153|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·辽宁模拟★★★)某制肼法是以氨为氮源，用次氯酸钠氧化氨气制备水合肼(N2H4·H2O)，其反应装置如图所示(夹持装置已略去)。下列说法错误的是()
+pdf-155|type=choice|ans=A,B,C,D|nOpts=4|ask=wrong|img=True|stem=(2025·福建厦门模拟★★★)采用沉淀法定量测定氯化铵在溶液中的热分解率实验过程如图。下列说法错误的是()
+pdf-158|type=choice|ans=D|nOpts=3|ask=wrong|img=True|stem=(2025·湖南卷·★★★)工业废料的综合处理有利于减少环境污染并实现资源循环利用。从某工业废料中回收镉、锰的部分工艺流程如下：已知：①富集液中两种金属离子浓度相当。②常温下，金属化合物的K
+pdf-162|type=choice|ans=(1)2 (2)SO4^2- (3)温度升高，反应速率增大，浸出率增大；温度过高时会导致NH3·H2O的分解和NH3的挥发，且(NH4)2S2O8也会分解损失，反应速率减小，浸出率减小 (4)[Cu(NH3)4]2+ + Zn = [Zn(NH3)4]2+ + Cu (5)Fe (6)当pH升高时，促进H2A的电离，增大c(A2-)，使反应A2- + PbSO4 ⇌ PbA + SO4^2-正向移动，PbA产率增大 (7)Pb[OOC(CH2)2COO] →(290℃) Pb + 2H2O + 4CO↑|nOpts=0|ask=correct|img=False|stem=(3)“酸化”步骤应选用的酸是______(填字母)。 a. 稀硫酸 b. 浓硫酸 c. 盐酸 d. 磷酸
+pdf-185|type=choice|ans=(1)B (2)D|nOpts=4|ask=wrong|img=False|stem=(2025·北京海淀期末·★★)⁴⁰K是钾元素的一种较稳定的核素，其衰变后产生⁴⁰Ar。⁴⁰K的半衰期(放射性元素的原子核有半数发生衰变所需的时间)长达13亿年，故常用于古老岩石的年代测定。
+pdf-187|type=choice|ans=C|nOpts=4|ask=wrong|img=False|stem=(2025·北京石景山一模·★★)采用锶(38Sr)同位素与氧同位素检测方法研究亚长(商王朝人)的部分数据如下。下列说法不正确的是( )
+pdf-189|type=choice|ans=A|nOpts=4|ask=correct|img=False|stem=(2025·江苏模拟预测改编·★★)我国科学家对量子材料的研究处于国际领先水平,近年来对石墨烯、硅烯、锗烯等低维量子材料的研究发展迅速。下列说法正确的是( )
+pdf-191|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·河北衡水一模·★★★)下列化学用语表达错误的是( )
+pdf-197|type=choice|ans=A,B,C,D|nOpts=4|ask=wrong|img=False|stem=下列有关物质结构或性质的比较中，正确的是（ ） （2025·安徽二模·★★）海洋是一个巨大的资源库，利用海洋资源可制出重要的化工原料（如 Na2CO3、KIO3、NH2Cl、N2H4、Cl2
+pdf-201|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=2.（2025·云南昭通阶段测试改编·★★）实验室制取 HF 的原理为 CaF2 + H2SO4（浓）△ CaSO4 + 2HF↑，氢氟酸可用来刻蚀玻璃，发生反应：SiO2 + 4HF = 
+pdf-202|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=3.（2025·山西三模·★★★）某种铁系储氢合金材料的晶胞如右图，八面体中心为金属铁离子，顶点均为 NH3 分子；四面体中心为硼原子，顶点均为氢原子。该晶体属于立方晶系。下列说法正确的是（
+pdf-211|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2023·山东卷·★★★)石墨与F2在450℃反应，石墨层间插入F得到层状结构化合物(CF)x，该物质仍具润滑性，其单层局部结构如图所示。下列关于该化合物的说法正确的是（ ）
+pdf-212|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·湖南三模·★★★)W、X、Y、Z是核电荷数依次增大的短周期元素，其中基态Z原子s轨道电子数与p轨道电子数之比为3:4，由上述四种元素形成的一种化合物M的结构如图所示。下列说法正确
+pdf-213|type=choice|ans=B, C|nOpts=4|ask=wrong|img=False|stem=(2025·辽宁二模·★★)结构决定性质，性质决定用途。对下列事实解释错误的是（ ）
+pdf-214|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2025·安徽阜阳期末·★★★)白磷、正交型黑磷（与石墨具有类似的层状结构，单层黑磷叫黑磷烯）、磷化硼的结构模型如图所示。下列说法正确的是（ ）
+pdf-216|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=(2025·湖南卷·★★★)K+掺杂的铋酸钡具有超导性。K+替代部分Ba2+形成Ba0.6K0.4BiO3(摩尔质量为354.8 g/mol)，其晶胞结构如图所示。该立方晶胞的参数为a nm
+pdf-217|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·四川卷·★★★)CaCO3的四方晶胞(晶胞参数α=β=γ=90°，省略CO3^2-中的氧，只标出C4+)和CaO的立方晶胞如图所示，NA为阿伏加德罗常数的值。下列说法错误的是（ 
+pdf-218|type=choice|ans=D,B,C|nOpts=4|ask=wrong|img=True|stem=(2024·湖南卷·★★)Li2CN2是一种高活性的人工固氮产物，其合成反应为2LiH+C+N2 --(高温)--> Li2CN2+H2，晶胞如图所示，下列说法错误的是（ ）
+pdf-219|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·湖北卷·★★★)黄金按质量分数分级，纯金为24K。Au-Cu合金的三种晶胞结构如图，Ⅱ和Ⅲ是立方晶胞。下列说法错误的是（ ）
+pdf-220|type=choice|ans=A,B,C|nOpts=4|ask=wrong|img=True|stem=(2024·甘肃卷·★★★)β-MgCl2晶体中，多个晶胞无隙并置而成的结构如图甲所示，其中部分结构显示为图乙，下列说法错误的是（ ）
+pdf-221|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=(2025·湖南三模·★★★)白铜是一种以镍为主要添加元素的铜基合金，有一定的抗菌性能，常在医院重症监护室被作为“触摸材料”，可以减少交叉污染和感染。白铜晶胞结构如图所示，晶胞参数为a pm
+pdf-223|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·山东泰安模拟预测·★★★)冠醚在水相和油相均有一定的溶解度，是重要的相转移催化剂。18-冠-6是冠醚的一种，其结构如图A，可与K+结合成图D所示的超分子结构。下列说法正确的是（ 
+pdf-226|type=choice|ans=B|nOpts=0|ask=wrong|img=True|stem=(2024·东北三省卷·★★★)环六糊精(D-吡喃葡萄糖缩合物)具有空腔结构，腔内极性较小，腔外极性较大，可包含某些分子形成超分子。图1、图2和图3分别表示环六糊精结构、超分子示意图及相关应
+pdf-227|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2024·湖北卷·★★★)科学家合成了一种如图所示的纳米“分子客车”,能装载多种稠环芳香烃。三种芳烃与“分子客车”的结合常数(值越大越稳定)见表。下列说法错误的是( )
+pdf-232|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·新课标卷·★★★)一种化合物分子结构如图所示，其中W、X、Y、Z为短周期元素，原子序数依次增大，W的一种同位素的中子数为0，X和Z同族。下列说法错误的是（ ）
+pdf-237|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=（2024·重庆卷·★★★★）R、X、Y和Z为短周期元素，XY₃ZR₃的分子结构如下所示。R中电子只有一种自旋取向，X、Y和Z处于同一周期，X的核外电子数等于Y的最高能级电子数，且等于Z的最
+pdf-238|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=（2025·天津期中·★）下列说法正确的是（ ）
+pdf-239|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=（2025·日照期末·★★）反应 C3H8(g)＝CH4(g)＋C2H2(g)＋H2(g)  ΔH，可经两步完成，反应进程中能量变化如图所示，反应①为 C3H8(g)＝C3H6(丙烯,g)＋
+pdf-240|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=3.(2025·吉林期末★★★)在标准压强101 kPa、298 K下，由最稳定的单质合成1 mol物质B的反应焓变，叫做物质B的标准摩尔生成焓，用符号ΔfHm°(kJ·mol⁻¹)表示。部
+pdf-241|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=4.(2025·海淀区校级模拟★★)NaCl的Born-Haber循环如图所示：已知：元素的基态原子得到一个电子形成气态负一价离子时所放出的能量称作第一电子亲和能。下列有关说法不正确的是（ 
+pdf-246|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·北京卷·★★★)苯在浓HNO3和浓H2SO4作用下，反应过程中能量变化示意图如下。下列说法不正确的是( )
+pdf-247|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·甘肃卷·★★☆)甲烷在某含Mo催化剂作用下部分反应的能量变化如图所示，下列说法错误的是( )
+pdf-248|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2024·海南卷·★★★)已知298 K,101 kPa时,CO2(g)+3H2(g)⇌CH3OH(g)+H2O(g) ΔH=−49.5 kJ/mol。该反应在密闭的刚性容器中分别于T1、
+pdf-249|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2025湖南高考·★★★)环氧化合物是重要的有机合成中间体。以钛掺杂沸石为催化剂,由丙烯( )为原料生产环氧丙烷( )的反应机理如图所示。下列说法正确的是
+pdf-250|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2024·安徽卷·★★★)某温度下,在密闭容器中充入一定量的X(g),发生下列反应:X(g)⇌Y(g)(ΔH1<0),Y(g)⇌Z(g)(ΔH2<0),测得各气体浓度与反应时间的关系如右图
+pdf-251|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2023·浙江6月选考·★★★)一定条件下,1-苯基丙炔(Ph−C≡C−CH3)可与HCl发生催化加成,反应如下: [反应路径图：Ph−C≡C−CH3 + HCl → 反应I生成产物I（P
+pdf-252|type=choice|ans=BFH|nOpts=8|ask=wrong|img=False|stem=（★★）勒夏特列原理在工农业生产和日常生活中都具有重要的意义，下列相关事实不能用勒夏特列原理解释的是
+pdf-254|type=choice|ans=A|nOpts=4|ask=correct|img=False|stem=（2024·江西卷·★★★）温度 T 下，向 1 L 真空刚性容器中加入 1 mol (CH3)2CHOH，反应达到平衡时，c(Y) = 0.4 mol/L，(CH3)2CHOH(g) ⇌ 
+pdf-255|type=choice|ans=C|nOpts=0|ask=correct|img=True|stem=（2024·江苏卷·★★★★）CO2 加氢制甲醇过程中的主要反应（忽略其他副反应）为①CO2(g) + H2(g) ⇌ CO(g) + H2O(g)  ΔH1 = +41.2 kJ/mol②
+pdf-256|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=（2024·重庆卷·★★★）醋酸甲酯制乙醇的反应为 CH3COOCH3(g) + 2H2(g) ⇌ CH3CH2OH(g) + CH3OH(g)。三个10 L恒容密闭容器中分别加入1 mol
+pdf-263|type=choice|ans=B|nOpts=6|ask=correct|img=False|stem=（★★★）关于室温下 pH 相同、体积相同的氨水与氢氧化钠两种稀溶液，下列叙述正确的有几项（ ）
+pdf-265|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=（2025·吉林一模改编·★★★）25 ℃时，分别稀释 pH=11 的 Ba(OH)₂ 溶液和氨水，溶液 pH 的变化如右图所示。下列说法错误的是（ ）已知：K_b(NH₃·H₂O)=1.8
+pdf-269|type=choice|ans=A, B, C, D|nOpts=4|ask=wrong|img=False|stem=(2025·天津一模·★★★)实验Ⅰ浑浊不消失，实验Ⅱ和Ⅲ中浊液变澄清。下列分析不正确的是（ ）
+pdf-271|type=choice|ans=A, B, C, D|nOpts=4|ask=wrong|img=True|stem=10.(2025·河北邢台二模·★★★)25℃下,某实验小组用碱(MOH)与酸(HA)做了如下三组滴定实验： 得到滴定曲线如下图(生成的MA可溶于水)： 下列说法错误的是（ ）
+pdf-279|type=choice|ans=A, B, C, D|nOpts=4|ask=wrong|img=False|stem=(2025·北京门头沟区一模·★★★)关于 Na2SO3 和 NaHSO3 的说法中不正确的是( )
+pdf-280|type=choice|ans=A, B, C|nOpts=4|ask=wrong|img=False|stem=(2025·北京景山区一模·★★★)25 ℃时，关于浓度均为 0.1 mol/L 的氨水和 NH4Cl 两种溶液，下列说法不正确的是( )
+pdf-281|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2025·北京门头沟区·一模·★★★)在 25 ℃时，向两份 10 mL 0.2 mol/L 的 CH3COONH4 溶液(pH=7)中分别滴加浓度均为 0.2 mol/L 的盐酸和 Na
+pdf-284|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=12. (2025·葫芦岛市一模★★★)常温下，Na2A溶液中H2A、HA^-、A^2-的物质的量分数与pH的关系如下图。已知：A^2-的物质的量分数=c(A^2-)/[c(H2A)+c(H
+pdf-286|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·河北承德期末·★★★)某温度下，Ca(OH)2 和 CaWO4 在水中的沉淀溶解平衡曲线如图所示[已知：pc(X)=－lg c(X)(X 为 OH^- 或 WO4^2-)]。下列
+pdf-287|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·安徽宣城期末·★★★)25 ℃时，PbR(R^2- 为 SO4^2- 或 CO3^2-)的饱和水溶液中，－lg c(R^2-)与－lg c(Pb^2+)的关系如图所示。已知 K_
+pdf-288|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=(2023·江苏卷·★★★)室温下，用含少量 Mg^2+ 的 MnSO4 溶液制备 MnCO3 的过程如图所示。已知 K_sp(MgF2)=5.2×10^-11，K_a(HF)=6.3×10
+pdf-289|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=5.(2025·重庆期末·★★★)用含少量Ca2+的FeSO4溶液制备FeCO3的过程如图所示。下列说法错误的是（ ）
+pdf-290|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=6.(2025·湖北孝感期末·★★★)一定温度下，将足量的BaSO4固体溶于50 mL水中，充分搅拌，慢慢加入Na2CO3固体，随着c(CO3^2-)增大，溶液中c(Ba2+)的变化曲线如图
+pdf-291|type=choice|ans=C|nOpts=3|ask=correct|img=False|stem=7.(2024·重庆卷·★★★)某兴趣小组探究[Cu(NH3)4](NO3)2的生成过程。若向3 mL 0.1 mol/L Cu(NO3)2溶液中逐滴加入1 mol/L氨水，则下列说法正确的
+pdf-292|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2025·北京市丰台区一模·★★★)Na2S、FeS可用于含镉(Cd2+)废水的处理。已知：常温下，i. Na2S溶液中各含硫粒子的物质的量分数与pH的关系如图所示。ii. 0.1 mol
+pdf-295|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·广东惠州期末·★★)一种锂-空气电池的工作原理如图所示,下列说法不正确的是
+pdf-297|type=choice|ans=A|nOpts=2|ask=wrong|img=True|stem=(2025·四川卷·★★★)最近,我国科学工作者制备了一种 Ni-CuO 电催化剂,并将其与金属铝组装成可充电电池,用于还原污水中的 NO3- 为 NH3,其工作原理如图所示。研究证明,电池
+pdf-299|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2024·江西卷·★★★★☆)我国学者发明了一种新型多功能甲醛-硝酸盐电池，可同时处理废水中的甲醛和硝酸根离子(如图)。下列说法正确的是（ ）
+pdf-300|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2024·福建卷·★★★★☆)一种兼具合成功能的新型锂电池工作原理如图。电解质为含 Li+ 有机溶液。放电过程中产生 (CF3SO2)2NLi，充电过程中电解 LiCl 产生 Cl2。下列
+pdf-301|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=(2023·海南卷·★★)利用金属 Al、海水及其中的溶解氧可组成电池，如图所示。下列说法正确的是（ ）
+pdf-302|type=choice|ans=A|nOpts=1|ask=wrong|img=True|stem=(2023·全国乙卷·★★★☆)室温钠-硫电池被认为是一种成本低、比能量高的能源存储系统。一种室温钠-硫电池的结构如图所示。将钠箔置于聚苯并咪唑膜上作为一个电极，表面喷涂有硫黄粉末的炭化纤维
+pdf-303|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=(2023·山东卷·不定项选择★★★)利用热再生氨电池可实现CuSO4电镀废液的浓缩再生。电池装置如图所示，甲、乙两室均预加相同的CuSO4电镀废液，向甲室加入足量氨水后电池开始工作。下列说
+pdf-306|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·湖南卷·★★★)一种电化学处理硝酸盐产氨的工作原理如图所示。下列说法错误的是( )
+pdf-307|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·晋陕宁青卷·★★★★)我国科研人员采用图示的电解池，由百里酚(TY)合成了百里醌(TQ)。电极 b 表面的主要反应历程见图(灰球表示电极表面催化剂)，下列说法错误的是( )
+pdf-310|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·贵州卷·★★★)一种太阳能驱动环境处理的自循环光催化芬顿系统工作原理如图。光阳极发生反应：HCO3⁻+H2O=HCO4⁻+2H⁺+2e⁻，HCO4⁻+H2O=HCO3⁻+H2O2
+pdf-317|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2023·广东卷·★★)负载有Pt和Ag的活性炭,可选择性去除Cl⁻实现废酸的纯化,其工作原理如图。下列说法正确的是
+pdf-319|type=choice|ans=A|nOpts=4|ask=correct|img=False|stem=(2025·天津河西期中·★★)按碳的骨架对有机化合物进行分类,下列说法正确的是( )
+pdf-321|type=choice|ans=D|nOpts=4|ask=wrong|img=False|stem=下列关于有机化合物的命名错误的是( )
+pdf-325|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=(2025·湖南模拟卷·★★★)下列化学用语或图示正确的是( )
+pdf-327|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2024·湖北卷·★★★)鹰爪甲素(如图)可从治疗疟疾的有效药物鹰爪根中分离得到。下列说法错误的是( )
+pdf-330|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2025·湖南常德期中·★★★)有机化合物A的键线式如图所示,有机化合物B与等物质的量的H2发生加成反应得到有机化合物A。下列有关说法错误的是( )
+pdf-331|type=choice|ans=A|nOpts=4|ask=wrong|img=False|stem=(2025·浙江宁波期中·★★)1,1-联环戊烯(双环戊二烯结构)是重要的有机合成中间体。下列关于该有机化合物的说法错误的是( )
+pdf-332|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2025·四川眉山模拟·★★)药物中间体O-乙酰基扁桃酰氯的合成路线如图所示,下列说法错误的是( )
+pdf-336|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·成都二诊·★★★)1-苯基丙炔可以在 Al2O3 催化下发生如下反应：双键同侧基团间的排斥影响烯烃的稳定性（排斥力：苯基-甲基＞氯原子-甲基）。体系中各物质含量随时间变化情况如图
+pdf-337|type=choice|ans=C|nOpts=4|ask=correct|img=False|stem=(2025·河北承德期中·★★★)下列卤代烃既能发生消去反应生成烯烃，又能发生水解反应生成醇的是（ ）
+pdf-338|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=(2025·广西柳州模拟·★★★★)Friedel−Crafts 烷基化反应的机理可简化用下图表示。下列说法正确的是（ ）
+pdf-341|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=（2025·江苏常州期中★★★）CH3CH2CH3的溴化、氯化反应过程及产物选择性如图所示。下列说法正确的是（ ）
+pdf-344|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2025·八省联考云南卷·★★★)化合物Z是合成消炎镇痛药萘普生的一种重要原料，其结构简式如图所示。下列有关该化合物说法错误的是（ ）
+pdf-346|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·河北石家庄期中改编·★★★★)连花清瘟胶囊对于治疗新冠肺炎有确切的疗效，其有效成分绿原酸的结构简式如下图所示。下列有关绿原酸说法正确的是（ ）
+pdf-347|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·辽宁二模·★★★)杂杯芳烃是超分子化学的热点研究领域。一种合成氧杂杯[4]芳烃(z)的方法如图所示(R为烃基)：下列说法正确的是（ ）
+pdf-348|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=（2025·南通三模改编·★★★）一种杯酚的合成过程如图所示。该杯酚盛装 C60 后形成超分子。下列说法正确的是（ ）
+pdf-349|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=（2025·安徽芜湖期末·★★★）D-乙酰氨基葡萄糖的结构简式如下，下列有关该物质的说法，正确的是（ ）
+pdf-350|type=choice|ans=D|nOpts=4|ask=correct|img=False|stem=(2024·江西卷·★★★)蛇抱菌素(X)是一种具有抗癌活性的天然植物毒素。下列关于X说法正确的是( )
+pdf-351|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·四川绵阳二诊·★★★)甲基麦冬黄烷酮是麦冬的主要活性成分，其结构如图。下列关于该物质的说法正确的是( )
+pdf-352|type=choice|ans=A|nOpts=4|ask=wrong|img=False|stem=(2025·成都二诊·★★★)氘代甲醛与HCN发生加成反应如下，下列说法错误的是( )
+pdf-353|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·湖南模拟·★★★)葫芦[n]脲(n=5,6,7,8……)家族分子是一种具有空腔的桶状大杯、两端开口的超分子主体，可以很好地包结有机分子、阳离子和其他客体分子，在分子识别、药物载体
+pdf-358|type=choice|ans=A|nOpts=4|ask=correct|img=False|stem=(2024·广西卷·★★)6-硝基胡椒酸是合成心血管药物奥索利酸的中间体,其合成路线中的某一步如下：X → Y(6-硝基胡椒酸) 下列有关X和Y的说法正确的是（ ）
+pdf-359|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·广东卷·★★★)从我国南海的柳珊瑚中分离得到的柳珊瑚酸(下图),具有独特的环系结构。下列关于柳珊瑚酸的说法不正确的是（ ）
+pdf-361|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2025·八省联考河南卷·★★)化合物L是从我国传统中药华中五味子中提取得到的一种天然产物,其结构如图所示。下列有关该化合物的说法错误的是（ ）
+pdf-362|type=choice|ans=C|nOpts=4|ask=correct|img=False|stem=(2025·八省联考四川卷·★★)维生素A乙酸酯的结构简式为,下列说法正确的是（ ）
+pdf-363|type=choice|ans=C|nOpts=4|ask=correct|img=True|stem=(2025·湖南卷·★★)天冬氨酸广泛应用于医药、食品和化工等领域。天冬氨酸的一条合成路线如下：[图示：X →(Br2/PBr3) Y →(NH3) 天冬氨酸] 下列说法正确的是（ ）
+pdf-364|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·江苏卷·★★)屠呦呦等采用低温、乙醚冷浸提取的青蒿素(C15H22O5，含—O—O—)在治疗疟疾中起到重要作用。下列说法正确的是（ ）
+pdf-367|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2025·甘肃期末·★★)冠状病毒(如图)由蛋白质和核酸组成，核酸由核苷酸组成。下列说法错误的是（ ）
+pdf-370|type=choice|ans=A|nOpts=4|ask=wrong|img=True|stem=(2025·天津二模·★★★)2024 年诺贝尔化学奖授予了三位科学家，以表彰他们在蛋白质结构研究的突破性贡献。某 DNA 分子的片段如图所示。下列关于该片段的说法错误的是( )
+pdf-371|type=choice|ans=C|nOpts=4|ask=correct|img=False|stem=(2025·山东二模·★★★)一种有机催化剂催化修饰色氨酸的反应如下。下列说法正确的是( )
+pdf-376|type=choice|ans=B|nOpts=4|ask=wrong|img=False|stem=(2024·北京卷·★★★)CO2的资源化利用有利于实现“碳中和”。利用CO2为原料可以合成新型可降解高分子P，其合成路线如下。已知：反应①中无其他产物生成。下列说法不正确的是( )
+pdf-378|type=choice|ans=B|nOpts=4|ask=wrong|img=False|stem=（2025·北京海淀期中·★★）光学性能优良的高分子材料聚碳酸异山梨醇酯可由如下反应制备。下列说法错误的是（ ）
+pdf-380|type=choice|ans=D|nOpts=4|ask=wrong|img=False|stem=（2025·八省联考河南卷·★★★）CO2 的资源化利用，有利于实现“碳中和”。一种功能性聚碳酸酯高分子材料 G 可由如下反应制备。下列说法错误的是（ ）
+pdf-381|type=choice|ans=D|nOpts=1|ask=correct|img=False|stem=（2025·八省联考内蒙古卷·★★★）化学革新催化体育发展，科技赋能铸就赛场荣光。下列有关说法正确的是（ ）
+pdf-382|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=10.(2025·八省联考内蒙古卷·★★)聚乙烯醇(PVA)广泛应用于建筑、医药、纺织、造纸、包装等诸多领域，可用如下方法制备。
+pdf-383|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=11.(2025·八省联考四川卷·★★)一种可制造光学镜片的聚合物 Z，其合成路线如图所示。
+pdf-384|type=choice|ans=C|nOpts=4|ask=correct|img=False|stem=12.(2025·新课标卷·★★★)我国研究人员利用手性催化剂 Bis(Salen)Al 合成了具有优良生物相容性的 PLGA。下列叙述正确的是（ ）
+pdf-386|type=choice|ans=A|nOpts=4|ask=wrong|img=False|stem=(2025·河北衡水期中·★★★★)下列说法错误的是( )
+pdf-387|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2025·内蒙古鄂尔多斯期中·★★★★)某有机化合物的结构简式如图所示，下列关于该有机化合物的叙述不正确的是( )
+pdf-388|type=choice|ans=D|nOpts=4|ask=wrong|img=False|stem=(2025·八省联考陕西卷·★★★★)化合物M是一种新型抗生素关键中间体的类似物，其合成路线如下(略去部分试剂和反应条件)。已知化合物K虚线圈内所有原子共平面。下列说法错误的是( )
+pdf-390|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·山西期中·★★★)将6.8 g X完全燃烧生成3.6 g H2O和8.96 L(标准状况下)CO2。X的核磁共振氢谱有4组峰且峰面积之比为3:2:2:1。X分子中只含一个苯环且苯
+pdf-393|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=(2025·重庆市部分学校联考·★★★★)化合物H( H3CO-苯环-OH-CHO )是合成苯并呋喃的重要中间体，H的同分异构体有多种，其中除苯环外不含其他环，含有3个取代基，且与H具有相同
+pdf-394|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=(2025·四川南充期中·★★★★)下列关于有机化合物的说法正确的是()
+pdf-397|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=(2024·山东卷·★★)下列图示实验中,操作规范的是( )
+pdf-398|type=choice|ans=C|nOpts=2|ask=correct|img=True|stem=(2025·四川卷·★★★)下列实验装置使用正确的是( )
+pdf-399|type=choice|ans=A|nOpts=4|ask=wrong|img=False|stem=(2024·北京卷·★★★)下列实验的对应操作中，不合理的是（ ）
+pdf-400|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·贵州卷·★★★)下列装置不能达到实验目的的是（ ）
+pdf-403|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=(2024·山东卷改编·★★★)由下列事实或现象能得出相应结论的是( )
+pdf-405|type=choice|ans=A, B, C, D|nOpts=4|ask=correct|img=False|stem=(2024·河北卷·★★★)下列实验操作及现象能得出相应结论的是( )
+pdf-406|type=choice|ans=A, B, C, D|nOpts=4|ask=wrong|img=True|stem=(2025·河北沧州一模·★★★)图示装置不能完成相应气体的发生和收集实验的是(加热、除杂和尾气处理装置略)
+pdf-409|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2024·湖北卷·★★★★)碱金属的液氨溶液含有的蓝色溶剂化电子[e(NH3)n]−是强还原剂。锂与液氨反应的装置如图(夹持装置略)。下列说法错误的是( )
+pdf-410|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2025·浙江1月选考卷·★★★)蛋白质中N元素含量可按下列步骤测定：[流程图：蛋白质中的N元素 → 步骤I（浓H2SO4、K2SO4、催化剂CuSO4，煮解）→ NH4+(煮解液) → 
+pdf-412|type=choice|ans=B, (2) Mn²⁺氧化, (3) c|nOpts=3|ask=correct|img=True|stem=(2025·四川卷节选·★★★☆)双水杨醛缩乙二胺(H2L, Mr=268)的锰配合物(MnLClx)常用作有机氧化反应的催化剂。某化学课外小组制备了该配合物并确定其组成。Ⅰ. MnLClx
+pdf-414|type=choice|ans=K3[Fe(CN)6]溶液, ABC, BC|nOpts=4|ask=correct|img=True|stem=(3)过滤操作中需要的玻璃仪器。除烧杯和玻璃棒外，还需要__________(填字母)。 3.(2025·江西一模改编★★★☆)磁性纳米 Fe3O4 在临床诊断、生物技术和环境化学领域应用广
+pdf-416|type=choice|ans=(1)①4s²4p¹ ②GaN+OH⁻+3H₂O==(Ga(OH)₄)⁻+NH₃↑ ③ac (2)①玻璃棒 漏斗 ②In、Mg (3)①将Na[Ga(OH)₄]转化为Ga(OH)₃沉淀 ②ac|nOpts=4|ask=correct|img=False|stem=(5)“一系列操作”是指______(填字母)。
+pdf-431|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2023·湖南卷·★★)下列化学用语表述错误的是（ ）
+pdf-432|type=choice|ans=B|nOpts=2|ask=wrong|img=True|stem=(2024·北京卷·★★)下列化学用语或图示表达不正确的是（ ）
+pdf-433|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2024·甘肃卷·★★)下列化学用语表述错误的是（ ）
+pdf-434|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=(2024·浙江6月选考·★★)下列表示不正确的是（ ）
+pdf-436|type=choice|ans=C|nOpts=4|ask=wrong|img=False|stem=(2024·湖南卷·★★)下列化学用语表述错误的是（ ）
+pdf-437|type=choice|ans=C|nOpts=2|ask=correct|img=False|stem=(2023·浙江1月选考·★★)下列化学用语表示正确的是（ ）
+pdf-438|type=choice|ans=B|nOpts=4|ask=correct|img=False|stem=(2024·宁夏银川一中·★★)下列化学用语表示正确的是（ ）
+pdf-458|type=choice|ans=BD|nOpts=4|ask=correct|img=True|stem=(2025·宁夏二模·★★)下列说法正确的是
+pdf-459|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=下列制取BCl₃的部分实验装置能达到实验目的的是
+pdf-475|type=choice|ans=ACD|nOpts=4|ask=correct|img=True|stem=(2025·黑龙江哈尔滨二模改编·★★★)硼氢化钠(NaBH4)具有优良的还原性，在有机化学和无机化学领域有着广泛的应用。用硼精矿（主要成分为 B2O3，含有少量 Al2O3、SiO2、Fe
+pdf-479|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·广东肇庆二模·★★)部分含 F 或 Cl 物质的分类与相应化合价关系如图所示。下列说法正确的是（ ）
+pdf-491|type=choice|ans=AC|nOpts=3|ask=correct|img=False|stem=(2021·全国乙卷节选·★★★)对于基态Cr原子，下列叙述正确的是______(填字母)。
+pdf-494|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=(2024·安徽卷·★★★)某催化剂结构简式如图所示。下列说法错误的是()
+pdf-498|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·湖南模拟预测·★★★)某种化学品的结构如图所示,已知W、X、Y、Z、M均为短周期主族元素,其中W、X、Y在同一周期,Z、M同处另一周期,M的简单阳离子半径是同周期中最小的。下列说
+pdf-505|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=6.(2025·全国模拟预测·★★★)如图所示的化合物 J 是一种重要的化工原料，X、Y、Z、W 是原子序数依次增大的短周期主族元素，其中 Z、W 同族，基态 Y 原子的核外有 3 个未成对
+pdf-511|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(2025·四川卷·★★★)由原子序数依次增大的短周期主族元素X、Y、Z、W组成的化合物，其结构如图所示。X的核外电子数与电子层数相同，Y、W同族，Z的价电子数等于X与Y的价电子数之和。下列
+pdf-512|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=(2025·四川卷·★★)钒催化剂对H2O2氧化苯制备苯酚的反应具有良好的催化活性,反应机理如图所示,其中步骤③为放热反应。下列说法错误的是
+pdf-524|type=choice|ans=BC|nOpts=4|ask=correct|img=True|stem=(2025·湖北武汉期中·★★)以物质a为原料,制备物质d(金刚烷)的合成路线如图所示:
+pdf-525|type=choice|ans=D|nOpts=4|ask=correct|img=False|stem=下列说法正确的是（ ）
+pdf-531|type=choice|ans=BC|nOpts=4|ask=correct|img=True|stem=(2025·河北一模★★★★)某兴趣小组模仿上述流程制取 Fe3O4 并测定其产率,具体操作如下:Ⅰ. 测定绿矾的含量(杂质不与 KMnO4 反应):称取 5.56 g 工业绿矾,配制成 2
+pdf-540|type=choice|ans=D|nOpts=4|ask=correct|img=True|stem=(3)Ⅰ使用装置如图(加热及夹持装置省略)，吸收液可用______(填标号)。
+t4mol-01|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为苯的结构简式，下列说法正确的是（ ）
+t4mol-02|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=如图为乙醇的结构简式，下列说法错误的是（ ）
+t4mol-03|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为 2-丁醇的结构简式，下列说法正确的是（ ）
+t4mol-04|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=如图为乙酸的结构简式，下列说法错误的是（ ）
+t4mol-05|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为乙醛的结构简式，下列说法正确的是（ ）
+t4mol-06|type=choice|ans=D|nOpts=4|ask=wrong|img=True|stem=如图为甲苯的结构简式，下列说法错误的是（ ）
+t4mol-07|type=choice|ans=B|nOpts=4|ask=correct|img=True|stem=如图为四氯化碳的结构模型，下列说法正确的是（ ）
+t4mol-08|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=如图为苯酚的结构简式，下列说法错误的是（ ）
+t4mol-09|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为丙酮的结构简式，下列说法正确的是（ ）
+t4mol-10|type=choice|ans=C|nOpts=4|ask=wrong|img=True|stem=如图为乙烯的结构简式，下列说法错误的是（ ）
+t4cur-01|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为某变量 y 随 x 变化的曲线，下列说法正确的是（ ）
+t4cur-02|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为曲线乙的图像，下列说法正确的是（ ）
+t4cur-03|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为 A、B 两条曲线，下列说法正确的是（ ）
+t4cur-04|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为 A、B 两条曲线，下列说法正确的是（ ）
+t4cur-05|type=choice|ans=A|nOpts=4|ask=correct|img=True|stem=如图为甲、乙两条曲线，下列说法正确的是（ ）
+t4cur-06|type=choice|ans=B|nOpts=4|ask=wrong|img=True|stem=如图为曲线丙的图像，下列说法错误的是（ ）
