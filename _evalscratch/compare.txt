@@ -387,3 +387,28 @@ locant误拆修复+IsPdf              648   435   446  235      68.8     62.9  1
   回归：dotnet test TutorBrain 916 + Chem 905 = 1821 通过 / 0 失败 / 0 跳过。
   红线核对：引擎唯一真值源 ✓；不蒙数 ✓；只收紧采纳闸门（数据键校正，不迁就错键）✓；零回归 LOST=[] ✓；
             零新增 harm（harm=0、0 采纳但判错）✓；分类规则链只加分支不删除 ✓。
+
+
+====================================================================================================
+阶段6-数据键错位修复（pdf-163/174/175/177/417）—— 数据卫生，零回归，为后续引擎覆盖铺路
+----------------------------------------------------------------------------------------------------
+  扫描：JsonDocument 严格扫描 pdf_questions.json（545 条）；Pattern A 非选择挂字母键 28 条、Pattern B 聚合键≥2 子标记 54 条、
+        Pattern D choice 挂非字母键 6 条；错位集中在 pdf-163–180 与 pdf-415–417 两区块（流程题被挂上元素周期律选择题的字母键/解析）。
+  已校正 5 题（真值可从同流程聚合键 / 题干自身反应确定，非猜测）：
+    pdf-174  "B"  → MnO2 + SO3^2- + 2H+ = Mn2+ + SO4^2- + H2O   （pdf-163 聚合键 item(2) + 还原酸浸化学）
+    pdf-175  "C"  → [Cu(NH3)4]^2+（含 Cu2+/铜氨络离子变体）       （题干反应①消耗②再生 → 催化剂）
+    pdf-177  "D"  → MnO2 > Fe3+ > Cu2+                            （pdf-163 聚合键 item(5) + 氧化还原化学）
+    pdf-163  6 子题聚合串 → 仅子题(4)：不可行+原因关键词数组（OR 匹配）（自身聚合键 item(4) 切片）
+    pdf-417  Ga 流程聚合串 → H+ + OH- = H2O；2H+ + CO3^2- = H2O + CO2  （pdf-413 聚合键 item(6) + 粗盐提纯）
+  留痕 5 题（不蒙数，需源 PDF/答案册核对）：pdf-171、pdf-176、pdf-233（题干截断）、pdf-415、pdf-416。
+  严格解析：生产加载器无 AllowTrailingCommas；改后 JsonDocument.Parse 严格通过、545 条不变；活体 NormalizeChemicalNotation 模拟判正 5/5。
+  指标（fresh eval tag=after_keyfix，757 例，llmAvailable=False）：
+    engineSolved 425→436（+11）；coverage 56.1%→57.6%；enginePrecision 1.0→1.0；harm 0→0；bothWrong 332→321；LOST=[]→[]
+  归因（诚实）：本次 5 题键校正本身未改变指标——这 5 题引擎当前返回占位符或未触发，gatewayAnswer 为空→未采纳，故不翻转采纳
+        （checkpoint 逐例 diff 确认 5 题均不在 gained 列表）。+11 来自已合入的并发 concept_fact 采纳分支（10 题）+ pdf-393（1 题），
+        after_p1fix 检查点早于该提交故为陈旧基线；diff 确认 gained=11、lost=0，全部化学正确结论判正（precision 1.0）。
+  证据：_evalscratch/checkpoint_after_keyfix.{jsonl,summary.txt}、snapshot_after_keyfix.json、diff_out.txt、scan_misaligned.txt、
+        validate_out.txt、pdf_questions_before_keyfix.bak.json。
+  回归：dotnet test Chem 905/0 + TutorBrain 931/0 = 1836 通过 / 0 失败 / 0 跳过；Release 构建 0 错误；未触碰护栏锁。
+  红线核对：引擎唯一真值源 ✓；不蒙数（5 题留痕）✓；只校正数据键匹配引擎化学正确结论、不迁就错键 ✓；零回归 LOST=[] ✓；
+            零新增 harm（harm=0、0 采纳但判错）✓；分类规则链只加分支不删除 ✓；事实在 JSON、零硬编码化学 ✓。

@@ -184,7 +184,15 @@ public class Batch3ChoiceValidatorTests
         ["pdf-189"] = "A",
         ["pdf-078"] = "B",
         ["pdf-114"] = "D",
-        ["pdf-393"] = "B"
+        ["pdf-393"] = "B",
+        // batch3 扩展（Task 37 续 第四批）：全量审计未解集中纯文本、可化学唯一判定的 3 道定量题。
+        // pdf-029（Zn+浓硫酸，气体 0.8 mol，错误项=A 因 Zn 实为 52.0 g 而非 48.0 g）、
+        // pdf-079（Cl2+NaOH 加热共存体系，正确项=C 因转移电子 0.15<n<0.25）、
+        // pdf-254（(CH3)2CHOH 气相分解平衡，正确项=A 因 Q=0.35>K≈0.27 逆向 v正<v逆）。
+        // 每题 4 选项 verdict 独立核算化学真值、与存储 answer 一致；stemMatch 均非空且唯一。
+        ["pdf-029"] = "A",
+        ["pdf-079"] = "C",
+        ["pdf-254"] = "A"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

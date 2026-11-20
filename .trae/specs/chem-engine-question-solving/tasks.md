@@ -1351,3 +1351,83 @@
   - `AtomicStructureSolverTests`：`brokenKeys` 由 `{pdf-108,pdf-166,pdf-173,pdf-190}` 收窄为 `{pdf-166,pdf-190}`（pdf-108/173 键已校正，现干净判正）；触发集锁 `{pdf-108, pdf-166, pdf-173, pdf-190, pdf-482, pdf-487, pdf-490, pdf-533, pdf-538}`（9 项，pdf-486 已移至 choice 被跳过）。
   - `VseprSolverTests`：`brokenKeys` 由 `{pdf-507}` 清空（键已校正，现干净判正）；触发集锁 `{d6-1..d6-5, pdf-507, pdf-508}` 不变，全绿。
   - 注：Chem 首次重跑出现 1 例瞬态测试主机崩溃（0 失败，构建中间态），杀 testhost 后复跑稳定 905/0；沿用 Task 41/42 已知构建环境坑。
+
+
+## Task 47：修复数据键错位（pdf-163/174/175/177/417）—— 数据卫生，零回归，为后续引擎覆盖铺路
+
+- **Status**: done
+- **Priority**: high
+- **Depends On**: Task 46（盘点报告 §6 优先级表的延续：数据键错位第二批次）
+- **Goal**: 修复盘点出的第二批数据键错位——部分流程题/填空题被错误挂上了选择题字母键（`B`/`C`/`AC`/`CD`）或其它子题的聚合答案键，即便引擎产出化学正确结论也无法判正。仅校正**真值可从权威聚合键或题干自身反应确定**的题；对题干截断或真值不确定的题**留痕不蒙数**，严守冻结红线。
+
+- **Evidence**:
+  - **全量扫描发现系统性错位**：用 `System.Text.Json`（`JsonDocument` 容忍重复键，规避 PS5 `ConvertFrom-Json` 崩溃）扫描 `pdf_questions.json`（545 条）——
+    - Pattern A（非选择题挂纯字母键）：28 条；Pattern B（聚合键含 ≥2 个子题标记）：54 条；Pattern D（`choice` 挂非字母键）：6 条。
+    - 错位集中在两个区块：`pdf-163–180`（冶金/蛇纹石流程题被挂上元素周期律选择题的字母键与解析）与 `pdf-415–417`（粗盐提纯题被挂上 Ga/Br-I 流程的聚合键）。证据：`_evalscratch/scan_misaligned.txt`。
+  - **已校正 5 题**（真值均可从同流程聚合键或题干自身反应**确定**，非猜测）：
+
+    | id | 旧 answerKeywords | 新 answerKeywords | 真值来源 |
+    |----|-------------------|-------------------|----------|
+    | pdf-174 | `"B"`（字母键错位） | `MnO2 + SO3^2- + 2H+ = Mn2+ + SO4^2- + H2O`（含无空格变体） | pdf-163 聚合键 item(2) + 还原酸浸化学（MnO₂ 氧化 SO₃²⁻） |
+    | pdf-175 | `"C"`（字母键错位） | `[Cu(NH3)4]^2+` / `[Cu(NH3)4]2+` / `Cu2+` / `铜氨络离子` / `四氨合铜` | 题干自身反应①消耗、②再生 → 催化剂 |
+    | pdf-177 | `"D"`（字母键错位） | `MnO2 > Fe3+ > Cu2+`（含无空格变体） | pdf-163 聚合键 item(5) + 氧化还原化学 |
+    | pdf-163 | 6 子题聚合串（含 sub-1/2/3/5/6） | 仅子题(4)：`不可行` + 原因关键词数组（OR 匹配） | 自身聚合键 item(4) 切片 |
+    | pdf-417 | Ga 流程聚合串 | `H+ + OH- = H2O` / `2H+ + CO3^2- = H2O + CO2` 等变体 | pdf-413 聚合键 item(6) + 粗盐提纯加盐酸除过量 OH⁻/CO₃²⁻ |
+
+    同步校正各题 `answer` 字段；pdf-174/175/177/417 的 `note` 由原错位的选择题解析改为对应流程题正确解析（pdf-163 的 note 本就对应正确流程，保留）。改前备份：`_evalscratch/pdf_questions_before_keyfix.bak.json`。
+  - **留痕 5 题（不蒙数，需源 PDF/答案册核对）**：`pdf-171`（沉镍后碱性矿化离子方程式，需源卷化学计量）、`pdf-176`（沉铜前滤液1循环目的）、`pdf-233`（题干截断"下列说法一定正…"，无完整选项）、`pdf-415`（盐酸调 pH 除离子，键为 Br₂ 流程错位）、`pdf-416`（粗盐提纯"一系列操作"填字母，A/C 难唯一确定）。
+  - **严格解析校验**：生产加载器 [GatewayVsLlmEvaluationService.cs](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs) 用**严格**反序列化（无 `AllowTrailingCommas`）；改后 `JsonDocument.Parse`（严格）通过、条目数 545 不变；用活体 `NormalizeChemicalNotation`+`Contains` 模拟化学正确结论，5 题均判正。证据：`_evalscratch/validate_out.txt`。
+  - **指标（fresh eval `tag=after_keyfix`，757 例，`llmAvailable=False`）**：
+
+    | 指标 | after_p1fix（陈旧基线） | after_keyfix（当前权威） |
+    |------|------------------------|--------------------------|
+    | engineSolved | 425 | **436** |
+    | coverage | 56.1% | **57.6%** |
+    | enginePrecision | 1.0 | **1.0** |
+    | harm | 0 | **0** |
+    | bothWrong | 332 | 321 |
+    | LOST | [] | **[]** |
+
+  - **关键归因（诚实）**：本次 5 题数据键校正**本身未改变指标**——这 5 题引擎当前均返回占位符（`已匹配到相关反应`/`已解析出相关物质与离子`）或未触发（`taskType=unknown`），`gatewayAnswer` 为空→未采纳，故键校正不翻转采纳（checkpoint 逐例 diff 确认：5 题均不在 gained 列表）。`+11`（425→436）来自**已合入**的并发 `concept_fact` 采纳分支（10 题：test-1..5、concept-2/3、property-1/2、pdf-510）+ `pdf-393`（1 题）；`after_p1fix` 检查点早于该提交故为陈旧基线。经 `_evalscratch/diff_out.txt` 逐例 diff 确认：`gainedAdopted=11`、`lostAdopted=0`、`lostCorrect=0`，且 11 条全部为化学正确结论判正（precision 1.0）。
+  - **证据文件**：`_evalscratch/checkpoint_after_keyfix.jsonl` / `_summary.txt` / `snapshot_after_keyfix.json`、`_evalscratch/diff_out.txt`、`_evalscratch/scan_misaligned.txt`、`_evalscratch/validate_out.txt`、`_evalscratch/pdf_questions_before_keyfix.bak.json`。
+
+- **Test**: `dotnet test` **Chem 905/0 + TutorBrain 931/0 = 1836 通过 / 0 失败 / 0 跳过**（Release 构建 0 错误）。本次未触碰任何护栏锁——校正的 5 个 id 不在 `AtomicStructureSolverTests`/`VseprSolverTests` 的 `brokenKeys` 或触发集内，护栏无需同步。
+
+- **红线核对**：引擎唯一真值源 ✓；不蒙数（5 题留痕待源核）✓；只校正数据键以匹配引擎化学正确结论、不迁就错键 ✓；零回归（`LOST=[]`，diff 逐例确认）✓；零新增 harm（`harm=0`，0 采纳但判错）✓；分类规则链只加分支不删除 ✓；事实在 JSON、零硬编码化学 ✓。
+
+- **后续（不在本次范围）**：① `concept_fact` 采纳分支已由并发工作合入并贡献 +10；② `reaction_check` 占位符（9 题）与 `curve` 轴标签 OCR（3 题）需引擎能力提升才能覆盖；③ 本次留痕的 5 题 + 扫描发现的其余错位需源 PDF/答案册逐题核对后批量校正。
+
+## Task 48：Concept 事实库策展——全量审计未解后兜底 3 道定量选择题（pdf-029/079/254，零假阳性零回归）
+
+- **Status**: done
+- **Priority**: high
+- **Depends On**: Task 37（Concept 事实库 + FactChoiceMatcher 共享内核 + ConceptTruth 单一事实源 + Batch3 全题库护栏）
+- **Goal**: 在红线（零假阳性 / 零 harm / 零回归；无唯一解返回 `null` 绝不蒙数；化学事实只存 JSON、逻辑层不硬编码）内继续策展，求解更多纯文本、可化学唯一判定的选择题。对全量未解逐题审计后，确认仅 3 道定量题的选项含可被文本事实唯一核验的具体数值断言，纳入 Concept 兜底。
+
+- **Evidence**:
+  - **全量审计**（临时探针模拟 `CallChoice` 确定性链路 14 个 `TryDecide`，扫 `BuildTestCases` 全量 757 例）：已解 305、未解 452；未解中 type=choice 197。对 452 未解逐题严格筛选（纯文本、单 ABCD、非 t3s/t3count、无图像标记、4 选项含谓词、非 ①②③④ 组合、非纯计数），再独立核算化学真值（不依赖 `note`——大量 note 张冠李戴），**仅 3 道可安全策展**。
+  - **策展 12 条事实**：向 `data/highschool/general-choice-facts.json` 追加 `GC-538`~`GC-540`（3 题 × 4 选项 = 12 条 statement），事实库 464→**476 条**。`ConceptTruth` 真值表 117→**120**：
+
+    | id | answer | askDir | 4 选项 verdict（独立核算） | 化学要点 |
+    |----|--------|--------|---------------------------|----------|
+    | pdf-029 | A | wrong（错误） | A✗ B✓ C✓ D✓ | Zn+浓硫酸，n(Zn)=n(气体)=0.8 mol→m=52.0 g（非 48.0），转移 1.6 mol e⁻，n(SO₂)=0.2/n(H₂)=0.6，标况 17.92 L |
+    | pdf-079 | C | correct（正确） | A✗ B✗ C✓ D✗ | Cl₂+NaOH 加热共存：6:5<Na⁺:Cl⁻<2:1 故 7:3 不可能；n(Cl₂)=0.15（非 0.3）；极值法 0.15<n(e⁻)<0.25；5:1:1 电子守恒矛盾 |
+    | pdf-254 | A | correct（正确） | A✓ B✗ C✗ D✗ | (CH₃)₂CHOH 分解：K≈0.27，充入后 Q=0.35>K→逆向 v正<v逆；c(Y) 不加倍；充 N₂ 不移动；升温转化率增大→ΔH>0 |
+
+    > pdf-029/079/254 此前在 Task 35/37 边界中被归入「需 NA/计算求解器」；本次确认其选项文本含具体数值断言，可被文本事实唯一核验，故由 Concept 兜底（属边界细化，非计算求解器范畴）。
+
+  - **关键环境诊断（诚实留痕）**：本会话首次 clean rebuild 后 Batch3 出现瞬态「coverage=0、全 null」——经临时探针（`_TmpDiagProbe`，已删除）定位为**残留 testhost 锁定陈旧 DLL** 所致，非代码/数据回归。杀 testhost + `dotnet build-server shutdown` + 清 bin/obj 重建后稳定复绿。探针确认：`DataRoot.Resolve`→仓库根 `data/`、事实加载 476 条、`BuildTestCases`=757（pdf-* 545）、pdf-004/118/245/493 及新增 3 题全部正确解出。
+  - **全题库护栏**：`Batch3ChoiceValidatorTests` 全绿（**124 通过 / 0 失败** = 120 条 ConceptTruth 正例 + 4 守卫）——① 120 条正例全部解出且字母精确匹配；② 全扫 757 题零假阳性（Concept 不解真值表之外的题）；③ 凡采纳必判正（零 harm）；④ 解出数 120==真值表 120（动态断言）；⑤ 与 Experiment/Organic/Structure 无路由二义。
+  - **数据卫生留痕**：`general-choice-facts.json` 存在预存 id 碰撞（`GC-446-A..D` 与 `GC-451-A..D` 各出现 2 次，对应两道不同题但 stemMatch 唯一、功能良性，Batch3 全绿证明不破坏匹配）；本次新 id 从 `GC-538` 起编号避开碰撞，未引入新重复。该碰撞为历史技术债，非阻塞，后续可改派新 id 清理。
+
+- **Test**: `dotnet test` **TutorBrain 930/0 + Chem 905/0 = 1835 通过 / 0 失败 / 0 跳过**（较 Task 47 基线 Concept 覆盖 +3；临时探针已删除，`tests/` 下 `_Tmp*.cs` 经 glob 确认为 0 个）。
+
+- **红线核对**：引擎唯一真值源 ✓；不蒙数（每选项恰好命中 1 条事实、候选唯一才断言）✓；事实在 JSON、零硬编码化学 ✓；零假阳性（全题库护栏）✓；零 harm（凡采纳必判正）✓；零回归（全量两套 0 失败）✓。
+
+- **可解边界（向用户汇报）**：本会话已把 452 未解全量审计，红线内纯文本可唯一判定的只剩 pdf-029/079/254，已全部策展。剩余 ~215 道未解选择题无法在零假阳性红线内仅靠文本事实策展，需新增能力：
+  - **图像/结构图依赖**（晶胞/装置/流程/结构简式/坐标图）：文本无结构，需图像解析器（Task 43 已接 molecule 资产，其余品类待扩）。
+  - **OCR 抽取残缺**：选项文本或提问 directive 在抽取时丢失一列（现象/结论/操作/结构），需从 PDF 重新抽取（Task 45 已修 39→2 道留痕，其余待修）。
+  - **计数题**（①②③④ 组合、「有几项」、同分异构体数）：应由 `CountingChoiceValidator` 扩展，不进 Concept。
+  - **不定项选择题**：`isMultiSelect` 正则只认「双选|多选」不认「不定项」；且 pdf-115 因实验表格缺失仍不可解。
+  - **answer 与化学真值冲突**（pdf-075/185/213/280 等）：需核对官方题源修正存储 answer 后才能策展。
+  - **复杂定量计算**：绝大多数需 NA 计算器 / 计量求解器 / 核素解析器。
