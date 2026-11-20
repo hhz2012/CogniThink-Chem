@@ -6122,6 +6122,10 @@
     {"id": "GC-586-A", "match": ["c(Na+)=2[c(H2S)+c(HS-)+c(S2-)]"], "stemMatch": ["含镉(Cd2+)废水"], "verdict": true, "reason": "Na2S中Na与S的物质的量之比为2:1，物料守恒为c(Na+)=2[c(H2S)+c(HS-)+c(S2-)]，说法正确。"},
     {"id": "GC-586-B", "match": ["c(Na+)>c(S2-)>c(OH-)>c(HS-)"], "stemMatch": ["含镉(Cd2+)废水"], "verdict": false, "reason": "0.1 mol/L Na2S溶液pH约为12.8，c(OH-)约为0.063 mol/L；S2-水解强烈（Kb1很大），平衡时c(S2-)远小于c(OH-)和c(HS-)，离子浓度大小顺序应为c(Na+)>c(OH-)≈c(HS-)>c(S2-)，选项把c(S2-)排在c(OH-)之前，说法错误。"},
     {"id": "GC-586-C", "match": ["发生反应的离子方程式为Cd2+"], "stemMatch": ["含镉(Cd2+)废水"], "verdict": true, "reason": "由于Ksp(FeS)远大于CdS的溶度积，含镉废水中加入FeS可发生沉淀的转化反应：Cd2+(aq)+FeS(s)=CdS(s)+Fe2+(aq)，说法正确。"},
-    {"id": "GC-586-D", "match": ["加入足量FeS，废水可达标"], "stemMatch": ["含镉(Cd2+)废水"], "verdict": true, "reason": "反应Cd2+(aq)+FeS(s)⇌CdS(s)+Fe2+(aq)的平衡常数K=Ksp(FeS)/Ksp(CdS)≈8×10^8，K很大，加入足量FeS后平衡时c(Cd2+)可降至远低于1×10^-8 mol/L，废水可达标排放，说法正确。"}
+    {"id": "GC-586-D", "match": ["加入足量FeS，废水可达标"], "stemMatch": ["含镉(Cd2+)废水"], "verdict": true, "reason": "反应Cd2+(aq)+FeS(s)⇌CdS(s)+Fe2+(aq)的平衡常数K=Ksp(FeS)/Ksp(CdS)≈8×10^8，K很大，加入足量FeS后平衡时c(Cd2+)可降至远低于1×10^-8 mol/L，废水可达标排放，说法正确。"},
+    {"id": "GC-700-A", "match": ["原子半径"], "stemMatch": ["R中电子只有一种自旋取向", "最高能级电子数"], "verdict": true, "reason": "同周期从左到右原子半径递减，Z为N、X为B，原子半径N<B即Z<X，说法正确。"},
+    {"id": "GC-700-B", "match": ["非金属性"], "stemMatch": ["R中电子只有一种自旋取向", "最高能级电子数"], "verdict": false, "reason": "同周期从左到右非金属性增强，Y为F、Z为N，非金属性F>N即Y>Z，说法错误。"},
+    {"id": "GC-700-C", "match": ["单质的沸点"], "stemMatch": ["R中电子只有一种自旋取向", "最高能级电子数"], "verdict": false, "reason": "X为B（硼，类金属，高沸点），Y的单质为F₂（分子晶体，低沸点），单质沸点B远高于F₂即X>Y，说法错误。"},
+    {"id": "GC-700-D", "match": ["最高正化合价"], "stemMatch": ["R中电子只有一种自旋取向", "最高能级电子数"], "verdict": false, "reason": "X为B最高正化合价+3，R为H最高正化合价+1，故X>R，说法错误。"}
   ]
 }

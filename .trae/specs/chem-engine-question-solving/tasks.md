@@ -1241,6 +1241,13 @@
        - 终验 eval `after_keyfix_237`（757/757 完成、0 失败）：与基线 `after_b6pure3` 逐例 diff `gatewayAnswer` **变更数=0**，LOST=0、precision=1、harm=0。pdf-237 与 pdf-075 引擎均输出 null（未判正），改键是纯数据正确性修正，不影响任何判分结果。
     4. **红线核对**：订正化学正确 ✓（官方源 + 化学双重确认）；不蒙数 ✓；零回归 ✓（LOST=0、全量 0 失败）；pdf-075 不盲改 ✓（与官方源一致）。
 
+  - **本轮：pdf-237 答案键订正后策展判正（未提交，tag=`after_curate_237`）**：
+    1. pdf-237 在上一轮订正 answer B→A 后，策展障碍消除（原因键错误拒绝策展）。为 4 选项各补 1 条 `GC-700-*` 事实（`general-choice-facts.json`，高位段规避并发碰撞）：A（原子半径 Z<X）=真、B（非金属性 Y<Z）=假、C（单质沸点 X<Y）=假、D（最高正化合价 X<R）=假；`stemMatch`=["R中电子只有一种自旋取向","最高能级电子数"] 全库唯一锁定题干。
+    2. 预检：写入前扫描现有 755 条事实，pdf-237 四选项命中数均为 0（无冲突）；写入后每选项恰好命中 1 条，correct 方向候选唯一 A。
+    3. 扩写测试：`Batch3ChoiceValidatorTests.ConceptTruth` 加入 `pdf-237=A`（计数 186→187），`Concept_NoOverlap` 等护栏确认路由无二义。
+    4. 验证：全量测试 TutorBrain 1038/0、Chem 905/0；eval `after_curate_237` vs `after_keyfix_237` 逐例 diff 变更数=1（仅 pdf-237：null→判正 A，判分正确），engineSolved 507→508，LOST=0、precision=1、harm=0。
+    5. 红线：策展事实化学正确 ✓（不为过判分写入错误 verdict，键已订正为 A）；不蒙数 ✓（每选项恰好 1 命中、候选唯一）；零回归 ✓（LOST=0、全量 0 失败）。
+
 ## Task 41：双选/多选第一梯队——共性前置（选项解析 & 判分字母范围 A–Z）+ 策展 pdf-225/329/360（+3，零冲突零回归）
 
 - **Status**: done

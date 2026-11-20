@@ -311,7 +311,10 @@ public class Batch3ChoiceValidatorTests
         // pdf-310（光催化芬顿，错误项=C）、pdf-288（制备MnCO3，正确项=C）、pdf-292（含镉废水处理，错误项=B）。计数 183→186。
         ["pdf-310"] = "C",
         ["pdf-288"] = "C",
-        ["pdf-292"] = "B"
+        ["pdf-292"] = "B",
+        // 本轮（pdf-237 答案键订正 B→A 后策展）：2024 重庆卷元素推断，R=H/X=B/Y=F/Z=N，问"正确的是"→正确项=A。
+        // 4 选项各补 GC-700 事实（stemMatch 锁域），化学核真、stemMatch 全库唯一。计数 186→187。
+        ["pdf-237"] = "A"
     };
 
     public static IEnumerable<object[]> ConceptCases =>
