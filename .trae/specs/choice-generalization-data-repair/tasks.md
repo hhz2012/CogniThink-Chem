@@ -138,7 +138,7 @@
   - **TR-7.4（rubric AC-8 引擎泛化度）**：评分 **4/5**（阈值 ≥4，通过）。依据：新增 `IStatementJudge` 聚合原语 / `MultiSelectChoiceValidator` / `CountingChoiceValidator` 一般子项路径 / `RedoxElectronStatementJudge` 均为**可泛化推理原语**，tier2 可控格式题（未在 `general-choice-facts` 单题策展）即可被解出（MultiSelect 3 例、Counting 6 例、RedoxElectron 18 例）；代码审查确认**未新增任何单题 `general-choice-facts` 条目**。生产端 0 即时收益并非原语弱，而是目标题已被更早校验器拦截、或被数据缺陷（子项文本缺失）阻塞——这正是"引擎就绪、数据接续"的正确设计。扣 1 分因生产真题即时收益为 0，需待数据回填后才能在真题上兑现奖励。
 
 ## Task 8: 提交 + 同步 Task 40 进度
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: medium
 - **Depends On**: Task 7
 - **Description**:
@@ -149,3 +149,7 @@
 - **Test Requirements**:
   - `rule` TR-8.1: 提交仅含本轮文件；`git log` HEAD 正确；工作树仅剩外部项。证据：`git status` + `git log`。
 - **Notes**: PS5 中文 heredoc 不可用，必须 `-F` 文件提交。
+- **Completion Evidence**:
+  - 主提交 `80b9efc`「选择题求解能力泛化 + 数据缺陷修复（引擎原语 + 错题键 + 缺陷登记册）」：17 文件，+1719/-27。含 6 新增引擎 `.cs` + 3 改引擎 `.cs` + 4 新增测试 `.cs` + `pdf_questions.json`（仅 10 处答案键 hunk，外部选项补全已排除）+ `data-defect-register.md` + 本 spec 的 spec.md/tasks.md。
+  - **TR-8.1 暂存范围**：`git diff --cached --name-status` 确认仅我方文件；`pdf_questions.json` 暂存 diff 经审查仅含 10 处 `answer`/`answerKeywords` 变更（脚本 `_evalscratch/_stage_mine_json.py` 以 HEAD 为底拼接、校验 result==head 除我方 10 id 外字节一致）。提交后 `git status` 工作树仅剩外部项（`CogniThink.Chem.sln`、`Batch3ChoiceValidatorTests.cs`、`pdf_questions.json` 外部选项补全、`PdfOcrRepair/`、`image-ocr-choice-coverage/`），未误纳。
+  - 后续小提交同步 `chem-engine-question-solving/tasks.md` Task 40 进度（NFR-5 可追溯），并回填本 Task 8 的 Completion Evidence。
