@@ -53,9 +53,10 @@ public class CurveGatewayTests
         Assert.Contains("无刻度", resp.FinalResult);
     }
 
-    /// <summary>真实题干+选项经网关：选项 C「n(Cl₂)=0.12 mol 时」触发 ValueAtX，返回 Fe³⁺ 读数。</summary>
+    /// <summary>路由守卫：完整 pdf-077 题干含 Concept 事实（GC-729），应优先返回选择字母 C，
+    /// 而不是被 TryRouteCurve 的 ValueAtX 读数（y=0.5）抢占——曲线读数是中间量并非题目最终选项。</summary>
     [Fact]
-    public async Task Pdf077_真实题干选项_触发ValueAtX读数()
+    public async Task Pdf077_完整题干选项_Concept优先于曲线读数()
     {
         var asset = LoadPdf077CurveAsset(out var question, out var renderedOptions);
         var rawText = question + "\n" + renderedOptions;
@@ -64,7 +65,25 @@ public class CurveGatewayTests
             new EngineRequest { RawText = rawText, TaskType = "choice" },
             new List<ImageAsset> { asset });
 
-        Assert.True(resp.Ok == true, $"未命中 curve 分支：{resp.FinalResult} | {resp.ConstraintNote}");
+        // Concept 守卫命中：返回选择字母（pdf-077 错误项=C），而非曲线读数
+        Assert.True(resp.Ok == true, resp.FinalResult);
+        Assert.Contains("C", resp.FinalResult);
+        Assert.DoesNotContain("0.12", resp.FinalResult); // 未被曲线读数抢占
+        Assert.NotEqual("curve", resp.AssetKind);        // 曲线路由未命中
+        Assert.Null(resp.NumericValue);
+    }
+
+    /// <summary>能力保留：裸曲线读数查询（无完整题干/选项 → Concept 事实不命中）仍走 TryRouteCurve，
+    /// 返回 Fe³⁺ @ x=0.12 的读数 y=0.5。证明守卫未破坏 curve 引擎对真实读数请求的能力。</summary>
+    [Fact]
+    public async Task Pdf077_裸读数查询_仍走曲线路由()
+    {
+        var asset = LoadPdf077CurveAsset(out _, out _);
+        var req = new EngineRequest { RawText = "n(Cl₂)=0.12 mol 时 Fe³⁺ 的物质的量", TaskType = "choice" };
+
+        var resp = await NewGateway().CallEngineAsync(req, new List<ImageAsset> { asset });
+
+        Assert.True(resp.Ok == true, resp.FinalResult);
         Assert.Equal("curve", resp.AssetKind);
         Assert.NotNull(resp.NumericValue);
         // Fe³⁺ @ x=0.12：点 (0.1,0.5)-(0.3,0.5) 水平段 → y=0.5

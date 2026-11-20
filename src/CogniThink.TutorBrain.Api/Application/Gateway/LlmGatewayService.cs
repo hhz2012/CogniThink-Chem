@@ -331,6 +331,28 @@ public sealed partial class LlmGatewayService
             }
         }
 
+        // 选择 + 图像（曲线/图形/分子）题的对称守卫：确定性 Concept 事实判定优先于 TryRouteGraph/TryRouteCurve/TryRouteMolecule 的原始读数。
+        // 与上方 equilibrium 守卫（L309-313）同构：曲线/图形读数常为中间量（如某点浓度、某坐标值），并非题目最终选项；
+        // 抢先返回会使 Concept 等事实校验器无机会执行（如 pdf-077：选项含「n(Cl₂)=0.12mol」被 CurveIntentExtractor 识别为读数意图，
+        // 返回 y=0.5 而非选择字母 → Concept 事实被埋没、题库不转化）。命中（非 null）直接返回选择字母；未命中（null）回退图形/曲线/分子路由，零回归。
+        // 评估侧按答案键校验后采纳（BuildGatewayAnswerAsync），错误结论不被采纳 → 不新增 harm。
+        if (req.TaskType == "choice")
+        {
+            var con = ConceptChoiceValidator.TryDecide(req);
+            if (con is not null)
+            {
+                return Task.FromResult(new EngineResponse
+                {
+                    Ok = true,
+                    FinalResult = con.FinalResult,
+                    DerivationSteps = con.Reasons,
+                    ErrorTags = InferErrorTags(con.FinalResult),
+                    ConstraintNote = con.ConstraintNote,
+                    Confidence = 1.0
+                });
+            }
+        }
+
         // 结构化图形资产优先路由（graph/curve/molecule）：资产类型是权威信号，不依赖 LLM 的 task_type。
         // 图引擎能唯一解则采纳；否则返回 null 回退通用分支，不损失原有能力、不蒙数。
         var graphResp = TryRouteGraph(req, imageAssets);
