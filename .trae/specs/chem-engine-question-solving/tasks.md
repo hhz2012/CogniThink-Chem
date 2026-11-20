@@ -1077,7 +1077,7 @@
 
 ## Task 40：引擎解题能力现状盘点与改进计划——全量 741 题离线评估（A/B/C 分级 + P0→P4 优先级路线图）
 
-- **Status**: planned
+- **Status**: in_progress
 - **Priority**: high
 - **Depends On**: Task 39（当前基线）/ EvalRunner（`src/CogniThink.TutorBrain.EvalRunner`，上一会话建成，本会话复跑验证）/ `GatewayVsLlmEvaluationService` 采纳链路 / 全题库护栏测试
 - **Goal**: 基于最新工作树全量 741 题离线评估（LLM 关闭，引擎为唯一真值源），给出「引擎解不出 / 引擎解但答错」的精确题目清单与根因归类，并形成 P0→P4 优先级改进计划。先稳住红线（零失败、零假阳性、精确率回 1.0），再以低风险高收益的「采纳闸门」补齐已解对但未采纳的题，最后扩展确定性分类与新求解器覆盖。所有变更必须：零假阳性、零 harm、零回归；无唯一解 → `null`，绝不蒙数；化学事实存 JSON，逻辑不硬编码化学真值。
@@ -1174,6 +1174,18 @@
   - `dotnet test` 全绿（TutorBrain + Chem 0 失败）；任何新增求解器配「单元逻辑锁 + 保底题库端到端采纳 + 全题库零假阳性」三层护栏。
   - 凡新增采纳分支必须带 `IsAnswerCorrect` guardrail 的正/负例单元测试。
   - 数据修复（P4）需核对真题源，不迁就引擎也不蒙数；修后全量回归确认 LOST=0。
+
+- **本会话执行进度（已验证）**：
+
+  - **证据文件**：`_evalscratch/checkpoint_choice_base_now*`（修复前基线）、`checkpoint_choice_fix1*`（ion-6 + pdf-393/OptContains 后）、`checkpoint_choice_fix2*`（concept_fact 采纳后）、`snapshot_choice_fix2.json`、`diff_basenow_fix1.ps1`、`diff_fix1_fix2.ps1`。
+  - **基线（choice_base_now）**：total 757，gatewayCorrect 414，engineSolved 415，coverage 0.5482，**precision 0.9976**，harm 0（1 处精确率泄漏）。
+  - **P0.2 ion-6 精确率泄漏（已完成并端到端验证）**：`I-FE3-SCN` 已补 `C-COEXIST` 标签（`ion-interactions.json` L22，HEAD 已提交），且 `ExtractIonsFromText` 阴离子正则已含 `SCN`（`LlmGatewayService.cs` L2401，HEAD 已提交）。`choice_fix1` 确认 ion-6 → correct/adopted（gwa=不能大量共存），A 类清零。
+  - **FactChoiceMatcher 数字边界修复（已完成，+12）**：新增 `OptContains`——仅当关键词首字符为数字时要求其前一字符非数字，解决 `"6种"` 作为 `"16种"` 子串导致单选项命中 ≥2 条事实→整题 `null` 的系统碰撞（首+尾边界版本会误伤离子/公式电荷后缀如 `2CrO4`/`C3H8N6`，故只保留首边界）。配合 `GC-537` 事实（`general-choice-facts.json`，HEAD 已提交）解出 pdf-393→B，并额外翻正 10 道同型碰撞题（pdf-078/114/123/135/136/137/142/144/187/189）。
+  - **P1.1 concept_fact 采纳分支（已完成，+10）**：`BuildGatewayAnswerAsync` 新增 `concept_fact` 分支，仅当 `IsAnswerCorrect(conclusion, c)` 通过才采纳（凡采纳必判正），使 10 道不含判断词的描述性结论（test-1~5、concept-2/3、property-1/2、pdf-510）被采纳。
+  - **累计收益（choice_fix2 vs choice_base_now）**：gatewayCorrect **414→436（+22）**，engineSolved 415→436，coverage 0.5482→**0.5760**，**precision 0.9976→1.0**，harm 0，两次 diff **LOST=0**（零回归）。
+  - **测试现状**：TutorBrain **927 通过 / 0 失败**；Chem **905 通过 / 0 失败**。运行前必须删除 `tests/` 下重生的 `_Tmp*.cs` 探针（其未处理异常会致测试主机崩溃）。
+  - **离子补齐核查（c3）结论**：`ion_check` 现 **26/26 全对**；未解决 choice 中无题因缺离子被阻塞（B 类 choice 仅 2 道曲线占位）。按零风险原则不做投机性离子正则新增。
+  - **当前未解决分布（fix2，共 321 未判正）**：choice 179（B 类曲线占位 2 + C 类 177，多为图片依赖 / 多步推理 / 含变量计算）、unknown 72（其中 14 道 d2/d7/d8/d9 诊断题差路由，其余多为工艺流程填空）、calculation 37、equilibrium 18、reaction_check 9、atomic_structure 4、concept 1。剩余 choice 的主要缺口是新求解器能力（图像/曲线解析、计数/多步推理引擎），非简单事实匹配可解。
 
 ## Task 41：双选/多选第一梯队——共性前置（选项解析 & 判分字母范围 A–Z）+ 策展 pdf-225/329/360（+3，零冲突零回归）
 
