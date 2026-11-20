@@ -82,6 +82,55 @@ internal static class FactChoiceMatcher
         return false;
     }
 
+    /// <summary>单条陈述的判定结论（供 <see cref="IStatementJudge"/> 链路复用）。</summary>
+    internal enum StatementVerdict { True, False, Undecided }
+
+    // 四个选择题事实库键（与 Concept / Experiment / Organic / Structure 四个校验器一一对应）。
+    private static readonly string[] ChoiceFactKeys =
+    {
+        "general-choice-facts",
+        "experiment-facts",
+        "organic-facts",
+        "structure-periodic-facts",
+    };
+
+    /// <summary>
+    /// 用全部四个选择题事实库判定单条化学陈述的真伪（供 <see cref="FactBaseStatementJudge"/> 复用）。
+    /// <para>
+    /// 与 <see cref="TryDecide"/> 共用 <see cref="NormOpt"/> / <see cref="OptContains"/> 与
+    /// <see cref="RuleStore"/> 加载，判定口径完全一致：match 全部出现在陈述中 且 stemMatch 全部
+    /// 出现在题干中才算命中。仅当命中事实的 verdict 全部一致时返回 True/False；0 条命中或命中冲突
+    /// （歧义）→ Undecided。
+    /// </para>
+    /// <para>
+    /// 本方法为 <see cref="IStatementJudge"/> 新链路专用，<b>不</b>参与既有单选瀑布链的判定，
+    /// 既有 <see cref="TryDecide"/> 行为字节级不变（TR-1.3 护栏）。
+    /// </para>
+    /// </summary>
+    internal static StatementVerdict JudgeStatement(string stem, string statement)
+    {
+        var store = RuleStore.Load();
+        var stemN = NormOpt(stem);
+        var optN = NormOpt(statement);
+        StatementVerdict? verdict = null;
+        foreach (var key in ChoiceFactKeys)
+        {
+            var facts = store.Query<FactData>(key)?.Statements;
+            if (facts is null || facts.Count == 0) continue;
+            foreach (var f in facts)
+            {
+                if (f.Match.Count == 0) continue;
+                if (!f.Match.All(k => OptContains(optN, NormOpt(k)))) continue;
+                if (!f.StemMatch.All(k => OptContains(stemN, NormOpt(k)))) continue;
+                var v = f.Verdict ? StatementVerdict.True : StatementVerdict.False;
+                if (verdict.HasValue && verdict.Value != v)
+                    return StatementVerdict.Undecided;   // 冲突 / 歧义 → 不判，不蒙数
+                verdict = v;
+            }
+        }
+        return verdict ?? StatementVerdict.Undecided;
+    }
+
     /// <summary>
     /// 用指定事实库对一道选择题唯一求解。不能唯一判定返回 null。
     /// </summary>

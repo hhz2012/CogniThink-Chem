@@ -26,6 +26,10 @@ public static class CountingChoiceValidator
 
     public static int FactCount => _facts.Value.Count; // 供测试护栏
 
+    // Task 3/4：通用陈述子项判定用的聚合真值源（事实库 + 计数 + 氧化还原电子计数），与 MultiSelectChoiceValidator 同口径。
+    private static readonly CompositeStatementJudge SubItemJudge =
+        new(new FactBaseStatementJudge(), new CountingStatementJudge(), new RedoxElectronStatementJudge());
+
     public static ChoiceVerifier.Outcome? TryDecide(EngineRequest req)
     {
         var raw = req.RawText ?? "";
@@ -37,7 +41,18 @@ public static class CountingChoiceValidator
 
         // 路径一：选项是"N 项 / 全部" → 题干列子项，问正确的有几项
         if (LooksLikeCountOfCorrect(opts))
-            return TryDecideCountOfCorrect(stem, opts, askDir);
+        {
+            // 1a：仅 "N 种" 计数字项的既有路径（字节级不变，TR-3.2）。
+            var byCount = TryDecideCountOfCorrect(stem, opts, askDir);
+            if (byCount is not null) return byCount;
+            // 1b：Task 3 扩展——一般化学陈述子项（经 IStatementJudge 逐子项判定）。
+            //     仅当 1a 未求解时触发，不影响既有计数题。
+            return TryDecideGeneralSubItems(stem, opts, askDir);
+        }
+
+        // 路径一c：组合型——选项是 ①②③ 等子项编号组合（Task 3 / FR-3）。
+        if (LooksLikeCombination(opts))
+            return TryDecideCombination(stem, opts, askDir);
 
         // 路径二：逐选项判定计数断言
         var reasons = new List<string>();
@@ -70,6 +85,13 @@ public static class CountingChoiceValidator
 
         return null;
     }
+
+    /// <summary>
+    /// 判定一条计数断言陈述的真伪；不可判返回 null。供 <see cref="CountingStatementJudge"/>
+    /// （IStatementJudge 链路）复用——仅做薄包装，不改 <see cref="JudgeCountOption"/> 判定语义，
+    /// 既有计数/组合路径字节级不变。
+    /// </summary>
+    internal static bool? TryJudgeCountStatement(string text) => JudgeCountOption(text);
 
     /// <summary>从选项提取声称的数目：取 "…N 种" 中的 N。</summary>
     private static int? ExtractClaimedCount(string text)
@@ -211,6 +233,164 @@ public static class CountingChoiceValidator
             reasons.Add($"{kv.Key}：{kv.Value}（实际正确 {trueCount} 项 → {(ok ? "真" : "假")}）");
         }
         return ChooseUnique(verdicts, askDir, reasons);
+    }
+
+    // ===== Task 3：通用陈述子项（count-of-correct）与组合型 =====
+
+    private const string CircledDigits = "①②③④⑤⑥⑦⑧⑨⑩";
+
+    /// <summary>选项是否为子项编号组合（多数选项含 ≥2 个圆圈数字）。</summary>
+    private static bool LooksLikeCombination(Dictionary<string, string> opts)
+    {
+        var comboOpts = opts.Values.Count(v => Regex.Matches(v, @"[①②③④⑤⑥⑦⑧⑨⑩]").Count >= 2);
+        return comboOpts >= 2;
+    }
+
+    /// <summary>
+    /// 路径 1b：题干列一般化学陈述子项、选项是 "N 项 / 全部"，问正确的有几项。
+    /// 逐子项经 <see cref="SubItemJudge"/>（事实库 + 计数）判定；任一子项 Undecided → 整题 null。
+    /// 与 1a 共用 "N 项 / 全部" 选项匹配与 ChooseUnique 口径，保持判分一致。
+    /// </summary>
+    private static ChoiceVerifier.Outcome? TryDecideGeneralSubItems(string stem, Dictionary<string, string> opts, string askDir)
+    {
+        var items = SplitSubItemsIndexed(stem);
+        if (items.Count < 2) return null;
+
+        var reasons = new List<string>();
+        var trueCount = 0;
+        foreach (var (idx, text) in items)
+        {
+            var v = SubItemJudge.Judge(stem, text);
+            if (v == Verdict.Undecided) return null;   // 任一子项不可判 → 整题 null
+            if (v == Verdict.True) trueCount++;
+            reasons.Add($"子项 {idx}：{text}（{(v == Verdict.True ? "正确" : "错误")}）");
+        }
+
+        var verdicts = new List<(string letter, bool ok)>();
+        foreach (var kv in opts.OrderBy(x => x.Key))
+        {
+            bool ok;
+            var m = Regex.Match(kv.Value, @"(\d+)\s*项");
+            if (m.Success)
+                ok = int.Parse(m.Groups[1].Value) == trueCount;
+            else if (kv.Value.Contains("全部"))
+                ok = trueCount == items.Count;
+            else
+                return null;
+            verdicts.Add((kv.Key, ok));
+            reasons.Add($"{kv.Key}：{kv.Value}（实际正确 {trueCount} 项 → {(ok ? "真" : "假")}）");
+        }
+        return ChooseUnique(verdicts, askDir, reasons);
+    }
+
+    /// <summary>
+    /// 路径 1c：组合型——选项是 ①②③ 等子项编号的组合。仅处理正确方向：正确选项的编号集合
+    /// 必须恰好等于真子项集合；任一子项 Undecided 或无唯一匹配 → null。不蒙数、零假阳性。
+    /// </summary>
+    private static ChoiceVerifier.Outcome? TryDecideCombination(string stem, Dictionary<string, string> opts, string askDir)
+    {
+        if (askDir != "correct") return null;   // 仅稳妥支持"正确组合"型；反向组合语义歧义 → 不判
+
+        var items = SplitSubItemsIndexed(stem);
+        if (items.Count < 2) return null;
+
+        var trueSet = new HashSet<int>();
+        var reasons = new List<string>();
+        foreach (var (idx, text) in items)
+        {
+            var v = SubItemJudge.Judge(stem, text);
+            if (v == Verdict.Undecided) return null;
+            if (v == Verdict.True) trueSet.Add(idx);
+            reasons.Add($"子项 {idx}：{text}（{(v == Verdict.True ? "正确" : "错误")}）");
+        }
+
+        var trueLabel = "{" + string.Join(",", trueSet.OrderBy(x => x)) + "}";
+        var verdicts = new List<(string letter, bool ok)>();
+        foreach (var kv in opts.OrderBy(x => x.Key))
+        {
+            var combo = ParseCombo(kv.Value);
+            if (combo is null) return null;   // 选项无法解析为编号组合 → 整题不判
+            var ok = combo.SetEquals(trueSet);
+            verdicts.Add((kv.Key, ok));
+            reasons.Add($"{kv.Key}：{kv.Value}（真子项集合 {trueLabel} → {(ok ? "真" : "假")}）");
+        }
+        return ChooseUnique(verdicts, askDir, reasons);
+    }
+
+    /// <summary>把选项文本解析为圆圈数字编号集合；无圆圈数字返回 null。</summary>
+    private static HashSet<int>? ParseCombo(string opt)
+    {
+        var matches = Regex.Matches(opt, @"[①②③④⑤⑥⑦⑧⑨⑩]");
+        if (matches.Count == 0) return null;
+        var set = new HashSet<int>();
+        foreach (Match m in matches)
+        {
+            var idx = CircledDigits.IndexOf(m.Value, StringComparison.Ordinal);
+            if (idx < 0) return null;
+            set.Add(idx + 1);
+        }
+        return set;
+    }
+
+    /// <summary>
+    /// 把题干拆成带编号的子项（编号 1-based）。丢弃首个标记之前的引导语（题干问法部分），
+    /// 因此每一项都是真正的子项陈述——与 <see cref="SplitSubItems"/> 不同：后者可能包含引导语，
+    /// 原靠 <see cref="ExtractClaimedCount"/> 过滤掉，对一般陈述子项不适用。
+    /// 供 Task 3 通用陈述子项 / 组合路径使用；不修改 SplitSubItems 既有口径（TR-3.2）。
+    /// </summary>
+    private static List<(int index, string text)> SplitSubItemsIndexed(string stem)
+    {
+        // 1) 圆圈数字 ①-⑩
+        var circled = Regex.Matches(stem, @"[①②③④⑤⑥⑦⑧⑨⑩]");
+        if (circled.Count >= 2)
+        {
+            var list = new List<(int, string)>();
+            for (var i = 0; i < circled.Count; i++)
+            {
+                var start = circled[i].Index + circled[i].Length;
+                var end = i + 1 < circled.Count ? circled[i + 1].Index : stem.Length;
+                var idx = CircledDigits.IndexOf(circled[i].Value, StringComparison.Ordinal) + 1;
+                var text = stem[start..end].Trim();
+                if (text.Length > 0) list.Add((idx, text));
+            }
+            return list;
+        }
+        // 2) (1)(2) 或 ⑴⑵⑶（\u2474-\u2479）
+        var paren = Regex.Matches(stem, @"\((\d+)\)|[\u2474\u2475\u2476\u2477\u2478\u2479]");
+        if (paren.Count >= 2)
+        {
+            var list = new List<(int, string)>();
+            for (var i = 0; i < paren.Count; i++)
+            {
+                var m = paren[i];
+                var start = m.Index + m.Length;
+                var end = i + 1 < paren.Count ? paren[i + 1].Index : stem.Length;
+                var num = m.Groups[1].Value;
+                var idx = !string.IsNullOrEmpty(num)
+                    ? int.Parse(num)
+                    : "\u2474\u2475\u2476\u2477\u2478\u2479".IndexOf(m.Value, StringComparison.Ordinal) + 1;
+                var text = stem[start..end].Trim();
+                if (text.Length > 0) list.Add((idx, text));
+            }
+            return list;
+        }
+        // 3) "1." "2." 行首编号
+        var numbered = Regex.Matches(stem, @"(?<!\d)(\d+)[\.．、]");
+        if (numbered.Count >= 2)
+        {
+            var list = new List<(int, string)>();
+            for (var i = 0; i < numbered.Count; i++)
+            {
+                var m = numbered[i];
+                var start = m.Index + m.Length;
+                var end = i + 1 < numbered.Count ? numbered[i + 1].Index : stem.Length;
+                var idx = int.Parse(m.Groups[1].Value);
+                var text = stem[start..end].Trim();
+                if (text.Length > 0) list.Add((idx, text));
+            }
+            return list;
+        }
+        return new List<(int, string)>();
     }
 
     /// <summary>按 ①②③ / (1)(2) / 1. 2. 等标记拆分子项。</summary>

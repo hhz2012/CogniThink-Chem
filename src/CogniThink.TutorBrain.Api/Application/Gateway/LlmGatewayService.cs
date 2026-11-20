@@ -846,6 +846,23 @@ public sealed partial class LlmGatewayService
             };
         }
 
+        // spec FR-1 / Task 2：多选判定 fallback——仅当前面所有单选校验器都返回 null 时触发。
+        // 逐选项用 IStatementJudge 判定；≥2 选项确定满足问法方向 → 返回拼接字母串；任一选项不可判或
+        // 候选不足 → null。不依赖题干「双选/多选」标记。置于 ChoiceVerifier 兜底之前，已解题字节级不变。
+        var multi = MultiSelectChoiceValidator.TryDecide(req);
+        if (multi is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = multi.FinalResult,
+                DerivationSteps = multi.Reasons,
+                ErrorTags = InferErrorTags(multi.FinalResult),
+                ConstraintNote = multi.ConstraintNote,
+                Confidence = 1.0
+            };
+        }
+
         var outcome = ChoiceVerifier.TryDecide(req, _chem);
         if (outcome is not null)
         {
