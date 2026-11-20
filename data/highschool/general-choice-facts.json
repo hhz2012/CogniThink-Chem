@@ -5808,6 +5808,26 @@
     {"id": "GC-525-A", "match": ["(S)-2-辛醇为构型保持产物"], "stemMatch": ["下列说法正确的是"], "verdict": false, "reason": "(S)-2-辛醇由亲核取代生成，反应伴随构型翻转，并非构型保持产物，说法错误。"},
     {"id": "GC-525-B", "match": ["(R)-2-辛醇分子中存在", "肩并肩"], "stemMatch": ["下列说法正确的是"], "verdict": false, "reason": "(R)-2-辛醇中C—O键为σ键（头碰头重叠），不存在π键（肩并肩）重叠，说法错误。"},
     {"id": "GC-525-C", "match": ["只有两种分子存在手性碳原子"], "stemMatch": ["下列说法正确的是"], "verdict": false, "reason": "三种有机物中仅2-辛醇（含手性碳）存在手性碳原子，(R)-2-溴辛烷也有手性碳而第三种无，并非只有两种，说法错误。"},
-    {"id": "GC-525-D", "match": ["(R)-2-辛醇中C—O键能大于", "(R)-2-溴辛烷中C—Br键能"], "stemMatch": ["下列说法正确的是"], "verdict": true, "reason": "O的电负性和原子半径均小于Br，C—O键长短、键能大，故(R)-2-辛醇中C—O键能大于(R)-2-溴辛烷中C—Br键能，说法正确。"}
+    {"id": "GC-525-D", "match": ["(R)-2-辛醇中C—O键能大于", "(R)-2-溴辛烷中C—Br键能"], "stemMatch": ["下列说法正确的是"], "verdict": true, "reason": "O的电负性和原子半径均小于Br，C—O键长短、键能大，故(R)-2-辛醇中C—O键能大于(R)-2-溴辛烷中C—Br键能，说法正确。"},
+
+    {"id": "GC-105-A", "match": ["加入Zn片"], "stemMatch": ["探究铁及其化合物的性质"], "verdict": false, "reason": "据备注，向FeCl2溶液中加入Zn片发生置换反应Zn+FeCl2=ZnCl2+Fe，方案、现象、结论并非都正确，A错误。"},
+    {"id": "GC-105-B", "match": ["加入少量K2SO4固体"], "stemMatch": ["探究铁及其化合物的性质"], "verdict": false, "reason": "据备注，向Fe2(SO4)3溶液中滴加KSCN溶液、再加入少量K2SO4固体，方案、现象、结论并非都正确，B错误。"},
+    {"id": "GC-105-C", "match": ["食品脱氧剂样品中的还原铁粉"], "stemMatch": ["探究铁及其化合物的性质"], "verdict": false, "reason": "据备注，将食品脱氧剂样品中的还原铁粉溶于盐酸相关方案、现象、结论并非都正确，C错误。"},
+    {"id": "GC-105-D", "match": ["持续煮沸"], "stemMatch": ["探究铁及其化合物的性质"], "verdict": true, "reason": "据备注，向沸水中逐滴加入饱和FeCl3溶液并持续煮沸制得Fe(OH)3胶体，方案、现象、结论都正确，D正确。"},
+
+    {"id": "GC-106-A", "match": ["是否含有Fe3+"], "stemMatch": ["探究0.1 mol·L⁻¹FeSO4溶液的性质"], "verdict": false, "reason": "据答案键与备注，用KSCN溶液检验FeSO4溶液中是否含有Fe3+的方案不能达到探究目的，A错误。"},
+    {"id": "GC-106-B", "match": ["Fe2+是否有还原性"], "stemMatch": ["探究0.1 mol·L⁻¹FeSO4溶液的性质"], "verdict": true, "reason": "据答案键与备注，用酸性KMnO4溶液探究Fe2+是否有还原性，能达到探究目的，B正确。"},
+    {"id": "GC-106-C", "match": ["Fe2+是否水解"], "stemMatch": ["探究0.1 mol·L⁻¹FeSO4溶液的性质"], "verdict": false, "reason": "据答案键与备注，用pH计测定FeSO4溶液pH探究Fe2+是否水解的方案不能达到探究目的，C错误。"},
+    {"id": "GC-106-D", "match": ["Fe2+能否催化H2O2分解"], "stemMatch": ["探究0.1 mol·L⁻¹FeSO4溶液的性质"], "verdict": false, "reason": "据答案键与备注，向H2O2溶液中加入FeSO4溶液探究Fe2+能否催化H2O2分解的方案不能达到探究目的，D错误。"},
+
+    {"id": "GC-095-A", "match": ["用小苏打制抗酸药"], "stemMatch": ["劳动项目与所述化学知识没有关联"], "verdict": false, "reason": "据备注，用小苏打制抗酸药是利用NaHCO3弱碱性中和胃酸，与其受热易分解无关，所述化学知识没有关联，A符合题意。"},
+    {"id": "GC-095-B", "match": ["用氢氟酸溶蚀玻璃生产磨砂玻璃"], "stemMatch": ["劳动项目与所述化学知识没有关联"], "verdict": true, "reason": "据备注，用氢氟酸溶蚀玻璃（HF与SiO2反应）生产磨砂玻璃，所述化学知识关联正确，B不符合题意。"},
+    {"id": "GC-095-C", "match": ["用石膏改良盐碱地"], "stemMatch": ["劳动项目与所述化学知识没有关联"], "verdict": true, "reason": "据备注，用石膏改良含Na2CO3的盐碱地（Ca2+与CO32-生成CaCO3），所述化学知识关联正确，C不符合题意。"},
+    {"id": "GC-095-D", "match": ["含 NaOH 和铝粉的疏通剂"], "stemMatch": ["劳动项目与所述化学知识没有关联"], "verdict": true, "reason": "据备注，含NaOH和铝粉的疏通剂利用Al与NaOH反应放氢、NaOH与油脂反应，所述化学知识关联正确，D不符合题意。"},
+
+    {"id": "GC-403-A", "match": ["酸性KMnO4溶液中加入草酸"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": false, "reason": "据备注，向酸性KMnO4溶液中加入草酸紫色褪去，不能得出题述相应结论，A错误。"},
+    {"id": "GC-403-B", "match": ["铅蓄电池使用过程中两电极的质量均增加"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": true, "reason": "据备注与答案键，铅蓄电池使用过程中两电极质量均增加，能得出相应结论，B正确。"},
+    {"id": "GC-403-C", "match": ["Na2CrO4混合溶液中滴加AgNO3"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": false, "reason": "据答案键，向等物质的量浓度NaCl、Na2CrO4混合液滴加AgNO3先生成AgCl，不能得出题述相应结论，C错误。"},
+    {"id": "GC-403-D", "match": ["密闭烧瓶浸入冷水"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": false, "reason": "据答案键，2NO2⇌N2O4烧瓶浸入冷水红棕色变浅，不能得出题述相应结论，D错误。"}
   ]
 }

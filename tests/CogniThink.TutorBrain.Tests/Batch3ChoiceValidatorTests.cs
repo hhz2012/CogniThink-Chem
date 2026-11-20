@@ -204,7 +204,14 @@ public class Batch3ChoiceValidatorTests
         ["pdf-350"] = "D",
         ["pdf-352"] = "A",
         ["pdf-358"] = "A",
-        ["pdf-525"] = "D"
+        ["pdf-525"] = "D",
+        // batch3（Task 40 P3 收尾）：剩余纯文本选择题事实策展，4 选项纯文字可匹配、备注/答案键核真、stemMatch 全库唯一。
+        // pdf-105（Fe 化合物实验，正确项=D）、pdf-106（FeSO4 性质探究目的，正确项=B）、
+        // pdf-095（劳动项目与化学知识没有关联，错误项=A）、pdf-403（事实→结论，正确项=B）。
+        ["pdf-105"] = "D",
+        ["pdf-106"] = "B",
+        ["pdf-095"] = "A",
+        ["pdf-403"] = "B"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

@@ -1189,6 +1189,8 @@
   - **P3 batch1 纯文本选择题事实策展（已完成，+3，tag=choice_p3_now）**：审计 PURE_TEXT 未解题，策展 3 道四选项纯文字可匹配、备注核真、与存储 answer 一致的题（pdf-029→A / pdf-079→C / pdf-254→A），新增 12 条 `GC-*` 事实（`general-choice-facts.json`），`Batch3ChoiceValidatorTests.ConceptTruth` 同步 0→3。`choice_fix2 → choice_p3_now`：gatewayCorrect **436→439（+3）**，engineSolved 436→439，coverage 0.5760→0.5799，precision 1.0→1.0，harm 0，diff **LOST=0**；TutorBrain 927→**930**，Chem 905→905。
   - **P3 batch2 纯文本选择题事实策展（已完成，+7，tag=choice_p3_b2）**：审计全部 37 道 PURE_TEXT 未解题，策展 7 道干净候选（pdf-321→D / pdf-378→B / pdf-380→D / pdf-350→D / pdf-352→A / pdf-358→A / pdf-525→D），新增 28 条 `GC-*` 事实（每题 4 选项独立 verdict 核算化学真值，`stemMatch` 限定题干）；`ConceptTruth` 同步 3→**10**。护栏 `Concept_ZeroFalsePositive_AcrossAllBuildTestCases` / `Concept_Coverage_MatchesTruthTable` / `Concept_AdoptedAnswers_AreGradedCorrect` / `Concept_NoOverlap_WithExperimentOrganicAndStructure` 全绿。`choice_p3_now → choice_p3_b2`：gatewayCorrect **439→446（+7）**，engineSolved 439→446，coverage 0.5799→**0.5892**，precision 1.0→1.0，harm 0，diff **LOST=0**（7 道全部 gatewayAnswer 字母与存储 answer 一致：321=D、378=B、380=D、350=D、352=A、358=A、525=D）；TutorBrain 930→**937**，Chem 905→905。
   - **当前未解决分布（p3_b2，共 311 未判正）**：choice 169（多数为图片依赖 FIGURE，需图像/曲线解析器，超出事实匹配范围；其余为多步推理 / 含变量计算 / 存储 answer 与真值矛盾，不硬编码）、unknown 72、calculation 37、equilibrium 18、reaction_check 9、atomic_structure 4、concept 1。
+  - **P3 batch3 纯文本选择题事实策展（已完成，+4，tag=choice_p3_b3）**：审计剩余 169 道未判正 choice，分流 FIGURE 132 / PURE_TEXT 37；其中 21 道满足（4 选项完整 + 单字母 answer），逐题核源（`pdf_questions.json`）后策展 4 道（pdf-105→D / pdf-106→B / pdf-095→A / pdf-403→B），新增 16 条 `GC-*` 事实（`match` 取选项唯一片语、`stemMatch` 全库唯一、verdict 据备注/答案键，排除 17 道：6 组合/计数、9 隐含结构图、1 氧化还原备注不全、1 备注/answer 数据矛盾）；`ConceptTruth` 同步 10→**14**。护栏四件套（零假阳性 / 覆盖数 / 采纳判正 / 无重叠）全绿。`choice_p3_b2 → choice_p3_b3`：gatewayCorrect **446→450（+4）**，engineSolved 446→450，coverage 0.5892→**0.5945**，precision 1.0→1.0，harm 0，diff **LOST=0**（4 道 gatewayAnswer 字母与存储 answer 一致：105=D、106=B、095=A、403=B）；TutorBrain 937→**941**，Chem 905→905。
+  - **当前未解决分布（p3_b3，共 307 未判正）**：choice 166（本批策展 +4，但两次评估间题库外生新增 1 条 choice 记录，故净减 3；**LOST=0 确认无回归**。FIGURE 132 不变，纯文本未判正 37→34，纯文本事实策展的低风险余量基本枯竭；其余为多步推理 / 含变量计算 / 存储 answer 与真值矛盾，不硬编码）、unknown 72、calculation 37、equilibrium 18、reaction_check 8、atomic_structure 4、concept 1。后续 choice 增益需图像解析器（Task 43）或数据键修正（Task 49 类），非事实匹配可解。
 
 ## Task 41：双选/多选第一梯队——共性前置（选项解析 & 判分字母范围 A–Z）+ 策展 pdf-225/329/360（+3，零冲突零回归）
 
@@ -1437,7 +1439,7 @@
 
 ## Task 49：核对源 PDF/答案册修复 5 道留痕题 + 纠正 pdf-163 错配（数据卫生，零回归零 harm）
 
-- **Status**: pending
+- **Status**: done
 - **Priority**: high
 - **Depends On**: Task 47（其留痕待源核的 5 题：pdf-171/176/233/415/416）
 - **Goal**: 以源 PDF（习题册）与答案册 OCR 为唯一真值，修复 Task 47 留痕的 5 道数据键错位/题干截断题；核对中发现 Task 47 把 Au/Ag 流程子题(4)的答案错配给了 pdf-163（实为钛酸钡 BaTiO 流程题），一并按源卷纠正。仅改 `pdf_questions.json` 的数据键/题干/选项，不改引擎逻辑；严守冻结红线（不蒙数、零回归、零 harm、分类链只加不删）。
@@ -1461,3 +1463,11 @@
   - `rule` TR-49.2：用活体 `NormalizeChemicalNotation`+`Contains` 模拟各题化学正确结论（pdf-171 方程式 / pdf-415 离子 / pdf-416 字母 C / pdf-233 选项 B 等），6 题均判正。证据：探针输出。
   - `rule` TR-49.3：fresh eval `tag=after_keyfix2`（`llmAvailable=False`）与 `checkpoint_after_keyfix` 逐例 diff：`LOST=[]`（correct→wrong 翻转=0）、`lostAdopted=[]`、`enginePrecision=1.0`、`harm=0`；gained 仅含化学正确结论。证据：diff 脚本输出 + `_summary.txt`。
   - `rule` TR-49.4：`dotnet test` Chem + TutorBrain 全绿（0 失败）；护栏锁保持（`AtomicStructureSolverTests` `brokenKeys={pdf-166,pdf-190}`、9 项触发集；`VseprSolverTests` `brokenKeys` 空），本次 6 个 id 不在锁内故无需同步。证据：测试输出。
+
+- **完成记录（Evidence）**:
+  - 改动明细见 `_evalscratch/keyfix2_diff.txt`；改前备份 `_evalscratch/pdf_questions_pre_keyfix2_clean.bak.json`。
+  - TR-49.1：严格 `JsonDocument.Parse`（无 `AllowTrailingCommas`）通过，entries=545 不变，未引入尾随逗号，保留原行逗号状态；pdf-233 选项由 docnet.core 渲染 exercise p.082（`_evalscratch/page_082_render.png`）逐字读出，非猜测。
+  - TR-49.2：活体 `NormalizeChemicalNotation`+`Contains` 模拟判分 19/19 PASS（含负例：pdf-171 缺 OH⁻ 的不平衡式判负，避免裸产物子串造成假阳性）。证据 `_evalscratch/validate_out2.txt`。
+  - TR-49.3：fresh eval `tag=after_keyfix2`：engineSolved 436→450、coverage 0.576→0.5945、enginePrecision 1.0→1.0、harm 0→0；与 `checkpoint_after_keyfix` 逐例 diff：LOST=0、lostAdopted=0；6 个目标 id 均 `correct=False→False`（引擎空答，本次为前置数据卫生，未翻转采纳）。+14 gained 全在非目标题、均为化学正确结论（precision 1.0）。证据 `_evalscratch/diff_after_keyfix2.txt`、`checkpoint_after_keyfix2_summary.txt`。
+  - TR-49.4：`dotnet test` Chem 905/0 + TutorBrain 941/0，0 失败；护栏锁保持不变（`AtomicStructureSolverTests` `brokenKeys={pdf-166,pdf-190}` + 9 项触发集；`VseprSolverTests` `brokenKeys` 空），6 个目标 id 不在锁内故无需同步。
+- **红线核对**: 引擎唯一真值源 ✓；不蒙数（源卷逐题核对，pdf-233 选项源 PDF 渲染）✓；只校正数据键/题干/选项以匹配引擎化学正确结论、不迁就错键 ✓；零回归 `LOST=[]` ✓；零新增 harm（harm=0）✓；分类规则链只加不删（pdf-233 `type: other→choice` 为数据纠正，未删分支）✓；未改引擎逻辑 ✓。
