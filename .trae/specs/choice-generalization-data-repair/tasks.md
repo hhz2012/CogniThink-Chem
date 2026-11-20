@@ -113,6 +113,7 @@
   - **不**从 note 剥离 verdict 回填子项：会注入判定字眼、有假阳性风险（违反 TR-6.1）；干净源是习题册原页 OCR，而当前缓存 OCR（`_evalscratch/ocr`）质量差（字符间距错乱），暂不回填，保持 `null`。
   - **登记册已建并随 5b 更新**：`data-defect-register.md`（仓库根）含 A.1 已修复（10 道留痕）/A.2 未修（197）/B 子项缺失（009/012/020/065）/C 图像依赖（337/158/263/319）/D note·选项损坏但键正确（381/075），条目完整，满足 TR-6.2。
   - **回填（TR-6.1/TR-6.3）按设计推迟**：答案册 OCR 已完成但仅覆盖解析页，**题面子项的干净原页 OCR 仍不可得**（缓存 `_evalscratch/ocr` 质量差，字符间距错乱/错字）；从 note 剥离 verdict 回填会注入判定字眼、有假阳性风险（违反 TR-6.1）。故本轮不回填，B/C/D 类保持 `null` 并登记，待后续高质量题面 OCR / 图像轨道接续后再执行回填并跑 EvalRunner diff（届时验证 TR-6.1/TR-6.3）。这是"宁可未解、不可假阳性"的刻意范围决定，符合 spec Non-Goals。
+  - **回填执行（pdf-009 / pdf-012）**：原页渲染图（`_evalscratch/renders/page_006.png` / `page_007.png`）可用作干净源，逐字核对后把 ①–⑦ 纯陈述写入 `question`（pdf-012 含 ¹²C/¹⁴C、Na₂CO₃ 等上下标），仅改 `question`，options/answer/note 未动，无 verdict 注入（TR-6.1）。预检：`SplitSubItemsIndexed` 各拆出 7 子项；JSON 有效（545 条）。验证（隔离 worktree HEAD + 仅本改动）：eval diff vs `checkpoint_after_curate_237` GAIN=0/LOST=0/HARM=0；全量测试 1943/0（TR-6.3 零回归）。引擎仍未自解：探针（sanity 证 `CompositeStatementJudge` 加载/匹配正常）显示两题 14 子项在 general/experiment/organic/structure 四库中全部 `Undecided`，依"任一子项 Undecided → 整题 null"返回空；需策展事实覆盖方可判正，属后续独立任务。
 - **Completion Evidence**: 审计 17 个相关 id 完成，结论"组合/计数未解根因是数据缺陷（子项文本缺失），非引擎能力缺口"已固化进登记册序言（TR-6.2：`data-defect-register.md` 存在且条目完整，含 5b 已修复/未修留痕）；TR-6.1/TR-6.3 因无干净题面源按设计推迟（已登记，未猜填），不构成本轮缺口——回填执行将作为后续独立任务。
 
 ## Task 7: 全库集成验证 + 护栏测试全绿 + EvalRunner diff

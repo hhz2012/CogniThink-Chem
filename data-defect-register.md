@@ -41,8 +41,8 @@
 
 | id | 题型 | 子项现状 | 建议下一步 |
 |----|------|----------|-----------|
-| pdf-009 | 组合（选项 ①②③④…） | `question` 仅"下列说法中正确的是"；①–⑦ 子项全在 note（含"正确/错误"verdict） | 习题册原页 OCR 恢复 ①–⑦ 纯陈述文本写入 `question`，不动 answer；恢复后引擎应自解（验证为奖励） |
-| pdf-012 | 组合（选项 ①②④⑤…） | `question` 仅"下列叙述中正确的是"；①–⑦ 子项全在 note（含 verdict） | 同上 |
+| pdf-009 | 组合（选项 ①②③④…） | 已回填：①–⑦ 纯陈述从 page_006 原页 OCR 写入 `question`，answer/options/note 未动 | 回填完成。引擎仍返回 `null`——7 子项在 general/experiment/organic/structure 四库中 0 命中（探针 sanity 证 judge 加载/匹配正常），任一 Undecided 即整题弃判；需策展事实覆盖 7 子项方可自解。验证零回归：eval diff GAIN=0/LOST=0/HARM=0，全量 1943/0 |
+| pdf-012 | 组合（选项 ①②④⑤…） | 已回填：①–⑦ 纯陈述从 page_007 原页 OCR 写入 `question`（含 ¹²C/¹⁴C、Na₂CO₃ 等上下标），answer/options/note 未动 | 同上；两题合计 14 子项当前全部 Undecided |
 | pdf-020 | 计数（"正确的个数"，选项 2/3/4/5 个） | `question` 仅"下列叙述正确的个数是"；①–⑧ 子项全在 note（含 verdict） | 同上 |
 | pdf-065 | 计数（"涉及氧化还原反应的有"，选项 4/5/6/全部 项） | `question` 无子项；note 也未枚举各过程，子项原文完全缺失 | 习题册原页 OCR 恢复各过程陈述；note 不足以重建 |
 
