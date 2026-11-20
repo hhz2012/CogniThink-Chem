@@ -95,4 +95,29 @@ public class CountingChoiceGeneralizationTests
         }
         Assert.Empty(wrong);
     }
+
+    // ===== 策展：pdf-009/012/020/065 子项回填 + 事实策展后引擎自解（Task 6）=====
+
+    [Theory]
+    [InlineData("pdf-009", "C")]
+    [InlineData("pdf-012", "D")]
+    [InlineData("pdf-020", "A")]
+    [InlineData("pdf-065", "B")]
+    public void CuratedSubItemQuestions_SolveByEngine(string id, string expected)
+    {
+        var c = GatewayVsLlmEvaluationService.BuildTestCases().First(x => x.Id == id);
+        var r = CountingChoiceValidator.TryDecide(new EngineRequest { RawText = c.Question });
+        Assert.NotNull(r);
+        Assert.Equal(expected, r!.AnswerLetter);
+    }
+
+    [Fact]
+    public void GeneralSubItems_CountOfCorrect_AcceptsGeUnit()
+    {
+        // 选项 "N 个" 应与 "N 项" 同口径被路径 1b 接受：4 子项仅 ② 真 → 选 "1 个"。
+        var raw = Stem004Ctx + "的有几个？" + SubItems + "\nA. 1个\nB. 2个\nC. 3个\nD. 全部";
+        var r = CountingChoiceValidator.TryDecide(new EngineRequest { RawText = raw });
+        Assert.NotNull(r);
+        Assert.Equal("A", r!.AnswerLetter);
+    }
 }

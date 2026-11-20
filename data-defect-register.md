@@ -41,10 +41,10 @@
 
 | id | 题型 | 子项现状 | 建议下一步 |
 |----|------|----------|-----------|
-| pdf-009 | 组合（选项 ①②③④…） | 已回填：①–⑦ 纯陈述从 page_006 原页 OCR 写入 `question`，answer/options/note 未动 | 回填完成。引擎仍返回 `null`——7 子项在 general/experiment/organic/structure 四库中 0 命中（探针 sanity 证 judge 加载/匹配正常），任一 Undecided 即整题弃判；需策展事实覆盖 7 子项方可自解。验证零回归：eval diff GAIN=0/LOST=0/HARM=0，全量 1943/0 |
-| pdf-012 | 组合（选项 ①②④⑤…） | 已回填：①–⑦ 纯陈述从 page_007 原页 OCR 写入 `question`（含 ¹²C/¹⁴C、Na₂CO₃ 等上下标），answer/options/note 未动 | 同上；两题合计 14 子项当前全部 Undecided |
-| pdf-020 | 计数（"正确的个数"，选项 2/3/4/5 个） | 已回填：①–⑧ 纯陈述从 page_009 原页渲染图写入 `question`（纠正 note 转述失真：① 原文"任何物质"、⑦ 原文"同温同体积"，note 写成"气体"/"同温同压"），answer/options/note 未动 | 回填完成，零回归（eval GAIN=0/LOST=0/HARM=0，全量 1943/0）。引擎仍 `null`：8 子项在四库中全部 Undecided（探针 sanity 证 judge 正常）；且路径 1b 选项解析只认"项/全部"，本题选项是"个"——需策展事实 + 引擎支持"个"单位方可自解 |
-| pdf-065 | 计数（"涉及氧化还原反应的有"，选项 4/5/6/全部 项） | 已回填：①–⑩ 过程陈述从 page_019 原页渲染图写入 `question`（原 note 张冠李戴只谈苯酚，完全不可用），answer/options/note 未动 | 回填完成，零回归。引擎仍 `null`：10 子项在四库中全部 Undecided（含氧化还原子项 RedoxElectron 亦未命中），需策展事实覆盖方可自解 |
+| pdf-009 | 组合（选项 ①②③④…） | 已回填：①–⑦ 纯陈述从 page_006 原页 OCR 写入 `question`，answer/options/note 未动 | 回填完成。引擎仍返回 `null`——7 子项在 general/experiment/organic/structure 四库中 0 命中（探针 sanity 证 judge 加载/匹配正常），任一 Undecided 即整题弃判；**已策展自解**：加 GC-009-S1~S7 事实（stemMatch 锁域防跨题）覆盖 7 子项，端到端命中 C。策展阶段验证：eval diff GAIN=4/LOSS=0/HARM=0/CHURN=0，全量测试 0 失败 |
+| pdf-012 | 组合（选项 ①②④⑤…） | 已回填：①–⑦ 纯陈述从 page_007 原页 OCR 写入 `question`（含 ¹²C/¹⁴C、Na₂CO₃ 等上下标），answer/options/note 未动 | 同上回填；**已策展自解**：加 GC-012-S1~S7 事实覆盖 7 子项，端到端命中 D（与 pdf-009 合计 14 子项全部判出 True/False，无 Undecided） |
+| pdf-020 | 计数（"正确的个数"，选项 2/3/4/5 个） | 已回填：①–⑧ 纯陈述从 page_009 原页渲染图写入 `question`（纠正 note 转述失真：① 原文"任何物质"、⑦ 原文"同温同体积"，note 写成"气体"/"同温同压"），answer/options/note 未动 | 回填完成，零回归（eval GAIN=0/LOST=0/HARM=0，全量 1943/0）。引擎仍 `null`：8 子项在四库中全部 Undecided（探针 sanity 证 judge 正常）；且路径 1b 选项解析只认"项/全部"，本题选项是"个"——**已策展自解**：加 GC-020-S1~S8 事实 + 引擎 `LooksLikeCountOfCorrect`/声称数提取认「个」单位，端到端命中 A |
+| pdf-065 | 计数（"涉及氧化还原反应的有"，选项 4/5/6/全部 项） | 已回填：①–⑩ 过程陈述从 page_019 原页渲染图写入 `question`（原 note 张冠李戴只谈苯酚，完全不可用），answer/options/note 未动 | 回填完成，零回归。引擎仍 `null`：10 子项在四库中全部 Undecided（含氧化还原子项 RedoxElectron 亦未命中），**已策展自解**：加 GC-065-S1~S10 事实 + `AskDir` 认氧还计数方向，端到端命中 B |
 
 ## C 类：子项依赖图像/表格（文本不可恢复，图像轨道接续）
 

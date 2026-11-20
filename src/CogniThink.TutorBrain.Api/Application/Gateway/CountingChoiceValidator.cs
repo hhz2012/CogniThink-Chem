@@ -189,7 +189,7 @@ public static class CountingChoiceValidator
     private static bool LooksLikeCountOfCorrect(Dictionary<string, string> opts)
     {
         // 多数选项是 "N 项" / "全部" 形式
-        var itemOpts = opts.Values.Count(v => Regex.IsMatch(v, @"^\s*\d+\s*项\s*$") || v.Contains("全部"));
+        var itemOpts = opts.Values.Count(v => Regex.IsMatch(v, @"^\s*\d+\s*(?:项|个)\s*$") || v.Contains("全部"));
         return itemOpts >= 2;
     }
 
@@ -270,7 +270,7 @@ public static class CountingChoiceValidator
         foreach (var kv in opts.OrderBy(x => x.Key))
         {
             bool ok;
-            var m = Regex.Match(kv.Value, @"(\d+)\s*项");
+            var m = Regex.Match(kv.Value, @"(\d+)\s*(?:项|个)");
             if (m.Success)
                 ok = int.Parse(m.Groups[1].Value) == trueCount;
             else if (kv.Value.Contains("全部"))
@@ -423,6 +423,9 @@ public static class CountingChoiceValidator
     {
         if (Regex.IsMatch(stem, @"错误|不正确|不相符|有误")) return "wrong";
         if (Regex.IsMatch(stem, @"正确|符合|准确")) return "correct";
+        // “下列过程涉及氧化还原反应的有”：计数满足某性质的项，等价于选真（correct）。
+        // 负向回顾排除“不涉及氧化还原…”（保持 ?，不误判为 correct）。
+        if (Regex.IsMatch(stem, @"(?<!不)涉及氧化还原")) return "correct";
         return "?";
     }
 
