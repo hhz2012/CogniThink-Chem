@@ -173,3 +173,34 @@ flowchart TD
 4. **[低] 在 spec.md 的 AC-6 条目显式标注天花板结论**，使需求文档与 `ac6_ceiling.md`/tasks.md 留痕一致。
 
 以上建议均为后续迭代项，不影响本轮 after6 已达成的交付物与指标。
+
+---
+
+## 9. Task 49 独立审查：源 PDF/答案册核对修复 5 题 + 纠正 pdf-163 错配（after_keyfix2）
+
+> 审查性质：只读独立审查（fresh subagent，未修改任何源码/文档，审查验证代码另存于 `_evalscratch/review_keyfix2/`）。
+> 审查日期：2026-11-19（独立审查）；2026-11-20（上下文恢复后补记最终快照复核）。
+> 审查对象：Task 49 对 `src/CogniThink.TutorBrain.Api/data/pdf_questions.json` 中 6 个目标条目（pdf-163/171/176/233/415/416）的数据键 / 题干 / 选项纠正。
+
+### 9.1 审查结论：**通过（PASS）**
+
+5 项必过检查点全部通过，无 Critical / Major 缺陷，无 actionable finding。Task 49 为纯数据卫生修复（仅改 `pdf_questions.json`，零 `.cs` 引擎改动），所有答案均以源习题册 / 答案册 OCR 逐题核对为唯一真值，未蒙数。
+
+### 9.2 检查点与证据
+
+| # | 检查点 | 结果 | 证据 |
+|---|--------|------|------|
+| 1 | 6 个目标答案与源答案册一致；pdf-163（钛酸钡流程，应"不可行" + H₂S / CaCl₂ 杂质原因）与 pdf-176（沉铜前滤液循环目的，应"提高利用率…减少废水"）已正确互换，无交叉残留 | PASS | tasks.md Task 49 真值表；`pdfs/_extract/answer/page_057/059/060/082/139*.json` 反查；`_evalscratch/page_082_render.png`（pdf-233 选项由 docnet.core 渲染 exercise p.082 逐字读出） |
+| 2 | 改动最小化：仅 6 个目标条目触及，未波及其他条目 | PASS | `_evalscratch/keyfix2_diff.txt`（逐 block 列出替换字段：answerKeywords / answer / note；pdf-233 另改 question / type / options）；改前干净备份 `_evalscratch/pdf_questions_pre_keyfix2_clean.bak.json` |
+| 3 | `pdf_questions.json` 严格 `JsonDocument.Parse`（`AllowTrailingCommas=false`，与生产 loader 一致）通过；条目数 545 不变；未引入尾随逗号 | PASS | `_evalscratch/validate_out2.txt`（TR-49.1）；恢复会话后对**当前工作区快照**重跑 `_evalscratch/final_verify_keyfix2.txt`，确认仍为 545、6 个 ID 在位且字段正确无乱码——闭合并发工作流可能在编辑后改动文件的缺口 |
+| 4 | 零回归、零 harm：fresh eval `tag=after_keyfix2`（llmAvailable=False）engineSolved 436→450、coverage 0.5945、precision=1、harm=0；与 baseline `checkpoint_after_keyfix` 逐例 diff `LOST=0`、`lostAdopted=0`；6 个目标 id 均 `correct=False→False`（引擎空答，本次为前置数据卫生，未翻转采纳）；+14 gained 全在非目标题、均为化学正确结论 | PASS | `_evalscratch/checkpoint_after_keyfix2_summary.txt`、`_evalscratch/diff_after_keyfix2.txt`、`_evalscratch/snapshot_after_keyfix2.json`；`_evalscratch/validate_out2.txt`（活体 `NormalizeChemicalNotation`+`Contains` 模拟判分 19/19 PASS，含 pdf-171 缺 OH⁻ 不平衡式判负、pdf-176/163/415 错答判负等负例，排除裸产物子串假阳性） |
+| 5 | 零引擎逻辑改动：本次仅修改数据文件 `pdf_questions.json`，未触及任何 `.cs`；护栏锁保持不变（`AtomicStructureSolverTests` brokenKeys={pdf-166,pdf-190} + 9 项触发集；`VseprSolverTests` brokenKeys 空），6 个目标 id 不在锁内故无需同步 | PASS | `dotnet test` Chem 905/0 + TutorBrain 941/0，0 失败；`git diff --stat`（仅 `data/pdf_questions.json` 与 `_evalscratch/compare.txt` 属本次；`CogniThink.Chem.sln` 与未跟踪 `PdfOcrRepair` / `image-ocr-choice-coverage` 属并发工作流，非本次范围） |
+
+### 9.3 非阻塞观察（advisory，不影响通过）
+
+- 并发工作流同时在改 `pdf_questions.json` 与测试，曾出现瞬时 git-status 漂移。已在恢复会话中对**当前快照**重跑严格解析（`_evalscratch/final_verify_keyfix2.txt`），确认本次 6 处改动未被覆盖或破坏、条目数仍 545。
+- 存在一个与本次无关的未跟踪项目 `src/CogniThink.TutorBrain.PdfOcrRepair`（Api 不引用）与 `.trae/specs/image-ocr-choice-coverage/`，均属并发工作流产物，不影响 Task 49。
+
+### 9.4 红线核对（审查独立确认）
+
+引擎唯一真值源 ✓；不蒙数（源卷逐题核对，pdf-233 选项由 docnet.core 渲染 exercise p.082 逐字读出，非猜测）✓；只校正数据键 / 题干 / 选项以匹配引擎化学正确结论、不迁就错键 ✓；零回归 `LOST=[]` ✓；零新增 harm（harm=0）✓；分类规则链只加不删（pdf-233 `type: other→choice` 为数据纠正，未删分支）✓；未改引擎逻辑 ✓。

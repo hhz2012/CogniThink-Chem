@@ -1,4 +1,4 @@
-﻿====================================================================================================
+====================================================================================================
 版本                              总  纯LLM    网关   介入     总体网关%   PDF网关%     手工网关    手工纯   ion正确  calc+eq介入    帮倒忙
 ----------------------------------------------------------------------------------------------------
 基线                            648   310   316  190      48.8     39.1  103/103   95  27/37       16      6
@@ -412,3 +412,29 @@ locant误拆修复+IsPdf              648   435   446  235      68.8     62.9  1
   回归：dotnet test Chem 905/0 + TutorBrain 931/0 = 1836 通过 / 0 失败 / 0 跳过；Release 构建 0 错误；未触碰护栏锁。
   红线核对：引擎唯一真值源 ✓；不蒙数（5 题留痕）✓；只校正数据键匹配引擎化学正确结论、不迁就错键 ✓；零回归 LOST=[] ✓；
             零新增 harm（harm=0、0 采纳但判错）✓；分类规则链只加分支不删除 ✓；事实在 JSON、零硬编码化学 ✓。
+
+## Task 49：源 PDF/答案册核对修复 5 题 + 纠正 pdf-163 错配（after_keyfix2）
+
+  真值：全部逐题核对 answer/ 与 exercise/ OCR（不以 questions_parsed.json 错位的 ans_page 为准）；pdf-233 选项由
+        docnet.core 渲染 exercise p.082（page_082_render.png）逐字读出，非猜测。
+  已校正 6 题：
+    pdf-171  As/Ni 错挂键 → 5Mg²⁺ + 4CO₂ + 10OH⁻ = Mg₅(CO₃)₄(OH)₂·4H₂O↓（5 变体 OR）  （answer p.059/060，碱性需 10 OH⁻）
+    pdf-176  "CD" → 提高H2SO4和Na2SO3的利用率…减少废水产生（6 关键词 OR）  （answer p.060 num4(4)；Task 47 错挂给 pdf-163 的归位）
+    pdf-163  Au/Ag 错挂答案 → 不可行 + H2S/CaS/CaCl2 原因（5 关键词 OR）  （answer p.057 num4(4)；实为 BaTiO 流程题）
+    pdf-415  Br2/K2C2O4 聚合错键 → OH⁻、CO₃²⁻（6 变体 OR）  （answer p.139 num2(4)）
+    pdf-416  Ga 流程聚合错键 → C（choice 字母路径，answer 改 "C"）  （answer p.139 num2(5)）
+    pdf-233  type other + 截断题干 → 补全题干 + 插入 A/B/C/D 选项 + type→choice（answerKeywords=["B"] 不变）  （exercise p.082 渲染）
+  严格解析：JsonDocument.Parse 严格通过、545 条不变；未引入尾随逗号；保留原行逗号状态；备份 pdf_questions_pre_keyfix2_clean.bak.json。
+  活体模拟判分（NormalizeChemicalNotation+Contains，含负例）：19/19 PASS（化学正确判正、错误判负；含 pdf-171 缺 OH⁻ 不平衡式判负）。
+  指标（fresh eval tag=after_keyfix2，757 例，llmAvailable=False）：
+    engineSolved 436→450（+14）；coverage 57.6%→59.45%；enginePrecision 1.0→1.0；harm 0→0；bothWrong 321→307；LOST=[]→[]
+  归因（诚实）：本次 6 题键校正未翻转采纳——6 题引擎当前均返回空/占位（gatewayAnswer=[]），correct 均 False→False。
+        +14 gained 全在非目标题（pdf-029/079/095/105/106/254/321/350/352/358/378/380/403/525），均化学正确结论判正
+        （precision 1.0、harm 0）；逐例 diff 确认 lost=0、lostAdopted=0。
+  证据：_evalscratch/keyfix2_manifest.json、keyfix2_diff.txt、validate_out2.txt、diff_after_keyfix2.txt、
+        checkpoint_after_keyfix2.{jsonl,summary.txt,done}、snapshot_after_keyfix2.json、
+        pdf_questions_before_keyfix2.bak.json / pdf_questions_pre_keyfix2_clean.bak.json、page_082_render.png。
+  回归：dotnet test Chem 905/0 + TutorBrain 941/0 = 1846 通过 / 0 失败 / 0 跳过；护栏锁保持
+        （AtomicStructure brokenKeys={pdf-166,pdf-190}、9 项触发集；Vsepr brokenKeys 空），6 目标 id 不在锁内。
+  红线核对：引擎唯一真值源 ✓；不蒙数（源卷逐题核对，pdf-233 选项源 PDF 渲染）✓；只校正数据键匹配引擎结论、不迁就错键 ✓；
+            零回归 LOST=[] ✓；零新增 harm（harm=0）✓；分类规则链只加不删 ✓；未改引擎逻辑 ✓。
