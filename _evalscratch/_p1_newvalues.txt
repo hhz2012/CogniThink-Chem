@@ -1,9 +1,0 @@
-pdf-108.keyword=      "3d⁸4s²"
-pdf-108.note=    "note": "Ni原子序数28，基态电子排布式为[Ar]3d⁸4s²，价电子排布式为3d⁸4s²。",
-pdf-108.answer=    "answer": "3d⁸4s²"
-pdf-173.keyword=      "3d¹⁰4s¹"
-pdf-173.note=    "note": "Cu原子序数29，因3d全满更稳定，基态电子排布式为[Ar]3d¹⁰4s¹，价层电子排布式为3d¹⁰4s¹。",
-pdf-173.answer=    "answer": "3d¹⁰4s¹"
-pdf-507.keyword1=        "平面三角形",
-pdf-507.keyword2=        "5sp³"
-pdf-507.answer=    "answer": "(1)平面三角形 (2)5sp³"

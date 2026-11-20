@@ -1,1 +1,0 @@
-    - 修复 pdf-412 options 重复键（A/B 大小写重复）数据缺陷；~~修复 pdf-108/173/507 答案键与题型错配~~ ✅（Task 46 已修，engineSolved +3，零回归）；批量修复 Task 37 登记的 ~52 道 OCR 抽取残缺题（补选项 directive / 补答案键）。数据修复不改引擎逻辑，修后重跑 EvalRunner 确认无回归。
