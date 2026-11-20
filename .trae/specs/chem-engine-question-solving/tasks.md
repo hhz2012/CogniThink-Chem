@@ -1148,11 +1148,11 @@
 
   - **P0｜稳住红线（blocker，先做）**
     1. ~~**修复 pdf-225 假阳性（3 个测试失败）**：定位 `StructurePeriodicValidator` / `FactChoiceMatcher` 为何对未入真值表的 pdf-225 断言 `CD`，收紧断言条件（仅对显式「双选/多选」标注且事实完备的题触发），恢复「全题库多字母断言唯一 = pdf-495」护栏。验收：3 个失败测试转绿，全题库零假阳性。~~ ✅ **已在 Task 41 解决**：根因是 pdf-225 实为双选（化学真值 CD，原数据 `answer=C` 漏抓 D）且缺事实——以「修正 `answer` C→CD + 策展 SF-225 事实」合法化该断言，而非收紧抑制；`FullBank` 护栏同步更新为期望 4 项（pdf-225/329/360/495）。全题库零假阳性。
-    2. **修复 ion-6 精确率泄漏**：为 `ion-interactions.json` 的 `I-FE3-SCN` 补 `C-COEXIST` 标签（`knowledgeIds: ["C-FE", "C-COEXIST"]`）；同步审计同型络合规则（`I-FE3-CN`、`I-FE2-CN`、`Ag⁺-NH₃` 等）是否缺同一标签。新增单元测试锁死 ion-6 → NEGATE。验收：EvalRunner 重跑 precision=1.0，A 类清零。
+    2. ✅ **修复 ion-6 精确率泄漏（已完成并验证）**：为 `ion-interactions.json` 的 `I-FE3-SCN` 补 `C-COEXIST` 标签（`knowledgeIds: ["C-FE", "C-COEXIST"]`）；同步审计同型络合规则（`I-FE3-CN`、`I-FE2-CN`、`Ag⁺-NH₃` 等）是否缺同一标签。新增单元测试锁死 ion-6 → NEGATE。验收：EvalRunner 重跑 precision=1.0，A 类清零。
     3. **回归对账**：P0 完成后重跑 EvalRunner，与 `after_tier3_batch3d.json` / `_current_engine_dump.txt` 基线 diff，确认 LOST=0、harm=0、precision 非降（目标 1.0）。
 
   - **P1｜采纳闸门（低风险、高收益，来自 B 类）**
-    1. **concept_fact 采纳分支**（+10）：在 `BuildGatewayAnswerAsync` 增加 `concept_fact` 分支——仅当 `IsAnswerCorrect(conclusion, c)` 通过才采纳返回结论，否则 `null`（凡采纳必判正）。验收：test-1~5、concept-2/3、property-1/2、pdf-510 全部判正且采纳；全题库护栏零假阳性；engineSolved +10，precision 保持 1.0。
+    1. ✅ **concept_fact 采纳分支（+10，已完成并验证）**：在 `BuildGatewayAnswerAsync` 增加 `concept_fact` 分支——仅当 `IsAnswerCorrect(conclusion, c)` 通过才采纳返回结论，否则 `null`（凡采纳必判正）。验收：test-1~5、concept-2/3、property-1/2、pdf-510 全部判正且采纳；全题库护栏零假阳性；engineSolved +10，precision 保持 1.0。
     2. **choice 多字母采纳（pdf-495）**：核对 Task 36 的多字母采纳闸门为何在 EvalRunner 下未采纳 pdf-495（结论「正确选项为 CD」正确），修复后 pdf-495 判正采纳。验收：`MultiSelectChoiceMatcherTests` 仍全绿（仅 pdf-495 多字母）。
     3. ~~**数据错配题诚实留痕**：pdf-108/173/507 的引擎结论化学正确但答案键为字母（数据缺陷），不属引擎缺陷——在评估分析中标注「数据错配，不计入引擎漏解」，并登记到 P4 数据修复清单，不硬改引擎迁就错键。~~ ✅ **已在 Task 46 修复**：校正 pdf-108/173/507 答案键与化学结论对齐，engineSolved 266→269（+3）、harm 0、precision 1.0、LOST=[]；不硬改引擎、不蒙数。
 
