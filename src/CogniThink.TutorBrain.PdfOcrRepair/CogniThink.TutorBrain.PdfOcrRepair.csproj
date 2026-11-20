@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    开发期独立 OCR 修复工具：仅用于离线修复 pdf_questions.json 的截断选项数据。
+    红线：不得被 CogniThink.TutorBrain.Api 引用（不进生产运行时）。
+    依赖闭包：仅 Docnet.Core（自带 win-x64 pdfium.dll），OCR 走 tesseract.exe 子进程，
+    不引入任何 .NET OCR 封装包，避免引用/包/源码三套不一致（见 Experience 100031386）。
+  -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>CogniThink.TutorBrain.PdfOcrRepair</RootNamespace>
+    <AssemblyName>CogniThink.TutorBrain.PdfOcrRepair</AssemblyName>
+    <!-- pdfium.dll 为 win-x64 原生库，锁定平台避免 AnyCPU 下加载失败 -->
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Docnet.Core" Version="2.6.0" />
+  </ItemGroup>
+
+</Project>

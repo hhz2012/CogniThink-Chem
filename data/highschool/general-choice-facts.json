@@ -4975,6 +4975,30 @@
       "reason": "K₃C₆₀ 属于离子化合物，熔融时离子键被破坏，产生自由移动的离子，故能导电，说法正确。"
     },
     {
+      "id": "GC-522-C",
+      "match": [
+        "K₃C₆₀ 中只有离子键"
+      ],
+      "stemMatch": [
+        "球碳盐",
+        "K₃C₆₀"
+      ],
+      "verdict": false,
+      "reason": "K₃C₆₀ 由 K⁺ 与 C₆₀³⁻ 构成，含离子键；但 C₆₀³⁻ 内部碳原子间为共价键，故 K₃C₆₀ 中既有离子键又有共价键，并非只有离子键，说法错误。"
+    },
+    {
+      "id": "GC-522-D",
+      "match": [
+        "K 是短周期碱金属元素"
+      ],
+      "stemMatch": [
+        "球碳盐",
+        "K₃C₆₀"
+      ],
+      "verdict": false,
+      "reason": "K 是第 19 号元素，位于第四周期第ⅠA 族，属于长周期元素；短周期仅指第一、二、三周期，故 K 不是短周期碱金属元素，说法错误。"
+    },
+    {
       "id": "GC-523-A",
       "match": [
         "X的中子数为2"
@@ -5085,6 +5109,30 @@
       ],
       "verdict": false,
       "reason": "NH₄⁺ 在水溶液中发生水解，实际数目小于 N_A，说法错误。"
+    },
+    {
+      "id": "GC-525-NA-C",
+      "match": [
+        "1 mol CO 和 H_2 的混合气体含有的分子数目为 3N_A"
+      ],
+      "stemMatch": [
+        "2024·广东卷",
+        "阿伏加德罗常数"
+      ],
+      "verdict": false,
+      "reason": "1 mol 任何气体（无论单一或混合）所含分子数均为 N_A，不可能为 3N_A，说法错误。"
+    },
+    {
+      "id": "GC-525-NA-D",
+      "match": [
+        "Na 与 H_2O 反应生成 11.2 L H_2，转移电子数目为 N_A"
+      ],
+      "stemMatch": [
+        "2024·广东卷",
+        "阿伏加德罗常数"
+      ],
+      "verdict": false,
+      "reason": "题干未注明标准状况，11.2 L H₂ 的物质的量无法确定为 0.5 mol，故不能确定转移电子数为 N_A，说法不严谨，按错误处理。"
     },
     {
       "id": "GC-526-A",
@@ -5828,6 +5876,51 @@
     {"id": "GC-403-A", "match": ["酸性KMnO4溶液中加入草酸"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": false, "reason": "据备注，向酸性KMnO4溶液中加入草酸紫色褪去，不能得出题述相应结论，A错误。"},
     {"id": "GC-403-B", "match": ["铅蓄电池使用过程中两电极的质量均增加"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": true, "reason": "据备注与答案键，铅蓄电池使用过程中两电极质量均增加，能得出相应结论，B正确。"},
     {"id": "GC-403-C", "match": ["Na2CrO4混合溶液中滴加AgNO3"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": false, "reason": "据答案键，向等物质的量浓度NaCl、Na2CrO4混合液滴加AgNO3先生成AgCl，不能得出题述相应结论，C错误。"},
-    {"id": "GC-403-D", "match": ["密闭烧瓶浸入冷水"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": false, "reason": "据答案键，2NO2⇌N2O4烧瓶浸入冷水红棕色变浅，不能得出题述相应结论，D错误。"}
+    {"id": "GC-403-D", "match": ["密闭烧瓶浸入冷水"], "stemMatch": ["由下列事实或现象能得出相应结论的是"], "verdict": false, "reason": "据答案键，2NO2⇌N2O4烧瓶浸入冷水红棕色变浅，不能得出题述相应结论，D错误。"},
+
+    {"id": "GC-541-A", "match": ["实验Ⅰ中继续加入少量K₂SO₄固体,溶液颜色变浅"], "stemMatch": ["Fe₂(SO₄)₃和K₃[Fe(CN)₆]"], "verdict": false, "reason": "Fe³⁺与SCN⁻显色平衡为 Fe³⁺+3SCN⁻⇌Fe(SCN)₃，加入 K₂SO₄ 电离出的 K⁺、SO₄²⁻ 均不参与该平衡，溶液颜色不变，说法错误。"},
+    {"id": "GC-541-B", "match": ["实验Ⅱ中溶液呈红色"], "stemMatch": ["Fe₂(SO₄)₃和K₃[Fe(CN)₆]"], "verdict": false, "reason": "K₃[Fe(CN)₆] 电离出的 [Fe(CN)₆]³⁻ 不能电离出自由 Fe³⁺，SCN⁻ 遇 Fe³⁺ 才显红色，故实验Ⅱ不呈红色，说法错误。"},
+    {"id": "GC-541-C", "match": ["KSCN能区分Fe₂(SO₄)₃和K₃[Fe(CN)₆]"], "stemMatch": ["Fe₂(SO₄)₃和K₃[Fe(CN)₆]"], "verdict": true, "reason": "KSCN 遇 Fe₂(SO₄)₃ 电离出的 Fe³⁺ 生成红色 Fe(SCN)₃，而与 K₃[Fe(CN)₆] 不反应，现象不同可区分二者，说法正确。"},
+    {"id": "GC-541-D", "match": ["焰色试验不能区分Fe₂(SO₄)₃和K₃[Fe(CN)₆]"], "stemMatch": ["Fe₂(SO₄)₃和K₃[Fe(CN)₆]"], "verdict": false, "reason": "焰色试验中 K₃[Fe(CN)₆] 含 K⁺ 呈紫色（透过蓝色钴玻璃），Fe₂(SO₄)₃ 无 K⁺，可以区分，故“不能区分”的说法错误。"},
+
+    {"id": "GC-542-A", "match": ["NaHCO3 浊液中：c(Na⁺)>c(HCO3⁻)>c(H2CO3)>c(CO3²⁻)"], "stemMatch": ["实验Ⅰ浑浊不消失，实验Ⅱ和Ⅲ中浊液变澄清"], "verdict": true, "reason": "NaHCO₃ 溶液中 HCO₃⁻ 水解程度大于电离程度，故 c(H₂CO₃)>c(CO₃²⁻)；Na⁺ 不水解而 HCO₃⁻ 因水解/电离被消耗，故 c(Na⁺)>c(HCO₃⁻)，浓度顺序正确，说法正确。"},
+    {"id": "GC-542-B", "match": ["实验Ⅱ中 NH4Cl 溶液抑制了 HCO3⁻ 的水解"], "stemMatch": ["实验Ⅰ浑浊不消失，实验Ⅱ和Ⅲ中浊液变澄清"], "verdict": false, "reason": "NH₄Cl 中 NH₄⁺ 水解产生 H⁺，与 HCO₃⁻ 水解产生的 OH⁻ 结合，促进而非抑制 HCO₃⁻ 的水解，说法错误。"},
+    {"id": "GC-542-C", "match": ["实验Ⅲ中发生了反应：2NaHCO3+2NH3·H2O=(NH4)2CO3+Na2CO3+2H2O"], "stemMatch": ["实验Ⅰ浑浊不消失，实验Ⅱ和Ⅲ中浊液变澄清"], "verdict": true, "reason": "实验Ⅲ中 NaHCO₃ 与氨水反应生成 (NH₄)₂CO₃、Na₂CO₃ 和 H₂O，方程式 2NaHCO₃+2NH₃·H₂O=(NH₄)₂CO₃+Na₂CO₃+2H₂O 正确，说法正确。"},
+    {"id": "GC-542-D", "match": ["以上实验说明 NaHCO3 溶液中 HCO3⁻ 既存在电离平衡又存在水解平衡"], "stemMatch": ["实验Ⅰ浑浊不消失，实验Ⅱ和Ⅲ中浊液变澄清"], "verdict": true, "reason": "实验Ⅰ、Ⅱ（加 NH₄Cl 促进水解使浊液澄清）说明 HCO₃⁻ 存在水解平衡，实验Ⅲ（加氨水使 c(H⁺) 减小、平衡右移）说明存在电离平衡，说法正确。"},
+
+    {"id": "GC-543-A", "match": ["NaHSO3 溶液显酸性，是因为 HSO3⁻ 的电离程度大于其水解程度"], "stemMatch": ["关于 Na2SO3 和 NaHSO3 的说法"], "verdict": true, "reason": "HSO₃⁻ 既电离又水解，其电离程度大于水解程度，故 NaHSO₃ 溶液显酸性，说法正确。"},
+    {"id": "GC-543-B", "match": ["两种物质的溶液中都存在 c(Na⁺)+c(H⁺)=2c(SO3²⁻)+c(HSO3⁻)+c(OH⁻)"], "stemMatch": ["关于 Na2SO3 和 NaHSO3 的说法"], "verdict": true, "reason": "Na₂SO₃ 和 NaHSO₃ 溶液均为电解质溶液，均满足电荷守恒 c(Na⁺)+c(H⁺)=2c(SO₃²⁻)+c(HSO₃⁻)+c(OH⁻)，说法正确。"},
+    {"id": "GC-543-C", "match": ["可以利用 SO2 除去 NaHSO3 溶液中少量的 Na2SO3 杂质"], "stemMatch": ["关于 Na2SO3 和 NaHSO3 的说法"], "verdict": true, "reason": "通入 SO₂ 可与杂质 Na₂SO₃ 反应：Na₂SO₃+SO₂+H₂O=2NaHSO₃，不引入新杂质，可除去 NaHSO₃ 中少量 Na₂SO₃，说法正确。"},
+    {"id": "GC-543-D", "match": ["用盐酸酸化的 Ba(NO3)2 溶液，可以检验 Na2SO3 和 NaHSO3 是否变质"], "stemMatch": ["关于 Na2SO3 和 NaHSO3 的说法"], "verdict": false, "reason": "盐酸酸化的 Ba(NO₃)₂ 中酸性条件下 NO₃⁻ 会将 SO₃²⁻/HSO₃⁻ 氧化为 SO₄²⁻，生成 BaSO₄ 沉淀，即使未变质也会出现浑浊，干扰检验，说法错误。"},
+
+    {"id": "GC-544-A", "match": ["与石墨相比，(CF)x导电性增强"], "stemMatch": ["层状结构化合物(CF)x"], "verdict": false, "reason": "(CF)x 中每个 C 与 3 个 C、1 个 F 成键，无未参与杂化的 2p 电子，导电性弱于石墨（石墨层内有离域 π 电子），故导电性不增强，说法错误。"},
+    {"id": "GC-544-B", "match": ["与石墨相比，(CF)x抗氧化性增强"], "stemMatch": ["层状结构化合物(CF)x"], "verdict": true, "reason": "F 原子半径小于 C，C—F 键长短、键能大，使 (CF)x 分子稳定性增强、抗氧化性增强，说法正确。"},
+    {"id": "GC-544-C", "match": ["(CF)x中C—C的键长比C—F的短"], "stemMatch": ["层状结构化合物(CF)x"], "verdict": false, "reason": "同周期主族元素原子半径 F<C，故 C—F 键长短于 C—C 键，即 C—C 键长比 C—F 长而非更短，说法错误。"},
+    {"id": "GC-544-D", "match": ["1 mol (CF)x中含有2x mol共价单键"], "stemMatch": ["层状结构化合物(CF)x"], "verdict": false, "reason": "(CF)x 中每个 C 均摊共价键数为 3×1/2（C—C）+ 1（C—F）= 2.5，故 1 mol (CF)x 含 2.5x mol 共价单键，不是 2x mol，说法错误。"},
+
+    {"id": "GC-545-A", "match": ["从中间体到产物，无论从产物稳定性还是反应速率的角度均有利于产物Ⅱ"], "stemMatch": ["苯在浓HNO3和浓H2SO4作用下"], "verdict": true, "reason": "由能量图，生成产物Ⅱ的活化能更低（反应速率更快）且产物能量更低（更稳定），故从稳定性与速率角度均有利于产物Ⅱ，说法正确。"},
+    {"id": "GC-545-B", "match": ["X为苯的加成产物，Y为苯的取代产物"], "stemMatch": ["苯在浓HNO3和浓H2SO4作用下"], "verdict": true, "reason": "苯环上 2 个不饱和碳转化为饱和碳得 X，为苯的加成产物；苯环上 1 个 H 被 —NO₂ 取代得 Y，为取代产物，说法正确。"},
+    {"id": "GC-545-C", "match": ["由苯得到M时，苯中的大π键没有变化"], "stemMatch": ["苯在浓HNO3和浓H2SO4作用下"], "verdict": false, "reason": "由苯得到 M 时，与 —NO₂ 相连的 C 由 sp² 杂化变为 sp³ 杂化，苯环原有的大 π 键被破坏/改变，并非没有变化，说法错误。"},
+    {"id": "GC-545-D", "match": ["对于生成Y的反应，浓H2SO4作催化剂"], "stemMatch": ["苯在浓HNO3和浓H2SO4作用下"], "verdict": true, "reason": "生成 Y（硝化产物）的反应中，浓 H₂SO₄ 反应前后质量和化学性质不变，作催化剂，说法正确。"},
+
+    {"id": "GC-546-A", "match": ["⁴⁰K的原子核内有21个中子"], "stemMatch": ["⁴⁰K是钾元素的一种较稳定的核素"], "verdict": true, "reason": "⁴⁰K 质量数为 40、质子数为 19，中子数 = 40 − 19 = 21，说法正确。"},
+    {"id": "GC-546-B", "match": ["³⁹K和⁴⁰K均易失去一个电子"], "stemMatch": ["⁴⁰K是钾元素的一种较稳定的核素"], "verdict": true, "reason": "³⁹K 和 ⁴⁰K 均为钾元素的核素，最外层均为 1 个电子，均易失去一个电子，说法正确。"},
+    {"id": "GC-546-C", "match": ["可通过质谱法区分³⁹K和⁴⁰K"], "stemMatch": ["⁴⁰K是钾元素的一种较稳定的核素"], "verdict": true, "reason": "³⁹K 与 ⁴⁰K 质量数不同，质谱法按质荷比分离，可区分二者，说法正确。"},
+    {"id": "GC-546-D", "match": ["⁴⁰K衰变为⁴⁰Ar的过程属于化学变化"], "stemMatch": ["⁴⁰K是钾元素的一种较稳定的核素"], "verdict": false, "reason": "⁴⁰K 衰变为 ⁴⁰Ar 是原子核发生变化（质子数改变），属于核变化，并非原子重新组合的化学变化，说法错误。"},
+
+    {"id": "GC-547-A", "match": ["核苷酸可在酶的条件下水解为磷酸和核苷"], "stemMatch": ["冠状病毒(如图)由蛋白质和核酸组成"], "verdict": true, "reason": "核苷酸由核苷与磷酸通过磷酸二酯键结合而成，在酶催化下可水解为磷酸和核苷，说法正确。"},
+    {"id": "GC-547-B", "match": ["蛋白质的二级结构与肽键的形成有关"], "stemMatch": ["冠状病毒(如图)由蛋白质和核酸组成"], "verdict": false, "reason": "蛋白质的一级结构由氨基酸通过肽键连接形成；二级结构（α-螺旋、β-折叠等）主要由氢键维持，与肽键的形成无关，说法错误。"},
+    {"id": "GC-547-C", "match": ["NaClO溶液用作消毒剂，是因为NaClO能使病毒蛋白变性"], "stemMatch": ["冠状病毒(如图)由蛋白质和核酸组成"], "verdict": true, "reason": "NaClO 具有强氧化性，能使病毒蛋白质变性失活，故可用作消毒剂，说法正确。"},
+    {"id": "GC-547-D", "match": ["所有DNA分子中，腺嘌呤与胸腺嘧啶分子数相等"], "stemMatch": ["冠状病毒(如图)由蛋白质和核酸组成"], "verdict": true, "reason": "DNA 双链遵循碱基互补配对原则，A 与 T 配对、G 与 C 配对，故腺嘌呤与胸腺嘧啶分子数相等，说法正确。"},
+
+    {"id": "GC-548-A", "match": ["用 HCl 标准溶液滴定 NaOH 溶液"], "stemMatch": ["(2024·北京卷"], "verdict": true, "reason": "用 HCl 标准溶液滴定 NaOH 溶液时，眼睛注视锥形瓶内颜色变化以判断终点，操作合理，说法正确。"},
+    {"id": "GC-548-B", "match": ["稀释浓硫酸"], "stemMatch": ["(2024·北京卷"], "verdict": true, "reason": "稀释浓硫酸应将浓硫酸沿器壁缓慢注入水中并不断搅拌，使热量及时扩散，操作合理，说法正确。"},
+    {"id": "GC-548-C", "match": ["从提纯后的 NaCl 溶液获得 NaCl 晶体"], "stemMatch": ["(2024·北京卷"], "verdict": true, "reason": "NaCl 的溶解度随温度变化小，从其提纯后溶液获得晶体宜采用蒸发结晶，操作合理，说法正确。"},
+    {"id": "GC-548-D", "match": ["配制一定物质的量浓度的 KCl 溶液"], "stemMatch": ["(2024·北京卷"], "verdict": false, "reason": "配制一定物质的量浓度的溶液定容时，玻璃棒下端应在刻度线以下且液面最低处与刻度线相切，图示操作不合理，说法错误。"},
+
+    {"id": "GC-549-A", "match": ["YX4+ 和 WZ42- 的空间结构均为正四面体形"], "stemMatch": ["化合物 J 是一种重要的化工原料"], "verdict": true, "reason": "推知 X=H、Y=N、Z=O、W=S，YX₄⁺ 为 NH₄⁺、WZ₄²⁻ 为 SO₄²⁻，二者中心原子均为 sp³ 杂化且无孤电子对，空间结构均为正四面体形，说法正确。"},
+    {"id": "GC-549-B", "match": ["化合物 J 中含有离子键、配位键、氢键"], "stemMatch": ["化合物 J 是一种重要的化工原料"], "verdict": false, "reason": "氢键不属于化学键，且化合物 J 中不含有氢键，故“含有离子键、配位键、氢键”的说法错误。"},
+    {"id": "GC-549-C", "match": ["X2W 具有强还原性，在过量 Z2 中燃烧生成 WZ2"], "stemMatch": ["化合物 J 是一种重要的化工原料"], "verdict": true, "reason": "X₂W 为 H₂S，具有强还原性，在过量 O₂ 中燃烧生成 SO₂（即 WZ₂），说法正确。"},
+    {"id": "GC-549-D", "match": ["Y 的第一电离能均比同周期相邻的两种元素的第一电离能大"], "stemMatch": ["化合物 J 是一种重要的化工原料"], "verdict": true, "reason": "Y 为 N，其 2p 轨道为半充满（p³）稳定结构，第一电离能大于同周期相邻的 C 和 O，说法正确。"}
   ]
 }
