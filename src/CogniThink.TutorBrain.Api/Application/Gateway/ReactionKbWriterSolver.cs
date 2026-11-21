@@ -36,7 +36,8 @@ public static class ReactionKbWriterSolver
         // 仅在网关实际接入本书写器的题型上工作（纵深防御 + 全题库零假阳性契约）：
         // 其余题型（choice / atomic_structure / vsepr / balance / judgment / ion_check 等）一律 null，
         // 即使被直连调用也不在域外题型上产生伪命中（如 pdf-482 atomic_structure 曾误匹配 Al+NaOH）。
-        if (req.TaskType is not ("concept" or "unknown" or "calculation" or "equilibrium" or "reaction_check"))
+        // equation_writer（T4）：方程书写专用 taskType 直达本求解器；命中后由网关标记为 reaction_check 走采纳门控。
+        if (req.TaskType is not ("concept" or "unknown" or "calculation" or "equilibrium" or "reaction_check" or "equation_writer"))
             return null;
 
         bool askIonic = text.Contains("离子方程式");

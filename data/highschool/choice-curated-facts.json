@@ -699,6 +699,238 @@
                                      ],
                            "verdict":  true,
                            "reason":  "分子结构中仅Ph-CH=CH-处存在1个碳碳双键,苯环不含碳碳双键,故1mol该化合物含1mol碳碳双键,D正确。"
-                       }
+                       },
+                       {
+                           "id":  "GC-757-A",
+                           "match":  [
+                                         "2-甲基-1-丙醇"
+                                     ],
+                           "stemMatch":  [
+                                             "K虚线圈内所有原子共平面"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "Q的结构为(CH3)2CHCH2OH,选含羟基的最长碳链(3个碳)作主链,羟基在1位,2位连有甲基,系统命名为2-甲基-1-丙醇,A正确。"
+                       },
+                       {
+                           "id":  "GC-757-B",
+                           "match":  [
+                                         "M可水解生成CO2"
+                                     ],
+                           "stemMatch":  [
+                                             "K虚线圈内所有原子共平面"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "M分子中含有酯基和酰胺基,在酸性条件下均可发生水解,其中碳酸酯/酰胺结构水解可放出CO2,B正确。"
+                       },
+                       {
+                           "id":  "GC-757-C",
+                           "match":  [
+                                         "氮原子的杂化方式为sp2"
+                                     ],
+                           "stemMatch":  [
+                                             "K虚线圈内所有原子共平面"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "已知K虚线圈内所有原子共平面,该氮原子参与共轭体系,价层电子对构型为平面三角形,故为sp2杂化,C正确。"
+                       },
+                       {
+                           "id":  "GC-757-D",
+                           "match":  [
+                                         "碳原子a成键"
+                                     ],
+                           "stemMatch":  [
+                                             "K虚线圈内所有原子共平面"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "形成M时断裂的是L中碳原子b处的共价键(18O标记位于b处),氮原子与L中碳原子b成键,而非碳原子a,D错误。"
+                       },
+                       {
+                           "id":  "GC-758-A",
+                           "match":  [
+                                         "C7H16",
+                                         "同分异构体有2种"
+                                     ],
+                           "stemMatch":  [
+                                             "四川南充"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "C7H16含3个甲基说明分子中只有一条支链,满足条件的同分异构体共有3种(2-甲基己烷、3-甲基己烷、3-乙基戊烷),不是2种,A错误。"
+                       },
+                       {
+                           "id":  "GC-758-B",
+                           "match":  [
+                                         "C5H10O2",
+                                         "羧酸的同分异构体有4种"
+                                     ],
+                           "stemMatch":  [
+                                             "四川南充"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "C5H10O2属于羧酸可改写为C4H9-COOH,丁基(—C4H9)有4种结构,故对应4种羧酸,B正确。"
+                       },
+                       {
+                           "id":  "GC-758-C",
+                           "match":  [
+                                         "环上的一氯代物有3种"
+                                     ],
+                           "stemMatch":  [
+                                             "四川南充"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "该有机物环上等效氢的种类多于3种,其一氯代物数目不为3种,C错误。"
+                       },
+                       {
+                           "id":  "GC-758-D",
+                           "match":  [
+                                         "立方烷",
+                                         "六氯取代有2种"
+                                     ],
+                           "stemMatch":  [
+                                             "四川南充"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "立方烷(C8H8)的六氯取代物与二氯取代物数目相同,按氯原子相对位置有邻、面间、体对3种,不是2种,D错误。"
+                       },
+                       {
+                           "id":  "GC-759-A",
+                           "match":  [
+                                         "用装置甲干燥Cl2"
+                                     ],
+                           "stemMatch":  [
+                                             "制取BCl3"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "装置甲中盛有浓硫酸,浓硫酸不与Cl2反应且具有吸水性,可用于干燥Cl2,能达到实验目的,A正确。"
+                       },
+                       {
+                           "id":  "GC-759-B",
+                           "match":  [
+                                         "用装置乙制取BCl3"
+                                     ],
+                           "stemMatch":  [
+                                             "制取BCl3"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "装置乙中的NaOH会与BCl3发生反应,不能用于制取BCl3,B错误。"
+                       },
+                       {
+                           "id":  "GC-759-C",
+                           "match":  [
+                                         "用装置丙收集BCl3"
+                                     ],
+                           "stemMatch":  [
+                                             "制取BCl3"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "BCl3极易水解且密度大于空气,不能用装置丙(排水法或普通向上排空气法)收集,C错误。"
+                       },
+                       {
+                           "id":  "GC-759-D",
+                           "match":  [
+                                         "用装置丁吸收所有尾气"
+                                     ],
+                           "stemMatch":  [
+                                             "制取BCl3"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "装置丁不能完全吸收Cl2和BCl3的混合尾气,达不到吸收所有尾气的目的,D错误。"
+                       },
+                       {
+                           "id":  "GC-760-A",
+                           "match":  [
+                                         "试管甲中新生成的沉淀为金属Cu"
+                                     ],
+                           "stemMatch":  [
+                                             "红色钧瓷的发色剂"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "Cu2O与稀HNO3反应发生歧化,生成Cu2+进入溶液,同时析出Cu单质沉淀,故试管甲中新生成的沉淀为金属Cu,A正确。"
+                       },
+                       {
+                           "id":  "GC-760-B",
+                           "match":  [
+                                         "沉淀的变化均体现了HNO3的氧化性"
+                                     ],
+                           "stemMatch":  [
+                                             "红色钧瓷的发色剂"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "该反应中稀HNO3主要表现酸性,Cu2O的歧化是自身氧化还原,沉淀的变化不能均体现HNO3的氧化性,B错误。"
+                       },
+                       {
+                           "id":  "GC-760-C",
+                           "match":  [
+                                         "Cu(I)与NH3形成无色配合物"
+                                     ],
+                           "stemMatch":  [
+                                             "红色钧瓷的发色剂"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "试管乙中加入氨水后沉淀溶解,形成无色的Cu(I)氨配合物,可证明Cu(I)与NH3形成无色配合物,C正确。"
+                       },
+                       {
+                           "id":  "GC-760-D",
+                           "match":  [
+                                         "Cu2O为两性氧化物"
+                                     ],
+                           "stemMatch":  [
+                                             "红色钧瓷的发色剂"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "两性氧化物需与酸、碱均反应生成盐和水,Cu2O溶于氨水是配位作用而非与碱成盐,不能说明Cu2O为两性氧化物,D错误。"
+                       },
+                       {
+                           "id":  "GC-761-A",
+                           "match":  [
+                                         "滤渣1的成分为SiO2和Fe(OH)3"
+                                     ],
+                           "stemMatch":  [
+                                             "硼氢化钠"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "硼精矿碱溶时SiO2不溶解,FeCl3在碱性条件下水解生成Fe(OH)3沉淀,故滤渣1的成分为SiO2和Fe(OH)3,A正确。"
+                       },
+                       {
+                           "id":  "GC-761-B",
+                           "match":  [
+                                         "滤渣2",
+                                         "属于氧化物"
+                                     ],
+                           "stemMatch":  [
+                                             "硼氢化钠"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "滤渣2(Na2O·3CaO·Al2O3·nSiO2)是复杂的硅酸盐,属于盐类,不属于氧化物,B错误。"
+                       },
+                       {
+                           "id":  "GC-761-C",
+                           "match":  [
+                                         "必须在无氧环境中进行"
+                                     ],
+                           "stemMatch":  [
+                                             "硼氢化钠"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "NaBH4具有强还原性,易被O2氧化,故制取时必须在无氧环境中进行,C正确。"
+                       },
+                       {
+                           "id":  "GC-761-D",
+                           "match":  [
+                                         "上述流程涉及的反应存在氧化还原反应"
+                                     ],
+                           "stemMatch":  [
+                                             "硼氢化钠"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "制取NaBH4的过程中B元素由+3价降为-5价,存在化合价变化,故上述流程涉及氧化还原反应,D正确。"
+                       },
+                       {"id": "GC-762-A", "match": ["反应①生成的气体", "含有原子的数目"], "stemMatch": ["钠及其化合物的部分转化关系", "设N_A为阿伏加德罗常数"], "verdict": false, "reason": "反应①生成双原子气体,标况22.4L为1mol分子,含原子2N_A,非N_A。"},
+                       {"id": "GC-762-B", "match": ["反应②中2.3gNa", "含有离子的数目"], "stemMatch": ["钠及其化合物的部分转化关系", "设N_A为阿伏加德罗常数"], "verdict": false, "reason": "2.3gNa为0.1mol,生成0.05molNa2O2,含Na+与O2^2-共0.15N_A离子,非0.2N_A。"},
+                       {"id": "GC-762-C", "match": ["反应③中1molNa2O2", "产生O2的体积"], "stemMatch": ["钠及其化合物的部分转化关系", "设N_A为阿伏加德罗常数"], "verdict": false, "reason": "2Na2O2+2H2O=4NaOH+O2,1molNa2O2生成0.5molO2,标况11.2L,非22.4L。"},
+                       {"id": "GC-762-D", "match": ["反应④中生成1molNaClO", "转移的电子数目"], "stemMatch": ["钠及其化合物的部分转化关系", "设N_A为阿伏加德罗常数"], "verdict": true, "reason": "Cl2+2NaOH=NaCl+NaClO+H2O,生成1molNaClO时1molCl由0→+1,转移电子N_A。"},
+                       {"id": "GC-763-A", "match": ["基态V原子的价层电子轨道表示式", "3d↑↑↑↑↑"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "V为[Ar]3d34s2,3d应有3个单电子,不是5个。"},
+                       {"id": "GC-763-B", "match": ["聚丙烯的结构简式", "+CH3-CH-CH2+n"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "聚丙烯应为-[-CH2-CH(CH3)-]n-,主链含CH3错误。"},
+                       {"id": "GC-763-C", "match": ["Cl2分子中共价键的电子云轮廓图"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": true, "reason": "Cl2中Cl-Cl为σ键,电子云轮廓图轴对称,表述正确。"},
+                       {"id": "GC-763-D", "match": ["基态Br原子的价层电子排布式", "3d104s24p5"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "Br价层电子排布式为4s24p5,3d10不属价层电子。"}
                    ]
 }

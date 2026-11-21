@@ -10,7 +10,8 @@
     "C2H5Cl", "CH3Cl", "CH2Cl2", "CHCl3", "CCl4", "C2H5Br",
     "C2H4Br2", "C2H4Cl2", "C2H2Br4", "C2H3Cl", "C6H5Br", "C6H5NO2", "C6H12", "C6H3OBr3",
     "CH3CH2ONa", "C6H5ONa", "CH3COONH4", "HCOONa", "C6H2CH3(NO2)3",
-    "TNT", "C7H5N3O6"
+    "TNT", "C7H5N3O6",
+    "HOCH2CH2OH", "CH3COOCH2CH2OH"
   ],
   "otherInorganics": [
     "H2O2", "O3", "N2O4",

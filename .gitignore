@@ -30,9 +30,16 @@ Thumbs.db
 ## _evalscratch 评估暂存目录（探针脚本、构建产物、json 转储等，仅本地评估用，不入版本库）
 _evalscratch/
 
+## PDF OCR / 提取中间产物（原始题源 PDF 与 questions_parsed.json 保留跟踪，仅忽略提取中间 JSON 与页面渲染图）
+pdfs/_extract/
+pdfs/extracted/
+
 ## 本地开发密钥（含 API Key，禁止提交）
 appsettings.Development.json
 appsettings.*.Development.json
+
+## 本地含密钥的测试脚本（禁止提交，密钥一律走环境变量 QWEN_API_KEY，禁止硬编码）
+ocr_test.py
 
 ## 预览时解包的 HTML 分享包（压缩包仍保留在 .trae-html-share-packages/ 下）
 /interaction-design-explain-guide/

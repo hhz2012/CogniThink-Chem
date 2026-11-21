@@ -114,6 +114,14 @@
     { "id": "EF-544-A", "match": ["湿润的pH试纸"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": false, "reason": "pH试纸预先湿润会稀释待测液，导致pH测定不准确，操作不规范。" },
     { "id": "EF-544-B", "match": ["干燥清洁的玻璃片"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": true, "reason": "将pH试纸置于干燥清洁的玻璃片上可防止杂质干扰，操作规范。" },
     { "id": "EF-544-C", "match": ["滴在pH试纸中央"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": true, "reason": "用滴管吸取少量待测液滴在pH试纸中央，操作规范。" },
-    { "id": "EF-544-D", "match": ["标准比色卡"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": true, "reason": "观察试纸颜色变化并与标准比色卡比较以读数，操作规范。" }
+    { "id": "EF-544-D", "match": ["标准比色卡"], "stemMatch": ["测定溶液pH", "不规范"], "verdict": true, "reason": "观察试纸颜色变化并与标准比色卡比较以读数，操作规范。" },
+    {"id": "EF-545-A", "match": ["酒精灯加热比用电热套加热更安全"], "stemMatch": ["关于化学实验和化工生产的安全"], "verdict": false, "reason": "电热套无明火,比酒精灯加热更安全。"},
+    {"id": "EF-545-B", "match": ["为防止倒吸可通过单向阀"], "stemMatch": ["关于化学实验和化工生产的安全"], "verdict": true, "reason": "单向阀允许气体单向通过,可防倒吸。"},
+    {"id": "EF-545-C", "match": ["光照条件下发生反应"], "stemMatch": ["关于化学实验和化工生产的安全"], "verdict": false, "reason": "Cl2与H2混合光照会爆炸,工业制HCl应点燃反应。"},
+    {"id": "EF-545-D", "match": ["不可将未用完的白磷放回原试剂瓶"], "stemMatch": ["关于化学实验和化工生产的安全"], "verdict": false, "reason": "白磷剧毒易自燃,未用完的应放回原瓶水下保存。"},
+    {"id": "EF-546-A", "match": ["不宜加入沸石"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": true, "reason": "沸石微孔可能吸附NH3、HCl,影响热分解率测定,故不宜加入。"},
+    {"id": "EF-546-B", "match": ["若无浑浊说明已沉淀完全"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": true, "reason": "上层清液滴加AgNO3无浑浊说明Cl-已沉淀完全。"},
+    {"id": "EF-546-C", "match": ["是为了提升干燥效率"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": false, "reason": "选干燥器而非烘箱是防止高温下AgCl分解损失,并非提升干燥效率。"},
+    {"id": "EF-546-D", "match": ["1-m/(143.5×0.05×10.0×10-3)×100"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": true, "reason": "残留NH4Cl物质的量=m/143.5mol,热分解率=1-残留率,公式正确。"}
   ]
 }

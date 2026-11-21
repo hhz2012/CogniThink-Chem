@@ -297,6 +297,16 @@ public sealed partial class LlmGatewayService
         // 先于 calculation：含 mol/pH 的电子排布题干（如 pdf-533）不能被 calculation 截走；回归预检查确认无已判正题命中这些标记。
         if (lower.Contains("电子排布") || lower.Contains("轨道表示式") || lower.Contains("未成对电子"))
             return "atomic_structure";
+        // 方程书写（T4 / AC-3）：题干明确要求"书写/写出"方程式（离子/化学/酯化）。
+        // 先于 calculation：此类题常被 LLM 兜底误分到 calculation（题干含 mol/求/计算 等字样），
+        // 导致 CallCalculation 返回 null 且无法接入 KnownEquationWriterSolver；专用 taskType 直达方程书写链，
+        // 无解仍 Ok=null（不蒙数）。回归预检查（全库 757 题，_evalscratch/verify/t4_simulate_routing.py）：
+        // 本规则只重分类当前未解对题（pdf-010/044/084/354/355/356/526/527，baseline gatewayCorrect 均 False），
+        // 已判正题 taskType 零漂移（risk=0）。
+        if ((lower.Contains("书写") || lower.Contains("写出")) &&
+            (lower.Contains("离子方程式") || lower.Contains("化学方程式") ||
+             lower.Contains("方程式") || lower.Contains("酯化反应")))
+            return "equation_writer";
         if (lower.Contains("物质的量") || lower.Contains("浓度") || lower.Contains("体积") ||
             lower.Contains("mol") || lower.Contains("ph") || lower.Contains("质量分数") ||
             lower.Contains("稀释") || lower.Contains("ka") || lower.Contains("计算") || lower.Contains("求"))
@@ -530,6 +540,32 @@ public sealed partial class LlmGatewayService
                     ConstraintNote = "【高中限定】未唯一判定各小题正误（含概念/事实/方程式任一不确定），不臆造 √/×",
                     Confidence = 1.0
                 });
+
+            case "equation_writer":
+            {
+                // T4 / AC-3：方程书写专用求解链（不介入 calculation/CallCompile 的其它求解器，零域外假阳性）。
+                // 命中（产物/配平唯一确定）则标记为 reaction_check，复用其采纳门控（HasReactionCheckTruthSignature：
+                // 结论含"离子方程式："/"化学方程式："前缀）→ 凡采纳必经答案键校验，precision=1；
+                // 不命中（锚点缺失/KB 未覆盖/歧义）→ Ok=null，不计正确、不蒙数（零回归）。
+                var known = KnownEquationWriterSolver.TrySolve(req);
+                if (known is not null)
+                {
+                    req.TaskType = "reaction_check";
+                    return Task.FromResult(known);
+                }
+                var kb = ReactionKbWriterSolver.TrySolve(req);
+                if (kb is not null)
+                {
+                    req.TaskType = "reaction_check";
+                    return Task.FromResult(kb);
+                }
+                return Task.FromResult(new EngineResponse
+                {
+                    Ok = null,
+                    ConstraintNote = "【高中限定】未从题干识别出可唯一书写的方程式（反应物/条件锚点缺失或知识库未覆盖），不臆造产物与配平",
+                    Confidence = 1.0
+                });
+            }
 
             case "calculation":
             {

@@ -76,6 +76,10 @@
     { "id": "OF-360-A", "match": ["酸性高锰酸钾溶液褪色"], "stemMatch": ["海南暗罗"], "verdict": true, "reason": "该分子含碳碳双键、醛基等还原性基团，能使酸性高锰酸钾溶液褪色。" },
     { "id": "OF-360-B", "match": ["分子式为C19H28O4"], "stemMatch": ["海南暗罗"], "verdict": false, "reason": "由结构简式计算不饱和度为 7（2 环 + 5 双键），而 C19H28O4 不饱和度为 6，矛盾，故分子式不是 C19H28O4。" },
     { "id": "OF-360-C", "match": ["4个手性碳原子"], "stemMatch": ["海南暗罗"], "verdict": true, "reason": "连有 4 个不同原子或基团的碳原子为手性碳，该分子结构中标 * 处共有 4 个手性碳原子。" },
-    { "id": "OF-360-D", "match": ["S环己烷", "S乙醇"], "stemMatch": ["海南暗罗"], "verdict": false, "reason": "该化合物为极性分子，能与乙醇形成氢键，在乙醇中溶解度大于环己烷，故 S环己烷＞S乙醇 错误。" }
+    { "id": "OF-360-D", "match": ["S环己烷", "S乙醇"], "stemMatch": ["海南暗罗"], "verdict": false, "reason": "该化合物为极性分子，能与乙醇形成氢键，在乙醇中溶解度大于环己烷，故 S环己烷＞S乙醇 错误。" },
+    {"id": "OF-361-A", "match": ["CH3CH2Br属于烃类"], "stemMatch": ["按碳的骨架对有机化合物进行分类"], "verdict": false, "reason": "CH3CH2Br含Br,是烃的衍生物,不属于烃类。"},
+    {"id": "OF-361-B", "match": ["CH(CH3)3属于烃的衍生物"], "stemMatch": ["按碳的骨架对有机化合物进行分类"], "verdict": false, "reason": "CH(CH3)3即C4H10只含C、H,属于烃,不是衍生物。"},
+    {"id": "OF-361-C", "match": ["环己烯属于脂肪烃"], "stemMatch": ["按碳的骨架对有机化合物进行分类"], "verdict": false, "reason": "环己烯含碳环,属脂环烃;脂肪烃指链状烃。"},
+    {"id": "OF-361-D", "match": ["苯酚属于芳香族化合物"], "stemMatch": ["按碳的骨架对有机化合物进行分类"], "verdict": true, "reason": "苯酚含苯环,属于芳香族化合物。"}
   ]
 }

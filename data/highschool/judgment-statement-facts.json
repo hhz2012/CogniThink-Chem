@@ -208,6 +208,16 @@
                                      ],
                            "verdict":  true,
                            "reason":  "工业制高纯硅的流程为：SiO2 与 C 在高温下反应制得粗硅，粗硅与 HCl 在约 300℃ 反应生成 SiHCl3，再用 H2 在约 1100℃ 还原 SiHCl3 得到高纯硅，该工艺流程正确。故该陈述正确（√）。"
-                       }
+                       },
+                       {"id": "JS-017", "match": ["NO2的密闭烧瓶", "冰水", "红棕色会变浅"], "stemMatch": [], "verdict": true, "reason": "2NO2(g)⇌N2O4(g) ΔH<0，浸入冰水降温平衡右移，NO2浓度减小，红棕色变浅。故该陈述正确（√）。"},
+                       {"id": "JS-018", "match": ["过量的NH3", "CuSO4", "蓝色沉淀"], "stemMatch": [], "verdict": false, "reason": "过量NH3与Cu2+生成可溶性深蓝色[Cu(NH3)4]2+络离子，最终无蓝色沉淀。故该陈述错误（×）。"},
+                       {"id": "JS-019", "match": ["氨水", "清洗银镜"], "stemMatch": [], "verdict": false, "reason": "Ag不溶于氨水，应用稀硝酸清洗银镜。故该陈述错误（×）。"},
+                       {"id": "JS-020", "match": ["NH3检验氯气管道", "还原性"], "stemMatch": [], "verdict": true, "reason": "8NH3+3Cl2=6NH4Cl+N2，NH3中N被氧化，体现NH3的还原性。故该陈述正确（√）。"},
+                       {"id": "JS-021", "match": ["NH3换为NO", "喷泉"], "stemMatch": [], "verdict": false, "reason": "NO难溶于水且不与水反应，不能形成喷泉。故该陈述错误（×）。"},
+                       {"id": "JS-022", "match": ["氢氧化钠溶液", "分离NO和NO2"], "stemMatch": [], "verdict": false, "reason": "NaOH与NO2反应，且可吸收NO+NO2混合气体，不能分离NO和NO2。故该陈述错误（×）。"},
+                       {"id": "JS-023", "match": ["制备并收集干燥的氨气"], "stemMatch": ["装有NO2的密闭烧瓶"], "verdict": false, "reason": "图中用P2O5干燥NH3，P2O5为酸性干燥剂会与碱性NH3反应，不能干燥NH3（应用碱石灰）。故该陈述错误（×）。"},
+                       {"id": "JS-024", "match": ["灼热的木炭", "浓硝酸", "红棕色气体"], "stemMatch": [], "verdict": false, "reason": "红棕色NO2也可由浓硝酸受热分解产生，不能证明木炭与浓硝酸发生了反应。故该陈述错误（×）。"},
+                       {"id": "JS-025", "match": ["红色石蕊试纸变蓝", "一定是铵盐"], "stemMatch": [], "verdict": false, "reason": "使湿润红色石蕊试纸变蓝的气体为NH3，但待测液不一定是铵盐（可能为其它铵态物质/有机胺），'一定'表述错误。故该陈述错误（×）。"},
+                       {"id": "JS-026", "match": ["合成少量氨气并检验氨气的存在"], "stemMatch": ["装有NO2的密闭烧瓶"], "verdict": true, "reason": "图为铁丝绒催化、N2:H2=1:3加热的合成氨（Haber）装置，可合成并检验NH3。故该陈述正确（√）。"}
                    ]
 }
