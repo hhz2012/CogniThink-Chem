@@ -1,5 +1,0 @@
-[NRE] ion_check Left=null Right=null: ArgumentNullException @ at CogniThink.TutorBrain.Application.Gateway.LlmGatewayService.CallIonCheck(EngineRequest req) in D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\Application\Gateway\LlmGatewayService.cs:line 442
-[NRE] ion_check Reaction=null: NullReferenceException @ at CogniThink.TutorBrain.Application.Gateway.LlmGatewayService.CallIonCheck(EngineRequest req) in D:\github\CogniThink-Chem\src\CogniThink.TutorBrain.Api\Application\Gateway\LlmGatewayService.cs:line 442
-[OK] ion_check clean: ok=False final=不能大量共存
-[OK] reaction_check Left=null: ok=False final=不对。稀硫酸/稀盐酸只能把Fe氧化为+2价（生成FeSO4/FeCl2），不能生成+3价铁盐。
-[OK] reaction_check clean: ok=False final=不能反应。Cu在金属活动性顺序中排在H之后，不能置换稀酸中的H+。

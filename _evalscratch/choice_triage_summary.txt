@@ -1,4 +1,0 @@
-totalChoice=487  solved=205  unsolved=282
-  unsolved: noAssert=282  assertedButWrong=0
-  unsolved: opts>=4=247  askWrong=120  conceptCandidate(none&opt4&singleLetter)=213
-

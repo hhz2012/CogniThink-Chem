@@ -1,3 +1,0 @@
-=== UNDER-CLASSIFIED (assigned unknown/concept but rule suggests solvable) ===
-
-=== CROSS (assigned solvable, rule suggests different solvable) ===

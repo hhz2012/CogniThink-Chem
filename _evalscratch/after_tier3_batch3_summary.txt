@@ -1,8 +1,0 @@
-total=723
-baseline(correct)=232  baseline(threw)=38
-patched(correct)=242  patched(threw)=38
-ConceptChoiceValidator hits=10  gradedOk=10  harm=0
-gains=10  potentialLoss(命中基线已解题)=0
-gains_list=[pdf-004->B, pdf-118->A, pdf-245->C, pdf-372->A, pdf-396->B, pdf-442->D, pdf-451->C, pdf-493->B, pdf-496->D, pdf-497->C]
-note=非choice路径未触碰(con仅在CallChoice内)，故losses=0由构造保证；potentialLoss应为0。
-wrote=D:\github\CogniThink-Chem\_evalscratch\after_tier3_batch3.json

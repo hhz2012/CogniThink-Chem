@@ -1,6 +1,0 @@
-tag=cur_engine total=741 llmAvailable=False
-pureLlmCorrect=0 (0%)
-gatewayCorrect=366 gatewayTruthCorrect=366
-gatewayEngineUsed=393 engineSolved=367 coverage=0.4953 precision=0.9973
-harmCount=0
-bothCorrect=0 gatewayOnly=366 pureLlmOnly=0 bothWrong=375

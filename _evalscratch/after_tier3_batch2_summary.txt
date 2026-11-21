@@ -1,3 +1,0 @@
-total=723 solved=232 adopted=232 threw=38
-gains=22 [d4-3,pdf-019,pdf-063,pdf-064,pdf-094,pdf-149,pdf-230,pdf-298,pdf-308,pdf-309,pdf-311,pdf-314,pdf-315,pdf-318,pdf-395,pdf-404,pdf-408,pdf-455,pdf-460,pdf-492,pdf-514,pdf-529]
-losses=1 [pdf-208]
