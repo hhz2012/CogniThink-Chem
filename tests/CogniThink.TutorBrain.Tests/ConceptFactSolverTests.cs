@@ -10,7 +10,7 @@ namespace CogniThink.TutorBrain.Tests;
 /// <summary>
 /// 网关层概念事实确定性求解器（阶段6-B / AC-24）验收 + 护栏测试。
 /// 真值源：data/highschool/concept-facts.json（唯一，不调 LLM）。
-/// 重点验证：11 道干净 concept/unknown 纯事实题被解出且判正；任何边界外/歧义一律 null，不损害精确率、不帮倒忙。
+/// 重点验证：25 道干净 concept/unknown 纯事实题被解出且判正；任何边界外/歧义一律 null，不损害精确率、不帮倒忙。
 /// </summary>
 public class ConceptFactSolverTests
 {
@@ -24,7 +24,7 @@ public class ConceptFactSolverTests
         AllCases.Value.FirstOrDefault(x => x.Id == id);
 
     // ============================================================
-    // 正例：11 道干净候选均触发且经答案键判正
+    // 正例：25 道干净候选均触发且经答案键判正
     // ============================================================
     [Theory]
     [InlineData("test-1")]
@@ -38,6 +38,24 @@ public class ConceptFactSolverTests
     [InlineData("concept-2")]
     [InlineData("concept-3")]
     [InlineData("pdf-510")]
+    [InlineData("d2-1")]
+    [InlineData("d2-2")]
+    [InlineData("d2-3")]
+    [InlineData("d7-1")]
+    [InlineData("d7-2")]
+    [InlineData("d7-3")]
+    [InlineData("d7-4")]
+    [InlineData("d8-1")]
+    [InlineData("d8-2")]
+    [InlineData("d8-3")]
+    [InlineData("d8-4")]
+    [InlineData("d9-2")]
+    [InlineData("d9-3")]
+    [InlineData("d9-4")]
+    [InlineData("pdf-516")]
+    [InlineData("pdf-465")]
+    [InlineData("pdf-389")]
+    [InlineData("pdf-536")]
     public void 候选_触发且判正(string id)
     {
         var c = Case(id);
@@ -86,7 +104,13 @@ public class ConceptFactSolverTests
             "test-1","test-2","test-3","test-4","test-5",
             "property-1","property-2",
             "concept-1","concept-2","concept-3",
-            "pdf-510"
+            "pdf-510",
+            "d2-1","d2-2","d2-3",
+            "d7-1","d7-2","d7-3","d7-4",
+            "d8-1","d8-2","d8-3","d8-4",
+            "d9-2","d9-3","d9-4",
+            "pdf-516",
+            "pdf-465","pdf-389","pdf-536"
         };
 
         var fired = new List<string>();
@@ -110,14 +134,27 @@ public class ConceptFactSolverTests
     // 数据驱动：事实全在 JSON，逻辑零硬编码
     // ============================================================
     [Fact]
-    public void 事实库_11条且分类分布符合预期()
+    public void 事实库_29条且分类分布符合预期()
     {
         var data = RuleStore.Load().Query<ConceptFactData>("concept-facts");
-        Assert.Equal(11, data.Entries.Count);
+        Assert.Equal(29, data.Entries.Count);
         Assert.Equal(5, data.Entries.Count(e => e.Kind == "ion_test"));
         Assert.Equal(2, data.Entries.Count(e => e.Kind == "ion_color"));
         Assert.Equal(3, data.Entries.Count(e => e.Kind == "concept_def"));
         Assert.Equal(1, data.Entries.Count(e => e.Kind == "crystal_compare"));
+        Assert.Equal(3, data.Entries.Count(e => e.Kind == "redox_product"));
+        Assert.Equal(2, data.Entries.Count(e => e.Kind == "isomer_count"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "intermolecular_force"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "air_sensitive"));
+        Assert.Equal(2, data.Entries.Count(e => e.Kind == "equiv_hydrogen"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "chiral_center"));
+        Assert.Equal(2, data.Entries.Count(e => e.Kind == "electrode_product"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "ion_migration"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "electrode_polarity"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "bleaching"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "colloid_property"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "oxidizing_gas_test"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "acid_base_property"));
         // 每条事实必须有触发条件与非空答案
         Assert.All(data.Entries, e =>
         {

@@ -289,6 +289,416 @@
                                          ],
                            "verdict":  false,
                            "reason":  "糖类是多羟基醛、多羟基酮及其脱水缩合物；该催化剂结构中含有羧基(−COOH)，属于糖酸类衍生物，不符合糖类的定义，不属于糖类，错误。"
+                       },
+                       {
+                           "id":  "GC-748-A",
+                           "match":  [
+                                         "1位C4+",
+                                         "分数坐标为(0,0,1/4)"
+                                     ],
+                           "stemMatch":  [
+                                             "CaCO3的四方晶胞",
+                                             "CaO的立方晶胞"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "1位C4+位于棱上z=1/4处，分数坐标(0,0,1/4)，A正确。"
+                       },
+                       {
+                           "id":  "GC-748-B",
+                           "match":  [
+                                         "2位和3位Ca2+的核间距",
+                                         "√4.89"
+                                     ],
+                           "stemMatch":  [
+                                             "CaCO3的四方晶胞",
+                                             "CaO的立方晶胞"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "2位(a,a,1.7a)与3位(0,0,3.4a)核间距d=√(a²+a²+(1.7a)²)=√4.89·a，B正确。"
+                       },
+                       {
+                           "id":  "GC-748-C",
+                           "match":  [
+                                         "原子数之比是4:15"
+                                     ],
+                           "stemMatch":  [
+                                             "CaCO3的四方晶胞",
+                                             "CaO的立方晶胞"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "CaO晶胞4个CaO=8原子，CaCO3晶胞6个CaCO3=30原子，比8:30=4:15，C正确。"
+                       },
+                       {
+                           "id":  "GC-748-D",
+                           "match":  [
+                                         "CaO晶体密度小于CaCO3晶体密度"
+                                     ],
+                           "stemMatch":  [
+                                             "CaCO3的四方晶胞",
+                                             "CaO的立方晶胞"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "ρ(CaO)=4·56/(NA·(0.96a)³)≈253.2/(NA·a³)，ρ(CaCO3)=6·100/(NA·3.4a³)≈176.5/(NA·a³)，CaO密度大于CaCO3，D错误。"
+                       },
+                       {
+                           "id":  "GC-749-A",
+                           "match":  [
+                                         "相对分子质量为106"
+                                     ],
+                           "stemMatch":  [
+                                             "6.8gX完全燃烧生成3.6gH2O",
+                                             "8.96L(标准状况下)CO2"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "质谱分子离子峰136，X相对分子质量为136而非106，A错误。"
+                       },
+                       {
+                           "id":  "GC-749-B",
+                           "match":  [
+                                         "结构简式可能为"
+                                     ],
+                           "stemMatch":  [
+                                             "6.8gX完全燃烧生成3.6gH2O",
+                                             "8.96L(标准状况下)CO2"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "由MW=136、NMR(3:2:2:1)、IR(酯C=O/C-O-C)推得X为苯甲酸甲酯C6H5COOCH3，仅—COOCH3合理，B给结构不符，B错误。"
+                       },
+                       {
+                           "id":  "GC-749-C",
+                           "match":  [
+                                         "完全燃烧消耗8molO2"
+                                     ],
+                           "stemMatch":  [
+                                             "6.8gX完全燃烧生成3.6gH2O",
+                                             "8.96L(标准状况下)CO2"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "X=C8H8O2，燃烧C8H8O2+9O2→8CO2+4H2O，耗9molO2非8，C错误。"
+                       },
+                       {
+                           "id":  "GC-749-D",
+                           "match":  [
+                                         "羧酸类的同分异构体有4种"
+                                     ],
+                           "stemMatch":  [
+                                             "6.8gX完全燃烧生成3.6gH2O",
+                                             "8.96L(标准状况下)CO2"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "X=C8H8O2，芳香族羧酸异构：邻/间/对甲基苯甲酸3种+苯乙酸1种，共4种，D正确。"
+                       },
+                       {
+                           "id":  "GC-750-A",
+                           "match":  [
+                                         "y属于非极性分子"
+                                     ],
+                           "stemMatch":  [
+                                             "氧杂杯[4]芳烃(z)",
+                                             "合成氧杂杯[4]芳烃"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "y=1,5-二氟-2,4-二硝基苯无对称元素，正负电中心不重合，为极性分子，A错误。"
+                       },
+                       {
+                           "id":  "GC-750-B",
+                           "match":  [
+                                         "C-O-C的键角为109°28′"
+                                     ],
+                           "stemMatch":  [
+                                             "氧杂杯[4]芳烃(z)",
+                                             "合成氧杂杯[4]芳烃"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "z中O为sp3杂化含2对孤对电子，孤对排斥使C-O-C键角小于109°28′，B错误。"
+                       },
+                       {
+                           "id":  "GC-750-C",
+                           "match":  [
+                                         "y、z苯环上的一氯代物种类相同"
+                                     ],
+                           "stemMatch":  [
+                                             "氧杂杯[4]芳烃(z)",
+                                             "合成氧杂杯[4]芳烃"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "y苯环有2种等效氢，z苯环有3种等效氢，一氯代物种类不同，C错误。"
+                       },
+                       {
+                           "id":  "GC-750-D",
+                           "match":  [
+                                         "利用浓溴水可鉴别x、y"
+                                     ],
+                           "stemMatch":  [
+                                             "氧杂杯[4]芳烃(z)",
+                                             "合成氧杂杯[4]芳烃"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "x含酚羟基与浓溴水取代生成白色沉淀，y不含酚羟基不反应，可用浓溴水鉴别，D正确。"
+                       },
+                       {
+                           "id":  "GC-751-A",
+                           "match":  [
+                                         "均能发生取代、加成反应"
+                                     ],
+                           "stemMatch":  [
+                                             "O-乙酰基扁桃酰氯"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "M、N、P均含苯环，苯环上H可与Br2取代、苯环可与H2加成，A正确。"
+                       },
+                       {
+                           "id":  "GC-751-B",
+                           "match":  [
+                                         "一溴代物均有4种"
+                                     ],
+                           "stemMatch":  [
+                                             "O-乙酰基扁桃酰氯"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "M苯环单取代等效H为3种+侧链CH共4种；N、P各多1个乙酰基CH3，等效H为5种，故并非均为4种，B错误。"
+                       },
+                       {
+                           "id":  "GC-751-C",
+                           "match":  [
+                                         "所有原子不可能共平面"
+                                     ],
+                           "stemMatch":  [
+                                             "O-乙酰基扁桃酰氯"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "M、N、P侧链均含sp3杂化碳(四面体构型)，所有原子不可能共平面，C正确。"
+                       },
+                       {
+                           "id":  "GC-751-D",
+                           "match":  [
+                                         "均能使酸性高锰酸钾溶液褪色"
+                                     ],
+                           "stemMatch":  [
+                                             "O-乙酰基扁桃酰氯"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "M、N、P苯环侧链α-碳上均有H，能被酸性KMnO4氧化使其褪色，D正确。"
+                       },
+                       {
+                           "id":  "GC-752-A",
+                           "match":  [
+                                         "图①可用于实验室制NH3"
+                                     ],
+                           "stemMatch":  [
+                                             "下列装置不能达到实验目的"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "图①浓氨水+生石灰放热使NH3逸出，向下排空气法收集，可制NH3，A正确。"
+                       },
+                       {
+                           "id":  "GC-752-B",
+                           "match":  [
+                                         "除去C2H2中少量的H2S"
+                                     ],
+                           "stemMatch":  [
+                                             "下列装置不能达到实验目的"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "H2S与CuSO4生成CuS沉淀，可除去C2H2中少量H2S，B正确。"
+                       },
+                       {
+                           "id":  "GC-752-C",
+                           "match":  [
+                                         "分离CH2Cl2和CCl4"
+                                     ],
+                           "stemMatch":  [
+                                             "下列装置不能达到实验目的"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "蒸馏分离时温度计水银球应位于支管口处，图③插入液面以下，不能达到目的，C错误。"
+                       },
+                       {
+                           "id":  "GC-752-D",
+                           "match":  [
+                                         "制备明矾晶体"
+                                     ],
+                           "stemMatch":  [
+                                             "下列装置不能达到实验目的"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "图④将晶体悬挂在饱和明矾溶液中央，利于对称生长，可制备明矾晶体，D正确。"
+                       },
+                       {
+                           "id":  "GC-753-A",
+                           "match":  [
+                                         "实验室制取氨气"
+                                     ],
+                           "stemMatch":  [
+                                             "下列实验装置使用正确的"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "NH3密度小于空气，应向下排空气法收集，图A收集试管口向上，使用错误，A错误。"
+                       },
+                       {
+                           "id":  "GC-753-B",
+                           "match":  [
+                                         "实验室制取氯气"
+                                     ],
+                           "stemMatch":  [
+                                             "下列实验装置使用正确的"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "Cl2尾气应使用NaOH溶液吸收，图B用水吸收效果差，使用错误，B错误。"
+                       },
+                       {
+                           "id":  "GC-753-C",
+                           "match":  [
+                                         "实验室制备乙酸乙酯"
+                                     ],
+                           "stemMatch":  [
+                                             "下列实验装置使用正确的"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "酯化反应装置中导管不插入饱和Na2CO3液面下可防倒吸，使用正确，C正确。"
+                       },
+                       {
+                           "id":  "GC-753-D",
+                           "match":  [
+                                         "实验室制备溴乙烷"
+                                     ],
+                           "stemMatch":  [
+                                             "下列实验装置使用正确的"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "冷凝管冷却水应下进上出，图中方向反了，使用错误，D错误。"
+                       },
+                       {
+                           "id":  "GC-754-A",
+                           "match":  [
+                                         "加少量铁粉防止Fe2+被氧化"
+                                     ],
+                           "stemMatch":  [
+                                             "FeSO4溶液制备FeCO3"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "Fe2+易被O2氧化为Fe3+,加少量铁粉可将Fe3+还原为Fe2+,防止Fe2+被氧化,A正确。"
+                       },
+                       {
+                           "id":  "GC-754-B",
+                           "match":  [
+                                         "c(NH3·H2O)+c(NH4+)=c(H+)+c(HF)"
+                                     ],
+                           "stemMatch":  [
+                                             "FeSO4溶液制备FeCO3"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "NH4F溶液中N守恒:c(NH3·H2O)+c(NH4+)=c0;F守恒:c(HF)+c(F-)=c0;正确质子守恒为c(H+)+c(HF)=c(OH-)+c(NH3·H2O),选项等式缺c(OH-)且关系错误,B错误。"
+                       },
+                       {
+                           "id":  "GC-754-C",
+                           "match":  [
+                                         "氟离子浓度至少为2.0×10^-2"
+                                     ],
+                           "stemMatch":  [
+                                             "FeSO4溶液制备FeCO3"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "Ksp(CaF2)=4.0×10^-9,沉淀完全要求c(Ca2+)≤1.0×10^-5mol/L,则c(F-)≥√(Ksp/c(Ca2+))=√(4.0×10^-9/1.0×10^-5)=2.0×10^-2mol/L,C正确。"
+                       },
+                       {
+                           "id":  "GC-754-D",
+                           "match":  [
+                                         "Fe2++2HCO3-=FeCO3↓+H2O+CO2↑"
+                                     ],
+                           "stemMatch":  [
+                                             "FeSO4溶液制备FeCO3"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "沉铁时Fe2+与HCO3-反应生成FeCO3沉淀并放出CO2,离子方程式Fe2++2HCO3-=FeCO3↓+H2O+CO2↑配平正确,D正确。"
+                       },
+                       {
+                           "id":  "GC-755-A",
+                           "match":  [
+                                         "电离方程式为CH3COOH⇌CH3COO-+H+"
+                                     ],
+                           "stemMatch":  [
+                                             "水合离子用相应离子符号表示"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "图甲所示为纯醋酸(冰醋酸),主要以分子形式存在,并未体现其在水中的电离;且醋酸在水中电离应生成H3O+(水合氢离子),选项方程式与图示不符,A错误。"
+                       },
+                       {
+                           "id":  "GC-755-B",
+                           "match":  [
+                                         "电解方程式为CuCl2=Cu2++2Cl-"
+                                     ],
+                           "stemMatch":  [
+                                             "水合离子用相应离子符号表示"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "CuCl2=Cu2++2Cl-是电离(解离)方程式,不是电解方程式;电解CuCl2溶液的方程式为CuCl2=Cu+Cl2↑,B错误。"
+                       },
+                       {
+                           "id":  "GC-755-C",
+                           "match":  [
+                                         "b点表示醋酸溶液的电离程度最大"
+                                     ],
+                           "stemMatch":  [
+                                             "水合离子用相应离子符号表示"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "图丙中b点是导电能力的峰值(离子浓度最大);醋酸的电离程度随加水稀释而持续增大,越稀越电离,电离程度最大应在无限稀释处而非b点,C错误。"
+                       },
+                       {
+                           "id":  "GC-755-D",
+                           "match":  [
+                                         "C点对应溶液中含有较多的Ba2+和OH-"
+                                     ],
+                           "stemMatch":  [
+                                             "水合离子用相应离子符号表示"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "图丁中a点为稀硫酸与Ba(OH)2恰好完全反应的点(导电能力接近0),C点在a点之后,Ba(OH)2已过量,故C点对应溶液中含有较多的Ba2+和OH-,D正确。"
+                       },
+                       {
+                           "id":  "GC-756-A",
+                           "match":  [
+                                         "最多有10个碳原子共平面"
+                                     ],
+                           "stemMatch":  [
+                                             "内蒙古鄂尔多斯期中"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "分子Ph-CH=CH-C(CH3)2-CH2Cl:苯环6个C与C=C双键的2个C可共平面,季碳C(CH3)2为sp3杂化,除双键碳外至多再有1个取代基C进入该平面,最多共平面C=6+2+1+1=10,A正确。"
+                       },
+                       {
+                           "id":  "GC-756-B",
+                           "match":  [
+                                         "最多有6个原子共线"
+                                     ],
+                           "stemMatch":  [
+                                             "内蒙古鄂尔多斯期中"
+                                     ],
+                           "verdict":  false,
+                           "reason":  "苯环对位轴上共线原子最多为H-C-C-H共4个;碳碳双键键角为120度、sp3碳为四面体构型,均不在同一直线上,分子中不可能有6个原子共线,B错误。"
+                       },
+                       {
+                           "id":  "GC-756-C",
+                           "match":  [
+                                         "等效氢原子有7种"
+                                     ],
+                           "stemMatch":  [
+                                             "内蒙古鄂尔多斯期中"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "苯环单取代有邻/间/对3种芳氢;双键上2个H所处环境不同为2种;季碳上两个CH3因存在对称面等价为1种;CH2Cl的两个H对映异位等价为1种;共3+2+1+1=7种等效氢,C正确。"
+                       },
+                       {
+                           "id":  "GC-756-D",
+                           "match":  [
+                                         "该有机化合物含有1 mol 碳碳双键"
+                                     ],
+                           "stemMatch":  [
+                                             "内蒙古鄂尔多斯期中"
+                                     ],
+                           "verdict":  true,
+                           "reason":  "分子结构中仅Ph-CH=CH-处存在1个碳碳双键,苯环不含碳碳双键,故1mol该化合物含1mol碳碳双键,D正确。"
                        }
                    ]
 }

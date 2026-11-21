@@ -258,6 +258,28 @@ public static class PeriodicTable
         return occ.Sum(kv => UnpairedInSubshell(kv.Key, kv.Value));
     }
 
+    /// <summary>
+    /// 价层电子中两种自旋状态的电子数（洪特规则：先分占轨道自旋平行，再配对）。
+    /// 返回 (自旋平行↑数 Up, 配对↓数 Down)；价层为空返回 null。
+    /// 用于「基态原子价层两种自旋状态电子数之比」类填空：比值 = Up:Down（两种顺序均为合法答案）。
+    /// </summary>
+    public static (int Up, int Down)? ValenceSpinCounts(int z, int charge = 0)
+    {
+        var occ = ValenceConfiguration(z, charge);
+        int up = 0, down = 0;
+        foreach (var kv in occ)
+        {
+            var c = kv.Value;
+            if (c <= 0) continue;
+            var unpaired = UnpairedInSubshell(kv.Key, c); // 单占轨道电子数，全为平行自旋
+            var paired = c - unpaired;                    // 配对电子数（必为偶数），↑↓各半
+            up += unpaired + paired / 2;
+            down += paired / 2;
+        }
+        if (up + down == 0) return null;
+        return (up, down);
+    }
+
     private static int UnpairedInSubshell(string sh, int c)
     {
         var half = sh[1] switch { 's' => 1, 'p' => 3, 'd' => 5, 'f' => 7, _ => 0 };

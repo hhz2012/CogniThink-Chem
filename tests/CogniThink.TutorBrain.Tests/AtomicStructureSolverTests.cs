@@ -75,6 +75,64 @@ public class AtomicStructureSolverTests
         Assert.True(Correct(r.FinalResult, c), "Ga 价电子排布应通过判分");
     }
 
+    [Fact]
+    public void Pdf488_Mn_周期族_回退扫描判正()
+    {
+        // Mn 与锚点「位于第」之间隔有「在元素周期表中」，符号不在窗口末尾；
+        // 靠 FindElement 回退扫描命中 Mn → 周期族变体命中 answer「四；VIIB」子串。
+        var c = PdfCase("pdf-488");
+        Assert.NotNull(c);
+        var r = Solve(c!.Question);
+        Assert.NotNull(r);
+        Assert.True(r!.Ok);
+        Assert.Contains("VIIB", r.FinalResult);
+        Assert.True(Correct(r.FinalResult, c), "Mn 周期族应通过判分");
+    }
+
+    [Fact]
+    public void Pdf489_Sn_最外层轨道表示式_回退扫描判正()
+    {
+        // Sn 与锚点「轨道表示式」之间隔有「的基态原子最外层」；回退扫描命中 Sn →
+        // 全配置变体命中 answer「² ²」子串。
+        var c = PdfCase("pdf-489");
+        Assert.NotNull(c);
+        var r = Solve(c!.Question);
+        Assert.NotNull(r);
+        Assert.True(r!.Ok);
+        Assert.Contains("5s²5p²", r.FinalResult);
+        Assert.True(Correct(r.FinalResult, c), "Sn 最外层轨道表示式应通过判分");
+    }
+
+    [Fact]
+    public void Pdf533_Te_简化电子排布_锚点重排不回归()
+    {
+        // 锚点重排后「简化电子排布」须先于通用「电子排布式」命中，返回 [Kr] 简写而非全配置。
+        var c = PdfCase("pdf-533");
+        Assert.NotNull(c);
+        var r = Solve(c!.Question);
+        Assert.NotNull(r);
+        Assert.True(r!.Ok);
+        Assert.Contains("[Kr]", r.FinalResult);
+        Assert.DoesNotContain("1s²", r.FinalResult); // 不能退化为全配置
+        Assert.True(Correct(r.FinalResult, c), "Te 简化电子排布应通过判分");
+    }
+
+    [Fact]
+    public void Pdf485_S_价层两种自旋电子数之比_判正()
+    {
+        // 官方源 page_064：S(Z=16) 价层 3s²3p⁴ → 轨道表示式 3s↑↓ 3p↑↓↑↑ → 两种自旋电子数之比 2:1（或1:2）。
+        // 原存储键 1:1 及其解析（p⁴ 必有 2↑2↓）违反洪特规则，已订正为 2:1（或1:2）；
+        // 引擎新增「两种自旋状态的电子数之比」锚点 + PeriodicTable.ValenceSpinCounts 解出。
+        var c = PdfCase("pdf-485");
+        Assert.NotNull(c);
+        var r = Solve(c!.Question);
+        Assert.NotNull(r);
+        Assert.True(r!.Ok);
+        Assert.Contains("2:1", r.FinalResult);
+        Assert.Contains("1:2", r.FinalResult);
+        Assert.True(Correct(r.FinalResult, c), "S 价层自旋比应通过判分");
+    }
+
     // ============================================================
     // 负例：边界外一律返回 null（不蒙数）
     // ============================================================
@@ -114,8 +172,10 @@ public class AtomicStructureSolverTests
 
         // 已知答案键缺失/错位（PDF 抽取噪声）：化学结论正确但键不匹配；
         // pdf-166 / pdf-190 仍错位（不被采纳，零 harm）；pdf-108 / pdf-173 已校正键，现干净判正。
+        // pdf-188：题干为「基态Fe2+的3d电子轨道表示式」，存储 answer 为 "sp3"（串题/错位），
+        //   求解器输出 Fe²⁺ 全配置（化学正确）但无法匹配坏键 → 不被采纳，零 harm，列入白名单。
         // 评估侧只采纳校验通过的结论 → 精确率与帮倒忙均不受影响。
-        var brokenKeys = new HashSet<string> { "pdf-166", "pdf-190" };
+        var brokenKeys = new HashSet<string> { "pdf-166", "pdf-188", "pdf-190" };
 
         var firedIds = new List<string>();
         var notAdoptedButFired = new List<string>(); // 触发但未通过判分（非坏键）→ 会损害精确率
@@ -142,12 +202,14 @@ public class AtomicStructureSolverTests
         Assert.Empty(notAdoptedButFired);
         Assert.Empty(brokenButAdopted);
 
-        // 锁定当前题库行为：pdf-108 / pdf-173 已校正答案键（原错位，现干净判正）；pdf-166 / pdf-190 仍为答案键错位（不被采纳，零 harm）；其余为干净判正。任何新增触发都必须先判明正确性。
-        // 任何新增触发都必须先判明正确性。
+        // 锁定当前题库行为：pdf-108 / pdf-173 已校正答案键（原错位，现干净判正）；
+        // pdf-166 / pdf-188 / pdf-190 仍为答案键错位（不被采纳，零 harm）；其余为干净判正。
+        // 新增触发：pdf-488（Mn 周期族）/ pdf-489（Sn 最外层轨道表示式）由 FindElement 回退扫描解出；
+        // 锚点重排（简化电子排布先于通用电子排布式）保证 pdf-533 不回归。任何新增触发都必须先判明正确性。
         // 注意：pdf-486 原为 fill（前缀含「基态N原子价层电子排布式」填空锚点），现改为 choice 以走双选判分；
         // 本护栏跳过 choice 题（见上方 continue），故 pdf-486 不再出现在触发集合中（生产 choice 路由不经原子求解器，零 harm）。
         Assert.Equal(
-            new[] { "pdf-108", "pdf-166", "pdf-173", "pdf-190", "pdf-482", "pdf-487", "pdf-490", "pdf-533", "pdf-538" },
+            new[] { "pdf-108", "pdf-166", "pdf-173", "pdf-188", "pdf-190", "pdf-482", "pdf-485", "pdf-487", "pdf-488", "pdf-489", "pdf-490", "pdf-533", "pdf-538" },
             firedIds.OrderBy(x => x));
     }
 }

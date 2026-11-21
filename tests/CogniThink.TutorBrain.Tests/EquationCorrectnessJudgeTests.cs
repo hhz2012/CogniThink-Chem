@@ -202,4 +202,76 @@ public class EquationCorrectnessJudgeTests
         Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("生成 CO2 气体", c));
         Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("生成 H2O", c));
     }
+
+    // ---------- S7：连接符 / LaTeX / 注解归一化（T2 可靠性加固）----------
+
+    /// <summary>答案键用 == 而引擎用 = 时，归一化后应判正（pdf-044 类假阴性解锁）。</summary>
+    [Fact]
+    public void Scoring_Connector_DoubleEquals_NormalizesToEquals()
+    {
+        var c = CaseKeywords("2H++SO4^2-+Ba2++2OH-==2H2O+BaSO4↓");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(
+            "离子方程式：2H++SO4^2-+Ba2++2OH-=2H2O+BaSO4", c));
+    }
+
+    /// <summary>答案键用 → 而引擎用 = 时，归一化后应判正（pdf-532/484 类假阴性解锁）。</summary>
+    [Fact]
+    public void Scoring_Connector_RightArrow_NormalizesToEquals()
+    {
+        var c = CaseKeywords("Cl2+CaBr2→CaCl2+Br2");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(
+            "化学方程式：Cl2+CaBr2=CaCl2+Br2", c));
+    }
+
+    /// <summary>答案键用 ⇌ 而引擎用 = 时，归一化后应判正（pdf-274 水解类）。</summary>
+    [Fact]
+    public void Scoring_Connector_EquilibriumArrow_NormalizesToEquals()
+    {
+        var c = CaseKeywords("Fe3+ + 3H2O ⇌ Fe(OH)3 + 3H+");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(
+            "离子方程式：Fe3+ + 3H2O = Fe(OH)3 + 3H+", c));
+    }
+
+    /// <summary>LaTeX \\rightleftharpoons / 上下标归一后可与引擎写法子串匹配（pdf-462 类）。</summary>
+    [Fact]
+    public void Scoring_LaTeX_RightleftharpoonsAndSubSuperScript_Normalizes()
+    {
+        var c = CaseKeywords(@"Al^{3+} + 2H_2O \rightleftharpoons AlOOH + 3H^+");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(
+            "离子方程式：Al3+ + 2H2O = AlOOH + 3H+", c));
+    }
+
+    /// <summary>引擎输出含 ↑ 注解、答案键省略时仍判正（注解不影响物质恒等）。</summary>
+    [Fact]
+    public void Scoring_ConditionMarkers_StrippedOnBothSides()
+    {
+        var c = CaseKeywords("2H++CO3^2-=H2O+CO2");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(
+            "离子方程式：2H+ + CO3^2- = H2O + CO2↑", c));
+    }
+
+    /// <summary>回归守卫：√/× 序列匹配不受连接符/空格归一化影响。</summary>
+    [Fact]
+    public void Scoring_CheckmarkSequence_UnchangedAfterNormalization()
+    {
+        var c = CaseKeywords("(1)√ (2)√ (3)× (4)× (5)×");
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("√ √ × × ×", c));
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("√ × √ × ×", c));
+    }
+
+    /// <summary>回归守卫：选项字母判分不受连接符/空格归一化影响。</summary>
+    [Fact]
+    public void Scoring_ChoiceLetter_UnchangedAfterNormalization()
+    {
+        var c = new QaTestCase { Id = "u", Answer = "B", Type = "choice", AnswerKeywords = new System.Collections.Generic.List<string>() };
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect("正确选项为 B", c));
+    }
+
+    /// <summary>precision 守卫：归一化后为空的关键词（纯注解标记）不得让任意答案判正。</summary>
+    [Fact]
+    public void Scoring_EmptyAfterNormalizationKeyword_DoesNotMatchEverything()
+    {
+        var c = CaseKeywords("↑");
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect("任意无关答案", c));
+    }
 }

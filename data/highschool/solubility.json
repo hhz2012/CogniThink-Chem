@@ -8,6 +8,7 @@
     "Ca(OH)2": "SlightlySoluble",
     "NH3·H2O": "Soluble",
     "Mg(OH)2": "Insoluble",
+    "Be(OH)2": "Insoluble",
     "Al(OH)3": "Insoluble",
     "Fe(OH)2": "Insoluble",
     "Fe(OH)3": "Insoluble",

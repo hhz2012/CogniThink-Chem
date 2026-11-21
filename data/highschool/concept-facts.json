@@ -1,6 +1,6 @@
 {
-  "version": "1.0",
-  "source": "人教版《化学·必修第一册》（离子检验、离子颜色、电解质概念）、《必修第二册》（晶体结构）；答案与评估标准答案关键词对齐。",
+  "version": "1.4",
+  "source": "人教版《化学·必修第一册》（离子检验、离子颜色、电解质概念）、《必修第二册》（晶体结构）；通用诊断事实：氧化还原产物与介质、有机同分异构/等效氢/手性、电化学电极产物与离子迁移、物质漂白性/胶体电性、酸式盐酸碱性定性判断；答案与评估标准答案关键词对齐。",
   "entries": [
     {
       "id": "test-fe3-reagent",
@@ -100,6 +100,168 @@
       "answer": "金刚石 > C60。金刚石是原子晶体，C—C 共价键强；C60 是分子晶体，分子间以范德华力结合，作用力弱，故金刚石熔点高于 C60。",
       "derivation": ["金刚石为原子晶体，熔化破坏 C—C 共价键，键能大、熔点高", "C60 为分子晶体，熔化破坏分子间范德华力，作用力弱、熔点低"],
       "constraint": "【高中限定】原子晶体熔点高于分子晶体的定性比较"
+    },
+    {
+      "id": "redox-mno4-acidic-product",
+      "kind": "redox_product",
+      "required": ["mno4-", "酸性条件"],
+      "requiredAny": [],
+      "answer": "MnO4- 在酸性条件下被还原，产物为 Mn2+（二价锰）。",
+      "derivation": ["MnO4- 在酸性介质中被还原为 Mn2+（Mn 由 +7 降至 +2）", "酸性→Mn2+，中性→MnO2，碱性→MnO4^2-"],
+      "constraint": "【高中限定】酸性介质下的还原产物"
+    },
+    {
+      "id": "redox-mno4-neutral-product",
+      "kind": "redox_product",
+      "required": ["mno4-", "中性条件"],
+      "requiredAny": [],
+      "answer": "MnO4- 在中性条件下被还原，产物为 MnO2（二氧化锰）。",
+      "derivation": ["MnO4- 在中性介质中被还原为 MnO2（Mn 由 +7 降至 +4）", "酸性→Mn2+，中性→MnO2，碱性→MnO4^2-"],
+      "constraint": "【高中限定】中性介质下的还原产物"
+    },
+    {
+      "id": "redox-clo-acidic-product",
+      "kind": "redox_product",
+      "required": ["clo-", "酸性条件", "还原产物"],
+      "requiredAny": [],
+      "answer": "ClO- 在酸性条件下被还原，产物为 Cl-（氯离子）。",
+      "derivation": ["ClO- 在酸性介质中被还原为 Cl-（Cl 由 +1 降至 -1）", "碱性下 ClO- 可能发生歧化"],
+      "constraint": "【高中限定】酸性介质下的还原产物"
+    },
+    {
+      "id": "isomer-ch2cl2-count",
+      "kind": "isomer_count",
+      "required": ["二氯甲烷", "同分异构体"],
+      "requiredAny": [],
+      "answer": "二氯甲烷（CH2Cl2）只有 1 种结构，没有同分异构体。",
+      "derivation": ["甲烷为正四面体结构，CH2Cl2 中两个 Cl 的位置等价", "故二氯甲烷只有 1 种结构，不存在同分异构体"],
+      "constraint": "【高中限定】基于甲烷正四面体结构的判断"
+    },
+    {
+      "id": "equiv-h-n-butane",
+      "kind": "equiv_hydrogen",
+      "required": ["正丁烷", "等效氢"],
+      "requiredAny": [],
+      "answer": "正丁烷有 2 种等效氢。",
+      "derivation": ["正丁烷 CH3-CH2-CH2-CH3 结构对称", "两端 CH3 等效，中间两个 CH2 等效，共 2 种等效氢"],
+      "constraint": "【高中限定】对称性分析"
+    },
+    {
+      "id": "equiv-h-isobutane",
+      "kind": "equiv_hydrogen",
+      "required": ["异丁烷", "等效氢"],
+      "requiredAny": [],
+      "answer": "异丁烷（2-甲基丙烷）有 2 种等效氢。",
+      "derivation": ["异丁烷 (CH3)3CH 中 3 个甲基等效", "中心 CH 上另有 1 种氢，共 2 种等效氢"],
+      "constraint": "【高中限定】对称性分析"
+    },
+    {
+      "id": "chiral-lactic-acid",
+      "kind": "chiral_center",
+      "required": ["手性碳", "ch3ch(oh)cooh"],
+      "requiredAny": [],
+      "answer": "有。CH3CH(OH)COOH 中间的碳原子连接 4 个不同的基团（H、OH、CH3、COOH），是手性碳原子。",
+      "derivation": ["手性碳需连 4 个不同的原子或基团", "CH3CH(OH)COOH 的 2 号碳连 H、OH、CH3、COOH 四个不同基团"],
+      "constraint": "【高中限定】手性碳原子判定"
+    },
+    {
+      "id": "electrolysis-cuso4-anode",
+      "kind": "electrode_product",
+      "required": ["电解", "cuso4", "阳极产物"],
+      "requiredAny": [],
+      "answer": "电解 CuSO4 溶液，阳极 OH- 放电，产物为 O2（氧气）。",
+      "derivation": ["电解 CuSO4 溶液时，阳极 OH- 优先于 SO4^2- 放电", "阳极反应：4OH- - 4e- = O2↑ + 2H2O，产物为 O2；阴极 Cu2+ 放电生成 Cu"],
+      "constraint": "【高中限定】惰性电极电解"
+    },
+    {
+      "id": "electrolysis-nacl-anode",
+      "kind": "electrode_product",
+      "required": ["电解", "nacl", "阳极产物"],
+      "requiredAny": [],
+      "answer": "电解 NaCl 溶液，阳极 Cl- 放电，产物为 Cl2（氯气）。",
+      "derivation": ["电解 NaCl 溶液时，Cl- 放电顺序在 OH- 之前（Cl- 浓度高）", "阳极反应：2Cl- - 2e- = Cl2↑，产物为 Cl2"],
+      "constraint": "【高中限定】惰性电极电解饱和食盐水"
+    },
+    {
+      "id": "galvanic-cation-migration",
+      "kind": "ion_migration",
+      "required": ["原电池", "阳离子", "移动"],
+      "requiredAny": [],
+      "answer": "原电池中，阳离子向正极移动。",
+      "derivation": ["原电池中，阳离子向正极移动，阴离子向负极移动", "形成闭合回路，维持电荷平衡"],
+      "constraint": "【高中限定】原电池内电路离子迁移方向"
+    },
+    {
+      "id": "lead-acid-pb-electrode",
+      "kind": "electrode_polarity",
+      "required": ["铅蓄电池", "pb", "正极还是负极"],
+      "requiredAny": [],
+      "answer": "负极。铅蓄电池放电时 Pb 失电子（0→+2），是负极。",
+      "derivation": ["铅蓄电池放电时，Pb 失去电子（0→+2）发生氧化反应，为负极", "PbO2 得到电子发生还原反应，为正极"],
+      "constraint": "【高中限定】铅蓄电池放电过程"
+    },
+    {
+      "id": "chlorine-bleach",
+      "kind": "bleaching",
+      "required": ["氯气", "漂白性"],
+      "requiredAny": [],
+      "answer": "氯气本身没有漂白性；是其与水反应生成的 HClO（次氯酸）具有漂白性。",
+      "derivation": ["Cl2 本身无漂白性", "Cl2 与水反应生成的 HClO（次氯酸）具有强氧化性，能漂白有色物质"],
+      "constraint": "【高中限定】干燥氯气不漂白，湿润氯气因生成 HClO 而漂白"
+    },
+    {
+      "id": "colloid-charge",
+      "kind": "colloid_property",
+      "required": ["胶体", "带电"],
+      "requiredAny": [],
+      "answer": "胶体整体不带电（呈电中性）；是胶体粒子（胶粒）带电。",
+      "derivation": ["胶体分散系整体呈电中性", "胶体粒子（胶粒）因吸附离子而带电，整体仍电中性"],
+      "constraint": "【高中限定】胶体与胶粒的电性区别"
+    },
+    {
+      "id": "starch-ki-oxidizing-gas",
+      "kind": "oxidizing_gas_test",
+      "required": ["淀粉", "ki", "试纸", "cl2"],
+      "requiredAny": [],
+      "answer": "不一定。O3、NO2、Br2 蒸气等氧化性气体都能氧化 I- 使淀粉变蓝，不一定是 Cl2。",
+      "derivation": ["能氧化 I- 生成 I2 的气体都能使湿润淀粉 KI 试纸变蓝", "O3、NO2、Br2 蒸气等均有氧化性，不一定是 Cl2"],
+      "constraint": "【高中限定】氧化性气体的检验，结论不唯一"
+    },
+    {
+      "id": "acid-base-hydrogen-oxalate",
+      "kind": "acid_base_property",
+      "required": ["khc2o4"],
+      "requiredAny": [],
+      "answer": "酸性。KHC2O4 溶液中 HC2O4- 的电离程度（Ka2）大于其水解程度（Kb），故溶液呈酸性。",
+      "derivation": ["HC2O4- 既能电离（Ka2≈6.4×10^-5）又能水解（Kb=Kw/Ka1≈1.7×10^-13）", "Ka2 ≫ Kb，电离占主导，溶液中 c(H+) > c(OH-)，呈酸性"],
+      "constraint": "【高中限定】草酸氢盐溶液酸碱性定性判断"
+    },
+    {
+      "id": "p204-dimer-hydrogen-bond",
+      "kind": "intermolecular_force",
+      "required": ["p204", "二聚体"],
+      "requiredAny": [],
+      "answer": "P204 在煤油中常以二聚体形式存在，其原因是分子间能形成氢键（P204 分子中的极性基团可通过分子间氢键相互缔合）。",
+      "derivation": ["P204（二(2-乙基己基)磷酸）分子含可形成氢键的极性基团", "在非极性溶剂煤油中，P204 分子间通过氢键缔合形成二聚体"],
+      "constraint": "【高中限定】分子间氢键导致的二聚现象"
+    },
+    {
+      "id": "cubane-formula-dichloro-isomer",
+      "kind": "isomer_count",
+      "required": ["立方烷"],
+      "requiredAny": [],
+      "answer": "C8H8 3（立方烷的分子式为 C8H8，其二氯代物共有 3 种）。",
+      "derivation": ["立方烷（C8H8）具有立方体结构，8 个顶点各为一个 CH", "其二氯代物有 3 种：两个氯分别取代处于棱、面对角线、体对角线位置的氢"],
+      "constraint": "【高中限定】立方烷的分子式与二氯代物数目"
+    },
+    {
+      "id": "nahte-air-sensitive-rapid-addition",
+      "kind": "air_sensitive",
+      "required": ["nahte", "快速一次性加入", "的原因"],
+      "requiredAny": [],
+      "answer": "快速一次性加入NaHTe溶液的原因是防止NaHTe被氧化而失效（NaHTe中Te为-2价，还原性强，易被空气中的氧气氧化，快速一次性加入可减少其与空气的接触，避免被氧化而失效）。",
+      "derivation": ["NaHTe（碲氢化钠）中 Te 为 -2 价，处于最低价态，还原性很强", "NaHTe 易被空气中的 O2 氧化而失效，故需快速一次性加入以减少与空气的接触"],
+      "constraint": "【高中限定】空气敏感还原性试剂的加入操作"
     }
   ]
 }

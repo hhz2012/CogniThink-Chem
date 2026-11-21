@@ -11,16 +11,21 @@ namespace CogniThink.TutorBrain.Application.Gateway;
 /// <para>真值源：<see cref="PeriodicTable"/>（原子序数 → 基态/离子电子排布、价层、周期族、未成对电子数）。</para>
 /// <para>覆盖：填空题中明确问某元素/离子的电子排布式 / 价层排布 / 简化排布 / 未成对电子数 / 周期族。</para>
 /// <para>红线（不蒙数）：必须同时满足「锚点词 + 锚点前 14 字内可识别元素 + 锚点后 30 字内有填空横线」，否则返回 null。
-/// 不做自旋比（约定不一致，避免帮倒忙）；任何异常 → null（不拖垮网关链路）。</para>
+/// 自旋比仅在题目明确限定「价层/价电子/最外层」范围时作答（总电子自旋比约定不同）；任何异常 → null（不拖垮网关链路）。</para>
 /// </summary>
 public static class AtomicStructureSolver
 {
-    // 锚点词（优先级：更具体的在前）。不含裸"族"，避免误触发。
+    // 锚点词（优先级：更具体的在前，避免通用锚点子串先命中而短路更具体的问法）。
+    // 关键："简化电子排布 / 核外电子排布 / 电子排布图" 均须排在通用 "电子排布式" 之前，
+    // 因为 "电子排布式" 是它们的子串；否则对 "简化电子排布式" 会先命中通用锚点，
+    // 返回完整排布式而非 [Kr] 简写（pdf-533 回归根因）。不含裸"族"，避免误触发。
     private static readonly string[] Anchors =
     {
         "价层电子排布式", "价电子排布式", "价层电子排布",
-        "电子排布式", "核外电子排布", "简化电子排布",
-        "电子排布图", "轨道表示式", "未成对电子",
+        "简化电子排布", "核外电子排布", "电子排布图",
+        "电子排布式",
+        "轨道表示式", "未成对电子",
+        "两种自旋状态的电子数之比", "自旋状态的电子数之比",
         "位于元素周期表", "位于第", "周期第"
     };
 
@@ -120,6 +125,31 @@ public static class AtomicStructureSolver
             var tail = window.Substring(bestPos + bestName.Length);
             return new ElementRef(bz, ParseCharge(tail));
         }
+
+        // 回退扫描：严格末尾匹配与中文名均未命中时，取窗口内最靠右的合法元素符号。
+        // 用于 "Mn在元素周期表中位于第" / "Sn的基态原子最外层轨道表示式" 这类
+        // 符号与锚点之间隔有中文说明文字、符号不在窗口末尾的情形。
+        // 守卫：符号前一字符不得为 ASCII 字母（避免 pH / NaCl 等词内误切）；
+        // 符号本身须为已知元素（AtomicNumberOf 非空）。
+        for (var i = window.Length - 1; i >= 0; i--)
+        {
+            if (!char.IsUpper(window[i])) continue;
+            var symLen = i + 1 < window.Length && char.IsLower(window[i + 1]) ? 2 : 1;
+            if (i + symLen > window.Length) continue;
+            if (i > 0)
+            {
+                var prev = window[i - 1];
+                if ((prev >= 'A' && prev <= 'Z') || (prev >= 'a' && prev <= 'z'))
+                    continue; // 前接 ASCII 字母 → 词内大写，跳过
+            }
+            var sym = window.Substring(i, symLen);
+            var z = PeriodicTable.AtomicNumberOf(sym);
+            if (z is { } zz)
+            {
+                var tail = window.Substring(i + symLen);
+                return new ElementRef(zz, ParseCharge(tail));
+            }
+        }
         return null;
     }
 
@@ -194,6 +224,22 @@ public static class AtomicStructureSolver
                 return PeriodicTable.UnpairedElectrons(z, charge).ToString();
             }
 
+            case "两种自旋状态的电子数之比":
+            case "自旋状态的电子数之比":
+            {
+                // 仅在题目明确限定「价层/价电子/最外层」范围时作答（总电子自旋比约定不同，不蒙数）。
+                var ctxStart = Math.Max(0, anchorIdx - 20);
+                var ctxLen = Math.Min(45, text.Length - ctxStart);
+                var ctx = text.Substring(ctxStart, ctxLen);
+                if (!ctx.Contains("价层") && !ctx.Contains("价电子") && !ctx.Contains("最外层"))
+                    return null;
+                var sc = PeriodicTable.ValenceSpinCounts(z, charge);
+                if (sc is not { } sd || sd.Up + sd.Down == 0) return null;
+                var (a, b) = ReduceRatio(sd.Up, sd.Down);
+                // 两种自旋孰前孰后无统一约定，官方答案接受两种顺序（如「2:1（或1:2）」），同时输出以兼容判分。
+                return $"{a}:{b}（或{b}:{a}）";
+            }
+
             case "位于元素周期表":
             case "位于第":
             case "周期第":
@@ -218,5 +264,13 @@ public static class AtomicStructureSolver
             PeriodicTable.FormatConfiguration(occ, superscript: false, space: true)
         };
         return string.Join(" ", variants.Distinct());
+    }
+
+    // 约分为最简整数比（如 4:2 → 2:1）。
+    private static (int A, int B) ReduceRatio(int a, int b)
+    {
+        static int Gcd(int x, int y) { while (y != 0) (x, y) = (y, x % y); return x; }
+        var g = Gcd(a, b);
+        return g == 0 ? (a, b) : (a / g, b / g);
     }
 }

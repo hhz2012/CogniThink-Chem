@@ -14,7 +14,8 @@
 param(
     [string]$Tag = "current",
     [string]$OutDir = "_evalscratch",
-    [int]$MaxIterations = 50
+    [int]$MaxIterations = 50,
+    [string]$Env = "Development"   # "Development" = real LLM on; "Production" (default appsettings) = LLM off, deterministic
 )
 
 $ErrorActionPreference = "Continue"
@@ -24,8 +25,8 @@ $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 Set-Location $repoRoot
 
 # Enable the real LLM (Development appsettings has Enabled=true + real key).
-# Remove/override this to run the offline (LLM-disabled) engine dump.
-$env:ASPNETCORE_ENVIRONMENT = "Development"
+# Pass -Env Production to run the offline (LLM-disabled) deterministic engine dump.
+$env:ASPNETCORE_ENVIRONMENT = $Env
 
 $outDirFull = if ([System.IO.Path]::IsPathRooted($OutDir)) { $OutDir } else { Join-Path $repoRoot $OutDir }
 $doneMarker = Join-Path $outDirFull "checkpoint_$Tag.done"

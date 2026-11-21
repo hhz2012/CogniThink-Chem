@@ -5030,13 +5030,27 @@
     "id": "pdf-170",
     "question": "(4)“焙烧②”后得到 NiO。NiO 晶胞如右图所示，晶胞中含有 Ni2+的个数为__________。\n4.(2025·云南卷·★★★)从褐铁矿型金-银矿(含 Au、Ag、Fe2O3、MnO2、CuO、SiO2 等)中提取 Au、Ag，并回收其他有价金属的一种工艺如下：",
     "answerKeywords": [
-      "B"
+      "4"
     ],
-    "note": "A项：Ca为20号元素，电子排布1s²2s²2p⁶3s²3p⁶4s²，失2个电子成Ca²⁺，排布为1s²2s²2p⁶3s²3p⁶，即3s²3p⁶，最外层为3p⁶，图示3s↑↓、3p↑↓↑↓↑↓正确，A正确；B项：基态碳原子核外6个电子，运动状态各不相同（量子数组合唯一），故有6种运动状态，B说“6种”正确？但原文称“B选项错误”，结合上下文，题干解析明确指出“B选项错误”，因“每个电子的运动状态都不同”是对的，但后半句“故其核外有6种运动状态的电子”表述易歧义，标准答案判B错，可能因混淆“运动状态数”与“电子数”概念，按题设以解析为准。",
+    "note": "【官方溯源】pdfs/_extract/answer/page_059.json num 2（模块：一化·高考化学核心方法）：NiO 是 Ni²⁺ 与 O²⁻ 构成的离子晶体，O²⁻ 半径大，顶点和面心为 Ni²⁺，晶胞中 Ni²⁺ 个数 = 8×1/8 + 6×1/2 = 4。原 answer=\"B\" 与 note（Ca/C 电子排布）属 PDF 抽取错位，已修正为 4。",
     "type": "fill",
-    "answer": "B",
+    "answer": "4",
     "images": [
       "pdf_images/p057_n04_r0.png"
+    ],
+    "imageAssets": [
+      {
+        "type": "crystal",
+        "source": "pdf_images/p057_n04_r0.png",
+        "payload": {
+          "key": "NiO",
+          "label": "NiO（岩盐）",
+          "basis": [
+            { "species": "Ni", "site": "corner", "count": 8 },
+            { "species": "Ni", "site": "face", "count": 6 }
+          ]
+        }
+      }
     ]
   },
   {
@@ -5075,7 +5089,7 @@
   },
   {
     "id": "pdf-174",
-    "question": "（2）“还原酸浸”时，MnO2 反应的离子方程式为____________________。",
+    "question": "4.（2025·云南卷·★★★）从褐铁矿型金-银矿(含 Au、Ag、Fe2O3、MnO2、CuO、SiO2 等)中提取 Au、Ag，并回收其他有价金属的一种工艺如下（还原酸浸加入 H2SO4、Na2SO3）：（2）“还原酸浸”时，MnO2 反应的离子方程式为____________________。",
     "answerKeywords": [
       "MnO2 + SO3^2- + 2H+ = Mn2+ + SO4^2- + H2O",
       "MnO2+SO3^2-+2H+=Mn2++SO4^2-+H2O",
@@ -5221,13 +5235,33 @@
     "id": "pdf-178",
     "question": "（6）一种锑锰(Mn3Sb)合金的立方晶胞结构如右图所示。\n①该晶胞中，每个 Sb 周围与它最近且相等距离的 Mn 有______个。\n②NA 为阿伏加德罗常数的值，晶胞边长为 a nm，则晶体的密度为____________________g/cm^3（列出计算式即可）。\n（2）(NH4)2SO4 的作用是利用其分解产生的 SO3 使矿石中的铜元素转化为 CuSO4。(NH4)2SO4 发生热分解的化学方程式是____________________。",
     "answerKeywords": [
-      "C"
+      "12",
+      "2.87×10^23 / (N_A · a^3)",
+      "122×1×55×3 / (NA×10^-7)^3"
     ],
-    "note": "A项：O非金属性强于N，H₂O比NH₃稳定，A错误。B项：Sr与Ca同主族，金属性Sr>Ca，碱性Sr(OH)₂>Ca(OH)₂，B错误。C项：Mg²⁺与O²⁻电子排布相同，O²⁻核电荷数小，半径大，r(Mg²⁺)<r(O²⁻)，C正确。D项：N第一电离能失去2p³电子，O失去2p⁴中一个电子（p轨道半满更稳定），故I₁(N)>I₁(O)，D错误。",
+    "note": "官方溯源：pdfs/_extract/answer/page_060.json num 4 第(6)小问「①12 ②122×1×55×3 / (NA×10^-7)^3」（同条 (1)~(5) 与 exercise/page_058 大题 A 逐一吻合）。图像 p058_n06_1 核对：Sb（白球）占立方 8 顶点 → Z(Sb)=8×1/8=1；Mn（黑球）占 6 面心 → Z(Mn)=6×1/2=3，即 Mn₃Sb（Z=1 公式单元，M≈122+3×55=287）。①每个 Sb（顶点）周围最近且等距的 Mn（面心）共 12 个；②ρ=Z·M/(N_A·V)=287×10^21/(N_A·a³)=2.87×10^23/(N_A·a³)，等价于官方表式。注：本 id 题干拼接了大题 A 的 (6) 与大题 B 的 (2)，属数据管线缺陷，本轨道以晶胞子问的正确产出命中关键词。",
     "type": "fill",
-    "answer": "C",
+    "answer": "(1)12 (2)122×1×55×3 / (NA×10^-7)^3",
     "images": [
       "pdf_images/p058_n06_1.png"
+    ],
+    "imageAssets": [
+      {
+        "type": "crystal",
+        "source": "pdf_images/p058_n06_1.png",
+        "payload": {
+          "key": "Mn3Sb",
+          "label": "锑锰 Mn₃Sb（立方：Sb 顶点 + Mn 面心）",
+          "a": 1.0,
+          "molarMass": 287.0,
+          "formulaUnits": 1,
+          "coordinationNumber": 12,
+          "basis": [
+            { "species": "Sb", "site": "corner", "count": 8, "molarMass": 122.0 },
+            { "species": "Mn", "site": "face", "count": 6, "molarMass": 55.0 }
+          ]
+        }
+      }
     ]
   },
   {
@@ -5854,13 +5888,27 @@
     "id": "pdf-203",
     "question": "4.（2025·新课标卷节选·★）“焙烧②”后得到 NiO。NiO 晶胞如图所示，晶胞中含有 Ni²⁺ 的个数为 ______。",
     "answerKeywords": [
-      "N>H>B>Fe"
+      "4"
     ],
-    "note": "电负性的变化规律与非金属性类似，可结合元素化合价判断。NH3中N为-3价，H为+1价，电负性：N>H；BH4-中B为+3价，H为-1价，电负性：H>B；B与N是同周期元素，电负性：N>B；Fe是金属元素，具有较强金属性，非金属性小，因此晶体中元素的电负性：N>H>B>Fe。",
+    "note": "【官方溯源】pdfs/_extract/answer/page_059.json num 2（模块：一化·高考化学核心方法）：NiO 是 Ni²⁺ 与 O²⁻ 构成的离子晶体，顶点和面心为 Ni²⁺，晶胞中 Ni²⁺ 个数 = 8×1/8 + 6×1/2 = 4。原 answer=\"N>H>B>Fe\" 与 note（电负性）实际属于同页 exercise/page_072 num 3（铁系储氢合金选择题选项 D），属 PDF 答案册错位，已修正为 4；与 pdf-170 为同一 NiO 计数问法。",
     "type": "fill",
-    "answer": "N>H>B>Fe",
+    "answer": "4",
     "images": [
       "pdf_images/p072_n04_4.png"
+    ],
+    "imageAssets": [
+      {
+        "type": "crystal",
+        "source": "pdf_images/p072_n04_4.png",
+        "payload": {
+          "key": "NiO",
+          "label": "NiO（岩盐）",
+          "basis": [
+            { "species": "Ni", "site": "corner", "count": 8 },
+            { "species": "Ni", "site": "face", "count": 6 }
+          ]
+        }
+      }
     ]
   },
   {
@@ -5874,6 +5922,21 @@
     "answer": "2:1",
     "images": [
       "pdf_images/p073_n05_0.png"
+    ],
+    "imageAssets": [
+      {
+        "type": "crystal",
+        "source": "pdf_images/p073_n05_0.png",
+        "payload": {
+          "key": "铁酸铋",
+          "label": "铁酸铋",
+          "basis": [
+            { "species": "Fe", "site": "body", "count": 4 },
+            { "species": "Fe", "site": "face", "count": 8 },
+            { "species": "Bi", "site": "face", "count": 8 }
+          ]
+        }
+      }
     ]
   },
   {
@@ -5901,6 +5964,36 @@
     "images": [
       "pdf_images/p073_n07_2.png",
       "pdf_images/p073_n07_3.png"
+    ],
+    "imageAssets": [
+      {
+        "type": "crystal",
+        "source": "pdf_images/p073_n07_2.png",
+        "payload": {
+          "key": "白锡",
+          "label": "白锡（β-Sn，体心四方）",
+          "molarMass": 119.0,
+          "basis": [
+            { "species": "Sn", "site": "corner", "count": 8, "molarMass": 119.0 },
+            { "species": "Sn", "site": "body", "count": 1, "molarMass": 119.0 }
+          ]
+        }
+      },
+      {
+        "type": "crystal",
+        "source": "pdf_images/p073_n07_3.png",
+        "payload": {
+          "key": "灰锡",
+          "label": "灰锡（α-Sn，金刚石立方）",
+          "molarMass": 119.0,
+          "coordinationNumber": 4,
+          "basis": [
+            { "species": "Sn", "site": "corner", "count": 8, "molarMass": 119.0 },
+            { "species": "Sn", "site": "face", "count": 6, "molarMass": 119.0 },
+            { "species": "Sn", "site": "internal", "count": 4, "molarMass": 119.0 }
+          ]
+        }
+      }
     ]
   },
   {
@@ -6231,6 +6324,22 @@
     "answer": "4.96×10^23 / (N_A · a^3)",
     "images": [
       "pdf_images/p078_n07_4.png"
+    ],
+    "imageAssets": [
+      {
+        "type": "crystal",
+        "source": "pdf_images/p078_n07_4.png",
+        "payload": {
+          "key": "P4",
+          "label": "白磷 P₄（分子晶体）",
+          "a": 1.0,
+          "atomsPerFormulaUnit": 4,
+          "basis": [
+            { "species": "P4", "site": "corner", "count": 8, "molarMass": 124.0 },
+            { "species": "P4", "site": "face", "count": 6, "molarMass": 124.0 }
+          ]
+        }
+      }
     ]
   },
   {
@@ -17472,11 +17581,12 @@
     "id": "pdf-485",
     "question": "(1)(2021·河北卷节选·★★)含Cu、Zn、Sn及S的四元半导体化合物(简写为CZTS)，是一种低价、无污染的绿色环保型光伏材料，可应用于薄膜太阳能电池领域。基态S原子的价层电子中，两种自旋状态的电子数之比为__________。",
     "answerKeywords": [
-      "1:1"
+      "2:1",
+      "1:2"
     ],
-    "note": "[千问求解] S原子基态价层电子排布为3s²3p⁴，s轨道2个电子自旋相反，p轨道4个电子中必有2个↑、2个↓，故两种自旋电子数之比为1:1。",
+    "note": "[官方源订正·page_064] S(Z=16) 基态价层 3s²3p⁴，轨道表示式 3s↑↓ 3p↑↓↑↑，两种自旋状态电子数之比为 2:1（或 1:2）。原存储键 1:1 及其解析（p⁴ 必有 2↑2↓）违反洪特规则，已订正。",
     "type": "fill",
-    "answer": "1:1"
+    "answer": "2:1（或1:2）"
   },
   {
     "id": "pdf-486",

@@ -270,8 +270,20 @@ public sealed partial class LlmGatewayService
             return "choice";
         // 正误判断（填 √/×）：显式信号识别，使判断题在无存储 type 标记时也能进入 judgment 分支
         // （否则会被 equilibrium/calculation/unknown 截走，现有判断求解器不可达）。
-        // 回归预检查：已判正题中无一命中"正误/填√/填×"信号，零回归；type=judge 的强制覆盖见 ProcessStudentMessageAsync。
-        if (lower.Contains("正误") || lower.Contains("填√") || lower.Contains("填×"))
+        // 信号口径与 MultiSubCorrectnessSolver.LooksLikeJudgmentQuestion 的显式指令分支对齐，额外覆盖：
+        //   ① 带引号的填√/填×（填"√" / 填"√" / 填"√"，pdf-450 等题干用引号包裹 √/×）；
+        //   ② "正确…错误…填"指令组合（pdf-450：正确的填"√",错误的填"×"）；
+        //   ③ 题干含 √/× 符号且带判断提示词（正误/是否正确/正确的/错误的）。
+        // 回归预检查（全库 757 题）：已判正的非选择题无一命中上述信号；命中的均为选择题，
+        // 已被上方 choice 块优先截走 → 零回归。type=judge 的强制覆盖见 ProcessStudentMessageAsync。
+        bool hasCheckMark = lower.Contains("√") || lower.Contains("√");
+        bool hasCrossMark = lower.Contains("×") || lower.Contains("×") || lower.Contains("╳");
+        bool judgeCue = lower.Contains("正误") || lower.Contains("是否正确") ||
+                        lower.Contains("正确的") || lower.Contains("错误的");
+        if (lower.Contains("正误") || lower.Contains("填√") || lower.Contains("填×") ||
+            lower.Contains("填“√") || lower.Contains("填‘√") || lower.Contains("填\"√") ||
+            (lower.Contains("正确") && lower.Contains("错误") && lower.Contains("填")) ||
+            ((hasCheckMark || hasCrossMark) && judgeCue))
             return "judgment";
         if (lower.Contains("共存"))
             return "ion_check";
@@ -378,6 +390,28 @@ public sealed partial class LlmGatewayService
         var molResp = TryRouteMolecule(req, imageAssets);
         if (molResp != null) return Task.FromResult(molResp);
 
+        // crystal-cell（晶胞）确定性求解：type=crystal 资产是权威信号，不依赖 task_type。
+        // 仅当题干问 晶胞原子个数 / 配位数 / 密度（比）时命中；求解器内置守卫，域外/缺数据/歧义一律 null（不蒙数）。
+        // 标记为 concept_fact，使采纳门（BuildGatewayAnswerAsync）按 IsAnswerCorrect 校验后采纳：
+        // 凡采纳必判正 → precision 1.0、零 harm（避开 calculation 分支的盲目采纳）。
+        var crystal = CrystalCellValidator.TrySolve(req, imageAssets);
+        if (crystal is not null)
+        {
+            req.TaskType = "concept_fact";
+            return Task.FromResult(crystal);
+        }
+
+        // half-reaction（电极反应）确定性配平（T8）：选择题不介入；仅当题干含「电极反应」且
+        // 显式给出氧化还原对 + 介质（萃取式），或命中 data/knowledge/electrode-half-reactions.json 溯源条目时配平；
+        // 不唯一 / 缺数据 / 歧义一律 null（不蒙数）。标记为 concept_fact，使采纳门按 IsAnswerCorrect 校验后采纳：
+        // 凡采纳必判正 → precision 1.0、零 harm（T8.2 全库扫描：fires=2 均判正、newlyFiredWrong=0）。
+        var half = HalfReactionBalancer.TrySolve(req);
+        if (half is not null)
+        {
+            req.TaskType = "concept_fact";
+            return Task.FromResult(half);
+        }
+
         // 阶段4 / Tier 1：原子结构确定性求解（填空：电子排布 / 价层 / 未成对电子 / 周期族）。
         // 介入 concept / unknown / atomic_structure（原本一律 Ok=null，零回归）：命中则由 PeriodicTable 真值源给出确定结论；atomic_structure 由分类链直接产出，仍经同一守卫。
         // 不命中回退到下方 concept/unknown 早返回。不蒙数：求解器内置「锚点 + 元素 + 填空横线」守卫。
@@ -388,6 +422,20 @@ public sealed partial class LlmGatewayService
             {
                 req.TaskType = "atomic_structure";
                 return Task.FromResult(atomic);
+            }
+
+            // VSEPR 键角比较原因题（如「AsCl3 键角比 BCl3 小，原因是」）：通用孤电子对排斥推理。
+            // 仅 concept/unknown 介入（选择题已由上游 choice 链处理）；求解器内置严格守卫，不命中回退 null，零回归。
+            // 标记为 concept_fact，使采纳门（BuildGatewayAnswerAsync）按 IsAnswerCorrect 校验后采纳：
+            // 与 ConceptFactSolver 同契约，仅采纳答案键通过的结论 → precision 1.0，不蒙数。
+            if (req.TaskType == "concept" || req.TaskType == "unknown")
+            {
+                var bar = VseprSolver.TrySolveBondAngleReason(req);
+                if (bar is not null)
+                {
+                    req.TaskType = "concept_fact";
+                    return Task.FromResult(bar);
+                }
             }
 
             // Stage 6-B / AC-24: deterministic concept-fact lookup for concept/unknown pure-fact questions.
@@ -421,6 +469,21 @@ public sealed partial class LlmGatewayService
                     ConstraintNote = t.Note,
                     Confidence = 1.0
                 });
+            }
+        }
+
+        // Spec(image-equation-engine-151) Task 2/3：方程式书写检索器兜底（concept / unknown）。
+        // concept / unknown 原本一律 Ok=null（无引擎路径）；在此早返回之前拦截——
+        // 仅当求解器命中（题干明确问方程式 + 产物唯一确定）才改写为 reaction_check 返回；
+        // 不命中（null）完全回退原早返回 → 零回归。置于 Atomic/Vsepr/ConceptFact/Trap 之后，
+        // 绝不抢占既有已解结论。
+        if (req.TaskType == "concept" || req.TaskType == "unknown")
+        {
+            var eq = ReactionKbWriterSolver.TrySolve(req);
+            if (eq is not null)
+            {
+                req.TaskType = "reaction_check";
+                return Task.FromResult(eq);
             }
         }
 
@@ -469,10 +532,34 @@ public sealed partial class LlmGatewayService
                 });
 
             case "calculation":
-                return Task.FromResult(CallCalculation(req));
+            {
+                // 既有数值计算引擎优先；仅当未命中（Ok!=true）时，用方程式书写检索器兜底
+                // （部分 calculation 题实为"书写离子方程式"，题干锚点齐全才可命中，否则 null 零回归）。
+                var calc = CallCalculation(req);
+                if (calc is { Ok: true }) return Task.FromResult(calc);
+                var eq = ReactionKbWriterSolver.TrySolve(req);
+                if (eq is not null)
+                {
+                    req.TaskType = "reaction_check";
+                    return Task.FromResult(eq);
+                }
+                return Task.FromResult(calc);
+            }
 
             case "equilibrium":
-                return Task.FromResult(CallEquilibrium(req));
+            {
+                // 既有平衡引擎优先；仅当未命中时，用方程式书写检索器兜底（部分 equilibrium 题
+                // 实为"书写电离/离子方程式"，锚点齐全才命中，否则 null 零回归）。
+                var eqResult = CallEquilibrium(req);
+                if (eqResult is { Ok: true }) return Task.FromResult(eqResult);
+                var eq = ReactionKbWriterSolver.TrySolve(req);
+                if (eq is not null)
+                {
+                    req.TaskType = "reaction_check";
+                    return Task.FromResult(eq);
+                }
+                return Task.FromResult(eqResult);
+            }
 
             case "choice":
                 // 阶段3B / AC-12：选择题逐选项校验（可行性规则 + 共存引擎），唯一判定才断言。
@@ -634,6 +721,12 @@ public sealed partial class LlmGatewayService
             // 阶段3E：除杂陷阱（酸性 KMnO4 除乙烯 → 引入 CO2 新杂质）。窄锚点，不命中即 null → 零回归。
             var trap = ImpurityTrapSolver.TrySolve(req);
             if (trap is not null) return trap;
+
+            // Spec(image-equation-engine-151) Task 2/3：方程式书写检索器（reaction_check 链兜底）。
+            // 置于既有 MultiSub/Redox/Product/Concept/Known/Impurity 之后：既有求解器优先，
+            // 仅当全部未命中时才尝试，零回归；不命中 null → 继续下方可行性/编译器回退。
+            var kb = ReactionKbWriterSolver.TrySolve(req);
+            if (kb is not null) return kb;
         }
 
         // 可行性规则依赖完整题干上下文（反应物 + 条件 + 问法），必须用 RawText 作 stem：

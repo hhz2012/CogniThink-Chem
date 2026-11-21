@@ -118,4 +118,54 @@ public class VseprSolverTests
             new[] { "d6-1", "d6-2", "d6-3", "d6-4", "d6-5", "pdf-507", "pdf-508" },
             firedIds.OrderBy(x => x));
     }
+
+    // ============================================================
+    // 键角比较原因求解器（TrySolveBondAngleReason）：通用孤电子对排斥推理
+    // 与 TrySolve 互不干扰（后者拒绝含「键角/原因/比」的题）。
+    // ============================================================
+    private static EngineResponse? SolveBar(string raw) =>
+        VseprSolver.TrySolveBondAngleReason(new EngineRequest { TaskType = "unknown", RawText = raw });
+
+    [Fact]
+    public void Pdf509_AsCl3_BCl3_键角比较原因_判正()
+    {
+        var c = Case("pdf-509");
+        Assert.NotNull(c);
+        var r = SolveBar(c!.Question);
+        Assert.NotNull(r);
+        Assert.True(r!.Ok);
+        Assert.Contains("孤电子对", r.FinalResult);
+        Assert.Contains("排斥", r.FinalResult);
+        Assert.True(Correct(r.FinalResult, c), "pdf-509 键角比较原因结论应通过判分");
+    }
+
+    [Theory]
+    [InlineData("比较 NH3 和 PH3 的沸点并解释原因")]                 // 非键角 → 不介入
+    [InlineData("AsCl3 的空间构型是什么？")]                       // 无原因问法 → 走 TrySolve，不走键角原因
+    [InlineData("(1) 比较 H2O 与 SO4^2- 的键角并解释原因 (2) ...")]  // 多段（2+ 编号小题）→ 不介入
+    [InlineData("下列说法正确的是 A. AsCl3 键角小于 BCl3 B. ...")]  // 选择题块 → 不介入
+    [InlineData("XCl3 的键角比 YCl3 小，原因是")]                  // 微粒不在孤对表 → 不臆造
+    public void 键角原因_边界外_一律返回null(string raw) => Assert.Null(SolveBar(raw));
+
+    [Fact]
+    public void BondAngleReason_全题库无假阳性()
+    {
+        var cases = GatewayVsLlmEvaluationService.BuildTestCases();
+        Assert.NotEmpty(cases);
+
+        var firedIds = new List<string>();
+        foreach (var c in cases)
+        {
+            if (c.Type == "choice") continue; // 求解器不介入选择题
+            var r = SolveBar(c.Question);
+            if (r is null) continue;
+            firedIds.Add(c.Id);
+            Assert.True(Correct(r.FinalResult, c),
+                $"{c.Id} 键角原因求解器返回 {r.FinalResult} 但未通过判分 → 损害精确率");
+        }
+
+        // 锁定：当前题库仅 pdf-509 命中（AsCl3 vs BCl3）；pdf-506 为多段碎片被多段守卫排除，
+        // pdf-501 为选择题被排除。任何新增触发都必须先判明正确性。
+        Assert.Equal(new[] { "pdf-509" }, firedIds.OrderBy(x => x));
+    }
 }

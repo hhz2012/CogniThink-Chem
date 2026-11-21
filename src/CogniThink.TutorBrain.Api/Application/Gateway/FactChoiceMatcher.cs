@@ -95,8 +95,17 @@ internal static class FactChoiceMatcher
     /// </summary>
     private const string CuratedFactKey = "choice-curated-facts";
 
+    /// <summary>
+    /// 独立审计的通用化学知识陈述事实库（红线 #6 隔离，不污染选择事实库）：
+    /// 仅由 <see cref="JudgeStatement"/> 遍历加载，服务于判断题概念聚合（<c>JudgmentStatementAggregator</c>）。
+    /// <b>不</b>参与 <see cref="TryDecide"/> 单选瀑布链（该方法只加载单一 factKey），故对选择题行为零影响。
+    /// 每条为高中化学可唯一判定真伪的通用陈述，match 子串组合全库唯一，verdict 经化学核对并与题库 answer 对齐。
+    /// </summary>
+    private const string JudgmentFactKey = "judgment-statement-facts";
+
     // 选择题事实库键（与 Concept / Experiment / Organic / Structure 四个校验器一一对应），
-    // 末尾追加单题策展库：<see cref="JudgeStatement"/> 遍历全部键，保证迁出后仍能命中（stemMatch 全库唯一，不跨题误命中）。
+    // 末尾追加单题策展库与通用判断陈述库：<see cref="JudgeStatement"/> 遍历全部键。
+    // 注意：TryDecide 不遍历此数组（只加载单一键 + curated 合并），故追加 JudgmentFactKey 不影响选择题。
     private static readonly string[] ChoiceFactKeys =
     {
         GeneralFactKey,
@@ -104,6 +113,7 @@ internal static class FactChoiceMatcher
         "organic-facts",
         "structure-periodic-facts",
         CuratedFactKey,
+        JudgmentFactKey,
     };
 
     /// <summary>容错加载某事实库的 statements；文件缺失/解析失败返回 null（静默降级，不拖垮链路）。</summary>

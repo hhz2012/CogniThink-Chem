@@ -84,6 +84,19 @@ public class PeriodicTableTests
         => Assert.Equal(expected, PeriodicTable.UnpairedElectrons(z));
 
     [Theory]
+    [InlineData(16, 4, 2)]   // S  价层 3s²3p⁴ → 3s↑↓ 3p↑↓↑↑ → ↑4 ↓2（比 2:1，pdf-485）
+    [InlineData(7, 4, 1)]    // N  价层 2s²2p³ → 2s↑↓ 2p↑↑↑   → ↑4 ↓1
+    [InlineData(17, 4, 3)]   // Cl 价层 3s²3p⁵ → ↑4 ↓3
+    [InlineData(18, 4, 4)]   // Ar 价层 3s²3p⁶ → ↑4 ↓4（比 1:1）
+    [InlineData(26, 6, 2)]   // Fe 价层 3d⁶4s² → ↑6 ↓2（比 3:1）
+    public void ValenceSpinCounts_价层两种自旋电子数(int z, int up, int down)
+    {
+        var sc = PeriodicTable.ValenceSpinCounts(z);
+        Assert.NotNull(sc);
+        Assert.Equal((up, down), (sc!.Value.Up, sc.Value.Down));
+    }
+
+    [Theory]
     [InlineData(26, "[Ar]3d⁶4s²")]
     [InlineData(29, "[Ar]3d¹⁰4s¹")]
     [InlineData(51, "[Kr]4d¹⁰5s²5p³")]

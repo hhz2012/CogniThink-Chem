@@ -347,6 +347,9 @@ public sealed class GatewayVsLlmEvaluationService
             foreach (var k in c.AnswerKeywords)
             {
                 var nk = NormalizeChemicalNotation(k);
+                // 归一化后为空的关键词（如纯注解标记 ↑↓△）不参与匹配，
+                // 避免 lower.Contains("") 恒真导致假阳性（precision=1 守卫）。
+                if (string.IsNullOrWhiteSpace(nk)) continue;
                 // 2a. √/× 正误模式（阶段3D）：提取答案与关键词的 √/× 字符序列，
                 //     关键词序列为答案序列子串即判正，兼容带编号/空格/逗号/连写/单字符全部格式。
                 //     仅对 √/× 模式关键词触发，不影响其他关键词判分。
@@ -584,7 +587,40 @@ public sealed class GatewayVsLlmEvaluationService
             if (nc == 0x3000) nc = ' ';  // 全角空格
             sb.Append(nc);
         }
-        return sb.ToString();
+        return NormalizeConnectorsAndLatex(sb.ToString());
+    }
+
+    /// <summary>
+    /// 第二遍归一：把方程式连接符（==/→/⇌ 及 LaTeX 箭头）语义保持地坍缩为 =，去除气体/沉淀/加热等
+    /// 注解标记（↑↓△ 及 LaTeX 等价），展开常见 LaTeX 上下标（^{3+}→3+、_2→2），并去除空格。
+    /// 这些变换对「引擎输出」与「答案关键词」两侧对称施加，均为字符串同态——保持子串包含关系，
+    /// 故不会让既有正确匹配丢失（LOSS=0 的形式保证）；是否新增假阳性由全量 EvalRunner precision=1 实证兜底。
+    /// 不触碰 √/×、选项字母 A–D 与普通数字/中文（见单测回归守卫）。
+    /// </summary>
+    private static string NormalizeConnectorsAndLatex(string s)
+    {
+        if (string.IsNullOrEmpty(s)) return s;
+
+        // 1) LaTeX 可逆/正向箭头 → =（先于单字符箭头处理）
+        s = Regex.Replace(s,
+            @"\\(rightleftharpoons|Longleftrightarrow|lefttrightharpoons|leftrightarrows|rightleftarrows)", "=");
+        s = Regex.Replace(s,
+            @"\\(rightarrow|longrightarrow|to|Rightarrow|Longrightarrow|gets|leftarrow)", "=");
+        // 2) LaTeX 气体/沉淀/加热注解 → 去除
+        s = Regex.Replace(s, @"\\(uparrow|downarrow|triangle|Delta)", "");
+        // 3) Unicode 连接符 → =（==、各类箭头、可逆号）
+        foreach (var conn in new[] { "==", "→", "⟶", "⇌", "⇄", "⇋", "⇔", "─→", "=>" })
+            s = s.Replace(conn, "=");
+        // 4) 注解标记去除（气体↑/沉淀↓/加热△）
+        foreach (var ann in new[] { "↑", "↓", "△", "▲", "˄" })
+            s = s.Replace(ann, "");
+        // 5) LaTeX 上下标展开：^{...} → 内容；^n → n（数字/电荷）；_{...}/_n → 内容
+        s = Regex.Replace(s, @"\^\{([^}]*)\}", "$1");
+        s = Regex.Replace(s, @"\^([0-9+\-]+)", "$1");
+        s = Regex.Replace(s, @"_(\{[^}]*\}|[0-9+\-]+)", m => m.Groups[1].Value.Trim('{', '}'));
+        // 6) 去空格，让 "H2O = CO2" 与 "H2O=CO2" 对齐
+        s = s.Replace(" ", "");
+        return s;
     }
 
     /// <summary>

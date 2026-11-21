@@ -1,0 +1,8 @@
+[
+  {
+    "id": "hr-co-air-fuelcell-anode-base",
+    "halfReaction": "CO-2e^-+4OH^-=CO3^2-+2H2O",
+    "triggerAll": ["CO", "燃料电池", "电极反应"],
+    "note": "CO-空气燃料电池（碱性）阳极（负极）氧化：C +2→+4 失 2e⁻。官方溯源见 pdf_questions.json 中 pdf-304 的 note（page 解析）。"
+  }
+]

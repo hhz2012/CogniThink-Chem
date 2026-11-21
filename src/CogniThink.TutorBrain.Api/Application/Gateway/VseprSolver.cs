@@ -103,6 +103,30 @@ public static class VseprSolver
         ["XeF4"]  = ("平面正方形", "正八面体形 正八面体", "sp3d2"),
     };
 
+    // 中心原子孤电子对数（高中常见微粒）。键角比较原因题用：
+    // 孤电子对越多 → 孤电子对-成键电子对排斥越大 → 键角越小。
+    // 键名与 Table 一致（CanonSpecies 归一化后）。
+    private static readonly Dictionary<string, int> LonePairs = new()
+    {
+        // 0 孤电子对
+        ["CO2"] = 0, ["CS2"] = 0, ["HCN"] = 0, ["BeCl2"] = 0, ["C2H2"] = 0,
+        ["BF3"] = 0, ["BCl3"] = 0, ["AlCl3"] = 0, ["SO3"] = 0,
+        ["CO3^2-"] = 0, ["CO32-"] = 0, ["NO3-"] = 0, ["CH2O"] = 0, ["HCHO"] = 0,
+        ["CH4"] = 0, ["CCl4"] = 0, ["SiH4"] = 0, ["SiF4"] = 0,
+        ["NH4+"] = 0, ["SO4^2-"] = 0, ["SO42-"] = 0, ["ClO4-"] = 0,
+        ["PO4^3-"] = 0, ["PO43-"] = 0, ["AsO4^3-"] = 0, ["AsO43-"] = 0,
+        ["BF4-"] = 0, ["XeO4"] = 0, ["PCl5"] = 0, ["SF6"] = 0,
+        // 1 孤电子对（三角锥 / V形（平面三角 VSEPR）/ 跷跷板）
+        ["NH3"] = 1, ["PH3"] = 1, ["PCl3"] = 1, ["AsCl3"] = 1, ["NCl3"] = 1,
+        ["ClO3-"] = 1, ["SO3^2-"] = 1, ["SO32-"] = 1, ["XeO3"] = 1,
+        ["SO2"] = 1, ["O3"] = 1, ["NO2-"] = 1, ["SnCl2"] = 1, ["SF4"] = 1,
+        // 2 孤电子对（V形（四面体 VSEPR）/ T形 / 平面正方形）
+        ["H2O"] = 2, ["H2S"] = 2, ["OF2"] = 2, ["SCl2"] = 2,
+        ["ClF3"] = 2, ["XeF4"] = 2,
+        // 3 孤电子对（直线形 XeF2）
+        ["XeF2"] = 3,
+    };
+
     /// <summary>尝试求解；不命中返回 null（零回归）。</summary>
     public static EngineResponse? TrySolve(EngineRequest req)
     {
@@ -117,6 +141,74 @@ public static class VseprSolver
         catch
         {
             // 任何意外异常都不拖垮网关链路；保守回退 null
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// 键角比较原因题（如「AsCl3 的键角比 BCl3 的小，原因是」）。
+    /// 通用 VSEPR 推理：中心原子孤电子对越多 → 孤电子对-成键电子对排斥越大 → 键角越小。
+    /// 红线（不蒙数）：必须同时满足「含键角 + 原因问法 + 比较词 + 非选择 + 非多段」，
+    /// 且文本中恰好出现 2 个可查孤电子对数的微粒、二者孤电子对数不等；否则 null。
+    /// 与 <see cref="TrySolve"/> 互不干扰：后者显式拒绝含「键角/原因/比」的题。
+    /// </summary>
+    public static EngineResponse? TrySolveBondAngleReason(EngineRequest req)
+    {
+        var text = req?.RawText;
+        if (string.IsNullOrWhiteSpace(text)) return null;
+        try
+        {
+            // 不介入选择题
+            if (ChoiceBlock.IsMatch(text)) return null;
+            // 必须是键角比较 + 原因问法
+            if (!text.Contains("键角")) return null;
+            if (!Regex.IsMatch(text, @"原因|为什么|解释|理由")) return null;
+            if (!Regex.IsMatch(text, @"比|小于|大于|比较|大小")) return null;
+            // 多段大题碎片（含 2+ 编号小题）不介入：单段结论无法匹配多段答案键
+            if (Regex.Matches(text, @"[（(]\s*\d+\s*[)）]").Count >= 2) return null;
+
+            // 收集文本中所有可查孤电子对数的微粒（去重，按出现顺序）
+            var found = new List<(string Species, int Pos)>();
+            foreach (Match m in Formula.Matches(text))
+            {
+                var key = CanonSpecies(m.Value);
+                if (LonePairs.ContainsKey(key) && !found.Exists(f => f.Species == key))
+                    found.Add((key, m.Index));
+            }
+            // 必须恰好 2 个微粒：多了歧义、少了不是二元比较
+            if (found.Count != 2) return null;
+
+            var (s1, _) = found[0];
+            var (s2, _) = found[1];
+            var lp1 = LonePairs[s1];
+            var lp2 = LonePairs[s2];
+            if (lp1 == lp2) return null; // 孤电子对数相同无法用本原理解释
+
+            var small = lp1 > lp2 ? s1 : s2;   // 键角较小者：孤电子对较多
+            var big = lp1 > lp2 ? s2 : s1;
+            var lpSmall = Math.Max(lp1, lp2);
+            var lpBig = Math.Min(lp1, lp2);
+
+            string conclusion;
+            if (lpBig == 0)
+                conclusion = $"{small}中心原子有孤电子对，{big}无孤电子对，孤电子对与成键电子对排斥力更大，使键角减小。";
+            else
+                conclusion = $"{small}的孤电子对数({lpSmall})多于{big}({lpBig})，孤电子对与成键电子对的排斥力大于成键电子对间的排斥力，孤电子对越多，键角越小。";
+
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = conclusion,
+                DerivationSteps = new List<string>
+                {
+                    $"识别微粒 {small}、{big}，为键角比较原因题（VSEPR）。",
+                    $"{small}中心原子孤电子对数({lpSmall})多于{big}({lpBig})；孤电子对-成键电子对排斥 > 成键电子对间排斥，故{small}键角更小。"
+                },
+                Confidence = 1.0
+            };
+        }
+        catch
+        {
             return null;
         }
     }

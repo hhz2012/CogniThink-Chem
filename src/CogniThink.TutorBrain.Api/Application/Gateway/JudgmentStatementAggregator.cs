@@ -44,27 +44,43 @@ public static class JudgmentStatementAggregator
             var steps = new List<string>(subs.Count);
             foreach (var sub in subs)
             {
+                char? sym = null;
+                string? step = null;
+
                 // 1) 先试方程抽取：是方程小题 → 走符号引擎真值
                 var (equation, context) = MultiSubCorrectnessSolver.ExtractEquationAndContext(sub.Text);
                 if (!string.IsNullOrWhiteSpace(equation))
                 {
                     var v = EquationCorrectnessJudge.Judge(equation, context);
-                    if (!v.IsDetermined) return null;   // 方程不确定 → 整题 null（不蒙数）
-                    symbols.Add(v.Symbol!.Value);
-                    steps.Add($"第({sub.Index})小题[方程]：{v.Symbol} — {string.Join("；", v.Reasons)}");
-                    continue;
+                    if (v.IsDetermined)
+                    {
+                        sym = v.Symbol!.Value;
+                        step = $"第({sub.Index})小题[方程]：{sym} — {string.Join("；", v.Reasons)}";
+                    }
+                    // 方程抽取成功但符号引擎无法判定（如多步流程 "A→B→C" 被归一化为多等号串）：
+                    // 不直接整题 null，回退到下方陈述判定，让事实库有机会判定该陈述真伪。
                 }
 
-                // 2) 非方程小题 → 取核心陈述，走 CompositeStatementJudge
-                var core = MultiSubCorrectnessSolver.ExtractSubCore(sub.Text);
-                if (string.IsNullOrWhiteSpace(core)) return null;
-                var verdict = StatementJudge.Judge(text, core);
-                if (verdict == Verdict.Undecided) return null;   // 任一不确定 → 整题 null（不蒙数）
-                var sym = verdict == Verdict.True
-                    ? EquationCorrectnessJudge.Right
-                    : EquationCorrectnessJudge.Wrong;
-                symbols.Add(sym);
-                steps.Add($"第({sub.Index})小题[陈述]：{sym}");
+                // 2) 方程未命中或无法判定 → 取核心陈述，走 CompositeStatementJudge
+                if (!sym.HasValue)
+                {
+                    var core = MultiSubCorrectnessSolver.ExtractSubCore(sub.Text);
+                    if (!string.IsNullOrWhiteSpace(core))
+                    {
+                        var verdict = StatementJudge.Judge(text, core);
+                        if (verdict != Verdict.Undecided)
+                        {
+                            sym = verdict == Verdict.True
+                                ? EquationCorrectnessJudge.Right
+                                : EquationCorrectnessJudge.Wrong;
+                            step = $"第({sub.Index})小题[陈述]：{sym}";
+                        }
+                    }
+                }
+
+                if (!sym.HasValue) return null;   // 任一小题不确定 → 整题 null（不蒙数）
+                symbols.Add(sym.Value);
+                steps.Add(step!);
             }
 
             return new EngineResponse
