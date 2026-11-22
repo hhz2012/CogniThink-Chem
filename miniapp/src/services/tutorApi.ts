@@ -86,6 +86,38 @@ export interface SubmitStepResponse {
   weakPrerequisites: WeakKnowledgeDto[]
   chemicalEvidence?: ChemicalEvidenceDto | null
   variant?: ProblemDto | null
+  /** P3-3：网关标准推理链（仅 Confirmed 且有可溯源节点时下发；空/缺省表示该题无引擎 DAG） */
+  standardReasoningChain?: ReasoningNodeDto[] | null
+}
+
+// ==================== 网关求解（P2-4 学生面视图）====================
+
+/** 推理节点（镜像后端 ReasoningNode） */
+export interface ReasoningNodeDto {
+  step: number
+  description: string
+  premises: string[]
+  rule_id?: string | null
+  knowledge_id?: string | null
+  conclusion?: string | null
+  evidence_level: 'KnowledgeFact' | 'EngineDerived' | 'Candidate' | 'Trend'
+}
+
+/**
+ * 学生面求解视图（镜像后端 StudentSolveView）。
+ * 服务端已按 conclusion_state 裁剪：Insufficient 不下发 final_result / reasoning_nodes / explanation_nodes，
+ * 因此前端无需再做防泄露过滤；但展示文案仍需诚实标注。
+ */
+export interface StudentSolveView {
+  conclusion_state: 'Confirmed' | 'CandidateSet' | 'Insufficient'
+  task_type: string
+  final_result?: string | null
+  reasoning_nodes: ReasoningNodeDto[]
+  candidates: string[]
+  explanation_nodes: ReasoningNodeDto[]
+  reply: string
+  constraint_note?: string | null
+  result_provenance?: string | null
 }
 
 // ==================== 请求封装 ====================
@@ -143,6 +175,11 @@ export const tutorApi = {
   /** 学生学情 */
   getStudent(id: string): Promise<unknown> {
     return request<unknown>(`/api/student/${id}`)
+  },
+
+  /** 题目求解（学生面：按结论状态裁剪，不泄露未采纳结论） */
+  solve(text: string): Promise<StudentSolveView> {
+    return request<StudentSolveView>('/api/gateway/solve', 'POST', { text })
   }
 }
 

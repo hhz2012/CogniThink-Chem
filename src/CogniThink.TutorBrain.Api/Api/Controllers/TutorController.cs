@@ -52,7 +52,8 @@ public sealed class TutorController : ControllerBase
             TotalSteps: result.TotalSteps,
             WeakPrerequisites: result.WeakPrerequisites.Select(DtoMapper.ToDto).ToList(),
             ChemicalEvidence: result.ChemicalEvidence is null ? null : DtoMapper.ToDto(result.ChemicalEvidence),
-            Variant: result.Variant is null ? null : DtoMapper.ToDto(result.Variant));
+            Variant: result.Variant is null ? null : DtoMapper.ToDto(result.Variant),
+            StandardReasoningChain: result.StandardReasoningChain?.ToList());
 
         return Ok(response);
     }

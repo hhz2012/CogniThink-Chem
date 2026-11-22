@@ -55,4 +55,12 @@ miniapp/.temp/
 miniapp/.cache/
 miniapp/types/miniapp.d.ts
 
+## Python 字节码缓存（tools/ 下脚本的运行产物，不入版本库）
+__pycache__/
+*.pyc
+
+## 数据文件迭代备份（保留在磁盘，不入版本库；当前生效版本已跟踪）
+*.bak
+*.bak_*
+
 

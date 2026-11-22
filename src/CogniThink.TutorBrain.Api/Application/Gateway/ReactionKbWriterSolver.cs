@@ -57,22 +57,28 @@ public static class ReactionKbWriterSolver
             TryAdd(eqs, HydroxideBicarbonateIonic(text));
             TryAdd(eqs, BasicCarbonateAcidIonic(text));
             TryAdd(eqs, ManganeseDioxideSulfiteIonic(text));
-            foreach (var e in KbLookupIonic(text)) TryAdd(eqs, e);
+            var ionicEntries = KbLookupIonic(text);
+            foreach (var e in ionicEntries) TryAdd(eqs, e.Equation);
 
             eqs = eqs.Distinct(StringComparer.Ordinal).ToList();
             if (eqs.Count == 0) return null;
             return Respond("离子方程式：", string.Join("；", eqs.Select(ExpandMatchVariants)),
-                "离子方程式（确定型反应规律模板 + 知识库离子反应唯一命中：产物与配平唯一确定）");
+                "离子方程式（确定型反应规律模板 + 知识库离子反应唯一命中：产物与配平唯一确定）",
+                ruleId: "reaction_kb:ionic",
+                knowledgeId: ionicEntries.FirstOrDefault()?.Id);
         }
 
         if (askMolecular)
         {
-            foreach (var e in KbLookupMolecular(text)) TryAdd(eqs, e);
+            var molEntries = KbLookupMolecular(text);
+            foreach (var e in molEntries) TryAdd(eqs, e.Equation);
 
             eqs = eqs.Distinct(StringComparer.Ordinal).ToList();
             if (eqs.Count == 0) return null;
             return Respond("化学方程式：", string.Join("；", eqs.Select(ExpandMatchVariants)),
-                "化学方程式（知识库唯一命中：反应物与条件锚点齐全，产物唯一确定）");
+                "化学方程式（知识库唯一命中：反应物与条件锚点齐全，产物唯一确定）",
+                ruleId: "reaction_kb:molecular",
+                knowledgeId: molEntries.FirstOrDefault()?.Id);
         }
 
         if (askIonization)
@@ -81,7 +87,8 @@ public static class ReactionKbWriterSolver
             eqs = eqs.Distinct(StringComparer.Ordinal).ToList();
             if (eqs.Count == 0) return null;
             return Respond("电离方程式：", string.Join("；", eqs.Select(ExpandMatchVariants)),
-                "电离方程式（强电解质完全电离）");
+                "电离方程式（强电解质完全电离）",
+                ruleId: "rule:ionization");
         }
 
         return null;
@@ -92,11 +99,24 @@ public static class ReactionKbWriterSolver
         if (!string.IsNullOrWhiteSpace(eq)) eqs.Add(eq);
     }
 
-    private static EngineResponse Respond(string prefix, string equation, string note) => new()
+    private static EngineResponse Respond(string prefix, string equation, string note, string ruleId, string? knowledgeId = null) => new()
     {
         Ok = true,
         FinalResult = prefix + equation,
         DerivationSteps = new List<string> { equation },
+        ReasoningNodes = new List<ReasoningNode>
+        {
+            new()
+            {
+                Step = 1,
+                Description = "方程式书写命中",
+                Premises = new List<string> { "题干锚点齐全，产物与配平唯一确定" },
+                RuleId = ruleId,
+                KnowledgeId = knowledgeId,
+                Conclusion = prefix + equation,
+                EvidenceLevel = EvidenceLevel.KnowledgeFact
+            }
+        },
         ConstraintNote = "【高中限定】" + note + "；非该情形一律 null 不蒙数",
         Confidence = 1.0
     };
@@ -258,10 +278,10 @@ public static class ReactionKbWriterSolver
 
     /// <summary>遍历知识库，找出"反应物全部出现在题干（化学式或通用名称）且条件不冲突"的条目；
     /// 恰好 1 条才输出其分子方程式（多条/零条 → null，不蒙数）。</summary>
-    private static List<string> KbLookupMolecular(string text)
+    private static List<ReactionEntry> KbLookupMolecular(string text)
     {
         var lib = ReactionLibrary.Default.Value;
-        if (lib.Count == 0) return new List<string>();
+        if (lib.Count == 0) return new List<ReactionEntry>();
 
         var matches = new List<ReactionEntry>();
         foreach (var entry in lib.All)
@@ -280,10 +300,10 @@ public static class ReactionKbWriterSolver
             matches.Add(entry);
         }
 
-        if (matches.Count == 0) return new List<string>();
+        if (matches.Count == 0) return new List<ReactionEntry>();
         // 默认：仅唯一命中才输出（零回归）；MultiHitJoinRelax 打开时允许多条连接产出。
-        if (!MultiHitJoinRelax && matches.Count != 1) return new List<string>();
-        return matches.Select(m => m.Equation).Where(e => !string.IsNullOrWhiteSpace(e)).ToList();
+        if (!MultiHitJoinRelax && matches.Count != 1) return new List<ReactionEntry>();
+        return matches.Where(m => !string.IsNullOrWhiteSpace(m.Equation)).ToList();
     }
 
     // ---------- 离子：知识库检索（Task 4） ----------
@@ -292,10 +312,10 @@ public static class ReactionKbWriterSolver
     /// 反应物全部出现在题干且条件不冲突，恰好 1 条才输出其离子方程式（多条/零条 → null）。
     /// 与分子路径互补：分子路径排除 IonEquilibrium，离子路径专门覆盖水解/沉淀/配位等离子反应。
     /// 输出方程经 ExpandMatchVariants 产生去 ^ 变体，兼容答案键 Fe3+/SO42- 等无脱字符写法。</summary>
-    private static List<string> KbLookupIonic(string text)
+    private static List<ReactionEntry> KbLookupIonic(string text)
     {
         var lib = ReactionLibrary.Default.Value;
-        if (lib.Count == 0) return new List<string>();
+        if (lib.Count == 0) return new List<ReactionEntry>();
 
         var matches = new List<ReactionEntry>();
         foreach (var entry in lib.All)
@@ -311,10 +331,10 @@ public static class ReactionKbWriterSolver
             matches.Add(entry);
         }
 
-        if (matches.Count == 0) return new List<string>();
+        if (matches.Count == 0) return new List<ReactionEntry>();
         // 默认：仅唯一命中才输出（零回归）；MultiHitJoinRelax 打开时允许多条连接产出。
-        if (!MultiHitJoinRelax && matches.Count != 1) return new List<string>();
-        return matches.Select(m => m.Equation).Where(e => !string.IsNullOrWhiteSpace(e)).ToList();
+        if (!MultiHitJoinRelax && matches.Count != 1) return new List<ReactionEntry>();
+        return matches.Where(m => !string.IsNullOrWhiteSpace(m.Equation)).ToList();
     }
 
     /// <summary>把知识库反应物（caret 离子式如 Fe^3+ 或分子式）映射到题干中是否出现。</summary>

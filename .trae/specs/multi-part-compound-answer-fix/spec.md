@@ -22,7 +22,7 @@
 
 | 子类 | 数量 | 说明 |
 |------|------|------|
-| 纯 null（引擎无产出） | 96 | 能力/路由缺口：choice 42、unknown 26、calculation 18、equilibrium 9、judgment 2、concept 1、atomic_structure 1 |
+| 纯 null（引擎无产出） | 96 | 能力/路由缺口：choice 42、unknown 24、calculation 18、equilibrium 8、judgment 2、concept 1、atomic_structure 1（已扣除 3 个 hasRaw=True 的非 null 行：pdf-272/equilibrium、pdf-391/unknown、pdf-522/unknown，它们归入下一行「有产出被过滤」） |
 | 有原始产出但被采纳门正确过滤 | 8 | 5 个 reaction_check 占位（`ChemicalInferenceService`「已匹配到相关反应」/「已解析出相关物质与离子」，见 [ChemicalInferenceService.cs L200](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Chemistry/ChemicalInferenceService.cs#L200)）；2 个分子分析器域错误（pdf-391/522）；1 个曲线读数（pdf-272）。**全部正确过滤 → 0 harm、0 adopted-wrong** |
 
 > 关键：这 8 题的占位/错域产出**不是**被误采纳的错误答案——[采纳门](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs#L716-L750) 已用签名过滤剔除，故 precision 不受影响。它们只是「未真正解题」。

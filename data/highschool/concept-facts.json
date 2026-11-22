@@ -1,5 +1,5 @@
 {
-  "version": "1.4",
+  "version": "1.5",
   "source": "人教版《化学·必修第一册》（离子检验、离子颜色、电解质概念）、《必修第二册》（晶体结构）；通用诊断事实：氧化还原产物与介质、有机同分异构/等效氢/手性、电化学电极产物与离子迁移、物质漂白性/胶体电性、酸式盐酸碱性定性判断；答案与评估标准答案关键词对齐。",
   "entries": [
     {
@@ -262,6 +262,51 @@
       "answer": "快速一次性加入NaHTe溶液的原因是防止NaHTe被氧化而失效（NaHTe中Te为-2价，还原性强，易被空气中的氧气氧化，快速一次性加入可减少其与空气的接触，避免被氧化而失效）。",
       "derivation": ["NaHTe（碲氢化钠）中 Te 为 -2 价，处于最低价态，还原性很强", "NaHTe 易被空气中的 O2 氧化而失效，故需快速一次性加入以减少与空气的接触"],
       "constraint": "【高中限定】空气敏感还原性试剂的加入操作"
+    },
+    {
+      "id": "fill-purify-acid-ph-remove-ions",
+      "kind": "flow_concept",
+      "required": ["盐酸", "调节", "除去的离子"],
+      "requiredAny": [],
+      "answer": "OH⁻、CO₃²⁻",
+      "derivation": ["粗盐精制中，先前步骤加入过量 NaOH 沉淀 Mg2+、加入过量 Na2CO3 沉淀 Ca2+/Ba2+，引入了 OH- 与 CO3^2-", "步骤④加盐酸调节 pH 至 3~4，除去过量的 OH- 与 CO3^2-"],
+      "constraint": "【高中限定】粗盐精制流程语境；仅当前置步骤引入 OH-/CO3^2- 时成立"
+    },
+    {
+      "id": "fill-v-recovery-acid-ph-purpose",
+      "kind": "flow_concept",
+      "required": ["硫酸", "调节", "ph", "目的"],
+      "requiredAny": [],
+      "answer": "除去溶液中过量的OH⁻和CO₃²⁻，防止后续生成杂质沉淀",
+      "derivation": ["含钒废催化剂回收流程中，酸浸后调节 pH 需除去过量的 OH- 与 CO3^2-", "防止后续步骤生成杂质沉淀，影响产品纯度"],
+      "constraint": "【高中限定】该流程语境"
+    },
+    {
+      "id": "fill-solution-prep-concentration-shake",
+      "kind": "lab_concept",
+      "required": ["配制", "浓度", "可能"],
+      "requiredAny": [],
+      "answer": "偏小；摇匀",
+      "derivation": ["配制一定物质的量浓度溶液时，若转移溶质的洗涤操作只进行 1 次，部分溶质残留未转入容量瓶，所配浓度偏小", "定容后塞好瓶塞，反复上下颠倒摇匀"],
+      "constraint": "【高中限定】一定物质的量浓度溶液配制的误差分析与定容操作"
+    },
+    {
+      "id": "fill-precipitate1-metal-elements",
+      "kind": "flow_concept",
+      "required": ["沉淀1", "金属元素"],
+      "requiredAny": [],
+      "answer": "Fe、Al",
+      "derivation": ["该钒钛提取流程中，沉淀 1 为 Fe、Al 等金属元素形成的氢氧化物沉淀", "故沉淀 1 中含有的金属元素为 Fe、Al"],
+      "constraint": "【高中限定】该流程语境（沉淀 1 对应 Fe、Al）"
+    },
+    {
+      "id": "fill-plan2-advantage",
+      "kind": "flow_concept",
+      "required": ["方案2", "优点"],
+      "requiredAny": [],
+      "answer": "操作更简便，反应条件更温和",
+      "derivation": ["相比于方案 3，方案 2 操作更简便", "且反应条件更温和"],
+      "constraint": "【高中限定】该流程方案对比语境"
     }
   ]
 }

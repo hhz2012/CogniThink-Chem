@@ -172,10 +172,10 @@ public class AtomicStructureSolverTests
 
         // 已知答案键缺失/错位（PDF 抽取噪声）：化学结论正确但键不匹配；
         // pdf-166 / pdf-190 仍错位（不被采纳，零 harm）；pdf-108 / pdf-173 已校正键，现干净判正。
-        // pdf-188：题干为「基态Fe2+的3d电子轨道表示式」，存储 answer 为 "sp3"（串题/错位），
-        //   求解器输出 Fe²⁺ 全配置（化学正确）但无法匹配坏键 → 不被采纳，零 harm，列入白名单。
+        // pdf-188 原为 fill（题干「基态Fe2+的3d电子轨道表示式」、answer 错位 "sp3"）；α2 题界重切后
+        //   已归位为 choice「化学用语表述正确的是」（答案 C 正确），本护栏跳过 choice 不再触发求解器，故移出白名单。
         // 评估侧只采纳校验通过的结论 → 精确率与帮倒忙均不受影响。
-        var brokenKeys = new HashSet<string> { "pdf-166", "pdf-188", "pdf-190" };
+        var brokenKeys = new HashSet<string> { "pdf-166", "pdf-190" };
 
         var firedIds = new List<string>();
         var notAdoptedButFired = new List<string>(); // 触发但未通过判分（非坏键）→ 会损害精确率
@@ -203,13 +203,13 @@ public class AtomicStructureSolverTests
         Assert.Empty(brokenButAdopted);
 
         // 锁定当前题库行为：pdf-108 / pdf-173 已校正答案键（原错位，现干净判正）；
-        // pdf-166 / pdf-188 / pdf-190 仍为答案键错位（不被采纳，零 harm）；其余为干净判正。
+        // pdf-166 / pdf-190 仍为答案键错位（不被采纳，零 harm）；其余为干净判正。
         // 新增触发：pdf-488（Mn 周期族）/ pdf-489（Sn 最外层轨道表示式）由 FindElement 回退扫描解出；
         // 锚点重排（简化电子排布先于通用电子排布式）保证 pdf-533 不回归。任何新增触发都必须先判明正确性。
         // 注意：pdf-486 原为 fill（前缀含「基态N原子价层电子排布式」填空锚点），现改为 choice 以走双选判分；
         // 本护栏跳过 choice 题（见上方 continue），故 pdf-486 不再出现在触发集合中（生产 choice 路由不经原子求解器，零 harm）。
         Assert.Equal(
-            new[] { "pdf-108", "pdf-166", "pdf-173", "pdf-188", "pdf-190", "pdf-482", "pdf-485", "pdf-487", "pdf-488", "pdf-489", "pdf-490", "pdf-533", "pdf-538" },
+            new[] { "pdf-108", "pdf-166", "pdf-173", "pdf-190", "pdf-482", "pdf-485", "pdf-487", "pdf-488", "pdf-489", "pdf-490", "pdf-533", "pdf-538" },
             firedIds.OrderBy(x => x));
     }
 }

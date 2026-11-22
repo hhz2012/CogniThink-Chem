@@ -1,0 +1,851 @@
+{
+  "kp_count": 50,
+  "rules_total": 61,
+  "rules_distinct_knowledgeId": 26,
+  "facts_files_scanned": 24,
+  "dangling_rule_fks": [],
+  "kps_without_rules": [
+    "KH-EX-06",
+    "KH-EX-08",
+    "KH-HT-01",
+    "KH-IN-01",
+    "KH-IN-05",
+    "KH-IN-10",
+    "KH-IN-11",
+    "KH-IN-13",
+    "KH-OR-01",
+    "KH-OR-02",
+    "KH-OR-03",
+    "KH-OR-06",
+    "KH-OR-08",
+    "KH-OR-09",
+    "KH-OR-10",
+    "KH-RP-04",
+    "KH-RP-05",
+    "KH-RP-09",
+    "KH-RP-10",
+    "KH-ST-04",
+    "KH-ST-05",
+    "KH-ST-06",
+    "KH-ST-07",
+    "KH-ST-08"
+  ],
+  "kps_without_rules_count": 24,
+  "coverage_summary": {
+    "rules+facts": 7,
+    "rules-only": 19,
+    "facts-only": 5,
+    "neither": 19
+  },
+  "kps": [
+    {
+      "id": "KH-IN-01",
+      "name": "物质分类与胶体",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 5,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-IN-02",
+      "name": "离子反应与离子方程式",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "CONS-CHARGE-001",
+        "SOL-001",
+        "SOL-002"
+      ],
+      "rules_count": 3,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 9,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-IN-03",
+      "name": "氧化还原基本概念",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "CONS-ELEC-001",
+        "RED-002",
+        "RED-003"
+      ],
+      "rules_count": 3,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-IN-04",
+      "name": "钠及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "EXPT-004"
+      ],
+      "rules_count": 1,
+      "facts": [
+        {
+          "file": "data/highschool/choice-curated-facts.json",
+          "match": "candidate",
+          "strict_entries": 4
+        },
+        {
+          "file": "data/highschool/phenomena.json",
+          "match": "candidate",
+          "strict_entries": 2
+        }
+      ],
+      "facts_count": 2,
+      "facts_lenient_files": 11,
+      "coverage_label": "rules+facts"
+    },
+    {
+      "id": "KH-IN-05",
+      "name": "镁铝及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 12,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-IN-06",
+      "name": "铁铜及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "EXPT-003",
+        "RED-001"
+      ],
+      "rules_count": 2,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 12,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-IN-07",
+      "name": "氯与卤素",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "ACID-001",
+        "ACID-EXC-001"
+      ],
+      "rules_count": 2,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 3,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-IN-08",
+      "name": "硫及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "COND-002",
+        "RED-005"
+      ],
+      "rules_count": 2,
+      "facts": [
+        {
+          "file": "data/highschool/phenomena.json",
+          "match": "candidate",
+          "strict_entries": 4
+        }
+      ],
+      "facts_count": 1,
+      "facts_lenient_files": 11,
+      "coverage_label": "rules+facts"
+    },
+    {
+      "id": "KH-IN-09",
+      "name": "氮及其化合物",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "COND-001",
+        "EXPT-005"
+      ],
+      "rules_count": 2,
+      "facts": [
+        {
+          "file": "data/highschool/phenomena.json",
+          "match": "candidate",
+          "strict_entries": 4
+        }
+      ],
+      "facts_count": 1,
+      "facts_lenient_files": 11,
+      "coverage_label": "rules+facts"
+    },
+    {
+      "id": "KH-IN-10",
+      "name": "硅与无机非金属材料",
+      "module": "Inorganic",
+      "tier": "Extended",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 5,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-IN-11",
+      "name": "金属冶炼与金属材料",
+      "module": "Inorganic",
+      "tier": "Extended",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 5,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-IN-12",
+      "name": "化工工艺流程",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [
+        "PROC-004"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 1,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-IN-13",
+      "name": "物质的量与化学计量",
+      "module": "Inorganic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 11,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-OR-01",
+      "name": "烃：烷、烯、炔与苯",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 3,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-OR-02",
+      "name": "卤代烃",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 2
+        }
+      ],
+      "facts_count": 1,
+      "facts_lenient_files": 4,
+      "coverage_label": "facts-only"
+    },
+    {
+      "id": "KH-OR-03",
+      "name": "醇与酚",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 3,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-OR-04",
+      "name": "醛与羧酸",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [
+        "ORG-001"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 5,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-OR-05",
+      "name": "酯与油脂",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [
+        "ORG-002"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 6,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-OR-06",
+      "name": "同分异构体",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [
+        {
+          "file": "data/highschool/choice-curated-facts.json",
+          "match": "candidate",
+          "strict_entries": 3
+        },
+        {
+          "file": "data/highschool/concept-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        },
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 4
+        },
+        {
+          "file": "data/highschool/organic-facts.json",
+          "match": "candidate",
+          "strict_entries": 2
+        },
+        {
+          "file": "data/highschool/structure-periodic-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        }
+      ],
+      "facts_count": 5,
+      "facts_lenient_files": 7,
+      "coverage_label": "facts-only"
+    },
+    {
+      "id": "KH-OR-07",
+      "name": "有机反应类型",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [
+        "ORG-003"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-OR-08",
+      "name": "有机合成路线",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-OR-09",
+      "name": "糖类、蛋白质",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        }
+      ],
+      "facts_count": 1,
+      "facts_lenient_files": 7,
+      "coverage_label": "facts-only"
+    },
+    {
+      "id": "KH-OR-10",
+      "name": "高分子与单体判断",
+      "module": "Organic",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 6,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-RP-01",
+      "name": "反应热与盖斯定律",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [
+        "THERMO-001"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-RP-02",
+      "name": "化学反应速率",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [
+        "EQ-003"
+      ],
+      "rules_count": 1,
+      "facts": [
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 2
+        }
+      ],
+      "facts_count": 1,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules+facts"
+    },
+    {
+      "id": "KH-RP-03",
+      "name": "化学平衡",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [
+        "EQ-001",
+        "EQ-002"
+      ],
+      "rules_count": 2,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 1,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-RP-04",
+      "name": "弱电解质电离",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        }
+      ],
+      "facts_count": 1,
+      "facts_lenient_files": 3,
+      "coverage_label": "facts-only"
+    },
+    {
+      "id": "KH-RP-05",
+      "name": "水的电离与 pH",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 12,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-RP-06",
+      "name": "盐类水解",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [
+        "SOL-006",
+        "SOL-007"
+      ],
+      "rules_count": 2,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-RP-07",
+      "name": "沉淀溶解平衡",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [
+        "PROC-002",
+        "PROC-003",
+        "SOL-003",
+        "SOL-004",
+        "SOL-005",
+        "SOL-008",
+        "SOL-EXC-001"
+      ],
+      "rules_count": 7,
+      "facts": [
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 6
+        }
+      ],
+      "facts_count": 1,
+      "facts_lenient_files": 3,
+      "coverage_label": "rules+facts"
+    },
+    {
+      "id": "KH-RP-08",
+      "name": "原电池",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [
+        "RED-004"
+      ],
+      "rules_count": 1,
+      "facts": [
+        {
+          "file": "data/highschool/concept-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        },
+        {
+          "file": "data/highschool/experiment-facts.json",
+          "match": "candidate",
+          "strict_entries": 2
+        },
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 8
+        }
+      ],
+      "facts_count": 3,
+      "facts_lenient_files": 3,
+      "coverage_label": "rules+facts"
+    },
+    {
+      "id": "KH-RP-09",
+      "name": "电解池",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 0,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-RP-10",
+      "name": "金属腐蚀与防护",
+      "module": "ReactionPrinciples",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 1,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-EX-01",
+      "name": "基本实验操作",
+      "module": "Experiment",
+      "tier": "Main",
+      "rules": [
+        "EXP-009"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-EX-02",
+      "name": "气体制备与净化",
+      "module": "Experiment",
+      "tier": "Main",
+      "rules": [
+        "EXP-016"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 3,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-EX-03",
+      "name": "物质检验与鉴别",
+      "module": "Experiment",
+      "tier": "Main",
+      "rules": [
+        "EXP-001",
+        "EXP-002",
+        "EXP-003",
+        "EXP-004",
+        "EXP-005",
+        "EXP-006",
+        "EXP-008",
+        "EXP-010",
+        "EXPT-001",
+        "EXPT-002"
+      ],
+      "rules_count": 10,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 4,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-EX-04",
+      "name": "分离与提纯",
+      "module": "Experiment",
+      "tier": "Main",
+      "rules": [
+        "EXP-011",
+        "EXP-012",
+        "EXP-013",
+        "EXP-014",
+        "EXP-015",
+        "PROC-001"
+      ],
+      "rules_count": 6,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 6,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-EX-05",
+      "name": "定量实验与误差分析",
+      "module": "Experiment",
+      "tier": "Main",
+      "rules": [
+        "EXP-017",
+        "EXP-018",
+        "EXP-019",
+        "EXP-020"
+      ],
+      "rules_count": 4,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 3,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-EX-06",
+      "name": "探究实验与方案评价",
+      "module": "Experiment",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 3,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-EX-07",
+      "name": "实验安全与环保",
+      "module": "Experiment",
+      "tier": "Main",
+      "rules": [
+        "EXP-007"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-EX-08",
+      "name": "减压蒸馏与色谱简介",
+      "module": "Experiment",
+      "tier": "Extended",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-ST-01",
+      "name": "原子结构与核外电子排布",
+      "module": "Structure",
+      "tier": "Main",
+      "rules": [
+        "STR-003"
+      ],
+      "rules_count": 1,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 2,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-ST-02",
+      "name": "元素周期律",
+      "module": "Structure",
+      "tier": "Main",
+      "rules": [
+        "STR-001",
+        "STR-002"
+      ],
+      "rules_count": 2,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 1,
+      "coverage_label": "rules-only"
+    },
+    {
+      "id": "KH-ST-03",
+      "name": "化学键",
+      "module": "Structure",
+      "tier": "Main",
+      "rules": [
+        "BOND-001",
+        "BOND-EXC-001"
+      ],
+      "rules_count": 2,
+      "facts": [
+        {
+          "file": "data/highschool/choice-curated-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        },
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 4
+        },
+        {
+          "file": "data/highschool/structure-periodic-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        }
+      ],
+      "facts_count": 3,
+      "facts_lenient_files": 4,
+      "coverage_label": "rules+facts"
+    },
+    {
+      "id": "KH-ST-04",
+      "name": "分子空间构型与杂化",
+      "module": "Structure",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 5,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-ST-05",
+      "name": "分子间作用力与氢键",
+      "module": "Structure",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 6,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-ST-06",
+      "name": "晶体类型与晶胞计算",
+      "module": "Structure",
+      "tier": "Main",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 3,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-ST-07",
+      "name": "配合物",
+      "module": "Structure",
+      "tier": "Extended",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [
+        {
+          "file": "data/highschool/choice-curated-facts.json",
+          "match": "candidate",
+          "strict_entries": 1
+        },
+        {
+          "file": "data/highschool/general-choice-facts.json",
+          "match": "candidate",
+          "strict_entries": 2
+        }
+      ],
+      "facts_count": 2,
+      "facts_lenient_files": 4,
+      "coverage_label": "facts-only"
+    },
+    {
+      "id": "KH-ST-08",
+      "name": "波谱简单判读（红外、核磁）",
+      "module": "Structure",
+      "tier": "Extended",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 4,
+      "coverage_label": "neither"
+    },
+    {
+      "id": "KH-HT-01",
+      "name": "手性碳与对映异构",
+      "module": "Organic",
+      "tier": "Extended",
+      "rules": [],
+      "rules_count": 0,
+      "facts": [],
+      "facts_count": 0,
+      "facts_lenient_files": 6,
+      "coverage_label": "neither"
+    }
+  ]
+}

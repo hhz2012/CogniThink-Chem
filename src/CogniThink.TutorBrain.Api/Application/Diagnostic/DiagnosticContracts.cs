@@ -1,6 +1,7 @@
 namespace CogniThink.TutorBrain.Application.Diagnostic;
 
 using CogniThink.TutorBrain.Domain;
+using CogniThink.TutorBrain.Application.Gateway;
 
 /// <summary>
 /// 推理检查点：把一步推理拆成可逐一考核的知识点节点。
@@ -43,6 +44,9 @@ public sealed class ReasoningCheckpoint
 
     /// <summary>证据查询用的物质/离子/反应关键词</summary>
     public string? EvidenceKey { get; set; }
+
+    /// <summary>P3-3：链接到网关标准推理链中同 knowledge_id 的推导节点（无匹配则 null；已排除 Trend）。加性字段，不参与判定。</summary>
+    public ReasoningNode? LinkedReasoningNode { get; set; }
 }
 
 public enum CheckpointType

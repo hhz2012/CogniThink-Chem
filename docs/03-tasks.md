@@ -1,5 +1,7 @@
 # 化学伴思 任务拆分（阶段计划）
 
+> ⚠️ **历史文档（v0.2 规划态）**：本文记录项目初期的 T0–T6 阶段计划，与当前实际推进（P0–P3）已脱节，仅作背景参考。当前任务与路线图见 [结构分析与路线图](../.trae/documents/project-structure-analysis-and-roadmap.md)。
+
 > 版本：v0.2（D1 已定；T0 完成、T1 部分完成、T2 已启动后暂停）
 > 上游：[01-overall-plan.md](./01-overall-plan.md)、[02-modules.md](./02-modules.md)
 > 优先级定义：**P0** = 阻塞项，不做则后续无法开展；**P1** = 核心能力；**P2** = 增强/体验。任务编号 `T阶段-序号`，可直接作为 issue 标题。

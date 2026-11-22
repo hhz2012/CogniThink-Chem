@@ -8,6 +8,7 @@ import {
   ProblemDto,
   SubmitStepResponse
 } from '../../services/tutorApi'
+import ReasoningDag from '../../components/ReasoningDag'
 import styles from './index.module.scss'
 
 const STATUS_TEXT: Record<string, string> = {
@@ -308,6 +309,11 @@ export default function TutorPage() {
                 </View>
               ))}
             </View>
+          )}
+
+          {/* P3-3：网关标准推理链（仅该题路由到产出 DAG 的 solver 且 Confirmed 时下发；否则不渲染） */}
+          {reply.standardReasoningChain && reply.standardReasoningChain.length > 0 && (
+            <ReasoningDag nodes={reply.standardReasoningChain} />
           )}
 
           <View className={styles.metaRow}>

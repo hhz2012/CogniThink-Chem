@@ -38,6 +38,9 @@ builder.Services.AddScoped<StudentModelService>();
 builder.Services.AddScoped<VariantService>();
 builder.Services.AddScoped<TutorStateMachine>();
 builder.Services.AddScoped<TutorService>();
+// P3-3 导学与求解融合：标准推理链缓存（单例）+ 取链 provider（Scoped，注入 LlmGatewayService）
+builder.Services.AddSingleton<ITutorSolveChainCache, TutorSolveChainCache>();
+builder.Services.AddScoped<TutorSolveChainProvider>();
 builder.Services.AddSingleton<DiagnosticSessionStore>();
 builder.Services.AddScoped<DiagnosticTeachingEngine>();
 builder.Services.AddScoped<AbilityGraphService>();

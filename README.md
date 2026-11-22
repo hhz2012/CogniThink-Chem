@@ -2,7 +2,7 @@
 
 化学伴思是一个面向化学学习的「思考陪伴」项目。它不以直接给出答案为终点，而是把解题过程拆解为可检查的推理步骤，让学习者看清每一步「为什么这样想」，从而把知识真正内化为可迁移的思考方式。
 
-> 当前状态：**规划已收口，知识层（T1）部分实现**。D1（C# / .NET 8）已定；D2–D5 已给出推荐方案（见 [docs/decisions.md](./docs/decisions.md)，待确认）。已完成 T0 工程骨架；T1 覆盖清单（49 条）+ 规则库（37 条）+ 仲裁 + 回归已落地，但 T1-6 例外清单（目标 ≥50 条，现 3 条）与 T1-9 缺口报表未达标；T2 世界模型与机理引擎已暂停，等待继续。
+> 当前状态：**已从 v0.2 规划长成可评估的求解系统**。D1（C# / .NET 8）已定。已落地：化学原语与结构化推断引擎（Core）、面向自然语言真题的求解网关（Api，引擎为唯一真值源、LLM 只做语言层）、分步导学、能力图谱、诊断教学，以及 757 道 PDF 真题的评估体系。评估基线：解对 621/757，**precision=1、harm=0**；2144 个单元测试全绿。架构与求解栈收敛决策见 [ARCHITECTURE.md](./ARCHITECTURE.md)，下一步路线图见 [结构分析与路线图](./.trae/documents/project-structure-analysis-and-roadmap.md)。`docs/01-03` 为 v0.2 **历史规划**，非现状。
 
 ## 项目定位
 
@@ -14,22 +14,33 @@
 
 ```
 CogniThink-Chem/
-├── docs/                       # 规划、决策与设计文档
-│   ├── README.md               # 文档索引
-│   ├── 01-overall-plan.md      # 整体规划：定位、架构、知识范围、规则优先级、虚拟环境、机理、推理、题库、风险、决策状态
-│   ├── 02-modules.md           # 功能模块拆分：职责、输入输出、依赖
-│   ├── 03-tasks.md             # 阶段任务清单：优先级、依赖、验收标准、当前进度
-│   └── decisions.md            # 决策记录（D1 已定；D2–D10 状态与推荐）
-├── data/                       # 声明式数据（JSON）
-│   ├── knowledge/knowledge.json    # 覆盖清单：49 个知识点（Main 43 / Extended 6）
-│   └── rules/rules.json            # 规则库：37 条（L0–L4）
-│       rules/rule-tests.json       # 规则回归用例
+├── ARCHITECTURE.md                 # ★ 现状架构与求解栈收敛决策（先读这个）
+├── README.md
+├── docs/                           # v0.2 历史规划（已标注历史态，非现状）
+│   ├── README.md / 01-03 / decisions.md
+├── data/                           # 声明式数据（JSON）
+│   ├── highschool/*.json           # 事实库（24 文件）—— 网关选择/判断题真值源
+│   ├── knowledge/                  # 反应库 + 知识点
+│   ├── rules/rules.json            # 旧规则库（37 条 L0–L4，Core RuleEngine 用）
+│   ├── benchmark/problems/         # 基准题（12 类 98 题，Core ProblemSolver 用）
+│   └── real-exam/real-exam.json    # 真题（27，Core --verify-real 用）
 ├── src/
-│   ├── CogniThink.Chem.Core/       # 领域模型与引擎（知识点、规则、仲裁、评测）
-│   └── CogniThink.Chem.Cli/        # 演示与自检入口
-├── tests/CogniThink.Chem.Tests/    # xUnit 测试
-├── CogniThink.Chem.sln
-└── README.md
+│   ├── CogniThink.Chem.Core/           # 化学原语 + 结构化推断引擎（真值地基）
+│   ├── CogniThink.Chem.Cli/            # 演示/自检/导出工具
+│   ├── CogniThink.TutorBrain.Api/      # 求解网关 + 导学 + 诊断 + 评估（产品层）
+│   │   └── data/pdf_questions.json     # 757 道 PDF 真题（网关主评估集）
+│   ├── CogniThink.TutorBrain.EvalRunner/   # 757 题评估运行器
+│   └── CogniThink.TutorBrain.PdfOcrRepair/ # PDF OCR 修复工具
+├── tests/
+│   ├── CogniThink.Chem.Tests/       # Core 测试（911）
+│   └── CogniThink.TutorBrain.Tests/ # Api 测试（1233）
+├── miniapp/                     # Taro 小程序前端（已接导学 API，待接网关求解）
+├── web/                         # 静态演示站（CLI --export-web 生成）
+├── .trae/
+│   ├── specs/                   # 已交付/进行中的 spec（真正的能力落地记录）
+│   └── documents/               # 计划与分析文档（含路线图）
+├── data-defect-register.md      # 能力缺口台账
+└── CogniThink.Chem.sln
 ```
 
 ## 使用方式
@@ -43,15 +54,18 @@ CogniThink-Chem/
    dotnet test
    ```
 
-2. 阅读顺序：本 README 了解定位 → [docs/01-overall-plan.md](./docs/01-overall-plan.md) → [docs/02-modules.md](./docs/02-modules.md) → [docs/03-tasks.md](./docs/03-tasks.md)；决策与推荐见 [docs/decisions.md](./docs/decisions.md)。
+2. 阅读顺序：本 README 了解定位 → [ARCHITECTURE.md](./ARCHITECTURE.md)（现状架构与求解栈）→ [结构分析与路线图](./.trae/documents/project-structure-analysis-and-roadmap.md)（下一步计划）→ [.trae/specs/](./.trae/specs)（已交付能力）。`docs/01-03` 与 `docs/decisions.md` 为 v0.2 历史规划，仅作背景参考。
 
 3. 数据目录可通过环境变量 `COGNITHINK_DATA` 指定；默认从程序目录向上查找仓库内的 `data/`。
 
 ## 后续计划
 
-- 完成 T2：世界模型（能级/电离能/水合）与机理引擎（氧化还原、溶解平衡），并把 L0 守恒校验接入真实实现。
-- 继续 T3–T5：题目解析、推理 DAG、试剂顺序、题库管线、分级提示。
-- D2–D5 确认后，补齐 LLM 适配、题库来源与交互形态。
+已不再按 v0.2 的 T0–T6 线性推进。当前分四阶段推进，详见 [结构分析与路线图](./.trae/documents/project-structure-analysis-and-roadmap.md)：
+
+- **P0 结构收口**（进行中）：求解栈收敛决策文档、更新文档反映现状、仓库卫生。
+- **P1 求解能力补全**：完成 `engine-capability-gap-fix`；立项多部分大题子问分发、纯计算域计算器、自由填空求解器、路由补齐。
+- **P2 架构演进**：统一推理 DAG 与结论三态、世界模型最小可用版、图像与文本融合、前端接入网关求解。
+- **P3 质量与运营**：数据资产归一、缺口报表自动化、规则/事实体系归一、导学与求解融合。
 
 ## 许可
 

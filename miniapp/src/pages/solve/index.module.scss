@@ -1,0 +1,208 @@
+.page {
+  min-height: 100vh;
+  background: #f4f7f9;
+}
+
+.body {
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 24px 24px 0;
+}
+
+.bottomPad {
+  height: 80px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(15, 118, 110, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0f766e;
+  margin-bottom: 14px;
+}
+
+.input {
+  width: 100%;
+  min-height: 180px;
+  background: #f4f7f9;
+  border-radius: 12px;
+  padding: 18px;
+  font-size: 26px;
+  color: #1f2937;
+  box-sizing: border-box;
+}
+
+.btn {
+  margin-top: 18px;
+  background: #0f766e;
+  border-radius: 12px;
+  padding: 22px 0;
+  text-align: center;
+}
+
+.btnDisabled {
+  opacity: 0.45;
+}
+
+.btnText {
+  color: #fff;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.hint {
+  margin-top: 14px;
+  font-size: 22px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.err {
+  color: #dc2626;
+  font-size: 26px;
+}
+
+/* 结论卡状态色 */
+.cardOk {
+  border-left: 8px solid #16a34a;
+}
+.cardInsuf {
+  border-left: 8px solid #6b7280;
+}
+.cardCand {
+  border-left: 8px solid #2563eb;
+}
+
+.stateLabel {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+.finalResult {
+  font-size: 34px;
+  font-weight: 700;
+  color: #065f46;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.insufficientText {
+  font-size: 28px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.disclaimer {
+  font-size: 22px;
+  color: #9ca3af;
+  line-height: 1.6;
+}
+
+.candidateItem {
+  font-size: 26px;
+  color: #1e3a8a;
+  margin-top: 6px;
+}
+
+.meta {
+  margin-top: 14px;
+  font-size: 20px;
+  color: #9ca3af;
+}
+
+/* 讲解 / 折叠区 */
+.sectionTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #0f766e;
+}
+
+.reply {
+  margin-top: 14px;
+  font-size: 26px;
+  color: #1f2937;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.collapseHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collapseArrow {
+  font-size: 22px;
+  color: #9ca3af;
+}
+
+.dag {
+  margin-top: 16px;
+}
+
+.dagNode {
+  background: #f0fdfa;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+}
+
+.dagStep {
+  font-size: 22px;
+  font-weight: 600;
+  color: #0f766e;
+  margin-bottom: 6px;
+}
+
+.dagDesc {
+  font-size: 26px;
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+.dagPremise {
+  margin-top: 8px;
+  font-size: 22px;
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+.dagConclusion {
+  margin-top: 6px;
+  font-size: 24px;
+  color: #065f46;
+  font-weight: 600;
+}
+
+.dagEvidence {
+  margin-top: 8px;
+  font-size: 20px;
+  color: #6b7280;
+}
+
+.dagRef {
+  margin-top: 4px;
+  font-size: 20px;
+  color: #9ca3af;
+}
+
+.explainWarn {
+  font-size: 22px;
+  color: #b45309;
+  margin-bottom: 10px;
+  font-weight: 600;
+}

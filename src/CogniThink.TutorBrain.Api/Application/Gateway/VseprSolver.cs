@@ -204,6 +204,18 @@ public static class VseprSolver
                     $"识别微粒 {small}、{big}，为键角比较原因题（VSEPR）。",
                     $"{small}中心原子孤电子对数({lpSmall})多于{big}({lpBig})；孤电子对-成键电子对排斥 > 成键电子对间排斥，故{small}键角更小。"
                 },
+                ReasoningNodes = new List<ReasoningNode>
+                {
+                    new()
+                    {
+                        Step = 1,
+                        Description = $"VSEPR 键角比较推理：{small} vs {big}",
+                        Premises = new List<string> { $"{small} 孤电子对数={lpSmall}，{big} 孤电子对数={lpBig}（查孤对表）" },
+                        RuleId = "rule:vsepr_lone_pair_repulsion",
+                        Conclusion = conclusion,
+                        EvidenceLevel = EvidenceLevel.EngineDerived
+                    }
+                },
                 Confidence = 1.0
             };
         }
@@ -274,6 +286,18 @@ public static class VseprSolver
             {
                 $"识别微粒 {speciesList}，问法为{attrList}。",
                 $"由 VSEPR / 杂化对照表（高中范围）查得：{primary}。"
+            },
+            ReasoningNodes = new List<ReasoningNode>
+            {
+                new()
+                {
+                    Step = 1,
+                    Description = $"识别微粒 {speciesList}，问法为{attrList}",
+                    Premises = new List<string> { "锚点附近可查表微粒 + 问法锚点（无比较/推理开放词，锚点后有填空/疑问）" },
+                    KnowledgeId = "vsepr_table",
+                    Conclusion = conclusion,
+                    EvidenceLevel = EvidenceLevel.KnowledgeFact
+                }
             },
             Confidence = 1.0
         };

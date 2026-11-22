@@ -148,6 +148,25 @@ public sealed class EngineResponse
     [JsonPropertyName("mol_is_polar")] public bool? MoleculeIsPolar { get; set; }
     [JsonPropertyName("mol_central_hybrid")] public string? MoleculeCentralHybridization { get; set; }
     [JsonPropertyName("mol_groups")] public string[]? MoleculeFunctionalGroups { get; set; }
+
+    // —— P2-1：统一推理 DAG 与结论三态契约（加性；不影响既有字段与采纳门，spec CQ-2）——
+    /// <summary>结论三态：由现有信号（Ok / NeedMoreCondition / FinalResult）派生，观测性元数据。默认 Insufficient 直至派生点赋值。</summary>
+    [JsonPropertyName("conclusion_state")]
+    public ConclusionState ConclusionState { get; set; } = ConclusionState.Insufficient;
+
+    /// <summary>可溯源推理节点（命中 solver 填充；无 knowledge_id/rule_id 的 solver 留空，避免假可溯源）。</summary>
+    [JsonPropertyName("reasoning_nodes")]
+    public List<ReasoningNode> ReasoningNodes { get; set; } = new();
+
+    // —— P2-2：世界模型趋势级/机理级解释（加性；EvidenceLevel=Trend，帮助理解不作判定依据；永不进采纳门，spec CQ-5）——
+    /// <summary>趋势级/机理级微观解释节点（定性，不给绝对值）。与判定链 ReasoningNodes 分离；采纳门不读取，不影响判分。</summary>
+    [JsonPropertyName("explanation_nodes")]
+    public List<ReasoningNode> ExplanationNodes { get; set; } = new();
+
+    // —— P2-3：图像与文本求解融合——采纳结论来源 provenance（加性；仅观测不计分，spec CQ-2；采纳门不读取）——
+    /// <summary>产出该结论的路由分支来源：equilibrium / curve_choice / concept_choice / graph / curve_reading / molecule / crystal；通用文本事实瀑布为 null（= text_fact）。诊断元数据，不参与判分。</summary>
+    [JsonPropertyName("result_provenance")]
+    public string? ResultProvenance { get; set; }
 }
 
 /// <summary>网关处理结果</summary>

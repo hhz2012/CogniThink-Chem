@@ -56,6 +56,11 @@ public class ConceptFactSolverTests
     [InlineData("pdf-465")]
     [InlineData("pdf-389")]
     [InlineData("pdf-536")]
+    [InlineData("pdf-415")]
+    [InlineData("pdf-530")]
+    [InlineData("pdf-535")]
+    [InlineData("pdf-542")]
+    [InlineData("pdf-543")]
     public void 候选_触发且判正(string id)
     {
         var c = Case(id);
@@ -110,7 +115,8 @@ public class ConceptFactSolverTests
             "d8-1","d8-2","d8-3","d8-4",
             "d9-2","d9-3","d9-4",
             "pdf-516",
-            "pdf-465","pdf-389","pdf-536"
+            "pdf-465","pdf-389","pdf-536",
+            "pdf-415","pdf-530","pdf-535","pdf-542","pdf-543" // P1-4：自由填空概念事实（唯一匹配 + 0 漂移 + 答案键命中，凡触发必判正）
         };
 
         var fired = new List<string>();
@@ -134,10 +140,10 @@ public class ConceptFactSolverTests
     // 数据驱动：事实全在 JSON，逻辑零硬编码
     // ============================================================
     [Fact]
-    public void 事实库_29条且分类分布符合预期()
+    public void 事实库_34条且分类分布符合预期()
     {
         var data = RuleStore.Load().Query<ConceptFactData>("concept-facts");
-        Assert.Equal(29, data.Entries.Count);
+        Assert.Equal(34, data.Entries.Count);
         Assert.Equal(5, data.Entries.Count(e => e.Kind == "ion_test"));
         Assert.Equal(2, data.Entries.Count(e => e.Kind == "ion_color"));
         Assert.Equal(3, data.Entries.Count(e => e.Kind == "concept_def"));
@@ -155,6 +161,8 @@ public class ConceptFactSolverTests
         Assert.Equal(1, data.Entries.Count(e => e.Kind == "colloid_property"));
         Assert.Equal(1, data.Entries.Count(e => e.Kind == "oxidizing_gas_test"));
         Assert.Equal(1, data.Entries.Count(e => e.Kind == "acid_base_property"));
+        Assert.Equal(4, data.Entries.Count(e => e.Kind == "flow_concept"));
+        Assert.Equal(1, data.Entries.Count(e => e.Kind == "lab_concept"));
         // 每条事实必须有触发条件与非空答案
         Assert.All(data.Entries, e =>
         {

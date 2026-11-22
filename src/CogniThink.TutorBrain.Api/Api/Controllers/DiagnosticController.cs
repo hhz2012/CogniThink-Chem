@@ -118,7 +118,8 @@ public sealed class DiagnosticController : ControllerBase
         knowledgeId = c.KnowledgeId,
         knowledgeName = c.KnowledgeName,
         question = c.Question,
-        evidenceType = c.EvidenceType.ToString()
+        evidenceType = c.EvidenceType.ToString(),
+        linkedReasoningNode = c.LinkedReasoningNode
     };
 
     private static object MapExplanation(CheckpointExplanation e) => new

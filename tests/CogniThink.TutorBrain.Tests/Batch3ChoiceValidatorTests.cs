@@ -405,7 +405,19 @@ public class Batch3ChoiceValidatorTests
         ["pdf-289"] = "B",
         ["pdf-037"] = "D",
         // 批次33：有机化合物结构(Ph-CH=CH-C(CH3)2-CH2Cl)共面/共线/等效氢/双键数(错项=B)。计数 244→245。
-        ["pdf-387"] = "B"
+        ["pdf-387"] = "B",
+        // choice-coverage-expansion（α 单选）：pdf-388（化合物M/抗生素中间体类似物·错项=D）、
+        // pdf-394（四川南充·有机化合物说法正确的是·正确项=B）、pdf-459（制取BCl3装置能达目的·正确项=A）。
+        // 事实写入 choice-curated-facts（GC-757~GC-759）；stemMatch 全库唯一，4 选项各命中唯一事实，
+        // verdict 与官方 answer 一致；与 Experiment/Organic/Structure 无路由二义。计数 245→248。
+        ["pdf-388"] = "D",
+        ["pdf-394"] = "B",
+        ["pdf-459"] = "A",
+        // engine-capability-gap-fix T1：钠及其化合物转化/NA(正确项=D)+化学用语(正确项=C)。
+        // 事实写入 choice-curated-facts（GC-762~GC-763）；探针 TOTAL PROBLEMS=0，
+        // 4 选项各命中唯一事实，verdict 与官方 answer 一致，与 Experiment/Organic/Structure 无路由二义。计数 248→250。
+        ["pdf-090"] = "D",
+        ["pdf-188"] = "C"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

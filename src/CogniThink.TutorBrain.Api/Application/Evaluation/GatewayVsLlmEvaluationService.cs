@@ -78,6 +78,15 @@ public sealed class QaCaseResult
 
     /// <summary>结构化命中的资产类型 graph/curve/molecule；未命中为 null</summary>
     public string? StructuredAssetKind { get; set; }
+
+    /// <summary>P2-1 诊断：网关结论三态（Confirmed/CandidateSet/Insufficient）；仅观测，不计分（OQ-5）。</summary>
+    public ConclusionState GatewayConclusionState { get; set; }
+
+    /// <summary>P2-2 诊断：世界模型机理解释链节点数（EvidenceLevel=Trend，仅观测，不计分）。</summary>
+    public int GatewayExplanationNodesCount { get; set; }
+
+    /// <summary>P2-3 诊断：网关结论来源 provenance（equilibrium/curve_choice/concept_choice/graph/curve_reading/molecule/crystal；通用文本=null）。仅观测，不计分（spec CQ-2）。</summary>
+    public string? GatewayResultProvenance { get; set; }
 }
 
 /// <summary>网关模式 vs 纯LLM 对比汇总</summary>
@@ -194,6 +203,10 @@ public sealed class GatewayVsLlmEvaluationService
         var gwResult = await _gateway.ProcessStudentMessageAsync(c.Question, c.Images, imageAssets: c.ImageAssets, questionType: c.Type, ct: ct);
         result.GatewayConclusion = gwResult.EngineResponse.FinalResult;
         result.GatewayOk = gwResult.EngineResponse.Ok;
+        result.GatewayConclusionState = gwResult.EngineResponse.ConclusionState;
+        result.GatewayExplanationNodesCount = gwResult.EngineResponse.ExplanationNodes?.Count ?? 0;
+        // P2-3：诊断字段在采纳门（BuildGatewayAnswerAsync）之前赋值，采纳门不读取 → 不影响判分
+        result.GatewayResultProvenance = gwResult.EngineResponse.ResultProvenance;
         result.TaskType = gwResult.TaskType;
         result.GatewayUsedEngine = gwResult.EngineResponse.Ok.HasValue
                                    && gwResult.TaskType is not ("concept" or "unknown");
@@ -367,6 +380,35 @@ public sealed class GatewayVsLlmEvaluationService
         }
 
         return false;
+    }
+
+    /// <summary>
+    /// P1-2 多部分大题 AND 判分：结论必须命中答案键的全部非空关键词（与 IsAnswerCorrect 关键词路径同口径：
+    /// 同样的 NormalizeChemicalNotation 归一化、同样跳过空归一化标记、同样的 √/× 序列匹配），
+    /// 但语义从 OR（任一命中即对）收紧为 AND（全部命中才对），且至少需一个可校验关键词。
+    /// 用于 multi_part 聚合结论的采纳门：凡采纳必全对 → precision=1、零 harm。
+    /// 公开以供 P1-2 单元测试直接调用（同 IsAnswerCorrect 口径）。
+    /// </summary>
+    public static bool AllKeywordsHit(string? conclusion, QaTestCase c)
+    {
+        if (string.IsNullOrWhiteSpace(conclusion)) return false;
+        if (c.AnswerKeywords.Count == 0) return false;
+
+        var lower = NormalizeChemicalNotation(conclusion).ToLowerInvariant();
+        bool anyCheckable = false;
+        foreach (var k in c.AnswerKeywords)
+        {
+            var nk = NormalizeChemicalNotation(k);
+            // 与 IsAnswerCorrect 一致：归一化后为空的关键词（如纯注解标记 ↑↓△）不参与匹配，
+            // 避免恒真假阳性（precision=1 守卫）。
+            if (string.IsNullOrWhiteSpace(nk)) continue;
+            anyCheckable = true;
+            bool hit = IsCheckmarkKeyword(nk)
+                ? CheckmarkSequenceMatches(lower, nk)
+                : lower.Contains(nk.ToLowerInvariant());
+            if (!hit) return false; // AND：任一子问答案键未命中 → 整题不采纳
+        }
+        return anyCheckable;
     }
 
     /// <summary>
@@ -641,10 +683,20 @@ public sealed class GatewayVsLlmEvaluationService
         var conclusion = resp.FinalResult ?? string.Empty;
         var isChoice = IsChoiceQuestion(c.Question);
 
-        // 计算类：引擎给出了数值结果，直接作为回答（真值）
+        // P1-2 多部分大题分发聚合结论：必须全部子问答案键命中（AND）才采纳；
+        // 任一子问未命中 → null（不蒙数、不部分判正）→ precision=1、零 harm。
+        if (gw.TaskType == MultiPartUtility.MultiPartTaskType)
+        {
+            if (string.IsNullOrWhiteSpace(conclusion)) return null;
+            return AllKeywordsHit(conclusion, c) ? conclusion : null;
+        }
+
+        // 计算类：仅采纳经答案键校验通过的数值结论（凡采纳必判正 → precision=1、零 harm）。
+        // 化学正确但答案键缺失/错位（如 pdf-517 真值 9.76 vs 键 10.3）的结论不被采纳，不计「引擎解出」、不蒙数。
         if (gw.TaskType == "calculation")
         {
-            return string.IsNullOrWhiteSpace(conclusion) ? null : conclusion;
+            if (string.IsNullOrWhiteSpace(conclusion)) return null;
+            return IsAnswerCorrect(conclusion, c) ? conclusion : null;
         }
 
         // 原子结构（阶段4 / Tier 1）：PeriodicTable 真值源产出电子排布/周期族等结论。

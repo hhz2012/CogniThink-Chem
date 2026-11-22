@@ -33,6 +33,21 @@ public sealed class GatewayController : ControllerBase
         return Ok(result);
     }
 
+    /// <summary>
+    /// 学生面求解入口：输入学生文本，返回按 ConclusionState 裁剪的学生面视图，
+    /// 不泄露未采纳结论（Insufficient 不下发 final_result / 推理 / 解释）。
+    /// P2-4；内部复用 ProcessStudentMessageAsync，仅加只读投影，不改求解与判分。
+    /// </summary>
+    [HttpPost("solve")]
+    public async Task<IActionResult> Solve([FromBody] ProcessRequest request, CancellationToken ct)
+    {
+        if (string.IsNullOrWhiteSpace(request.Text))
+            return BadRequest(new { message = "text 不能为空" });
+
+        var result = await _gateway.ProcessStudentMessageAsync(request.Text, ct: ct);
+        return Ok(GatewaySolveProjector.Project(result));
+    }
+
     /// <summary>仅做输入标准化（识别任务 + 组装引擎请求），不调用引擎</summary>
     [HttpPost("parse")]
     public async Task<IActionResult> Parse([FromBody] ProcessRequest request, CancellationToken ct)

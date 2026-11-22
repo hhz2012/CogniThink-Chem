@@ -1,3 +1,5 @@
+using CogniThink.TutorBrain.Application.Gateway;
+
 namespace CogniThink.TutorBrain.Api.Contracts;
 
 /// <summary>
@@ -69,7 +71,8 @@ public sealed record SubmitStepResponse(
     int TotalSteps,
     List<WeakKnowledgeDto> WeakPrerequisites,
     ChemicalEvidenceDto? ChemicalEvidence,
-    ProblemDto? Variant);
+    ProblemDto? Variant,
+    List<ReasoningNode>? StandardReasoningChain);
 
 public sealed record ChemicalEvidenceDto(
     string QueryType,

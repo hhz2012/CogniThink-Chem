@@ -48,6 +48,18 @@ public static class ConceptFactSolver
                 Ok = true,
                 FinalResult = match.Answer,
                 DerivationSteps = match.Derivation,
+                ReasoningNodes = new List<ReasoningNode>
+                {
+                    new()
+                    {
+                        Step = 1,
+                        Description = "概念事实库唯一命中",
+                        Premises = new List<string> { "题干归一化后唯一匹配触发条件（RequiredAll 全中且 RequiredAny 命中，无歧义）" },
+                        KnowledgeId = string.IsNullOrEmpty(match.Id) ? null : match.Id,
+                        Conclusion = match.Answer,
+                        EvidenceLevel = EvidenceLevel.KnowledgeFact
+                    }
+                },
                 ConstraintNote = string.IsNullOrEmpty(match.Constraint)
                     ? "【概念事实库】高中限定"
                     : match.Constraint,

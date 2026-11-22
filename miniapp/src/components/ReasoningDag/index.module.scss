@@ -1,0 +1,62 @@
+.chainBlock {
+  margin-top: 20px;
+  padding: 20px;
+  background: #f4f8ff;
+  border-radius: 16px;
+  border: 1px solid #d9e6ff;
+}
+
+.chainTitle {
+  display: block;
+  font-size: 30px;
+  font-weight: 600;
+  color: #1f4f8a;
+  margin-bottom: 16px;
+}
+
+.chainNode {
+  margin-bottom: 16px;
+  padding: 16px;
+  background: #ffffff;
+  border-radius: 12px;
+}
+
+.chainNode:last-child {
+  margin-bottom: 0;
+}
+
+.chainStep {
+  display: block;
+  font-size: 26px;
+  font-weight: 600;
+  color: #2a6f4a;
+  margin-bottom: 8px;
+}
+
+.chainDesc {
+  display: block;
+  font-size: 28px;
+  color: #333333;
+  line-height: 1.5;
+}
+
+.chainPremise {
+  display: block;
+  font-size: 24px;
+  color: #666666;
+  margin-top: 8px;
+}
+
+.chainRef {
+  display: block;
+  font-size: 24px;
+  color: #888888;
+  margin-top: 6px;
+}
+
+.chainConclusion {
+  display: block;
+  font-size: 26px;
+  color: #2a6f4a;
+  margin-top: 8px;
+}

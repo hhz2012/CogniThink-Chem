@@ -45,7 +45,12 @@ public class Batch2ChoiceValidatorTests
 
         // 双选：题干「错误的是」，Experiment 校验器按 wrong 方向选 verdict==false 的选项
         ["pdf-071"] = "BD",
-        ["pdf-312"] = "AC"
+        ["pdf-312"] = "AC",
+        // engine-capability-gap-fix T1：实验安全(正确项=B)+沉淀法定量测NH4Cl热分解率(错项=C，WrongDir)。
+        // 事实写入 experiment-facts（EF-545~EF-546）；探针 TOTAL PROBLEMS=0，
+        // 4 选项各命中唯一事实，verdict 与官方 answer 一致，与 Organic/Structure 无路由二义。计数 23→25。
+        ["pdf-147"] = "B",
+        ["pdf-155"] = "C"
     };
 
     public static IEnumerable<object[]> ExperimentCases =>

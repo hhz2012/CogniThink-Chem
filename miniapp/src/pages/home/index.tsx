@@ -118,6 +118,12 @@ export default function Home() {
         >
           <Text className={styles.tutorEntryText}>🧭 伴思导学 · 分步推理</Text>
         </View>
+        <View
+          className={styles.tutorEntry}
+          onClick={() => Taro.navigateTo({ url: '/pages/solve/index' })}
+        >
+          <Text className={styles.tutorEntryText}>🧪 题目求解 · 引擎推理链</Text>
+        </View>
       </View>
 
       {/* ========== 6个专题卡片（2列 × 3行） ========== */}

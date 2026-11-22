@@ -125,6 +125,7 @@
 | pdf-522 | ✅ **已修复（本批次 J.1）** | 原 `answer="题目不完整，无法作答"` 占位、`question` 仅存半句「…的名称为」（结构图在 imageAssets）。据结构图 `p112_n05_4.png`（对称三取代酚：OH 1 位 / Br 2,4,6 位）+ imageAssets name「2,4,6-tribromo phenol」三重收敛，订正 answer/answerKeywords→「2,4,6-三溴苯酚」，note 重写溯源。 | 原占位非真实缺陷，是数据管道未读图；结构对称唯一确定 2,4,6-三溴苯酚（已排除 RDKit 自动 SMILES 键感知伪影）。 | 已修复；recheck 仅 info/V6（映射假阳性），0 新增嫌疑。详见 J.1。 |
 | pdf-164 | 大题碎片 + 跨题答案污染 | 大题第(5)小问「"沉淀"步骤中生成 BaTiO(C2O4)2 的化学方程式为____」（`taskType=unknown`）；但存储 `answerKeywords` 是**另一道大题（黄铜矿焙烧）**的内容 `(NH4)2SO4 △ 2NH3↑ + SO3↑ + H2O || Fe + Cu2+ = Fe2+ + Cu`，`note` 通篇讲 CuFeS2 焙烧/置换——与 BaTiO(C2O4)2 沉淀完全无关 | 题面与 answer/note 分属不同大题（跨题污染），无法对齐；缺官方源核对该小问方程 | 原页恢复该钛酸钡大题上下文，单独抽取 (5) 沉淀方程小问并核对键；暂保留 `null` |
 | pdf-165 | 大题碎片 + 跨题答案污染 | 大题第(6)小问「"热分解"生成粉状钛酸钡，产生的 nCO2 : nCO = ____」；但存储 `answerKeywords` 是**另一道大题（铜/银提萃）**的内容 `ds 3d10 4s1（Cu 电子排布） || Cu2Se + 4H2O2 + 4H+ = … || 使 Ag+ 转化为 AgCl 沉淀 || 提高银回收率`，`note` 通篇讲 Cu/Cu2Se/Ag——与 BaTiO3 热分解完全无关 | 题面与 answer/note 分属不同大题（跨题污染），无法对齐；缺官方源核对 nCO2:nCO | 原页恢复钛酸钡热分解大题上下文，单独抽取 (6) 小问并核对键；暂保留 `null` |
+| pdf-172 | 大题碎片 + 跨题答案污染（**P1-3 新登记**） | 大题第(6)小问「1.0 Kg 蛇纹石“矿化”固定 CO₂，得到 0.466 kg Mg₅(CO₃)₄(OH)₂·4H₂O，相当于固定 CO₂______ L（标准状况）」——题面是**完整的数值计算小问**（数据齐备、可由摩尔质量唯一确定体积）；但存储 `answerKeywords=['AC']` 与 `note`（通篇讲 1~36 号元素中 Cr / Cu 核外电子排布是否遵循构造原理）属于**另一道选择题**，与 CO₂ 固定体积完全无关（答非所问） | 题面与 answer/note 分属不同题（跨题污染），数值计算键缺失、无法对齐；缺官方源核对该小题数值键 | 原页恢复蛇纹石矿化大题上下文，单独抽取 (6) 小问并核对数值键；归**数据管道键修复**。暂保留 `null`。P1-3 审计出处：[p13_inspect_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p13_inspect_ids.txt) |
 | pdf-117 | 大题子问抽取丢失（仅抽到 (1)） | `question` 仅含判断大题第(1)小问「Si 是半导体材料，同族的 Ge 也是半导体材料，则ⅣA 族元素的单质都是半导体材料（ ）」（`taskType=judgment`，`frag=True`）；但 `answerKeywords` 列了 **14 条判断结果**（对应完整 14 小问 (1)–(14)）——数据切片时只抽到了 (1)，(2)–(14) 的题干全部丢失 | 题面缺 (2)–(14) 子问原文，引擎无文本可判 14 条结论；answerKeywords 与题面条目数不匹配 | 原页恢复 (2)–(14) 子问题干后重判；暂保留 `null` |
 | pdf-461 | ✅ **已修复（本批次 J.1）** | 原题干在 p32 页尾截断（仅剩镓提取工艺背景），answer/kw/note 占位「题目不完整，缺少具体问题」、type=other 无图。据 OCR p32/p33 + 流程图 `p033_n01_r0.png` 重建子问 (1)–(4)，type→fill，挂流程图；answer 据官方答案册 `page_040.json` num=5。 | 官方 exercise 抽取截断（V3 假阳性），库题干补全后与原页题 5 逐字吻合，答案与官方册一致。 | 已修复；recheck 为 info/V6 + suspect/V3（官方截断假阳性），0 新增 α 缺陷。详见 J.1。 |
 | pdf-531 | 题干拼接两题 + 题型混杂 | 题干前半为滴定题、后半为 Te 量子点，且带填空型片段；askDir/stemMatch 不可靠，无全库唯一锚点 | 拼接致题干语义不唯一，无法提取可靠 stemMatch；题型混杂致选项/答案对齐失败 | 原页拆分为独立题录后重判；暂保留 `null` |
@@ -339,7 +340,11 @@
 
 ### K.1 多部分大题·子问异构（引擎无子问分发与逐子问聚合）—— 最大簇
 
-> 共同根因：一条题录含多子问，各子问分属**方程书写 / 化学计算 / 概念解释 / 选字母 / 流程推断**等不同求解域，但引擎以单一 taskType 整体调度，无法把每个空格分发到对应求解器并聚合；部分子问还依赖流程/装置图（文本外数据）。**当前处置：保持 `null`。** 建议接续方向：子问分发架构（按 `(1)(2)…` 切分题面 → 逐子问 `ClassifyTaskDeterministic` → 各子问独立求解 → 按空格聚合回填）。
+> 共同根因：一条题录含多子问，各子问分属**方程书写 / 化学计算 / 概念解释 / 选字母 / 流程推断**等不同求解域，但引擎以单一 taskType 整体调度，无法把每个空格分发到对应求解器并聚合；部分子问还依赖流程/装置图（文本外数据）。**当前处置：保持 `null`。**
+>
+> **【P1-2 交付（分发骨架 + AND 判分，纯基础设施）】** 子问分发架构已落地：[MultiPartUtility](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/MultiPartUtility.cs)（多部分检测 + `(N)` 编号切分，口径复用 `MultiSubCorrectnessSolver.SubMarker`，天然排除 `(2025·北京卷)`/`[Cu(NH3)4]`/`(FeSO4·7H2O)`）、[LlmGatewayService.MultiPartDispatch](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.MultiPartDispatch.cs)（仅在整题未解 `Ok!=true` 时 fallback 激活 → 629 道已解对题零回归；逐子问复用现有求解器，任一子问未解 → 整体返回 `null`，不蒙数、不输出部分答案）、评估侧 `BuildGatewayAnswerAsync` 对 `task_type=multi_part` 聚合结论走**答案键 AND 判分**（全部子问键命中才采纳，凡采纳必全对 → precision=1 / harm=0 构造保证）。**AC-4 据实校准为 ≥0**：T0 + P1-3 就位后重审均确认 **0/27** 可由现有求解器全覆盖子问——阻塞子问为「自由文本解释」（→ P1-4 自由填空概念求解器）/「图像依赖」（→ P2-3 图像融合）/「热化学·Ksp·滴定·平衡·有机等其他计算域」（→ 后续域计算器）。本项交付纯基础设施，**零即时增益、零回归**。
+>
+> **实证（`after_p12`，Production LLM off，757 题）**：27 道 K.1 全部 `correct=false / adopted=false`（`unsolved_bothwrong`），0 错采纳；全库 global `adopted∧¬correct = 0`，precision=1 / harm=0。权威 diff：对 `base_p0` → LOST=0 / WORSEN=0 / harm=0（GAINED=1 为 P1-3 的 trap-limit-2 携带，非 P1-2）；对 `after_p13` → GAINED=0 / LOST=0 / WORSEN=0（P1-2 零影响隔离证明）。后续 P1-4 / P2-3 解锁子问后，分发骨架可在不动判分门的前提下产出增益。证据：[p12_verify_after.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p12_verify_after.py)、[p12_reaudit.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p12_reaudit.txt)、[p12_check_states.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p12_check_states.py)。
 
 | id | diagnose taskType | 子问构成（摘要） | 已有登记 |
 |----|-------------------|------------------|----------|
@@ -374,14 +379,39 @@
 ### K.2 纯计算 / 定量域——KB 与域计算器不覆盖（数据完整、单空格，但无求解器产出）
 
 > 共同根因：题面文本与数据完整（滴定/水解/误差分析），但引擎缺对应**域计算器**（滴定分析质量分数、盐类水解 pH、定量实验误差），返回 `null`。**当前处置：保持 `null`。** 建议接续方向：滴定分析域计算器 / 水解 pH 计算器 / 定量实验误差分析求解器。
+>
+> **【P1-3 修订】** 已落地水解 pH 计算器（`HydrolysisPhCalculator`，查 `acid-constants.json`）与氧化还原比例计算器（`RedoxRatioCalculator`），作为 `CallCalculation` 末尾**兜底**基础设施（既有求解器全 miss 才触发，零域外假阳性）。逐题核对后：pdf-517 计算器诚实算出 pH≈9.76，但与存储键 10.3 冲突（见下）→ 不采纳，无 gain 无 harm；pdf-030 实为未定值变量题 + 键错位，非纯计算可解。排除闭环见下方「K.2 附」。
 
 | id | diagnose taskType | 计算内容 | 已有登记 |
 |----|-------------------|----------|----------|
-| pdf-030 | equilibrium | Bi³⁺ 质量分数（EDTA 滴定，列计算式） | — |
-| pdf-415 | calculation | 调 pH 除去的离子判断（流程除杂离子） | — |
-| pdf-517 | calculation | 0.01 mol·L⁻¹ NaClO 溶液 pH（盐类水解） | — |
-| pdf-535 | calculation | 配制 NaOH 浓度误差判断 + 操作名（定量实验误差） | — |
-| pdf-543 | calculation | 加硫酸调 pH 目的解释（流程目的自由文本） | — |
+| pdf-030 | equilibrium | Bi³⁺ 质量分数（EDTA 滴定，列计算式） | **P1-3 排除**：题干含未定值变量 `a g` / `b mL` 且明确要求「列出计算式，不用化简」→ 无唯一数值解（不蒙数）；存储键 `25.00%` 与变量式题干不对齐，疑似数据错位。归**数据管道键修复**；非纯计算可解。 |
+| pdf-415 | calculation | 调 pH 除去的离子判断（流程除杂离子） | ✅ **P1-4 已解出**（概念事实库，见 §L.1）：原误路由 calculation，路由 cue「除去的离子」先于 calculation 截走 → concept → 事实唯一匹配命中，eval after_p14 correct=true。 |
+| pdf-517 | calculation | 0.01 mol·L⁻¹ NaClO 溶液 pH（盐类水解） | **P1-3 答案键冲突**：`HydrolysisPhCalculator` 查 `acid-constants.json`（Ka(HClO)=3.0×10⁻⁸）算得 pH≈9.76，存储键 10.3 与真值冲突（达 10.3 需 Ka≈2.5×10⁻⁹；其 note 自承「pH=9.76≈10.3」为强行近似）。按红线不蒙数：计算器诚实输出 9.76 但**不匹配键 → 不被采纳**（`gatewayTruthAdopted=false`，无 gain 无 harm）。归**数据管道键修复**（核对官方键）。证据：[p13_truth_check.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p13_truth_check.py)。 |
+| pdf-535 | calculation | 配制 NaOH 浓度误差判断 + 操作名（定量实验误差） | ✅ **P1-4 已解出**（概念事实库，见 §L.1）：原误路由 calculation，路由 cue「配制∧浓度∧可能」截走 → concept → 事实唯一匹配命中，eval after_p14 correct=true。 |
+| pdf-543 | calculation | 加硫酸调 pH 目的解释（流程目的自由文本） | ✅ **P1-4 已解出**（概念事实库，见 §L.1）：原误路由 calculation，路由 cue「ph∧目的」截走 → concept → 事实唯一匹配命中，eval after_p14 correct=true。 |
+
+### K.2 附：P1-3 纯计算域审计排除闭环（AC-5：0 静默遗漏）
+
+> P1-3 审计范围 = 128 未解中剔除 27 道 K.1 多部分后的 **101 道非多部分未解**（证据：[p13_scope_report.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p13_scope_report.txt)、[p13_inspect_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p13_inspect_ids.txt)）。初筛「calc 信号 ∧ 无图 ∧ 无自由文本 ∧ 单部分」得 **12 道候选**，逐题核对后仅 `trap-limit-2` 可零风险解出（已解，GAIN +1），`pdf-517` 因答案键冲突跳过（已建计算器基础设施，不采纳），其余 **13 道 + 深度核对补登 3 道（pdf-160/165/172）= 14 道排除**，逐题登记如下。排除集合 = 审计集合，差集为空，**0 静默遗漏**。
+
+| 排除 id | taskType | 根因 | 归属 spec / 处置 | 登记位置 |
+|---------|----------|------|-----------------|----------|
+| trap-limit-3 | calculation | 与量有关离子方程式，属方程书写域，非数值计算 | P1-1 equation_writer 已路由；保持 null | §G⑥ / 引言（合成探针，非 pdf_questions 数据） |
+| pdf-030 | equilibrium | 未定值变量 a/b + 要求「列计算式不化简」→ 无唯一数值解；键 25.00% 疑似错位 | 数据管道键修复；不蒙数 | §K.2（上表已更新） |
+| pdf-517 | calculation | 答案键冲突（真值 pH≈9.76 vs 键 10.3）；计算器已建但不采纳 | 数据管道键修复；P1-3 基础设施留用 | §K.2（上表已更新）；证据 p13_truth_check.py |
+| pdf-415 | calculation | 「除去的离子有」自由填空概念，非数值 | ✅ P1-4 已解出（概念事实库，见 §L.1） | §L.1 / §K.2（上表已更新） |
+| pdf-197 | choice | 题干拼接两道题，answer/options/note 错配 | 数据管道拆分 | §A.2 |
+| pdf-263 | choice | 多陈述选择题「正确的有几项」，非纯数值；键自相矛盾 | chem-fact-curation / 原页核型 | §C |
+| pdf-355 | equation_writer | 题干拼接两题（填空+选择），answer 错配前半填空 | 数据管道拆分 | §E |
+| pdf-356 | equation_writer | 题干拼接两题 + 后半选择依赖缺失路线图 | 数据管道拆分 + 图像轨道 | §E |
+| pdf-463 | calculation | 大题碎片缺沉淀 pH / Ksp 数据 + 小写选项键 | P1-2 多部分分发 / 数据管道 | §E |
+| pdf-160 | unknown | checkpoint 题干仅存大题引语，(1)–(5) 子问被剥离，键跨 5 子问 | P1-2 多部分分发 / 数据管道补全 | §G① |
+| pdf-165 | unknown | 大题碎片 + 跨题答案污染（键属 Cu/Ag 提萃大题） | 数据管道键修复；P1-2 | §E |
+| pdf-172 | unknown | 大题碎片 + 跨题答案污染（键 `AC` / note 属 Cr/Cu 构造原理选择题） | 数据管道键修复 | §E（本批次新增） |
+| pdf-526 | equation_writer | 有机推断（乳酸自身酯化六元环酯），非确定型模板可唯一覆盖 | P1-1 方程域（已路由） | §G⑥ |
+| pdf-527 | equation_writer | 有机推断（乳酸自身酯化聚酯含 n），ChemicalChecker 拒绝 | P1-1 方程域（已路由） | §G⑥ |
+
+> **闭环核对**：解出 1（trap-limit-2）+ 排除 14 = 15，与 P1-3 触及的全部候选 id（12 初筛 + 3 深度核对 160/165/172）一一对应；排除集合 ⊆ 已登记集合，差集为空。
 
 ### K.3 方程书写——KB 无法唯一确定 / 答案键假命中 / 多方程冲突（T5 已论证禁硬凑）
 
@@ -456,6 +486,383 @@
 
 > **去重说明**：pdf-010 同时属 K.3（多方程）与 K.4（占位噪声）；pdf-272 同时属 K.1（多子问）与 K.4（占位噪声）。二者在「未解题清单」与闭包集合中各计 1 次，上表按根因维度交叉列出，不重复计入 61。
 > **集合恒等式**：解出(8) + 未解题(53) = 61。未解题(53) = K.1(27) ∪ K.2(5) ∪ K.3(4) ∪ K.4(4) ∪ K.5(2) ∪ K.6(6) ∪ K.7(7)，各类求和 55，去重交叉项（pdf-010 同时属 K.3/K.4、pdf-272 同时属 K.1/K.4，各仅计 1 次）后 = 53，与 [unsolved_registered_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/unsolved_registered_ids.txt) 逐行一致；差集为空，0 静默遗漏。
+>
+> **【P1-4 后续更新】** K.2 中的 pdf-415 / pdf-535 / pdf-543 已由 P1-4 自由填空概念求解器解出（见 §L.1），现行未解题 = 53 − 3 = 50；本行及上表为 P1-1 交付时点的闭包快照（61 全覆盖、0 静默遗漏依然成立），[unsolved_registered_ids.txt] 同步冻结为该时点清单。
+
+---
+
+## L 类：P1-4 自由填空概念求解器闭环（spec: free-fill-concept-solver）
+
+> **范围**：`after_p12` 127 道未解中，扣除 27 道 K.1 多部分大题后的自由填空概念簇——答案为短文本概念/目的/作用/成分/误差结论，非数值/方程/选择/图像依赖。复用现有 `ConceptFactSolver`（唯一匹配→不蒙数）+ 评估侧 `IsAnswerCorrect` 采纳门（凡采纳必判正→precision=1 构造保证），不新建求解器类；最小化表面积：仅改 `data/highschool/concept-facts.json`（追加 5 条，version 1.4→1.5）+ `ClassifyTaskDeterministic` 路由（3 条 cue 先于 calculation 截走，全库 757 预校验 0 漂移）。
+> **红线结果**：eval `after_p14`（Production LLM off，757/757 完成、failed=0）correct=635 / adopted=635；diff `after_p12`→`after_p14` **GAINED=5 / LOST=0 / WORSEN=0 / harm=0**，global `adopted∧¬correct=0`（precision=1）。diff `base_p0`→`after_p14` GAINED=6（5 道 P1-4 + P1-3 携带的 `trap-limit-2`）/ LOST=0 / WORSEN=0 / harm=0。
+> **证据**：T0 审计 [p14_t0_audit.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p14_t0_audit.py)、路由 0 漂移预校验 [p14_routing_drift_precheck.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p14_routing_drift_precheck.py)（→ [p14_tasktype_diff.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p14_tasktype_diff.txt)）、T1 后事实库验证 [p14_post_t1_verify.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p14_post_t1_verify.py)、T4 eval 验证 [p14_verify_after.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p14_verify_after.py)、闭包核对 [p14_closure_check.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p14_closure_check.py)。
+
+### L.1 解出清单（5 道，correct=true && truthAdopted=true）
+
+| id | 原 taskType | 入库事实 id（concept-facts.json） | 解出路径 |
+|----|------------|----------------------------------|----------|
+| pdf-415 | calculation（误路由） | `fill-purify-acid-ph-remove-ions` | Part B 路由 cue「除去的离子」先于 calculation 截走 → concept → 事实唯一匹配命中；`answer`=`OH⁻、CO₃²⁻` 命中答案键 |
+| pdf-543 | calculation（误路由） | `fill-v-recovery-acid-ph-purpose` | Part B 路由 cue「ph∧目的」截走 → concept → 唯一匹配；`answer`=`除去溶液中过量的OH⁻和CO₃²⁻，防止后续生成杂质沉淀` 命中答案键 |
+| pdf-535 | calculation（误路由） | `fill-solution-prep-concentration-shake` | Part B 路由 cue「配制∧浓度∧可能」截走 → concept → 唯一匹配；`answer`=`偏小；摇匀` 命中答案键 |
+| pdf-542 | unknown（已达事实库） | `fill-precipitate1-metal-elements` | 路由不动（unknown 瀑布含 ConceptFactSolver），Part A 事实补全 → 唯一匹配；`answer`=`Fe、Al` 命中答案键 |
+| pdf-530 | unknown（已达事实库） | `fill-plan2-advantage` | 路由不动，Part A 事实补全 → 唯一匹配；`answer`=`操作更简便，反应条件更温和` 命中答案键 |
+
+> 全库唯一性：每条新事实在 757 题中恰匹配 1 题（无歧义，不会被 `ConceptFactSolver` 的 `>1→null` 守卫吞掉）；0 漂移（不命中任何已判正题）；答案均命中目标答案键。证据 [p14_post_t1_verify.py]（34 条目、5 目标各 1 命中、0 漂移、5/5 答案键命中，ALL PASS）。
+
+### L.2 排除项（保持 `null`，0 损失，precision=1 不妥协）
+
+| id | 排除原因 | 归属 / 建议下一步 |
+|----|----------|-------------------|
+| pdf-483 | 触发「加入氯化钠+作用」与**已判正** pdf-477 重叠 → 任何概念事实都会同时命中两者（count=2），触发唯一性铁律返回 null；无化学区分 token（差异仅碎片编号），强行消歧违反红线 #6。**另**：整条题面与大题 pdf-477 第(6)小问逐字相同，是数据切片重复题录（见 §E pdf-483 行）。 | 数据管道去重（删除 pdf-483 或合并入 pdf-477）；文本轨道保持 `null`。双重排除理由。 |
+| pdf-541 | 触发「玻璃仪器+烧杯」与 pdf-414 重叠（均未判正）→ 2 命中 → `ConceptFactSolver` 返回 null（无增益无伤害）；暂无目标独有 token 可消歧。 | 待数据管道补全唯一锚点，或求解器支持互斥条件后重评；保持 `null`。 |
+| pdf-177 | 答案键为多子问合并串 `(1)...(4)...`，单条事实 `answer` 无法作为子串命中 → 属多部分大题域，非单条概念事实可解。 | 归 P1-2 多部分分发 + 后续子问求解器（见 §K.1）；保持 `null`。 |
+
+### L.3 集合闭包核对（AC-8：0 静默遗漏）
+
+> P1-4 审计候选全集 = T0 `p14_t0_audit.py` PROPOSALS 枚举的 **8 道**自由填空概念题。
+
+| 处置 | 题数 | 题号 |
+|------|------|------|
+| 解出（L.1） | 5 | pdf-415, 530, 535, 542, 543 |
+| 排除保持 null（L.2） | 3 | pdf-483, 541, 177 |
+
+> **闭包恒等式**：候选(8) = 解出(5) ∪ 排除(3)，两两无交集、差集为空。`after_p14` 实证：5 解出题全部 correct=true；3 排除题全部 correct=false ∧ adopted=false（保持 null）；全局新增采纳集恰为 5 解出题，无多余采纳（不蒙数）。证据 [p14_closure_check.py]（PASS）。
+
+---
+
+## M 类：P1-5 路由补齐闭环（spec: routing-unknown-backfill）
+
+> **范围**：`after_p14` 32 道 `taskType=unknown`（全部未判正）的路由卫生收敛。在 `ClassifyTaskDeterministic` 插入 cue A（方程书写问法补齐 → `equation_writer`），并修复 cue A 引发的回归：`equation_writer` 分支补齐 `ProductWriterSolver`（与 `reaction_check`/`CallCompile` 作家链同序：Product → Known → ReactionKb）。最小表面积：仅改 `LlmGatewayService.cs`（cue A 插入 + equation_writer 分支补 `ProductWriterSolver`）+ 测试；不动 JSON 数据、不动评估代码、不硬编码化学真值。
+> **诚实口径**：纯路由新增解对数 = 0（spec §2.1：unknown 瀑布已覆盖廉价求解器）。本 spec 目标 = 路由卫生（unknown 32→27↓ + 零有害漂移），不解新题。
+> **红线结果**：eval `after_p15b`（Production LLM off，757/757、failed=0）correct=635 / adopted=635；diff `after_p14`→`after_p15b` **GAINED=0 / LOST=0 / WORSEN=0 / harm=0**；diff `base_p0`→`after_p15b` GAINED=6（P1-4 携带）/ LOST=0 / WORSEN=0 / harm=0；global `adopted∧¬correct=0`（precision=1）。
+> **回归修复留痕（实证，非推理）**：cue A 首版 eval `after_p15` 出现 **LOST=1（pdf-515）**。根因：pdf-515 在 `after_p14` 由 LLM 兜底分类为 `reaction_check`（确定性分类器返回 unknown 时保留 LLM 结果），经 `CallCompile` 作家链中的 `ProductWriterSolver`（NaCN + 少量 CO2 规则，[ProductWriterSolver.cs L121-123](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ProductWriterSolver.cs#L121-L123)）解出，输出指纹 `离子方程式：CN- + CO2 + H2O → HCN + HCO3-`（`→`+去`^`，唯一定位该求解器）；cue A 将其重分类为 `equation_writer` 后，该分支原本只调 `KnownEquationWriterSolver` + `ReactionKbWriterSolver`，**不含 `ProductWriterSolver`** → 丢失求解器 → LOST（`ReactionKbWriterSolver` 因题干无 H2O、KB 要求反应物全在题干而返回 null）。修复（用户确认方案 a）：`equation_writer` 分支按 `reaction_check` 同序补齐 `ProductWriterSolver`，命中后置 `reaction_check` 走同一采纳门（凡采纳必经 `IsAnswerCorrect` 校验 → precision=1，不蒙数）。修复后 `after_p15b` pdf-515 恢复判正，全库零回归。spec §2.3 原推理（"5 道均由 unknown 瀑布 ReactionKbWriterSolver 解出"）经实证更正：5 道实际经 LLM→`reaction_check`→`CallCompile` 作家链（pdf-174/417=ReactionKb，pdf-456/539=Known，pdf-515=Product）解出。
+> **证据**：0 漂移预校验 [p15_drift_precheck.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p15_drift_precheck.py)（→ [p15_drift_precheck.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p15_drift_precheck.txt)）、T4 eval 验证 [p15_verify_after.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p15_verify_after.py)、闭包核对 [p15_closure_check.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p15_closure_check.py)。
+
+### M.1 cue A 重分类 16 道去向表（全库 757 预校验，affected=16）
+
+Port 口径（确定性分类器 old→new）：16 道 old≠new，全部 → `equation_writer`；无 choice/judgment/equilibrium/balance/ion_check/structure/vsepr/titration/atomic 被截走（不窃取高优先级）。
+
+| 去向（port old→new） | 题数 | 题号 | runtime after_p14 taskType | after_p15b 结果 |
+|---|---|---|---|---|
+| unknown→ew（runtime 属 unknown，卫生收益） | 5 | pdf-097, 164, 177, 179, 462 | unknown | 仍未判正（锚点不全/KB 缺口 → Ok=null），taskType→equation_writer，无伤害 |
+| unknown→ew（runtime 属 reaction_check，已判正，保持判正） | 5 | pdf-174, 417, 456, 515, 539 | reaction_check | **全部保持 correct=True**（作家链产出同一结论后回写 reaction_check）；pdf-515 经 ProductWriterSolver |
+| unknown→ew（runtime 属 reaction_check，未判正） | 1 | pdf-171 | reaction_check | 仍未判正，无伤害 |
+| concept→ew | 2 | pdf-484, 532 | concept | 仍未判正，无伤害 |
+| calculation→ew | 3 | pdf-156, 166, 244 | calculation | 仍未判正，无伤害 |
+
+> 5 道已判正保持判正的实证（eval，非推理）：`after_p15b` 中 pdf-174/417/456/515/539 全部 `gatewayCorrect=True`、`taskType=reaction_check`；`diff after_p14→after_p15b` LOST=0。
+
+### M.2 范围外 27 道（保持 unknown，逐项归属 spec §2.2）
+
+`after_p14` 32 道 runtime-unknown 中，5 道被 cue A 重分类离开 unknown（M.1 卫生收益），其余 **27 道保持 unknown**（B 集），均属 spec §2.2 范围外类别，不纳入 P1-5：
+
+| 类别（spec §2.2） | 题数 | 题号 | 处置 |
+|---|---|---|---|
+| 多部分大题（仅 mp） | 3 | pdf-176, 198, 541 | 范围外 → P1-2 多部分分发 |
+| 仅图像（img） | 3 | pdf-159, 160, 205 | 范围外 → P2-3 图像管道 |
+| 多部分 + 图像 | 4 | pdf-215, 391, 413, 528 | 范围外 → P1-2 / P2-3 |
+| 数据缺陷（答案错位/题面碎片/裸字母键） | 5 | pdf-165, 172, 180, 333, 377 | 范围外 → 数据管道键修复（§E） |
+| 有机官能团/命名（缺分子图+缺命名求解器） | 8 | pdf-322, 323, 324, 519, 520, 521, 522, 523 | 范围外 → 图像恢复 + 新命名求解器（未来 spec） |
+| 概念事实重叠/重复题录 | 1 | pdf-483 | 范围外（§L.2 已排除）→ 数据去重 |
+| 装置命名（缺图标号） | 1 | pdf-534 | 范围外 → 图像恢复 |
+| 自由文本分析（无对应求解器） | 1 | pdf-537 | 范围外 → 概念解释求解器（未来 spec） |
+| 题面碎片 | 1 | pdf-161 | 范围外 → 数据管道补全 |
+
+> 核对：3+3+4+5+8+1+1+1+1 = **27** = B 集，与 `p15_closure_check.py` 输出一致。
+
+### M.3 集合闭包核对（AC-7：0 静默遗漏）
+
+> P1-5 作用域全集 = `after_p14` runtime `taskType=unknown` 的 **32 道**（U）。
+
+| 处置 | 题数 | 题号 |
+|------|------|------|
+| 被 cue A 重分类离开 unknown（A，卫生收益，仍未判正无伤害） | 5 | pdf-097, 164, 177, 179, 462 |
+| 保持 unknown（B，范围外，M.2） | 27 | （见 M.2 表） |
+
+> **闭包恒等式**：U(32) = A(5) ∪ B(27)，A∩B=∅，差集为空（U-(A∪B)=∅）。`after_p15b` 实证：A 全部不再是 unknown（taskType→equation_writer，correct=false ∧ adopted=false，保持不蒙数）；B 全部仍为 unknown（correct=false）。另：5 道 correct-touched（pdf-174/417/456/515/539）∉ U（runtime 非 unknown），全部保持 correct=True。全局 `adopted∧¬correct=0`。证据 [p15_closure_check.py]（PASS）。
+
+---
+
+## N 类：P2-1 统一推理 DAG 与结论三态契约闭环（spec: unified-reasoning-dag）
+
+> **范围**：网关 `EngineResponse` 契约**加性**统一 — 新增 `ReasoningNode`（可溯源到 rule/knowledge + evidence_level）与 `ConclusionState` 三态（Confirmed/CandidateSet/Insufficient）；`ConclusionStateDeriver` 从现有信号（Ok / FinalResult / NeedMoreCondition）只读派生，不写回 Ok/FinalResult/TaskType，**不影响采纳门**。4 个有明确 knowledge_id/rule_id 真值源的示范 solver 命中路径填充 `ReasoningNodes`，其余生产路径保持 `DerivationSteps` 字符串、`ReasoningNodes` 留空。最小表面积：加性字段 + 派生调用点 + 4 solver + 诊断字段贯通 + 测试；不动 JSON 数据、不动评估判分、不动采纳门、不硬编码化学真值。
+> **诚实口径**：eval 正确性增益 = 0（结构卫生；为 P2-2 evidence_level 与 P2-4 前端 DAG 提供可溯源数据，使信息不足显式化）。**红线结果**：eval `after_p21` correct=635（== after_p15b）；diff `after_p15b`→`after_p21` **GAINED=0 / LOST=0 / WORSEN=0 / harm=0**；diff `base_p0`→`after_p21` LOST=0 / WORSEN=0 / harm=0（GAINED=6 为 P1-4 携带）；`p21_verify_after.py` adopted∧¬correct=0、派生 0 不一致、CandidateSet=0。
+
+### N.1 本 spec 触及文件清单（content attestation，非 git diff——自 P0 未提交）
+
+**新增**：
+- [ReasoningContracts.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ReasoningContracts.cs)：`ReasoningNode` / `ConclusionState` / `EvidenceLevel` 类型 + `ConclusionStateDeriver`。
+
+**修改（加性，不删改既有字段/逻辑）**：
+- [GatewayContracts.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/GatewayContracts.cs)：`EngineResponse` 加 `ReasoningNodes` + `ConclusionState`（默认值不破坏 wire）。
+- [LlmGatewayService.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.cs)：`ProcessStudentMessageAsync` 内 `ConclusionStateDeriver.Derive` 调用点 1 处。
+- [ConceptFactSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ConceptFactSolver.cs)：命中路径填 `ReasoningNodes`（KnowledgeId=match.Id，KnowledgeFact）。
+- [ReactionKbWriterSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ReactionKbWriterSolver.cs)：命中路径填 `ReasoningNodes`（`KbLookupMolecular`/`KbLookupIonic` 返回 `List<ReactionEntry>` 透传 entry.Id → RuleId/KnowledgeId）。
+- [AtomicStructureSolver.cs](file:///d:/github/CogniThink.TutorBrain.Api/Application/Gateway/AtomicStructureSolver.cs)：命中路径填 2 节点链（periodic_table → rule:aufbau_hund_pauli）。
+- [VseprSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/VseprSolver.cs)：命中路径填节点（vsepr_table / rule:vsepr_lone_pair_repulsion）。
+- [GatewayVsLlmEvaluationService.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs)：仅 `QaCaseResult` 加诊断字段 `GatewayConclusionState`（L83）+ `EvaluateCaseAsync` 赋值（L200）；`BuildGatewayAnswerAsync` 方法体（L664 起）**未动**。
+- [Program.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.EvalRunner/Program.cs)：`MapQaCase` 快照加 `conclusionState` 字段。
+
+**测试**：[ReasoningContractDeriverTests.cs](file:///d:/github/CogniThink-Chem/tests/CogniThink.TutorBrain.Tests/ReasoningContractDeriverTests.cs)（10）、[ReasoningSolverTraceabilityTests.cs](file:///d:/github/CogniThink-Chem/tests/CogniThink.TutorBrain.Tests/ReasoningSolverTraceabilityTests.cs)（5）。
+
+**未触及**：`data/highschool/*.json`、`data/rules/*.json`、`BuildGatewayAnswerAsync` 方法体、任何判分逻辑。
+
+### N.2 待迁移 solver 清单（ReasoningNodes 暂留空，DerivationSteps 保持字符串）
+
+P2-1 仅示范 4 个有明确 knowledge_id/rule_id 真值源的 solver（ConceptFact / ReactionKb / 原子结构 / VSEPR）。以下生产 `EngineResponse` 构造 / `DerivationSteps` 写入点**未填充 `ReasoningNodes`**，保持 `DerivationSteps` 字符串（spec CQ-1 选项 A：增量迁移，表面积可控、零回归）。迁移留待 P2-1.x / P2-2（evidence_level 消费方落地后按优先级推进）：
+
+| 生产者文件 | 写入点 | 真值源 / 迁移优先级 |
+|---|---|---|
+| [LlmGatewayService.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.cs) | `CallEngineAsync` 内联构造（choice/concept/redox/equilibrium/organic/structure/experiment/molc/count/stoi/multi 等 ~40 处）+ 颜色/酸碱共存/热化学等分支 | 高：聚合各校验器 Reasons，迁移需逐分支映射到校验器的 knowledge/rule id |
+| [LlmGatewayService.MultiPartDispatch.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.MultiPartDispatch.cs) | 多部分分发构造 | 中：依赖多部分分发聚合 |
+| [RedoxGatewaySolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/RedoxGatewaySolver.cs) | 5 处 | 中：氧还规则有 rule id |
+| [ProductWriterSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ProductWriterSolver.cs) | 1 处 | 高：有规则命中（NaCN+CO2 等），可挂 RuleId |
+| [KnownEquationWriterSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/KnownEquationWriterSolver.cs) | 2 处 | 高：已知方程模板有 id |
+| [ConceptVerdictSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ConceptVerdictSolver.cs) | 1 处 | 中 |
+| [ImpurityTrapSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ImpurityTrapSolver.cs) | 1 处 | 低：陷阱守卫，无知识源 |
+| [MultiSubCorrectnessSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/MultiSubCorrectnessSolver.cs) | 1 处 | 中 |
+| [CrystalCellValidator.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/CrystalCellValidator.cs) | 1 处 | 高：有 crystal 资产 → KnowledgeId |
+| [HalfReactionBalancer.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/HalfReactionBalancer.cs) | 1 处 | 高：`data/knowledge/electrode-half-reactions.json` → RuleId |
+| [HydrolysisPhCalculator.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/HydrolysisPhCalculator.cs) | 1 处 | 中：计算推导 → EngineDerived |
+| [RedoxRatioCalculator.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/RedoxRatioCalculator.cs) | 1 处 | 中：计算推导 → EngineDerived |
+| [JudgmentStatementAggregator.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/JudgmentStatementAggregator.cs) | 1 处 | 中：聚合各 `IStatementJudge` |
+
+> 另：`Batch2NarrowCalcSolver` / `StoichiometryStateTrapSolver` / `ThermochemicalHessSolver` / `GraphSolver` / `BalanceGatewaySolver` 自身不直接写 `DerivationSteps`，其产出经 `LlmGatewayService` 内联构造或聚合器消费，随 `LlmGatewayService` 迁移一并覆盖。
+
+### N.3 ConclusionState 与原 Ok / NeedMoreCondition 映射对照表（可审计）
+
+| 原信号（Ok / FinalResult / NeedMoreCondition） | ConclusionState | 含义 | eval 计数（after_p21） |
+|---|---|---|---|
+| 求解器显式置 CandidateSet | CandidateSet | 多候选未唯一（当前无生产路径，预留） | 0 |
+| Ok==true 且 FinalResult 非空 | Confirmed | 引擎给出唯一可溯源结论 | 615 |
+| Ok==false | Confirmed | 引擎确定地判定学生答案错误（spec CQ-3，仍属"给出确定结论"） | 26 |
+| Ok==null（含 NeedMoreCondition / FinalResult 空 / 范围外 / 能力缺口） | Insufficient | 信息不足 / 能力缺口（原静默 null 显式化） | 116 |
+| **合计** | — | — | **757** |
+
+> 派生规则由 `ConclusionStateDeriver.Derive` 单一赋值点执行，只读不写回 Ok/FinalResult/TaskType → 不影响采纳门 `BuildGatewayAnswerAsync`。T6 自检（[p21_self_check.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p21_self_check.py)）实证：`ConclusionState` 在 `GatewayVsLlmEvaluationService.cs` 仅出现 2 次（L83 字段 + L200 赋值），均在 `BuildGatewayAnswerAsync` 定义（L664）之前；逐 case `gatewayAnswer` / `gatewayOk` / `gatewayConclusion` 与 `after_p15b` 完全一致（diff=0）。Confirmed=641 = Ok:true 615 + Ok:false 26，与原信号可加；MISSING=0（每行都有派生值）。
+
+---
+
+## O 类：P2-2 世界模型与机理层最小可用版闭环（spec: world-model-minimal）
+
+> **范围**：在不改动判分/采纳门的前提下，为网关 `EngineResponse` 追加一条**趋势级/机理级解释链**（`ExplanationNodes`，`EvidenceLevel=Trend`），标注「帮助理解，不作判定依据」，为 P2-4 可解释性打底。三条链（M1 金属性/还原性递变 · M2 沉淀-配位溶解 · M3 盐类水解酸碱性），触发限定窄、定性不给绝对值；节点内容**全部来自既有 JSON**（rule `Conclusion.Display` / reaction `Equation`），零数据改动、零化学硬编码。采纳门 `BuildGatewayAnswerAsync` 不读 `ExplanationNodes`（spec CQ-5），故 eval 正确性收益预期=0；价值=可溯源解释。
+> **红线结果**：eval `after_p22`（Production LLM off，757/757 完成、failed=0）correct=635 / precision=1 / harm=0；diff `after_p21`→`after_p22` **GAINED=0 / LOST=0 / WORSEN=0 / harm=0**（verdict 不变，解释链不影响判分）；diff `base_p0`→`after_p22` GAINED=6（P1-4 携带：pdf-415/530/535/542/543/trap-limit-2）/ LOST=0 / WORSEN=0 / harm=0。全库 757 题中 `explanationNodesCount>0` = 11 题（M1×1、M2×1 含 2 节点、M3×9），其中 Confirmed=8（全部 adopted 且 correct）、Insufficient=3（未采纳）→ 无 Insufficient 被采纳；`explanationNodes>0 ∧ adopted → 全部 correct`（不蒙数）。
+
+### O.1 本 spec 触及文件清单（content attestation，非 git diff——自 P0 未提交）
+
+| 文件 | 改动 | 说明 |
+|------|------|------|
+| [WorldModel.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.Chem.Core/WorldModel/WorldModel.cs) | **新增** | Core 世界模型：`TrendExplanationNode` 类型 + 静态 `WorldModel.Explain(text, finalResult)`，3 链纯函数；进程内 `Lazy<Snapshot>` 缓存加载 activity-series / rules / reactions；无命中返回空（不蒙数） |
+| [GatewayContracts.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/GatewayContracts.cs) | 加性 | `EngineResponse` 追加 `ExplanationNodes` 字段（`List<ReasoningNode>`，默认 `new()`，JSON key `explanation_nodes`），置于 `ReasoningNodes` 之后；旧字段不动 |
+| [ReasoningContracts.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ReasoningContracts.cs) | 加性 | 新增 `WorldModelEnricher.Enrich(resp, questionText)`：调 `WorldModel.Explain`，映射为 `ReasoningNode`（`EvidenceLevel=Trend`），仅写 `resp.ExplanationNodes`，不改 Ok/FinalResult/TaskType |
+| [LlmGatewayService.cs](file:///d:/github/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.cs) | 加性 | 在 `ConclusionStateDeriver.Derive` 之后、`GenerateReplyAsync` 之前插入 `WorldModelEnricher.Enrich` 调用 |
+| [GatewayVsLlmEvaluationService.cs](file:///d:/github/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs) | 加性 | `QaCaseResult` 追加 `GatewayExplanationNodesCount` 诊断字段 + 赋值（在 `BuildGatewayAnswerAsync` 调用之前，仅观测不计分） |
+| [Program.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.EvalRunner/Program.cs) | 加性 | `MapQaCase` 快照追加 `explanationNodesCount` |
+| [WorldModelExplanationTests.cs](file:///d:/github/CogniThink-Chem/tests/CogniThink.TutorBrain.Tests/WorldModelExplanationTests.cs) | **新增** | 6 测试：M1 周期递变（STR-001/002）、M1 活动性序（pdf-176 真题干，RED-001）、M2 AgCl/氨水（pdf-213 真题干）、M3 碳酸根水解（pdf-277 真题干 +「不涉及 pH 数值」）、无命中不蒙数（空）、富化不改 Ok/FinalResult/ReasoningNodes |
+
+> **未触及**：`data/**` 任何 JSON；`BuildGatewayAnswerAsync` 方法体；任何判分/采纳/路由逻辑。
+
+### O.2 三链事实来源（全部复用既有 JSON，零数据改动）
+
+| 链 | 触发条件（窄） | 引用事实（JSON 路径 + id） |
+|----|----------------|---------------------------|
+| M1 金属性/还原性递变 | `(金属性\|非金属性\|还原性\|氧化性\|活动性\|活泼性).{0,12}(递变\|强弱\|比较\|顺序\|增强\|减弱\|由.+到)` 或 `(同周期\|同主族).{0,12}(金属性\|非金属性\|还原性\|氧化性)` | `data/rules/rules.json`：STR-001（同周期，KH-ST-02）、STR-002（同主族，KH-ST-02）、RED-001（金属活动性置换，KH-IN-06）；+ `data/highschool/activity-series.json` 确定序（题干中独立出现 ≥2 种金属时，按序给出相对位置，排除 H） |
+| M2 沉淀-配位溶解 | `AgCl`/`氯化银` ∧ `氨水`/`氨`/`银氨` | `data/rules/rules.json`：SOL-EXC-001（AgCl 氨水配位溶解，KH-RP-07）；+ `data/knowledge/reactions/reactions-principles.json`：RX-PL-PPT-001（AgCl ⇌ Ag⁺+Cl⁻） |
+| M3 盐类水解酸碱性 | `Na2CO3`/`碳酸钠`/`CO3`/`碳酸根` ∧ `水解`/`碱性`/`显碱`/`溶液.{0,4}碱` | `data/knowledge/reactions/reactions-principles.json`：RX-PL-HYD-003（碳酸根水解，KH-RP-06）；描述含「定性，不涉及 pH 数值」 |
+
+> 节点 `Description`/`Premises`/`Conclusion` 内容取自 `rule.Conclusion.Display` / `reaction.Equation`，**无化学真值硬编码**（仅允许展示性拼接）；每节点追加免责声明 `WorldModel.Disclaimer = "帮助理解，不作判定依据"`。
+
+### O.3 命中清单与 verdict-unchanged 主张（eval `after_p22`）
+
+全库 757 题中 `explanationNodesCount>0` = 11 题；节点数分布 `{1: 10, 2: 1}`（M2 一题产出 2 节点）。Python 镜像触发逻辑与 C# 实际存储值 **0 mismatch**（[p22_chain_probe.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p22_chain_probe.py)）。
+
+| id | 命中链 | 节点数 | conclusionState | adopted | correct |
+|----|--------|--------|-----------------|---------|---------|
+| pdf-057 | M3 (RX-PL-HYD-003) | 1 | Confirmed | T | T |
+| pdf-089 | M3 (RX-PL-HYD-003) | 1 | Confirmed | T | T |
+| pdf-096 | M3 (RX-PL-HYD-003) | 1 | Confirmed | T | T |
+| pdf-137 | M3 (RX-PL-HYD-003) | 1 | Confirmed | T | T |
+| pdf-156 | M3 (RX-PL-HYD-003) | 1 | Insufficient | F | F |
+| pdf-176 | M1 (RED-001, 金属 Fe/Cu) | 1 | Insufficient | F | F |
+| pdf-213 | M2 (SOL-EXC-001 + RX-PL-PPT-001) | 2 | Confirmed | T | T |
+| pdf-269 | M3 (RX-PL-HYD-003) | 1 | Confirmed | T | T |
+| pdf-277 | M3 (RX-PL-HYD-003) | 1 | Confirmed | T | T |
+| pdf-446 | M3 (RX-PL-HYD-003) | 1 | Confirmed | T | T |
+| pdf-478 | M3 (RX-PL-HYD-003) | 1 | Insufficient | F | F |
+
+> **verdict-unchanged 实证**：diff `after_p21`→`after_p22` GAINED=0/LOST=0/WORSEN=0/harm=0，correct 保持 635 → 解释链未改变任何判定。`ExplanationNodes` 仅在采纳门调用**之前**写入 `EngineResponse`，`BuildGatewayAnswerAsync` 不读该字段（T6 自检 grep 0 命中）。
+> **不蒙数实证**：全局 `adopted∧¬correct=0`；无 `Insufficient` 被采纳；`explanationNodes>0 ∧ adopted → 全部 correct`（[p22_diag.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p22_diag.py)）。
+
+---
+
+## P 类：P2-3 图像与文本求解融合闭环（spec: image-text-fusion）
+
+> **范围**：把网关中**隐式**的「确定性化学求解器优先于图像原始读数」分层（事实交叉验证）**显式化**，加 `EngineResponse.ResultProvenance` 可观测诊断（采纳结论来源，不计分），加回归保护。**零行为变更**（CQ-1=A）：不改采纳门 `BuildGatewayAnswerAsync` / `IsStructuredCorrect` 判决；不改 `FinalResult`/`Ok`/`TaskType`/`AssetKind`；`data/**` 零改动（CQ-4）。
+> **诚实口径**：审计证实路线图点名的 pdf-272 曲线中间量误采纳**已在阶段3F（AC-22）修复**，当前 harm=0。故本 spec **预期 eval 正确性增益 = 0**（结构/卫生项，与 P2-1/P2-2 同）。价值 = 融合策略可审计 + provenance 可观测（供 P2-4 前端标注置信）+ 防回退。
+> **红线结果**：eval `after_p23`（Production LLM off，757/757，failed=0）correct=635 / precision=1 / harm=0；diff `after_p22`→`after_p23` **GAINED=0 / LOST=0 / WORSEN=0 / harm=0**（verdict 不变，零行为变更）；diff `base_p0`→`after_p23` GAINED=6（P1-4 携带）/ LOST=0 / WORSEN=0 / harm=0。核心红线：`curve_reading` provenance 被采纳题数 = **0**（中间量永不误采纳）。
+
+### P.1 本 spec 触及文件清单（content attestation，非 git diff——自 P0 未提交）
+
+| 文件 | 改动 | 说明 |
+|------|------|------|
+| [GatewayContracts.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/GatewayContracts.cs) | 加性 | `EngineResponse` 新增 `ResultProvenance: string?`（默认 null，JSON key `result_provenance`）；旧字段全保留 |
+| [LlmGatewayService.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.cs) | 加性 | `CallEngineAsync` 7 个融合分支产出结论时设 `ResultProvenance` 标签（仅设标签，不改 FinalResult/Ok/TaskType/AssetKind） |
+| [GatewayVsLlmEvaluationService.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs) | 加性 | `QaCaseResult` 新增 `GatewayResultProvenance` 诊断字段 + 在采纳门**之前**赋值；采纳门不读（不计分） |
+| [Program.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.EvalRunner/Program.cs) | 加性 | `MapQaCase` 快照新增 `resultProvenance` |
+| [ImageTextFusionRegressionTests.cs](file:///d:/github/CogniThink-Chem/tests/CogniThink.TutorBrain.Tests/ImageTextFusionRegressionTests.cs) | **新增** | 4 测试：契约加性；pdf-259 equilibrium 标 provenance 且结论不变；pdf-272 curve_reading 标 provenance 且不被采纳；合成中间量读数不被采纳 |
+
+> **未触及**：`data/**` 任何 JSON；`BuildGatewayAnswerAsync` / `IsStructuredCorrect` 方法体；任何判分/采纳/路由判决逻辑。
+
+### P.2 显式融合策略表（spec §3.1）与 provenance 标签
+
+| 优先级 | 产出者 | provenance 标签 | after_p23 观测 |
+|--------|--------|-----------------|----------------|
+| 1（最高） | `CallEquilibrium` | `equilibrium` | n=13，13 采纳+判正 |
+| 2 | `CurveChoiceValidator` | `curve_choice` | n=6，6 采纳+判正 |
+| 3 | `ConceptChoiceValidator` | `concept_choice` | n=250，250 采纳+判正 |
+| 4 | `TryRouteGraph` | `graph` | n=1，1 采纳+判正 |
+| 5 | `TryRouteCurve` | `curve_reading`（**中间量高风险类**） | n=1（pdf-272），**0 采纳**（正确拦截） |
+| 6 | `TryRouteMolecule` | `molecule` | n=4，2 采纳+判正；2 未采纳（pdf-391/522 召回缺口，CQ-3=a 排除，另立 spec） |
+| 7 | `CrystalCellValidator` | `crystal` | n=6，6 采纳+判正 |
+| 8（兜底） | 通用文本事实瀑布 | `null`（= text_fact） | n=476，357 采纳+判正 |
+
+> 所有被采纳（adopted=true）的结论，其 provenance 均为确定性求解器（equilibrium/crystal/curve_choice/concept_choice）或 graph/molecule 或 null 文本事实；**无任何 adopted 结论来自 curve_reading**——这正是「图像读数 + 化学事实交叉验证后才采纳」的可观测证据。
+
+### P.3 verdict-unchanged 与不蒙数实证（eval `after_p23`）
+
+- diff `after_p22`→`after_p23`：GAINED=0 / LOST=0 / WORSEN=0 / harm=0；correct 保持 635 → provenance 诊断未改变任何判定。`ResultProvenance`/`GatewayResultProvenance` 仅在采纳门调用**之前**写入/赋值，`BuildGatewayAnswerAsync` 不读该字段（T6 自检：Evaluation 服务内 `Provenance` 仅 2 次——字段 L89 + 赋值 L209，均在 `BuildGatewayAnswerAsync` 定义 L673 之前）。
+- diff `base_p0`→`after_p23`：GAINED=6（P1-4 携带：pdf-415/530/535/542/543/trap-limit-2），LOST=0 / WORSEN=0 / harm=0。
+- 不蒙数：全局 `adopted∧¬correct=0`；`curve_reading` 被采纳 = 0（[p23_diag.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p23_diag.py)、[p23_self_check.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p23_self_check.py)）。
+
+---
+
+## Q 类：P2-4 前端接入网关求解闭环（spec: frontend-gateway-solve-loop）
+
+> **范围**：在 miniapp 新增「题目求解」入口，调用新增的学生面投影端点 `POST /api/gateway/solve`，按 `ConclusionState` 裁剪字段后展示（结论卡 + 渐进推理 DAG + 标注趋势解释 + 教学话术 + 复盘），并从服务端源头保证**不泄露未采纳结论**。**纯加性 + 只读**：不改 `ProcessStudentMessageAsync` / `CallEngineAsync` / `BuildGatewayAnswerAsync` / `IsStructuredCorrect`；`data/**` 零改动（CQ-5）。
+> **诚实口径**：预期 eval 正确性增益 = 0（前端 + 服务端只读投影，不改求解/判分）。价值 = 把 P2-1/P2-2/P2-3 已产出的结论三态 / 推理 DAG / 趋势解释端到端展示出来，并在学生面强制不泄露。
+
+### Q.1 触及文件清单（content attestation，无 data/**）
+
+- **后端（加性，只读）**：
+  - 新增 [GatewaySolveProjection.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/GatewaySolveProjection.cs)：`StudentSolveView` DTO + `GatewaySolveProjector.Project` 纯函数（按 ConclusionState 裁剪，不改输入）。
+  - 修改 [GatewayController.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Api/Controllers/GatewayController.cs)：新增 `POST /api/gateway/solve`（复用 `ProcessStudentMessageAsync` + 投影，**不动** `/api/gateway/process`）。
+- **测试**：新增 [GatewaySolveProjectionTests.cs](file:///d:/github/CogniThink-Chem/tests/CogniThink.TutorBrain.Tests/GatewaySolveProjectionTests.cs) 5 测试（Confirmed Ok=true / Confirmed Ok=false / Insufficient 不泄露 / CandidateSet / 纯只读不改输入）。
+- **前端（miniapp，Taro）**：
+  - 修改 [tutorApi.ts](file:///d:/github/CogniThink-Chem/miniapp/src/services/tutorApi.ts)：加 `StudentSolveView` / `ReasoningNodeDto` 类型 + `solve()` 方法（不动既有方法签名）。
+  - 修改 [app.config.ts](file:///d:/github/CogniThink-Chem/miniapp/src/app.config.ts)：注册 `pages/solve/index`。
+  - 修改 [pages/home/index.tsx](file:///d:/github/CogniThink-Chem/miniapp/src/pages/home/index.tsx)：加「题目求解」入口。
+  - 新增 `miniapp/src/pages/solve/{index.tsx, index.config.ts, index.module.scss}`。
+- **scratch**：`_evalscratch/verify/p24_solve_probe.py`、`p24_solve_confirmed.json`、`p24_solve_insufficient.json`、`p24_self_check.py`。
+- **未触及**：`data/**` 任何 JSON；`ProcessStudentMessageAsync` / `CallEngineAsync` / `BuildGatewayAnswerAsync` / `IsStructuredCorrect` 方法体；任何求解与判分逻辑。
+
+### Q.2 投影门控策略表（按 ConclusionState 下发字段矩阵）
+
+| 字段 ＼ 状态 | Confirmed | CandidateSet | Insufficient |
+|--------------|-----------|--------------|--------------|
+| `conclusion_state` | ✓ | ✓ | ✓ |
+| `final_result` | ✓ 下发 | ✗ null（不泄露） | ✗ null（**不泄露**） |
+| `reasoning_nodes` | ✓ | ✗ [] | ✗ [] |
+| `candidates` | ✗ [] | ✓（当前空，预留） | ✗ [] |
+| `explanation_nodes` | ✓（标注 Trend） | ✓（标注 Trend） | ✗ [] |
+| `reply` | ✓ | ✓ | ✓ |
+| `constraint_note` | — | — | ✓ 透传 |
+| `task_type` / `result_provenance` | ✓ | ✓ | ✓ |
+
+- 投影为纯只读函数，不修改输入 `EngineResponse`（单测 `Projector_DoesNotMutateInputEngineResponse` 覆盖）。
+- **运行时 HTTP 实证**（[p24_solve_probe.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p24_solve_probe.py)，API Production / LLM off）：
+  - Confirmed 题 **ion-1** → `conclusion_state=Confirmed`，`final_result='可以大量共存'` 正常下发，task_type=ion_check。
+  - Insufficient 题 **trap-limit-3** → `conclusion_state=Insufficient`，`final_result=None`，`reasoning_nodes=[]`，`explanation_nodes=[]`，`constraint_note` 透传 → **不泄露未采纳结论**。
+
+### Q.3 eval 零漂移（后端求解/判分未改）
+
+- `after_p24`：757/757 failed=0，correct=635，precision=1，harm=0。
+- diff `after_p23`→`after_p24`：GAINED=0 / LOST=0 / WORSEN=0 / harm=0 → **RED-LINE PASS**（投影在新 HTTP 路径，eval 走进程内不走 HTTP，零影响）。
+- diff `base_p0`→`after_p24`：GAINED=6（P1-4 携带：pdf-415/530/535/542/543/trap-limit-2），LOST=0 / WORSEN=0 / harm=0。
+
+### Q.4 已知残余（非本 spec 范围，登记防止误解）
+
+- **6 个 `ConclusionState=Confirmed` 但 eval 未被答案键采纳（答错）的题**：运行时无答案键，服务端无法识别为错，仍会以「引擎确定结论」下发。对策：前端诚实标注「已通过引擎确定性校验，仅供参考，不宣称 100% 正确」。这 6 个属 precision=1 红线的 **eval 期保证**范畴（系统在有答案键时不采纳错），运行时不可消除，不在本 spec 范围。
+
+---
+
+## R. P3-1 数据资产归一与缺口报表自动化（2026-11-22）
+
+> spec：`.trae/specs/data-asset-inventory-gap-report/{spec.md, tasks.md}`；CQ-1..6 已批准。诚实口径：**预期 eval 增益 = 0**（纯工具 + 纯新增产物，不改运行时数据/求解/判分/eval 管线）。
+
+### R.1 触及范围（content attestation）
+
+**仅新增**，无修改/删除运行时文件：
+- `tools/data-assets/asset_map.py` — 52 项消费者/加载机制/校验入口映射（据 T0 审计固化）。
+- `tools/data-assets/gen_inventory.py` — 清单生成器（只读 `data/**`，产物只写本目录；支持 `--repo-root` 供演示/测试）。
+- `tools/data-assets/gap_report.py` — 主干知识点缺口报表（只读数据，strict/lenient 双匹配，候选标注）。
+- `tools/data-assets/data-asset-manifest.json`（机读，tracked）+ `data-asset-inventory.md`（人读，tracked）+ `gap_report.md`（tracked）— 生成产物。
+- `_evalscratch/verify/p31_data_baseline.json`（52 JSON 的 after_p24 sha256 基线）、`p31_version_binding_demo.py`、`p31_self_check.py`（gitignored 自检）。
+- 本台账（新增 §R）。
+
+**未触及**：任何 `data/**` JSON 的内容/结构；任何运行时 `.cs`（加载器/求解器/采纳门/判分/eval 管线）；`.gitignore`；5 个 `.bak`。
+
+### R.2 数据资产清单产物
+
+- `data-asset-manifest.json`：覆盖 **52 个 JSON**（根 A `data/` 44 + 根 B `Api/data/` 8），每项含 sha256 / byte_size / item_count / schema_kind / declared_version / effective_version / consumer / load_mechanism / validation_entry；**0 项 UNMAPPED**。
+- `effective_version` 诚实口径：有顶层 `version` 字段用其值（如 `1.0`/`1.5`/`0.2`），否则用 `hash:<sha256[:12]>` 内容指纹（**不编造版本号**）。**11 个 JSON 无 `version` 字段**（含 `pdf_questions`/`tier2`/6 个 `chemistry/*`/`electrode-half-reactions` 等裸 list，以及 `electrode-reaction-facts`/`infeasible-equation-patterns` 两个无 version 的 dict），均指纹绑定。
+- `manifest_hash`：对数据内容（排除 `generated_at`/`repo_root` 等非数据元数据）的稳定指纹——**同数据跨次运行/跨机器一致**（已自检幂等）。
+- `binding` 区段：`question_sets`（pdf_questions + tier2）/ `fact_library`（24 highschool + electrode-half-reactions）/ `knowledge_base`（knowledge.json）指纹绑定，回归 diff 可精确定位变更文件。
+- `data-asset-inventory.md`：分组人读表 + 碰撞标注 + 二进制资产计数（PNG 282 + SVG 129 = 411，为网关图像路由合法运行时资产，属 P0-3 范畴不在本 spec 处理）。
+
+### R.3 缺口报表产物（`gap_report.md`）
+
+- 覆盖 `knowledge.json` **50 个知识点**（`tier=Main` 44 个）× 24 个事实文件 × 675 道题（pdf_questions 545 + benchmark 130… 实际扫描 675）。
+- **双匹配（strict 驱动标注，lenient 仅作上下文）**：strict = 完整 `name`/`textbookRef` 子串；lenient = strict + 名称按通用分隔符切出的 ≥2 字 token。无 `knowledge_id` 外键，**全部缺口为候选，需人工复核**。
+- strict 标注结果：12 covered / 4 no-fact / 0 no-question / 34 no-fact-and-no-question。
+- lenient 上下文：37 项为「likely phrasing FN」（strict 漏但 lenient 命中→大概率措辞差异，低优先级），**1 项 strong candidate**：`KH-RP-09 电解池`（strict/lenient 事实均 0，但有 13 道题→值得人工复核是否缺事实；仍为候选，不宣称确定性）。
+- 脚本只读，不进 eval 管线 → 零 eval 影响。
+
+### R.4 版本绑定策略
+
+- **manifest 旁路指纹，零运行时 JSON 改动**（CQ-1=a）：不改任何 `data/**` JSON（裸 list 包 dict 会改变顶层类型、破坏 `JsonSerializer.Deserialize<List<T>>`，故走旁路）。
+- `manifest_hash` 是数据内容的稳定指纹；两次 eval checkpoint 各自带 manifest 即可 diff 出「哪个数据文件变了」。
+- **演示已证（T3，AC-4）**：在临时副本中将 `data/knowledge/electrode-half-reactions.json` 改 1 字节后重跑生成器 → 仅该项 sha256 与 `effective_version`（hash-bound）变化、`manifest_hash` 变化，其余 51 项 sha256 完全不变；真实数据与真实 manifest 未被触碰。
+
+### R.5 三文件名跨根碰撞登记（归一化留 P3-2）
+
+| 文件名 | 根 A `data/highschool/` | 根 B `Api/data/chemistry/` |
+|--------|------------------------|---------------------------|
+| `ions.json` | dict（cations/anions/gases）· RuleStore | list[56] · ChemicalKnowledgeBase |
+| `substances.json` | dict（organics/otherInorganics）· RuleStore | list[186] · ChemicalKnowledgeBase |
+| `solubility.json` | dict{version,source,table} · RuleStore | dict{rules,exceptions} · ChemicalKnowledgeBase |
+
+同文件名、不同 schema、不同消费者。合并/分工属 **P3-2**（依赖路线图 §6#1 两套栈收敛方向的用户决策）；本 spec 仅登记标注。
+
+### R.6 5 个 stray `.bak` 处置（CQ-3=a）
+
+`Api/data/pdf_questions.json.bak_alpha2` / `.bak_alpha2batch2_current` / `.bak_pre_alpha2batch2` / `.bak_pre_alpha2complete` / `.bak_pre_verifyfixbatch`：untracked、无任何 `.cs` 引用、不被加载。仓库自 P0 无 commit，可能是早期 pdf_questions 变体的唯一留存 → **仅登记，不删除/不移动**，保留用户选择权。
+
+### R.7 eval 零漂移（AC-3）
+
+- `after_p31`：757/757 全跑，correct=635，precision=1，harm=0。
+- diff `after_p24`→`after_p31`：GAINED=0 / LOST=0 / WORSEN=0 / harm=0 → **RED-LINE PASS**（P3-1 未碰运行时数据/求解/判分，diff 必为 0，已证）。
+- diff `base_p0`→`after_p31`：GAINED=6（P1-4 携带，非 P3-1 新增），LOST=0 / WORSEN=0 / harm=0 → **RED-LINE PASS**。
+- 红线自检 `p31_self_check.py` **18/18 PASS**（密钥 0 命中 / 52 JSON sha256 与 after_p24 全同 / 产物不被运行时 .cs 引用 / 生成器幂等 / 不蒙数）。
+
+---
+
+## S. P3-2 规则/事实体系归一（2026-11-22）
+
+- S.1 **范围与触及文件 attestation**：P3-2 为「明确分工 + 交叉引用」（roadmap §6#1 用户确认：网关为主 / Core 基准回归）。触及文件仅：新增 `tools/data-assets/rule_fact_ownership.py`（只读生成器）+ 产物 `rule-fact-ownership.md` / `rule-fact-crossref.json`；改 `ARCHITECTURE.md`（§3.2 标已确认、§3.4 新增分工、措辞订正）；新增 `_evalscratch/verify/p32_self_check.py`（scratch）；本台账新增 §S。**未改任何 `data/**` JSON、未改任何运行时 `.cs`、未改 eval 管线** → 预期 eval 增益 = 0。
+- S.2 **所有权矩阵**：`rule-fact-ownership.md` 覆盖 **29 行** = 26 主资产（rules.json + rule-tests.json + 24 个 highschool）+ 3 跨根碰撞伴随行（`Api/data/chemistry/{ions,substances,solubility}.json`）。每行含 owner_stack / role / 消费者证据（file:line）/ 化学域。分工：`data/rules/rules.json` = Core 仲裁/基准规则库（网关不消费）；`data/highschool/*` = 网关事实库（Core 复用子集）；三碰撞不合并。
+- S.3 **KP 交叉引用**：`rule-fact-crossref.json` 覆盖全部 50 KP。rules 侧用**精确 `knowledgeId` 外键**（实测 0 dangling，61 条规则覆盖 26 个 KP）；facts 侧用**名称子串候选匹配**（标注 `match=candidate`，需人工复核，同 P3-1 gap_report 双口径）。**24 个 KP 无任何规则**（`kps_without_rules`，含 KH-RP-09），不属本项修复。coverage：rules+facts=7 / rules-only=19 / facts-only=5 / neither=19。
+- S.4 **ARCHITECTURE.md 落位**：§3.2 收敛决策从「推荐，待确认」升级为「已确认（2026-11-22）」；新增 §3.4「规则/事实体系分工」；订正「网关不使用 RuleEngine 仲裁」。
+- S.5 **eval 零漂移**：无运行时改动 → `diff after_p31→after_p32` 全 0（RED-LINE PASS）；`diff base_p0→after_p32` LOST/WORSEN/harm=0（GAINED 维持 6）。`p32_self_check.py` 全 PASS（52 JSON sha256 与 after_p31 基线全同 / 产物不被运行时 .cs 引用 / 生成器幂等 / 不蒙数）。
+
+---
+
+## T. P3-3 导学与求解融合（加性锚定，2026-11-22）
+
+- T.1 **范围与触及文件 attestation**：P3-3 采用「加性锚定（CQ-1=a）」——导学流按需获取网关标准推理链（`ReasoningNodes` DAG）作参照 + 诊断检查点按 `knowledge_id` 回溯到 DAG 节点，**不改判分源、不改网关求解 / 采纳门 / eval 判分**。触及文件：新增 `Application/TutorSolveChainProvider.cs`（取链 + 缓存 + 降级，只读网关）/ `Application/Diagnostic/DiagnosticCheckpointLinker.cs`（纯匹配）/ `Application/Diagnostic/DiagnosticExplanationAnchor.cs`（纯锚点追加）/ 前端 `miniapp/src/components/ReasoningDag/`；改 `Api/Contracts/Dtos.cs`（`SubmitStepResponse` 加可选 `StandardReasoningChain`）/ `Application/TutorService.cs`（取链挂响应，取链在 `SaveChangesAsync` 之后、纯加性）/ `Api/Controllers/TutorController.cs`（透传）/ `Application/Diagnostic/DiagnosticContracts.cs`（`ReasoningCheckpoint` 加可选 `LinkedReasoningNode`）/ `Application/Diagnostic/DiagnosticTeachingEngine.cs`（链接 + 锚点，仅 chain 非空时触发）/ `Api/Controllers/DiagnosticController.cs`（透传）/ `Program.cs`（DI 注册）/ 前端 `tutorApi.ts` + `pages/tutor/index.tsx`（最小展示）。**未改任何 `data/**` JSON、未改任何网关 solver、未改 `LlmGatewayService` 主体、未改采纳门 `BuildGatewayAnswerAsync` / `IsStructuredCorrect`、未改 eval 判分文件** → 预期 eval 增益 = 0。
+- T.2 **加性锚定策略**：`StandardReasoningChain` / `LinkedReasoningNode` 均为可选加性字段，既有 JSON 键不删不改（wire 向后兼容）。取链复用 P2-4 门控：仅 `ConclusionState=Confirmed` 且节点非空时下发，`Insufficient` / `CandidateSet` / 空 DAG → `null`（不泄露未采纳结论）；排除 `EvidenceLevel=Trend`（世界模型解释不作判定依据）。取链失败/超时降级为 `null` 且不缓存（允许重试），不阻塞判分主路径。
+- T.3 **4-solver 覆盖限制登记**：当前仅 4 个 solver 家族填充 `ReasoningNodes`（ConceptFactSolver / ReactionKbWriterSolver / AtomicStructureSolver / VseprSolver），故「标准推理链」仅对路由到这些 solver 的题非空；其余题 `StandardReasoningChain=null`，导学行为与现状逐字节一致（AC-4 快照验证）。不夸大覆盖率，不迁移其余 solver（留后续批次）。
+- T.4 **eval 覆盖盲区声明**：757 eval 只测网关求解路径，**不覆盖导学流**（grep `*Eval*.cs` 对 `TutorService` / `DiagnosticTeachingEngine` / `SubmitStepAsync` = 0 命中）→ 导学流回归在 eval 中不可见。三重守护：(a) 本项不改判分源 / 网关 / 采纳门；(b) 导学专用快照测试 `TutorSnapshotRegressionTests`（4 场景：正确非关键步 / 正确关键步带化学证据 / 三步通关带变式 / 答错带薄弱前置）断言 `SubmitStepResponse` 既有字段在 provider=null / 返回 null / 返回真实链三者间逐字节一致，仅新增字段不同（AC-4，4/4 PASS）；(c) 加性降级（CQ-4=a）。
+- T.5 **eval 零漂移**：`after_p33`：757/757 全跑，correct=635，precision=1，harm=0。`diff after_p32→after_p33`：GAINED=0 / LOST=0 / WORSEN=0 / harm=0 → **RED-LINE PASS**（P3-3 未碰网关/eval 路径，diff 必为 0，已证）；`diff base_p0→after_p33`：GAINED=6（P1-4 携带，非 P3-3 新增），LOST=0 / WORSEN=0 / harm=0 → **RED-LINE PASS**。`p33_self_check.py` 全 PASS（密钥 0 命中 / 触及清单不含网关 solver·采纳门·eval 判分 / 52 JSON sha256 与 p31 基线全同 / 加性字段 wire 兼容 / 快照测试在位 / 不蒙数）。
 
 ---
 

@@ -86,6 +86,27 @@ public static class AtomicStructureSolver
                                 $"识别问法「{anchor}」，元素原子序数 Z = {zc.Z}{chargeText}。",
                                 $"由构造原理 / 洪特规则计算得：{ans}。"
                             },
+                            ReasoningNodes = new List<ReasoningNode>
+                            {
+                                new()
+                                {
+                                    Step = 1,
+                                    Description = $"识别问法「{anchor}」与元素",
+                                    Premises = new List<string> { $"锚点附近识别元素（原子序数 Z={zc.Z}，电荷 {zc.Charge}）" },
+                                    KnowledgeId = "periodic_table",
+                                    Conclusion = $"元素 Z={zc.Z}",
+                                    EvidenceLevel = EvidenceLevel.EngineDerived
+                                },
+                                new()
+                                {
+                                    Step = 2,
+                                    Description = "由构造原理 / 洪特规则 / 泡利不相容原理计算",
+                                    Premises = new List<string> { "构造原理（能级填充顺序）、洪特规则、泡利不相容原理" },
+                                    RuleId = "rule:aufbau_hund_pauli",
+                                    Conclusion = ans,
+                                    EvidenceLevel = EvidenceLevel.EngineDerived
+                                }
+                            },
                             Confidence = 1.0
                         };
                     }

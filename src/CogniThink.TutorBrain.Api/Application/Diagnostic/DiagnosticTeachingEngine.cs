@@ -3,6 +3,7 @@ namespace CogniThink.TutorBrain.Application.Diagnostic;
 using Microsoft.EntityFrameworkCore;
 using CogniThink.TutorBrain.Application.Chemistry;
 using CogniThink.TutorBrain.Application.Reasoning;
+using CogniThink.TutorBrain.Application.Gateway;
 using CogniThink.TutorBrain.Domain;
 using CogniThink.TutorBrain.Infrastructure;
 
@@ -22,19 +23,22 @@ public sealed class DiagnosticTeachingEngine
     private readonly ChemicalKnowledgeBase _kb;
     private readonly KnowledgeGraphService _graph;
     private readonly DiagnosticSessionStore _store;
+    private readonly TutorSolveChainProvider? _chainProvider;
 
     public DiagnosticTeachingEngine(
         TutorDbContext db,
         ChemicalInferenceService chemical,
         ChemicalKnowledgeBase kb,
         KnowledgeGraphService graph,
-        DiagnosticSessionStore store)
+        DiagnosticSessionStore store,
+        TutorSolveChainProvider? chainProvider = null)
     {
         _db = db;
         _chemical = chemical;
         _kb = kb;
         _graph = graph;
         _store = store;
+        _chainProvider = chainProvider;
     }
 
     // ==================== 1. 构建推理结构 ====================
@@ -93,6 +97,13 @@ public sealed class DiagnosticTeachingEngine
 
         // 3) 本步推理结论检查点
         structure.Checkpoints.Add(CreateReasoningCheckpoint(idx++, step, coreNode));
+
+        // P3-3：加性链接网关标准推理链节点（只读、缓存、失败降级为 null）；不参与判定，不改既有字段。
+        var chain = _chainProvider is null
+            ? null
+            : await _chainProvider.GetChainAsync(problem.Stem, ct);
+        if (chain is not null)
+            DiagnosticCheckpointLinker.Link(structure, chain);
 
         return structure;
     }
@@ -349,6 +360,9 @@ public sealed class DiagnosticTeachingEngine
                 break;
             }
         }
+
+        // P3-3：诊断回溯到求解 DAG 节点——若该检查点链接了网关标准推理链节点，在证据前插入锚点（无链接则不改）。
+        DiagnosticExplanationAnchor.Append(explanation, checkpoint.LinkedReasoningNode);
 
         return explanation;
     }

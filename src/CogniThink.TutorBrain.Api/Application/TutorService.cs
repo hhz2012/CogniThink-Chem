@@ -2,6 +2,7 @@ namespace CogniThink.TutorBrain.Application;
 
 using Microsoft.EntityFrameworkCore;
 using CogniThink.TutorBrain.Application.Chemistry;
+using CogniThink.TutorBrain.Application.Gateway;
 using CogniThink.TutorBrain.Domain;
 using CogniThink.TutorBrain.Domain.Chemistry;
 using CogniThink.TutorBrain.Infrastructure;
@@ -20,7 +21,8 @@ public sealed record SubmitStepResult(
     int CurrentStep,
     int TotalSteps,
     ChemicalQueryResult? ChemicalEvidence,
-    bool Completed);
+    bool Completed,
+    IReadOnlyList<ReasoningNode>? StandardReasoningChain);
 
 /// <summary>
 /// 导学编排服务：加载题目 → 调状态机 → 更新学情 → 生成变式 → 返回结构化回复
@@ -34,6 +36,7 @@ public sealed class TutorService
     private readonly VariantService _variants;
     private readonly ProblemQueryCompiler _queryCompiler;
     private readonly ChemicalInferenceService _chemicalInference;
+    private readonly TutorSolveChainProvider? _chainProvider;
 
     public TutorService(
         TutorDbContext db,
@@ -42,7 +45,8 @@ public sealed class TutorService
         KnowledgeGraphService graph,
         VariantService variants,
         ProblemQueryCompiler queryCompiler,
-        ChemicalInferenceService chemicalInference)
+        ChemicalInferenceService chemicalInference,
+        TutorSolveChainProvider? chainProvider = null)
     {
         _db = db;
         _machine = machine;
@@ -51,6 +55,7 @@ public sealed class TutorService
         _variants = variants;
         _queryCompiler = queryCompiler;
         _chemicalInference = chemicalInference;
+        _chainProvider = chainProvider;
     }
 
     public async Task<SubmitStepResult?> SubmitStepAsync(SubmitStepInput input, CancellationToken ct = default)
@@ -139,6 +144,11 @@ public sealed class TutorService
 
         await _db.SaveChangesAsync(ct);
 
+        // P3-3：加性取网关标准推理链（只读、缓存、失败降级为 null）；不参与判分，不改既有字段。
+        var standardChain = _chainProvider is null
+            ? null
+            : await _chainProvider.GetChainAsync(problem.Stem, ct);
+
         return new SubmitStepResult(
             decision,
             variant,
@@ -147,7 +157,8 @@ public sealed class TutorService
             currentStep,
             problem.Steps.Count,
             chemicalEvidence,
-            decision.Completed);
+            decision.Completed,
+            standardChain);
     }
 
     private ChemicalQueryResult? BuildChemicalEvidence(Problem problem, ProblemStep step)

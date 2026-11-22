@@ -1,5 +1,7 @@
 # 化学伴思（CogniThink-Chem）整体规划
 
+> ⚠️ **历史文档（v0.2 规划态）**：本文记录项目初期规划，与当前实现已大幅脱节，仅作背景参考。当前架构见 [ARCHITECTURE.md](../ARCHITECTURE.md)，下一步计划见 [路线图](../.trae/documents/project-structure-analysis-and-roadmap.md)。
+
 > 版本：v0.2（D1 已定；当前进度以 [03-tasks.md](./03-tasks.md) 为准：T0 完成、T1 部分完成、T2 暂停）
 > 范围：高中阶段化学问题的「思考启发」产品规划
 > 本文档只回答"做不做、做什么、按什么原则做"，不含实现代码。功能拆分见 [02-modules.md](./02-modules.md)，任务拆分见 [03-tasks.md](./03-tasks.md)。
