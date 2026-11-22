@@ -36,6 +36,7 @@ public static class MultiSubCorrectnessSolver
 
             var symbols = new List<char>(subs.Count);
             var steps = new List<string>();
+            var hits = new List<JudgeApiReasoningNodes.SubHit>();
             foreach (var sub in subs)
             {
                 var (equation, context) = ExtractEquationAndContext(sub.Text);
@@ -45,7 +46,7 @@ public static class MultiSubCorrectnessSolver
                     return null;
                 }
 
-                var verdict = EquationCorrectnessJudge.Judge(equation, context);
+                var (verdict, ctxId) = EquationCorrectnessJudge.JudgeWithIds(equation, context);
                 if (!verdict.IsDetermined)
                 {
                     // 任一小题不确定 → 整题 null（不蒙数，守 precision）
@@ -54,13 +55,19 @@ public static class MultiSubCorrectnessSolver
 
                 symbols.Add(verdict.Symbol!.Value);
                 steps.Add($"第({sub.Index})小题：{verdict.Symbol} — {string.Join("；", verdict.Reasons)}");
+                // R4：仅语境规则命中（有稳定 id）时记录命中；引擎检查项 / √ 无 id → 不发节点
+                if (!string.IsNullOrEmpty(ctxId))
+                    hits.Add(new JudgeApiReasoningNodes.SubHit(sub.Index, verdict.Symbol.Value, new List<string> { ctxId }));
             }
 
+            var finalResult = FormatVerdict(symbols);
+            var nodes = JudgeApiReasoningNodes.Build(hits, finalResult);
             return new EngineResponse
             {
                 Ok = true,
-                FinalResult = FormatVerdict(symbols),
+                FinalResult = finalResult,
                 DerivationSteps = steps,
+                ReasoningNodes = nodes,
                 ConstraintNote = "【高中限定】逐方程符号引擎判定；任一小题不确定则整题不输出（不蒙数）",
                 Confidence = 1.0
             };

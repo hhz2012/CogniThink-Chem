@@ -1,0 +1,26 @@
+{
+  "version": "1.0",
+  "source": "高中常见确定配平的书写反应（题干明确要求写出方程式且反应物/产物锚点齐全）",
+  "entries": [
+    {
+      "id": "known-eq-gan-strong-base",
+      "resultPrefix": "离子方程式：",
+      "equation": "GaN + OH⁻ + 3H₂O → [Ga(OH)₄]⁻ + NH₃↑",
+      "derivationSteps": [
+        "GaN 中 Ga 为 +3 价、N 为 −3 价；强碱条件下 N 转化为 NH₃，Ga 形成四羟基合镓(III)酸根",
+        "原子与电荷守恒配平：GaN + OH⁻ + 3H₂O → [Ga(OH)₄]⁻ + NH₃↑"
+      ],
+      "constraintNote": "【高中限定】强碱条件下氮化镓与水反应，N 以 NH₃ 逸出"
+    },
+    {
+      "id": "known-eq-na2so3-so2",
+      "resultPrefix": "化学方程式：",
+      "equation": "Na2SO3 + H2SO4 = Na2SO4 + SO2↑ + H2O",
+      "derivationSteps": [
+        "实验室常用亚硫酸钠与浓硫酸反应制取 SO₂（强酸制弱酸，H₂SO₃ 分解为 SO₂ 和 H₂O）",
+        "配平：Na2SO3 + H2SO4 = Na2SO4 + SO2↑ + H2O"
+      ],
+      "constraintNote": "【高中限定】固液不加热制 SO₂"
+    }
+  ]
+}

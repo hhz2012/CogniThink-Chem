@@ -100,3 +100,25 @@
 | 轮次 | 日期 | 审查者 | 结论 | 关键问题与修复 |
 |------|------|--------|------|----------------|
 | 1 | 2026-11-22 | fresh-context 只读子代理（独立复跑 build/test/两次 diff/p21_verify/p21_self_check + 代码核对 + 台账核对） | **PASS**（9/9 维度，0 Issue） | 无 |
+
+## Tier 2+ — ReasoningNodes 生产者迁移（P2-1.x）审计与推进
+
+> 权威清单与逐项证据见 [data-defect-register.md §N.2](file:///d:/github/CogniThink-Chem/data-defect-register.md)（13 个生产者，带核实行号）。
+
+**Status**: B 类审计完成（2026-11-22）；Tier 2 快赢 `HydrolysisPhCalculator` 已迁移（`checkpoint_after_t2_ph` diff 全零、pdf-517 推理节点 0→1、无臆造无回归）；**B-外置批已完成**（KnownEquationWriter / ProductWriter / RedoxGateway / ConceptVerdict，`checkpoint_after_b_ext` diff 全零、恰 13 例推理节点 0→1、redox-1/2/3 保持 0、无臆造无回归）；**B-judge-API 批已完成**（MultiSubCorrectnessSolver / JudgmentStatementAggregator，裁决契约加性暴露命中 id + `CorrectnessContextRules` 外置，`checkpoint_after_b_ext`→`after_b_judge` diff 全零、恰 11 例推理节点 0→>0、3 例 R4 留空、14 例 gatewayConclusion 字节不变、无臆造无回归）。**B-Impurity 批已完成**（ImpurityTrapSolver 化学事实外置为 `data/knowledge/impurity-traps.json`，id=`impurity-kmno4-ethylene-co2`，命中线程化 `KnowledgeId`，`checkpoint_after_b_judge`→`after_b_impurity` diff 全零、d9-1 推理节点 0→1、gatewayConclusion 字节不变、无臆造无回归）。下一批：MultiPartDispatch 传播。
+
+**分级（已逐项核实，不盲信登记标签）**：
+- 已迁移 A·done = 10（Tier 1：CrystalCellValidator / HalfReactionBalancer，`checkpoint_after_t1_dag` diff 全零；Tier 2：`HydrolysisPhCalculator`，`checkpoint_after_t2_ph` diff 全零、pdf-517 推理节点 0→1；B-外置批：KnownEquationWriter / ProductWriter / RedoxGateway / ConceptVerdict，`checkpoint_after_b_ext` diff 全零、恰 13 例推理节点 0→1、R1 保持 0；B-judge-API 批：MultiSubCorrectnessSolver / JudgmentStatementAggregator，`checkpoint_after_b_ext`→`after_b_judge` diff 全零、恰 11 例推理节点 0→>0、3 例 R4 留空；B-Impurity 批：ImpurityTrapSolver，`checkpoint_after_b_judge`→`after_b_impurity` diff 全零、d9-1 推理节点 0→1、gatewayConclusion 字节不变）。
+- A 可立即迁移 = 0（`HydrolysisPhCalculator` 本轮已从 B 重判并迁移完成）。
+- B = 1：传播 1（MultiPartDispatch——丢弃子响应本体；ImpurityTrap 已在 B-Impurity 批迁移）。
+- 混合 = 1：`LlmGatewayService`（实测 **66 处**，非登记的 ~40），含传播/计算/外置三类，表面积最大，须最后迁移。
+- C 留空 = 1：`RedoxRatioCalculator`（无 JSON 锚点，挂 id 即假可溯源，违反 R4，诚实留空）。
+
+**更正的登记错误（4+2 处）**：Redox「氧还规则有 rule id」、ProductWriter「可挂 RuleId」、KnownEquation「已知方程模板有 id」——三者均为 C# 硬编码、无 id；LlmGatewayService「~40 处」实为 66 处。另 ImpurityTrap「无知识源」不准、HydrolysisPh「中」低估。
+
+**建议执行顺序**（每步须 `diff_ckpt` 全零 + 命中发节点/无锚留空自检）：
+1. ✅ A 重判快赢：`HydrolysisPhCalculator` 已迁移（Tier 2，线程化 `kaKey`，`checkpoint_after_t2_ph` diff 全零、无臆造无回归）。
+2. ✅ 已完成：B-外置批（KnownEquationWriter → ProductWriter → RedoxGateway → ConceptVerdict，`checkpoint_after_b_ext` diff 全零、恰 13 例推理节点 0→1、R1 保持 0、无臆造无回归）。
+3. ✅ 已完成：B-judge-API 批（MultiSubCorrectness / JudgmentStatementAggregator：裁决契约加性暴露命中 id + `CorrectnessContextRules` 外置，`after_b_ext`→`after_b_judge` diff 全零、恰 11 例 0→>0、3 例 R4 留空、无臆造无回归）。
+4. ✅ 已完成：B-Impurity 批（ImpurityTrapSolver 外置为 `data/knowledge/impurity-traps.json`，`after_b_judge`→`after_b_impurity` diff 全零、d9-1 推理节点 0→1、gatewayConclusion 字节不变、无臆造无回归）。
+5. 剩余：`MultiPartDispatch` 传播（B）+ `LlmGatewayService` 传播点 + 逐点子分类计算点。

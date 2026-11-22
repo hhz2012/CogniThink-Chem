@@ -1,0 +1,30 @@
+{
+  "version": "1.0",
+  "source": "高中氧化还原规则表（常见氧化剂还原产物 / 电解阳极放电顺序 / 两条可行性判决）；触发识别在 C#，化学事实只在本 JSON",
+  "reductionProducts": [
+    { "id": "redox-mno4-acid", "product": "Mn2+" },
+    { "id": "redox-mno4-neutral", "product": "MnO2" },
+    { "id": "redox-mno4-base", "product": "MnO4^2-" },
+    { "id": "redox-clo", "product": "Cl-" },
+    { "id": "redox-cr2o7-acid", "product": "Cr3+" },
+    { "id": "redox-no3-dilute", "product": "NO" },
+    { "id": "redox-no3-concentrated", "product": "NO2" },
+    { "id": "redox-h2so4-concentrated", "product": "SO2" }
+  ],
+  "electrolysisAnode": [
+    { "id": "redox-electrolysis-anode-cl", "product": "Cl2" },
+    { "id": "redox-electrolysis-anode-oxyanion", "product": "O2" }
+  ],
+  "feasibilityRules": [
+    {
+      "id": "redox-feasibility-acidic-no-oh",
+      "verdict": "不能。酸性电解质溶液中，电极反应式不出现 OH-。",
+      "derivationSteps": ["酸性介质中大量存在 H+，OH- 不能稳定存在，故电极反应式不出现 OH-。"]
+    },
+    {
+      "id": "redox-feasibility-amphoteric-strong-base",
+      "verdict": "能。Al 是两性金属，与强碱溶液反应生成 H2。",
+      "derivationSteps": ["Al 为两性金属，可与 NaOH 等强碱溶液反应放出 H2。"]
+    }
+  ]
+}

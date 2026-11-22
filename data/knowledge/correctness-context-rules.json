@@ -1,0 +1,48 @@
+{
+    "version":  "1.0",
+    "source":  "方程式书写正误判定的语境规则表：集中收口引擎形式校验全过、但需题干语境才能确定的错误。每条规则仅当条件全部命中才返回一条 × 理由；规则未命中时外层按引擎结果判 √/null，绝不臆断。触发 token、正则与 reason 文本均在此 JSON（化学事实只存 JSON，.cs 仅保留通用文本归一化与匹配循环）。",
+    "rules":  [
+                  {
+                      "id":  "ccr-acid-nitrate-sulfite",
+                      "eqContainsAll":  [
+                                             "Ba",
+                                             "BaSO3"
+                                         ],
+                      "eqContainsAny":  [
+                                             "H2SO3",
+                                             "SO3^2-",
+                                             "HSO3^-",
+                                             "SO3"
+                                         ],
+                      "hayContainsAny":  [
+                                              "NO3",
+                                              "硝酸",
+                                              "硝酸盐",
+                                              "硝酸钡",
+                                              "Ba(NO3)2"
+                                          ],
+                      "ctxContainsAll":  [
+
+                                         ],
+                      "regex":  null,
+                      "reason":  "语境规则：酸性条件下 NO₃⁻ 将 H₂SO₃（S +4）氧化为 SO₄²⁻，与 Ba²⁺ 生成 BaSO₄，题给产物 BaSO₃ 错误"
+                  },
+                  {
+                      "id":  "ccr-cuprous-ammine-charge",
+                      "eqContainsAll":  [
+
+                                         ],
+                      "eqContainsAny":  [
+
+                                         ],
+                      "hayContainsAny":  [
+
+                                         ],
+                      "ctxContainsAll":  [
+                                             "亚铜氨"
+                                         ],
+                      "regex":  "\\[Cu\\(NH3\\)2\\]\\^2\\+|\\[Cu\\(NH3\\)3CO\\]\\^2\\+",
+                      "reason":  "语境规则：亚铜氨中 Cu 为 +1，配离子 [Cu(NH₃)₂]⁺ / [Cu(NH₃)₃CO]⁺ 电荷应为 +1，题写 +2 错误"
+                  }
+              ]
+}

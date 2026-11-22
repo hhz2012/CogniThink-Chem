@@ -62,11 +62,29 @@ public static class CrystalCellValidator
 
         if (parts.Count == 0) return null;
 
+        var finalResult = string.Join("；", parts);
+        // 加性推理链（spec R4）：命中即有 type=crystal 结构化资产锚点；
+        // 取首个晶胞资产 key 作为 knowledge_id（多胞密度比等场景首胞为锚，多锚点留待后续资产 id 化）。
+        var knowledgeId = cells.Count > 0 && !string.IsNullOrEmpty(cells[0].Key) ? cells[0].Key : null;
         return new EngineResponse
         {
             Ok = true,
-            FinalResult = string.Join("；", parts),
+            FinalResult = finalResult,
             DerivationSteps = parts,
+            ReasoningNodes = knowledgeId is null
+                ? new List<ReasoningNode>()
+                : new List<ReasoningNode>
+                {
+                    new()
+                    {
+                        Step = 1,
+                        Description = "晶胞结构化资产命中",
+                        Premises = new List<string> { "type=crystal 结构化资产（位点/分数坐标/晶格常数）已与渲染图人工核对" },
+                        KnowledgeId = knowledgeId,
+                        Conclusion = finalResult,
+                        EvidenceLevel = EvidenceLevel.KnowledgeFact
+                    }
+                },
             ConstraintNote = "【crystal 引擎】晶胞结构真值（均摊/配位数/密度），坐标已与渲染图核对；非该情形一律 null 不蒙数",
             Confidence = 1.0,
             AssetKind = "crystal"

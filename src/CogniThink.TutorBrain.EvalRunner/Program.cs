@@ -284,5 +284,6 @@ static object MapQaCase(QaCaseResult r) => new
     gatewayTruthAdopted = r.GatewayTruthAdopted,
     conclusionState = r.GatewayConclusionState.ToString(),
     explanationNodesCount = r.GatewayExplanationNodesCount,
+    reasoningNodesCount = r.GatewayReasoningNodesCount,
     resultProvenance = r.GatewayResultProvenance
 };

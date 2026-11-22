@@ -48,16 +48,32 @@ public static class HydrolysisPhCalculator
         if (double.IsNaN(pH) || pH <= 0 || pH >= 14) return null;
 
         var phText = pH.ToString("0.00", CultureInfo.InvariantCulture);
+        var finalResult = $"{baseName} 水解使溶液呈碱性，pH ≈ {phText}（{acidName} 的 Ka={FormatConst(kaSpec)}，Kb=Kw/Ka，[OH⁻]=√(Kb·c)）。";
+        // 加性推理链（spec R4）：kaKey 是 acid-constants.json 的稳定字典键，
+        // 到达此处必然非 null（L37 已对缺常数/域外返回 null）→ 命中即有真实知识锚点；
+        // pH 由常数经公式推导 → EvidenceLevel.EngineDerived；末节点 Conclusion == FinalResult。
         return new EngineResponse
         {
             Ok = true,
-            FinalResult = $"{baseName} 水解使溶液呈碱性，pH ≈ {phText}（{acidName} 的 Ka={FormatConst(kaSpec)}，Kb=Kw/Ka，[OH⁻]=√(Kb·c)）。",
+            FinalResult = finalResult,
             DerivationSteps = new List<string>
             {
                 $"{acidName} ⇌ H⁺ + {baseName}，Ka = {FormatConst(kaSpec)}",
                 $"Kb({baseName}) = Kw / Ka = {kw:E2} / {ka:E2} = {kb:E3}",
                 $"[OH⁻] = √(Kb·c) = √({kb:E3} × {c}) = {oh:E3}",
                 $"pH = 14 + lg[OH⁻] ≈ {phText}"
+            },
+            ReasoningNodes = new List<ReasoningNode>
+            {
+                new()
+                {
+                    Step = 1,
+                    Description = "盐水解 pH 计算（常数取自 acid-constants.json）",
+                    Premises = new List<string> { $"常数取自 data/highschool/acid-constants.json：{kaKey}" },
+                    KnowledgeId = kaKey,
+                    Conclusion = finalResult,
+                    EvidenceLevel = EvidenceLevel.EngineDerived
+                }
             },
             ConstraintNote = "【高中限定】盐水解 pH（25℃），常数取自 acid-constants.json",
             Confidence = 1.0

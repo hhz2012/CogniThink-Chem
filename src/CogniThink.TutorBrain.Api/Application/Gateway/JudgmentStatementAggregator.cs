@@ -42,20 +42,24 @@ public static class JudgmentStatementAggregator
 
             var symbols = new List<char>(subs.Count);
             var steps = new List<string>(subs.Count);
+            var hits = new List<JudgeApiReasoningNodes.SubHit>();
             foreach (var sub in subs)
             {
                 char? sym = null;
                 string? step = null;
+                List<string>? subHitIds = null;
 
                 // 1) 先试方程抽取：是方程小题 → 走符号引擎真值
                 var (equation, context) = MultiSubCorrectnessSolver.ExtractEquationAndContext(sub.Text);
                 if (!string.IsNullOrWhiteSpace(equation))
                 {
-                    var v = EquationCorrectnessJudge.Judge(equation, context);
+                    var (v, ctxId) = EquationCorrectnessJudge.JudgeWithIds(equation, context);
                     if (v.IsDetermined)
                     {
                         sym = v.Symbol!.Value;
                         step = $"第({sub.Index})小题[方程]：{sym} — {string.Join("；", v.Reasons)}";
+                        // R4：仅语境规则命中（有稳定 id）时记录；引擎检查项 / √ 无 id → 不发节点
+                        if (!string.IsNullOrEmpty(ctxId)) subHitIds = new List<string> { ctxId };
                     }
                     // 方程抽取成功但符号引擎无法判定（如多步流程 "A→B→C" 被归一化为多等号串）：
                     // 不直接整题 null，回退到下方陈述判定，让事实库有机会判定该陈述真伪。
@@ -67,13 +71,15 @@ public static class JudgmentStatementAggregator
                     var core = MultiSubCorrectnessSolver.ExtractSubCore(sub.Text);
                     if (!string.IsNullOrWhiteSpace(core))
                     {
-                        var verdict = StatementJudge.Judge(text, core);
+                        var (verdict, hitIds) = StatementJudge.JudgeWithIds(text, core);
                         if (verdict != Verdict.Undecided)
                         {
                             sym = verdict == Verdict.True
                                 ? EquationCorrectnessJudge.Right
                                 : EquationCorrectnessJudge.Wrong;
                             step = $"第({sub.Index})小题[陈述]：{sym}";
+                            // R4：仅 FactBase 命中带非空 hitIds；Counting/RedoxElectron 返回空 → 不发节点
+                            if (hitIds is not null && hitIds.Count > 0) subHitIds = hitIds;
                         }
                     }
                 }
@@ -81,13 +87,18 @@ public static class JudgmentStatementAggregator
                 if (!sym.HasValue) return null;   // 任一小题不确定 → 整题 null（不蒙数）
                 symbols.Add(sym.Value);
                 steps.Add(step!);
+                if (subHitIds is not null && subHitIds.Count > 0)
+                    hits.Add(new JudgeApiReasoningNodes.SubHit(sub.Index, sym.Value, subHitIds));
             }
 
+            var finalResult = MultiSubCorrectnessSolver.FormatVerdict(symbols);
+            var nodes = JudgeApiReasoningNodes.Build(hits, finalResult);
             return new EngineResponse
             {
                 Ok = true,
-                FinalResult = MultiSubCorrectnessSolver.FormatVerdict(symbols),
+                FinalResult = finalResult,
                 DerivationSteps = steps,
+                ReasoningNodes = nodes,
                 ConstraintNote = "【高中限定】逐小题方程/概念判定聚合；任一小题不确定则整题不输出（不蒙数、零假阳性）",
                 Confidence = 1.0
             };

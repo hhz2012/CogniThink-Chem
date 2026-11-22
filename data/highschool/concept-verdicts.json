@@ -1,0 +1,16 @@
+{
+  "version": "1.0",
+  "source": "高中化学概念正误判断题（断言明确属性 → 给出 √/× 判决）；判断空结构在 C#，断言模式与判决事实只在本 JSON",
+  "entries": [
+    {
+      "id": "concept-verdict-sio2-basic-oxide-false",
+      "pattern": "(?:SiO2|二氧化硅)[^。；\\n]{0,20}(?<![非不])(?:是|为)\\s*碱性氧化物",
+      "verdict": "×",
+      "derivationSteps": [
+        "SiO2 能与强碱反应生成盐和水，属于酸性氧化物；与 HF 反应是其特性，不能据此判定为碱性氧化物",
+        "故\"SiO2 为碱性氧化物\"的说法错误"
+      ],
+      "constraintNote": "【高中限定】SiO2 为酸性氧化物（仅与 HF 反应是特性）"
+    }
+  ]
+}

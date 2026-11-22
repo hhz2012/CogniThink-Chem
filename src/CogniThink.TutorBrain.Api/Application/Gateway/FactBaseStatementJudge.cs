@@ -12,13 +12,21 @@ namespace CogniThink.TutorBrain.Application.Gateway;
 internal sealed class FactBaseStatementJudge : IStatementJudge
 {
     public Verdict Judge(string stem, string statement)
+        => JudgeWithIds(stem, statement).Verdict;
+
+    /// <summary>
+    /// 加性扩展：返回判定结论 + 命中事实的 <c>Id</c> 列表（父 spec R4，供聚合器线程化 <c>ReasoningNodes</c>）。
+    /// 原 <see cref="Judge"/> 签名字节级不变，内部委托本方法丢弃 id。
+    /// </summary>
+    public (Verdict Verdict, List<string> HitIds) JudgeWithIds(string stem, string statement)
     {
-        var v = FactChoiceMatcher.JudgeStatement(stem, statement);
-        return v switch
+        var (sv, hitIds) = FactChoiceMatcher.JudgeStatementWithIds(stem, statement);
+        var v = sv switch
         {
             FactChoiceMatcher.StatementVerdict.True => Verdict.True,
             FactChoiceMatcher.StatementVerdict.False => Verdict.False,
             _ => Verdict.Undecided,
         };
+        return (v, hitIds);
     }
 }

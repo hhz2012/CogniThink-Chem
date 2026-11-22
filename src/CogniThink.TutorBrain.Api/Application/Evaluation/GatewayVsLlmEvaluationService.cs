@@ -85,6 +85,9 @@ public sealed class QaCaseResult
     /// <summary>P2-2 诊断：世界模型机理解释链节点数（EvidenceLevel=Trend，仅观测，不计分）。</summary>
     public int GatewayExplanationNodesCount { get; set; }
 
+    /// <summary>P2-1 诊断：可溯源推理链节点数（ReasoningNodes；仅观测，不计分，不影响采纳门与判分）。</summary>
+    public int GatewayReasoningNodesCount { get; set; }
+
     /// <summary>P2-3 诊断：网关结论来源 provenance（equilibrium/curve_choice/concept_choice/graph/curve_reading/molecule/crystal；通用文本=null）。仅观测，不计分（spec CQ-2）。</summary>
     public string? GatewayResultProvenance { get; set; }
 }
@@ -205,6 +208,8 @@ public sealed class GatewayVsLlmEvaluationService
         result.GatewayOk = gwResult.EngineResponse.Ok;
         result.GatewayConclusionState = gwResult.EngineResponse.ConclusionState;
         result.GatewayExplanationNodesCount = gwResult.EngineResponse.ExplanationNodes?.Count ?? 0;
+        // P2-1：推理链节点数诊断（采纳门 BuildGatewayAnswerAsync 不读取 → 不影响判分）
+        result.GatewayReasoningNodesCount = gwResult.EngineResponse.ReasoningNodes?.Count ?? 0;
         // P2-3：诊断字段在采纳门（BuildGatewayAnswerAsync）之前赋值，采纳门不读取 → 不影响判分
         result.GatewayResultProvenance = gwResult.EngineResponse.ResultProvenance;
         result.TaskType = gwResult.TaskType;

@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "source": "高中少量/过量产物书写规则表（反应优先级与量比规则；产物骨架确定后由 EquationBalancer 守恒配平）",
+  "entries": [
+    {
+      "id": "pw-febr2-cl2-little",
+      "left": ["Fe^2+", "Cl2"],
+      "right": ["Fe^3+", "Cl^-"]
+    },
+    {
+      "id": "pw-febr2-cl2-excess",
+      "left": ["FeBr2", "Cl2"],
+      "right": ["Fe^3+", "Br2", "Cl^-"],
+      "expandPlaceholder": "FeBr2",
+      "expandInto": [
+        { "species": "Fe^2+", "mult": 1 },
+        { "species": "Br^-", "mult": 2 }
+      ]
+    },
+    {
+      "id": "pw-naalo2-co2-little",
+      "left": ["AlO2^-", "CO2", "H2O"],
+      "right": ["Al(OH)3", "CO3^2-"]
+    },
+    {
+      "id": "pw-naalo2-co2-excess",
+      "left": ["AlO2^-", "CO2", "H2O"],
+      "right": ["Al(OH)3", "HCO3^-"]
+    },
+    {
+      "id": "pw-cahco32-naoh-little",
+      "left": ["Ca^2+", "HCO3^-", "OH^-"],
+      "right": ["CaCO3", "H2O"]
+    },
+    {
+      "id": "pw-nacn-co2-little",
+      "left": ["CN^-", "CO2", "H2O"],
+      "right": ["HCN", "HCO3^-"]
+    }
+  ]
+}

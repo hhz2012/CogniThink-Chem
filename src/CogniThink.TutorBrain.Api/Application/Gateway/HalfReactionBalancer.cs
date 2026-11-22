@@ -49,13 +49,13 @@ public static class HalfReactionBalancer
         }
     }
 
-    private static string? KbLookup(string text)
+    private static KbEntry? KbLookup(string text)
     {
         foreach (var entry in Kb.Value)
         {
             if (entry.TriggerAll.Count == 0) continue;
             if (entry.TriggerAll.All(tok => TriggerPresent(text, tok)))
-                return entry.HalfReaction;
+                return entry;
         }
         return null;
     }
@@ -118,18 +118,38 @@ public static class HalfReactionBalancer
         var ex = TryBalanceExtractive(text);
         if (ex is not null) return Respond(ex, "萃取配平");
 
-        // 2) 知识库溯源命中
-        var kb = KbLookup(text);
-        if (kb is not null) return Respond(kb, "知识库溯源");
+        // 2) 知识库溯源命中（化学事实在 JSON；命中条目 id 用于推理链溯源）
+        var kbEntry = KbLookup(text);
+        if (kbEntry is not null)
+        {
+            var knowledgeId = string.IsNullOrEmpty(kbEntry.Id) ? null : kbEntry.Id;
+            return Respond(kbEntry.HalfReaction, "知识库溯源", knowledgeId);
+        }
 
         return null;
     }
 
-    private static EngineResponse Respond(string result, string kind) => new()
+    private static EngineResponse Respond(string result, string kind, string? knowledgeId = null) => new()
     {
         Ok = true,
         FinalResult = result,
         DerivationSteps = new List<string> { result },
+        // 加性推理链（spec R4）：仅知识库溯源命中携带真实 knowledge_id 时填充；
+        // 萃取式配平为纯计算、无知识锚点 → 留空，避免假可溯源。
+        ReasoningNodes = knowledgeId is null
+            ? new List<ReasoningNode>()
+            : new List<ReasoningNode>
+            {
+                new()
+                {
+                    Step = 1,
+                    Description = "知识库溯源命中",
+                    Premises = new List<string> { "题干触发词全命中 data/knowledge/electrode-half-reactions.json 条目" },
+                    KnowledgeId = knowledgeId,
+                    Conclusion = result,
+                    EvidenceLevel = EvidenceLevel.KnowledgeFact
+                }
+            },
         ConstraintNote = $"【half-reaction 引擎】{kind}：仅当题干显式给出氧化还原对 + 介质，或命中 JSON 溯源条目时配平；不唯一 / 缺数据一律 null 不蒙数",
         Confidence = 1.0,
         AssetKind = "half_reaction"

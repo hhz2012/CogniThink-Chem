@@ -21,16 +21,39 @@ internal sealed class CompositeStatementJudge : IStatementJudge
     }
 
     public Verdict Judge(string stem, string statement)
+        => JudgeWithIds(stem, statement).Verdict;
+
+    /// <summary>
+    /// 加性扩展：返回聚合判定结论 + 命中事实的 <c>Id</c> 列表（父 spec R4）。
+    /// <para>仅 <see cref="FactBaseStatementJudge"/> 命中时携带非空 id（事实库有稳定 <c>Id</c>）；
+    /// <see cref="CountingStatementJudge"/> / <see cref="RedoxElectronStatementJudge"/> 属引擎推导、无暴露 id，
+    /// 命中时返回空 id 集合（R4：不为引擎推导子判决发节点）。原 <see cref="Judge"/> 签名字节级不变，
+    /// 内部委托本方法丢弃 id，既有行为字节级等价。</para>
+    /// </summary>
+    public (Verdict Verdict, List<string> HitIds) JudgeWithIds(string stem, string statement)
     {
         Verdict? definite = null;
+        var hitIds = new List<string>();
         foreach (var j in _judges)
         {
-            var v = j.Judge(stem, statement);
+            List<string>? subIds = null;
+            Verdict v;
+            if (j is FactBaseStatementJudge fb)
+            {
+                var (vv, ids) = fb.JudgeWithIds(stem, statement);
+                v = vv;
+                subIds = ids;
+            }
+            else
+            {
+                v = j.Judge(stem, statement);   // Counting / RedoxElectron：引擎推导，无暴露 id（R4）
+            }
             if (v == Verdict.Undecided) continue;
             if (definite.HasValue && definite.Value != v)
-                return Verdict.Undecided;   // 冲突 → 不判，不蒙数
+                return (Verdict.Undecided, new List<string>());   // 冲突 → 不判，不蒙数
             definite = v;
+            if (subIds is not null) hitIds.AddRange(subIds);
         }
-        return definite ?? Verdict.Undecided;
+        return (definite ?? Verdict.Undecided, hitIds);
     }
 }

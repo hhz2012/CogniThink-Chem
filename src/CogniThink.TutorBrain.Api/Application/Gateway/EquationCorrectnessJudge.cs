@@ -32,18 +32,20 @@ public static class EquationCorrectnessJudge
     }
 
     /// <summary>
-    /// 判定单方程式书写正误。
+    /// 判定单方程式书写正误（加性扩展：同时返回命中的语境规则 id，供聚合器线程化 ReasoningNodes，父 spec R4）。
+    /// <para><see cref="Judge"/> 内部委托本方法丢弃 id，原签名字节级不变、行为等价。</para>
+    /// <para><c>CtxRuleId</c> 仅在语境规则命中时非空；引擎检查项判定（无真实 data/rules 锚点）与 √/null 路径均为 null（R4 不发节点）。</para>
     /// </summary>
     /// <param name="equation">方程式字符串（支持 Unicode 上下标 / === / ⇌ / → / --条件-->）。</param>
     /// <param name="context">该小题冒号前的语境文本（供语境规则表消费，可空）。</param>
-    public static Verdict Judge(string? equation, string? context = null)
+    public static (Verdict Verdict, string? CtxRuleId) JudgeWithIds(string? equation, string? context = null)
     {
         var reasons = new List<string>();
         var norm = NormalizeEquation(equation);
         if (string.IsNullOrWhiteSpace(norm))
         {
             reasons.Add("未能抽取到可解析的方程式");
-            return new Verdict(null, reasons);
+            return (new Verdict(null, reasons), null);
         }
 
         CheckReport report;
@@ -54,23 +56,23 @@ public static class EquationCorrectnessJudge
         catch
         {
             reasons.Add("引擎校验抛出异常，保守放弃");
-            return new Verdict(null, reasons);
+            return (new Verdict(null, reasons), null);
         }
 
-        // 1) 确定性错误 → ×
+        // 1) 确定性错误 → ×（引擎检查项，无真实 id → R4 不发节点，CtxRuleId=null）
         var cert = FirstCertainError(report);
         if (cert is not null)
         {
             reasons.Add($"引擎检出确定性错误：{cert.CheckName}（{cert.Detail}）");
-            return new Verdict(Wrong, reasons);
+            return (new Verdict(Wrong, reasons), null);
         }
 
-        // 2) 语境规则表：引擎未报确定性错误时，用题干语境补抓引擎漏判的确定性错误
-        var ctxHit = CorrectnessContextRules.Evaluate(norm, context);
+        // 2) 语境规则表：引擎未报确定性错误时，用题干语境补抓引擎漏判的确定性错误（携带规则 id）
+        var (ctxId, ctxHit) = CorrectnessContextRules.EvaluateWithId(norm, context);
         if (ctxHit is not null)
         {
             reasons.Add(ctxHit);
-            return new Verdict(Wrong, reasons);
+            return (new Verdict(Wrong, reasons), ctxId);
         }
 
         // 3) √：全部通过且无超纲（解析失败/仅超纲/氧化数未知等都到不了这里 → null）
@@ -79,7 +81,7 @@ public static class EquationCorrectnessJudge
         if (report.ErrorMessage.Length == 0 && allPass && !hasOutOfScope)
         {
             reasons.Add("引擎全部检查项通过，物种在高中课内范围内");
-            return new Verdict(Right, reasons);
+            return (new Verdict(Right, reasons), null);
         }
 
         // 4) 其余 → null（不蒙数）
@@ -87,8 +89,14 @@ public static class EquationCorrectnessJudge
             reasons.Add($"{item.CheckName}：{item.Detail}");
         if (report.ErrorMessage.Length > 0)
             reasons.Add(report.ErrorMessage);
-        return new Verdict(null, reasons);
+        return (new Verdict(null, reasons), null);
     }
+
+    /// <summary>
+    /// 判定单方程式书写正误。行为字节级不变（内部委托 <see cref="JudgeWithIds"/> 丢弃 id）。
+    /// </summary>
+    public static Verdict Judge(string? equation, string? context = null)
+        => JudgeWithIds(equation, context).Verdict;
 
     /// <summary>
     /// 取首个"确定性错误"检查项。仅这些标签可确信判 ×；

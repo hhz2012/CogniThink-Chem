@@ -124,24 +124,26 @@ internal static class FactChoiceMatcher
     }
 
     /// <summary>
-    /// 用全部四个选择题事实库判定单条化学陈述的真伪（供 <see cref="FactBaseStatementJudge"/> 复用）。
+    /// <see cref="JudgeStatement"/> 的加性扩展：除判定结论外，还返回命中事实的 <c>Id</c> 列表
+    /// （供网关聚合器线程化 <c>ReasoningNodes.KnowledgeId</c>，父 spec R4）。
     /// <para>
     /// 与 <see cref="TryDecide"/> 共用 <see cref="NormOpt"/> / <see cref="OptContains"/> 与
     /// <see cref="RuleStore"/> 加载，判定口径完全一致：match 全部出现在陈述中 且 stemMatch 全部
     /// 出现在题干中才算命中。仅当命中事实的 verdict 全部一致时返回 True/False；0 条命中或命中冲突
     /// （歧义）→ Undecided。
     /// </para>
-    /// <para>
-    /// 本方法为 <see cref="IStatementJudge"/> 新链路专用，<b>不</b>参与既有单选瀑布链的判定，
-    /// 既有 <see cref="TryDecide"/> 行为字节级不变（TR-1.3 护栏）。
-    /// </para>
+    /// <para>判定口径与 <see cref="JudgeStatement"/> 完全一致：<see cref="JudgeStatement"/> 内部委托本方法丢弃 id，
+    /// 既有单选瀑布链 / 判断题行为字节级不变。</para>
+    /// <para>verdict 冲突（多条命中且 verdict 不一致）→ 返回 <see cref="StatementVerdict.Undecided"/> 且 id 列表为空
+    /// （不蒙数、不返回部分命中）。</para>
     /// </summary>
-    internal static StatementVerdict JudgeStatement(string stem, string statement)
+    internal static (StatementVerdict Verdict, List<string> HitIds) JudgeStatementWithIds(string stem, string statement)
     {
         var store = RuleStore.Load();
         var stemN = NormOpt(stem);
         var optN = NormOpt(statement);
         StatementVerdict? verdict = null;
+        var hitIds = new List<string>();
         foreach (var key in ChoiceFactKeys)
         {
             var facts = store.Query<FactData>(key)?.Statements;
@@ -153,12 +155,19 @@ internal static class FactChoiceMatcher
                 if (!f.StemMatch.All(k => OptContains(stemN, NormOpt(k)))) continue;
                 var v = f.Verdict ? StatementVerdict.True : StatementVerdict.False;
                 if (verdict.HasValue && verdict.Value != v)
-                    return StatementVerdict.Undecided;   // 冲突 / 歧义 → 不判，不蒙数
+                    return (StatementVerdict.Undecided, new List<string>());   // 冲突 / 歧义 → 不判，不蒙数
                 verdict = v;
+                if (!string.IsNullOrEmpty(f.Id)) hitIds.Add(f.Id);
             }
         }
-        return verdict ?? StatementVerdict.Undecided;
+        return (verdict ?? StatementVerdict.Undecided, hitIds);
     }
+
+    /// <summary>
+    /// 用全部事实库判定单条化学陈述的真伪。行为字节级不变（内部委托 <see cref="JudgeStatementWithIds"/> 丢弃 id）。
+    /// </summary>
+    internal static StatementVerdict JudgeStatement(string stem, string statement)
+        => JudgeStatementWithIds(stem, statement).Verdict;
 
     /// <summary>
     /// 用指定事实库对一道选择题唯一求解。不能唯一判定返回 null。
