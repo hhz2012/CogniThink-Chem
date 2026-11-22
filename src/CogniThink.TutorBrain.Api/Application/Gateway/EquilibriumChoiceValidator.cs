@@ -42,6 +42,8 @@ public static class EquilibriumChoiceValidator
 
         var verdicts = new Dictionary<string, bool>();
         var reasons = new List<string>();
+        // B-LlmMain T2b：收集每选项命中的规则 Id（equilibrium-rules.json 显式 id），用于可溯源推理节点（R4）。
+        var optionHits = new List<ChoiceReasoningNodes.OptionHit>();
         foreach (var L in letters)
         {
             var opt = ClassificationValidator.Norm(opts[L]);
@@ -50,6 +52,9 @@ public static class EquilibriumChoiceValidator
             var rule = matched[0];
             verdicts[L] = rule.Verdict;
             reasons.Add($"{L}. {(rule.Verdict ? "成立" : "不成立")}（{rule.Id}）：{rule.Reason}");
+            var hitIds = new List<string>();
+            if (!string.IsNullOrWhiteSpace(rule.Id)) hitIds.Add(rule.Id);
+            optionHits.Add(new ChoiceReasoningNodes.OptionHit(L, hitIds));
         }
 
         var candidates = ask == "correct"
@@ -61,11 +66,15 @@ public static class EquilibriumChoiceValidator
         var letter = candidates[0];
         var dirWord = ask == "correct" ? "正确" : "错误";
         reasons.Add($"依据平衡/概念事实规则库，{dirWord}选项唯一为 {letter}。");
+        var finalResult = $"{dirWord}选项为 {letter}";
         return new ChoiceVerifier.Outcome(
             AnswerLetter: letter,
-            FinalResult: $"{dirWord}选项为 {letter}",
+            FinalResult: finalResult,
             Reasons: reasons,
-            ConstraintNote: ConstraintNote);
+            ConstraintNote: ConstraintNote)
+        {
+            ReasoningNodes = ChoiceReasoningNodes.Build(optionHits, finalResult)
+        };
     }
 
     /// <summary>找出选项命中的全部规则（matchAll 全包含 且 stemAll 全包含）。</summary>

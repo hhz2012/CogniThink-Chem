@@ -70,12 +70,17 @@ public static class NaChoiceValidator
         var letters = opts.Keys.OrderBy(k => k, StringComparer.Ordinal).ToList();
         var optionOk = new Dictionary<string, bool>();
         var reasons = new List<string>();
+        // B-LlmMain T2b：收集每选项命中物质的 formula（na-particle-facts.json 稳定主键，类比 kaKey）。
+        var optionHits = new List<ChoiceReasoningNodes.OptionHit>();
         foreach (var L in letters)
         {
-            var (verdict, reason) = ParseOption(opts[L]);
+            var (verdict, reason, formula) = ParseOption(opts[L]);
             if (verdict is null) return null;          // 任一选项不可干净计算 → 整题不臆断
             optionOk[L] = verdict.Value;
             reasons.Add($"{L}. {reason}");
+            var hitIds = new List<string>();
+            if (!string.IsNullOrWhiteSpace(formula)) hitIds.Add(formula);
+            optionHits.Add(new ChoiceReasoningNodes.OptionHit(L, hitIds));
         }
 
         var candidates = askDir == "correct"
@@ -86,11 +91,15 @@ public static class NaChoiceValidator
         var letter = candidates[0];
         var dirWord = askDir == "correct" ? "正确" : "错误";
         reasons.Add($"依据 NA 粒子事实库，{dirWord}选项唯一为 {letter}。");
+        var finalResult = $"{dirWord}选项为 {letter}";
         return new ChoiceVerifier.Outcome(
             AnswerLetter: letter,
-            FinalResult: $"{dirWord}选项为 {letter}",
+            FinalResult: finalResult,
             Reasons: reasons,
-            ConstraintNote: ConstraintNote);
+            ConstraintNote: ConstraintNote)
+        {
+            ReasoningNodes = ChoiceReasoningNodes.Build(optionHits, finalResult)
+        };
     }
 
     /// <summary>事实库分子式数量（供测试护栏断言 ≥40）。</summary>
@@ -107,23 +116,26 @@ public static class NaChoiceValidator
 
     // ---------- 选项解析 ----------
 
-    private static (bool? verdict, string reason) ParseOption(string text)
+    private static (bool? verdict, string reason, string? formula) ParseOption(string text)
     {
         // k：NA 前的系数；无数字但有 NA 标记 → 1
         var mNa = NaRe.Match(text);
         double k;
         if (mNa.Success) k = double.Parse(mNa.Groups[1].Value);
         else if (NaAnchorRe.IsMatch(text)) k = 1.0;
-        else return (null, "无 NA 计数断言");
+        else return (null, "无 NA 计数断言", null);
 
         var particle = DetectParticle(text);
-        if (particle is null) return (null, "未识别粒子类型");
+        if (particle is null) return (null, "未识别粒子类型", null);
 
         var qty = ParseQuantity(text);
+        // B-LlmMain T2b：命中物质的 formula 作可溯源锚点（na-particle-facts.json 稳定主键，类比 kaKey）；
+        // 未命中物质（qty.Sub 为 null）→ formula 为 null → 该选项 hit 留空（R4 不臆造）。
+        var formula = qty.Sub?.Formula;
         if (qty.N is null)
         {
-            if (qty.TrapSolid) return (false, $"{qty.Sub!.Formula} 在标况下为{qty.Sub.StpState}，22.4 L≠1 mol → 断言不成立");
-            return (null, qty.Reason);
+            if (qty.TrapSolid) return (false, $"{qty.Sub!.Formula} 在标况下为{qty.Sub.StpState}，22.4 L≠1 mol → 断言不成立", formula);
+            return (null, qty.Reason, formula);
         }
         var n = qty.N.Value;
         var sub = qty.Sub!;
@@ -131,30 +143,30 @@ public static class NaChoiceValidator
 
         // 字段适用性守卫
         if (field is "sigmaBonds" or "piBonds" or "covalentBonds" && !sub.Molecular)
-            return (null, $"非分子物质 {sub.Formula} 不查询键");
+            return (null, $"非分子物质 {sub.Formula} 不查询键", formula);
         if (field == "ions" && sub.Ions <= 0)
-            return (null, $"非离子物质 {sub.Formula} 不查询总离子数");
+            return (null, $"非离子物质 {sub.Formula} 不查询总离子数", formula);
         if (field == "hBonds" && sub.HBonds <= 0)
-            return (null, $"{sub.Formula} 无氢键数据");
+            return (null, $"{sub.Formula} 无氢键数据", formula);
 
         // 溶液水解陷阱：声称的水解离子名义浓度实际低于名义 → 断言为假
         if (qty is { TrapSolid: false } && particle.IonSpecific && !string.IsNullOrEmpty(particle.IonTok))
         {
             var hydrolyzable = sub.HydrolyzableIons.Select(CleanFormula).ToHashSet(StringComparer.Ordinal);
             if (hydrolyzable.Contains(particle.IonTok))
-                return (false, $"{particle.IonTok} 发生水解，实际浓度低于名义 {k}NA → 断言不成立");
+                return (false, $"{particle.IonTok} 发生水解，实际浓度低于名义 {k}NA → 断言不成立", formula);
         }
         // 溶液中的总离子数需物种分析 → 不臆断
         if (field == "ions" && qty.Reason.Contains("solution"))
-            return (null, "溶液中总离子数需物种分析，不臆断");
+            return (null, "溶液中总离子数需物种分析，不臆断", formula);
 
         if (particle.IonSpecific)
-            return (null, $"特定离子 {particle.IonTok} 的每式计数未建模，不臆断");
+            return (null, $"特定离子 {particle.IonTok} 的每式计数未建模，不臆断", formula);
 
         var per = field == "molecules" ? 1.0 : FieldValue(sub, field);
         var expected = n * per;
         var ok = Math.Abs(expected - k) < 1e-6;
-        return (ok, $"{sub.Formula} n={n:0.####} × {FieldLabel(field)}={per} = {expected:0.####}，声称 {k}NA → {(ok ? "成立" : "不成立")}");
+        return (ok, $"{sub.Formula} n={n:0.####} × {FieldLabel(field)}={per} = {expected:0.####}，声称 {k}NA → {(ok ? "成立" : "不成立")}", formula);
     }
 
     private static double FieldValue(NaParticleFact sub, string field) => field switch

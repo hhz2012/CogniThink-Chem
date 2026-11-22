@@ -24,12 +24,20 @@ namespace CogniThink.TutorBrain.Application.Gateway;
 /// </summary>
 public static class ChoiceVerifier
 {
-    /// <summary>唯一判定成功的产物。</summary>
+    /// <summary>
+    /// 唯一判定成功的产物。
+    /// <para><see cref="ReasoningNodes"/> 为父 spec R4 加性元数据：命中真实知识/规则时携带可溯源节点，
+    /// 无锚点时为空（不臆造）。不影响 <see cref="AnswerLetter"/>/<see cref="FinalResult"/> 等判决字段。</para>
+    /// </summary>
     public sealed record Outcome(
         string AnswerLetter,
         string FinalResult,
         List<string> Reasons,
-        string ConstraintNote);
+        string ConstraintNote)
+    {
+        /// <summary>命中事实的可溯源推理节点（父 spec R4）；无真实锚点时为空，不臆造。</summary>
+        public List<ReasoningNode> ReasoningNodes { get; init; } = new();
+    }
 
     private sealed record OptionVerdict(string Type, string Coexist, string Infeasible);
 

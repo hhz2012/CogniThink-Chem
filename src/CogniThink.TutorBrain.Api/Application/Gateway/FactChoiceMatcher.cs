@@ -207,6 +207,8 @@ internal static class FactChoiceMatcher
 
         var verdicts = new Dictionary<string, bool>(letters.Count);
         var reasons = new List<string>(letters.Count);
+        // 父 spec R4：收集每选项命中的真实事实 Id，用于构建可溯源推理节点（无 Id 则该选项空）。
+        var optionHits = new List<ChoiceReasoningNodes.OptionHit>(letters.Count);
         foreach (var L in letters)
         {
             var optN = NormOpt(opts[L]);
@@ -221,6 +223,10 @@ internal static class FactChoiceMatcher
 
             verdicts[L] = matched[0].Verdict;
             reasons.Add($"{L}：{(matched[0].Verdict ? "正确" : "错误")}（{matched[0].Reason}）");
+            var hitId = matched[0].Id;
+            optionHits.Add(new ChoiceReasoningNodes.OptionHit(
+                L,
+                string.IsNullOrWhiteSpace(hitId) ? new List<string>() : new List<string> { hitId }));
         }
 
         // 双选/多选：题干显式标注「双选」或「多选」时，允许返回多个满足方向的候选字母；
@@ -247,10 +253,16 @@ internal static class FactChoiceMatcher
         var constraint = isMultiSelect
             ? $"【高中限定】基于 {sourceTag} 事实库判定（双选/多选）；任一选项无法干净判定或候选不足则不臆断。"
             : $"【高中限定】基于 {sourceTag} 事实库唯一判定；任一选项无法干净判定或不唯一则不臆断。";
+        var finalResult = $"{dirWord}选项为 {letter}";
+        // 父 spec R4：命中真实事实 Id → 可溯源节点；命中全空 → 空列表（不臆造汇总）。
+        var nodes = ChoiceReasoningNodes.Build(optionHits, finalResult);
         return new ChoiceVerifier.Outcome(
             AnswerLetter: letter,
-            FinalResult: $"{dirWord}选项为 {letter}",
+            FinalResult: finalResult,
             Reasons: reasons,
-            ConstraintNote: constraint);
+            ConstraintNote: constraint)
+        {
+            ReasoningNodes = nodes,
+        };
     }
 }

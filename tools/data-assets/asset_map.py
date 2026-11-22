@@ -61,6 +61,43 @@ RULES = [
         "load_mechanism": "loaded by gateway half-reaction solver",
         "validation_entry": "Api HalfReactionBalancer tests",
     }),
+    # --- Gateway fact/trap solvers (direct DataRoot read, facts live only in JSON) ---
+    ("data/knowledge/impurity-traps.json", "exact", {
+        "category": "facts",
+        "consumer": "Api ImpurityTrapSolver (Application/Gateway/ImpurityTrapSolver.cs)",
+        "load_mechanism": "DataRoot.Resolve()/knowledge/impurity-traps.json; File.ReadAllText + JsonSerializer (Lazy, try/catch → empty)",
+        "validation_entry": "Api ImpurityTrapSolver tests / gateway eval regression",
+    }),
+    ("data/knowledge/standard-state-phases.json", "exact", {
+        "category": "facts",
+        "consumer": "Api StoichiometryStateTrapSolver (Application/Gateway/StoichiometryStateTrapSolver.cs)",
+        "load_mechanism": "DataRoot.Resolve()/knowledge/standard-state-phases.json; File.ReadAllText + JsonSerializer (Lazy, try/catch → empty); B-LlmMain T4 外置",
+        "validation_entry": "Api StoichiometryStateTrapNodesTests / gateway eval regression",
+    }),
+    ("data/knowledge/known-equations.json", "exact", {
+        "category": "facts",
+        "consumer": "Api KnownEquationWriterSolver (Application/Gateway/KnownEquationWriterSolver.cs)",
+        "load_mechanism": "DataRoot.Resolve()/knowledge/known-equations.json; File.ReadAllText + JsonSerializer (Lazy, try/catch → empty)",
+        "validation_entry": "Api KnownEquationWriterSolver tests / gateway eval regression",
+    }),
+    ("data/knowledge/product-rules.json", "exact", {
+        "category": "facts",
+        "consumer": "Api ProductWriterSolver (Application/Gateway/ProductWriterSolver.cs)",
+        "load_mechanism": "DataRoot.Resolve()/knowledge/product-rules.json; File.ReadAllText + JsonSerializer (Lazy, try/catch → empty)",
+        "validation_entry": "Api ProductWriterSolver tests / gateway eval regression",
+    }),
+    ("data/knowledge/redox-rules.json", "exact", {
+        "category": "facts",
+        "consumer": "Api RedoxGatewaySolver (Application/Gateway/RedoxGatewaySolver.cs)",
+        "load_mechanism": "DataRoot.Resolve()/knowledge/redox-rules.json; File.ReadAllText + JsonSerializer (Lazy, try/catch → empty)",
+        "validation_entry": "Api RedoxGatewaySolver tests / gateway eval regression",
+    }),
+    ("data/knowledge/correctness-context-rules.json", "exact", {
+        "category": "facts",
+        "consumer": "Api CorrectnessContextRules (Application/Gateway/CorrectnessContextRules.cs)",
+        "load_mechanism": "DataRoot.Resolve()/knowledge/correctness-context-rules.json; File.ReadAllText + JsonSerializer (Lazy, try/catch → empty)",
+        "validation_entry": "Api CorrectnessContextRules tests / gateway eval regression",
+    }),
     ("data/knowledge/reactions/", "prefix", {
         "category": "knowledge",
         "consumer": "Core ReactionLibrary (Reactions/ReactionLibrary.cs L66-81)",

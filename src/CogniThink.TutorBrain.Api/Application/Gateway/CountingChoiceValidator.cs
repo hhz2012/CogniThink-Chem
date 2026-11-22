@@ -57,33 +57,38 @@ public static class CountingChoiceValidator
         // 路径二：逐选项判定计数断言
         var reasons = new List<string>();
         var verdicts = new List<(string letter, bool ok)>();
+        // B-LlmMain T2b：收集每选项命中的计数事实 Id（仅事实表路径；枚举路径无锚点留空，R4）。
+        var optionHits = new List<ChoiceReasoningNodes.OptionHit>();
         foreach (var kv in opts.OrderBy(x => x.Key))
         {
-            var v = JudgeCountOption(kv.Value);
+            var (v, factId) = JudgeCountOption(kv.Value);
             if (v is null) return null; // 任一不可判 → 整题 null
             verdicts.Add((kv.Key, v.Value));
             reasons.Add($"{kv.Key}：{kv.Value}（计算/查表得 {(v.Value ? "真" : "假")}）");
+            var hitIds = new List<string>();
+            if (!string.IsNullOrWhiteSpace(factId)) hitIds.Add(factId);
+            optionHits.Add(new ChoiceReasoningNodes.OptionHit(kv.Key, hitIds));
         }
-        return ChooseUnique(verdicts, askDir, reasons);
+        return ChooseUnique(verdicts, askDir, reasons, optionHits);
     }
 
     // ===================== 路径二：逐选项计数断言 =====================
 
-    /// <summary>判定一个计数断言选项的真伪；不可判返回 null。</summary>
-    private static bool? JudgeCountOption(string text)
+    /// <summary>判定一个计数断言选项的真伪；不可判返回 null。factId 仅在事实表命中时非空（R4 锚点）。</summary>
+    private static (bool? verdict, string? factId) JudgeCountOption(string text)
     {
         var claimed = ExtractClaimedCount(text);
-        if (claimed is null) return null;
+        if (claimed is null) return (null, null);
 
-        // 1) 枚举：解析分子式 + 限定 → 计算真值
+        // 1) 枚举：解析分子式 + 限定 → 计算真值（纯引擎，无 JSON 锚点 → factId=null，R4 留空）
         var trueCount = ComputeCountByFormula(text);
-        if (trueCount is not null) return claimed == trueCount;
+        if (trueCount is not null) return (claimed == trueCount, null);
 
-        // 2) 事实表：精确子串匹配
+        // 2) 事实表：精确子串匹配（命中 → factId=CountingFact.Id，真实锚点）
         var fact = MatchFact(text);
-        if (fact is not null) return claimed == fact.Count;
+        if (fact is not null) return (claimed == fact.Count, string.IsNullOrWhiteSpace(fact.Id) ? null : fact.Id);
 
-        return null;
+        return (null, null);
     }
 
     /// <summary>
@@ -91,7 +96,7 @@ public static class CountingChoiceValidator
     /// （IStatementJudge 链路）复用——仅做薄包装，不改 <see cref="JudgeCountOption"/> 判定语义，
     /// 既有计数/组合路径字节级不变。
     /// </summary>
-    internal static bool? TryJudgeCountStatement(string text) => JudgeCountOption(text);
+    internal static bool? TryJudgeCountStatement(string text) => JudgeCountOption(text).verdict;
 
     /// <summary>从选项提取声称的数目：取 "…N 种" 中的 N。</summary>
     private static int? ExtractClaimedCount(string text)
@@ -204,7 +209,8 @@ public static class CountingChoiceValidator
         var trueCount = 0;
         foreach (var it in items)
         {
-            var v = JudgeCountOption(it);
+            // 子项路径留空 ReasoningNodes（选项是"N 项"聚合，非事实直查；R4 不臆造映射），仅取 verdict。
+            var (v, _) = JudgeCountOption(it);
             if (v is null) return null; // 任一子项不可判 → 整题 null
             if (v.Value) trueCount++;
             reasons.Add($"子项：{it}（{(v.Value ? "正确" : "错误")}）");
@@ -429,13 +435,21 @@ public static class CountingChoiceValidator
         return "?";
     }
 
+    // 子项/组合路径未线程化（选项为聚合编号，无逐选项事实锚点 → R4 留空），传空 hit 列表。
     private static ChoiceVerifier.Outcome? ChooseUnique(List<(string letter, bool ok)> verdicts, string askDir, List<string> reasons)
+        => ChooseUnique(verdicts, askDir, reasons, new List<ChoiceReasoningNodes.OptionHit>());
+
+    private static ChoiceVerifier.Outcome? ChooseUnique(List<(string letter, bool ok)> verdicts, string askDir, List<string> reasons, List<ChoiceReasoningNodes.OptionHit> optionHits)
     {
         var wantTrue = askDir == "correct";
         var candidates = verdicts.Where(v => v.ok == wantTrue).Select(v => v.letter).ToList();
         if (candidates.Count != 1) return null;
         var letter = candidates[0];
         var dirWord = wantTrue ? "正确选项" : "错误选项";
-        return new ChoiceVerifier.Outcome(letter, $"{dirWord}为 {letter}", reasons, ConstraintNote);
+        var finalResult = $"{dirWord}为 {letter}";
+        return new ChoiceVerifier.Outcome(letter, finalResult, reasons, ConstraintNote)
+        {
+            ReasoningNodes = ChoiceReasoningNodes.Build(optionHits, finalResult)
+        };
     }
 }

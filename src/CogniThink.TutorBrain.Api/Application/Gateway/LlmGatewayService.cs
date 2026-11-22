@@ -408,6 +408,7 @@ public sealed partial class LlmGatewayService
                     DerivationSteps = curChoice.Reasons,
                     ErrorTags = InferErrorTags(curChoice.FinalResult),
                     ConstraintNote = curChoice.ConstraintNote,
+                    ReasoningNodes = GatewayReasoningNodes.Clone(curChoice.ReasoningNodes),
                     Confidence = 1.0,
                     // P2-3：标记结论来源 provenance（仅诊断，不改判决字段）
                     ResultProvenance = "curve_choice"
@@ -432,6 +433,7 @@ public sealed partial class LlmGatewayService
                     DerivationSteps = con.Reasons,
                     ErrorTags = InferErrorTags(con.FinalResult),
                     ConstraintNote = con.ConstraintNote,
+                    ReasoningNodes = GatewayReasoningNodes.Clone(con.ReasoningNodes),
                     Confidence = 1.0,
                     // P2-3：标记结论来源 provenance（仅诊断，不改判决字段）
                     ResultProvenance = "concept_choice"
@@ -542,6 +544,22 @@ public sealed partial class LlmGatewayService
                     Ok = true,
                     FinalResult = t.FinalResult,
                     ConstraintNote = t.Note,
+                    // B-LlmMain T4：标况非气态事实外置为 standard-state-phases.json，命中挂真实 KnowledgeId（R4）；
+                    // 未命中时 solver 返回 null → 无 EngineResponse → 节点天然缺席。
+                    ReasoningNodes = string.IsNullOrWhiteSpace(t.HitId)
+                        ? new List<ReasoningNode>()
+                        : new List<ReasoningNode>
+                        {
+                            new()
+                            {
+                                Step = 1,
+                                Description = "标况气体摩尔体积陷阱判定（状态事实取自 standard-state-phases.json）",
+                                Premises = new List<string> { $"题干物种命中 data/knowledge/standard-state-phases.json 条目：{t.HitId}" },
+                                KnowledgeId = t.HitId,
+                                Conclusion = t.FinalResult,
+                                EvidenceLevel = EvidenceLevel.KnowledgeFact
+                            }
+                        },
                     Confidence = 1.0
                 });
             }
@@ -943,6 +961,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = cls.Reasons,
                 ErrorTags = InferErrorTags(cls.FinalResult),
                 ConstraintNote = cls.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(cls.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -959,6 +978,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = trn.Reasons,
                 ErrorTags = InferErrorTags(trn.FinalResult),
                 ConstraintNote = trn.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(trn.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -974,6 +994,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = nac.Reasons,
                 ErrorTags = InferErrorTags(nac.FinalResult),
                 ConstraintNote = nac.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(nac.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -989,6 +1010,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = ieq.Reasons,
                 ErrorTags = InferErrorTags(ieq.FinalResult),
                 ConstraintNote = ieq.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(ieq.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1004,6 +1026,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = redox.Reasons,
                 ErrorTags = InferErrorTags(redox.FinalResult),
                 ConstraintNote = redox.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(redox.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1019,6 +1042,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = eqc.Reasons,
                 ErrorTags = InferErrorTags(eqc.FinalResult),
                 ConstraintNote = eqc.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(eqc.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1034,6 +1058,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = org.Reasons,
                 ErrorTags = InferErrorTags(org.FinalResult),
                 ConstraintNote = org.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(org.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1049,6 +1074,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = sp.Reasons,
                 ErrorTags = InferErrorTags(sp.FinalResult),
                 ConstraintNote = sp.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(sp.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1065,6 +1091,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = exp.Reasons,
                 ErrorTags = InferErrorTags(exp.FinalResult),
                 ConstraintNote = exp.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(exp.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1081,6 +1108,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = con.Reasons,
                 ErrorTags = InferErrorTags(con.FinalResult),
                 ConstraintNote = con.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(con.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1097,6 +1125,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = molc.Reasons,
                 ErrorTags = InferErrorTags(molc.FinalResult),
                 ConstraintNote = molc.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(molc.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1113,6 +1142,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = cnt.Reasons,
                 ErrorTags = InferErrorTags(cnt.FinalResult),
                 ConstraintNote = cnt.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(cnt.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1129,6 +1159,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = stoi.Reasons,
                 ErrorTags = InferErrorTags(stoi.FinalResult),
                 ConstraintNote = stoi.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(stoi.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1146,6 +1177,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = multi.Reasons,
                 ErrorTags = InferErrorTags(multi.FinalResult),
                 ConstraintNote = multi.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(multi.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1160,6 +1192,7 @@ public sealed partial class LlmGatewayService
                 DerivationSteps = outcome.Reasons,
                 ErrorTags = InferErrorTags(outcome.FinalResult),
                 ConstraintNote = outcome.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(outcome.ReasoningNodes),
                 Confidence = 1.0
             };
         }
@@ -1866,33 +1899,71 @@ public sealed partial class LlmGatewayService
 
     // ==================== 化学平衡 / 水溶液平衡引擎 ====================
 
-    /// <summary>常见沉淀的阳离子:阴离子比例（高中限定）</summary>
-    private static readonly Dictionary<string, (string cation, string anion, int catRatio, int anRatio)> PrecipitateTypes = new()
+    private sealed class PrecipitateTypeEntry
     {
-        ["AgCl"] = ("Ag+", "Cl-", 1, 1),
-        ["AgI"] = ("Ag+", "I-", 1, 1),
-        ["AgBr"] = ("Ag+", "Br-", 1, 1),
-        ["AgOH"] = ("Ag+", "OH-", 1, 1),
-        ["Ag2CrO4"] = ("Ag+", "CrO4^2-", 2, 1),
-        ["Ag2CO3"] = ("Ag+", "CO3^2-", 2, 1),
-        ["Ag2SO4"] = ("Ag+", "SO4^2-", 2, 1),
-        ["Ag3PO4"] = ("Ag+", "PO4^3-", 3, 1),
-        ["BaSO4"] = ("Ba2+", "SO4^2-", 1, 1),
-        ["BaCO3"] = ("Ba2+", "CO3^2-", 1, 1),
-        ["CaCO3"] = ("Ca2+", "CO3^2-", 1, 1),
-        ["CaSO4"] = ("Ca2+", "SO4^2-", 1, 1),
-        ["CaF2"] = ("Ca2+", "F-", 1, 2),
-        ["MgF2"] = ("Mg2+", "F-", 1, 2),
-        ["Mg(OH)2"] = ("Mg2+", "OH-", 1, 2),
-        ["Cu(OH)2"] = ("Cu2+", "OH-", 1, 2),
-        ["Fe(OH)2"] = ("Fe2+", "OH-", 1, 2),
-        ["Fe(OH)3"] = ("Fe3+", "OH-", 1, 3),
-        ["Al(OH)3"] = ("Al3+", "OH-", 1, 3),
-        ["PbI2"] = ("Pb2+", "I-", 1, 2),
-        ["Ag2S"] = ("Ag+", "S2-", 2, 1),
-        ["CuS"] = ("Cu2+", "S2-", 1, 1),
-        ["FeS"] = ("Fe2+", "S2-", 1, 1)
-    };
+        public string Id { get; set; } = "";
+        public string Formula { get; set; } = "";
+        public string Cation { get; set; } = "";
+        public string Anion { get; set; } = "";
+        public int CatRatio { get; set; }
+        public int AnRatio { get; set; }
+    }
+
+    private sealed class PrecipitateTypesData
+    {
+        public string Version { get; set; } = "";
+        public string Source { get; set; } = "";
+        public List<PrecipitateTypeEntry> Entries { get; set; } = new();
+    }
+
+    /// <summary>
+    /// 常见沉淀的阳离子:阴离子比例（高中限定）。
+    /// 事实外置在 <c>data/highschool/precipitate-types.json</c>（B-LlmMain T4 组 2），按 formula 键（Ordinal）
+    /// 查得 (cation, anion, catRatio, anRatio, id)；id 用作推理节点 KnowledgeId（R4 真实锚点）。
+    /// 加载失败降级为空表 → TryGetValue 全 miss → 求解器返回 null（不猜，与原硬编码永不抛的鲁棒性一致）。
+    /// </summary>
+    private static readonly Lazy<Dictionary<string, (string cation, string anion, int catRatio, int anRatio, string id)>> PrecipitateTypes = new(LoadPrecipitateTypes);
+
+    private static Dictionary<string, (string cation, string anion, int catRatio, int anRatio, string id)> LoadPrecipitateTypes()
+    {
+        try
+        {
+            var data = RuleStore.Load().Query<PrecipitateTypesData>("precipitate-types");
+            var dict = new Dictionary<string, (string, string, int, int, string)>(StringComparer.Ordinal);
+            foreach (var e in data.Entries)
+            {
+                if (string.IsNullOrWhiteSpace(e.Formula)) continue;
+                dict[e.Formula] = (e.Cation, e.Anion, e.CatRatio, e.AnRatio, e.Id);
+            }
+            return dict;
+        }
+        catch
+        {
+            return new Dictionary<string, (string, string, int, int, string)>(StringComparer.Ordinal);
+        }
+    }
+
+    /// <summary>
+    /// 金属活动性顺序（从活泼到不活泼，H 为氢前/氢后参照位）。
+    /// 取自 <c>data/highschool/activity-series.json</c>（B-LlmMain T4 组 3 外置，原方法内硬编码数组；
+    /// Core 已加载同文件，网关侧懒加载复用，字节级一致）。加载失败降级为空数组 → 活动性分支全部
+    /// return null（不猜，零假阳性），与原硬编码「永不抛」的鲁棒性等价。
+    /// </summary>
+    private static readonly Lazy<string[]> ActivitySeries = new(LoadActivitySeries);
+
+    private static string[] LoadActivitySeries()
+    {
+        try
+        {
+            var series = RuleStore.Load().Query<ActivitySeriesData>("activity-series").Series;
+            if (series is null || series.Count == 0) return System.Array.Empty<string>();
+            return series.ToArray();
+        }
+        catch
+        {
+            return System.Array.Empty<string>();
+        }
+    }
 
     /// <summary>
     /// 化学平衡引擎。
@@ -1999,8 +2070,9 @@ public sealed partial class LlmGatewayService
         catch { return null; }
         if (data is null || data.Ka.Count == 0) return null;
 
-        // acid -> (Ka 数值, 显示串)；多元酸只取第一步 Ka1 代表酸性强度
-        var acidInfo = new Dictionary<string, (double val, string disp)>(StringComparer.Ordinal);
+        // acid -> (Ka 数值, 显示串, JSON 稳定键 kaKey)；多元酸只取第一步 Ka1 代表酸性强度。
+        // kaKey 用作推理节点的 KnowledgeId（真实锚点，镜像 HydrolysisPhCalculator 的 kaKey 范式）。
+        var acidInfo = new Dictionary<string, (double val, string disp, string kaKey)>(StringComparer.Ordinal);
         foreach (var kv in data.Ka)
         {
             var key = kv.Key;
@@ -2009,7 +2081,7 @@ public sealed partial class LlmGatewayService
             var step = idx > 0 ? key.Substring(idx + 1) : "Ka1";
             if (step != "Ka1") continue;
             var val = double.Parse(kv.Value.Mantissa, CultureInfo.InvariantCulture) * Math.Pow(10, kv.Value.Exponent);
-            acidInfo[acid] = (val, $"{kv.Value.Mantissa}×10^{kv.Value.Exponent}");
+            acidInfo[acid] = (val, $"{kv.Value.Mantissa}×10^{kv.Value.Exponent}", key);
         }
         if (acidInfo.Count == 0) return null;
 
@@ -2029,11 +2101,19 @@ public sealed partial class LlmGatewayService
         var sep = weakToStrong ? " < " : " > ";
         var result = string.Join(sep, sorted);
         var dir = weakToStrong ? "由弱到强" : "由强到弱";
+        var finalResult = $"{dir}：{result}（依据 25 ℃ 电离常数 Ka：{string.Join("、", sorted.Select(a => $"{a}={acidInfo[a].disp}"))}）";
+
+        // R4 可溯源线程化：每个命中酸的 Ka1 均来自 acid-constants.json → KnowledgeId=kaKey（真实锚点）；
+        // 到达此处 found≥2 且均在库内（上方守卫已保证），故命中非空；命中全空的路径在上方已 return null。
+        var acidHits = sorted
+            .Select(a => new AcidOrderReasoningNodes.AcidHit(a, acidInfo[a].kaKey, acidInfo[a].disp))
+            .ToList();
 
         return new EngineResponse
         {
             Ok = true,
-            FinalResult = $"{dir}：{result}（依据 25 ℃ 电离常数 Ka：{string.Join("、", sorted.Select(a => $"{a}={acidInfo[a].disp}"))}）",
+            FinalResult = finalResult,
+            ReasoningNodes = AcidOrderReasoningNodes.Build(acidHits, finalResult),
             ConstraintNote = "【引擎】基于 acid-constants.json 的 Ka 数值比较，不猜测数据之外的酸",
             Confidence = 1.0
         };
@@ -2047,15 +2127,15 @@ public sealed partial class LlmGatewayService
             @"Ksp\(([^)]+)\)\s*=\s*([\d.]+)\s*(?:[×xX*]\s*10\^|e|E)(-?\d+)");
         if (kspMatches.Count < 2) return null;
 
-        var precipitates = new List<(string formula, double ksp, int catRatio, int anRatio, string cation, string anion)>();
+        var precipitates = new List<(string formula, double ksp, int catRatio, int anRatio, string cation, string anion, string id)>();
         foreach (Match m in kspMatches)
         {
             var formula = m.Groups[1].Value.Trim();
-            if (!PrecipitateTypes.TryGetValue(formula, out var type)) continue;
+            if (!PrecipitateTypes.Value.TryGetValue(formula, out var type)) continue;
             var mantissa = double.Parse(m.Groups[2].Value, CultureInfo.InvariantCulture);
             var exp = int.Parse(m.Groups[3].Value, CultureInfo.InvariantCulture);
             var ksp = mantissa * Math.Pow(10, exp);
-            precipitates.Add((formula, ksp, type.catRatio, type.anRatio, type.cation, type.anion));
+            precipitates.Add((formula, ksp, type.catRatio, type.anRatio, type.cation, type.anion, type.id));
         }
 
         if (precipitates.Count < 2) return null;
@@ -2082,7 +2162,7 @@ public sealed partial class LlmGatewayService
         var results = precipitates.Select(p =>
         {
             double needed = Math.Pow(p.ksp / Math.Pow(c, p.anRatio), 1.0 / p.catRatio);
-            return (p.formula, p.anion, p.catRatio, p.anRatio, p.ksp, needed);
+            return (p.formula, p.anion, p.catRatio, p.anRatio, p.ksp, needed, p.id);
         }).OrderBy(x => x.needed).ToList();
 
         var first = results[0];
@@ -2099,11 +2179,19 @@ public sealed partial class LlmGatewayService
             ? "【高中限定】同类型沉淀可直接比较Ksp，Ksp小的先沉淀"
             : "【高中限定】不同类型沉淀不能直接比Ksp，需计算所需阳离子浓度";
 
+        // R4 可溯源线程化：每个参与比较的沉淀其类型均来自 precipitate-types.json → KnowledgeId=条目 id（真实锚点）。
+        // 到达此处 results≥2 且均命中事实表（上方守卫已保证），故 pptHits 非空；命中全空的路径在上方已 return null。
+        var finalResult = $"{first.anion} 先沉淀。开始沉淀所需{cationLabel}浓度最小（{FormatSci(first.needed)} mol/L），最先达到溶度积。";
+        var pptHits = results
+            .Select(r => new PrecipitateReasoningNodes.PrecipitateHit(r.formula, r.id))
+            .ToList();
+
         return new EngineResponse
         {
             Ok = true,
-            FinalResult = $"{first.anion} 先沉淀。开始沉淀所需{cationLabel}浓度最小（{FormatSci(first.needed)} mol/L），最先达到溶度积。",
+            FinalResult = finalResult,
             DerivationSteps = steps,
+            ReasoningNodes = PrecipitateReasoningNodes.Build(pptHits, finalResult),
             ConstraintNote = note,
             Confidence = 1.0
         };
@@ -2384,12 +2472,8 @@ public sealed partial class LlmGatewayService
     /// </summary>
     private EngineResponse? TryJudgeReactionFeasibility(string stem)
     {
-        // 金属活动性顺序（从活泼到不活泼），H 为氢前/氢后分界
-        var activitySeries = new[]
-        {
-            "K", "Ca", "Na", "Mg", "Al", "Zn", "Fe", "Sn", "Pb",
-            "H", "Cu", "Hg", "Ag", "Pt", "Au"
-        };
+        // 金属活动性顺序（从活泼到不活泼），H 为氢前/氢后分界；取自 activity-series.json（B-LlmMain T4 组 3 外置）。
+        var activitySeries = ActivitySeries.Value;
         int ActivityIndex(string metal) =>
             Array.FindIndex(activitySeries, m =>
                 string.Equals(m, metal, StringComparison.OrdinalIgnoreCase));
@@ -2456,6 +2540,7 @@ public sealed partial class LlmGatewayService
                 {
                     Ok = false,
                     FinalResult = $"不能生成H2。{acidName}是强氧化性酸，与金属反应时酸根被还原（如NO3-→NO），不生成H2。",
+                    ReasoningNodes = FeasibilityRuleReasoningNodes.OxidizingAcidNoH2(acidName),
                     IsStudentAnswerCorrect = false,
                     ErrorTags = new List<string> { "E04" },
                     DerivationSteps = new List<string>
@@ -2477,6 +2562,7 @@ public sealed partial class LlmGatewayService
                     {
                         Ok = true,
                         FinalResult = $"能生成H2。{metal}在金属活动性顺序中排在H之前，能与非氧化性酸发生置换反应生成H2。",
+                        ReasoningNodes = ActivityReasoningNodes.HydrogenPosition(metal, beforeH: true),
                         IsStudentAnswerCorrect = true,
                         ErrorTags = new List<string>(),
                         DerivationSteps = new List<string>
@@ -2494,6 +2580,7 @@ public sealed partial class LlmGatewayService
                     {
                         Ok = false,
                         FinalResult = $"不能生成H2。{metal}在金属活动性顺序中排在H之后，不能置换稀酸中的H+。",
+                        ReasoningNodes = ActivityReasoningNodes.HydrogenPosition(metal, beforeH: false),
                         IsStudentAnswerCorrect = false,
                         ErrorTags = new List<string> { "E04" },
                         DerivationSteps = new List<string>
@@ -2520,6 +2607,7 @@ public sealed partial class LlmGatewayService
                 {
                     Ok = false,
                     FinalResult = $"不能反应。{metal}是惰性金属，不与{acidName}反应（需王水才能溶解）。",
+                    ReasoningNodes = ActivityReasoningNodes.InertMetalOxidizingAcid(metal),
                     IsStudentAnswerCorrect = false,
                     ErrorTags = new List<string> { "E04" },
                     DerivationSteps = new List<string>
@@ -2539,6 +2627,7 @@ public sealed partial class LlmGatewayService
             {
                 Ok = true,
                 FinalResult = $"能反应。{note}",
+                ReasoningNodes = ActivityReasoningNodes.ActiveMetalOxidizingAcid(metal),
                 IsStudentAnswerCorrect = true,
                 ErrorTags = new List<string>(),
                 DerivationSteps = new List<string>
@@ -2563,6 +2652,7 @@ public sealed partial class LlmGatewayService
                 {
                     Ok = true,
                     FinalResult = $"能反应。{metal}在金属活动性顺序中排在H之前，能与稀酸发生置换反应，生成盐和H2。",
+                    ReasoningNodes = ActivityReasoningNodes.HydrogenPosition(metal, beforeH: true),
                     IsStudentAnswerCorrect = true,
                     ErrorTags = new List<string>(),
                     DerivationSteps = new List<string>
@@ -2580,6 +2670,7 @@ public sealed partial class LlmGatewayService
                 {
                     Ok = false,
                     FinalResult = $"不能反应。{metal}在金属活动性顺序中排在H之后，不能置换稀酸中的H+。",
+                    ReasoningNodes = ActivityReasoningNodes.HydrogenPosition(metal, beforeH: false),
                     IsStudentAnswerCorrect = false,
                     ErrorTags = new List<string> { "E04" },
                     DerivationSteps = new List<string>
@@ -2604,6 +2695,7 @@ public sealed partial class LlmGatewayService
                 {
                     Ok = false,
                     FinalResult = $"不能直接置换出金属。{metal}非常活泼，会先与盐溶液中的水反应生成碱和H2，不能置换出盐中的金属。",
+                    ReasoningNodes = ActivityReasoningNodes.HighlyActiveWaterFirst(metal),
                     IsStudentAnswerCorrect = false,
                     ErrorTags = new List<string> { "E04" },
                     DerivationSteps = new List<string>
@@ -2650,6 +2742,7 @@ public sealed partial class LlmGatewayService
                     {
                         Ok = true,
                         FinalResult = $"能反应。{metal}的金属活动性强于{saltMetal}，能将{saltMetal}从其盐溶液中置换出来。",
+                        ReasoningNodes = ActivityReasoningNodes.MetalDisplacement(metal, saltMetal),
                         IsStudentAnswerCorrect = true,
                         ErrorTags = new List<string>(),
                         DerivationSteps = new List<string>
@@ -2678,6 +2771,7 @@ public sealed partial class LlmGatewayService
                 {
                     Ok = false,
                     FinalResult = "不对。稀硫酸/稀盐酸只能把Fe氧化为+2价（生成FeSO4/FeCl2），不能生成+3价铁盐。",
+                    ReasoningNodes = FeasibilityRuleReasoningNodes.FeDiluteAcidValence(),
                     IsStudentAnswerCorrect = false,
                     ErrorTags = new List<string> { "E05" },
                     DerivationSteps = new List<string>

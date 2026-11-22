@@ -1,0 +1,8 @@
+{
+  "version": "1.0",
+  "source": "高中化学：标况（0℃、101kPa）下非气态物质的状态事实（B-LlmMain T4 外置，原 StoichiometryStateTrapSolver.NonGasAtStp 硬编码）。匹配串字节级保留（含下标 ₃ 与中文物质名）；匹配语义为 raw.Contains（大小写敏感 ordinal）；数组顺序即匹配迭代顺序（首命中语义不变）。",
+  "entries": [
+    { "id": "sstp-so3", "state": "固体", "match": ["SO3", "SO₃"] },
+    { "id": "sstp-hexane", "state": "液体", "match": ["己烷"] }
+  ]
+}

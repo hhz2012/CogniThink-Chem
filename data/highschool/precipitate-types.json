@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "source": "高中化学常见沉淀的阳离子:阴离子解离比例（B-LlmMain T4 组 2 外置，原 LlmGatewayService.PrecipitateTypes 硬编码 dict）。formula 键字节级保留（含括号），查找语义为 Ordinal 大小写敏感；Ksp 数值仍由题面正则提供，本文件仅提供沉淀类型事实（阳离子/阴离子/比例）与唯一 id 作推理锚点。",
+  "entries": [
+    { "id": "ppt:AgCl", "formula": "AgCl", "cation": "Ag+", "anion": "Cl-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:AgI", "formula": "AgI", "cation": "Ag+", "anion": "I-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:AgBr", "formula": "AgBr", "cation": "Ag+", "anion": "Br-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:AgOH", "formula": "AgOH", "cation": "Ag+", "anion": "OH-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:Ag2CrO4", "formula": "Ag2CrO4", "cation": "Ag+", "anion": "CrO4^2-", "catRatio": 2, "anRatio": 1 },
+    { "id": "ppt:Ag2CO3", "formula": "Ag2CO3", "cation": "Ag+", "anion": "CO3^2-", "catRatio": 2, "anRatio": 1 },
+    { "id": "ppt:Ag2SO4", "formula": "Ag2SO4", "cation": "Ag+", "anion": "SO4^2-", "catRatio": 2, "anRatio": 1 },
+    { "id": "ppt:Ag3PO4", "formula": "Ag3PO4", "cation": "Ag+", "anion": "PO4^3-", "catRatio": 3, "anRatio": 1 },
+    { "id": "ppt:BaSO4", "formula": "BaSO4", "cation": "Ba2+", "anion": "SO4^2-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:BaCO3", "formula": "BaCO3", "cation": "Ba2+", "anion": "CO3^2-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:CaCO3", "formula": "CaCO3", "cation": "Ca2+", "anion": "CO3^2-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:CaSO4", "formula": "CaSO4", "cation": "Ca2+", "anion": "SO4^2-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:CaF2", "formula": "CaF2", "cation": "Ca2+", "anion": "F-", "catRatio": 1, "anRatio": 2 },
+    { "id": "ppt:MgF2", "formula": "MgF2", "cation": "Mg2+", "anion": "F-", "catRatio": 1, "anRatio": 2 },
+    { "id": "ppt:Mg(OH)2", "formula": "Mg(OH)2", "cation": "Mg2+", "anion": "OH-", "catRatio": 1, "anRatio": 2 },
+    { "id": "ppt:Cu(OH)2", "formula": "Cu(OH)2", "cation": "Cu2+", "anion": "OH-", "catRatio": 1, "anRatio": 2 },
+    { "id": "ppt:Fe(OH)2", "formula": "Fe(OH)2", "cation": "Fe2+", "anion": "OH-", "catRatio": 1, "anRatio": 2 },
+    { "id": "ppt:Fe(OH)3", "formula": "Fe(OH)3", "cation": "Fe3+", "anion": "OH-", "catRatio": 1, "anRatio": 3 },
+    { "id": "ppt:Al(OH)3", "formula": "Al(OH)3", "cation": "Al3+", "anion": "OH-", "catRatio": 1, "anRatio": 3 },
+    { "id": "ppt:PbI2", "formula": "PbI2", "cation": "Pb2+", "anion": "I-", "catRatio": 1, "anRatio": 2 },
+    { "id": "ppt:Ag2S", "formula": "Ag2S", "cation": "Ag+", "anion": "S2-", "catRatio": 2, "anRatio": 1 },
+    { "id": "ppt:CuS", "formula": "CuS", "cation": "Cu2+", "anion": "S2-", "catRatio": 1, "anRatio": 1 },
+    { "id": "ppt:FeS", "formula": "FeS", "cation": "Fe2+", "anion": "S2-", "catRatio": 1, "anRatio": 1 }
+  ]
+}

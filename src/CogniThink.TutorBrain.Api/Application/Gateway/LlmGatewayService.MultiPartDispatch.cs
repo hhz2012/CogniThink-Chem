@@ -27,7 +27,7 @@ public sealed partial class LlmGatewayService
         var subs = MultiPartUtility.SplitSubQuestions(rawText);
         if (subs.Count < 2) return null; // 与检测器一致：少于 2 个子问不分发
 
-        var parts = new List<(int Index, string Result)>(subs.Count);
+        var parts = new List<(int Index, EngineResponse SubResp)>(subs.Count);
         foreach (var (idx, subText) in subs)
         {
             ct.ThrowIfCancellationRequested();
@@ -41,13 +41,13 @@ public sealed partial class LlmGatewayService
             if (subResp.Ok is not true || string.IsNullOrWhiteSpace(subResp.FinalResult))
                 return null;
 
-            parts.Add((idx, subResp.FinalResult.Trim()));
+            parts.Add((idx, subResp));
         }
 
         var sb = new StringBuilder();
-        foreach (var (idx, result) in parts)
+        foreach (var (idx, sub) in parts)
         {
-            sb.Append('(').Append(idx).Append(')').Append(result).Append(' ');
+            sb.Append('(').Append(idx).Append(')').Append(sub.FinalResult.Trim()).Append(' ');
         }
         var aggregated = sb.ToString().TrimEnd();
 
@@ -55,6 +55,7 @@ public sealed partial class LlmGatewayService
         {
             Ok = true,
             FinalResult = aggregated,
+            ReasoningNodes = MultiPartReasoningNodes.Merge(parts, aggregated),
             DerivationSteps = new List<string>
             {
                 "【多部分分发】逐子问经确定性求解器求解；整题结论由各子问结论聚合，评估侧按答案键 AND 校验后采纳"

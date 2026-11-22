@@ -1,9 +1,9 @@
 # Data Asset Inventory (auto-generated)
 
-> Generated: `2026-11-22T07:27:04.759314+00:00`  
+> Generated: `2026-11-22T15:47:04.960390+00:00`  
 > Generator: `tools/data-assets/gen_inventory.py`  
-> Manifest hash: `fc1835536b12b91c…`  
-> Total JSON assets: **52** (UNMAPPED: **0**)  
+> Manifest hash: `d5208b386d400f56…`  
+> Total JSON assets: **60** (UNMAPPED: **0**)  
 > Binary runtime assets (on-disk, informational; includes any untracked files): PNG **282** + SVG **129** = **411**  
 > Machine-readable fingerprint: `data-asset-manifest.json` (same dir).
 
@@ -33,7 +33,7 @@ top-level JSON type and break runtime deserializers — so version binding is ma
 | `src/CogniThink.TutorBrain.Api/data/pdf_questions.json` | — | `hash:8abe2f6f1dc0` | bare-list | 545 | Api GatewayVsLlmEvaluationService (Application/Evaluation/GatewayVsLlmEvaluationService.cs L1771-1863) | 757-case gateway eval (Production, LLM off) | `8abe2f6f1dc0` |
 | `src/CogniThink.TutorBrain.Api/data/tier2_questions.json` | — | `hash:000ed5e4bc4a` | bare-list | 109 | Api GatewayVsLlmEvaluationService (Application/Evaluation/GatewayVsLlmEvaluationService.cs L1771-1863) | tier2 eval set | `000ed5e4bc4a` |
 
-### Fact library (25)
+### Fact library (33)
 
 | Path | Declared v | Effective v | Schema | Items | Consumer | Validation | SHA256 |
 |------|-----------|-------------|--------|-------|----------|------------|--------|
@@ -41,6 +41,7 @@ top-level JSON type and break runtime deserializers — so version binding is ma
 | `data/highschool/activity-series.json` | 1.0 | `1.0` | dict-versioned | 15 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `541f916437e1` |
 | `data/highschool/choice-curated-facts.json` | 1.0 | `1.0` | dict-versioned | 88 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `d895101e2f54` |
 | `data/highschool/concept-facts.json` | 1.5 | `1.5` | dict-versioned | 34 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `fe61b36223ff` |
+| `data/highschool/concept-verdicts.json` | 1.0 | `1.0` | dict-versioned | 1 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `5c752252e2a6` |
 | `data/highschool/counting-facts.json` | 1.0 | `1.0` | dict-versioned | 7 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `e8e6ba241139` |
 | `data/highschool/double-decomposition.json` | 1.0 | `1.0` | dict-versioned | 3 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `bdb4416a7248` |
 | `data/highschool/electrode-reaction-facts.json` | — | `hash:a9fe324ac73f` | dict-unversioned | 7 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `a9fe324ac73f` |
@@ -56,12 +57,19 @@ top-level JSON type and break runtime deserializers — so version binding is ma
 | `data/highschool/na-particle-facts.json` | 1.0 | `1.0` | dict-versioned | 65 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `a17c2cb8ab3a` |
 | `data/highschool/organic-facts.json` | 1.0 | `1.0` | dict-versioned | 65 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `24805007505f` |
 | `data/highschool/phenomena.json` | 1.0 | `1.0` | dict-versioned | 32 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `a82933968a9c` |
+| `data/highschool/precipitate-types.json` | 1.0 | `1.0` | dict-versioned | 23 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `14dcc63028d4` |
 | `data/highschool/solubility.json` | 1.0 | `1.0` | dict-versioned | 3 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `5c6306772449` |
 | `data/highschool/structure-periodic-facts.json` | 1.0 | `1.0` | dict-versioned | 76 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `f119fa9ced35` |
 | `data/highschool/substance-classification.json` | 1.0 | `1.0` | dict-versioned | 89 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `b5907376e8a2` |
 | `data/highschool/substances.json` | 1.0 | `1.0` | dict-versioned | 40 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `ab6a562c9b8c` |
 | `data/highschool/transformation-rules.json` | 1.0 | `1.0` | dict-versioned | 232 | Core RuleStore (Rules/RuleStore.cs L32-68); consumed by Api gateway FactChoiceMatcher validators | Api *ValidatorTests (ConceptChoice / Experiment / Organic / Structure / ...) | `f636fc1074b6` |
+| `data/knowledge/correctness-context-rules.json` | 1.0 | `1.0` | dict-versioned | 2 | Api CorrectnessContextRules (Application/Gateway/CorrectnessContextRules.cs) | Api CorrectnessContextRules tests / gateway eval regression | `30973a9e8cf5` |
 | `data/knowledge/electrode-half-reactions.json` | — | `hash:7974b7b09fa5` | bare-list | 1 | Api HalfReactionBalancer (Application/Gateway/HalfReactionBalancer.cs) | Api HalfReactionBalancer tests | `7974b7b09fa5` |
+| `data/knowledge/impurity-traps.json` | 1.0 | `1.0` | dict-versioned | 1 | Api ImpurityTrapSolver (Application/Gateway/ImpurityTrapSolver.cs) | Api ImpurityTrapSolver tests / gateway eval regression | `53ff60695610` |
+| `data/knowledge/known-equations.json` | 1.0 | `1.0` | dict-versioned | 2 | Api KnownEquationWriterSolver (Application/Gateway/KnownEquationWriterSolver.cs) | Api KnownEquationWriterSolver tests / gateway eval regression | `fbad817dad91` |
+| `data/knowledge/product-rules.json` | 1.0 | `1.0` | dict-versioned | 6 | Api ProductWriterSolver (Application/Gateway/ProductWriterSolver.cs) | Api ProductWriterSolver tests / gateway eval regression | `771afa2a7834` |
+| `data/knowledge/redox-rules.json` | 1.0 | `1.0` | dict-versioned | 8 | Api RedoxGatewaySolver (Application/Gateway/RedoxGatewaySolver.cs) | Api RedoxGatewaySolver tests / gateway eval regression | `219e442859e2` |
+| `data/knowledge/standard-state-phases.json` | 1.0 | `1.0` | dict-versioned | 2 | Api StoichiometryStateTrapSolver (Application/Gateway/StoichiometryStateTrapSolver.cs) | Api StoichiometryStateTrapNodesTests / gateway eval regression | `43d8af81197d` |
 
 ### Knowledge / chemistry KB (10)
 

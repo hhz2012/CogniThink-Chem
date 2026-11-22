@@ -55,12 +55,15 @@ public static class ClassificationValidator
 
         var optionCorrect = new Dictionary<string, bool>();
         var reasons = new List<string>();
+        // B-LlmMain T2b：收集每选项命中物质的 formula（substance-classification.json 稳定主键，类比 kaKey）。
+        var optionHits = new List<ChoiceReasoningNodes.OptionHit>();
         foreach (var L in letters)
         {
-            var ok = EvalOption(opts[L], stemMember, stemCat, stemRelation, idx, out var reason);
+            var ok = EvalOption(opts[L], stemMember, stemCat, stemRelation, idx, out var reason, out var hitFormulas);
             if (ok is null) return null;            // 任一选项无法干净判定 → 整题不臆断
             optionCorrect[L] = ok.Value;
             reasons.Add($"{L}. {reason}");
+            optionHits.Add(new ChoiceReasoningNodes.OptionHit(L, hitFormulas));
         }
 
         List<string> candidates = askDir == "correct"
@@ -71,11 +74,15 @@ public static class ClassificationValidator
         var letter = candidates[0];
         var dirWord = askDir == "correct" ? "正确" : "错误";
         reasons.Add($"依据分类事实库，{dirWord}选项唯一为 {letter}。");
+        var finalResult = $"{dirWord}选项为 {letter}";
         return new ChoiceVerifier.Outcome(
             AnswerLetter: letter,
-            FinalResult: $"{dirWord}选项为 {letter}",
+            FinalResult: finalResult,
             Reasons: reasons,
-            ConstraintNote: ConstraintNote);
+            ConstraintNote: ConstraintNote)
+        {
+            ReasoningNodes = ChoiceReasoningNodes.Build(optionHits, finalResult)
+        };
     }
 
     // ---------- 问法 / 题干抽取 ----------
@@ -138,9 +145,10 @@ public static class ClassificationValidator
 
     // ---------- 选项断言解析 ----------
 
-    private static bool? EvalOption(string text, ClassifiedSubstance? stemMember, string? stemCat, string? stemRelation, Indexes idx, out string reason)
+    private static bool? EvalOption(string text, ClassifiedSubstance? stemMember, string? stemCat, string? stemRelation, Indexes idx, out string reason, out List<string> hitFormulas)
     {
         reason = "";
+        hitFormulas = new List<string>();
         var t = text.Trim();
         if (t.Length == 0) return null;
 
@@ -151,9 +159,9 @@ public static class ClassificationValidator
             var cat = Norm(m2.Groups["cat"].Value);
             var members = SplitMembers(m2.Groups["rest"].Value);
             if (members.Count == 0) return null;
-            if (IsRelation(cat)) return EvalRelation(cat, members, idx, out reason);
+            if (IsRelation(cat)) return EvalRelation(cat, members, idx, out reason, out hitFormulas);
             if (!idx.Tags.Contains(cat)) return null;
-            return EvalTagChecks(members, cat, idx, out reason);
+            return EvalTagChecks(members, cat, idx, out reason, out hitFormulas);
         }
 
         // P1: 「属于/是/为 Y」，成员来自题干
@@ -163,6 +171,7 @@ public static class ClassificationValidator
             var cat = Norm(m1.Groups["cat"].Value);
             if (idx.Tags.Contains(cat))
             {
+                if (!string.IsNullOrWhiteSpace(stemMember.Formula)) hitFormulas.Add(stemMember.Formula);
                 var hold = HasTag(stemMember, cat);
                 reason = $"{SubstanceLabel(stemMember)} 属于「{cat}」：{(hold ? "是" : "否")}";
                 return hold;
@@ -177,9 +186,9 @@ public static class ClassificationValidator
             var cat = Norm(m3.Groups["cat"].Value);
             var members = SplitMembers(m3.Groups["rest"].Value);
             if (members.Count == 0) return null;
-            if (IsRelation(cat)) return EvalRelation(cat, members, idx, out reason);
+            if (IsRelation(cat)) return EvalRelation(cat, members, idx, out reason, out hitFormulas);
             if (!idx.Tags.Contains(cat)) return null;
-            return EvalTagChecks(members, cat, idx, out reason);
+            return EvalTagChecks(members, cat, idx, out reason, out hitFormulas);
         }
 
         // P4: 裸物质，类别来自题干
@@ -187,7 +196,7 @@ public static class ClassificationValidator
         {
             var members = SplitMembers(t);
             if (members.Count > 0)
-                return EvalTagChecks(members, stemCat, idx, out reason);
+                return EvalTagChecks(members, stemCat, idx, out reason, out hitFormulas);
         }
 
         // P5: 关系类别来自题干，选项为裸物质组（如「互为同素异形体的是」）
@@ -195,19 +204,22 @@ public static class ClassificationValidator
         {
             var members = SplitMembers(t);
             if (members.Count > 0)
-                return EvalRelation(stemRelation, members, idx, out reason);
+                return EvalRelation(stemRelation, members, idx, out reason, out hitFormulas);
         }
         return null;
     }
 
-    private static bool? EvalTagChecks(List<string> members, string cat, Indexes idx, out string reason)
+    private static bool? EvalTagChecks(List<string> members, string cat, Indexes idx, out string reason, out List<string> hitFormulas)
     {
+        reason = "";
+        hitFormulas = new List<string>();
         var parts = new List<string>();
         var allOk = true;
         foreach (var tok in members)
         {
             var sub = FindSubstance(tok, idx);
-            if (sub is null) { reason = ""; return null; }   // 物质不在库 → 不臆断
+            if (sub is null) { return null; }   // 物质不在库 → 不臆断
+            if (!string.IsNullOrWhiteSpace(sub.Formula)) hitFormulas.Add(sub.Formula);
             var has = HasTag(sub, cat);
             if (!has) allOk = false;
             parts.Add($"{SubstanceLabel(sub)}:{(has ? "是" : "否")}{cat}");
@@ -216,21 +228,25 @@ public static class ClassificationValidator
         return allOk;
     }
 
-    private static bool? EvalRelation(string relation, List<string> members, Indexes idx, out string reason)
+    private static bool? EvalRelation(string relation, List<string> members, Indexes idx, out string reason, out List<string> hitFormulas)
     {
+        reason = "";
+        hitFormulas = new List<string>();
         var group = relation switch
         {
             "同素异形体" => idx.AllotropeMember,
             "同位素" => idx.IsotopeMember,
             _ => null
         };
-        if (group is null) { reason = ""; return null; }
+        if (group is null) { return null; }
 
         var keys = new List<string>();
         foreach (var tok in members)
         {
-            var known = FindSubstance(tok, idx) is not null || idx.AllotropeMember.ContainsKey(tok) || idx.IsotopeMember.ContainsKey(tok);
-            if (!known) { reason = ""; return null; }   // 完全未知 → 不臆断
+            var sub = FindSubstance(tok, idx);
+            var known = sub is not null || idx.AllotropeMember.ContainsKey(tok) || idx.IsotopeMember.ContainsKey(tok);
+            if (!known) { return null; }   // 完全未知 → 不臆断
+            if (sub is not null && !string.IsNullOrWhiteSpace(sub.Formula)) hitFormulas.Add(sub.Formula);
             keys.Add(group.TryGetValue(tok, out var k) ? k : "");
         }
         var allOk = keys.Count > 0 && keys.All(k => k.Length > 0) && keys.Distinct().Count() == 1;

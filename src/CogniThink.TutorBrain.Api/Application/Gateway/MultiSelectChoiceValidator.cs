@@ -46,12 +46,15 @@ internal static class MultiSelectChoiceValidator
 
         var verdicts = new Dictionary<string, Verdict>(letters.Count);
         var reasons = new List<string>(letters.Count);
+        // B-LlmMain T2b：收集每选项命中的事实 Id（经 CompositeStatementJudge.JudgeWithIds；引擎子判决返回空 id，R4）。
+        var optionHits = new List<ChoiceReasoningNodes.OptionHit>();
         foreach (var L in letters)
         {
-            var v = Judge.Judge(stem, opts[L]);
+            var (v, hitIds) = Judge.JudgeWithIds(stem, opts[L]);
             if (v == Verdict.Undecided) return null;   // 任一选项不可判 → 整题 null，不蒙数
             verdicts[L] = v;
             reasons.Add($"{L}：{(v == Verdict.True ? "正确" : "错误")}（IStatementJudge 判定）");
+            optionHits.Add(new ChoiceReasoningNodes.OptionHit(L, hitIds ?? new List<string>()));
         }
 
         var candidates = askWrong
@@ -62,10 +65,14 @@ internal static class MultiSelectChoiceValidator
 
         var letter = string.Concat(candidates.OrderBy(L => L, StringComparer.Ordinal));
         var dirWord = askWrong ? "错误" : "正确";
+        var finalResult = $"{dirWord}选项为 {letter}";
         return new ChoiceVerifier.Outcome(
             AnswerLetter: letter,
-            FinalResult: $"{dirWord}选项为 {letter}",
+            FinalResult: finalResult,
             Reasons: reasons,
-            ConstraintNote: ConstraintNote);
+            ConstraintNote: ConstraintNote)
+        {
+            ReasoningNodes = ChoiceReasoningNodes.Build(optionHits, finalResult)
+        };
     }
 }
