@@ -2,6 +2,8 @@
 
 > 实施顺序：共享接入层 → graph（先打通一条端到端）→ curve → molecule → 评估判分 → 整体验证。
 > 每个引擎先单元测试（构造已知输入，不依赖 LLM），再临时 harness 跑真实题验证。
+>
+> **状态裁决（2026-11-22 审计同步）**：本 spec 的 12 个任务当前均为 `pending`、无 `review.md`。其中 **molecule 与 curve 图像资产 → 选择题判分的能力已由主设计 `chem-engine-question-solving` 的 Task 43（`MoleculeChoiceValidator`）与 Task 44（`CurveChoiceValidator`）旁路落地**——`CallChoice` 已接收 `imageAssets` 并接入这两个校验器，生产可解 molecule/curve 保底题（真题诚实 `null`，零假阳性）。**未覆盖**：① `graph` 结构化资产路由（`GraphSolver` 适配层，对应本 spec Task 3–5）——当前 graph 47 题结构化命中 0，仍为 C 类覆盖率缺口；② 本 spec 规划的「ImageAsset 迁移共享命名空间」（Task 1）等架构调整未执行。结论：molecule/curve 目标已旁路达成，graph 及架构迁移留作下一阶段 backlog；本 spec 任务标记保持 `pending`（如实反映未执行），待后续决定是补做 graph 还是正式废弃本 spec 方案。
 
 ## Task 1: 迁移 ImageAsset 到共享命名空间 + 网关增加 imageAssets 入参
 - **Status**: `pending`

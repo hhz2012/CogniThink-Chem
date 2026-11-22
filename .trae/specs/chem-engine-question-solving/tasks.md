@@ -1077,8 +1077,9 @@
 
 ## Task 40：引擎解题能力现状盘点与改进计划——全量 741 题离线评估（A/B/C 分级 + P0→P4 优先级路线图）
 
-- **Status**: in_progress
+- **Status**: done
 - **Priority**: high
+- **Closing Note**（2026-11-22 审计同步）：本任务为「盘点 + P0→P4 路线图」，计划项已由 Tasks 41–49 及 P0–P3 路线图（HEAD `cf4835c`）执行完毕；引用提交 `80b9efc`、`0ddb5f6` 均已在 HEAD 祖先链落地。当前地面真值（离线 eval `after_p33`，757/757，LLM 关闭）：`engineSolved=635`、`coverage=0.8388`、`precision=1`、`harm=0`，且 `gatewayTruthCorrect==gatewayCorrect==635`（严格/宽松口径一致）——远超本任务正文记录的旧态（≈507 / 0.6697）。状态由 `in_progress` 翻为 `done`（标记陈旧同步，零行为变更）。
 - **Depends On**: Task 39（当前基线）/ EvalRunner（`src/CogniThink.TutorBrain.EvalRunner`，上一会话建成，本会话复跑验证）/ `GatewayVsLlmEvaluationService` 采纳链路 / 全题库护栏测试
 - **Goal**: 基于最新工作树全量 741 题离线评估（LLM 关闭，引擎为唯一真值源），给出「引擎解不出 / 引擎解但答错」的精确题目清单与根因归类，并形成 P0→P4 优先级改进计划。先稳住红线（零失败、零假阳性、精确率回 1.0），再以低风险高收益的「采纳闸门」补齐已解对但未采纳的题，最后扩展确定性分类与新求解器覆盖。所有变更必须：零假阳性、零 harm、零回归；无唯一解 → `null`，绝不蒙数；化学事实存 JSON，逻辑不硬编码化学真值。
 

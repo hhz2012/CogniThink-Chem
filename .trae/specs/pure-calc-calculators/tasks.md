@@ -1,6 +1,6 @@
 # P1-3 纯计算域计算器 - 实施计划
 
-> 状态口径：`pending` 待用户批准 spec 后开工；`completed` 附完成证据；红线 `precision=1/harm=0/LOST=0/不蒙数`。
+> 状态口径：spec 已批准、工作已完成（review PASS，合入 HEAD `cf4835c`）；`completed` 附完成证据；红线 `precision=1/harm=0/LOST=0/不蒙数`。
 
 ## Task 0：候选审计与范围冻结（read-only，已完成）
 - **Status**: `completed`
@@ -19,7 +19,7 @@
 - **Notes**: 本任务只读，未改任何 `.cs`/JSON/题库。
 
 ## Task 1：水解 pH 计算器（FR-1）+ 探针
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: high
 - **Depends On**: T0
 - **Description**:
@@ -33,7 +33,7 @@
 - **Notes**: 复用 `acid-constants.json` 既有 HClO 数据，不新增 JSON。
 
 ## Task 2：氧化还原比例计算器（FR-2）+ 探针
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: high
 - **Depends On**: T0
 - **Description**:
@@ -47,7 +47,7 @@
 - **Notes**: 注意 `IsAnswerCorrect` 对 `['1','2','1:2']` 的 OR 子串匹配——探针核对的是化学真值 1:2，不靠宽松判分。
 
 ## Task 3：兜底接入与窄域护栏（FR-3）
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: high
 - **Depends On**: T1, T2
 - **Description**:
@@ -60,7 +60,7 @@
 - **Notes**: 接入后先跑 `dotnet build` 再跑探针全库扫描，确认无 stray。
 
 ## Task 4：构建与单元测试
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: high
 - **Depends On**: T3
 - **Description**:
@@ -73,7 +73,7 @@
 - **Notes**: 若新增求解器需配套单元测试，覆盖目标题 + 至少 1 个域外反例（返回 null）。
 
 ## Task 5：全量 eval 与回归 diff
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: high
 - **Depends On**: T4
 - **Description**:
@@ -86,7 +86,7 @@
 - **Notes**: 任一红线破 → 回退对应 Task，重新探针。
 
 ## Task 6：排除候选台账闭环（FR-5）
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: medium
 - **Depends On**: T0
 - **Description**:
@@ -97,7 +97,7 @@
 - **Notes**: 与 T5 可并行；不阻塞主目标。
 
 ## Task 7：独立只读评审 → review.md
-- **Status**: `pending`
+- **Status**: `completed`
 - **Priority**: high
 - **Depends On**: T5, T6
 - **Description**:
@@ -107,3 +107,9 @@
 - **Test Requirements**:
   - `rule` TR-7.1: review.md 全部 CP 项 PASS，无 actionable finding；证据：review.md。
 - **Notes**: 评审只读，不改代码。
+
+---
+
+## 状态同步说明（2026-11-22 审计）
+
+Task 0–7 的实际工作已全部完成并合入 HEAD `cf4835c`，[review.md](./review.md) 裁决 PASS（CP-1～CP-7 全过，0 Issue）。详情段此前遗留的 `pending` 标记已同步翻转为 `completed`（纯台账同步，零行为变更）。地面真值：离线 eval `after_p13`（757/757）GAINED=trap-limit-2、LOST=WORSEN=harm=0、precision=1。

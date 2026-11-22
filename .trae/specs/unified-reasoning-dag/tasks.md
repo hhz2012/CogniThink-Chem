@@ -24,7 +24,7 @@
 **Status**: completed — 证据入 spec §2（Core 三态/可溯源现状、网关平坦字符串现状、消费者与静默 null 点、eval 字段边界、Api→Core 引用）。
 
 ## T1 — 定义统一契约类型 + 加性字段
-**Status**: pending
+**Status**: completed
 **Outputs**:
 - 新建 [ReasoningContracts.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ReasoningContracts.cs)：`ReasoningNode`（Step/Description/Premises/RuleId?/KnowledgeId?/Conclusion?/EvidenceLevel）、`ConclusionState` 枚举（Confirmed/CandidateSet/Insufficient）、`EvidenceLevel` 枚举（KnowledgeFact/EngineDerived/Candidate/Trend）。
 - 编辑 [GatewayContracts.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/GatewayContracts.cs) `EngineResponse`：**加性**新增 `ReasoningNodes: List<ReasoningNode>`（默认空）+ `ConclusionState: ConclusionState`（默认 Insufficient 或 Confirmed，见 T2 派生）。不删改既有字段。
@@ -32,7 +32,7 @@
 **Notes**: 落点按 spec CQ-1 选项 A（保留 `DerivationSteps` 不动）。若用户批准时改选 B/C，本任务重定落点。
 
 ## T2 — ConclusionState 统一派生
-**Status**: pending
+**Status**: completed
 **Outputs**: 一处派生赋值（在 `CallEngineAsync` 归一点或 `EngineResponse` 构造后），只读 `Ok` / `NeedMoreCondition` / `FinalResult`：
 - `Ok==true` 且 `FinalResult` 非空 → `Confirmed`
 - `Ok==null` 或 `NeedMoreCondition==true` → `Insufficient`
@@ -42,7 +42,7 @@
 **Notes**: 严禁修改 [BuildGatewayAnswerAsync](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs#L660) 逻辑。
 
 ## T3 — 示范 solver 填充 ReasoningNodes
-**Status**: pending
+**Status**: completed
 **Outputs**: 在 4 个有真值源/knowledge_id 的 solver 命中路径填充 `ReasoningNodes`：
 1. ConceptFactSolver（事实库唯一匹配 → KnowledgeId 非空，EvidenceLevel=KnowledgeFact）
 2. ReactionKbWriterSolver（KB 唯一匹配 → RuleId/KnowledgeId，EvidenceLevel=KnowledgeFact）
@@ -53,7 +53,7 @@
 **Notes**: 其余 14 个 solver 保持 `DerivationSteps` 字符串、`ReasoningNodes` 留空，登记入台账「待迁移」（T5），不强行填充。
 
 ## T4 — eval + 红线 diff
-**Status**: pending
+**Status**: completed
 **Outputs**:
 - `run_eval_resume.ps1 -Tag after_p21 -Env Production` → 757/757 failed=0。
 - `diff_ckpt after_p15b after_p21`：GAINED=0 / LOST=0 / WORSEN=0 / harm=0 → RED-LINE PASS。
