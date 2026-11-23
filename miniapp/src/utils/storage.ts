@@ -13,6 +13,7 @@ export const THOUGHT_META: Record<Thought, { label: string; icon: string; color:
 
 export const defaultProgress: UserProgress = {
   solvedIds: [],
+  wrongIds: [],
   thoughtCounts: { Conservation: 0, Structure: 0, Equilibrium: 0, Classification: 0, ModelCognition: 0 },
   inspirations: 10,
 }
@@ -46,6 +47,22 @@ export function markSolved(p: UserProgress, challengeId: string, thought: Though
     },
     inspirations: p.inspirations + 2, // 答对奖励 2 灵感值
   }
+  saveProgress(next)
+  return next
+}
+
+/** 记录错题（答错时入册），已存在则不重复 */
+export function markWrong(p: UserProgress, challengeId: string): UserProgress {
+  if (p.wrongIds.includes(challengeId)) return p
+  const next: UserProgress = { ...p, wrongIds: [...p.wrongIds, challengeId] }
+  saveProgress(next)
+  return next
+}
+
+/** 从错题本移除（重做做对 / 手动移除） */
+export function unmarkWrong(p: UserProgress, challengeId: string): UserProgress {
+  if (!p.wrongIds.includes(challengeId)) return p
+  const next: UserProgress = { ...p, wrongIds: p.wrongIds.filter((id) => id !== challengeId) }
   saveProgress(next)
   return next
 }

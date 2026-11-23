@@ -6,12 +6,13 @@ export default defineAppConfig({
     'pages/mine/index',
     'pages/challenge/index',
     'pages/tutor/index',
-    'pages/solve/index'
+    'pages/solve/index',
+    'pages/knowledge/index'
   ],
   window: {
     backgroundTextStyle: 'light',
-    navigationBarBackgroundColor: '#0f766e',
-    navigationBarTitleText: '化学闯关',
+    navigationBarBackgroundColor: '#2EA7C4',
+    navigationBarTitleText: '化学伴思',
     navigationBarTextStyle: 'white'
   }
 })

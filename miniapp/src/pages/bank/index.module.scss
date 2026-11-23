@@ -1,147 +1,299 @@
 @use '@/styles/variables.scss' as *;
 
 .page {
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   background: $color-bg-page;
-  padding-bottom: 130rpx;
 }
 
+/* ===== 顶部：浅色标题 ===== */
 .header {
-  background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
-  padding: 48rpx 32rpx 24rpx;
+  flex-shrink: 0;
+  padding-top: calc(env(safe-area-inset-top) + #{$spacing-lg});
+  padding-left: $page-padding;
+  padding-right: $page-padding;
+  padding-bottom: $spacing-md;
+  background: $color-bg-page;
 }
 
 .title {
   display: block;
-  color: #fff;
-  font-size: 44rpx;
+  font-size: 40rpx;
   font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  letter-spacing: 2rpx;
+  text-align: center;
 }
 
 .subtitle {
   display: block;
-  color: #94a3b8;
-  font-size: $font-size-sm;
-  margin-top: 8rpx;
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 6rpx;
 }
 
-.catScroll {
-  background: #fff;
-  padding: 16rpx 0;
-  white-space: nowrap;
-  border-bottom: 1px solid $color-divider;
-}
-
-.catBar {
-  display: inline-flex;
-  gap: 12rpx;
-  padding: 0 32rpx;
-}
-
-.catTab {
-  display: inline-flex;
-  padding: 10rpx 22rpx;
-  border-radius: $radius-round;
-  background: $color-bg-page;
-  border: 1px solid $color-border;
-  color: $color-text-secondary;
-  font-size: $font-size-sm;
-  flex-shrink: 0;
-}
-
-.catTab.active {
-  color: #fff;
-  background: $color-primary;
-  border-color: $color-primary;
-}
-
+/* ===== 内容滚动区 ===== */
 .body {
-  height: calc(100vh - 260rpx);
-  padding: 20rpx 32rpx 0;
+  flex: 1;
+  min-height: 0;
+  padding-left: $page-padding;
+  padding-right: $page-padding;
+  box-sizing: border-box;
 }
 
-.chapterGroup {
-  margin-bottom: 28rpx;
-}
-
-.chapterHeader {
+/* ===== 空状态 ===== */
+.empty {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 10rpx;
-  padding: 14rpx 18rpx;
-  border-radius: $radius-md;
-  margin-bottom: 12rpx;
+  padding: 120rpx 0 60rpx;
 }
 
-.chapterIcon {
-  font-size: 28rpx;
+.emptyIcon {
+  font-size: 100rpx;
+  line-height: 1;
+  margin-bottom: 24rpx;
 }
 
-.chapterName {
+.emptyTitle {
+  font-size: $font-size-lg;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.emptySub {
+  margin-top: 10rpx;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
+
+.goBtn {
+  margin-top: 40rpx;
+  padding: 0 60rpx;
+  height: $button-height-md;
+  background: $color-primary;
+  border-radius: $radius-button;
+  @include flex-center;
+  box-shadow: 0 6rpx 16rpx rgba(46, 167, 196, 0.28);
+
+  &:active {
+    background: $color-primary-dark;
+  }
+}
+
+.goBtnText {
+  color: #fff;
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
 }
 
-.challengeList {
+/* ===== 错题列表 ===== */
+.wrongList {
   display: flex;
   flex-direction: column;
+  gap: 16rpx;
+  padding-top: 8rpx;
+}
+
+.wrongCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  border: 1rpx solid $color-divider;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+}
+
+.wrongHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 22rpx 10rpx;
+}
+
+.chipRow {
+  display: flex;
+  align-items: center;
   gap: 12rpx;
 }
 
-.challengeCard {
-  background: #fff;
-  border-radius: $radius-md;
-  padding: 20rpx;
-  box-shadow: $shadow-card;
-  transition: all $transition-fast;
+.chapterTag {
+  font-size: 20rpx;
+  font-weight: $font-weight-semibold;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
 }
 
-.challengeCard:active {
-  transform: scale(0.98);
+.diffTag {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+  background: $color-bg-hover;
+  padding: 4rpx 14rpx;
+  border-radius: $radius-round;
 }
 
-.challengeTop {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.removeBtn {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  padding: 6rpx 14rpx;
+
+  &:active {
+    color: $color-error;
+  }
 }
 
-.challengeTitle {
+.wrongBody {
+  padding: 0 22rpx 20rpx;
+}
+
+.wrongTitle {
+  display: block;
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
   color: $color-text-primary;
 }
 
-.solvedTag {
-  font-size: $font-size-xs;
-  color: $color-success;
-  background: #dcfce7;
-  padding: 2rpx 12rpx;
-  border-radius: $radius-round;
-}
-
-.challengeText {
+.wrongText {
   display: block;
+  margin-top: 8rpx;
   font-size: $font-size-sm;
   color: $color-text-secondary;
-  margin: 8rpx 0 12rpx;
-  line-height: 1.5;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: $line-height-normal;
+  @include text-ellipsis-multi(2);
 }
 
-.challengeFoot {
+.wrongFoot {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  margin-top: 14rpx;
 }
 
-.more {
+.redoText {
   font-size: $font-size-xs;
   color: $color-primary;
   font-weight: $font-weight-semibold;
 }
 
-.bottomPad { height: 40rpx; }
+/* ===== 题库总览（折叠） ===== */
+.allCard {
+  margin-top: 28rpx;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  border: 1rpx solid $color-divider;
+  overflow: hidden;
+}
+
+.allHead {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  padding: 24rpx 26rpx;
+}
+
+.allTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.allMeta {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.allChevron {
+  font-size: 36rpx;
+  line-height: 1;
+  color: $color-text-tertiary;
+  transition: transform $transition-fast;
+}
+
+.allChevronOpen {
+  transform: rotate(90deg);
+}
+
+.allList {
+  border-top: 1rpx solid $color-divider;
+}
+
+.allChapter {
+  padding: 12rpx 0;
+}
+
+.allChapter + .allChapter {
+  border-top: 1rpx solid $color-divider;
+}
+
+.allChapterHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 20rpx 6rpx;
+  padding: 12rpx 18rpx;
+  border-radius: $radius-md;
+}
+
+.allChapterName {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.allChapterCount {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.allItems {
+  padding: 0 10rpx;
+}
+
+.allItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 16rpx;
+  border-radius: $radius-md;
+
+  &:active {
+    background: $color-bg-hover;
+  }
+}
+
+.allItemMain {
+  display: flex;
+  align-items: baseline;
+  gap: 14rpx;
+  flex: 1;
+  min-width: 0;
+}
+
+.allItemTitle {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  @include text-ellipsis;
+}
+
+.allItemDiff {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+  flex-shrink: 0;
+}
+
+.allItemArrow {
+  font-size: 30rpx;
+  line-height: 1;
+  color: $color-text-tertiary;
+}
+
+.solvedBadge {
+  font-size: 26rpx;
+  color: $color-success;
+  font-weight: $font-weight-bold;
+}
+
+.bottomPad {
+  height: 150rpx;
+}

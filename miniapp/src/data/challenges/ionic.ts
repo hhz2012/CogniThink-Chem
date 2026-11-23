@@ -8,6 +8,20 @@ const ionicEq: Challenge[] = [
     options: ['加水稀释', '加少量醋酸钠固体', '加少量浓盐酸', '加热'],
     answerIndex: 2,
     explanation: '加浓盐酸，c(H⁺) 直接增大，平衡 CH₃COOH ⇌ CH₃COO⁻ + H⁺ 逆向移动，醋酸电离度减小。加水稀释电离度增大；加醋酸钠 c(H⁺) 减小；加热电离度增大。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'CH₃COOH', source: '溶质分子' },
+        { formula: 'CH₃COO⁻', source: '醋酸电离' },
+        { formula: 'H⁺', source: '电离 + 盐酸' },
+        { formula: 'Cl⁻', source: '盐酸完全电离' },
+        { formula: 'OH⁻', source: '水电离' },
+      ],
+      equations: [
+        { type: '电荷', expression: 'c(H⁺) = c(CH₃COO⁻) + c(Cl⁻) + c(OH⁻)' },
+        { type: '物料', expression: 'c(CH₃COOH) + c(CH₃COO⁻) = 0.1 mol/L' },
+      ],
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -58,6 +72,22 @@ const ionicEq: Challenge[] = [
     options: ['c(Na⁺) > c(S²⁻) > c(OH⁻) > c(HS⁻) > c(H⁺)', 'c(Na⁺) > c(OH⁻) > c(S²⁻) > c(HS⁻) > c(H⁺)', 'c(Na⁺) = 2c(S²⁻) + 2c(HS⁻)', 'c(OH⁻) = c(H⁺) + c(HS⁻)'],
     answerIndex: 0,
     explanation: 'Na₂S 完全电离：Na₂S = 2Na⁺ + S²⁻。S²⁻ 分两步水解：S²⁻+H₂O⇌HS⁻+OH⁻（主），HS⁻+H₂O⇌H₂S+OH⁻（次）。水解程度不大，c(S²⁻) 仍较大。c(Na⁺) 最大，S²⁻ 次之，OH⁻ 来自水解，HS⁻ 来自第一步水解，H⁺ 最小。物料守恒：c(Na⁺)=2[c(S²⁻)+c(HS⁻)+c(H₂S)]。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'Na⁺', source: '完全电离' },
+        { formula: 'S²⁻', source: '完全电离' },
+        { formula: 'HS⁻', source: '第一步水解' },
+        { formula: 'H₂S', source: '第二步水解' },
+        { formula: 'OH⁻', source: '水解 + 水电离' },
+        { formula: 'H⁺', source: '水电离' },
+      ],
+      equations: [
+        { type: '物料', expression: 'c(Na⁺) = 2[c(S²⁻) + c(HS⁻) + c(H₂S)]' },
+        { type: '电荷', expression: 'c(Na⁺) + c(H⁺) = 2c(S²⁻) + c(HS⁻) + c(OH⁻)' },
+        { type: '质子', expression: 'c(OH⁻) = c(H⁺) + c(HS⁻) + 2c(H₂S)' },
+      ],
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -83,6 +113,20 @@ const ionicEq: Challenge[] = [
     options: ['c(CH₃COO⁻) > c(Na⁺) > c(H⁺) > c(OH⁻)', 'c(Na⁺) > c(CH₃COO⁻) > c(H⁺) > c(OH⁻)', 'c(CH₃COO⁻) = c(Na⁺) > c(H⁺) > c(OH⁻)', 'c(CH₃COOH) > c(CH₃COO⁻) > c(Na⁺) > c(H⁺)'],
     answerIndex: 0,
     explanation: '等体积混合后：CH₃COOH 与 NaOH 反应，生成等浓度的 CH₃COONa 和剩余 CH₃COOH（各 0.05 mol/L）。溶液呈酸性说明 CH₃COOH 电离程度 > CH₃COO⁻ 水解程度。所以 c(CH₃COO⁻) > c(Na⁺) > c(H⁺) > c(OH⁻)。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'CH₃COOH', source: '剩余醋酸分子' },
+        { formula: 'CH₃COO⁻', source: '电离 + 盐水解' },
+        { formula: 'Na⁺', source: '完全电离' },
+        { formula: 'H⁺', source: '电离' },
+        { formula: 'OH⁻', source: '水电离' },
+      ],
+      equations: [
+        { type: '电荷', expression: 'c(Na⁺) + c(H⁺) = c(CH₃COO⁻) + c(OH⁻)' },
+        { type: '物料', expression: 'c(CH₃COOH) + c(CH₃COO⁻) = 2c(Na⁺)' },
+      ],
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -108,6 +152,21 @@ const ionicEq: Challenge[] = [
     options: ['c(NH₄⁺) + c(H⁺) = c(SO₄²⁻) + c(OH⁻)', 'c(NH₄⁺) = 0.1 mol/L', 'c(H⁺) = c(NH₄⁺) + 2c(NH₃·H₂O) + c(OH⁻)', '溶液中 c(SO₄²⁻) 最大'],
     answerIndex: 2,
     explanation: 'NH₄HSO₄ = NH₄⁺ + H⁺ + SO₄²⁻。NH₄⁺ 水解：NH₄⁺ + H₂O ⇌ NH₃·H₂O + H⁺。物料守恒：c(SO₄²⁻) = c(NH₄⁺) + c(NH₃·H₂O) = 0.1。电荷守恒：c(NH₄⁺) + c(H⁺) = 2c(SO₄²⁻) + c(OH⁻)。将物料守恒代入电荷守恒，消去 c(SO₄²⁻)，得 c(H⁺) = c(NH₄⁺) + 2c(NH₃·H₂O) + c(OH⁻)。HSO₄⁻ 完全电离出 H⁺，c(H⁺) 最大。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'NH₄⁺', source: '完全电离' },
+        { formula: 'H⁺', source: '完全电离 + 水解' },
+        { formula: 'SO₄²⁻', source: '完全电离' },
+        { formula: 'NH₃·H₂O', source: 'NH₄⁺ 水解' },
+        { formula: 'OH⁻', source: '水电离' },
+      ],
+      equations: [
+        { type: '电荷', expression: 'c(NH₄⁺) + c(H⁺) = 2c(SO₄²⁻) + c(OH⁻)' },
+        { type: '物料', expression: 'c(SO₄²⁻) = c(NH₄⁺) + c(NH₃·H₂O) = 0.1' },
+        { type: '质子', expression: 'c(H⁺) = c(NH₄⁺) + 2c(NH₃·H₂O) + c(OH⁻)' },
+      ],
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

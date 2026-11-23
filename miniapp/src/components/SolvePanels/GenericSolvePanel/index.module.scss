@@ -1,0 +1,44 @@
+@use '@/styles/variables.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.checks {
+  background: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: 18rpx 20rpx;
+}
+
+.checksTitle {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin-bottom: 10rpx;
+}
+
+.checkItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10rpx;
+  margin-top: 8rpx;
+}
+
+.checkDot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 10rpx;
+}
+
+.checkText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}

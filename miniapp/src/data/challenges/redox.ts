@@ -8,6 +8,14 @@ const redox: Challenge[] = [
     options: ['Na 是氧化剂，发生还原反应', 'Cl₂ 是氧化剂，发生还原反应', 'Na 得电子，Cl₂ 失电子', 'NaCl 只是氧化产物'],
     answerIndex: 1,
     explanation: 'Na 失电子（0→+1），作还原剂，发生氧化反应；Cl₂ 得电子（0→-1），作氧化剂，发生还原反应。NaCl 既是氧化产物又是还原产物。',
+    solveData: {
+      kind: 'redox-electron',
+      halfReactions: [
+        { species: 'Na', from: 0, to: 1, electrons: 2, role: '氧化' },
+        { species: 'Cl', from: 0, to: -1, electrons: 2, role: '还原' },
+      ],
+      balance: { oxidizedCount: 2, reducedCount: 2, lcm: 2, ratio: '2:1' },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -35,6 +43,14 @@ const redox: Challenge[] = [
     options: ['1:3', '1:5', '2:5', '1:10'],
     answerIndex: 1,
     explanation: 'Mn: +7→+2 得 5e⁻；Fe: +2→+3 失 1e⁻。最小公倍数 5，KMnO₄ 系数 1，FeSO₄ 系数 5。KMnO₄:FeSO₄ = 1:5。',
+    solveData: {
+      kind: 'redox-electron',
+      halfReactions: [
+        { species: 'Mn', from: 7, to: 2, electrons: 5, role: '还原' },
+        { species: 'Fe', from: 2, to: 3, electrons: 5, role: '氧化' },
+      ],
+      balance: { oxidizedCount: 5, reducedCount: 5, lcm: 5, ratio: '1:5' },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -62,6 +78,14 @@ const redox: Challenge[] = [
     options: ['1:1', '2:1', '1:2', '3:1'],
     answerIndex: 1,
     explanation: '这是歧化反应。NO₂ 中 N 为 +4 价，HNO₃ 中 N 为 +5 价（被氧化，失 1e⁻），NO 中 N 为 +2 价（被还原，得 2e⁻）。电子守恒：2 个 N 失 2e⁻，1 个 N 得 2e⁻。被氧化:被还原 = 2:1。',
+    solveData: {
+      kind: 'redox-electron',
+      halfReactions: [
+        { species: 'N（被氧化）', from: 4, to: 5, electrons: 2, role: '氧化' },
+        { species: 'N（被还原）', from: 4, to: 2, electrons: 2, role: '还原' },
+      ],
+      balance: { oxidizedCount: 2, reducedCount: 2, lcm: 2, ratio: '2:1' },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -89,6 +113,14 @@ const redox: Challenge[] = [
     options: ['0.05 mol', '0.1 mol', '0.15 mol', '0.2 mol'],
     answerIndex: 2,
     explanation: '整个过程 HNO₃ 最终被还原为 NO，N 从 +5→+2 得 3e⁻。0.1 mol NO 得 0.3 mol e⁻。Cu 从 0→+2 失 2e⁻。由电子守恒：n(Cu)×2 = 0.1×3，n(Cu) = 0.15 mol。',
+    solveData: {
+      kind: 'redox-electron',
+      halfReactions: [
+        { species: 'N（NO₃⁻→NO）', from: 5, to: 2, electrons: 3, role: '还原' },
+        { species: 'Cu', from: 0, to: 2, electrons: 2, role: '氧化' },
+      ],
+      balance: { oxidizedCount: 2, reducedCount: 3, lcm: 6, ratio: '3:2' },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -116,6 +148,15 @@ const redox: Challenge[] = [
     options: ['CuSO₄ 只作氧化剂', 'P 只作还原剂', '1 mol CuSO₄ 氧化 0.2 mol P', '被氧化的 P 与被还原的 P 物质的量之比为 5:6'],
     answerIndex: 2,
     explanation: 'Cu 从 +2→+1（Cu₃P 中 Cu 为 +1），得 1e⁻，CuSO₄ 作氧化剂。P 一部分降为 -3（Cu₃P），一部分升为 +5（H₃PO₄），P 既作氧化剂又作还原剂。15 mol CuSO₄ 得 15e⁻，氧化 P：每个 P 失 5e⁻，15e⁻/5e⁻=3 mol P？实际 6 mol P 失 30e⁻，5 mol P 得 15e⁻，Cu²⁺ 得 15e⁻，总得 30e⁻。1 mol CuSO₄ 得 1e⁻，氧化 1/5=0.2 mol P。被氧化 P:被还原 P = 6:5。',
+    solveData: {
+      kind: 'redox-electron',
+      halfReactions: [
+        { species: 'Cu', from: 2, to: 1, electrons: 15, role: '还原' },
+        { species: 'P（被还原→Cu₃P）', from: 0, to: -3, electrons: 15, role: '还原' },
+        { species: 'P（被氧化→H₃PO₄）', from: 0, to: 5, electrons: 30, role: '氧化' },
+      ],
+      balance: { oxidizedCount: 30, reducedCount: 30, lcm: 30, ratio: '6:5' },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -143,6 +184,14 @@ const redox: Challenge[] = [
     options: ['1:1', '2:1', '1:2', '3:2'],
     answerIndex: 1,
     explanation: 'H₂S 中 S 为 -2 价，被氧化为 0 价（S），2 mol H₂S 生成 2 mol S（氧化产物）。SO₂ 中 S 为 +4 价，被还原为 0 价，1 mol SO₂ 生成 1 mol S（还原产物）。氧化产物:还原产物 = 2:1，质量比 = 物质的量比（同种物质）= 2:1。',
+    solveData: {
+      kind: 'redox-electron',
+      halfReactions: [
+        { species: 'S（H₂S）', from: -2, to: 0, electrons: 4, role: '氧化' },
+        { species: 'S（SO₂）', from: 4, to: 0, electrons: 4, role: '还原' },
+      ],
+      balance: { oxidizedCount: 4, reducedCount: 4, lcm: 4, ratio: '2:1' },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

@@ -1,6 +1,6 @@
 import { View, Text } from '@tarojs/components'
-import { useState, useEffect } from 'react'
-import Taro from '@tarojs/taro'
+import { useState } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
 import TabBar from '../../components/TabBar'
 import { loadProgress, resetProgress, THOUGHT_META } from '../../utils/storage'
 import { UserProgress, Thought } from '../../types/chem'
@@ -12,9 +12,14 @@ const THOUGHTS: Thought[] = ['Conservation', 'Structure', 'Equilibrium', 'Classi
 export default function Mine() {
   const [progress, setProgress] = useState<UserProgress>(loadProgress())
 
-  useEffect(() => {
+  // 切回本页时刷新统计（做题/错题变化后同步）
+  useDidShow(() => {
     setProgress(loadProgress())
-  }, [])
+  })
+
+  const goBank = () => {
+    Taro.redirectTo({ url: '/pages/bank/index' })
+  }
 
   const handleReset = () => {
     Taro.showModal({
@@ -51,9 +56,14 @@ export default function Mine() {
       <View className={styles.body}>
         <View className={styles.statsGrid}>
           <View className={styles.statCard}>
-            <Text className={styles.statIcon}>⚖️</Text>
+            <Text className={styles.statIcon}>✅</Text>
             <Text className={styles.statNum}>{solved}</Text>
             <Text className={styles.statLabel}>已通关</Text>
+          </View>
+          <View className={styles.statCard} onClick={goBank}>
+            <Text className={styles.statIcon}>📕</Text>
+            <Text className={styles.statNum}>{progress.wrongIds.length}</Text>
+            <Text className={styles.statLabel}>错题本</Text>
           </View>
           <View className={styles.statCard}>
             <Text className={styles.statIcon}>💡</Text>

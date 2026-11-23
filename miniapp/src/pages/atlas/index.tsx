@@ -1,86 +1,138 @@
-import { View, Text, ScrollView } from '@tarojs/components'
-import { useState, useEffect } from 'react'
+import { View, Text, ScrollView, Input } from '@tarojs/components'
+import { useState, useMemo } from 'react'
+import Taro from '@tarojs/taro'
+import classnames from 'classnames'
 import TabBar from '../../components/TabBar'
-import ThoughtChip from '../../components/ThoughtChip'
-import { loadProgress, THOUGHT_META } from '../../utils/storage'
-import { UserProgress, Thought } from '../../types/chem'
-import { chapters, allChallenges } from '../../data/challenges'
+import { chapters } from '../../data/challenges'
+import { CATEGORY_KNOWLEDGE, knowledgeOfCategory, KnowledgeRef } from '../../data/knowledge'
+import { ChemCategory } from '../../types/chem'
 import styles from './index.module.scss'
 
-const THOUGHTS: Thought[] = ['Conservation', 'Structure', 'Equilibrium', 'Classification', 'ModelCognition']
+/** 认知层级中文标签 */
+const LAYER_LABEL: Record<string, string> = {
+  Knowledge: '知识',
+  Application: '应用',
+  Ability: '能力',
+}
 
-// 成就定义
-const ACHIEVEMENTS = [
-  { id: 'first', name: '初露锋芒', desc: '完成第一道题', icon: '🌱', check: (p: UserProgress) => p.solvedIds.length >= 1 },
-  { id: 'five', name: '渐入佳境', desc: '完成 5 道题', icon: '⚡', check: (p: UserProgress) => p.solvedIds.length >= 5 },
-  { id: 'ten', name: '勤学不辍', desc: '完成 10 道题', icon: '🔥', check: (p: UserProgress) => p.solvedIds.length >= 10 },
-  { id: 'all', name: '通关达人', desc: '完成全部题目', icon: '🏆', check: (p: UserProgress) => p.solvedIds.length >= allChallenges.length },
-  { id: 'thought3', name: '思想收集者', desc: '集齐 3 种化学思想碎片', icon: '💎', check: (p: UserProgress) => THOUGHTS.filter((t) => p.thoughtCounts[t] > 0).length >= 3 },
-  { id: 'thought5', name: '五思俱全', desc: '集齐全部 5 种化学思想碎片', icon: '🌈', check: (p: UserProgress) => THOUGHTS.every((t) => p.thoughtCounts[t] > 0) },
-  { id: 'chapter1', name: '初探奥秘', desc: '通关一个专项', icon: '🎯', check: (p: UserProgress) => chapters.some((ch) => ch.challenges.every((c) => p.solvedIds.includes(c.id))) },
-  { id: 'chapter3', name: '探索不止', desc: '通关 3 个专项', icon: '🧭', check: (p: UserProgress) => chapters.filter((ch) => ch.challenges.every((c) => p.solvedIds.includes(c.id))).length >= 3 },
-]
+/** 全部知识点（带所属分类），用于跨分类搜索 */
+const ALL_REFS: { ref: KnowledgeRef; category: ChemCategory }[] = (
+  Object.keys(CATEGORY_KNOWLEDGE) as ChemCategory[]
+).flatMap((cat) => CATEGORY_KNOWLEDGE[cat].map((ref) => ({ ref, category: cat })))
 
 export default function Atlas() {
-  const [progress, setProgress] = useState<UserProgress>(loadProgress())
+  const [active, setActive] = useState<ChemCategory>(chapters[0].category)
+  const [keyword, setKeyword] = useState('')
 
-  useEffect(() => {
-    setProgress(loadProgress())
-  }, [])
+  const kw = keyword.trim().toLowerCase()
 
-  const unlockedAchievements = ACHIEVEMENTS.filter((a) => a.check(progress)).length
-  const thoughtCollected = THOUGHTS.filter((t) => progress.thoughtCounts[t] > 0).length
+  /** 搜索时跨分类检索，否则展示当前分类知识点 */
+  const list = useMemo(() => {
+    if (kw) {
+      return ALL_REFS.filter(({ ref }) => {
+        const inName = ref.name.toLowerCase().includes(kw)
+        const inSummary = ref.summary.toLowerCase().includes(kw)
+        const inKeywords = ref.keywords.some((k) => k.toLowerCase().includes(kw))
+        return inName || inSummary || inKeywords
+      })
+    }
+    return knowledgeOfCategory(active).map((ref) => ({ ref, category: active }))
+  }, [active, kw])
+
+  const chapterOf = (cat: ChemCategory) => chapters.find((c) => c.category === cat)!
+
+  const openKnowledge = (cat: ChemCategory) => {
+    Taro.navigateTo({ url: `/pages/knowledge/index?category=${cat}` })
+  }
+
+  const selectCategory = (cat: ChemCategory) => {
+    setActive(cat)
+    setKeyword('')
+  }
 
   return (
     <View className={styles.page}>
+      {/* ===== 顶部标题 + 搜索 ===== */}
       <View className={styles.header}>
-        <Text className={styles.title}>化学思想图鉴</Text>
-        <Text className={styles.subtitle}>集齐 5 大化学思想碎片，解锁成就</Text>
+        <Text className={styles.title}>物质速查</Text>
+        <Text className={styles.subtitle}>6 大专项 · 知识点速查</Text>
+        <View className={styles.searchBox}>
+          <Text className={styles.searchIcon}>🔍</Text>
+          <Input
+            className={styles.searchInput}
+            placeholder="搜索知识点，如 化合价 / 水解 / 原电池"
+            placeholderClass={styles.placeholder}
+            value={keyword}
+            onInput={(e) => setKeyword(e.detail.value)}
+            confirmType="search"
+          />
+          {keyword ? (
+            <Text className={styles.searchClear} onClick={() => setKeyword('')}>
+              ✕
+            </Text>
+          ) : null}
+        </View>
       </View>
 
+      {/* ===== 分类切换（横向滚动） ===== */}
+      <ScrollView scrollX className={styles.catScroll} showScrollbar={false}>
+        <View className={styles.catBar}>
+          {chapters.map((ch) => {
+            const isActive = active === ch.category && !kw
+            return (
+              <View
+                key={ch.id}
+                className={classnames(styles.catTab, { [styles.catTabActive]: isActive })}
+                onClick={() => selectCategory(ch.category)}
+                style={isActive ? { background: ch.color, borderColor: ch.color } : {}}
+              >
+                <Text className={styles.catTabText}>{ch.icon} {ch.name}</Text>
+              </View>
+            )
+          })}
+        </View>
+      </ScrollView>
+
+      {/* ===== 知识点列表 ===== */}
       <ScrollView scrollY className={styles.body}>
-        {/* 思想碎片区 */}
-        <View className={styles.section}>
-          <Text className={styles.sectionTitle}>思想碎片（{thoughtCollected}/5）</Text>
-          <View className={styles.thoughtGrid}>
-            {THOUGHTS.map((t) => {
-              const meta = THOUGHT_META[t]
-              const count = progress.thoughtCounts[t]
-              const unlocked = count > 0
-              return (
-                <View
-                  key={t}
-                  className={`${styles.thoughtCard} ${unlocked ? '' : styles.locked}`}
-                  style={unlocked ? { borderColor: meta.color } : {}}
-                >
-                  <View className={styles.thoughtIcon} style={unlocked ? { background: `${meta.color}15` } : {}}>
-                    <Text style={unlocked ? { color: meta.color } : {}}>{unlocked ? meta.icon : '❓'}</Text>
+        {list.length === 0 ? (
+          <View className={styles.empty}>
+            <Text className={styles.emptyIcon}>🔍</Text>
+            <Text className={styles.emptyTitle}>没有找到相关知识点</Text>
+            <Text className={styles.emptySub}>换个关键词试试，或切换分类浏览</Text>
+          </View>
+        ) : (
+          <>
+            <Text className={styles.listMeta}>
+              {kw ? `搜索结果 · 共 ${list.length} 个知识点` : `${chapterOf(active).name} · 共 ${list.length} 个知识点`}
+            </Text>
+            <View className={styles.kpList}>
+              {list.map(({ ref, category }) => {
+                const ch = chapterOf(category)
+                return (
+                  <View key={ref.id} className={styles.kpCard} onClick={() => openKnowledge(category)}>
+                    <View className={styles.kpTop}>
+                      <View className={styles.kpIcon} style={{ background: `${ch.color}15` }}>
+                        <Text style={{ color: ch.color }}>{ch.icon}</Text>
+                      </View>
+                      <View className={styles.kpMain}>
+                        <Text className={styles.kpName}>{ref.name}</Text>
+                        <Text className={styles.kpSummary}>{ref.summary}</Text>
+                      </View>
+                      <Text className={styles.kpArrow}>›</Text>
+                    </View>
+                    <View className={styles.kpFoot}>
+                      <Text className={styles.layerTag}>{LAYER_LABEL[ref.layer] ?? ref.layer}</Text>
+                      <Text className={styles.kpCat} style={{ color: ch.color }}>
+                        {ch.name}
+                      </Text>
+                    </View>
                   </View>
-                  <Text className={styles.thoughtName}>{unlocked ? meta.label : '???'}</Text>
-                  <Text className={styles.thoughtCount}>{unlocked ? `${count} 枚` : '未解锁'}</Text>
-                </View>
-              )
-            })}
-          </View>
-        </View>
-
-        {/* 成就墙 */}
-        <View className={styles.section}>
-          <Text className={styles.sectionTitle}>成就墙（{unlockedAchievements}/{ACHIEVEMENTS.length}）</Text>
-          <View className={styles.achievementGrid}>
-            {ACHIEVEMENTS.map((a) => {
-              const unlocked = a.check(progress)
-              return (
-                <View key={a.id} className={`${styles.achievementCard} ${unlocked ? '' : styles.locked}`}>
-                  <Text className={styles.achievementIcon}>{unlocked ? a.icon : '🔒'}</Text>
-                  <Text className={styles.achievementName}>{a.name}</Text>
-                  <Text className={styles.achievementDesc}>{a.desc}</Text>
-                </View>
-              )
-            })}
-          </View>
-        </View>
-
+                )
+              })}
+            </View>
+          </>
+        )}
         <View className={styles.bottomPad} />
       </ScrollView>
 

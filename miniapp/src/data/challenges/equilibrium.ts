@@ -8,6 +8,15 @@ const chemEq: Challenge[] = [
     options: ['升高温度', '减小压强', '加入催化剂', '通入过量 O₂'],
     answerIndex: 3,
     explanation: '升温（ΔH<0 放热）平衡逆向移动；减压向气体分子数增多方向（逆向）移动；催化剂不影响平衡；通入 O₂ 增大反应物浓度，平衡正向移动，SO₃ 产量增加。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      factors: [
+        { factor: '温度', change: '升高温度', shift: '逆向', kChanges: '减小', conversion: 'SO₂ 转化率降低，SO₃ 产量减少' },
+        { factor: '压强', change: '减小压强', shift: '逆向', kChanges: '不变', conversion: 'SO₃ 产量减少' },
+        { factor: '催化剂', change: '加入催化剂', shift: '不移动', kChanges: '不变', conversion: '不影响平衡，只加快速率' },
+        { factor: '浓度', change: '通入过量 O₂', shift: '正向', kChanges: '不变', conversion: 'SO₂ 转化率提高，SO₃ 产量增加' },
+      ],
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -58,6 +67,13 @@ const chemEq: Challenge[] = [
     options: ['温度越高，C% 越大，且先达到平衡', '温度越高，C% 越小，且先达到平衡', '温度越高，C% 不变', '温度越高反应速率越慢'],
     answerIndex: 1,
     explanation: 'ΔH<0 放热反应，升温平衡逆向移动，C% 减小。温度越高反应速率越快，先达到平衡。所以温度越高 C% 越小且先达平衡。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      factors: [
+        { factor: '温度', change: '升高温度', shift: '逆向', kChanges: '减小', conversion: 'C% 减小；反应速率加快，先达到平衡' },
+        { factor: '温度', change: '降低温度', shift: '正向', kChanges: '增大', conversion: 'C% 增大；反应速率减慢，后达到平衡' },
+      ],
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -133,6 +149,12 @@ const chemEq: Challenge[] = [
     options: ['0.5 mol/L', '1 mol/L', '1.5 mol/L', '2 mol/L'],
     answerIndex: 1,
     explanation: 'N₂ 转化 50%，即转化 2×50%=1 mol。由反应式 N₂+3H₂⇌2NH₃，转化 1 mol N₂ 生成 2 mol NH₃。容器体积 2 L，c(NH₃)=2 mol/2 L=1 mol/L。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      factors: [
+        { factor: '投料转化', change: 'N₂ 转化率 50%（转化 1 mol）', shift: '正向', kChanges: '不变', conversion: '生成 NH₃ 2 mol，c(NH₃)=1 mol/L' },
+      ],
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -158,6 +180,12 @@ const chemEq: Challenge[] = [
     options: ['向正反应方向进行', '向逆反应方向进行', '已达平衡', '无法判断'],
     answerIndex: 0,
     explanation: '浓度商 Q = [c(CO₂)·c(H₂)]/[c(CO)·c(H₂O)]。各物质浓度：CO=1, H₂O=1, CO₂=0.5, H₂=0.5（mol/L）。Q=(0.5×0.5)/(1×1)=0.25 < K=1。Q<K 时平衡向正反应方向移动。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      factors: [
+        { factor: '浓度商 Q', change: 'Q=0.25 < K=1', shift: '正向', kChanges: '不变', conversion: '产物浓度增大，Q 趋近 K' },
+      ],
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

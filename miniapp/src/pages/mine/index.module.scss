@@ -7,7 +7,7 @@
 }
 
 .header {
-  background: linear-gradient(135deg, #0f172a 0%, #134e4a 100%);
+  background: linear-gradient(135deg, #EAF7FB 0%, #D6F0F8 100%);
   padding: 60rpx 32rpx 40rpx;
   text-align: center;
 }
@@ -16,7 +16,7 @@
   width: 120rpx;
   height: 120rpx;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(46, 167, 196, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,14 +26,14 @@
 
 .nickname {
   display: block;
-  color: #fff;
+  color: $color-text-primary;
   font-size: 40rpx;
   font-weight: $font-weight-bold;
 }
 
 .desc {
   display: block;
-  color: #94a3b8;
+  color: $color-text-secondary;
   font-size: $font-size-sm;
   margin-top: 6rpx;
 }
@@ -49,20 +49,20 @@
 .progressBar {
   flex: 1;
   height: 12rpx;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(46, 167, 196, 0.15);
   border-radius: $radius-round;
   overflow: hidden;
 }
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, #5eead4, #14b8a6);
+  background: linear-gradient(90deg, #7FD4E8, #2EA7C4);
   border-radius: $radius-round;
   transition: width $transition-base;
 }
 
 .progressText {
-  color: #5eead4;
+  color: $color-primary-dark;
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   min-width: 120rpx;
@@ -75,7 +75,7 @@
 
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 16rpx;
   margin-bottom: 28rpx;
 }

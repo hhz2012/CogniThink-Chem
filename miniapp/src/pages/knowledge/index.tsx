@@ -1,21 +1,36 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useState, useEffect } from 'react'
-import Taro from '@tarojs/taro'
-import { redoxKnowledge, LAYER_META, KnowledgeLayer } from '../../data/knowledge/redox'
+import Taro, { useRouter } from '@tarojs/taro'
+import { ChemCategory } from '../../types/chem'
+import { chapters } from '../../data/challenges'
+import { knowledgeOfCategory, getFullKnowledgePoint } from '../../data/knowledge'
+import { LAYER_META, KnowledgeLayer, KnowledgePoint } from '../../data/knowledge/redox'
 import styles from './index.module.scss'
 
-const STORAGE_KEY = 'chem-knowledge-mastered-redox'
 const LAYERS: KnowledgeLayer[] = ['Knowledge', 'Application', 'Ability']
 
 export default function KnowledgePage() {
+  const router = useRouter()
+  const category = (router.params.category as ChemCategory) || 'RedoxReaction'
+  const chapter = chapters.find((c) => c.category === category)
+  const storageKey = `chem-knowledge-mastered-${category}`
+
   const [mastered, setMastered] = useState<string[]>([])
   const [openId, setOpenId] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Record<string, number>>({})
 
   useEffect(() => {
-    const saved = Taro.getStorageSync(STORAGE_KEY)
+    const saved = Taro.getStorageSync(storageKey)
     if (Array.isArray(saved)) setMastered(saved)
-  }, [])
+    // 切换分类时重置展开/作答状态
+    setOpenId(null)
+    setAnswers({})
+  }, [storageKey])
+
+  /** 当前分类的全部完整知识点 */
+  const points: KnowledgePoint[] = knowledgeOfCategory(category)
+    .map((ref) => getFullKnowledgePoint(ref.id))
+    .filter((p): p is KnowledgePoint => Boolean(p))
 
   /** 自测判定：答对记为已掌握，答错自动展开讲解 */
   const onPick = (kpId: string, idx: number, correct: number) => {
@@ -25,7 +40,7 @@ export default function KnowledgePage() {
       if (!mastered.includes(kpId)) {
         const next = [...mastered, kpId]
         setMastered(next)
-        Taro.setStorageSync(STORAGE_KEY, next)
+        Taro.setStorageSync(storageKey, next)
       }
       Taro.showToast({ title: '这个知识点你已掌握', icon: 'success' })
     } else {
@@ -33,27 +48,31 @@ export default function KnowledgePage() {
     }
   }
 
-  const percent = Math.round((mastered.length / redoxKnowledge.length) * 100)
+  const total = points.length
+  const percent = total > 0 ? Math.round((mastered.length / total) * 100) : 0
 
   return (
     <View className={styles.page}>
       <ScrollView scrollY className={styles.body}>
         <View className={styles.header}>
-          <Text className={styles.title}>氧化还原 · 知识体系</Text>
+          <Text className={styles.title}>
+            {chapter ? `${chapter.icon} ${chapter.name}` : '知识体系'} · 知识体系
+          </Text>
           <Text className={styles.subtitle}>
-            {redoxKnowledge.length} 个知识点 · 三层进阶 · 先自测，不会就看讲解
+            {total} 个知识点 · 三层进阶 · 先自测，不会就看讲解
           </Text>
           <View className={styles.progressRow}>
             <View className={styles.progressTrack}>
               <View className={styles.progressFill} style={{ width: `${percent}%` }} />
             </View>
-            <Text className={styles.progressText}>{mastered.length}/{redoxKnowledge.length}</Text>
+            <Text className={styles.progressText}>{mastered.length}/{total}</Text>
           </View>
         </View>
 
         {LAYERS.map((layer) => {
           const meta = LAYER_META[layer]
-          const points = redoxKnowledge.filter((kp) => kp.layer === layer)
+          const layerPoints = points.filter((kp) => kp.layer === layer)
+          if (layerPoints.length === 0) return null
           return (
             <View key={layer} className={styles.layerSection}>
               <View className={styles.layerHead} style={{ borderLeftColor: meta.color }}>
@@ -61,7 +80,7 @@ export default function KnowledgePage() {
                 <Text className={styles.layerDesc}>{meta.desc}</Text>
               </View>
 
-              {points.map((kp) => {
+              {layerPoints.map((kp) => {
                 const open = openId === kp.id
                 const isMastered = mastered.includes(kp.id)
                 const picked = answers[kp.id]

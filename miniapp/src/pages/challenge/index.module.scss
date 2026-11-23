@@ -345,7 +345,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 18rpx 20rpx;
-  background: #f0fdfa;
+  background: #EAF6FA;
   color: $color-primary-dark;
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
@@ -366,7 +366,7 @@
   display: block;
   margin-top: 10rpx;
   padding: 12rpx 14rpx;
-  background: #f0fdfa;
+  background: #EAF6FA;
   border-radius: $radius-sm;
   font-size: $font-size-sm;
   color: $color-primary-dark;
@@ -408,8 +408,8 @@
   flex-direction: column;
   align-items: center;
   padding: 40rpx 20rpx;
-  background: linear-gradient(135deg, #f0fdfa, #fff);
-  border: 2rpx dashed #99f6e4;
+  background: linear-gradient(135deg, #EAF6FA, #fff);
+  border: 2rpx dashed #B6E6F2;
   border-radius: $radius-md;
 }
 
@@ -774,3 +774,70 @@
 }
 
 .bottomPad { height: 60rpx; }
+
+/* ============ 题型解题模型面板 ============ */
+.modelBox {
+  margin-top: 16rpx;
+  background: #fff;
+  border: 2rpx solid $color-divider;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+}
+
+.modelBoxHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 22rpx;
+}
+
+.modelBoxTitle {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.modelBoxToggle {
+  font-size: $font-size-xs;
+  color: $color-primary;
+}
+
+.modelBoxBody {
+  padding: 0 22rpx 22rpx;
+  border-top: 1rpx solid $color-divider;
+  padding-top: 18rpx;
+}
+
+/* 答题后完整解题模型 */
+.solveModelFull {
+  margin-top: 20rpx;
+  padding: 22rpx;
+  background: linear-gradient(135deg, #f0fdfa, #fff);
+  border: 2rpx solid #99f6e4;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+.solveModelFullTitle {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin-bottom: 14rpx;
+}
+
+/* 守恒校验内：题型专属校验小标题 */
+.conservationSubHead {
+  display: block;
+  margin-top: 14rpx;
+  margin-bottom: 6rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-dark;
+}

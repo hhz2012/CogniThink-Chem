@@ -1,191 +1,176 @@
-import { View, Text, ScrollView, Image } from '@tarojs/components'
-import { useState, useEffect } from 'react'
+import { View, Text, Picker, ScrollView } from '@tarojs/components'
+import { useState } from 'react'
 import Taro from '@tarojs/taro'
+import classnames from 'classnames'
 import TabBar from '../../components/TabBar'
-import { chapters, allChallenges } from '../../data/challenges'
-import { loadProgress } from '../../utils/storage'
-import { UserProgress, ChemCategory, Difficulty } from '../../types/chem'
+import ModelIcon, { ModelIconName } from '../../components/SolvePanels/ModelIcon'
+import { MODEL_ACCENT } from '../../components/SolvePanels'
+import { ChemCategory } from '../../types/chem'
 import styles from './index.module.scss'
 
-/** 主题：edu 标准教育模式（默认）/ adventure 秘境探险模式 */
-type ThemeMode = 'edu' | 'adventure'
+/** 学段选项 */
+const STAGES = ['高一', '高二', '高三']
 
-// 专项图标（AI 生成 · 统一白色线条风 + 深青底，双主题通用）
-const iconImage = (subject: string) =>
-  `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(`${subject}, minimalist thin white line art icon, centered, dark teal green gradient background, rounded square app icon style, flat design, elegant, high quality, no text`)}&image_size=square_hd`
-
-// 探险模式卡片底纹（对应专题弱图片，10% 透明度）
-const bgImage = (prompt: string) =>
-  `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${encodeURIComponent(prompt)}&image_size=square_hd`
-
-const CHAPTER_ICON: Record<ChemCategory, string> = {
-  RedoxReaction: iconImage('lightning bolt with electron transfer arrows'),
-  IonicEquilibrium: iconImage('water drop surrounded by small ion particles'),
-  ChemicalEquilibrium: iconImage('laboratory balance scale in equilibrium'),
-  Electrochemistry: iconImage('battery cell with positive and negative terminals'),
-  InorganicInference: iconImage('crystal gemstone with geometric facets'),
-  OrganicChemistry: iconImage('hexagonal benzene ring molecule structure'),
+interface ReasonCard {
+  key: ChemCategory
+  icon: ModelIconName
+  title: string
+  desc: string
+  /** 暂未开放：置灰 + 敬请期待，点击拦截 */
+  disabled?: boolean
 }
 
-const CHAPTER_PATTERN: Record<ChemCategory, string> = {
-  RedoxReaction: bgImage('single glowing red-orange spark flame on pure black background, macro photography, cinematic, no text'),
-  IonicEquilibrium: bgImage('single laboratory beaker outline with glowing cyan liquid on pure black background, minimalist, cinematic, no text'),
-  ChemicalEquilibrium: bgImage('single laboratory balance scale with glowing amber light on pure black background, minimalist, cinematic, no text'),
-  Electrochemistry: bgImage('single glowing battery cell with purple energy arcs on pure black background, minimalist, cinematic, no text'),
-  InorganicInference: bgImage('single glowing green crystal gemstone on pure black background, minimalist, cinematic, no text'),
-  OrganicChemistry: bgImage('single glowing teal hexagonal benzene ring molecule on pure black background, minimalist, cinematic, no text'),
-}
-
-const THEME_KEY = 'home_theme_mode'
-
-/** 难度等级（从易到难），用于专题卡片的难度分布展示 */
-const DIFF_LEVELS: { key: Difficulty; label: string; color: string }[] = [
-  { key: '基础', label: '基础', color: '#16a34a' },
-  { key: '进阶', label: '进阶', color: '#2563eb' },
-  { key: '综合', label: '综合', color: '#ea580c' },
-  { key: '难题', label: '难题', color: '#dc2626' },
-  { key: '压轴', label: '压轴', color: '#7c3aed' },
+/** 五大推理专项卡片（两行排列：3 + 2）；图标统一青绿线性风格 */
+const CARDS: ReasonCard[] = [
+  { key: 'RedoxReaction', icon: 'zap', title: '氧化还原推理', desc: '先后顺序、pH依赖、配平、电子转移' },
+  { key: 'IonicEquilibrium', icon: 'droplet', title: '离子体系推理', desc: '离子共存、离子方程式、少量过量' },
+  { key: 'ChemicalEquilibrium', icon: 'refresh', title: '水溶液平衡', desc: '电离水解、粒子浓度、Ksp沉淀竞争' },
+  { key: 'InorganicInference', icon: 'test-tube', title: '连续反应推理', desc: '铝铁硫氯氨，量变引起产物变化', disabled: true },
+  { key: 'Electrochemistry', icon: 'battery', title: '电化学推理', desc: '原电池、电解池、放电顺序、膜体系', disabled: true },
 ]
 
+/** 更多专项 */
+const MORE_ITEMS = ['NA选择题专项', '物质的量计算', '元素周期律', '有机化学推理包']
+
+const STAGE_KEY = 'home_stage'
+
 export default function Home() {
-  const [progress, setProgress] = useState<UserProgress>(loadProgress())
-  const [theme, setTheme] = useState<ThemeMode>('edu')
+  const savedStage = Taro.getStorageSync(STAGE_KEY) as string
+  const [stageIndex, setStageIndex] = useState<number>(
+    STAGES.indexOf(savedStage) >= 0 ? STAGES.indexOf(savedStage) : 2
+  )
+  const [moreOpen, setMoreOpen] = useState(false)
 
-  useEffect(() => {
-    setProgress(loadProgress())
-    const saved = Taro.getStorageSync(THEME_KEY) as ThemeMode
-    if (saved === 'edu' || saved === 'adventure') setTheme(saved)
-  }, [])
-
-  /** 风格切换：edu ↔ adventure，本地持久化 */
-  const toggleTheme = () => {
-    const next: ThemeMode = theme === 'edu' ? 'adventure' : 'edu'
-    setTheme(next)
-    Taro.setStorageSync(THEME_KEY, next)
+  /** 切换学段，本地持久化 */
+  const selectStage = (idx: number) => {
+    if (idx < 0 || idx >= STAGES.length) return
+    setStageIndex(idx)
+    Taro.setStorageSync(STAGE_KEY, STAGES[idx])
   }
 
-  /** 化学闯关按钮：跳转全局第一个可挑战关卡 */
-  const goChallenge = () => {
-    for (const ch of chapters) {
-      const next = ch.challenges.find((c, i) => {
-        const solved = progress.solvedIds.includes(c.id)
-        const prevSolved = i === 0 || ch.challenges.slice(0, i).every((p) => progress.solvedIds.includes(p.id))
-        return !solved && prevSolved
-      })
-      if (next) {
-        Taro.navigateTo({ url: `/pages/challenge/index?id=${next.id}` })
-        return
-      }
-    }
+  const onStageChange = (e: { detail: { value: number | string } }) => {
+    selectStage(Number(e.detail.value))
   }
 
-  /** 点击卡片：跳转本专题下一个可挑战的关卡 */
-  const goNextChallenge = (
-    ch: typeof chapters[number],
-    allSolved: boolean
-  ) => {
-    if (allSolved) return
-    const next = ch.challenges.find((c, i) => {
-      const solved = progress.solvedIds.includes(c.id)
-      const prevSolved = i === 0 || ch.challenges.slice(0, i).every((prev) => progress.solvedIds.includes(prev.id))
-      return !solved && prevSolved
-    })
-    if (next) Taro.navigateTo({ url: `/pages/challenge/index?id=${next.id}` })
+  /** 点击推理卡片：进入题目求解（引擎推理链），携带分类提示 */
+  const goReason = (key: ChemCategory) => {
+    Taro.navigateTo({ url: `/pages/solve/index?category=${key}` })
   }
 
-  const isEdu = theme === 'edu'
+  /** 拍照识题 / 导入题目：进入求解页 */
+  const goImport = () => {
+    Taro.navigateTo({ url: '/pages/solve/index' })
+  }
+
+  /** 更多专项：进入求解页并携带标签 */
+  const goMore = (name: string) => {
+    Taro.navigateTo({ url: `/pages/solve/index?tag=${encodeURIComponent(name)}` })
+  }
 
   return (
-    <View className={`${styles.page} ${isEdu ? styles.edu : styles.adv}`}>
-      {/* ========== 顶部标题区 ========== */}
+    <View className={styles.page}>
+      {/* ========== 顶部标题（居中，右侧为微信原生胶囊） ========== */}
       <View className={styles.header}>
-        <View className={styles.headerRow}>
-          <Text className={styles.title}>专项思维扩展</Text>
-          <View className={styles.btnGroup}>
-            <View className={styles.btnPrimary} onClick={goChallenge}>
-              <Text className={styles.btnPrimaryText}>化学闯关</Text>
-            </View>
-            <View className={styles.btnTheme} onClick={toggleTheme}>
-              <Text className={styles.btnThemeText}>风格切换</Text>
-            </View>
-          </View>
-        </View>
-        <Text className={styles.descMain}>六大高考化学难题专项 · {allChallenges.length}道精选难题</Text>
-        <Text className={styles.descSub}>AI伴思引导层层递进，练透每一条解题思路</Text>
-        <View
-          className={styles.tutorEntry}
-          onClick={() => Taro.navigateTo({ url: '/pages/tutor/index' })}
-        >
-          <Text className={styles.tutorEntryText}>🧭 伴思导学 · 分步推理</Text>
-        </View>
-        <View
-          className={styles.tutorEntry}
-          onClick={() => Taro.navigateTo({ url: '/pages/solve/index' })}
-        >
-          <Text className={styles.tutorEntryText}>🧪 题目求解 · 引擎推理链</Text>
-        </View>
+        <Text className={styles.title}>化学伴思</Text>
       </View>
 
-      {/* ========== 6个专题卡片（2列 × 3行） ========== */}
+      {/* ========== 内容滚动区 ========== */}
       <ScrollView scrollY className={styles.body}>
-        <View className={styles.grid}>
-          {chapters.map((ch) => {
-            const solvedInChapter = ch.challenges.filter((c) =>
-              progress.solvedIds.includes(c.id)
-            ).length
-            const allSolved = solvedInChapter === ch.challenges.length
-            const chapterProgress = Math.round((solvedInChapter / ch.challenges.length) * 100)
-            // 箭头位置限制在 3%~97%，避免贴边
-            const arrowPos = Math.min(Math.max(chapterProgress, 3), 97)
-            const diffStats = DIFF_LEVELS.map((d) => ({
-              ...d,
-              total: ch.challenges.filter((c) => c.difficulty === d.key).length,
-            }))
-            return (
-              <View
-                key={ch.id}
-                className={styles.card}
-                onClick={() => goNextChallenge(ch, allSolved)}
-              >
-                {/* 探险模式：专题弱底纹（10%） */}
-                {!isEdu && (
-                  <Image
-                    className={styles.cardPattern}
-                    src={CHAPTER_PATTERN[ch.category]}
-                    mode="aspectFill"
-                    lazyLoad
-                  />
-                )}
-                <View className={styles.cardInner}>
-                  <View className={styles.cardTop}>
-                    <View className={styles.iconBox}>
-                      <Image
-                        className={styles.iconImg}
-                        src={CHAPTER_ICON[ch.category]}
-                        mode="aspectFill"
-                        lazyLoad
-                      />
-                    </View>
-                    <Text className={styles.cardTitle}>{ch.name}</Text>
-                  </View>
-                  <View className={styles.cardBottom}>
-                    <View className={styles.diffBar}>
-                      {diffStats.map((d) => (
-                        <View
-                          key={d.key}
-                          className={styles.diffSeg}
-                          style={{ flex: d.total, background: d.color }}
-                        />
-                      ))}
-                    </View>
-                    {/* 进度箭头：指示用户在该专项已推进到的位置 */}
-                    <View className={styles.progressArrow} style={{ left: `${arrowPos}%` }} />
-                  </View>
-                </View>
-              </View>
-            )
-          })}
+        {/* 学段选择 */}
+        <View className={styles.stageRow}>
+          <Picker
+            mode="selector"
+            range={STAGES}
+            value={stageIndex}
+            onChange={onStageChange}
+          >
+            <View className={styles.stageLabel}>
+              <Text className={styles.stageLabelText}>当前学段：{STAGES[stageIndex]}</Text>
+              <Text className={styles.stageArrow}>▾</Text>
+            </View>
+          </Picker>
         </View>
+
+        <View className={styles.stagePills}>
+          {STAGES.map((s, i) => (
+            <View
+              key={s}
+              className={classnames(styles.pill, { [styles.pillActive]: i === stageIndex })}
+              onClick={() => selectStage(i)}
+            >
+              <Text
+                className={classnames(styles.pillText, {
+                  [styles.pillTextActive]: i === stageIndex,
+                })}
+              >
+                {s}
+              </Text>
+            </View>
+          ))}
+        </View>
+
+        {/* 分区标题 */}
+        <View className={styles.sectionHead}>
+          <ModelIcon name="test-tube" size={24} color={MODEL_ACCENT} className={styles.sectionIcon} />
+          <View className={styles.sectionTitleWrap}>
+            <Text className={styles.sectionTitle}>化学分步推理工作台</Text>
+            <Text className={styles.sectionSub}>一步一校验，不靠AI直接给答案</Text>
+          </View>
+        </View>
+
+        {/* 卡片网格 */}
+        <View className={styles.grid}>
+          {CARDS.map((c) => (
+            <View
+              key={c.key}
+              className={classnames(styles.card, { [styles.cardDisabled]: c.disabled })}
+              onClick={() => {
+                if (c.disabled) {
+                  Taro.showToast({ title: '该模块开发中，敬请期待', icon: 'none' })
+                  return
+                }
+                goReason(c.key)
+              }}
+            >
+              {/* 图标：青绿线性 SVG，无背景无边框，直接贴在白卡上 */}
+              <ModelIcon name={c.icon} size={30} color={MODEL_ACCENT} className={styles.cardIcon} />
+              <Text className={styles.cardTitle}>{c.title}</Text>
+              <Text className={styles.cardDesc}>{c.desc}</Text>
+              {c.disabled && <Text className={styles.disabledTag}>敬请期待</Text>}
+            </View>
+          ))}
+        </View>
+
+        {/* 更多专项（可折叠） */}
+        <View className={styles.moreCard}>
+          <View className={styles.moreHead} onClick={() => setMoreOpen(!moreOpen)}>
+            <Text className={styles.moreTitle}>更多专项</Text>
+            <Text
+              className={classnames(styles.moreChevron, {
+                [styles.moreChevronOpen]: moreOpen,
+              })}
+            >
+              ›
+            </Text>
+          </View>
+          {moreOpen && (
+            <View className={styles.moreList}>
+              {MORE_ITEMS.map((m) => (
+                <View key={m} className={styles.moreItem} onClick={() => goMore(m)}>
+                  <Text className={styles.moreItemText}>{m}</Text>
+                  <Text className={styles.moreItemArrow}>›</Text>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
+
+        {/* 通栏拍照识题按钮 */}
+        <View className={styles.photoBtn} onClick={goImport}>
+          <ModelIcon name="camera" size={22} color="#ffffff" />
+          <Text className={styles.photoBtnText}>拍照识题，导入题目</Text>
+        </View>
+
         <View className={styles.bottomPad} />
       </ScrollView>
 

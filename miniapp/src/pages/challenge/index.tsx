@@ -4,12 +4,15 @@ import Taro, { useRouter } from '@tarojs/taro'
 import ThoughtChip from '../../components/ThoughtChip'
 import { chapters, getChallengeById } from '../../data/challenges'
 import {
-  loadProgress, markSolved, consumeInspiration, THOUGHT_META,
+  loadProgress, markSolved, markWrong, unmarkWrong, consumeInspiration, THOUGHT_META,
 } from '../../utils/storage'
 import { Challenge, GuideLevel, UserProgress, Difficulty } from '../../types/chem'
 import { getTutorScript } from '../../engine/tutorEngine'
 import { diagnoseAnswer, AnswerDiagnosis } from '../../engine/brainEngine'
+import { getModelChecks } from '../../engine/solveModels'
 import { getFullKnowledgePoint, KnowledgeRef } from '../../data/knowledge'
+import SolveModelPanel, { MODEL_ACCENT } from '../../components/SolvePanels'
+import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import styles from './index.module.scss'
 
 type ResultState = 'pending' | 'correct' | 'wrong'
@@ -62,6 +65,7 @@ export default function ChallengePage() {
   const [currentLevel, setCurrentLevel] = useState(0) // 0=未开始, 1..6=进行中, 7=已完成
   const [hintLevels, setHintLevels] = useState<Record<number, number>>({}) // 每步已解锁的提示级数
   const [showConservation, setShowConservation] = useState(false)
+  const [showModel, setShowModel] = useState(true) // 题型解题模型（思考骨架）折叠
   // 逐步诊断状态
   const [diagMsgs, setDiagMsgs] = useState<DiagMsg[]>([])
   const [diagStep, setDiagStep] = useState<DiagStep>('idle')
@@ -363,15 +367,23 @@ export default function ChallengePage() {
     }
     const correct = selected === challenge.answerIndex
     setResult(correct ? 'correct' : 'wrong')
-    if (correct && !progress.solvedIds.includes(challenge.id)) {
-      const next = markSolved(progress, challenge.id, challenge.thought)
+    if (correct) {
+      let next = progress
+      if (!progress.solvedIds.includes(challenge.id)) {
+        next = markSolved(progress, challenge.id, challenge.thought)
+        Taro.showToast({ title: '答对了！+2 灵感值', icon: 'success' })
+      }
+      // 重做做对：从错题本移除
+      if (next.wrongIds.includes(challenge.id)) {
+        next = unmarkWrong(next, challenge.id)
+      }
       setProgress(next)
-      Taro.showToast({ title: '答对了！+2 灵感值', icon: 'success' })
-    } else if (!correct) {
-      // 智能诊断：先判断错误类型与薄弱知识点，再进入逐步询问
+    } else {
+      // 答错：入错题本，再进入逐步诊断
+      setProgress(markWrong(progress, challenge.id))
       setBrainDiag(diagnoseAnswer(challenge.id, selected))
       setTimeout(() => startDiagnosis(), 400)
-      Taro.showToast({ title: '别急，我们一步步找原因', icon: 'none' })
+      Taro.showToast({ title: '已加入错题本，一步步找原因', icon: 'none' })
     }
   }
 
@@ -421,8 +433,8 @@ export default function ChallengePage() {
           <View
             className={styles.kpBar}
             onClick={() => {
-              if (chapter?.category === 'RedoxReaction') {
-                Taro.navigateTo({ url: '/pages/knowledge/index' })
+              if (chapter?.category) {
+                Taro.navigateTo({ url: `/pages/knowledge/index?category=${chapter.category}` })
               }
             }}
           >
@@ -432,7 +444,7 @@ export default function ChallengePage() {
                 {relatedKps.map((k) => `${k.id} ${k.name}`).join(' · ')}
               </Text>
             </View>
-            {chapter?.category === 'RedoxReaction' && <Text className={styles.kpArrow}>→</Text>}
+            <Text className={styles.kpArrow}>→</Text>
           </View>
         )}
 
@@ -445,6 +457,22 @@ export default function ChallengePage() {
             </View>
           </View>
           <Text className={styles.problemText}>{challenge.problemText}</Text>
+        </View>
+
+        {/* 题型解题模型：思考骨架（答题前可见，不泄答案） */}
+        <View className={styles.modelBox}>
+          <View className={styles.modelBoxHead} onClick={() => setShowModel((v) => !v)}>
+            <View className={styles.modelBoxTitle}>
+              <ModelIcon name="lightbulb" size={18} color={MODEL_ACCENT} />
+              <Text>这类题怎么想</Text>
+            </View>
+            <Text className={styles.modelBoxToggle}>{showModel ? '收起' : '展开'}</Text>
+          </View>
+          {showModel && (
+            <View className={styles.modelBoxBody}>
+              <SolveModelPanel challenge={challenge} mode="preview" />
+            </View>
+          )}
         </View>
 
         {/* 选项 */}
@@ -485,6 +513,17 @@ export default function ChallengePage() {
               <Text className={styles.thoughtExplainTitle}>{thoughtMeta.icon} {thoughtMeta.label}思维</Text>
               <Text className={styles.thoughtExplainText}>{thoughtMeta.desc}</Text>
             </View>
+          </View>
+        )}
+
+        {/* 完整解题模型（答题后展示题型专属可视化） */}
+        {result !== 'pending' && (
+          <View className={styles.solveModelFull}>
+            <View className={styles.solveModelFullTitle}>
+              <ModelIcon name="layout" size={18} color={MODEL_ACCENT} />
+              <Text>完整解题模型</Text>
+            </View>
+            <SolveModelPanel challenge={challenge} mode="full" />
           </View>
         )}
 
@@ -559,6 +598,10 @@ export default function ChallengePage() {
                 {tutor && tutor.validation.errorTraps.length > 0 && (
                   <Text className={styles.conservationTip}>常见错误落点：{tutor.validation.errorTraps.join('；')}</Text>
                 )}
+                <Text className={styles.conservationSubHead}>题型专属校验</Text>
+                {getModelChecks(challenge).map((c) => (
+                  <Text key={c} className={styles.conservationItem}>✓ {c}</Text>
+                ))}
                 <Text className={styles.conservationTip}>本题关键思维：{thoughtMeta.label}。逐条核对上述检查项再确认答案。</Text>
               </View>
             )}

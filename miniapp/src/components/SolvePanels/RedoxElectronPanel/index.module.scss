@@ -1,0 +1,112 @@
+@use '@/styles/variables.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.table {
+  border: 1rpx solid $color-divider;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 12rpx;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.head {
+  background: $color-bg-hover;
+  font-weight: $font-weight-semibold;
+}
+
+.col {
+  flex: 1;
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+}
+
+.head .col {
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1rpx solid;
+  border-radius: $radius-md;
+  padding: 18rpx 12rpx;
+  background: $color-bg-card;
+}
+
+.sumItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.sumLabel {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+}
+
+.sumVal {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.sumEq {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-tertiary;
+}
+
+.balanceRow {
+  display: flex;
+  gap: 14rpx;
+}
+
+.balanceItem {
+  flex: 1;
+  background: $color-bg-hover;
+  border-radius: $radius-md;
+  padding: 14rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.balanceLabel {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+}
+
+.balanceVal {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+}

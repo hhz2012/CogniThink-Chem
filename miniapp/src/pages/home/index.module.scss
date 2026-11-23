@@ -1,327 +1,271 @@
 @use '@/styles/variables.scss' as *;
 
-/* ============================================
-   页面基础 + 双主题 CSS 变量
-   （布局两主题一致，仅切换视觉样式）
-   ============================================ */
 .page {
-  min-height: 100vh;
-  padding-bottom: 130rpx;
-  transition: background 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: $color-bg-page;
 }
 
-/* ---------- 主题1：标准教育模式（默认） ---------- */
-.edu {
-  /* 主色 / 文字 */
-  --primary: #28B8B8;
-  --primary-deep: #0F6B6B;
-  --text: #1A2E33;
-  --text-sub: #64787C;
-
-  /* 卡片：白色基底，柔和低阴影，无玻璃拟态 */
-  --card-bg: #FFFFFF;
-  --card-border: rgba(15, 107, 107, 0.10);
-  --card-shadow: 0 4rpx 20rpx rgba(15, 107, 107, 0.07);
-  --card-radius: 32rpx;
-
-  /* 图标 */
-  --icon-border: rgba(15, 107, 107, 0.08);
-
-  /* 进度条：常规 */
-  --track: #E6F1F1;
-  --fill: #28B8B8;
-  --fill-glow: none;
-
-  /* 按钮 */
-  --btn1-bg: rgba(40, 184, 184, 0.12);
-  --btn1-c: #0F6B6B;
-  --btn1-border: rgba(40, 184, 184, 0.35);
-  --btn2-bg: transparent;
-  --btn2-c: #0F6B6B;
-  --btn2-border: rgba(15, 107, 107, 0.30);
-
-  /* 页面背景：淡青 + 5% 分子暗纹点阵 */
-  background-color: #F7FCFC;
-  background-image: radial-gradient(rgba(15, 107, 107, 0.05) 2rpx, transparent 2rpx);
-  background-size: 56rpx 56rpx;
-}
-
-/* ---------- 主题2：秘境探险模式 ---------- */
-.adv {
-  --primary: #28E0E0;
-  --primary-deep: #0F282C;
-  --text: #E6FBFB;
-  --text-sub: #9FC6C6;
-
-  /* 卡片：玻璃拟态 + 1px 细发光边框 */
-  --card-bg: rgba(21, 59, 64, 0.55);
-  --card-border: rgba(40, 224, 224, 0.30);
-  --card-shadow: 0 8rpx 36rpx rgba(0, 0, 0, 0.35);
-  --card-radius: 36rpx;
-
-  --icon-border: rgba(40, 224, 224, 0.35);
-
-  /* 进度条：柔和发光 */
-  --track: rgba(255, 255, 255, 0.14);
-  --fill: #28E0E0;
-  --fill-glow: 0 0 16rpx rgba(40, 224, 224, 0.7);
-
-  /* 按钮 */
-  --btn1-bg: #28E0E0;
-  --btn1-c: #0F282C;
-  --btn1-border: transparent;
-  --btn2-bg: rgba(40, 224, 224, 0.08);
-  --btn2-c: #28E0E0;
-  --btn2-border: rgba(40, 224, 224, 0.45);
-
-  /* 页面背景：深色暗底渐变 + 微光分子点阵 */
-  background-color: #0F282C;
-  background-image:
-    radial-gradient(rgba(40, 224, 224, 0.06) 2rpx, transparent 2rpx),
-    radial-gradient(circle at 85% 12%, rgba(40, 224, 224, 0.08) 0%, transparent 45%),
-    linear-gradient(160deg, #0F282C 0%, #153B40 100%);
-  background-size: 56rpx 56rpx, 100% 100%, 100% 100%;
-  background-repeat: repeat, no-repeat, no-repeat;
-}
-
-/* ============================================
-   顶部标题区（字号双主题一致）
-   ============================================ */
+/* ===== 顶部标题（居中；右侧微信原生胶囊自动叠加） ===== */
 .header {
-  padding: 56rpx 32rpx 32rpx;
-}
-
-.headerRow {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12rpx;
-}
-
-.title {
-  font-size: 48rpx;   /* 24px */
-  font-weight: $font-weight-bold;
-  color: var(--text);
-  line-height: 1.25;
-  white-space: nowrap;
-  transition: color 0.35s ease;
-}
-
-/* 右上角按钮组：化学闯关 + 风格切换 */
-.btnGroup {
-  display: flex;
-  gap: 12rpx;
   flex-shrink: 0;
-}
-
-.btnPrimary,
-.btnTheme {
+  padding-top: calc(env(safe-area-inset-top) + #{$spacing-lg});
+  padding-left: $page-padding;
+  padding-right: $page-padding;
+  padding-bottom: $spacing-md;
+  background: $color-bg-page;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 12rpx 20rpx;
-  border-radius: $radius-round;
-  border: 2rpx solid;
-  transition: all 0.35s ease;
-
-  &:active {
-    transform: scale(0.93);
-  }
 }
 
-.btnPrimary {
-  background: var(--btn1-bg);
-  border-color: var(--btn1-border);
+.title {
+  font-size: 40rpx;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  letter-spacing: 2rpx;
+  text-align: center;
 }
 
-.btnPrimaryText {
-  font-size: 24rpx;
-  font-weight: $font-weight-semibold;
-  color: var(--btn1-c);
-  line-height: 1;
-}
-
-.btnTheme {
-  background: var(--btn2-bg);
-  border-color: var(--btn2-border);
-}
-
-.btnThemeText {
-  font-size: 24rpx;
-  font-weight: $font-weight-semibold;
-  color: var(--btn2-c);
-  line-height: 1;
-}
-
-/* 伴思导学入口 */
-.tutorEntry {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 16rpx;
-  padding: 10rpx 22rpx;
-  border-radius: $radius-round;
-  background: var(--btn1-bg);
-  border: 2rpx solid var(--btn1-border);
-  transition: all 0.35s ease;
-
-  &:active {
-    transform: scale(0.96);
-  }
-}
-
-.tutorEntryText {
-  font-size: 24rpx;
-  font-weight: $font-weight-semibold;
-  color: var(--btn1-c);
-  line-height: 1;
-}
-
-.descMain {
-  display: block;
-  margin-top: 24rpx;
-  font-size: 32rpx;   /* 16px */
-  font-weight: $font-weight-semibold;
-  color: var(--text);
-  line-height: 1.4;
-  transition: color 0.35s ease;
-}
-
-.descSub {
-  display: block;
-  margin-top: 10rpx;
-  font-size: 28rpx;   /* 14px */
-  color: var(--text-sub);
-  line-height: 1.5;
-  transition: color 0.35s ease;
-}
-
-/* ============================================
-   列表区：2列网格，间距32rpx（16px）
-   ============================================ */
+/* ===== 内容滚动区 ===== */
 .body {
-  height: calc(100vh - 330rpx);
-  padding: 0 32rpx;
+  flex: 1;
+  min-height: 0;
+  padding-left: $page-padding;
+  padding-right: $page-padding;
   box-sizing: border-box;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32rpx;
+/* ===== 学段选择 ===== */
+.stageRow {
+  margin-top: $spacing-xs;
 }
 
-/* ============================================
-   专题卡片
-   ============================================ */
+.stageLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.stageLabelText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.stageArrow {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+  line-height: 1;
+}
+
+.stagePills {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 16rpx;
+  margin-bottom: 8rpx;
+}
+
+.pill {
+  padding: 10rpx 30rpx;
+  border-radius: $radius-round;
+  background: transparent;
+  transition: background $transition-fast;
+}
+
+.pillActive {
+  background: $color-primary-soft;
+}
+
+.pillText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.pillTextActive {
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+}
+
+/* ===== 分区标题 ===== */
+.sectionHead {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-top: 20rpx;
+  margin-bottom: 16rpx;
+}
+
+/* 分区标题图标：尺寸/颜色由 ModelIcon inline style 控制 */
+
+.sectionTitleWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.sectionSub {
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+/* ===== 卡片网格：3 列，5 张 = 第一行 3 张 + 第二行 2 张 ===== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-md;
+}
+
 .card {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  padding: 28rpx 16rpx 22rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1rpx solid $color-divider;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
+  transition: transform $transition-fast;
   position: relative;
-  min-height: 240rpx;
-  border-radius: var(--card-radius);
-  background-color: var(--card-bg);
-  border: 2rpx solid var(--card-border);
-  box-shadow: var(--card-shadow);
-  overflow: hidden;
-  transition: all 0.35s ease;
 
   &:active {
     transform: scale(0.97);
   }
 }
 
-/* 探险模式：玻璃拟态 */
-.adv .card {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* 暂未开放：置灰 + 去交互反馈 */
+.cardDisabled {
+  opacity: 0.5;
+  filter: grayscale(0.6);
+
+  &:active {
+    transform: none;
+  }
 }
 
-/* 探险模式：专题弱底纹（10% 透明度，右下角） */
-.cardPattern {
+.disabledTag {
   position: absolute;
-  right: 10rpx;
-  bottom: 10rpx;
-  width: 176rpx;
-  height: 176rpx;
-  opacity: 0.10;
-  border-radius: 24rpx;
-  pointer-events: none;
+  top: 12rpx;
+  right: 12rpx;
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+  background: $color-bg-hover;
+  border-radius: $radius-round;
+  padding: 4rpx 12rpx;
+  line-height: 1.4;
 }
 
-.cardInner {
-  position: relative;
-  z-index: 1;
-  height: 100%;
-  min-height: 240rpx;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 28rpx;
-  box-sizing: border-box;
-}
-
-.cardTop {
-  display: flex;
-  align-items: center;
-  gap: 16rpx;
-}
-
-/* 图标：圆角小方块 */
-.iconBox {
-  width: 68rpx;
-  height: 68rpx;
-  border-radius: 20rpx;
-  overflow: hidden;
-  border: 2rpx solid var(--icon-border);
-  flex-shrink: 0;
-}
-
-.iconImg {
-  width: 100%;
-  height: 100%;
-  display: block;
+/* 卡片图标：青绿线性 SVG，尺寸/颜色由 ModelIcon inline style 控制，仅留间距 */
+.cardIcon {
+  margin-bottom: 14rpx;
 }
 
 .cardTitle {
-  flex: 1;
-  min-width: 0;
-  font-size: 36rpx;   /* 18px */
-  font-weight: $font-weight-bold;
-  color: var(--text);
-  line-height: 1.25;
-  transition: color 0.35s ease;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  text-align: center;
 }
 
-.cardBottom {
-  position: relative;
-  margin-top: 20rpx;
-  padding-top: 14rpx;
+.cardDesc {
+  margin-top: 8rpx;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  text-align: center;
+  line-height: $line-height-tight;
+  @include text-ellipsis-multi(2);
 }
 
-/* 难度等级分布色条（无数字无文字） */
-.diffBar {
-  display: flex;
-  width: 100%;
-  height: 12rpx;
-  border-radius: $radius-round;
+/* ===== 更多专项（可折叠） ===== */
+.moreCard {
+  margin-top: $spacing-md;
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  border: 1rpx solid $color-divider;
   overflow: hidden;
 }
 
-.diffSeg {
-  height: 100%;
+.moreHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 28rpx;
 }
 
-/* 进度箭头：指向用户已推进到的位置 */
-.progressArrow {
-  position: absolute;
-  top: 0;
-  width: 0;
-  height: 0;
-  border-left: 7rpx solid transparent;
-  border-right: 7rpx solid transparent;
-  border-top: 10rpx solid var(--fill);
-  transform: translateX(-50%);
-  transition: left 0.35s ease;
+.moreTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
 }
 
+.moreChevron {
+  font-size: 40rpx;
+  line-height: 1;
+  color: $color-text-tertiary;
+  transition: transform $transition-fast;
+}
+
+.moreChevronOpen {
+  transform: rotate(90deg);
+}
+
+.moreList {
+  border-top: 1rpx solid $color-divider;
+}
+
+.moreItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22rpx 28rpx;
+
+  &:active {
+    background: $color-bg-hover;
+  }
+}
+
+.moreItemText {
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+}
+
+.moreItemArrow {
+  font-size: 32rpx;
+  line-height: 1;
+  color: $color-text-tertiary;
+}
+
+/* ===== 通栏拍照识题按钮 ===== */
+.photoBtn {
+  margin-top: $spacing-lg;
+  width: 100%;
+  height: $button-height-lg;
+  background: $color-primary;
+  border-radius: $radius-button;
+  @include flex-center;
+  @include button-reset;
+  gap: 10rpx;
+  box-shadow: 0 6rpx 16rpx rgba(46, 167, 196, 0.28);
+
+  &:active {
+    background: $color-primary-dark;
+  }
+}
+
+.photoBtnText {
+  color: $color-text-white;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 1rpx;
+}
+
+/* 为底部 TabBar 留出空间 */
 .bottomPad {
-  height: 48rpx;
+  height: 150rpx;
 }

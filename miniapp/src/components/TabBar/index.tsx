@@ -7,9 +7,9 @@ interface TabBarProps {
 }
 
 const TABS = [
-  { key: 'home', icon: '🎯', label: '闯关', path: '/pages/home/index' },
-  { key: 'atlas', icon: '🧠', label: '图鉴', path: '/pages/atlas/index' },
-  { key: 'bank', icon: '📚', label: '题库', path: '/pages/bank/index' },
+  { key: 'home', icon: '🏠', label: '首页', path: '/pages/home/index' },
+  { key: 'bank', icon: '📕', label: '错题本', path: '/pages/bank/index' },
+  { key: 'atlas', icon: '🧪', label: '物质速查', path: '/pages/atlas/index' },
   { key: 'mine', icon: '👤', label: '我的', path: '/pages/mine/index' },
 ]
 

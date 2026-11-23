@@ -25,7 +25,7 @@ export interface KnowledgePoint {
 }
 
 export const LAYER_META: Record<KnowledgeLayer, { label: string; icon: string; color: string; desc: string }> = {
-  Knowledge: { label: '基础认知', icon: '📖', color: '#0f766e', desc: '概念与判断：先弄清"是什么"' },
+  Knowledge: { label: '基础认知', icon: '📖', color: '#2EA7C4', desc: '概念与判断：先弄清"是什么"' },
   Application: { label: '规律应用', icon: '🛠️', color: '#2563eb', desc: '规律与方法：再学会"怎么用"' },
   Ability: { label: '综合能力', icon: '🧠', color: '#7c3aed', desc: '计算与迁移：最后能"解新题"' },
 }

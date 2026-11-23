@@ -1,0 +1,73 @@
+@use '@/styles/variables.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.species {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.speciesItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  padding: 12rpx 18rpx;
+  border: 1rpx solid;
+  border-radius: $radius-md;
+  background: $color-bg-card;
+  min-width: 110rpx;
+}
+
+.speciesFormula {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.speciesSource {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+}
+
+.equations {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.eqCard {
+  background: $color-bg-card;
+  border: 1rpx solid $color-divider;
+  border-left: 6rpx solid;
+  border-radius: $radius-md;
+  padding: 16rpx 18rpx;
+}
+
+.eqType {
+  display: block;
+  font-size: 20rpx;
+  font-weight: $font-weight-bold;
+  margin-bottom: 6rpx;
+}
+
+.eqExpr {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+}

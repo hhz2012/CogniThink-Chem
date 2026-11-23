@@ -1,0 +1,46 @@
+@use '@/styles/variables.scss' as *;
+
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 14rpx;
+}
+
+.stepIndex {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+  margin-top: 2rpx;
+}
+
+.stepBody {
+  flex: 1;
+  min-width: 0;
+}
+
+.stepTitle {
+  display: block;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.stepGoal {
+  display: block;
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}

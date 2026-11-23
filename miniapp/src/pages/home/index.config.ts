@@ -1,4 +1,5 @@
 export default definePageConfig({
-  navigationBarTitleText: '化学闯关',
+  navigationBarTitleText: '化学伴思',
+  navigationStyle: 'custom',
   disableScroll: true,
 })

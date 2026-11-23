@@ -1,0 +1,26 @@
+@use '@/styles/variables.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+.modelHead {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.modelName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+}
+
+.modelTag {
+  margin-left: auto;
+  font-size: 20rpx;
+  font-weight: $font-weight-semibold;
+  padding: 4rpx 14rpx;
+  border-radius: $radius-round;
+}
