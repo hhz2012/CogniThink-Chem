@@ -612,7 +612,14 @@ public sealed partial class LlmGatewayService
                 });
             }
             case "reaction_check":
+            {
+                // 催化剂识别：少数 reaction_check 题要求从多步反应中找出催化剂（如 pdf-175）。
+                // 窄域触发（"催化剂为" + 带圈编号多步反应），域外返回 null，不影响 CallCompile；
+                // 凡采纳必经答案键校验（BuildGatewayAnswerAsync 催化剂分支）→ precision=1、零 harm。
+                var cat = CatalystSolver.TrySolve(req.RawText);
+                if (cat is not null) return Task.FromResult(cat);
                 return Task.FromResult(CallCompile(req));
+            }
 
             case "judgment":
                 // 正误判断题（填 √/×）：复用现有判断求解器链（方程正误 → 概念断言 → …），
@@ -626,6 +633,12 @@ public sealed partial class LlmGatewayService
 
             case "equation_writer":
             {
+                // 键焓反推：少数 equation_writer 题实为键能计算（如 pdf-244，题干含"热化学方程式为"
+                // 被分类到 equation_writer）。窄域触发（键焓/键能 + kJ/mol + 待求空白），域外返回 null，
+                // 不影响方程书写链；凡采纳必经答案键校验 → precision=1、零 harm。
+                var bond = BondEnergySolver.TrySolve(req.RawText);
+                if (bond is not null) return Task.FromResult(bond);
+
                 // T4 / AC-3：方程书写专用求解链（不介入 calculation/CallCompile 的其它求解器，零域外假阳性）。
                 // 命中（产物/配平唯一确定）则标记为 reaction_check，复用其采纳门控（HasReactionCheckTruthSignature：
                 // 结论含"离子方程式："/"化学方程式："前缀）→ 凡采纳必经答案键校验，precision=1；
@@ -1274,6 +1287,21 @@ public sealed partial class LlmGatewayService
         // 11. P1-3 兜底：氧化还原（歧化）比例，由题干配平方程式解析，不硬编码具体题目。
         var redox = RedoxRatioCalculator.TrySolve(raw);
         if (redox is not null) return redox;
+
+        // 12. 18 电子规则金属羰基配合物 M(CO)n：求 n / σ 键数（pdf-228）。窄域触发，域外返回 null。
+        var carbonyl = Carbonyl18ElectronSolver.TrySolve(raw);
+        if (carbonyl is not null) return carbonyl;
+
+        // 13. 多溶液 pH 排序（pdf-275）：常数取自 acid-constants.json + ph-species.json，
+        //     窄域触发（pH + 由大到小/由小到大/顺序/排序 + 带圈编号多物种 + 单一共享浓度），域外 null。
+        var phOrder = PhOrderingSolver.TrySolve(raw);
+        if (phOrder is not null) return phOrder;
+
+        // 14. 化学计量多子问（pdf-025）：分子数→体积 / 质量体积→摩尔质量 / 符号式 N_A /
+        //     气体溶解浓度 / 混合旁观离子 / 电荷平衡，逐子问窄域求解。整题多模式并存返回 null，
+        //     交由多部分分发（TryDispatchMultiPartAsync）逐子问求解；域外 null，零干扰 1-13 号。
+        var stoich = StoichiometrySolver.TrySolve(raw);
+        if (stoich is not null) return stoich;
 
         return new EngineResponse
         {
@@ -1993,6 +2021,14 @@ public sealed partial class LlmGatewayService
         // 5. Hess 定律：逆反应焓变异号
         var hessRev = TryCalculateHessReverse(raw);
         if (hessRev is not null) return hessRev;
+
+        // 5b. Hess 定律通用线性组合（编号热化学方程式 → 目标 ΔH）：与 calculation 分支同款求解器。
+        // 平衡类题（如 pdf-260：CH4/H2S 重整，反应Ⅳ ΔH 由 Ⅰ/Ⅱ/Ⅲ 线性组合）被分类器归到 equilibrium，
+        // 此前只走窄域逆反应变号，通用线性组合求解器（TryCalculateHessViaSolver）够不到 → 引擎未解。
+        // 此处补齐：Hess 求解器域外返回 null（无编号 ΔH 方程 / 不守恒 / 解不唯一），不影响其它平衡题，零回归；
+        // 凡采纳必经 equilibrium 门控 IsAnswerCorrect 答案键校验 → precision=1、不蒙数。
+        var hess = TryCalculateHessViaSolver(raw);
+        if (hess is not null) return hess;
 
         // 6. 守恒式（电荷/物料/质子）：复用 Chem.Core AqueousEquilibriumEngine
         var conservation = TrySolveConservationEquation(raw);

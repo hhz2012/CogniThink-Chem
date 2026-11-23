@@ -417,7 +417,12 @@ public class Batch3ChoiceValidatorTests
         // 事实写入 choice-curated-facts（GC-762~GC-763）；探针 TOTAL PROBLEMS=0，
         // 4 选项各命中唯一事实，verdict 与官方 answer 一致，与 Experiment/Organic/Structure 无路由二义。计数 248→250。
         ["pdf-090"] = "D",
-        ["pdf-188"] = "C"
+        ["pdf-188"] = "C",
+        // svg_batch34：pdf-271（河北邢台二模·滴定曲线·错项=A）+ pdf-220（甘肃卷·β-MgCl2层状晶体·错项=D）。
+        // 事实写入 general-choice-facts（GC-742~GC-743）；探针 TOTAL PROBLEMS=0，4 选项各命中唯一事实，
+        // verdict 与官方 answer 一致，与 Experiment/Organic/Structure 无路由二义（screen_overlap clean）。
+        ["pdf-271"] = "A",
+        ["pdf-220"] = "D"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

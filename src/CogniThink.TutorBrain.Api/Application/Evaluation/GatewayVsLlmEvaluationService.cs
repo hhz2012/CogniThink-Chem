@@ -448,11 +448,18 @@ public sealed class GatewayVsLlmEvaluationService
     }
 
     /// <summary>
-    /// molecule 特征匹配：任一维度（极性/杂化/官能团/分子式/不饱和度）与答案一致即命中。
+    /// molecule 特征匹配：任一维度（名称/极性/杂化/官能团/分子式/不饱和度）与答案一致即命中。
     /// 引擎特征是 RDKit 真值；与答案关键词比对，命中说明引擎真值可支撑判分。
     /// </summary>
     private static bool MatchMolecule(EngineResponse resp, string normAnswer)
     {
+        // 0) 名称：引擎确定性命名（保守、窄域）出现在答案中（如 2,4,6-三溴苯酚）
+        if (!string.IsNullOrEmpty(resp.MoleculeName))
+        {
+            var nm = NormForStructured(resp.MoleculeName);
+            if (!string.IsNullOrEmpty(nm) && normAnswer.Contains(nm)) return true;
+        }
+
         // 1) 极性：答案含"非极性"→期望非极性；仅含"极性"→期望极性
         if (resp.MoleculeIsPolar.HasValue && normAnswer.Contains("极性"))
         {
@@ -792,6 +799,14 @@ public sealed class GatewayVsLlmEvaluationService
         // 严格剔除口径，不虚增 truthAdopted / 不拉低 enginePrecision。
         if (gw.TaskType == "reaction_check" && !string.IsNullOrWhiteSpace(conclusion)
             && (HasReactionCheckTruthSignature(conclusion) || HasCorrectnessVerdictSignature(conclusion)))
+        {
+            return conclusion;
+        }
+
+        // reaction_check 催化剂识别（CatalystSolver）：结论含"催化剂"签名且经答案键校验 → 采纳。
+        // 凡采纳必判正 → precision=1、零 harm；与上面 reaction_check 真值分支同构。
+        if (gw.TaskType == "reaction_check" && !string.IsNullOrWhiteSpace(conclusion)
+            && conclusion.Contains("催化剂") && IsAnswerCorrect(conclusion, c))
         {
             return conclusion;
         }

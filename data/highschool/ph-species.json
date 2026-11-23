@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "source": "人教版《化学·选择性必修第一册》第三章水溶液中的离子反应与平衡；强酸/强碱的可电离 H/OH 数由化学式确定，盐类水解引用 acid-constants.json 的稳定键（Ka/Kb），本表不重复存常数",
+  "species": {
+    "HCl":       { "names": ["盐酸", "氯化氢"], "kind": "strongAcid", "h": 1 },
+    "H2SO4":     { "names": ["硫酸"], "kind": "strongAcid", "h": 2 },
+    "HNO3":      { "names": ["硝酸"], "kind": "strongAcid", "h": 1 },
+    "HBr":       { "names": ["氢溴酸"], "kind": "strongAcid", "h": 1 },
+    "HI":        { "names": ["氢碘酸"], "kind": "strongAcid", "h": 1 },
+    "HClO4":     { "names": ["高氯酸"], "kind": "strongAcid", "h": 1 },
+    "NaOH":      { "names": ["氢氧化钠", "烧碱", "火碱", "苛性钠"], "kind": "strongBase", "oh": 1 },
+    "KOH":       { "names": ["氢氧化钾"], "kind": "strongBase", "oh": 1 },
+    "Ba(OH)2":   { "names": ["氢氧化钡"], "kind": "strongBase", "oh": 2 },
+    "Ca(OH)2":   { "names": ["氢氧化钙", "熟石灰", "消石灰"], "kind": "strongBase", "oh": 2 },
+    "CH3COONa":  { "names": ["醋酸钠", "乙酸钠"], "kind": "saltBase", "acidKey": "CH3COOH" },
+    "Na2CO3":    { "names": ["碳酸钠", "纯碱", "苏打"], "kind": "saltBase", "acidKey": "H2CO3:Ka2" },
+    "NaHCO3":    { "names": ["碳酸氢钠", "小苏打"], "kind": "saltBase", "acidKey": "H2CO3:Ka1" },
+    "NaClO":     { "names": ["次氯酸钠"], "kind": "saltBase", "acidKey": "HClO" },
+    "NaF":       { "names": ["氟化钠"], "kind": "saltBase", "acidKey": "HF" },
+    "Na2S":      { "names": ["硫化钠"], "kind": "saltBase", "acidKey": "H2S:Ka2" },
+    "Na2SO3":    { "names": ["亚硫酸钠"], "kind": "saltBase", "acidKey": "H2SO3:Ka2" },
+    "Na2C2O4":   { "names": ["草酸钠"], "kind": "saltBase", "acidKey": "H2C2O4:Ka2" },
+    "NaCN":      { "names": ["氰化钠"], "kind": "saltBase", "acidKey": "HCN" },
+    "NH4Cl":     { "names": ["氯化铵"], "kind": "saltAcid", "baseKey": "NH3·H2O" },
+    "NH4NO3":    { "names": ["硝酸铵"], "kind": "saltAcid", "baseKey": "NH3·H2O" },
+    "(NH4)2SO4": { "names": ["硫酸铵"], "kind": "saltAcid", "baseKey": "NH3·H2O" },
+    "CH3COONH4": { "names": ["醋酸铵", "乙酸铵"], "kind": "saltBoth", "acidKey": "CH3COOH", "baseKey": "NH3·H2O" }
+  }
+}

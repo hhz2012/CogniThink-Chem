@@ -147,27 +147,34 @@ public static class AtomicStructureSolver
             return new ElementRef(bz, ParseCharge(tail));
         }
 
-        // 回退扫描：严格末尾匹配与中文名均未命中时，取窗口内最靠右的合法元素符号。
-        // 用于 "Mn在元素周期表中位于第" / "Sn的基态原子最外层轨道表示式" 这类
-        // 符号与锚点之间隔有中文说明文字、符号不在窗口末尾的情形。
+        // 回退扫描：严格末尾匹配与中文名均未命中时，取符号回退窗口内最靠右的合法元素符号。
+        // 用于 "Mn在元素周期表中位于第" / "Sn的基态原子最外层轨道表示式" /
+        // "Cu属于______区元素，其基态原子的价电子排布式"（pdf-481，符号距锚点约 20 字）
+        // 这类符号与锚点之间隔有中文说明文字、符号不在 14 字主窗口末尾的情形。
+        // 仅放宽【符号回退】窗口到 32 字：主窗口 14 字（末尾符号 / 中文名）保持不变，
+        // 故「元素中文名距锚点 >14 字」负例（如 "铜是一种常见的金属元素…位于第"）仍返回 null，精确率契约不破。
+        // 取最靠右符号：放宽不改变已有命中的最右元素 → 零 LOST；凡采纳必经答案键校验 → 不蒙数。
         // 守卫：符号前一字符不得为 ASCII 字母（避免 pH / NaCl 等词内误切）；
         // 符号本身须为已知元素（AtomicNumberOf 非空）。
-        for (var i = window.Length - 1; i >= 0; i--)
+        const int symbolFallbackWindow = 32;
+        var symStart = Math.Max(0, anchorIdx - symbolFallbackWindow);
+        var symWindow = text.Substring(symStart, anchorIdx - symStart);
+        for (var i = symWindow.Length - 1; i >= 0; i--)
         {
-            if (!char.IsUpper(window[i])) continue;
-            var symLen = i + 1 < window.Length && char.IsLower(window[i + 1]) ? 2 : 1;
-            if (i + symLen > window.Length) continue;
+            if (!char.IsUpper(symWindow[i])) continue;
+            var symLen = i + 1 < symWindow.Length && char.IsLower(symWindow[i + 1]) ? 2 : 1;
+            if (i + symLen > symWindow.Length) continue;
             if (i > 0)
             {
-                var prev = window[i - 1];
+                var prev = symWindow[i - 1];
                 if ((prev >= 'A' && prev <= 'Z') || (prev >= 'a' && prev <= 'z'))
                     continue; // 前接 ASCII 字母 → 词内大写，跳过
             }
-            var sym = window.Substring(i, symLen);
+            var sym = symWindow.Substring(i, symLen);
             var z = PeriodicTable.AtomicNumberOf(sym);
             if (z is { } zz)
             {
-                var tail = window.Substring(i + symLen);
+                var tail = symWindow.Substring(i + symLen);
                 return new ElementRef(zz, ParseCharge(tail));
             }
         }

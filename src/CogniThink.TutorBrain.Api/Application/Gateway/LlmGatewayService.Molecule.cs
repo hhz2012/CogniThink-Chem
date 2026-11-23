@@ -56,6 +56,7 @@ public sealed partial class LlmGatewayService
             MoleculeIsPolar = result.IsPolar,
             MoleculeCentralHybridization = result.CentralAtomHybridization,
             MoleculeFunctionalGroups = result.FunctionalGroups.ToArray(),
+            MoleculeName = result.MoleculeName,
         };
     }
 }

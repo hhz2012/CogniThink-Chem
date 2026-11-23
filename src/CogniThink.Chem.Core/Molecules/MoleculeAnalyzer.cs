@@ -52,6 +52,12 @@ public sealed class MoleculeAnalysisResult
 
     /// <summary>人类可读结论（含可被关键词命中的规范词：极性/非极性、sp³、不饱和度 Ω=n、官能团名）。</summary>
     public string FinalResult { get; init; } = "";
+
+    /// <summary>
+    /// 中文系统命名（高中窄域、保守）：仅当结构可被确定性命名时非空（如单一取代基类型的取代酚）。
+    /// 无法确定时为 null，绝不臆造名称；供结构化判分“名称”维度比对。
+    /// </summary>
+    public string? MoleculeName { get; init; }
 }
 
 /// <summary>
@@ -218,6 +224,10 @@ public static class MoleculeAnalyzer
         var centralFeat = central >= 0 ? features[central] : null;
         if (centralFeat != null) centralFeat = centralFeat with { IsCentral = true };
 
+        // 保守中文命名：仅取代酚等可确定性命名的结构返回非空；失败/不确定一律 null，绝不影响其余特征。
+        string? moleculeName = null;
+        try { moleculeName = MoleculeNamer.NamePhenol(mol); } catch { moleculeName = null; }
+
         var finalResult = BuildFinalResult(formula, dou, ringCount, groups, centralFeat, polar, chiral, equivH, addH2, sp2c, sp3c);
 
         return new MoleculeAnalysisResult
@@ -239,6 +249,7 @@ public static class MoleculeAnalyzer
             Sp2CarbonCount = sp2c,
             Sp3CarbonCount = sp3c,
             FinalResult = finalResult,
+            MoleculeName = moleculeName,
         };
     }
 

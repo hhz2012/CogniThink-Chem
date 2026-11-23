@@ -1,3 +1,5 @@
+using System.Linq;
+using CogniThink.TutorBrain.Application.Evaluation;
 using CogniThink.TutorBrain.Application.Gateway;
 using Xunit;
 
@@ -49,5 +51,26 @@ public class ThermochemicalHessSolverTests
     public void HessSolver_NoEquation_ReturnsNull()
     {
         Assert.Null(ThermochemicalHessSolver.TrySolve("下列说法正确的是 A. xxx B. yyy"));
+    }
+
+    [Fact]
+    public void Pdf261_燃烧热目标推断_相态保留_解出负285_8()
+    {
+        // pdf-261 真实题干：目标方程「H2 的燃烧热」未显式写出，题干用 ═(U+2550) 作等号，
+        // 且含相态 H2O(l)/H2O(g)。求解器须：① 归一化 ═→=；② 保留相态（否则 H2O(l)→H2O(g)
+        // 净计量抵消为 0，R2 退化）；③ 目标段不被 T3/K 垃圾段抢占；④ 推断燃烧目标 H2+1/2O2→H2O(l)，
+        // 再由 R1 - R2 + R3 线性组合得 ΔH = -57.2 - 44 - 184.6 = -285.8。
+        var c = GatewayVsLlmEvaluationService.BuildTestCases().First(x => x.Id == "pdf-261");
+        var r = ThermochemicalHessSolver.TrySolve(c.Question);
+        Assert.NotNull(r);
+        Assert.Equal(-285.8, r!.Value.Value, precision: 1);
+    }
+
+    [Fact]
+    public void Pdf261_域外_无燃烧热且无显式目标_返回null_不蒙数()
+    {
+        // 含编号 ΔH 方程但既无显式目标段、也无「燃烧热」提示 → 不臆造目标，返回 null
+        var q = "已知：①A(g)+B(g)=C(g) ΔH1=-10 kJ/mol；②C(g)=D(g) ΔH2=-5 kJ/mol。则下列说法正确的是？";
+        Assert.Null(ThermochemicalHessSolver.TrySolve(q));
     }
 }

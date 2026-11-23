@@ -173,4 +173,39 @@ M  END
         Assert.Equal(sp2, r.Sp2CarbonCount);
         Assert.Equal(sp3, r.Sp3CarbonCount);
     }
+
+    /// <summary>
+    /// Task 4 (molname)：取代酚中文系统命名（保守、窄域）。
+    /// OH 所在碳为 1 位，双向遍历取最低位号集（IUPAC）；仅单一取代基类型命名。
+    /// 含 pdf-522 修正资产（Oc1c(Br)cc(Br)cc1Br = 2,4,6-三溴苯酚，图像核实真值）。
+    /// </summary>
+    [Theory]
+    [InlineData("Oc1c(Br)cc(Br)cc1Br", "2,4,6-三溴苯酚")]
+    [InlineData("Oc1ccccc1Br", "2-溴苯酚")]
+    [InlineData("Oc1ccc(Br)cc1", "4-溴苯酚")]
+    [InlineData("Oc1ccc(Br)cc1Br", "2,4-二溴苯酚")]
+    [InlineData("Oc1ccc([N+](=O)[O-])cc1", "4-硝基苯酚")]
+    [InlineData("CC1=CC=C(O)C=C1", "4-甲基苯酚")]
+    public void 取代酚_确定性命名正确(string smiles, string expected)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        Assert.Equal(expected, r.MoleculeName);
+    }
+
+    /// <summary>
+    /// Task 4 (molname) guardrail：无法确定性命名的结构一律返回 null，绝不臆造名称。
+    /// 覆盖：无取代的苯酚、多取代基类型（先后顺序规则复杂）、非酚母体（pdf-199 3-苯基乳酸）。
+    /// 这是防止命名器越界误伤全库的关键护栏。
+    /// </summary>
+    [Theory]
+    [InlineData("Oc1ccccc1")]                // 苯酚本身：环上无取代 → null
+    [InlineData("Oc1c(Br)cc(C)cc1")]         // 2-溴-4-甲基苯酚：多取代基类型 → null
+    [InlineData("OC(Cc1ccccc1)CC(=O)O")]     // pdf-199：非酚母体（OH 在侧链）→ null
+    public void 不确定结构_命名返回null不臆造(string smiles)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        Assert.Null(r.MoleculeName);
+    }
 }

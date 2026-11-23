@@ -28,11 +28,12 @@ public static class ThermochemicalHessSolver
         RegexOptions.Compiled);
 
     private static readonly Regex DeltaH = new(
-        @"ΔH\s*(?<sub>[₀-₉0-9]?)\s*[=＝]\s*(?<sign>[+\-－−]?)\s*(?<num>[\d]+(?:\.[\d]+)?)",
+        @"ΔH\s*(?<sub>[₀-₉0-9]?)\s*[=＝═]\s*(?<sign>[+\-－−]?)\s*(?<num>[\d]+(?:\.[\d]+)?)",
         RegexOptions.Compiled);
 
-    private static readonly Regex StateSymbol = new(@"\([gGlLsSqQaA]{1,2}\)", RegexOptions.Compiled);
     private static readonly Regex FractionalCoef = new(@"^(?<num>\d+)\s*/\s*(?<den>\d+)\s*(?<rest>.+)$", RegexOptions.Compiled);
+    // 物种 key 尾部的相态后缀（用于 StripPhase 剥离，以对齐已知方程相态）
+    private static readonly Regex StateSuffix = new(@"\([gGlLsSqQaA]{1,2}\)$", RegexOptions.Compiled);
     private static readonly Regex IntegerCoef = new(@"^(?<coef>\d+)\s*(?<rest>.+)$", RegexOptions.Compiled);
 
     /// <summary>一条解析后的热化学方程式：净计量（反应物正 / 生成物负）+ ΔH。</summary>
@@ -56,21 +57,29 @@ public static class ThermochemicalHessSolver
         var segments = SplitEquationSegments(question);
         if (segments.Count < 2) return null; // 至少需要 1 个已知 + 1 个目标
 
+        // 两遍扫描：先收集已知方程（含 ΔH 且非问句），再从剩余段中选目标，
+        // 避免 T3=____℃ / K=____ 等无 ΔH 垃圾段抢占 target（pdf-261）。
         var known = new List<ParsedThermoEq>();
-        ParsedThermoEq? target = null;
+        var targetCandidates = new List<ParsedThermoEq>();
         foreach (var seg in segments)
         {
             var eq = ParseSegment(seg);
             if (eq is null) continue;
-            // 目标段：含 ΔH 未知（"的ΔH是多少"/"计算…ΔH"）或没有 ΔH 数值且出现在问句中
             var hasKnownDh = DeltaH.IsMatch(seg);
             if (hasKnownDh && !LooksLikeTargetQuestion(seg))
                 known.Add(eq);
             else
-                target ??= eq;
+                targetCandidates.Add(eq);
         }
 
-        if (target is null || known.Count == 0) return null;
+        if (known.Count == 0) return null;
+
+        var target = SelectTarget(targetCandidates, known);
+
+        // 无显式目标段时，若题干问「X 的燃烧热」，推断燃烧目标方程（H₂→H₂O(l) 等，pdf-261）。
+        target ??= TryInferCombustionTarget(question, known);
+
+        if (target is null) return null;
 
         // 2. 线性组合求解
         var k = SolveLinearCombination(known, target);
@@ -98,6 +107,180 @@ public static class ThermochemicalHessSolver
         seg.Contains("的ΔH") || seg.Contains("ΔH是多少") || seg.Contains("ΔH＝____") ||
         seg.Contains("计算") || seg.Contains("求") || seg.Contains("目标");
 
+    private static string StripPhase(string key) => StateSuffix.Replace(key, "");
+
+    /// <summary>
+    /// 从候选段中选目标方程：优先「像问句 且 与已知方程有物种重叠」的段，
+    /// 排除 T3=__℃ / K=__ 等无物种重叠的垃圾段；否则取最后一个有重叠的段。
+    /// </summary>
+    private static ParsedThermoEq? SelectTarget(List<ParsedThermoEq> candidates, List<ParsedThermoEq> known)
+    {
+        var knownSpecies = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var e in known) foreach (var k in e.Net.Keys) knownSpecies.Add(k);
+
+        bool Overlaps(ParsedThermoEq eq)
+        {
+            foreach (var k in eq.Net.Keys) if (knownSpecies.Contains(k)) return true;
+            return false;
+        }
+
+        foreach (var c in candidates)
+            if (LooksLikeTargetQuestion(c.Raw) && Overlaps(c)) return c;
+        for (int i = candidates.Count - 1; i >= 0; i--)
+            if (Overlaps(candidates[i])) return candidates[i];
+        return null;
+    }
+
+    /// <summary>
+    /// 题干问「X 的燃烧热」且无显式目标方程时，推断 X 燃烧的热化学目标方程：
+    /// X + O₂(g) → CO₂(g) + H₂O(l) [+ SO₂(g) + N₂(g)]（高中燃烧热约定：H 的终态为液态水）。
+    /// 推断后仍须由已知方程线性组合且守恒校验通过才会被 TrySolve 采纳，否则返回 null（不蒙数）。
+    /// </summary>
+    private static ParsedThermoEq? TryInferCombustionTarget(string question, List<ParsedThermoEq> known)
+    {
+        if (!question.Contains("燃烧热")) return null;
+        var fuelMatch = Regex.Match(question, @"([A-Za-z][A-Za-z0-9()（）]{0,14})\s*(?:的)?\s*燃烧热");
+        if (!fuelMatch.Success) return null;
+        var fuel = StripPhase(fuelMatch.Groups[1].Value.Trim());
+        if (fuel.Length == 0) return null;
+
+        var comp = ParseFormulaComposition(fuel);
+        if (comp is null || comp.Count == 0) return null;
+
+        double nC = comp.TryGetValue("C", out var c) ? c : 0;
+        double nH = comp.TryGetValue("H", out var h) ? h : 0;
+        double nS = comp.TryGetValue("S", out var s) ? s : 0;
+        double nN = comp.TryGetValue("N", out var n) ? n : 0;
+        double nO = comp.TryGetValue("O", out var o) ? o : 0;
+        if (nC == 0 && nH == 0 && nS == 0) return null; // 无可燃烧元素
+
+        double co2 = nC, h2o = nH / 2.0, so2 = nS, n2 = nN / 2.0;
+        double o2 = nC + nH / 4.0 + nS - nO / 2.0;
+        if (o2 < 0) return null; // 燃料自身含氧过多，保守不作燃烧推断
+
+        // 燃料相态：对齐到已知方程中该燃料的相态（如已知用 H2(g)，目标燃料也用 (g)）
+        string fuelKey = Regex.Replace(fuel, @"\s+", "").ToLowerInvariant();
+        string fuelStripped = StripPhase(fuelKey);
+        string fuelPhase = "";
+        foreach (var e in known)
+            foreach (var k in e.Net.Keys)
+                if (string.Equals(StripPhase(k), fuelStripped, StringComparison.OrdinalIgnoreCase) && k.Length > fuelStripped.Length)
+                { fuelPhase = k.Substring(fuelStripped.Length); break; }
+
+        var sb = new StringBuilder();
+        sb.Append(fuel).Append(fuelPhase).Append(" + ").Append(TermWithCoef(o2, "O2(g)")).Append(" = ");
+        var products = new List<string>();
+        if (co2 > 0) products.Add(TermWithCoef(co2, "CO2(g)"));
+        if (h2o > 0) products.Add(TermWithCoef(h2o, "H2O(l)"));
+        if (so2 > 0) products.Add(TermWithCoef(so2, "SO2(g)"));
+        if (n2 > 0) products.Add(TermWithCoef(n2, "N2(g)"));
+        sb.Append(string.Join(" + ", products));
+        var eqText = sb.ToString();
+
+        var net = ParseNetStoichiometry(eqText);
+        if (net is null || net.Count == 0) return null;
+        return new ParsedThermoEq { Net = AlignTargetToKnown(net, known), DeltaH = 0, Raw = eqText };
+    }
+
+    private static string TermWithCoef(double coef, string species)
+    {
+        if (Math.Abs(coef - 1.0) < 1e-9) return species;
+        return $"{FormatCoef(coef)} {species}";
+    }
+
+    private static string FormatCoef(double v)
+    {
+        if (Math.Abs(v % 1) < 1e-9) return ((long)Math.Round(v)).ToString();
+        for (int den = 2; den <= 4; den++)
+        {
+            double num = v * den;
+            if (Math.Abs(num - Math.Round(num)) < 1e-9)
+                return $"{(long)Math.Round(num)}/{den}";
+        }
+        return v.ToString("0.###", CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>把目标物种的相态对齐到已知方程：同公式已知中仅出现一种相态时跟随它；多种相态时保留目标相态。</summary>
+    private static Dictionary<string, double> AlignTargetToKnown(Dictionary<string, double> target, List<ParsedThermoEq> known)
+    {
+        var phasesByFormula = new Dictionary<string, HashSet<string>>(StringComparer.OrdinalIgnoreCase);
+        foreach (var e in known)
+            foreach (var k in e.Net.Keys)
+            {
+                var f = StripPhase(k);
+                var ph = k.Substring(f.Length);
+                if (!phasesByFormula.TryGetValue(f, out var set))
+                { set = new HashSet<string>(StringComparer.OrdinalIgnoreCase); phasesByFormula[f] = set; }
+                set.Add(ph);
+            }
+        var aligned = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
+        foreach (var kv in target)
+        {
+            var f = StripPhase(kv.Key);
+            var ph = kv.Key.Substring(f.Length);
+            if (phasesByFormula.TryGetValue(f, out var set) && set.Count > 0)
+            {
+                if (set.Contains(ph)) aligned[kv.Key] = kv.Value;
+                else if (set.Count == 1) aligned[f + set.First()] = kv.Value;
+                else aligned[kv.Key] = kv.Value;
+            }
+            else aligned[f] = kv.Value;
+        }
+        return aligned;
+    }
+
+    private static Dictionary<string, double>? ParseFormulaComposition(string formula)
+    {
+        if (string.IsNullOrWhiteSpace(formula)) return null;
+        var comp = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
+        int i = 0;
+        ParseGroup(formula, ref i, comp, 1.0);
+        return comp.Count == 0 ? null : comp;
+    }
+
+    private static void ParseGroup(string s, ref int i, Dictionary<string, double> comp, double mult)
+    {
+        while (i < s.Length)
+        {
+            char c = s[i];
+            if (c == '(' || c == '（')
+            {
+                i++;
+                var inner = new Dictionary<string, double>(StringComparer.OrdinalIgnoreCase);
+                ParseGroup(s, ref i, inner, 1.0);
+                double m = ReadNumber(s, ref i);
+                foreach (var kv in inner) AddTo(comp, kv.Key, kv.Value * m * mult);
+            }
+            else if (c == ')' || c == '）')
+            {
+                i++;
+                return;
+            }
+            else if (char.IsUpper(c))
+            {
+                string elem = c.ToString();
+                i++;
+                if (i < s.Length && char.IsLower(s[i])) { elem += s[i]; i++; }
+                double cnt = ReadNumber(s, ref i);
+                AddTo(comp, elem, cnt * mult);
+            }
+            else { i++; }
+        }
+    }
+
+    private static double ReadNumber(string s, ref int i)
+    {
+        int start = i;
+        while (i < s.Length && char.IsDigit(s[i])) i++;
+        if (i > start && double.TryParse(s.AsSpan(start, i - start), out var v)) return v;
+        return 1.0;
+    }
+
+    private static void AddTo(Dictionary<string, double> d, string k, double v)
+    {
+        if (d.TryGetValue(k, out var ex)) d[k] = ex + v; else d[k] = v;
+    }
+
     /// <summary>把题干切成方程段：按编号标记 + 句号切分，只保留含等号/可逆号的段。</summary>
     private static List<string> SplitEquationSegments(string question)
     {
@@ -110,7 +293,8 @@ public static class ThermochemicalHessSolver
             // 进一步按句号/分号切，但保留含 ⇌/=/→ 的完整方程
             foreach (var piece in part.Split(new char[] { '。', '；', ';' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
             {
-                if (piece.Contains('⇌') || piece.Contains('=') || piece.Contains("→") || piece.Contains("->"))
+                // 含 ═（U+2550 框线等号，pdf-261 用）的段也要保留
+                if (piece.Contains('⇌') || piece.Contains('=') || piece.Contains('═') || piece.Contains("→") || piece.Contains("->"))
                     result.Add(piece);
             }
         }
@@ -181,13 +365,13 @@ public static class ThermochemicalHessSolver
             if (SubscriptDigits.TryGetValue(ch, out var d)) sb.Append(d);
             else if (ch == '＋') sb.Append('+');
             else if (ch == '－' || ch == '−') sb.Append('-'); // 全角/负号减号统一
-            else if (ch == '＝') sb.Append('=');
+            else if (ch == '＝' || ch == '═') sb.Append('='); // 全角等号 / 框线等号（U+2550，pdf-261）统一为 =
             else if (ch == '　') sb.Append(' ');
             else sb.Append(ch);
         }
-        var t = sb.ToString();
-        t = StateSymbol.Replace(t, ""); // 去 (g)(l)(s)(aq)
-        return t;
+        // 保留相态后缀到物种 key：H2O(l) 与 H2O(g) 是不同物种（pdf-261 需区分液态/气态水，
+        // 否则 H2O(l)→H2O(g) 净计量抵消为 0）。同物质同相仍匹配 → 不破坏既有单测。
+        return sb.ToString();
     }
 
     /// <summary>

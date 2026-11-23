@@ -1,0 +1,29 @@
+{
+  "version": "1.0",
+  "source": "高中化学常见分子/单质的键结构（键焓反推用）：分子 → 所含键及数目。键名使用规范键级符号（= 双键、≡ 三键、- 单键）。",
+  "molecules": {
+    "H2":  [{ "bond": "H-H", "count": 1 }],
+    "O2":  [{ "bond": "O=O", "count": 1 }],
+    "N2":  [{ "bond": "N≡N", "count": 1 }],
+    "Cl2": [{ "bond": "Cl-Cl", "count": 1 }],
+    "F2":  [{ "bond": "F-F", "count": 1 }],
+    "Br2": [{ "bond": "Br-Br", "count": 1 }],
+    "I2":  [{ "bond": "I-I", "count": 1 }],
+    "HCl": [{ "bond": "H-Cl", "count": 1 }],
+    "HBr": [{ "bond": "H-Br", "count": 1 }],
+    "HI":  [{ "bond": "H-I", "count": 1 }],
+    "HF":  [{ "bond": "H-F", "count": 1 }],
+    "H2O": [{ "bond": "O-H", "count": 2 }],
+    "H2O2": [{ "bond": "O-O", "count": 1 }, { "bond": "O-H", "count": 2 }],
+    "NH3": [{ "bond": "N-H", "count": 3 }],
+    "CH4": [{ "bond": "C-H", "count": 4 }],
+    "CO":  [{ "bond": "C≡O", "count": 1 }],
+    "CO2": [{ "bond": "C=O", "count": 2 }],
+    "CS2": [{ "bond": "C=S", "count": 2 }],
+    "C2H2": [{ "bond": "C≡C", "count": 1 }, { "bond": "C-H", "count": 2 }],
+    "C2H4": [{ "bond": "C=C", "count": 1 }, { "bond": "C-H", "count": 4 }],
+    "C2H6": [{ "bond": "C-C", "count": 1 }, { "bond": "C-H", "count": 6 }],
+    "N2H4": [{ "bond": "N-N", "count": 1 }, { "bond": "N-H", "count": 4 }],
+    "P4":  [{ "bond": "P-P", "count": 6 }]
+  }
+}

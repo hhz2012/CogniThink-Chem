@@ -2,8 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text.Json;
+using System.Threading.Tasks;
 using CogniThink.TutorBrain.Application.Common;
+using CogniThink.TutorBrain.Application.Evaluation;
 using CogniThink.TutorBrain.Application.Gateway;
 using Xunit;
 
@@ -179,6 +182,60 @@ public class EquilibriumSolverTests
         }
         Assert.Contains("ppt:AgCl", ids);
         Assert.Contains("ppt:Mg(OH)2", ids); // 含括号的键字节级保留
+    }
+
+    // ---------- Hess 通用线性组合路由（equilibrium 分支补齐） ----------
+    // pdf-260 被分类器归为 equilibrium，此前 CallEquilibrium 只走窄域逆反应变号（TryCalculateHessReverse），
+    // 通用 Hess 线性组合求解器（TryCalculateHessViaSolver）够不到 → 引擎未解。补齐后 equilibrium 须能解出 +11，
+    // 且结论通过答案键校验才会被采纳（端到端判正）。
+    // 红线：域外（非热化学平衡题）Hess 返回 null，不抢占、不蒙数 → 零回归、precision=1。
+
+    private static LlmGatewayService NewGateway() =>
+        (LlmGatewayService)RuntimeHelpers.GetUninitializedObject(typeof(LlmGatewayService));
+
+    private static QaTestCase CaseById(string id) =>
+        GatewayVsLlmEvaluationService.BuildTestCases().First(c => c.Id == id);
+
+    private static EngineRequest EqReq(QaTestCase c) =>
+        new() { RawText = c.Question, TaskType = "equilibrium" };
+
+    [Fact]
+    public async Task Pdf260_equilibrium路由_经通用Hess解出_且通过答案键校验()
+    {
+        var c = CaseById("pdf-260");
+        var resp = await NewGateway().CallEngineAsync(EqReq(c), c.ImageAssets);
+
+        // equilibrium 分支现在须经通用 Hess 产出结论（修复前 Ok=null → 未解）
+        Assert.True(resp.Ok == true, $"equilibrium 应经 Hess 产出结论，实际 Ok={resp.Ok} Final={resp.FinalResult}");
+        // 推导：目标反应Ⅳ = -Ⅰ + Ⅱ + Ⅲ → ΔH = +11 kJ/mol
+        Assert.Contains("11", resp.FinalResult);
+        Assert.DoesNotContain("曲线", resp.FinalResult); // 非曲线中间量读数
+        // 端到端：结论须通过答案键校验（关键词 +11 命中）才会被采纳 → 验证判正
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(resp.FinalResult, c),
+            $"结论未通过 pdf-260 答案键校验：{resp.FinalResult}；keywords={string.Join("|", c.AnswerKeywords)}");
+    }
+
+    [Fact]
+    public async Task Pdf261_equilibrium路由_燃烧热推断_解出负285_8且通过答案键校验()
+    {
+        // pdf-261：目标方程「H2 的燃烧热」未显式写出，通用 Hess 求解器经燃烧热目标推断
+        // （H2+1/2O2→H2O(l)）+ 相态保留 + ═ 归一化，解出 ΔH=-285.8 并通过答案键校验。
+        var c = CaseById("pdf-261");
+        var resp = await NewGateway().CallEngineAsync(EqReq(c), c.ImageAssets);
+
+        Assert.True(resp.Ok == true, $"equilibrium 应经 Hess 产出结论，实际 Ok={resp.Ok} Final={resp.FinalResult}");
+        Assert.Contains("-285.8", resp.FinalResult);
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(resp.FinalResult, c),
+            $"结论未通过 pdf-261 答案键校验：{resp.FinalResult}；keywords={string.Join("|", c.AnswerKeywords)}");
+    }
+
+    [Fact]
+    public void HessViaSolver_非热化学题面_返回null_不蒙数()
+    {
+        // 平衡域 Ksp 题面无编号 ΔH 方程 → Hess 求解器域外返回 null，不抢占也不蒙数（零回归守卫）
+        var r = InvokeStatic("TryCalculateHessViaSolver",
+            "已知 Ksp(AgCl)=1.8×10^-10，Ksp(AgI)=8.3×10^-17，向等浓度的 Cl- 和 I- 混合溶液中滴加 AgNO3，谁先沉淀？");
+        Assert.Null(r);
     }
 
     private static string ResolveRepoRoot()

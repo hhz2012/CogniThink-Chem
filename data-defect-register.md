@@ -349,7 +349,7 @@
 | id | diagnose taskType | 子问构成（摘要） | 已有登记 |
 |----|-------------------|------------------|----------|
 | pdf-024 | calculation | 化学计量 3 子问（气球体积字母 + 混合气 H 质量 + 平均摩尔质量） | — |
-| pdf-025 | calculation | 化学计量 6 子问（体积/摩尔质量/NA 代数式/气体溶解浓度/混合浓度/电荷守恒） | — |
+| pdf-025 | calculation | 化学计量 6 子问（体积/摩尔质量/NA 代数式/气体溶解浓度/混合浓度/电荷守恒） | ✅ 已解：StoichiometrySolver，整题多模式返回 null 交多部分分发逐子问求解，multi_part AND 判分 6 键全中；cmp after_phorder→after_stoich GAINED=[pdf-025]（见 fill-calc-coverage Task 3） |
 | pdf-070 | calculation | 4 子问（双线桥标电子 + KMnO₄ 性质选字母 + 氧还产物比 + 转移电子数） | — |
 | pdf-098 | calculation | 5 子问（σ 键数 + 装置优点 + 装置连接序 + 能否 + 检验方案自由文本） | G 类⑧（连接序非真方程） |
 | pdf-146 | calculation | 5 子问（仪器名 + 通 N₂ 目的 + 沉淀化学式 + 性质选字母 + 滴定计算） | — |
@@ -367,7 +367,7 @@
 | pdf-261 | equilibrium | 5 子问（熵变 + 盖斯 + 选字母 + 流速解释 + 计算）—— 化学平衡多子问 | — |
 | pdf-262 | equilibrium | 1 空（CH₄ 脱氢芳构化判高低）—— 复杂平衡图像推断 | — |
 | pdf-272 | equilibrium | 3 子问（草酸粒子分布曲线）—— **T6 占位噪声**：`gatewayConclusion` 吐出曲线中间量，`adopted=False` 无 harm | 见 K.4 |
-| pdf-275 | calculation | 1 空（8 种溶液 pH 排序）—— 缺 pH 定性排序计算域 | — |
+| pdf-275 | calculation | 1 空（8 种溶液 pH 排序）—— 缺 pH 定性排序计算域 | ✅ 已解：PhOrderingSolver（外置 ph-species.json 引用 acid-constants.json，不重复存常数；门禁：所有带圈物种在表 + 引用常数键存在 + 单一共享浓度，否则 null 不蒙数），输出精确串 `②>①>④>③>⑤>⑧>⑥>⑦` 命中答案键；cmp after_catalyst→after_phorder GAINED=[pdf-275]，LOST=[]、harm=0、precision=1 |
 | pdf-328 | calculation | 有机结构推断（肉桂酸分子式 + 结构简式，质谱/红外/NMR） | G 类⑧（关键词非方程） |
 | pdf-418 | equilibrium | 流程题，`answer=A`，note 称 C 亦正确疑多选 AC，存疑不改 | J.4（存疑不动） |
 | pdf-461 | equilibrium | 镓提取流程 4 子问（电解方程 + 配位离子 + 置换 + …）—— **数据已修复（J.1）但引擎仍不解** | J.1（数据已修，能力缺口残留） |
@@ -868,6 +868,38 @@ P2-1 仅示范 4 个有明确 knowledge_id/rule_id 真值源的 solver（Concept
 - T.3 **4-solver 覆盖限制登记**：当前仅 4 个 solver 家族填充 `ReasoningNodes`（ConceptFactSolver / ReactionKbWriterSolver / AtomicStructureSolver / VseprSolver），故「标准推理链」仅对路由到这些 solver 的题非空；其余题 `StandardReasoningChain=null`，导学行为与现状逐字节一致（AC-4 快照验证）。不夸大覆盖率，不迁移其余 solver（留后续批次）。
 - T.4 **eval 覆盖盲区声明**：757 eval 只测网关求解路径，**不覆盖导学流**（grep `*Eval*.cs` 对 `TutorService` / `DiagnosticTeachingEngine` / `SubmitStepAsync` = 0 命中）→ 导学流回归在 eval 中不可见。三重守护：(a) 本项不改判分源 / 网关 / 采纳门；(b) 导学专用快照测试 `TutorSnapshotRegressionTests`（4 场景：正确非关键步 / 正确关键步带化学证据 / 三步通关带变式 / 答错带薄弱前置）断言 `SubmitStepResponse` 既有字段在 provider=null / 返回 null / 返回真实链三者间逐字节一致，仅新增字段不同（AC-4，4/4 PASS）；(c) 加性降级（CQ-4=a）。
 - T.5 **eval 零漂移**：`after_p33`：757/757 全跑，correct=635，precision=1，harm=0。`diff after_p32→after_p33`：GAINED=0 / LOST=0 / WORSEN=0 / harm=0 → **RED-LINE PASS**（P3-3 未碰网关/eval 路径，diff 必为 0，已证）；`diff base_p0→after_p33`：GAINED=6（P1-4 携带，非 P3-3 新增），LOST=0 / WORSEN=0 / harm=0 → **RED-LINE PASS**。`p33_self_check.py` 全 PASS（密钥 0 命中 / 触及清单不含网关 solver·采纳门·eval 判分 / 52 JSON sha256 与 p31 基线全同 / 加性字段 wire 兼容 / 快照测试在位 / 不蒙数）。
+
+---
+
+## U 类：分子资产（molecule）提取缺陷——molname 批次（spec: fill-calc-coverage Task 4）
+
+> 背景：本批审计 7 道「有机官能团 / 系统命名」填空题（pdf-323/324/519/520/521/522/523）。分子结构题的真实锚点是 `imageAssets` 中的 molecule 资产（SMILES/molblock，由 vectorize 图像管线提取）；题干文本与 `note` 字段均不可靠作锚点（pdf-323 实证 note 与答案直接矛盾；pdf-522 实证 note 写 2,4,6 但资产 SMILES 实编码 2,4,5）。本类登记「资产提取缺陷」与「资产缺失」两类，前者按图像真值订正数据、后者诚实留空待图像轨道接续。验证基线：本环境 eval `llmAvailable=False`，纯确定性引擎路径，`cmp after_stoich → after_molname` GAINED=[pdf-522]、LOST=[]、precision=1、harm=0。
+
+### U.1 已修复（数据订正 + 引擎扩宽，pdf-522，GAIN +1）
+
+| id | 缺陷 | 修复 | 证据 |
+|----|------|------|------|
+| pdf-522 | **molecule 资产提取缺陷**：资产 `name`/`note` 字段写「2,4,6-tribromo phenol」，但提取的 SMILES `Oc1c(Br)cc(Br)c(Br)c1` 与 molblock 实际编码 **2,4,5-三溴苯酚**（两个 Br 相邻），与原图不符。叠加引擎侧 `MatchMolecule` 旧版只比极性/杂化/官能团/分子式/不饱和度、**不比名称**，且 `BuildGatewayAnswerAsync` 对 taskType=unknown 返回 null → 命名题不命中。 | ① 按原图 `pdf_images/p112_n05_4.png`（核实为对称 2,4,6-三溴苯酚）订正 `pdf_questions.json` 与 `pdfs/questions_parsed.json` 的 pdf-522 SMILES→`Oc1c(Br)cc(Br)cc1Br` 并重算 molblock（[fix_asset_522.py](file:///D:/github/CogniThink-Chem/_evalscratch/fix_asset_522.py)，回读 Br 位号=(2,4,6)）；② 新增保守中文命名器 [MoleculeNamer.cs](file:///D:/github/CogniThink-Chem/src/CogniThink.Chem.Core/Molecules/MoleculeNamer.cs)（仅单一取代基类型取代酚，不确定一律 null）；③ `MatchMolecule` 增加名称维度（引擎确定性命名是答案子串即命中）。 | 探针镜像判分+命名器扫全库 41 道分子题：仅 pdf-522 新命中，其余 40 道 name=None，零 stray；`cmp after_stoich after_molname` solved 645→646、molecule structuredHits 2→3；端到端单测 `Pdf522_修正资产_经网关_命名结构化命中` 守护数据回归。 |
+
+> 防回归经验：① vectorize 提取的 SMILES 与资产 `name`/`note` 可能不一致——**真值以原图为准**，不盲信提取字段；② 命名器必须窄域（仅确定性可命名才返回非空），并用全库探针验证零 stray 后才接入判分。
+
+### U.2 未修复（答案键疑错，无官方源不臆造，保持 null）
+
+| id | 症状 | 为何不可自动修复 | 建议下一步 |
+|----|------|------------------|-----------|
+| pdf-519 | stem 指名「曲美托嗪」但无图/无 molecule 资产；答案键含「硫醚」。 | web 核实真实曲美托嗪（trimetazidine）分子式 C₁₄H₂₂N₂O₃ **不含硫**，答案键「硫醚」与真实结构矛盾，疑为错键；无官方答案册源不能定键，贸然迎合错键会引入 harm。 | 原页/答案册核对正确键；若确认键错并订正，且图像轨道恢复分子结构，可由 `MatchMolecule` 官能团维度自解；暂保留 `null`。 |
+
+### U.3 未修复（缺分子资产提取，LEAVE-NOANCHOR，保持 null）
+
+> 这 5 道的分子结构仅存在于未被 vectorize 提取的图像中，`imageAssets` 无 molecule 资产、题干文本未唯一命名分子、`note` 不可信 → 无真实锚点，引擎诚实返回 `null`，不臆造、不蒙数。
+
+| id | 症状 | 为何不可自动修复 | 建议下一步 |
+|----|------|------------------|-----------|
+| pdf-323 | 官能团（氨基、羧基）+ 系统命名；题干截断，无图/无 molecule 资产；`note` 称硝基/酯基与存储答案（氨基/羧基）直接矛盾。 | 无分子结构锚点；note 与答案矛盾证明 note 不可信，不能以 note 推答案。 | 图像轨道恢复分子结构 → molecule 资产；文本轨道保持 `null`。 |
+| pdf-324 | 高分子 `[CH=CH]n` 单体→苯乙炔；文本仅 `[CH=CH]n` 与答案矛盾，真实结构在未提取的图里，无资产。 | 文本推不出单体全名；无资产锚点。 | 图像轨道恢复单体结构图；暂保留 `null`。 |
+| pdf-520 | 官能团（羟基、羧基、碳碳双键）；题干截断，无图/无 molecule 资产。 | 无分子结构锚点。 | 图像轨道恢复；暂保留 `null`。 |
+| pdf-521 | 含氧官能团；`note` 指乳酸但 note 不可信，分子未在题干命名，无图/无资产。 | 无真实锚点；note 不可作锚。 | 图像轨道恢复；暂保留 `null`。 |
+| pdf-523 | 官能团 + 习惯命名；`note` 指异丙醇但 note 不可信，分子未在题干命名，无图/无资产。 | 无真实锚点；note 不可作锚。 | 图像轨道恢复；暂保留 `null`。 |
 
 ---
 

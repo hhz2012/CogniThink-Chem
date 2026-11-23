@@ -148,6 +148,7 @@ public sealed class EngineResponse
     [JsonPropertyName("mol_is_polar")] public bool? MoleculeIsPolar { get; set; }
     [JsonPropertyName("mol_central_hybrid")] public string? MoleculeCentralHybridization { get; set; }
     [JsonPropertyName("mol_groups")] public string[]? MoleculeFunctionalGroups { get; set; }
+    [JsonPropertyName("mol_name")] public string? MoleculeName { get; set; }
 
     // —— P2-1：统一推理 DAG 与结论三态契约（加性；不影响既有字段与采纳门，spec CQ-2）——
     /// <summary>结论三态：由现有信号（Ok / NeedMoreCondition / FinalResult）派生，观测性元数据。默认 Insufficient 直至派生点赋值。</summary>

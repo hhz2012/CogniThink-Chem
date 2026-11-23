@@ -163,4 +163,38 @@ public class StructuredScoringTests
         var resp = new EngineResponse { MoleculeIsPolar = true }; // AssetKind 为 null
         Assert.False(GatewayVsLlmEvaluationService.IsStructuredCorrect(resp, Case("极性")));
     }
+
+    /// <summary>Task 4 (molname)：引擎确定性命名出现在答案中 → 名称维度结构化命中。</summary>
+    [Fact]
+    public void Molecule名称_答案含引擎命名_命中()
+    {
+        var resp = new EngineResponse { AssetKind = "molecule", MoleculeName = "2,4,6-三溴苯酚" };
+        Assert.True(GatewayVsLlmEvaluationService.IsStructuredCorrect(resp, Case("该有机物的名称为 2,4,6-三溴苯酚")));
+    }
+
+    /// <summary>Task 4 (molname)：引擎命名不在答案中 → 名称维度不命中（不误中）。</summary>
+    [Fact]
+    public void Molecule名称_答案不含引擎命名_不命中()
+    {
+        var resp = new EngineResponse { AssetKind = "molecule", MoleculeName = "2,4,6-三溴苯酚" };
+        Assert.False(GatewayVsLlmEvaluationService.IsStructuredCorrect(resp, Case("该有机物的名称为 苯酚")));
+    }
+
+    /// <summary>
+    /// Task 4 (molname)：pdf-522 真实资产经网关 → 产出确定性命名 → 结构化判分命中。
+    /// 端到端：若资产被回归为缺陷 SMILES（2,4,5-三溴苯酚），命名与断言会同时失败，守护数据修复。
+    /// </summary>
+    [Fact]
+    public async Task Pdf522_修正资产_经网关_命名结构化命中()
+    {
+        var asset = LoadMoleculeAsset("pdf-522");
+        var req = new EngineRequest { RawText = "该有机物的名称是", TaskType = "fill" };
+        var resp = await NewGateway().CallEngineAsync(req, new List<ImageAsset> { asset });
+
+        Assert.True(resp.Ok == true, resp.FinalResult);
+        Assert.Equal("molecule", resp.AssetKind);
+        Assert.Equal("2,4,6-三溴苯酚", resp.MoleculeName);
+        Assert.True(GatewayVsLlmEvaluationService.IsStructuredCorrect(resp, Case("2,4,6-三溴苯酚")),
+            "pdf-522 修正资产应通过名称维度结构化命中");
+    }
 }

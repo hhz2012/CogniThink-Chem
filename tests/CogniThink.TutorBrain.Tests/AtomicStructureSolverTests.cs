@@ -104,6 +104,22 @@ public class AtomicStructureSolverTests
     }
 
     [Fact]
+    public void Pdf481_Cu_价电子排布式_符号回退窗口放宽判正()
+    {
+        // pdf-481："(1)Cu属于______区元素，其基态原子的价电子排布式为______"，
+        // 元素符号 Cu 距锚点「价电子排布式」约 20 字，超出主窗口 14 字；
+        // 符号回退窗口放宽到 32 字后命中 Cu(Z=29) → 价层 3d¹⁰4s¹，命中答案键。
+        // 主窗口（末尾符号 / 中文名）仍守 14 字 → 「中文名距锚点 >14 字」负例不破，零 LOST。
+        var c = PdfCase("pdf-481");
+        Assert.NotNull(c);
+        var r = Solve(c!.Question);
+        Assert.NotNull(r);
+        Assert.True(r!.Ok);
+        Assert.Contains("3d¹⁰4s¹", r.FinalResult);
+        Assert.True(Correct(r.FinalResult, c), "Cu 价电子排布式应通过判分");
+    }
+
+    [Fact]
     public void Pdf533_Te_简化电子排布_锚点重排不回归()
     {
         // 锚点重排后「简化电子排布」须先于通用「电子排布式」命中，返回 [Kr] 简写而非全配置。
@@ -205,11 +221,12 @@ public class AtomicStructureSolverTests
         // 锁定当前题库行为：pdf-108 / pdf-173 已校正答案键（原错位，现干净判正）；
         // pdf-166 / pdf-190 仍为答案键错位（不被采纳，零 harm）；其余为干净判正。
         // 新增触发：pdf-488（Mn 周期族）/ pdf-489（Sn 最外层轨道表示式）由 FindElement 回退扫描解出；
+        // pdf-481（Cu 价电子排布式）由符号回退窗口放宽（14→32 字）解出；
         // 锚点重排（简化电子排布先于通用电子排布式）保证 pdf-533 不回归。任何新增触发都必须先判明正确性。
         // 注意：pdf-486 原为 fill（前缀含「基态N原子价层电子排布式」填空锚点），现改为 choice 以走双选判分；
         // 本护栏跳过 choice 题（见上方 continue），故 pdf-486 不再出现在触发集合中（生产 choice 路由不经原子求解器，零 harm）。
         Assert.Equal(
-            new[] { "pdf-108", "pdf-166", "pdf-173", "pdf-190", "pdf-482", "pdf-485", "pdf-487", "pdf-488", "pdf-489", "pdf-490", "pdf-533", "pdf-538" },
+            new[] { "pdf-108", "pdf-166", "pdf-173", "pdf-190", "pdf-481", "pdf-482", "pdf-485", "pdf-487", "pdf-488", "pdf-489", "pdf-490", "pdf-533", "pdf-538" },
             firedIds.OrderBy(x => x));
     }
 }
