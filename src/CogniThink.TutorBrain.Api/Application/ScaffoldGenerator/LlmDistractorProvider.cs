@@ -12,6 +12,8 @@ using System.Text.Json;
 //   - LLM 任何失败 / 不可用 / 不合规 → 仅返回基础库结果，绝不抛错、绝不蒙数。
 // 注意：IDistractorProvider.GetDistractors 是同步接口（Task 2 已定），而 LLM 调用异步。
 // 生成器运行在离线批量控制台（Task 5），无同步上下文，阻塞等待安全；不进入在线热路径。
+// ⚠ 仅限离线批量：GetDistractors 内 sync-over-async（Task.Run(...).GetAwaiter().GetResult()）会阻塞线程池线程。
+//    严禁将 LlmDistractorProvider 接入在线请求热路径——如需在线，必须先把 IDistractorProvider 改为异步契约。
 // ============================================================
 
 public sealed class LlmDistractorProvider : IDistractorProvider

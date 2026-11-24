@@ -126,16 +126,26 @@ static List<QaCaseResult> LoadCheckpoint(string path)
         PropertyNameCaseInsensitive = true,
         Converters = { new JsonStringEnumConverter() },
     };
+    var badLines = 0;
+    var lineNo = 0;
     foreach (var line in File.ReadLines(path))
     {
+        lineNo++;
         if (string.IsNullOrWhiteSpace(line)) continue;
         try
         {
             var r = JsonSerializer.Deserialize<QaCaseResult>(line, opts);
             if (r?.Case?.Id is { Length: > 0 } id) byId[id] = r;   // 同 id 取最后一条（与 EvalRunner 一致）
+            else badLines++;   // 反序列化成功但缺 id：计入可审计计数，不中断整批
         }
-        catch { /* 跳过坏行，不中断整批 */ }
+        catch (Exception ex)
+        {
+            badLines++;
+            Console.Error.WriteLine($"[ScaffoldGen] WARN 跳过坏行 {path}:{lineNo}: {ex.Message}");
+        }
     }
+    if (badLines > 0)
+        Console.Error.WriteLine($"[ScaffoldGen] WARN 共跳过 {badLines} 条坏行/缺 id 行（不中断整批）");
     return byId.Values.OrderBy(x => x.Case.Id, StringComparer.Ordinal).ToList();
 }
 

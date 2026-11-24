@@ -135,6 +135,43 @@ public class ScaffoldGeneratorTask5Tests
         Assert.Null(result.Scaffold);
     }
 
+    // ---- 回归 #1：choice 逗号/分隔符多选正常发布；非 choice 判 unsuitable（不得误报 conflict） ----
+
+    [Theory]
+    [InlineData("A,C")]
+    [InlineData("A,B,C,D")]
+    public async Task BuildDetailed_ChoiceSeparatorAnswer_Publishes(string answer)
+    {
+        var c = new QuestionCase
+        {
+            Id = "redox_sep",
+            Type = "choice",
+            Question = "反应：Zn + CuSO4 = ZnSO4 + Cu。下列说法正确的是",
+            Answer = answer,
+        };
+        var result = await new ScaffoldBuilder().BuildDetailedAsync(c, EngineArtifactsBuilder.Build(c));
+
+        Assert.Equal("published", result.Status);
+        Assert.NotNull(result.Scaffold);
+    }
+
+    [Fact]
+    public async Task BuildDetailed_NonChoiceAnswer_UnsuitableNotConflict()
+    {
+        var c = new QuestionCase
+        {
+            Id = "fill1",
+            Type = "fill",
+            Question = "反应：Zn + CuSO4 = ZnSO4 + Cu。",
+            Answer = "H2O",
+        };
+        var result = await new ScaffoldBuilder().BuildDetailedAsync(c, EngineArtifactsBuilder.Build(c));
+
+        Assert.Equal("unsuitable", result.Status);
+        Assert.NotEqual("conflict", result.Status);
+        Assert.Null(result.Scaffold);
+    }
+
     // ---- TR-5.2 跨进程幂等回归锁：StableSeed 必须字节级稳定（防回退到 string.GetHashCode 的进程随机化）----
     //
     // 历史教训（本任务）：初版 StableSeed 用 string.GetHashCode(StringComparison.Ordinal)，
@@ -213,4 +250,17 @@ public class ScaffoldGeneratorTask5Tests
         // 不在此注册 JsonStringEnumConverter：枚举名由类型上的 [JsonConverter(EnumMemberJsonConverter<T>)] 处理。
         Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
     };
+
+    // ---- 回归 #5：产物行尾与 OS 无关（统一 \n，不含 \r），保证跨平台字节幂等 ----
+
+    [Fact]
+    public void Writer_OutputHasNoCarriageReturn()
+    {
+        var scaffolds = new List<GeneratedScaffold>
+        {
+            new() { Id = "a", Module = ScaffoldModuleKind.RedoxReasoning, SourceQuestionId = "qa" },
+        };
+        var ts = ScaffoldArtifactWriter.ToTs(scaffolds);
+        Assert.DoesNotContain("\r", ts);
+    }
 }

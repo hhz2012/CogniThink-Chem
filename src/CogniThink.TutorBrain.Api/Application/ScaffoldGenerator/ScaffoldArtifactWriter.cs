@@ -45,7 +45,8 @@ public static class ScaffoldArtifactWriter
             sb.AppendLine();
         }
         sb.AppendLine("];");
-        return sb.ToString();
+        // 统一行尾为 \n：与 OS 无关，保证跨平台字节幂等（AppendLine 在 Windows 下为 \r\n）。
+        return sb.ToString().Replace("\r\n", "\n").Replace("\r", "");
     }
 
     /// <summary>幂等写盘：目录不存在则创建；同输入同内容 → 覆盖后字节一致。</summary>

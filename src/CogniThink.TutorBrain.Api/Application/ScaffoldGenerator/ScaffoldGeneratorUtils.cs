@@ -10,12 +10,31 @@ public static class ScaffoldGeneratorUtils
     /// <summary>把 StepCorrect 转成字符串集合（multi-check/order 取 Set；single-select 取单元素）。</summary>
     public static HashSet<string> CorrectSet(StepCorrect c)
     {
-        var set = new HashSet<string>(StringComparer.Ordinal);
+        // 与 ScaffoldValidator.StoredCorrectSet 统一为忽略大小写（前端判分对选项字母亦忽略大小写）。
+        var set = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         if (c.Set is not null)
             foreach (var v in c.Set) set.Add(v);
         else if (!string.IsNullOrWhiteSpace(c.Value))
             set.Add(c.Value);
         return set;
+    }
+
+    /// <summary>
+    /// 把选择题 answer 归一化为选项字母列表（保序、去重、忽略大小写）。
+    /// 支持 "A"、"AC"、"A,C"、"A、C"、"A;C"、"A B C" 等常见存储格式；非字母字符忽略。
+    /// 提取端（ExtractAnswer）与校验端（CorrectMatchesAnswer）共用此口径，避免漂移。
+    /// </summary>
+    public static List<string> ChoiceAnswerLetters(string answer)
+    {
+        var list = new List<string>();
+        if (string.IsNullOrWhiteSpace(answer)) return list;
+        var seen = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (var ch in answer.Where(char.IsLetter))
+        {
+            var s = ch.ToString().ToUpperInvariant();
+            if (seen.Add(s)) list.Add(s);
+        }
+        return list;
     }
 
     /// <summary>

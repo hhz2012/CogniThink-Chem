@@ -166,6 +166,12 @@ public sealed class ScaffoldValidationSummary
 {
     [JsonPropertyName("ok")] public bool Ok { get; set; }
     [JsonPropertyName("errors")] public List<string> Errors { get; set; } = new();
+
+    /// <summary>
+    /// 是否存在 F 步 correct 与存储 answer 的真实冲突（驱动 status=conflict 分类，替代错误文案子串匹配）。
+    /// 不序列化：避免改变落盘产物字节、破坏前端契约与 Task7 字节幂等护栏。
+    /// </summary>
+    [JsonIgnore] public bool Conflict { get; set; }
 }
 
 /// <summary>

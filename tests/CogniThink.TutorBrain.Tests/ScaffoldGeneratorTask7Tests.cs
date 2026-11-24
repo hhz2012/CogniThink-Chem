@@ -127,8 +127,9 @@ public class ScaffoldGeneratorTask7Tests
         fresh = fresh.OrderBy(x => x.Id, StringComparer.Ordinal).ToList();
         var expectedTs = ScaffoldArtifactWriter.ToTs(fresh);
 
-        // 字节级一致 → 落盘产物与当前生成完全对齐（防手改 / 逻辑漂移 / 序列化契约漂移）
-        Assert.Equal(diskTs, expectedTs);
+        // 内容一致 → 落盘产物与当前生成对齐（防手改 / 逻辑漂移 / 序列化契约漂移）。
+        // 两侧归一化行尾：生成器统一输出 \n，工作区检出可能因 autocrlf 为 CRLF，比较不应依赖平台换行。
+        Assert.Equal(diskTs.Replace("\r\n", "\n"), expectedTs.Replace("\r\n", "\n"));
     }
 
     // ---- Test 2: 每条发布脚手架 0 违例（校验门 + 精度红线直接断言） ----
@@ -198,12 +199,10 @@ public class ScaffoldGeneratorTask7Tests
                 Assert.False(string.IsNullOrWhiteSpace(step.Releases.Reveal.Body), $"{s.Id}/{step.Kind} reveal.body 空");
             }
 
-            // (d) F 步 correct 与存储 answer 对齐（answer 可能 "A" / "AC" / "A,C"）
+            // (d) F 步 correct 与存储 answer 对齐（与生产 ExtractAnswer/CorrectMatchesAnswer 共用 ChoiceAnswerLetters 归一化口径）
             var f = stepsByKind[AtomicTaskKind.F];
             var fCorrect = AnyCorrectSet(f.Truth!.Correct);
-            var ans = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var ch in (qcase.Answer ?? "").Where(char.IsLetter))
-                ans.Add(ch.ToString().ToUpperInvariant());
+            var ans = new HashSet<string>(ScaffoldGeneratorUtils.ChoiceAnswerLetters(qcase.Answer ?? ""), StringComparer.OrdinalIgnoreCase);
             Assert.True(ans.Count > 0 && fCorrect.SetEquals(ans),
                 $"{s.Id} F 步 correct [{string.Join(",", fCorrect)}] 与存储 answer [{qcase.Answer}] 不对齐");
         }
@@ -243,5 +242,26 @@ public class ScaffoldGeneratorTask7Tests
                 if (item is string st && !string.IsNullOrWhiteSpace(st)) set.Add(st.Trim());
         }
         return set;
+    }
+
+    // ---- 回归 #4：枚举反序列化未知值不静默映射到真实业务值 ----
+
+    [Fact]
+    public void EnumConverter_UnknownModule_ThrowsNotRedoxReasoning()
+    {
+        var json = "{\"module\":\"foo-module\"}";
+        var ex = Assert.Throws<System.Text.Json.JsonException>(() =>
+            System.Text.Json.JsonSerializer.Deserialize<GeneratedScaffold>(json));
+        Assert.Contains("foo-module", ex.Message);
+    }
+
+    [Fact]
+    public void EnumConverter_KnownModule_RoundTrips()
+    {
+        var s = new GeneratedScaffold { Id = "x", Module = ScaffoldModuleKind.RedoxReasoning };
+        var json = System.Text.Json.JsonSerializer.Serialize(s);
+        Assert.Contains("\"module\":\"redox-reasoning\"", json);
+        var back = System.Text.Json.JsonSerializer.Deserialize<GeneratedScaffold>(json);
+        Assert.Equal(ScaffoldModuleKind.RedoxReasoning, back!.Module);
     }
 }

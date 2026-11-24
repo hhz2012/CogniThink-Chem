@@ -23,7 +23,10 @@ public sealed class EnumMemberJsonConverter<T> : JsonConverter<T> where T : stru
         {
             if (field.GetValue(null) is T v && NameOf(field) == s) return v;
         }
-        return Enum.TryParse<T>(s, ignoreCase: true, out var e) ? e : default;
+        if (Enum.TryParse<T>(s, ignoreCase: true, out var e)) return e;
+        // 未知字符串不静默回退 default(T)——ScaffoldModuleKind 默认值 0 恰好是真实业务值 RedoxReasoning，
+        // 静默映射会掩盖数据损坏。显式抛错使损坏可见（仅反序列化路径；写产物走 Write，不受影响）。
+        throw new JsonException($"未知枚举值 '{s}'，类型 {typeof(T).Name}");
     }
 
     public override void Write(Utf8JsonWriter writer, T value, JsonSerializerOptions options)

@@ -78,6 +78,40 @@ public class ScaffoldGeneratorTask1Tests
         Assert.Equal(new[] { "A", "C" }, f.Set);
     }
 
+    // ---- 回归 #1：choice 逗号/分隔符多选归一化；非 choice 返回 null（不存整串误报 conflict） ----
+
+    [Theory]
+    [InlineData("A,C", "A,C")]
+    [InlineData("A,B,C,D", "A,B,C,D")]
+    [InlineData("A、C", "A,C")]
+    [InlineData("A;C", "A,C")]
+    public void Extract_F_ChoiceSeparatorMulti_GivesMultiCheck(string answer, string expectedJoined)
+    {
+        var expected = expectedJoined.Split(',');
+        var artifacts = EngineArtifactsBuilder.Build(new QuestionCase
+        {
+            Id = "t", Type = "choice",
+            Question = "反应：2Fe + 3Cl2 = 2FeCl3。",
+            Answer = answer,
+        });
+        var f = new StepTruthExtractor().Extract(AtomicTaskKind.F, artifacts);
+        Assert.NotNull(f);
+        Assert.Equal(AtomicTaskInteraction.MultiCheck, f!.Interaction);
+        Assert.Equal(expected, f.Set);
+    }
+
+    [Fact]
+    public void Extract_F_NonChoice_ReturnsNull()
+    {
+        var artifacts = EngineArtifactsBuilder.Build(new QuestionCase
+        {
+            Id = "t", Type = "fill",
+            Question = "反应：2Fe + 3Cl2 = 2FeCl3。",
+            Answer = "H2O",
+        });
+        Assert.Null(new StepTruthExtractor().Extract(AtomicTaskKind.F, artifacts));
+    }
+
     // ---- TR-1.2：引擎结果缺失 → 返回 null，不抛错、不返回空集合冒充 ----
 
     [Fact]

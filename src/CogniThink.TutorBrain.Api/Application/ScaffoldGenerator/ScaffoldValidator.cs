@@ -39,10 +39,11 @@ public sealed class ScaffoldValidator : IScaffoldValidator
     public ScaffoldValidationSummary Validate(GeneratedScaffold scaffold, EngineArtifacts artifacts)
     {
         var errors = new List<string>();
+        var conflict = false;
         if (scaffold is null)
         {
             errors.Add("scaffold 为空");
-            return Final(errors);
+            return Final(errors, conflict);
         }
 
         var stepsByKind = scaffold.Steps
@@ -94,16 +95,19 @@ public sealed class ScaffoldValidator : IScaffoldValidator
         {
             var answer = artifacts?.Case?.Answer ?? "";
             if (!CorrectMatchesAnswer(fStep.Truth, answer))
+            {
                 errors.Add($"F 步 correct 与存储 answer 冲突（answer={answer}）");
+                conflict = true;
+            }
         }
 
-        return Final(errors);
+        return Final(errors, conflict);
     }
 
     // ---------- 内部辅助 ----------
 
-    private static ScaffoldValidationSummary Final(List<string> errors)
-        => new() { Ok = errors.Count == 0, Errors = errors };
+    private static ScaffoldValidationSummary Final(List<string> errors, bool conflict)
+        => new() { Ok = errors.Count == 0, Errors = errors, Conflict = conflict };
 
     /// <summary>比较存储 correct 与引擎重算 correct（集合相等，忽略大小写与顺序）。</summary>
     private static bool CorrectsEqual(StepGroundTruth stored, StepCorrect expected)
@@ -132,14 +136,12 @@ public sealed class ScaffoldValidator : IScaffoldValidator
         return set;
     }
 
-    /// <summary>F 步 correct 是否与存储 answer 对齐（answer 可能是 "A" / "AC" / "A,C"）。</summary>
+    /// <summary>F 步 correct 是否与存储 answer 对齐（与 ExtractAnswer 共用 ChoiceAnswerLetters 归一化口径）。</summary>
     private static bool CorrectMatchesAnswer(StepGroundTruth t, string answer)
     {
         if (string.IsNullOrWhiteSpace(answer)) return false;
         var stored = StoredCorrectSet(t);
-        var ans = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-        foreach (var ch in answer.Where(char.IsLetter))
-            ans.Add(ch.ToString().ToUpperInvariant());
+        var ans = new HashSet<string>(ScaffoldGeneratorUtils.ChoiceAnswerLetters(answer), StringComparer.OrdinalIgnoreCase);
         return ans.Count > 0 && stored.SetEquals(ans);
     }
 

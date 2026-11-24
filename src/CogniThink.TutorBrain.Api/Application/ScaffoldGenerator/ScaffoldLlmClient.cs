@@ -25,6 +25,8 @@ public interface IScaffoldLlmClient
 /// <summary>
 /// 适配既有 <see cref="LlmProxyService"/>，复用其全部配置与错误处理（任何失败 → null）。
 /// 生成器不感知底层 HTTP / 鉴权细节。
+/// 预留接入点：当前控制台 Program.cs 默认注入 NullScaffoldLlmClient（不调 LLM），
+/// 本适配器未在主批量链路实例化；接入时由 Program.cs 装配 LlmProxyScaffoldClient。
 /// </summary>
 public sealed class LlmProxyScaffoldClient : IScaffoldLlmClient
 {

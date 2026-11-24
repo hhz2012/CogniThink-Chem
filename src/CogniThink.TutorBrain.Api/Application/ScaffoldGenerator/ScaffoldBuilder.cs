@@ -113,9 +113,7 @@ public sealed class ScaffoldBuilder : IScaffoldBuilder
         scaffold.Validation = validation;
         if (!validation.Ok)
         {
-            var status = validation.Errors.Any(e => e.Contains("冲突", StringComparison.Ordinal))
-                ? "conflict"
-                : "unsuitable";
+            var status = validation.Conflict ? "conflict" : "unsuitable";
             return new ScaffoldBuildResult { Scaffold = null, Status = status, Errors = validation.Errors };
         }
 

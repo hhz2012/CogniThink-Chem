@@ -67,22 +67,28 @@ public sealed class StepTruthExtractor : IStepTruthExtractor
         };
     }
 
-    // F 步：原题存储 answer。choice 多字母（如 "AC"）→ multi-check；否则 single-select。
-    // 用存储 answer 为准（eval 已验证 answer 可靠的题）；与 FinalResult 的交叉校验在 Task 5 集成时加。
+    // F 步：原题存储 answer。F 步仅对选择题门控（spec 已决 Open Question）：
+    //   - choice：归一化 answer 为选项字母集合（"A" / "AC" / "A,C" / "A、C" → 字母集），>1 → multi-check，否则 single-select；
+    //   - 非 choice（fill / calc / judge 等）：无选择字母真值 → 返回 null，F 步降级为只读揭示，
+    //     由校验门「关键步 F 缺失真值」判 unsuitable，绝不把整串公式存为 correct 后误报 conflict。
+    // 用存储 answer 为准（eval 已验证 answer 可靠的题）。
     private static StepCorrect? ExtractAnswer(EngineArtifacts a)
     {
         var answer = (a.Case.Answer ?? string.Empty).Trim();
         if (string.IsNullOrWhiteSpace(answer)) return null;
 
-        // 选择题：全大写字母且长度>1 → 多选；否则单选。
-        if ((a.Case.Type ?? "").Contains("choice", StringComparison.OrdinalIgnoreCase)
-            && answer.All(char.IsUpper)
-            && answer.Length > 1)
+        if (!(a.Case.Type ?? "").Contains("choice", StringComparison.OrdinalIgnoreCase))
+            return null;
+
+        var letters = ScaffoldGeneratorUtils.ChoiceAnswerLetters(answer);
+        if (letters.Count == 0) return null;
+
+        if (letters.Count > 1)
         {
             return new StepCorrect
             {
                 Interaction = AtomicTaskInteraction.MultiCheck,
-                Set = answer.Select(ch => ch.ToString()).ToList(),
+                Set = letters,
                 Provenance = "case.answer(multi)",
             };
         }
@@ -90,7 +96,7 @@ public sealed class StepTruthExtractor : IStepTruthExtractor
         return new StepCorrect
         {
             Interaction = AtomicTaskInteraction.SingleSelect,
-            Value = answer,
+            Value = letters[0],
             Provenance = "case.answer",
         };
     }

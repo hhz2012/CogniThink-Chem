@@ -10,14 +10,12 @@ using CogniThink.TutorBrain.Application.Gateway;
 // 只读消费：复用 BalanceGatewaySolver 的公开抽取器 + Chem.Core 公开引擎，
 // 不调用 LlmGatewayService 判分链路，不修改任何引擎逻辑（零回归）。
 // 键约定（供 StepTruthExtractor / 校验门按名取值）：
-//   "equation_text" : string          归一化后的方程式
-//   "parsed"        : ParsedEquation? 解析结果（含 AllSpecies / Left / Right）
-//   "redox"         : RedoxAnalysis?  氧化还原分析（含 Changes / 半反应）
+//   "parsed" : ParsedEquation? 解析结果（含 AllSpecies / Left / Right）
+//   "redox"  : RedoxAnalysis?  氧化还原分析（含 Changes / 半反应）
 // ============================================================
 
 public static class EngineArtifactsBuilder
 {
-    public const string KeyEquationText = "equation_text";
     public const string KeyParsed = "parsed";
     public const string KeyRedox = "redox";
 
@@ -33,7 +31,6 @@ public static class EngineArtifactsBuilder
         if (string.IsNullOrWhiteSpace(raw)) return artifacts;
 
         var equation = BalanceGatewaySolver.NormalizeForBalancing(raw);
-        artifacts.EngineOutputs[KeyEquationText] = equation;
 
         if (!EquationParser.TryParse(equation, out var parsed, out _) || parsed is null)
             return artifacts;
@@ -53,9 +50,6 @@ public static class EngineArtifactsBuilder
 
     public static RedoxAnalysis? GetRedox(EngineArtifacts a)
         => a.EngineOutputs.TryGetValue(KeyRedox, out var v) && v is RedoxAnalysis r ? r : null;
-
-    public static string? GetEquationText(EngineArtifacts a)
-        => a.EngineOutputs.TryGetValue(KeyEquationText, out var v) && v is string s ? s : null;
 
     // —— 方程式抽取：优先多等号/箭头（BalanceGatewaySolver），兜底单等号 ——
     // BalanceGatewaySolver.ExtractFirstEquation 的分隔符正则要求 ≥2 个等号（==/===），
