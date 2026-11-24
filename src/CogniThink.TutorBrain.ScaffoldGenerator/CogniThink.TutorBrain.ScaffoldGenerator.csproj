@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>CogniThink.TutorBrain.ScaffoldGenerator</AssemblyName>
+    <RootNamespace>CogniThink.TutorBrain.ScaffoldGenerator</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CogniThink.TutorBrain.Api\CogniThink.TutorBrain.Api.csproj" />
+  </ItemGroup>
+
+</Project>

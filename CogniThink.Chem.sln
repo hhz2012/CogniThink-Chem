@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogniThink.TutorBrain.EvalR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogniThink.TutorBrain.PdfOcrRepair", "src\CogniThink.TutorBrain.PdfOcrRepair\CogniThink.TutorBrain.PdfOcrRepair.csproj", "{246EFD34-F35F-46FD-B296-1870E0AFE790}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CogniThink.TutorBrain.ScaffoldGenerator", "src\CogniThink.TutorBrain.ScaffoldGenerator\CogniThink.TutorBrain.ScaffoldGenerator.csproj", "{9204BA4D-2B33-4804-9750-FEB25E0FEBD1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{246EFD34-F35F-46FD-B296-1870E0AFE790}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{246EFD34-F35F-46FD-B296-1870E0AFE790}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{246EFD34-F35F-46FD-B296-1870E0AFE790}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9204BA4D-2B33-4804-9750-FEB25E0FEBD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9204BA4D-2B33-4804-9750-FEB25E0FEBD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9204BA4D-2B33-4804-9750-FEB25E0FEBD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9204BA4D-2B33-4804-9750-FEB25E0FEBD1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0D776BB3-B286-449C-8400-3EC5B6E889AA} = {E395E025-C611-4BA4-9063-72F2DB2E5C2D}
@@ -67,5 +73,6 @@ Global
 		{C21ADE06-5FBF-4354-B3FB-61DE35C61741} = {8E1342DD-41CE-431A-81D6-A51C1A871073}
 		{72322034-90CB-4CE5-8C4C-AF28E0509506} = {E395E025-C611-4BA4-9063-72F2DB2E5C2D}
 		{246EFD34-F35F-46FD-B296-1870E0AFE790} = {E395E025-C611-4BA4-9063-72F2DB2E5C2D}
+		{9204BA4D-2B33-4804-9750-FEB25E0FEBD1} = {E395E025-C611-4BA4-9063-72F2DB2E5C2D}
 	EndGlobalSection
 EndGlobal
