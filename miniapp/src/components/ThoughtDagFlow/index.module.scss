@@ -1,0 +1,95 @@
+@use '@/styles/variables.scss' as *;
+
+.wrap {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+// —— 连线 ——
+.edgeActive {
+  stroke: #2ea7c4;
+  stroke-width: 2;
+  fill: none;
+}
+.edgeSkip {
+  stroke: #cbd5e1;
+  stroke-width: 2;
+  fill: none;
+  stroke-dasharray: 5 4;
+}
+.arrowActive {
+  fill: #2ea7c4;
+}
+.arrowSkip {
+  fill: #cbd5e1;
+}
+
+// —— 节点 ——
+.nodeActive {
+  fill: #e6f5f8;
+  stroke: #2ea7c4;
+  stroke-width: 2;
+}
+.nodeSkip {
+  fill: #f8fafc;
+  stroke: #cbd5e1;
+  stroke-width: 1.5;
+  stroke-dasharray: 5 4;
+}
+.nodeMeta {
+  fill: #0f172a;
+  stroke: #0f172a;
+  stroke-width: 2;
+}
+.nodeLabelActive {
+  fill: #0e7490;
+  font-size: 13px;
+  font-weight: 600;
+}
+.nodeLabelSkip {
+  fill: #94a3b8;
+  font-size: 13px;
+}
+.nodeLabelMeta {
+  fill: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+// —— 图例 ——
+.legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 8px;
+}
+.legendItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #64748b;
+}
+.legendSwatch {
+  width: 22px;
+  height: 0;
+  border-top-width: 2px;
+  border-top-style: solid;
+}
+.legendActive {
+  border-top-color: #2ea7c4;
+}
+.legendSkip {
+  border-top-color: #cbd5e1;
+  border-top-style: dashed;
+}

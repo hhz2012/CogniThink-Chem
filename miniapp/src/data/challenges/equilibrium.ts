@@ -5,11 +5,14 @@ const chemEq: Challenge[] = [
   {
     id: 'E1', category: 'ChemicalEquilibrium', difficulty: '基础', title: '勒夏特列原理',
     problemText: '反应 2SO₂(g) + O₂(g) ⇌ 2SO₃(g)  ΔH<0，达到平衡后，下列措施能使平衡向正反应方向移动且 SO₃ 产量增加的是？',
+    problemConditions: ['反应 2SO₂(g) + O₂(g) ⇌ 2SO₃(g)', 'ΔH<0', '达到平衡后改变条件'],
+    questionTarget: '判断使平衡向正反应方向移动且 SO₃ 产量增加的条件',
     options: ['升高温度', '减小压强', '加入催化剂', '通入过量 O₂'],
     answerIndex: 3,
     explanation: '升温（ΔH<0 放热）平衡逆向移动；减压向气体分子数增多方向（逆向）移动；催化剂不影响平衡；通入 O₂ 增大反应物浓度，平衡正向移动，SO₃ 产量增加。',
     solveData: {
       kind: 'equilibrium-shift',
+      reaction: { equation: '2SO₂(g) + O₂(g) ⇌ 2SO₃(g)', deltaH: '放热', gasChange: '气体分子数减小' },
       factors: [
         { factor: '温度', change: '升高温度', shift: '逆向', kChanges: '减小', conversion: 'SO₂ 转化率降低，SO₃ 产量减少' },
         { factor: '压强', change: '减小压强', shift: '逆向', kChanges: '不变', conversion: 'SO₃ 产量减少' },
@@ -39,9 +42,26 @@ const chemEq: Challenge[] = [
   {
     id: 'E2', category: 'ChemicalEquilibrium', difficulty: '进阶', title: '平衡常数计算',
     problemText: '某温度下，反应 H₂(g) + I₂(g) ⇌ 2HI(g) 的平衡常数 K=49。开始时 c(H₂)=c(I₂)=1 mol/L，达平衡时 c(HI) 为？',
+    problemConditions: ['某温度，K=49', '起始 c(H₂)=c(I₂)=1 mol/L', '反应 H₂(g) + I₂(g) ⇌ 2HI(g)'],
+    questionTarget: '利用平衡常数 K 求达平衡时 c(HI)',
     options: ['1.43 mol/L', '1.56 mol/L', '0.83 mol/L', '2 mol/L'],
     answerIndex: 1,
     explanation: '设平衡时 c(HI)=2x，则 c(H₂)=c(I₂)=1-x。K = (2x)²/[(1-x)(1-x)] = 4x²/(1-x)² = 49。开方：2x/(1-x)=7，2x=7-7x，9x=7，x=7/9。c(HI)=2x=14/9≈1.56 mol/L。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: 'H₂(g) + I₂(g) ⇌ 2HI(g)', gasChange: '气体分子数不变' },
+      result: {
+        type: '平衡常数 K',
+        expression: 'K = c²(HI) / [c(H₂)·c(I₂)] = 49',
+        steps: [
+          '设平衡时 c(HI) = 2x，则 c(H₂) = c(I₂) = 1 − x',
+          'K = (2x)² / [(1−x)²] = 4x²/(1−x)² = 49',
+          '开方：2x/(1−x) = 7 → 2x = 7 − 7x → 9x = 7 → x = 7/9',
+        ],
+        value: 'c(HI) = 2x = 14/9 ≈ 1.56 mol/L',
+        conclusion: '选 B',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -64,11 +84,14 @@ const chemEq: Challenge[] = [
   {
     id: 'E3', category: 'ChemicalEquilibrium', difficulty: '综合', title: '化学平衡图像',
     problemText: '反应 2A(g) + B(g) ⇌ 2C(g)  ΔH<0，下列关于温度对 C 的百分含量影响的说法正确的是？',
+    problemConditions: ['反应 2A(g) + B(g) ⇌ 2C(g)', 'ΔH<0'],
+    questionTarget: '判断温度对平衡移动和 C 百分含量的影响',
     options: ['温度越高，C% 越大，且先达到平衡', '温度越高，C% 越小，且先达到平衡', '温度越高，C% 不变', '温度越高反应速率越慢'],
     answerIndex: 1,
     explanation: 'ΔH<0 放热反应，升温平衡逆向移动，C% 减小。温度越高反应速率越快，先达到平衡。所以温度越高 C% 越小且先达平衡。',
     solveData: {
       kind: 'equilibrium-shift',
+      reaction: { equation: '2A(g) + B(g) ⇌ 2C(g)', deltaH: '放热', gasChange: '气体分子数减小' },
       factors: [
         { factor: '温度', change: '升高温度', shift: '逆向', kChanges: '减小', conversion: 'C% 减小；反应速率加快，先达到平衡' },
         { factor: '温度', change: '降低温度', shift: '正向', kChanges: '增大', conversion: 'C% 增大；反应速率减慢，后达到平衡' },
@@ -96,9 +119,24 @@ const chemEq: Challenge[] = [
   {
     id: 'E4', category: 'ChemicalEquilibrium', difficulty: '难题', title: '等效平衡',
     problemText: '恒温恒容下，反应 2SO₂ + O₂ ⇌ 2SO₃。甲容器：2 mol SO₂ + 1 mol O₂；乙容器：2 mol SO₃。达平衡后，下列说法正确的是？',
+    problemConditions: ['恒温恒容', '甲：2 mol SO₂ + 1 mol O₂', '乙：2 mol SO₃'],
+    questionTarget: '判断恒温恒容条件下等效平衡两容器的浓度关系',
     options: ['两容器中 SO₃ 浓度不等', '两容器中各物质浓度完全相同', '甲中 SO₂ 转化率小于乙中 SO₃ 转化率', '两容器平衡常数不同'],
     answerIndex: 1,
     explanation: '恒温恒容下，将乙中 2 mol SO₃ 完全转化为反应物，得 2 mol SO₂ + 1 mol O₂，与甲完全相同，属于等效平衡。两容器达平衡时各物质浓度完全相同。同一温度下 K 相同。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: '2SO₂(g) + O₂(g) ⇌ 2SO₃(g)', gasChange: '气体分子数减小' },
+      result: {
+        type: '等效平衡',
+        steps: [
+          '恒温恒容下，将乙中 2 mol SO₃ 完全转化（一边倒）为反应物',
+          '2 mol SO₃ → 2 mol SO₂ + 1 mol O₂，与甲投料完全相同',
+          '属于等效平衡，达平衡时各物质浓度完全相同',
+        ],
+        conclusion: '选 B：两容器各物质浓度完全相同；同一温度下 K 相同，D 错',
+      },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -121,9 +159,27 @@ const chemEq: Challenge[] = [
   {
     id: 'E5', category: 'ChemicalEquilibrium', difficulty: '压轴', title: 'Ksp 溶解平衡综合',
     problemText: '已知 Ksp(AgCl)=1.8×10⁻¹⁰，Ksp(AgI)=8.5×10⁻¹⁷。向含等浓度 Cl⁻ 和 I⁻ 的混合溶液中逐滴加入 AgNO₃ 溶液，当 AgCl 开始沉淀时，溶液中 c(I⁻)/c(Cl⁻) 为？',
+    problemConditions: ['Ksp(AgCl)=1.8×10⁻¹⁰', 'Ksp(AgI)=8.5×10⁻¹⁷', '含等浓度 Cl⁻ 和 I⁻ 的混合溶液', '逐滴加入 AgNO₃'],
+    questionTarget: '利用溶度积平衡常数求沉淀时 c(I⁻)/c(Cl⁻)',
     options: ['4.7×10⁻⁷', '2.1×10⁶', '8.5×10⁻¹⁷', '1.8×10⁻¹⁰'],
     answerIndex: 0,
     explanation: 'AgI 先沉淀。当 AgCl 开始沉淀时，c(Ag⁺)·c(Cl⁻)=Ksp(AgCl)。此时 c(Ag⁺)=Ksp(AgCl)/c(Cl⁻)。对 AgI：c(Ag⁺)·c(I⁻)=Ksp(AgI)，所以 c(I⁻)=Ksp(AgI)/c(Ag⁺)=Ksp(AgI)·c(Cl⁻)/Ksp(AgCl)。c(I⁻)/c(Cl⁻)=Ksp(AgI)/Ksp(AgCl)=8.5×10⁻¹⁷/1.8×10⁻¹⁰≈4.7×10⁻⁷。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: 'AgCl(s) ⇌ Ag⁺(aq) + Cl⁻(aq)；AgI(s) ⇌ Ag⁺(aq) + I⁻(aq)' },
+      result: {
+        type: 'Ksp 沉淀',
+        expression: 'Ksp(AgCl) = 1.8×10⁻¹⁰，Ksp(AgI) = 8.5×10⁻¹⁷',
+        steps: [
+          '同类型难溶物，Ksp 小的 AgI 先沉淀',
+          '当 AgCl 开始沉淀时：c(Ag⁺) = Ksp(AgCl)/c(Cl⁻)',
+          '此时对 AgI：c(I⁻) = Ksp(AgI)/c(Ag⁺) = Ksp(AgI)·c(Cl⁻)/Ksp(AgCl)',
+          'c(I⁻)/c(Cl⁻) = Ksp(AgI)/Ksp(AgCl)',
+        ],
+        value: '8.5×10⁻¹⁷ / 1.8×10⁻¹⁰ ≈ 4.7×10⁻⁷',
+        conclusion: '选 A',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -146,11 +202,14 @@ const chemEq: Challenge[] = [
   {
     id: 'E6', category: 'ChemicalEquilibrium', difficulty: '基础', title: '转化率与平衡浓度',
     problemText: '一定温度下，在 2 L 密闭容器中发生反应 N₂ + 3H₂ ⇌ 2NH₃。开始时充入 2 mol N₂ 和 6 mol H₂，达平衡时 N₂ 的转化率为 50%，则平衡时 NH₃ 的浓度为？',
+    problemConditions: ['2 L 密闭容器', '充入 2 mol N₂ 和 6 mol H₂', 'N₂ 转化率 50%'],
+    questionTarget: '由 N₂ 转化率求平衡时 NH₃ 的浓度',
     options: ['0.5 mol/L', '1 mol/L', '1.5 mol/L', '2 mol/L'],
     answerIndex: 1,
     explanation: 'N₂ 转化 50%，即转化 2×50%=1 mol。由反应式 N₂+3H₂⇌2NH₃，转化 1 mol N₂ 生成 2 mol NH₃。容器体积 2 L，c(NH₃)=2 mol/2 L=1 mol/L。',
     solveData: {
       kind: 'equilibrium-shift',
+      reaction: { equation: 'N₂(g) + 3H₂(g) ⇌ 2NH₃(g)', gasChange: '气体分子数减小' },
       factors: [
         { factor: '投料转化', change: 'N₂ 转化率 50%（转化 1 mol）', shift: '正向', kChanges: '不变', conversion: '生成 NH₃ 2 mol，c(NH₃)=1 mol/L' },
       ],
@@ -177,11 +236,14 @@ const chemEq: Challenge[] = [
   {
     id: 'E7', category: 'ChemicalEquilibrium', difficulty: '进阶', title: '平衡常数与浓度商',
     problemText: '某温度下，反应 CO(g) + H₂O(g) ⇌ CO₂(g) + H₂(g) 的 K=1。在 2 L 容器中充入 2 mol CO、2 mol H₂O、1 mol CO₂、1 mol H₂，此时反应方向为？',
+    problemConditions: ['某温度，K=1', '2 L 容器', '充入 2 mol CO、2 mol H₂O、1 mol CO₂、1 mol H₂'],
+    questionTarget: '比较浓度商与平衡常数判断反应进行方向',
     options: ['向正反应方向进行', '向逆反应方向进行', '已达平衡', '无法判断'],
     answerIndex: 0,
     explanation: '浓度商 Q = [c(CO₂)·c(H₂)]/[c(CO)·c(H₂O)]。各物质浓度：CO=1, H₂O=1, CO₂=0.5, H₂=0.5（mol/L）。Q=(0.5×0.5)/(1×1)=0.25 < K=1。Q<K 时平衡向正反应方向移动。',
     solveData: {
       kind: 'equilibrium-shift',
+      reaction: { equation: 'CO(g) + H₂O(g) ⇌ CO₂(g) + H₂(g)', gasChange: '气体分子数不变' },
       factors: [
         { factor: '浓度商 Q', change: 'Q=0.25 < K=1', shift: '正向', kChanges: '不变', conversion: '产物浓度增大，Q 趋近 K' },
       ],
@@ -208,9 +270,27 @@ const chemEq: Challenge[] = [
   {
     id: 'E8', category: 'ChemicalEquilibrium', difficulty: '综合', title: '多重平衡与 pH',
     problemText: '已知 25℃ 时 Ksp(Fe(OH)₃)=2.6×10⁻³⁹。要使 0.01 mol/L FeCl₃ 溶液中 Fe³⁺ 不产生沉淀，溶液的 pH 至少应小于？',
+    problemConditions: ['25℃，Ksp(Fe(OH)₃)=2.6×10⁻³⁹', '0.01 mol/L FeCl₃ 溶液', 'Fe³⁺ 不产生沉淀'],
+    questionTarget: '利用溶度积平衡常数求 Fe³⁺ 不沉淀时的 pH',
     options: ['1.47', '2.47', '3.47', '4.47'],
     answerIndex: 0,
     explanation: 'Fe(OH)₃ ⇌ Fe³⁺ + 3OH⁻，Ksp=c(Fe³⁺)·c³(OH⁻)。不沉淀需 Q<Ksp，即 c(Fe³⁺)·c³(OH⁻) < 2.6×10⁻³⁹。c(Fe³⁺)=0.01，c³(OH⁻) < 2.6×10⁻³⁹/0.01=2.6×10⁻³⁷。c(OH⁻) < ∛(2.6×10⁻³⁷) ≈ ∛(26×10⁻³⁸) ≈ 2.96×10⁻¹³。pOH > 12.53，pH < 14-12.53=1.47。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: 'Fe(OH)₃(s) ⇌ Fe³⁺(aq) + 3OH⁻(aq)' },
+      result: {
+        type: 'Ksp 沉淀',
+        expression: 'Ksp = c(Fe³⁺)·c³(OH⁻) = 2.6×10⁻³⁹',
+        steps: [
+          '不沉淀条件：Q = c(Fe³⁺)·c³(OH⁻) < Ksp',
+          'c³(OH⁻) < Ksp/c(Fe³⁺) = 2.6×10⁻³⁹/0.01 = 2.6×10⁻³⁷',
+          'c(OH⁻) < ∛(2.6×10⁻³⁷) ≈ 2.96×10⁻¹³',
+          'pOH > 12.53，pH < 14 − 12.53 = 1.47',
+        ],
+        value: 'pH < 1.47',
+        conclusion: '选 A',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -234,9 +314,25 @@ const chemEq: Challenge[] = [
   {
     id: 'E9', category: 'ChemicalEquilibrium', difficulty: '基础', title: '化学反应速率计算',
     problemText: '反应 2A + B → 3C，2 s 内 A 的浓度由 2 mol/L 变为 0.8 mol/L，则 2 s 内用 B 表示的平均反应速率为？',
+    problemConditions: ['反应 2A + B → 3C', '2 s 内 A 浓度由 2 mol/L 变为 0.8 mol/L'],
+    questionTarget: '根据 A 的浓度变化条件求用 B 表示的平均反应速率',
     options: ['0.3 mol/(L·s)', '0.6 mol/(L·s)', '0.9 mol/(L·s)', '1.2 mol/(L·s)'],
     answerIndex: 0,
     explanation: 'Δc(A)=2-0.8=1.2 mol/L，v(A)=Δc/Δt=1.2/2=0.6 mol/(L·s)。反应速率之比等于化学计量数之比：v(A):v(B)=2:1，故 v(B)=v(A)/2=0.6/2=0.3 mol/(L·s)。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: '2A + B → 3C' },
+      result: {
+        type: '反应速率',
+        steps: [
+          'Δc(A) = 2 − 0.8 = 1.2 mol/L',
+          'v(A) = Δc/Δt = 1.2/2 = 0.6 mol/(L·s)',
+          '速率比 = 计量数比：v(A):v(B) = 2:1，故 v(B) = v(A)/2',
+        ],
+        value: 'v(B) = 0.3 mol/(L·s)',
+        conclusion: '选 A',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -259,9 +355,25 @@ const chemEq: Challenge[] = [
   {
     id: 'E10', category: 'ChemicalEquilibrium', difficulty: '进阶', title: '平衡移动方向判断',
     problemText: '反应 N₂(g) + 3H₂(g) ⇌ 2NH₃(g)  ΔH<0 已达平衡，下列措施能使平衡正向移动的是？',
+    problemConditions: ['反应 N₂(g) + 3H₂(g) ⇌ 2NH₃(g)', 'ΔH<0', '已达平衡'],
+    questionTarget: '判断使平衡正向移动的条件',
     options: ['升高温度', '减小压强', '移走 NH₃', '加入催化剂'],
     answerIndex: 2,
     explanation: 'ΔH<0 为放热反应，升温平衡逆向（A 错）；正反应气体分子数减少，减压平衡逆向（B 错）；移走 NH₃ 即减小生成物浓度，平衡正向（C 对）；催化剂不影响平衡（D 错）。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: 'N₂(g) + 3H₂(g) ⇌ 2NH₃(g)', deltaH: '放热', gasChange: '气体分子数减小' },
+      factors: [
+        { factor: '温度', change: '升高温度', shift: '逆向', kChanges: '减小', conversion: '平衡逆向，NH₃ 产量减少' },
+        { factor: '压强', change: '减小压强', shift: '逆向', kChanges: '不变', conversion: '平衡逆向，NH₃ 产量减少' },
+        { factor: '浓度', change: '移走 NH₃', shift: '正向', kChanges: '不变', conversion: '减小生成物浓度，平衡正向移动' },
+        { factor: '催化剂', change: '加入催化剂', shift: '不移动', kChanges: '不变', conversion: '不影响平衡，只加快速率' },
+      ],
+      result: {
+        type: '转化率',
+        conclusion: '选 C：移走 NH₃ 使平衡正向移动',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -284,9 +396,25 @@ const chemEq: Challenge[] = [
   {
     id: 'E11', category: 'ChemicalEquilibrium', difficulty: '综合', title: '平衡转化率计算',
     problemText: '一定温度下，在 2 L 密闭容器中充入 2 mol SO₂ 和 1 mol O₂，发生反应 2SO₂ + O₂ ⇌ 2SO₃。平衡时生成 SO₃ 1 mol，则 SO₂ 的转化率为？',
+    problemConditions: ['2 L 密闭容器', '充入 2 mol SO₂ 和 1 mol O₂', '平衡时生成 SO₃ 1 mol'],
+    questionTarget: '求 SO₂ 的平衡转化率',
     options: ['25%', '50%', '75%', '100%'],
     answerIndex: 1,
     explanation: '由反应式，生成 1 mol SO₃ 消耗 1 mol SO₂（计量数 2:2=1:1）。SO₂ 起始 2 mol，转化 1 mol，转化率=1/2×100%=50%。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: '2SO₂(g) + O₂(g) ⇌ 2SO₃(g)', gasChange: '气体分子数减小' },
+      result: {
+        type: '转化率',
+        steps: [
+          '生成 1 mol SO₃，由计量数 2:2，消耗 SO₂ 1 mol',
+          'SO₂ 起始 2 mol，转化 1 mol',
+          '转化率 α = 转化量/起始量 × 100% = 1/2 × 100%',
+        ],
+        value: 'α(SO₂) = 50%',
+        conclusion: '选 B',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -309,9 +437,24 @@ const chemEq: Challenge[] = [
   {
     id: 'E12', category: 'ChemicalEquilibrium', difficulty: '难题', title: '等效平衡（等体积反应）',
     problemText: '恒温恒容下，反应 2A(g) + B(g) ⇌ 3C(g)。甲容器充入 2 mol A + 1 mol B；乙容器充入 3 mol C。达平衡后，下列说法正确的是？',
+    problemConditions: ['恒温恒容', '甲：2 mol A + 1 mol B', '乙：3 mol C'],
+    questionTarget: '判断恒温恒容条件下等效平衡两容器的浓度关系',
     options: ['两容器中 C 的浓度不等', '两容器中各物质浓度完全相同', '甲中 A 的转化率大于乙中 C 的转化率', '两容器平衡常数不同'],
     answerIndex: 1,
     explanation: '该反应前后气体分子数不变（2+1=3）。将乙中 3 mol C 完全转化为反应物，得 2 mol A + 1 mol B，与甲完全相同，属于等效平衡。恒温恒容下等效平衡，两容器各物质浓度完全相同。同一温度 K 相同。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: '2A(g) + B(g) ⇌ 3C(g)', gasChange: '气体分子数不变' },
+      result: {
+        type: '等效平衡',
+        steps: [
+          '该反应前后气体分子数不变（2+1=3）',
+          '将乙中 3 mol C 一边倒转化为反应物：3 mol C → 2 mol A + 1 mol B',
+          '与甲投料完全相同，属于等效平衡',
+        ],
+        conclusion: '选 B：两容器各物质浓度完全相同；同一温度 K 相同，D 错',
+      },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -334,9 +477,26 @@ const chemEq: Challenge[] = [
   {
     id: 'E13', category: 'ChemicalEquilibrium', difficulty: '压轴', title: '分步沉淀顺序判断',
     problemText: '已知 Ksp(AgCl)=1.8×10⁻¹⁰，Ksp(Ag₂CrO₄)=1.1×10⁻¹²。向含等浓度（0.01 mol/L）的 Cl⁻ 和 CrO₄²⁻ 的混合溶液中逐滴加入 AgNO₃ 溶液，先沉淀的是？',
+    problemConditions: ['Ksp(AgCl)=1.8×10⁻¹⁰', 'Ksp(Ag₂CrO₄)=1.1×10⁻¹²', '含等浓度 0.01 mol/L 的 Cl⁻ 和 CrO₄²⁻', '逐滴加入 AgNO₃'],
+    questionTarget: '利用溶度积平衡常数判断先沉淀的物质',
     options: ['AgCl 先沉淀', 'Ag₂CrO₄ 先沉淀', '同时沉淀', '无法判断'],
     answerIndex: 0,
     explanation: 'AgCl 开始沉淀时 c(Ag⁺)=Ksp(AgCl)/c(Cl⁻)=1.8×10⁻¹⁰/0.01=1.8×10⁻⁸ mol/L。Ag₂CrO₄ 开始沉淀时 c²(Ag⁺)=Ksp/c(CrO₄²⁻)=1.1×10⁻¹²/0.01=1.1×10⁻¹⁰，c(Ag⁺)=√(1.1×10⁻¹⁰)≈1.05×10⁻⁵ mol/L。AgCl 需要的 c(Ag⁺) 更小，故 AgCl 先沉淀。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: 'AgCl(s) ⇌ Ag⁺ + Cl⁻；Ag₂CrO₄(s) ⇌ 2Ag⁺ + CrO₄²⁻' },
+      result: {
+        type: 'Ksp 沉淀',
+        expression: 'Ksp(AgCl) = 1.8×10⁻¹⁰，Ksp(Ag₂CrO₄) = 1.1×10⁻¹²',
+        steps: [
+          '不同类型难溶物不能直接比 Ksp，需算各自开始沉淀所需 c(Ag⁺)',
+          'AgCl：c(Ag⁺) = Ksp/c(Cl⁻) = 1.8×10⁻¹⁰/0.01 = 1.8×10⁻⁸ mol/L',
+          'Ag₂CrO₄：c²(Ag⁺) = Ksp/c(CrO₄²⁻) = 1.1×10⁻¹²/0.01 = 1.1×10⁻¹⁰，c(Ag⁺) ≈ 1.05×10⁻⁵ mol/L',
+          'AgCl 所需 c(Ag⁺) 更小，先沉淀',
+        ],
+        conclusion: '选 A：AgCl 先沉淀',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -359,9 +519,23 @@ const chemEq: Challenge[] = [
   {
     id: 'E14', category: 'ChemicalEquilibrium', difficulty: '综合', title: '压强对平衡的影响',
     problemText: '反应 2X(g) + Y(g) ⇌ 2Z(g)  ΔH<0，在不同压强（P₁>P₂）下达到平衡时，Z 的百分含量与压强的关系正确的是？',
+    problemConditions: ['反应 2X(g) + Y(g) ⇌ 2Z(g)', 'ΔH<0', '不同压强 P₁>P₂'],
+    questionTarget: '判断压强对平衡移动和 Z 百分含量的影响',
     options: ['压强越大，Z% 越大，且先达到平衡', '压强越大，Z% 越小，且先达到平衡', '压强越大，Z% 不变', '压强越大反应速率越慢'],
     answerIndex: 0,
     explanation: '正反应气体分子数减少（2+1>2），增大压强平衡正向移动，Z% 增大。压强越大反应速率越快，先达到平衡。所以压强越大 Z% 越大且先达平衡。',
+    solveData: {
+      kind: 'equilibrium-shift',
+      reaction: { equation: '2X(g) + Y(g) ⇌ 2Z(g)', deltaH: '放热', gasChange: '气体分子数减小' },
+      factors: [
+        { factor: '压强', change: '增大压强（P₁ > P₂）', shift: '正向', kChanges: '不变', conversion: 'Z% 增大；反应速率加快，先达到平衡' },
+        { factor: '压强', change: '减小压强', shift: '逆向', kChanges: '不变', conversion: 'Z% 减小；反应速率减慢，后达到平衡' },
+      ],
+      result: {
+        type: '转化率',
+        conclusion: '选 A：压强越大 Z% 越大，且先达到平衡',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

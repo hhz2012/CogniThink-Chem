@@ -5,16 +5,36 @@ const redox: Challenge[] = [
   {
     id: 'R1', category: 'RedoxReaction', difficulty: '基础', title: '氧化剂与还原剂',
     problemText: '反应 2Na + Cl₂ = 2NaCl 中，下列说法正确的是？',
+    problemConditions: ['反应 2Na + Cl₂ = 2NaCl', '反应物 Na 和 Cl₂', '产物 NaCl'],
+    questionTarget: '判断反应中的氧化剂和还原剂',
     options: ['Na 是氧化剂，发生还原反应', 'Cl₂ 是氧化剂，发生还原反应', 'Na 得电子，Cl₂ 失电子', 'NaCl 只是氧化产物'],
     answerIndex: 1,
     explanation: 'Na 失电子（0→+1），作还原剂，发生氧化反应；Cl₂ 得电子（0→-1），作氧化剂，发生还原反应。NaCl 既是氧化产物又是还原产物。',
     solveData: {
       kind: 'redox-electron',
+      reaction: { equation: '2Na + Cl₂ = 2NaCl', type: '置换', subtype: '概念判断' },
+      agents: {
+        oxidants: ['Cl₂'], reductants: ['Na'],
+        oxidizedProducts: ['NaCl'], reducedProducts: ['NaCl'],
+      },
       halfReactions: [
-        { species: 'Na', from: 0, to: 1, electrons: 2, role: '氧化' },
-        { species: 'Cl', from: 0, to: -1, electrons: 2, role: '还原' },
+        { species: 'Na', from: 0, to: 1, electrons: 2, role: '氧化', reactantFormula: 'Na', productFormula: 'NaCl' },
+        { species: 'Cl', from: 0, to: -1, electrons: 2, role: '还原', reactantFormula: 'Cl₂', productFormula: 'NaCl' },
       ],
-      balance: { oxidizedCount: 2, reducedCount: 2, lcm: 2, ratio: '2:1' },
+      balance: { oxidizedCount: 2, reducedCount: 2, lcm: 2, ratio: '2:1',
+        coefficients: [{ formula: 'Na', value: 2 }, { formula: 'Cl₂', value: 1 }, { formula: 'NaCl', value: 2 }] },
+      stage1: {
+        particles: [
+          { formula: 'Na', source: '加入的反应物', abundance: '大量' },
+          { formula: 'Cl₂', source: '加入的反应物', abundance: '大量' },
+        ],
+        medium: '中性',
+        candidates: { oxidants: ['Cl₂'], reductants: ['Na'] },
+        products: [
+          { species: 'NaCl', basis: 'Na 失电子（0→+1）、Cl₂ 得电子（0→-1），Na⁺ 与 Cl⁻ 结合生成 NaCl' },
+        ],
+        coexistence: { ok: true, note: '产物 NaCl 可稳定存在，不与体系粒子反应' },
+      },
     },
     thought: 'Conservation',
     guide: [
@@ -40,16 +60,47 @@ const redox: Challenge[] = [
   {
     id: 'R2', category: 'RedoxReaction', difficulty: '进阶', title: '配平：高锰酸钾氧化亚铁',
     problemText: '配平：___ KMnO₄ + ___ FeSO₄ + ___ H₂SO₄ → ___ K₂SO₄ + ___ MnSO₄ + ___ Fe₂(SO₄)₃ + ___ H₂O，KMnO₄ 与 FeSO₄ 的系数之比为？',
+    problemConditions: ['KMnO₄、FeSO₄ 在 H₂SO₄ 介质中反应', '生成 K₂SO₄、MnSO₄、Fe₂(SO₄)₃、H₂O'],
+    questionTarget: '配平反应并求 KMnO₄ 与 FeSO₄ 的系数之比',
     options: ['1:3', '1:5', '2:5', '1:10'],
     answerIndex: 1,
     explanation: 'Mn: +7→+2 得 5e⁻；Fe: +2→+3 失 1e⁻。最小公倍数 5，KMnO₄ 系数 1，FeSO₄ 系数 5。KMnO₄:FeSO₄ = 1:5。',
     solveData: {
       kind: 'redox-electron',
+      reaction: { equation: '2KMnO₄ + 10FeSO₄ + 8H₂SO₄ = K₂SO₄ + 2MnSO₄ + 5Fe₂(SO₄)₃ + 8H₂O', type: '氧化还原', subtype: '配平' },
+      agents: {
+        oxidants: ['KMnO₄'], reductants: ['FeSO₄'],
+        oxidizedProducts: ['Fe₂(SO₄)₃'], reducedProducts: ['MnSO₄'],
+      },
       halfReactions: [
-        { species: 'Mn', from: 7, to: 2, electrons: 5, role: '还原' },
-        { species: 'Fe', from: 2, to: 3, electrons: 5, role: '氧化' },
+        { species: 'Mn', from: 7, to: 2, electrons: 5, role: '还原', reactantFormula: 'KMnO₄', productFormula: 'MnSO₄' },
+        { species: 'Fe', from: 2, to: 3, electrons: 5, role: '氧化', reactantFormula: 'FeSO₄', productFormula: 'Fe₂(SO₄)₃' },
       ],
-      balance: { oxidizedCount: 5, reducedCount: 5, lcm: 5, ratio: '1:5' },
+      balance: { oxidizedCount: 5, reducedCount: 5, lcm: 5, ratio: '1:5',
+        coefficients: [
+          { formula: 'KMnO₄', value: 2 }, { formula: 'FeSO₄', value: 10 }, { formula: 'H₂SO₄', value: 8 },
+          { formula: 'K₂SO₄', value: 1 }, { formula: 'MnSO₄', value: 2 }, { formula: 'Fe₂(SO₄)₃', value: 5 }, { formula: 'H₂O', value: 8 },
+        ] },
+      stage1: {
+        particles: [
+          { formula: 'K⁺', source: 'KMnO₄ 电离', abundance: '大量' },
+          { formula: 'MnO₄⁻', source: 'KMnO₄ 电离', abundance: '大量' },
+          { formula: 'Fe²⁺', source: 'FeSO₄ 电离', abundance: '大量' },
+          { formula: 'SO₄²⁻', source: 'FeSO₄、H₂SO₄ 电离', abundance: '大量' },
+          { formula: 'H⁺', source: 'H₂SO₄ 电离', abundance: '大量' },
+          { formula: 'OH⁻', source: '水的微弱电离', abundance: '微量' },
+        ],
+        medium: '酸性',
+        mediumRules: [
+          { species: 'MnO₄⁻', acid: 'Mn²⁺', neutral: 'MnO₂', base: 'MnO₄²⁻' },
+        ],
+        candidates: { oxidants: ['MnO₄⁻'], reductants: ['Fe²⁺'] },
+        products: [
+          { species: 'Mn²⁺', basis: '酸性介质中 MnO₄⁻ 被还原为 Mn²⁺（Mn +7→+2，得 5e⁻）' },
+          { species: 'Fe³⁺', basis: 'Fe²⁺ 被氧化为 Fe³⁺（Fe +2→+3，失 1e⁻）' },
+        ],
+        coexistence: { ok: true, note: '酸性介质中 Mn²⁺、Fe³⁺、SO₄²⁻、K⁺ 可大量共存，无沉淀生成' },
+      },
     },
     thought: 'Conservation',
     guide: [
@@ -75,16 +126,37 @@ const redox: Challenge[] = [
   {
     id: 'R3', category: 'RedoxReaction', difficulty: '综合', title: '歧化反应判断',
     problemText: '反应 3NO₂ + H₂O = 2HNO₃ + NO 中，被氧化与被还原的氮原子个数比为？',
+    problemConditions: ['反应 3NO₂ + H₂O = 2HNO₃ + NO', '反应物 NO₂ 和 H₂O', '产物 HNO₃ 和 NO'],
+    questionTarget: '用电子守恒法求被氧化与被还原的氮原子个数比',
     options: ['1:1', '2:1', '1:2', '3:1'],
     answerIndex: 1,
     explanation: '这是歧化反应。NO₂ 中 N 为 +4 价，HNO₃ 中 N 为 +5 价（被氧化，失 1e⁻），NO 中 N 为 +2 价（被还原，得 2e⁻）。电子守恒：2 个 N 失 2e⁻，1 个 N 得 2e⁻。被氧化:被还原 = 2:1。',
     solveData: {
       kind: 'redox-electron',
+      reaction: { equation: '3NO₂ + H₂O = 2HNO₃ + NO', type: '歧化', subtype: '概念判断' },
+      agents: {
+        oxidants: ['NO₂'], reductants: ['NO₂'],
+        oxidizedProducts: ['HNO₃'], reducedProducts: ['NO'],
+      },
       halfReactions: [
-        { species: 'N（被氧化）', from: 4, to: 5, electrons: 2, role: '氧化' },
-        { species: 'N（被还原）', from: 4, to: 2, electrons: 2, role: '还原' },
+        { species: 'N（被氧化）', from: 4, to: 5, electrons: 2, role: '氧化', reactantFormula: 'NO₂', productFormula: 'HNO₃' },
+        { species: 'N（被还原）', from: 4, to: 2, electrons: 2, role: '还原', reactantFormula: 'NO₂', productFormula: 'NO' },
       ],
-      balance: { oxidizedCount: 2, reducedCount: 2, lcm: 2, ratio: '2:1' },
+      balance: { oxidizedCount: 2, reducedCount: 2, lcm: 2, ratio: '2:1',
+        coefficients: [{ formula: 'NO₂', value: 3 }, { formula: 'H₂O', value: 1 }, { formula: 'HNO₃', value: 2 }, { formula: 'NO', value: 1 }] },
+      stage1: {
+        particles: [
+          { formula: 'NO₂', source: '通入的反应物', abundance: '大量' },
+          { formula: 'H₂O', source: '溶剂 / 反应物', abundance: '大量' },
+        ],
+        medium: '中性',
+        candidates: { oxidants: ['NO₂'], reductants: ['NO₂'] },
+        products: [
+          { species: 'HNO₃', basis: '歧化：N 由 +4 升高到 +5，被氧化' },
+          { species: 'NO', basis: '歧化：N 由 +4 降低到 +2，被还原' },
+        ],
+        coexistence: { ok: true, note: '产物 HNO₃ 与 NO 可共存，NO 气体逸出' },
+      },
     },
     thought: 'Conservation',
     guide: [
@@ -110,16 +182,52 @@ const redox: Challenge[] = [
   {
     id: 'R4', category: 'RedoxReaction', difficulty: '难题', title: '电子守恒法计算',
     problemText: '将铜粉加入稀硝酸中，反应结束后铜有剩余，再加入稀硫酸，铜继续溶解。若整个过程中产生 NO 气体 0.1 mol，则参加反应的铜的物质的量为？',
+    problemConditions: ['铜粉加入稀硝酸', '反应结束后铜有剩余', '再加入稀硫酸铜继续溶解', '整个过程产生 NO 气体 0.1 mol'],
+    questionTarget: '用电子守恒法求参加反应的铜的物质的量',
     options: ['0.05 mol', '0.1 mol', '0.15 mol', '0.2 mol'],
     answerIndex: 2,
     explanation: '整个过程 HNO₃ 最终被还原为 NO，N 从 +5→+2 得 3e⁻。0.1 mol NO 得 0.3 mol e⁻。Cu 从 0→+2 失 2e⁻。由电子守恒：n(Cu)×2 = 0.1×3，n(Cu) = 0.15 mol。',
     solveData: {
       kind: 'redox-electron',
+      reaction: { equation: '3Cu + 8HNO₃(稀) = 3Cu(NO₃)₂ + 2NO↑ + 4H₂O', type: '氧化还原', subtype: '计算' },
+      agents: {
+        oxidants: ['HNO₃'], reductants: ['Cu'],
+        oxidizedProducts: ['Cu(NO₃)₂'], reducedProducts: ['NO'],
+      },
       halfReactions: [
-        { species: 'N（NO₃⁻→NO）', from: 5, to: 2, electrons: 3, role: '还原' },
-        { species: 'Cu', from: 0, to: 2, electrons: 2, role: '氧化' },
+        { species: 'N（NO₃⁻→NO）', from: 5, to: 2, electrons: 3, role: '还原', reactantFormula: 'HNO₃', productFormula: 'NO' },
+        { species: 'Cu', from: 0, to: 2, electrons: 2, role: '氧化', reactantFormula: 'Cu', productFormula: 'Cu(NO₃)₂' },
       ],
-      balance: { oxidizedCount: 2, reducedCount: 3, lcm: 6, ratio: '3:2' },
+      balance: { oxidizedCount: 2, reducedCount: 3, lcm: 6, ratio: '3:2',
+        coefficients: [{ formula: 'Cu', value: 3 }, { formula: 'HNO₃', value: 8 }, { formula: 'Cu(NO₃)₂', value: 3 }, { formula: 'NO', value: 2 }, { formula: 'H₂O', value: 4 }] },
+      calc: {
+        given: '整个过程产生 NO 气体 0.1 mol', target: '参加反应的铜的物质的量',
+        steps: [
+          'NO₃⁻ → NO，N 从 +5→+2，每个 N 得 3e⁻，0.1 mol NO 对应得 0.3 mol e⁻',
+          'Cu 从 0→+2，每个 Cu 失 2e⁻',
+          '电子守恒：n(Cu) × 2 = 0.1 × 3',
+        ],
+        result: 'n(Cu) = 0.15 mol',
+      },
+      stage1: {
+        particles: [
+          { formula: 'Cu', source: '加入的反应物', abundance: '大量' },
+          { formula: 'H⁺', source: 'HNO₃ 电离（后加稀硫酸补充）', abundance: '大量' },
+          { formula: 'NO₃⁻', source: 'HNO₃ 电离', abundance: '大量' },
+          { formula: 'SO₄²⁻', source: '稀硫酸电离', abundance: '大量' },
+          { formula: 'OH⁻', source: '水的微弱电离', abundance: '微量' },
+        ],
+        medium: '酸性',
+        mediumRules: [
+          { species: 'NO₃⁻', acid: 'NO', neutral: '一般不表现氧化性', base: '一般不表现氧化性' },
+        ],
+        candidates: { oxidants: ['NO₃⁻'], reductants: ['Cu'] },
+        products: [
+          { species: 'NO', basis: '酸性介质中 NO₃⁻ 被还原为 NO（N +5→+2，得 3e⁻）' },
+          { species: 'Cu²⁺', basis: 'Cu 被氧化为 Cu²⁺（0→+2，失 2e⁻）；加硫酸补充 H⁺ 后 NO₃⁻ 继续氧化铜' },
+        ],
+        coexistence: { ok: true, note: '生成 Cu(NO₃)₂，Cu²⁺ 在酸性溶液中可共存，NO 气体逸出' },
+      },
     },
     thought: 'Conservation',
     guide: [
@@ -145,17 +253,52 @@ const redox: Challenge[] = [
   {
     id: 'R5', category: 'RedoxReaction', difficulty: '压轴', title: '复杂氧化还原综合',
     problemText: '已知反应：11P + 15CuSO₄ + 24H₂O = 5Cu₃P + 6H₃PO₄ + 15H₂SO₄。下列说法正确的是？',
+    problemConditions: ['反应 11P + 15CuSO₄ + 24H₂O = 5Cu₃P + 6H₃PO₄ + 15H₂SO₄', '反应物 P、CuSO₄、H₂O', '产物 Cu₃P、H₃PO₄、H₂SO₄'],
+    questionTarget: '判断氧化剂、还原剂及电子转移相关说法的正确性',
     options: ['CuSO₄ 只作氧化剂', 'P 只作还原剂', '1 mol CuSO₄ 氧化 0.2 mol P', '被氧化的 P 与被还原的 P 物质的量之比为 5:6'],
     answerIndex: 2,
     explanation: 'Cu 从 +2→+1（Cu₃P 中 Cu 为 +1），得 1e⁻，CuSO₄ 作氧化剂。P 一部分降为 -3（Cu₃P），一部分升为 +5（H₃PO₄），P 既作氧化剂又作还原剂。15 mol CuSO₄ 得 15e⁻，氧化 P：每个 P 失 5e⁻，15e⁻/5e⁻=3 mol P？实际 6 mol P 失 30e⁻，5 mol P 得 15e⁻，Cu²⁺ 得 15e⁻，总得 30e⁻。1 mol CuSO₄ 得 1e⁻，氧化 1/5=0.2 mol P。被氧化 P:被还原 P = 6:5。',
     solveData: {
       kind: 'redox-electron',
+      reaction: { equation: '11P + 15CuSO₄ + 24H₂O = 5Cu₃P + 6H₃PO₄ + 15H₂SO₄', type: '复杂氧化还原（歧化+置换）', subtype: '复杂综合' },
+      agents: {
+        oxidants: ['CuSO₄', 'P'], reductants: ['P'],
+        oxidizedProducts: ['H₃PO₄'], reducedProducts: ['Cu₃P'],
+      },
       halfReactions: [
-        { species: 'Cu', from: 2, to: 1, electrons: 15, role: '还原' },
-        { species: 'P（被还原→Cu₃P）', from: 0, to: -3, electrons: 15, role: '还原' },
-        { species: 'P（被氧化→H₃PO₄）', from: 0, to: 5, electrons: 30, role: '氧化' },
+        { species: 'Cu', from: 2, to: 1, electrons: 15, role: '还原', reactantFormula: 'CuSO₄', productFormula: 'Cu₃P' },
+        { species: 'P（被还原→Cu₃P）', from: 0, to: -3, electrons: 15, role: '还原', reactantFormula: 'P', productFormula: 'Cu₃P' },
+        { species: 'P（被氧化→H₃PO₄）', from: 0, to: 5, electrons: 30, role: '氧化', reactantFormula: 'P', productFormula: 'H₃PO₄' },
       ],
-      balance: { oxidizedCount: 30, reducedCount: 30, lcm: 30, ratio: '6:5' },
+      balance: { oxidizedCount: 30, reducedCount: 30, lcm: 30, ratio: '6:5',
+        coefficients: [{ formula: 'P', value: 11 }, { formula: 'CuSO₄', value: 15 }, { formula: 'H₂O', value: 24 }, { formula: 'Cu₃P', value: 5 }, { formula: 'H₃PO₄', value: 6 }, { formula: 'H₂SO₄', value: 15 }] },
+      calc: {
+        given: '反应 11P + 15CuSO₄ + 24H₂O = 5Cu₃P + 6H₃PO₄ + 15H₂SO₄',
+        target: '1 mol CuSO₄ 氧化多少 mol P；被氧化与被还原的 P 之比',
+        steps: [
+          'Cu 从 +2→+1，15 mol CuSO₄ 共得 15e⁻',
+          'P 一部分降到 -3（5 mol P 得 15e⁻），一部分升到 +5（6 mol P 失 30e⁻）',
+          '总得电子 15 + 15 = 30，总失电子 30，电子守恒',
+          '1 mol CuSO₄ 得 1e⁻，每个 P 失 5e⁻，故 1 mol CuSO₄ 可氧化 1/5 = 0.2 mol P',
+        ],
+        result: '1 mol CuSO₄ 氧化 0.2 mol P；被氧化 P : 被还原 P = 6 : 5',
+      },
+      stage1: {
+        particles: [
+          { formula: 'P', source: '加入的反应物', abundance: '大量' },
+          { formula: 'Cu²⁺', source: 'CuSO₄ 电离', abundance: '大量' },
+          { formula: 'SO₄²⁻', source: 'CuSO₄ 电离', abundance: '大量' },
+          { formula: 'H₂O', source: '溶剂 / 反应物', abundance: '大量' },
+        ],
+        medium: '中性',
+        candidates: { oxidants: ['Cu²⁺', 'P'], reductants: ['P'] },
+        products: [
+          { species: 'Cu₃P', basis: 'Cu²⁺（+2→+1）与 P（0→-3）结合生成 Cu₃P 沉淀' },
+          { species: 'H₃PO₄', basis: 'P（0→+5）被氧化生成 H₃PO₄' },
+          { species: 'H₂SO₄', basis: 'SO₄²⁻ 与 H⁺ 结合，溶液酸性增强' },
+        ],
+        coexistence: { ok: true, note: '生成 Cu₃P 沉淀，H₃PO₄、H₂SO₄ 溶于水可共存', precipitates: ['Cu₃P'] },
+      },
     },
     thought: 'Conservation',
     guide: [
@@ -181,16 +324,37 @@ const redox: Challenge[] = [
   {
     id: 'R6', category: 'RedoxReaction', difficulty: '基础', title: '氧化产物与还原产物',
     problemText: '反应 2H₂S + SO₂ = 3S↓ + 2H₂O 中，氧化产物与还原产物的质量比为？',
+    problemConditions: ['反应 2H₂S + SO₂ = 3S↓ + 2H₂O', '生成 S 沉淀'],
+    questionTarget: '求氧化产物与还原产物的质量比',
     options: ['1:1', '2:1', '1:2', '3:2'],
     answerIndex: 1,
     explanation: 'H₂S 中 S 为 -2 价，被氧化为 0 价（S），2 mol H₂S 生成 2 mol S（氧化产物）。SO₂ 中 S 为 +4 价，被还原为 0 价，1 mol SO₂ 生成 1 mol S（还原产物）。氧化产物:还原产物 = 2:1，质量比 = 物质的量比（同种物质）= 2:1。',
     solveData: {
       kind: 'redox-electron',
+      reaction: { equation: '2H₂S + SO₂ = 3S↓ + 2H₂O', type: '归中', subtype: '概念判断' },
+      agents: {
+        oxidants: ['SO₂'], reductants: ['H₂S'],
+        oxidizedProducts: ['S'], reducedProducts: ['S'],
+      },
       halfReactions: [
-        { species: 'S（H₂S）', from: -2, to: 0, electrons: 4, role: '氧化' },
-        { species: 'S（SO₂）', from: 4, to: 0, electrons: 4, role: '还原' },
+        { species: 'S（H₂S）', from: -2, to: 0, electrons: 4, role: '氧化', reactantFormula: 'H₂S', productFormula: 'S' },
+        { species: 'S（SO₂）', from: 4, to: 0, electrons: 4, role: '还原', reactantFormula: 'SO₂', productFormula: 'S' },
       ],
-      balance: { oxidizedCount: 4, reducedCount: 4, lcm: 4, ratio: '2:1' },
+      balance: { oxidizedCount: 4, reducedCount: 4, lcm: 4, ratio: '2:1',
+        coefficients: [{ formula: 'H₂S', value: 2 }, { formula: 'SO₂', value: 1 }, { formula: 'S', value: 3 }, { formula: 'H₂O', value: 2 }] },
+      stage1: {
+        particles: [
+          { formula: 'H₂S', source: '加入的反应物', abundance: '大量' },
+          { formula: 'SO₂', source: '加入的反应物', abundance: '大量' },
+          { formula: 'H₂O', source: '溶剂 / 产物', abundance: '大量' },
+        ],
+        medium: '中性',
+        candidates: { oxidants: ['SO₂'], reductants: ['H₂S'] },
+        products: [
+          { species: 'S', basis: '归中：H₂S 中 S（-2→0）被氧化、SO₂ 中 S（+4→0）被还原，均生成单质 S' },
+        ],
+        coexistence: { ok: true, note: '生成单质硫沉淀，产物 H₂O 可共存', precipitates: ['S'] },
+      },
     },
     thought: 'Conservation',
     guide: [
@@ -215,9 +379,39 @@ const redox: Challenge[] = [
   {
     id: 'R7', category: 'RedoxReaction', difficulty: '进阶', title: '多元素变价配平',
     problemText: '配平反应：___ FeS₂ + ___ O₂ → ___ Fe₂O₃ + ___ SO₂，FeS₂ 与 O₂ 的系数之比为？',
+    problemConditions: ['FeS₂ 与 O₂ 反应', '生成 Fe₂O₃ 和 SO₂'],
+    questionTarget: '配平反应并求 FeS₂ 与 O₂ 的系数之比',
     options: ['2:11', '4:11', '1:3', '2:7'],
     answerIndex: 1,
     explanation: 'FeS₂ 中 Fe 为 +2，S 为 -1。产物 Fe₂O₃ 中 Fe 为 +3（失 1e⁻），SO₂ 中 S 为 +4（失 5e⁻）。1 mol FeS₂ 失电子：1×1 + 2×5 = 11e⁻。O₂ 中 O 从 0→-2，1 mol O₂ 得 4e⁻。最小公倍数 44：FeS₂ 系数 4（失 44e⁻），O₂ 系数 11（得 44e⁻）。FeS₂:O₂ = 4:11。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { equation: '4FeS₂ + 11O₂ = 2Fe₂O₃ + 8SO₂', type: '氧化还原', subtype: '配平' },
+      agents: {
+        oxidants: ['O₂'], reductants: ['FeS₂'],
+        oxidizedProducts: ['Fe₂O₃', 'SO₂'], reducedProducts: ['Fe₂O₃', 'SO₂'],
+      },
+      halfReactions: [
+        { species: 'Fe', from: 2, to: 3, electrons: 4, role: '氧化', reactantFormula: 'FeS₂', productFormula: 'Fe₂O₃', atomCount: 4 },
+        { species: 'S', from: -1, to: 4, electrons: 40, role: '氧化', reactantFormula: 'FeS₂', productFormula: 'SO₂', atomCount: 8 },
+        { species: 'O', from: 0, to: -2, electrons: 44, role: '还原', reactantFormula: 'O₂', productFormula: 'Fe₂O₃、SO₂', atomCount: 22 },
+      ],
+      balance: { oxidizedCount: 44, reducedCount: 44, lcm: 44, ratio: '4:11',
+        coefficients: [{ formula: 'FeS₂', value: 4 }, { formula: 'O₂', value: 11 }, { formula: 'Fe₂O₃', value: 2 }, { formula: 'SO₂', value: 8 }] },
+      stage1: {
+        particles: [
+          { formula: 'FeS₂', source: '加入的反应物', abundance: '大量' },
+          { formula: 'O₂', source: '加入的反应物', abundance: '大量' },
+        ],
+        medium: '中性',
+        candidates: { oxidants: ['O₂'], reductants: ['FeS₂'] },
+        products: [
+          { species: 'Fe₂O₃', basis: 'Fe（+2→+3）被氧化' },
+          { species: 'SO₂', basis: 'S（-1→+4）被氧化，O（0→-2）被还原' },
+        ],
+        coexistence: { ok: true, note: '燃烧产物 Fe₂O₃、SO₂ 可共存' },
+      },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -241,9 +435,54 @@ const redox: Challenge[] = [
   {
     id: 'R8', category: 'RedoxReaction', difficulty: '综合', title: '电子守恒法计算混合物',
     problemText: '将 15.2 g 铁粉和铜粉的混合物加入足量稀硝酸中，充分反应后放出 NO 气体 4.48 L（标况），则混合物中铁的质量为？',
+    problemConditions: ['铁粉和铜粉混合物 15.2 g', '加入足量稀硝酸', '放出 NO 气体 4.48 L（标况）'],
+    questionTarget: '用电子守恒法求混合物中铁的质量',
     options: ['2.8 g', '5.6 g', '8.4 g', '11.2 g'],
     answerIndex: 1,
     explanation: '稀硝酸将 Fe 氧化为 Fe³⁺，Cu 氧化为 Cu²⁺（足量硝酸），NO₃⁻ 被还原为 NO（N: +5→+2 得 3e⁻）。n(NO)=4.48/22.4=0.2 mol，得电子 0.6 mol。设 Fe 为 x mol，Cu 为 y mol：质量守恒 56x+64y=15.2；电子守恒 3x+2y=0.6。由电子守恒得 y=(0.6-3x)/2，代入质量守恒：56x+32(0.6-3x)=15.2 → 56x+19.2-96x=15.2 → 40x=4 → x=0.1。m(Fe)=0.1×56=5.6 g，m(Cu)=0.15×64=9.6 g。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { equation: 'Fe + 4HNO₃(稀) = Fe(NO₃)₃ + NO↑ + 2H₂O；3Cu + 8HNO₃(稀) = 3Cu(NO₃)₂ + 2NO↑ + 4H₂O', type: '氧化还原', subtype: '计算' },
+      agents: {
+        oxidants: ['HNO₃'], reductants: ['Fe', 'Cu'],
+        oxidizedProducts: ['Fe(NO₃)₃', 'Cu(NO₃)₂'], reducedProducts: ['NO'],
+      },
+      halfReactions: [
+        { species: 'Fe', from: 0, to: 3, electrons: 3, role: '氧化', reactantFormula: 'Fe', productFormula: 'Fe(NO₃)₃' },
+        { species: 'Cu', from: 0, to: 2, electrons: 2, role: '氧化', reactantFormula: 'Cu', productFormula: 'Cu(NO₃)₂' },
+        { species: 'N（NO₃⁻→NO）', from: 5, to: 2, electrons: 3, role: '还原', reactantFormula: 'HNO₃', productFormula: 'NO' },
+      ],
+      calc: {
+        given: '混合物 15.2 g，生成 NO 4.48 L（标况）', target: '混合物中铁的质量',
+        steps: [
+          '足量稀硝酸：Fe→Fe³⁺（失 3e⁻），Cu→Cu²⁺（失 2e⁻），NO₃⁻→NO（得 3e⁻）',
+          'n(NO) = 4.48/22.4 = 0.2 mol，得电子 0.2 × 3 = 0.6 mol',
+          '设 Fe 为 x mol、Cu 为 y mol：质量守恒 56x + 64y = 15.2；电子守恒 3x + 2y = 0.6',
+          '由 3x + 2y = 0.6 得 y = (0.6 − 3x)/2，代入质量守恒解得 x = 0.1',
+        ],
+        result: 'm(Fe) = 0.1 × 56 = 5.6 g',
+      },
+      stage1: {
+        particles: [
+          { formula: 'Fe', source: '混合物', abundance: '大量' },
+          { formula: 'Cu', source: '混合物', abundance: '大量' },
+          { formula: 'H⁺', source: 'HNO₃ 电离', abundance: '大量' },
+          { formula: 'NO₃⁻', source: 'HNO₃ 电离', abundance: '大量' },
+          { formula: 'OH⁻', source: '水的微弱电离', abundance: '微量' },
+        ],
+        medium: '酸性',
+        mediumRules: [
+          { species: 'NO₃⁻', acid: 'NO', neutral: '一般不表现氧化性', base: '一般不表现氧化性' },
+        ],
+        candidates: { oxidants: ['NO₃⁻'], reductants: ['Fe', 'Cu'] },
+        products: [
+          { species: 'NO', basis: '酸性介质中 NO₃⁻ 被还原为 NO（N +5→+2，得 3e⁻）' },
+          { species: 'Fe³⁺', basis: '足量硝酸将 Fe 氧化为 Fe³⁺（0→+3，失 3e⁻）' },
+          { species: 'Cu²⁺', basis: '足量硝酸将 Cu 氧化为 Cu²⁺（0→+2，失 2e⁻）' },
+        ],
+        coexistence: { ok: true, note: '足量硝酸中 Fe³⁺、Cu²⁺ 可共存，NO 气体逸出' },
+      },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -267,9 +506,22 @@ const redox: Challenge[] = [
   {
     id: 'R9', category: 'RedoxReaction', difficulty: '基础', title: '氧化还原反应的判断',
     problemText: '下列反应中，不属于氧化还原反应的是？',
+    problemConditions: ['2H₂ + O₂ = 2H₂O', '2Na + 2H₂O = 2NaOH + H₂↑', 'NaHCO₃ + HCl = NaCl + H₂O + CO₂↑', '3Fe + 2O₂ = Fe₃O₄'],
+    questionTarget: '判断各反应中化合价是否变化以选出非氧化还原反应',
     options: ['2H₂ + O₂ = 2H₂O', '2Na + 2H₂O = 2NaOH + H₂↑', 'NaHCO₃ + HCl = NaCl + H₂O + CO₂↑', '3Fe + 2O₂ = Fe₃O₄'],
     answerIndex: 2,
     explanation: '判断氧化还原反应的依据是反应前后元素化合价是否发生变化。C 中各元素化合价均未改变（Na+1、H+1、C+4、O-2、Cl-1），属于复分解反应，不是氧化还原反应。A 中 H、O，B 中 Na、H，D 中 Fe、O 均有价态变化。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { subtype: '概念判断' },
+      reactions: [
+        { equation: '2H₂ + O₂ = 2H₂O', type: '化合', isRedox: true, oxidant: 'O₂', oxidizedProduct: 'H₂O' },
+        { equation: '2Na + 2H₂O = 2NaOH + H₂↑', type: '置换', isRedox: true, oxidant: 'H₂O', oxidizedProduct: 'NaOH' },
+        { equation: 'NaHCO₃ + HCl = NaCl + H₂O + CO₂↑', type: '复分解(非氧还)', isRedox: false },
+        { equation: '3Fe + 2O₂ = Fe₃O₄', type: '化合', isRedox: true, oxidant: 'O₂', oxidizedProduct: 'Fe₃O₄' },
+      ],
+      halfReactions: [],
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -292,9 +544,24 @@ const redox: Challenge[] = [
   {
     id: 'R10', category: 'RedoxReaction', difficulty: '进阶', title: '氧化性强弱比较',
     problemText: '已知反应：① 2FeCl₃ + 2KI = 2FeCl₂ + 2KCl + I₂  ② 2FeCl₂ + Cl₂ = 2FeCl₃。由此判断 Cl₂、Fe³⁺、I₂ 的氧化性由强到弱的顺序为？',
+    problemConditions: ['反应① 2FeCl₃ + 2KI = 2FeCl₂ + 2KCl + I₂', '反应② 2FeCl₂ + Cl₂ = 2FeCl₃'],
+    questionTarget: '判断 Cl₂、Fe³⁺、I₂ 的氧化性由强到弱的顺序',
     options: ['Fe³⁺ > Cl₂ > I₂', 'Cl₂ > Fe³⁺ > I₂', 'I₂ > Cl₂ > Fe³⁺', 'Cl₂ > I₂ > Fe³⁺'],
     answerIndex: 1,
     explanation: '氧化还原反应中，氧化剂的氧化性强于氧化产物。反应①中 Fe³⁺ 是氧化剂，I₂ 是氧化产物，故氧化性 Fe³⁺ > I₂。反应②中 Cl₂ 是氧化剂，Fe³⁺ 是氧化产物，故氧化性 Cl₂ > Fe³⁺。综合：Cl₂ > Fe³⁺ > I₂。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { subtype: '性质比较' },
+      comparison: {
+        property: '氧化性', order: 'Cl₂ > Fe³⁺ > I₂',
+        basis: '氧化剂的氧化性强于氧化产物的氧化性',
+      },
+      reactions: [
+        { equation: '2FeCl₃ + 2KI = 2FeCl₂ + 2KCl + I₂', type: '氧化还原', isRedox: true, oxidant: 'FeCl₃（Fe³⁺）', oxidizedProduct: 'I₂' },
+        { equation: '2FeCl₂ + Cl₂ = 2FeCl₃', type: '氧化还原', isRedox: true, oxidant: 'Cl₂', oxidizedProduct: 'FeCl₃（Fe³⁺）' },
+      ],
+      halfReactions: [],
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -317,9 +584,42 @@ const redox: Challenge[] = [
   {
     id: 'R11', category: 'RedoxReaction', difficulty: '综合', title: '还原性顺序与反应先后',
     problemText: '向 FeBr₂ 溶液中通入少量 Cl₂，下列离子方程式正确的是？（已知还原性 Fe²⁺ > Br⁻）',
+    problemConditions: ['FeBr₂ 溶液中通入少量 Cl₂', '已知还原性 Fe²⁺ > Br⁻'],
+    questionTarget: '写出 FeBr₂ 中通入少量 Cl₂ 的正确离子方程式',
     options: ['2Br⁻ + Cl₂ = Br₂ + 2Cl⁻', '2Fe²⁺ + Cl₂ = 2Fe³⁺ + 2Cl⁻', '2Fe²⁺ + 2Br⁻ + 2Cl₂ = 2Fe³⁺ + Br₂ + 4Cl⁻', '2Fe²⁺ + 4Br⁻ + 3Cl₂ = 2Fe³⁺ + 2Br₂ + 6Cl⁻'],
     answerIndex: 1,
     explanation: '还原性 Fe²⁺ > Br⁻，当通入少量 Cl₂ 时，Cl₂ 优先氧化还原性更强的 Fe²⁺，而 Br⁻ 不被氧化。所以少量 Cl₂ 只发生反应 2Fe²⁺ + Cl₂ = 2Fe³⁺ + 2Cl⁻。只有当 Cl₂ 过量时才会继续氧化 Br⁻。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { ionicEquation: '2Fe²⁺ + Cl₂ = 2Fe³⁺ + 2Cl⁻', type: '氧化还原', subtype: '反应先后' },
+      order: {
+        property: '还原性', strongerFirst: ['Fe²⁺', 'Br⁻'],
+        conclusion: '少量 Cl₂ 优先氧化还原性更强的 Fe²⁺，Br⁻ 不被氧化，离子方程式为 2Fe²⁺ + Cl₂ = 2Fe³⁺ + 2Cl⁻',
+      },
+      agents: {
+        oxidants: ['Cl₂'], reductants: ['FeBr₂（Fe²⁺）'],
+        oxidizedProducts: ['Fe³⁺'], reducedProducts: ['Cl⁻'],
+      },
+      halfReactions: [
+        { species: 'Fe', from: 2, to: 3, electrons: 2, role: '氧化', reactantFormula: 'FeBr₂', productFormula: 'Fe³⁺' },
+        { species: 'Cl', from: 0, to: -1, electrons: 2, role: '还原', reactantFormula: 'Cl₂', productFormula: 'Cl⁻' },
+      ],
+      stage1: {
+        particles: [
+          { formula: 'Fe²⁺', source: 'FeBr₂ 电离', abundance: '大量' },
+          { formula: 'Br⁻', source: 'FeBr₂ 电离', abundance: '大量' },
+          { formula: 'Cl₂', source: '通入的反应物', abundance: '大量' },
+          { formula: 'H₂O', source: '溶剂', abundance: '大量' },
+        ],
+        medium: '中性',
+        candidates: { oxidants: ['Cl₂'], reductants: ['Fe²⁺', 'Br⁻'] },
+        products: [
+          { species: 'Fe³⁺', basis: '少量 Cl₂ 优先氧化还原性更强的 Fe²⁺（+2→+3）' },
+          { species: 'Cl⁻', basis: 'Cl₂ 被还原为 Cl⁻（0→-1）；Br⁻ 还原性较弱，少量 Cl₂ 时不被氧化' },
+        ],
+        coexistence: { ok: true, note: '少量 Cl₂ 时 Fe³⁺ 与未反应的 Br⁻ 可共存（Fe³⁺ 不能氧化 Br⁻）' },
+      },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -342,9 +642,52 @@ const redox: Challenge[] = [
   {
     id: 'R12', category: 'RedoxReaction', difficulty: '难题', title: '电子守恒+氮元素守恒综合',
     problemText: '将 Fe 和 Fe₂O₃ 的混合物加入 250 mL 2 mol/L 的 HNO₃ 溶液中，反应完全后生成 NO 气体 1.12 L（标况）。再向反应后的溶液中加入 1 mol/L 的 NaOH 溶液，使铁元素完全沉淀，所消耗 NaOH 溶液的体积为？',
+    problemConditions: ['Fe 和 Fe₂O₃ 混合物', '250 mL 2 mol/L HNO₃ 溶液', '生成 NO 气体 1.12 L（标况）', '加入 1 mol/L NaOH 使铁完全沉淀'],
+    questionTarget: '用电子守恒与氮元素守恒求消耗 NaOH 溶液的体积',
     options: ['250 mL', '450 mL', '500 mL', '560 mL'],
     answerIndex: 1,
     explanation: 'n(HNO₃)=0.25×2=0.5 mol。生成 NO：n(NO)=1.12/22.4=0.05 mol，即被还原的 HNO₃ 为 0.05 mol。溶液中剩余 NO₃⁻ 的物质的量 = 0.5 - 0.05 = 0.45 mol。当加入 NaOH 使铁完全沉淀后，溶液中的溶质为 NaNO₃，由 Na⁺ 和 NO₃⁻ 守恒得 n(NaOH)=n(NO₃⁻)=0.45 mol。V(NaOH)=0.45/1=0.45 L=450 mL。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { equation: 'Fe、Fe₂O₃ 与 HNO₃ 反应后加 NaOH 使铁完全沉淀', type: '守恒计算', subtype: '计算' },
+      agents: {
+        oxidants: ['HNO₃'], reductants: ['Fe'],
+        oxidizedProducts: ['铁的硝酸盐/氢氧化物沉淀'], reducedProducts: ['NO'],
+      },
+      halfReactions: [
+        { species: 'N（NO₃⁻→NO）', from: 5, to: 2, electrons: 3, role: '还原', reactantFormula: 'HNO₃', productFormula: 'NO' },
+      ],
+      calc: {
+        given: 'HNO₃ 250 mL 2 mol/L（共 0.5 mol），生成 NO 1.12 L（标况）', target: '使铁完全沉淀所消耗 NaOH 溶液的体积',
+        steps: [
+          'n(HNO₃) = 0.25 × 2 = 0.5 mol',
+          'n(NO) = 1.12/22.4 = 0.05 mol，即被还原的 HNO₃ 为 0.05 mol',
+          '溶液中剩余 NO₃⁻：0.5 − 0.05 = 0.45 mol（氮元素守恒）',
+          '铁完全沉淀后溶质为 NaNO₃，故 n(NaOH) = n(NO₃⁻) = 0.45 mol（Na⁺ 守恒）',
+        ],
+        result: 'V(NaOH) = 0.45 / 1 = 0.45 L = 450 mL',
+      },
+      stage1: {
+        particles: [
+          { formula: 'Fe', source: '混合物', abundance: '大量' },
+          { formula: 'Fe₂O₃', source: '混合物', abundance: '大量' },
+          { formula: 'H⁺', source: 'HNO₃ 电离', abundance: '大量' },
+          { formula: 'NO₃⁻', source: 'HNO₃ 电离', abundance: '大量' },
+          { formula: 'Na⁺', source: '后加 NaOH 电离', abundance: '大量' },
+          { formula: 'OH⁻', source: 'NaOH 电离 / 水电离', abundance: '大量' },
+        ],
+        medium: '酸性',
+        mediumRules: [
+          { species: 'NO₃⁻', acid: 'NO', neutral: '一般不表现氧化性', base: '一般不表现氧化性' },
+        ],
+        candidates: { oxidants: ['NO₃⁻'], reductants: ['Fe'] },
+        products: [
+          { species: 'NO', basis: '酸性介质中 NO₃⁻ 被还原为 NO（N +5→+2）' },
+          { species: 'Fe(OH)₃', basis: 'Fe 被氧化，最终加 NaOH 使铁完全沉淀为 Fe(OH)₃' },
+        ],
+        coexistence: { ok: true, note: '铁元素最终以氢氧化物沉淀析出，溶液溶质为 NaNO₃', precipitates: ['Fe(OH)₃'] },
+      },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -367,9 +710,53 @@ const redox: Challenge[] = [
   {
     id: 'R13', category: 'RedoxReaction', difficulty: '压轴', title: '电子转移数计算',
     problemText: '反应 2KMnO₄ + 16HCl(浓) = 2KCl + 2MnCl₂ + 5Cl₂↑ + 8H₂O 中，当生成 71 g Cl₂ 时，转移电子的物质的量为？',
+    problemConditions: ['反应 2KMnO₄ + 16HCl(浓) = 2KCl + 2MnCl₂ + 5Cl₂↑ + 8H₂O', '生成 71 g Cl₂'],
+    questionTarget: '求生成 71 g Cl₂ 时转移电子的物质的量',
     options: ['1 mol', '2 mol', '5 mol', '10 mol'],
     answerIndex: 1,
     explanation: 'n(Cl₂)=71/71=1 mol。反应中 Cl 从 -1（HCl 中）升到 0（Cl₂ 中），每个 Cl 原子失 1e⁻，每生成 1 mol Cl₂ 有 2 mol Cl 原子被氧化，失 2 mol e⁻。由方程式，生成 5 mol Cl₂ 转移 10 mol e⁻，则生成 1 mol Cl₂ 转移 2 mol e⁻。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { equation: '2KMnO₄ + 16HCl(浓) = 2KCl + 2MnCl₂ + 5Cl₂↑ + 8H₂O', type: '氧化还原', subtype: '计算' },
+      agents: {
+        oxidants: ['KMnO₄'], reductants: ['HCl'],
+        oxidizedProducts: ['Cl₂'], reducedProducts: ['MnCl₂'],
+      },
+      halfReactions: [
+        { species: 'Cl', from: -1, to: 0, electrons: 10, role: '氧化', reactantFormula: 'HCl', productFormula: 'Cl₂', atomCount: 10 },
+        { species: 'Mn', from: 7, to: 2, electrons: 10, role: '还原', reactantFormula: 'KMnO₄', productFormula: 'MnCl₂', atomCount: 2 },
+      ],
+      balance: { oxidizedCount: 10, reducedCount: 10, lcm: 10, ratio: '2:5',
+        coefficients: [{ formula: 'KMnO₄', value: 2 }, { formula: 'HCl', value: 16 }, { formula: 'KCl', value: 2 }, { formula: 'MnCl₂', value: 2 }, { formula: 'Cl₂', value: 5 }, { formula: 'H₂O', value: 8 }] },
+      calc: {
+        given: '生成 71 g Cl₂', target: '转移电子的物质的量',
+        steps: [
+          'n(Cl₂) = 71/71 = 1 mol',
+          'Cl 从 -1→0，每个 Cl 失 1e⁻，每生成 1 mol Cl₂ 有 2 mol Cl 被氧化，失 2 mol e⁻',
+          '由方程式生成 5 mol Cl₂ 转移 10 mol e⁻，故生成 1 mol Cl₂ 转移 2 mol e⁻',
+        ],
+        result: '转移电子 2 mol',
+      },
+      stage1: {
+        particles: [
+          { formula: 'K⁺', source: 'KMnO₄ 电离', abundance: '大量' },
+          { formula: 'MnO₄⁻', source: 'KMnO₄ 电离', abundance: '大量' },
+          { formula: 'H⁺', source: 'HCl 电离', abundance: '大量' },
+          { formula: 'Cl⁻', source: 'HCl 电离', abundance: '大量' },
+          { formula: 'OH⁻', source: '水的微弱电离', abundance: '微量' },
+        ],
+        medium: '酸性',
+        mediumRules: [
+          { species: 'MnO₄⁻', acid: 'Mn²⁺', neutral: 'MnO₂', base: 'MnO₄²⁻' },
+        ],
+        candidates: { oxidants: ['MnO₄⁻'], reductants: ['Cl⁻'] },
+        products: [
+          { species: 'Mn²⁺', basis: '酸性介质中 MnO₄⁻ 被还原为 Mn²⁺（Mn +7→+2，得 5e⁻）' },
+          { species: 'Cl₂', basis: 'Cl⁻ 被氧化为 Cl₂（Cl -1→0，失 1e⁻）' },
+        ],
+        coexistence: { ok: true, note: '生成 Cl₂ 气体逸出，Mn²⁺、K⁺ 在酸性溶液中可共存' },
+      },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -392,9 +779,24 @@ const redox: Challenge[] = [
   {
     id: 'R14', category: 'RedoxReaction', difficulty: '基础', title: '氧化剂还原剂判断',
     problemText: '下列粒子中，只能作还原剂的是？',
+    problemConditions: ['Cl₂', 'Fe²⁺', 'I⁻', 'SO₂'],
+    questionTarget: '判断下列粒子中只能作还原剂的是',
     options: ['Cl₂', 'Fe²⁺', 'I⁻', 'SO₂'],
     answerIndex: 2,
     explanation: '粒子中元素处于最低价态时，化合价只能升高（失电子），只能作还原剂。I⁻ 中 I 为 -1 价（碘的最低价），只能失电子被氧化，只能作还原剂。Cl₂（Cl 为 0 价，中间价态）、Fe²⁺（中间价态）、SO₂（S 为 +4，中间价态）均既可作氧化剂又可作还原剂。',
+    solveData: {
+      kind: 'redox-electron',
+      reaction: { subtype: '概念判断' },
+      valenceRule: {
+        items: [
+          { species: 'Cl₂', element: 'Cl', valence: 0, position: '中间' },
+          { species: 'Fe²⁺', element: 'Fe', valence: 2, position: '中间' },
+          { species: 'I⁻', element: 'I', valence: -1, position: '最低' },
+          { species: 'SO₂', element: 'S', valence: 4, position: '中间' },
+        ],
+      },
+      halfReactions: [],
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

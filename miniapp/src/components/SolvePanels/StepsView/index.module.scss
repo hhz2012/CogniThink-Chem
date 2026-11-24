@@ -6,6 +6,15 @@
   gap: 12rpx;
 }
 
+.stageHead {
+  margin: 8rpx 0 2rpx;
+  padding-left: 12rpx;
+  border-left: 6rpx solid;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 1rpx;
+}
+
 .step {
   display: flex;
   align-items: flex-start;

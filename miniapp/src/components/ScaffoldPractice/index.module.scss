@@ -1,0 +1,439 @@
+@use '@/styles/variables.scss' as *;
+
+$accent: #2ea7c4;
+$pass: #2bb673;
+$fail: #e05555;
+$locked: #b8bfc6;
+$ink: #1f2933;
+$ink-2: #52606d;
+$bg: #f5f8fa;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  background: #ffffff;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+.title {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $ink;
+}
+.sub {
+  font-size: $font-size-xs;
+  color: $ink-2;
+}
+
+.practiceTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $spacing-xs;
+}
+.tab {
+  padding: 8rpx 18rpx;
+  border-radius: $radius-round;
+  background: $bg;
+  font-size: $font-size-xs;
+  color: $ink-2;
+}
+.tabActive {
+  background: $accent;
+  color: #fff;
+}
+
+.practiceTitle {
+  display: flex;
+  align-items: baseline;
+  gap: $spacing-xs;
+  margin-top: 4rpx;
+}
+.practiceTitleText {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $ink;
+}
+.practiceModule {
+  font-size: $font-size-xs;
+  color: $accent;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  background: #fbfcfd;
+  border: 2rpx solid #eef2f5;
+}
+.stepActive {
+  border-color: $accent;
+  background: #f0fafd;
+}
+.stepLocked {
+  opacity: 0.55;
+}
+.stepPassed {
+  border-color: rgba($pass, 0.45);
+  background: rgba($pass, 0.06);
+}
+.stepFailed {
+  border-color: rgba($fail, 0.45);
+  background: rgba($fail, 0.05);
+}
+
+.stepHead {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+}
+.badge {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $accent;
+  color: #fff;
+  flex-shrink: 0;
+}
+.badgeText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  color: #fff;
+}
+.badgePassed { background: $pass; }
+.badgeFailed { background: $fail; }
+.badgeLocked { background: $locked; }
+.badgeActive { background: $accent; }
+
+.stepMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 2rpx;
+}
+.stepTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $ink;
+}
+.stepState {
+  font-size: $font-size-xs;
+  color: $ink-2;
+}
+
+.stepGoal {
+  font-size: $font-size-sm;
+  color: $ink-2;
+  line-height: $line-height-normal;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+.option {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  padding: 16rpx 18rpx;
+  border-radius: $radius-sm;
+  background: #fff;
+  border: 2rpx solid #e4e9ed;
+}
+.optionCheck {
+  // 勾选行
+}
+.optionOn {
+  border-color: $accent;
+  background: rgba($accent, 0.08);
+}
+.optionDisabled {
+  opacity: 0.85;
+}
+.optionBox {
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 6rpx;
+  border: 2rpx solid #c5cdd4;
+  text-align: center;
+  line-height: 32rpx;
+  font-size: $font-size-sm;
+  color: $accent;
+  flex-shrink: 0;
+}
+.optionOn .optionBox {
+  background: $accent;
+  border-color: $accent;
+  color: #fff;
+}
+.optionRadio {
+  width: 36rpx;
+  height: 36rpx;
+  text-align: center;
+  line-height: 36rpx;
+  font-size: $font-size-sm;
+  color: $accent;
+  flex-shrink: 0;
+}
+.optionLabel {
+  font-size: $font-size-sm;
+  color: $ink;
+  line-height: $line-height-normal;
+}
+
+.optionOrder {
+  justify-content: flex-start;
+}
+.orderRank {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background: $accent;
+  color: #fff;
+  text-align: center;
+  line-height: 40rpx;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+}
+.orderBtns {
+  margin-left: auto;
+  display: flex;
+  gap: $spacing-xs;
+}
+.orderBtn {
+  width: 48rpx;
+  height: 48rpx;
+  text-align: center;
+  line-height: 48rpx;
+  border-radius: $radius-xs;
+  background: $bg;
+  color: $accent;
+  font-size: $font-size-xs;
+}
+.orderBtnOff {
+  color: #c5cdd4;
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  padding: $spacing-sm;
+  border-radius: $radius-sm;
+}
+.feedbackPass {
+  background: rgba($pass, 0.1);
+}
+.feedbackFail {
+  background: rgba($fail, 0.08);
+}
+.feedbackText {
+  font-size: $font-size-sm;
+  color: $ink;
+  line-height: $line-height-normal;
+}
+.hintText {
+  font-size: $font-size-xs;
+  color: $fail;
+  line-height: $line-height-normal;
+}
+.expectedText {
+  font-size: $font-size-xs;
+  color: $pass;
+}
+
+// ===== 错误触发的阶梯释放（Task 9）：三档内容 + 每档可关闭 =====
+.releases {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  margin-top: 6rpx;
+}
+.releaseBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding: 14rpx;
+  border-radius: $radius-sm;
+  background: #fff;
+  border: 2rpx solid #e4e9ed;
+}
+.releaseHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.releaseTag {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $accent;
+}
+.releaseClose {
+  font-size: $font-size-xs;
+  color: $ink-2;
+  padding: 4rpx 14rpx;
+  border-radius: $radius-round;
+  background: $bg;
+  border: 2rpx solid #e4e9ed;
+}
+.releaseHint {
+  font-size: $font-size-xs;
+  color: $fail;
+  line-height: $line-height-normal;
+}
+.probe {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  padding: 10rpx 12rpx;
+  border-radius: $radius-xs;
+  background: rgba($accent, 0.06);
+}
+.probeStem {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $ink;
+  line-height: $line-height-normal;
+}
+.probeOpt {
+  font-size: $font-size-xs;
+  color: $ink-2;
+  line-height: $line-height-normal;
+}
+.contrast {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.contrastCol {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  padding: 10rpx 12rpx;
+  border-radius: $radius-xs;
+}
+.contrastCorrect {
+  background: rgba($pass, 0.08);
+  border: 2rpx solid rgba($pass, 0.3);
+}
+.contrastWrong {
+  background: rgba($fail, 0.06);
+  border: 2rpx solid rgba($fail, 0.25);
+}
+.contrastTitle {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $ink;
+}
+.contrastDetail {
+  font-size: $font-size-xs;
+  color: $ink-2;
+  line-height: $line-height-normal;
+}
+.drawer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10rpx 12rpx;
+  border-radius: $radius-xs;
+  background: rgba($accent, 0.06);
+}
+.drawerTitle {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $ink;
+}
+.drawerCaret {
+  font-size: $font-size-xs;
+  color: $accent;
+}
+.drawerBody {
+  font-size: $font-size-xs;
+  color: $ink-2;
+  line-height: $line-height-normal;
+  padding: 10rpx 12rpx;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+}
+.submitBtn {
+  padding: 14rpx 36rpx;
+  border-radius: $radius-button;
+  background: $accent;
+}
+.submitText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: #fff;
+}
+
+.complete {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding: $spacing-md;
+  border-radius: $radius-md;
+  background: rgba($pass, 0.08);
+  border: 2rpx solid rgba($pass, 0.35);
+}
+.completeTitle {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $pass;
+}
+.completeText {
+  font-size: $font-size-sm;
+  color: $ink;
+  line-height: $line-height-normal;
+}
+.completeBranch {
+  font-size: $font-size-xs;
+  color: $ink-2;
+  line-height: $line-height-normal;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-top: $spacing-xs;
+}
+.resetBtn {
+  padding: 12rpx 32rpx;
+  border-radius: $radius-button;
+  border: 2rpx solid #d6dde2;
+  background: #fff;
+}
+.resetText {
+  font-size: $font-size-xs;
+  color: $ink-2;
+}
+
+/* 思路递进图卡片（A–F 推理链进度） */
+.dagCard {
+  padding: 20rpx;
+  background: #fff;
+  border: 1rpx solid rgba(46, 167, 196, 0.25);
+  border-radius: $radius-md;
+}
+.dagCardTitle {
+  display: block;
+  margin-bottom: 12rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $ink;
+}

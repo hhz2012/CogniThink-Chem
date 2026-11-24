@@ -1,4 +1,4 @@
-import { Chapter, Challenge } from '../types/chem'
+import { Chapter, Challenge, ChemCategory } from '../types/chem'
 import redox from './challenges/redox'
 import ionicEq from './challenges/ionic'
 import chemEq from './challenges/equilibrium'
@@ -43,4 +43,9 @@ export const allChallenges: Challenge[] = chapters.flatMap((c) => c.challenges)
 
 export function getChallengeById(id: string): Challenge | undefined {
   return allChallenges.find((c) => c.id === id)
+}
+
+/** 按题型 category 取该专项全部题目（供首页卡片抽题入口使用） */
+export function getChallengesByCategory(category: ChemCategory): Challenge[] {
+  return allChallenges.filter((c) => c.category === category)
 }

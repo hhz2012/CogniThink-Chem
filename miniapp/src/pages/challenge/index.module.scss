@@ -10,6 +10,294 @@
   padding: 24rpx 32rpx 0;
 }
 
+/* ============ 返回首页 ============ */
+.homeBar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.homeBack {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 12rpx 22rpx;
+  background: $color-bg-card;
+  border: 2rpx solid $color-border;
+  border-radius: $radius-button;
+  box-shadow: $shadow-card;
+  transition: all $transition-fast;
+
+  &:active {
+    opacity: 0.85;
+    transform: scale(0.97);
+  }
+}
+
+.homeBackText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+/* ============ section 大标题 ============ */
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  margin: 28rpx 4rpx 16rpx;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 8rpx;
+    height: 32rpx;
+    background: $color-primary;
+    border-radius: $radius-round;
+  }
+}
+
+/* ============ 朗读按钮 ============ */
+.readAloud {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
+  padding: 8rpx 16rpx;
+  background: $color-primary-soft;
+  border-radius: $radius-round;
+  flex-shrink: 0;
+  transition: all $transition-fast;
+
+  &:active {
+    opacity: 0.8;
+    transform: scale(0.96);
+  }
+}
+
+.readAloudActive {
+  background: $color-primary;
+
+  .readAloudText {
+    color: #fff;
+  }
+}
+
+.readAloudIcon {
+  line-height: 1;
+}
+
+.readAloudText {
+  font-size: 22rpx;
+  color: $color-primary-dark;
+  font-weight: $font-weight-medium;
+}
+
+/* ============ 题型讲解：每步可折叠 section ============ */
+.sectionLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  margin: 24rpx 0 12rpx;
+}
+
+.stepSections {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+  margin-bottom: 20rpx;
+}
+
+.stepStageHead {
+  display: flex;
+  align-items: center;
+  margin: 8rpx 2rpx 0;
+  padding: 12rpx 20rpx;
+  border-left: 6rpx solid $color-primary;
+  border-radius: $radius-md;
+  background: $color-primary-soft;
+  font-size: 26rpx;
+  font-weight: 600;
+  letter-spacing: 1rpx;
+}
+
+.stepSection {
+  background: #fff;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  overflow: hidden;
+}
+
+.stepSectionHead {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  padding: 20rpx 22rpx;
+  border-left: 6rpx solid transparent;
+  transition: all $transition-fast;
+}
+
+.stepSectionHeadOpen {
+  border-left-color: $color-primary;
+  background: $color-primary-soft;
+}
+
+.stepSectionIndex {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: $radius-round;
+  background: $color-bg-page;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stepSectionHeadOpen .stepSectionIndex {
+  background: $color-primary;
+  color: #fff;
+}
+
+.stepSectionMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.stepSectionTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  line-height: 1.4;
+}
+
+.stepSectionLayer {
+  font-size: 18rpx;
+  color: $color-text-tertiary;
+}
+
+.stepSectionChev {
+  font-size: 24rpx;
+  color: $color-text-tertiary;
+  flex-shrink: 0;
+  transition: transform $transition-fast;
+  transform: rotate(0deg);
+}
+
+.stepSectionChevOpen {
+  transform: rotate(90deg);
+}
+
+.stepSectionBody {
+  padding: 8rpx 22rpx 22rpx;
+  border-top: 2rpx solid $color-border;
+  animation: ctFadeInUp 0.25s ease;
+}
+
+.stepSectionBodyHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  margin-bottom: 4rpx;
+}
+
+.stepSectionBodyTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 10rpx;
+  min-width: 0;
+}
+
+.stepSectionNo {
+  font-size: $font-size-xs;
+  color: $color-primary-dark;
+  font-weight: $font-weight-bold;
+  flex-shrink: 0;
+}
+
+.stepSectionName {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+/* 思考过程启发：未揭示时的提示卡片（先想再看） */
+.hintPrompt {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding: 20rpx 22rpx;
+  background: $color-primary-soft;
+  border: 2rpx dashed $color-primary;
+  border-radius: $radius-md;
+}
+
+.hintPromptText {
+  flex: 1;
+  min-width: 0;
+  font-size: $font-size-sm;
+  color: $color-primary-dark;
+  line-height: 1.5;
+}
+
+.hintBtn {
+  flex-shrink: 0;
+  padding: 10rpx 28rpx;
+  background: $color-primary;
+  border-radius: $radius-round;
+  transition: opacity $transition-fast;
+}
+
+.hintBtn:active {
+  opacity: 0.8;
+}
+
+.hintBtnText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: #fff;
+}
+
+.analyzeBlock {
+  margin-top: 18rpx;
+}
+
+.analyzeLabelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+.analyzeLabel {
+  display: inline-block;
+  font-size: 22rpx;
+  font-weight: $font-weight-semibold;
+  color: $color-primary-dark;
+  background: $color-primary-soft;
+  padding: 4rpx 14rpx;
+  border-radius: $radius-round;
+  margin-bottom: 10rpx;
+}
+
+.analyzeText {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.75;
+}
+
 /* ============ 顶部信息栏 ============ */
 .metaBar {
   display: flex;
@@ -54,42 +342,6 @@
   font-size: $font-size-xs;
   color: $color-text-secondary;
   margin-top: 2rpx;
-}
-
-/* ============ 难度导航（更简单 / 更难） ============ */
-.diffNav {
-  display: flex;
-  gap: 16rpx;
-  margin-bottom: 20rpx;
-}
-
-.diffNavBtn {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8rpx;
-  padding: 14rpx 0;
-  background: $color-bg-card;
-  border: 2rpx solid $color-border;
-  border-radius: $radius-button;
-  box-shadow: $shadow-card;
-}
-
-.diffNavDisabled {
-  opacity: 0.35;
-}
-
-.diffNavArrow {
-  font-size: $font-size-sm;
-  color: $color-primary;
-  font-weight: $font-weight-bold;
-}
-
-.diffNavText {
-  font-size: $font-size-sm;
-  color: $color-text-primary;
-  font-weight: $font-weight-medium;
 }
 
 /* ============ 知识体系入口 ============ */
@@ -209,11 +461,13 @@
 .option.correct {
   border-color: $color-success;
   background: #dcfce7;
+  animation: ctPop 0.45s ease;
 }
 
 .option.wrongOpt {
   border-color: $color-error;
   background: #fee2e2;
+  animation: ctShake 0.45s ease;
 }
 
 .optionCircle {
@@ -372,278 +626,6 @@
   color: $color-primary-dark;
 }
 
-/* ============ 伴思引导 - 对话式 ============ */
-.guideSection {
-  margin-top: 28rpx;
-}
-
-.guideHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 14rpx;
-}
-
-.guideTitle {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  color: $color-text-primary;
-}
-
-.guideSub {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-}
-
-.chatBox {
-  background: #fff;
-  border-radius: $radius-lg;
-  padding: 20rpx;
-  box-shadow: $shadow-card;
-}
-
-/* 空状态 */
-.chatEmpty {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40rpx 20rpx;
-  background: linear-gradient(135deg, #EAF6FA, #fff);
-  border: 2rpx dashed #B6E6F2;
-  border-radius: $radius-md;
-}
-
-.chatEmptyIcon {
-  font-size: 56rpx;
-}
-
-.chatEmptyTitle {
-  margin-top: 12rpx;
-  font-size: $font-size-md;
-  font-weight: $font-weight-semibold;
-  color: $color-primary-dark;
-}
-
-.chatEmptySub {
-  margin-top: 6rpx;
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
-}
-
-/* 消息列表 */
-.chatList {
-  display: flex;
-  flex-direction: column;
-  gap: 16rpx;
-}
-
-.msg {
-  display: flex;
-  gap: 12rpx;
-  align-items: flex-start;
-}
-
-.tutor { justify-content: flex-start; }
-.student { justify-content: flex-end; }
-
-.avatar {
-  width: 56rpx;
-  height: 56rpx;
-  border-radius: 50%;
-  background: #f1f5f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28rpx;
-  flex-shrink: 0;
-}
-
-.bubbleWrap {
-  max-width: 78%;
-  display: flex;
-  flex-direction: column;
-  gap: 6rpx;
-}
-
-.student .bubbleWrap { align-items: flex-end; }
-
-.bubble {
-  padding: 14rpx 18rpx;
-  border-radius: 20rpx;
-  font-size: $font-size-sm;
-  line-height: 1.65;
-  word-break: break-all;
-}
-
-.tutorBubble {
-  background: #f8fafc;
-  color: $color-text-primary;
-  border-top-left-radius: 6rpx;
-}
-
-.studentBubble {
-  background: $color-primary;
-  color: #fff;
-  border-top-right-radius: 6rpx;
-}
-
-/* 气泡类型微调 */
-.bk-intro { background: #fff7ed; color: #9a3412; font-weight: $font-weight-semibold; }
-.bk-summary { background: #ecfdf5; color: #065f46; font-weight: $font-weight-semibold; }
-.bk-hint { background: #fefce8; color: #854d0e; }
-.bk-action { background: $color-primary; color: #fff; }
-
-.introText { font-size: $font-size-sm; font-weight: $font-weight-semibold; }
-.questionText { white-space: pre-wrap; }
-.hintText { white-space: pre-wrap; }
-.summaryText { white-space: pre-wrap; }
-.actionText { font-size: $font-size-xs; }
-
-/* 层级标签（知识点/知识运用/能力） */
-.layerTag {
-  align-self: flex-start;
-  padding: 2rpx 12rpx;
-  border-radius: $radius-round;
-  font-size: 18rpx;
-  font-weight: $font-weight-semibold;
-}
-
-.lt-knowledge { background: #fef3c7; color: #92400e; }
-.lt-application { background: #dbeafe; color: #1e40af; }
-.lt-ability { background: #ede9fe; color: #6d28d9; }
-
-/* 知识卡片 */
-.knowledgeCard {
-  margin-top: 12rpx;
-  background: linear-gradient(135deg, #fffbeb, #fff);
-  border: 1px solid #fde68a;
-  border-radius: $radius-sm;
-  padding: 12rpx 14rpx;
-}
-
-.kcardHead {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10rpx;
-}
-
-.kcardName {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-bold;
-  color: #92400e;
-}
-
-.kcardRef {
-  font-size: 18rpx;
-  color: #b45309;
-  background: #fef3c7;
-  padding: 2rpx 10rpx;
-  border-radius: $radius-xs;
-  flex-shrink: 0;
-}
-
-.kcardSummary {
-  display: block;
-  margin-top: 6rpx;
-  font-size: $font-size-xs;
-  color: #78350f;
-  line-height: 1.6;
-}
-
-/* 操作按钮 */
-.chatActions {
-  display: flex;
-  gap: 12rpx;
-  margin-top: 20rpx;
-  padding-top: 18rpx;
-  border-top: 1px solid $color-divider;
-}
-
-.hintBtn {
-  flex: 1;
-  padding: 16rpx;
-  text-align: center;
-  border: 2rpx dashed #d1d5db;
-  background: #f8fafc;
-  color: $color-text-secondary;
-  border-radius: $radius-md;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-}
-
-.hintBtn:active {
-  border-color: $color-primary;
-  color: $color-primary;
-  background: $color-primary-soft;
-}
-
-.nextBtn {
-  flex: 1.2;
-  padding: 16rpx;
-  text-align: center;
-  background: linear-gradient(135deg, $color-primary-light, $color-primary);
-  color: #fff;
-  border-radius: $radius-md;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  box-shadow: 0 4rpx 12rpx rgba(15, 118, 110, 0.25);
-}
-
-.nextBtn:active { transform: scale(0.97); opacity: 0.9; }
-
-/* 引导完成后的路径回顾 */
-.pathRecap {
-  margin-top: 22rpx;
-  padding: 18rpx;
-  background: #fff7ed;
-  border: 2rpx solid #fed7aa;
-  border-radius: $radius-md;
-}
-
-.pathRecapTitle {
-  font-size: $font-size-md;
-  font-weight: $font-weight-bold;
-  color: #9a3412;
-}
-
-.pathItem {
-  display: flex;
-  gap: 12rpx;
-  margin-top: 14rpx;
-  align-items: flex-start;
-}
-
-.pathItemNum {
-  width: 36rpx;
-  height: 36rpx;
-  border-radius: $radius-round;
-  background: #fb923c;
-  color: #fff;
-  font-size: $font-size-xs;
-  font-weight: $font-weight-bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.pathItemBody { flex: 1; }
-
-.pathItemTitle {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
-}
-
-.pathItemHint {
-  display: block;
-  margin-top: 4rpx;
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
-  line-height: 1.6;
-}
-
 /* 引擎复盘探问 */
 .reviewBox {
   margin-top: 20rpx;
@@ -709,6 +691,7 @@
 .diagMsg {
   display: flex;
   justify-content: flex-start;
+  animation: ctFadeInUp 0.3s ease both;
 }
 
 .diagStudent { justify-content: flex-end; }
@@ -775,43 +758,6 @@
 
 .bottomPad { height: 60rpx; }
 
-/* ============ 题型解题模型面板 ============ */
-.modelBox {
-  margin-top: 16rpx;
-  background: #fff;
-  border: 2rpx solid $color-divider;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-card;
-  overflow: hidden;
-}
-
-.modelBoxHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18rpx 22rpx;
-}
-
-.modelBoxTitle {
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
-  font-size: $font-size-md;
-  font-weight: $font-weight-bold;
-  color: $color-text-primary;
-}
-
-.modelBoxToggle {
-  font-size: $font-size-xs;
-  color: $color-primary;
-}
-
-.modelBoxBody {
-  padding: 0 22rpx 22rpx;
-  border-top: 1rpx solid $color-divider;
-  padding-top: 18rpx;
-}
-
 /* 答题后完整解题模型 */
 .solveModelFull {
   margin-top: 20rpx;
@@ -840,4 +786,182 @@
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   color: $color-primary-dark;
+}
+
+/* ============ 动效与朗读高亮 ============ */
+@keyframes ctFadeInUp {
+  from { opacity: 0; transform: translateY(12rpx); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ctPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.05); }
+  70% { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+
+@keyframes ctShake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8rpx); }
+  40% { transform: translateX(8rpx); }
+  60% { transform: translateX(-5rpx); }
+  80% { transform: translateX(5rpx); }
+}
+
+/* 朗读同步高亮：当前句加柔和荧光底 */
+.hlOn {
+  background: rgba(250, 204, 21, 0.32);
+  border-radius: 6rpx;
+  transition: background 0.2s ease;
+}
+
+/* 尊重系统「减少动态效果」设置：关闭装饰性动画 */
+@media (prefers-reduced-motion: reduce) {
+  .stepSectionBody,
+  .diagMsg,
+  .option.correct,
+  .option.wrongOpt {
+    animation: none !important;
+  }
+}
+
+/* ============ 求解思路精简：S1 读题定向（问题目标 + 条件清单） ============ */
+.targetRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8rpx;
+  margin-top: 18rpx;
+  padding-top: 16rpx;
+  border-top: 1rpx solid #eef2f7;
+}
+.targetLabel {
+  font-size: $font-size-sm;
+  color: $color-primary;
+  font-weight: $font-weight-semibold;
+  flex-shrink: 0;
+}
+.targetText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: 1.6;
+  flex: 1;
+}
+.condBox {
+  margin-top: 14rpx;
+  padding: 14rpx 16rpx;
+  background: #f0f9ff;
+  border-radius: $radius-md;
+  border-left: 4rpx solid $color-primary;
+}
+.condTitle {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-primary;
+  margin-bottom: 8rpx;
+}
+.condItem {
+  display: block;
+  font-size: $font-size-sm;
+  color: $color-text-secondary;
+  line-height: 1.7;
+}
+
+/* ============ 图标统一：行内图标 + 文字 ============ */
+.kpTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+}
+.resultTitleRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+}
+.reviewTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 16rpx;
+}
+.conservationHeadLeft {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+.diagRetryInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+.hintPromptInner {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+/* ============ 阶段二配平：选做折叠按钮 ============ */
+.stage2Toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  margin-top: 8rpx;
+  padding: 18rpx;
+  background: rgba(46, 167, 196, 0.06);
+  border: 1rpx dashed rgba(46, 167, 196, 0.5);
+  border-radius: $radius-md;
+}
+.stage2ToggleText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+.stage2Arrow {
+  font-size: $font-size-sm;
+}
+
+/* ============ 思路递进图 ============ */
+.dagPreviewToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  margin-top: 8rpx;
+  margin-bottom: 8rpx;
+  padding: 18rpx;
+  background: rgba(46, 167, 196, 0.06);
+  border: 1rpx dashed rgba(46, 167, 196, 0.5);
+  border-radius: $radius-md;
+}
+.dagPreviewToggleText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+.dagPreviewBody {
+  margin-top: 4rpx;
+  margin-bottom: 12rpx;
+  padding: 16rpx;
+  background: #fff;
+  border: 1rpx solid $color-divider;
+  border-radius: $radius-md;
+}
+.dagFull {
+  margin-bottom: 16rpx;
+  padding: 16rpx;
+  background: #fff;
+  border: 1rpx solid rgba(46, 167, 196, 0.25);
+  border-radius: $radius-md;
+}
+/* 诊断标题：图标 + 文字（替代原 emoji） */
+.diagTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 12rpx;
+  .diagTitle { margin-bottom: 0; }
 }

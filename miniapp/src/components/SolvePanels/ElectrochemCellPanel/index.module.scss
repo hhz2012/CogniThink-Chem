@@ -1,0 +1,284 @@
+@use '@/styles/variables.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+}
+
+/* ① 装置判别卡 */
+.deviceCard {
+  border: 1rpx solid;
+  border-radius: $radius-md;
+  padding: 16rpx;
+  background: $color-bg-card;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.deviceTop {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.deviceTitle {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  flex: 1;
+}
+
+.badge {
+  font-size: 20rpx;
+  font-weight: $font-weight-semibold;
+  padding: 3rpx 14rpx;
+  border-radius: 999rpx;
+  border: 1rpx solid;
+}
+
+.infoRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+}
+
+.infoLabel {
+  flex-shrink: 0;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  width: 110rpx;
+}
+
+.infoVal {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+}
+
+.electrodeRow {
+  display: flex;
+  gap: 12rpx;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1rpx solid;
+  border-radius: $radius-md;
+  padding: 6rpx 16rpx;
+}
+
+.chipText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+}
+
+/* 共用：小节标题 */
+.sectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+/* ② 电极反应表 */
+.table {
+  border: 1rpx solid $color-divider;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  padding: 14rpx 12rpx;
+  border-bottom: 1rpx solid $color-divider;
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.head {
+  background: $color-bg-hover;
+  font-weight: $font-weight-semibold;
+}
+
+.col {
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+}
+
+.head .col {
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+}
+
+.colElec {
+  flex: 0 0 92rpx;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.colEq {
+  flex: 1;
+  text-align: left;
+  padding: 0 10rpx;
+}
+
+.colRole {
+  flex: 0 0 72rpx;
+  font-weight: $font-weight-semibold;
+}
+
+.totalRow {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 14rpx 12rpx;
+  background: $color-bg-hover;
+  border-top: 1rpx dashed $color-divider;
+}
+
+.totalLabel {
+  flex-shrink: 0;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-text-tertiary;
+}
+
+.totalEq {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+}
+
+/* ③ 现象与结论 */
+.phenomena {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.phenomItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10rpx;
+}
+
+.phenomDot {
+  flex-shrink: 0;
+  width: 10rpx;
+  height: 10rpx;
+  border-radius: 50%;
+  margin-top: 10rpx;
+}
+
+.phenomText {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+}
+
+.conclusion {
+  border: 1rpx solid;
+  border-radius: $radius-md;
+  padding: 14rpx 16rpx;
+}
+
+.conclusionText {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+}
+
+/* ④ 计算过程 */
+.calcBox {
+  border: 1rpx solid $color-divider;
+  border-radius: $radius-md;
+  padding: 14rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  background: $color-bg-card;
+}
+
+.calcRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+}
+
+.calcLabel {
+  flex-shrink: 0;
+  width: 70rpx;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-text-tertiary;
+}
+
+.calcVal {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+}
+
+.calcStep {
+  display: flex;
+  align-items: flex-start;
+  gap: 12rpx;
+}
+
+.stepIdx {
+  flex-shrink: 0;
+  width: 32rpx;
+  height: 32rpx;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 20rpx;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  line-height: 32rpx;
+}
+
+.stepText {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+  padding-top: 4rpx;
+}
+
+.calcResult {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  border: 1rpx solid;
+  border-radius: $radius-md;
+  padding: 12rpx 14rpx;
+  margin-top: 4rpx;
+}
+
+.resultLabel {
+  flex-shrink: 0;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-text-tertiary;
+}
+
+.resultVal {
+  flex: 1;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+}

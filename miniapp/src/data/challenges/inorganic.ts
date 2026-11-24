@@ -5,9 +5,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N1', category: 'InorganicInference', difficulty: '基础', title: '物质性质与用途',
     problemText: '下列物质的性质与用途对应关系正确的是？',
+    problemConditions: ['SiO₂ 硬度大，用于光导纤维', 'NaHCO₃ 受热易分解，用于治疗胃酸过多', 'Al₂O₃ 熔点高，用于耐火材料', 'FeCl₃ 溶液呈黄色，用于蚀刻铜电路板'],
+    questionTarget: '判断物质性质与用途的对应关系是否正确',
     options: ['SiO₂ 硬度大，用于制造光导纤维', 'NaHCO₃ 受热易分解，用于治疗胃酸过多', 'Al₂O₃ 熔点高，用于制造耐火材料', 'FeCl₃ 溶液呈黄色，用于蚀刻铜电路板'],
     answerIndex: 2,
     explanation: 'A SiO₂ 用于光导纤维是因为其对光的全反射特性，不是硬度；B NaHCO₃ 治疗胃酸过多是因为能与盐酸反应，不是受热分解；C Al₂O₃ 熔点高（2050℃），用于耐火材料，正确；D FeCl₃ 蚀刻铜是因为 Fe³⁺ 氧化性，不是颜色。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '性质与用途',
+      breakthrough: { clue: '性质决定用途，需判断每个选项的因果关系是否真正成立', conclusion: '只有 C 的性质→用途因果对应成立' },
+      reasoning: {
+        steps: ['A：光导纤维利用 SiO₂ 对光的全反射特性，不是硬度', 'B：NaHCO₃ 治疗胃酸过多是因为能与盐酸反应，不是受热分解', 'C：Al₂O₃ 熔点高（2050℃）→ 制造耐火材料，因果成立', 'D：FeCl₃ 蚀刻铜是因为 Fe³⁺ 的氧化性，不是颜色'],
+        conclusion: '正确选项为 C',
+      },
+      verification: { basis: '逐项核对性质→用途的因果链', result: 'C 成立，A/B/D 因果均不成立' },
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -30,9 +42,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N2', category: 'InorganicInference', difficulty: '进阶', title: '离子检验与鉴别',
     problemText: '某溶液中可能含有 SO₄²⁻、CO₃²⁻、Cl⁻。为检验其中是否含有 SO₄²⁻，下列操作正确的是？',
+    problemConditions: ['溶液可能含 SO₄²⁻、CO₃²⁻、Cl⁻', '检验是否含 SO₄²⁻'],
+    questionTarget: '判断检验 SO₄²⁻ 的正确操作',
     options: ['先加 BaCl₂ 溶液，再加稀硝酸', '先加稀盐酸酸化，再加 BaCl₂ 溶液', '先加 Ba(NO₃)₂ 溶液，再加稀盐酸', '直接加 AgNO₃ 溶液'],
     answerIndex: 1,
     explanation: '检验 SO₄²⁻ 需排除 CO₃²⁻、SO₃²⁻、Ag⁺ 干扰。先加稀盐酸酸化（排除 CO₃²⁻、SO₃²⁻、Ag⁺），再加 BaCl₂ 溶液，若产生白色沉淀则含 SO₄²⁻。不能用硝酸酸化（会把 SO₃²⁻ 氧化为 SO₄²⁻）。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '离子检验',
+      breakthrough: { clue: '检验 SO₄²⁻ 必须先排除 CO₃²⁻、SO₃²⁻、Ag⁺ 的干扰', conclusion: '应先加稀盐酸酸化，再加 BaCl₂ 溶液' },
+      reasoning: {
+        steps: ['稀盐酸酸化可排除 CO₃²⁻、SO₃²⁻（产气）和 Ag⁺（沉淀）', '不能用硝酸酸化，否则会把 SO₃²⁻ 氧化为 SO₄²⁻ 造成误判', '加 BaCl₂ 产生不溶于酸的白色沉淀则含 SO₄²⁻'],
+        conclusion: '正确操作为 B',
+      },
+      verification: { basis: '盐酸酸化后无沉淀（无 Ag⁺）、无气体（无 CO₃²⁻/SO₃²⁻），再加 BaCl₂ 产生沉淀', result: '确为 SO₄²⁻，操作 B 正确' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -55,9 +79,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N3', category: 'InorganicInference', difficulty: '综合', title: '框图推断',
     problemText: 'A、B、C、D 均含同种元素。A 为单质，B 为碱性氧化物，C 为碱，D 为正盐。A→B→C→D 转化均能一步实现。该元素是？',
+    problemConditions: ['A 单质→B 碱性氧化物→C 碱→D 正盐', '均含同种元素', 'A→B→C→D 转化均一步实现'],
+    questionTarget: '推断满足 A→B→C→D 一步转化的元素',
     options: ['Fe', 'Cu', 'Na', 'Al'],
     answerIndex: 2,
     explanation: 'Na→Na₂O（碱性氧化物）→NaOH（碱）→Na₂CO₃ 或 NaCl（正盐），均可一步实现。Fe→Fe₂O₃ 但 Fe₂O₃ 不能一步变 Fe(OH)₃；Cu→CuO 但 CuO 不能一步变 Cu(OH)₂；Al→Al₂O₃ 但 Al₂O₃ 不能一步变 Al(OH)₃。只有 Na 符合。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '框图推断',
+      breakthrough: { clue: 'A→B（碱性氧化物）→C（碱）→D（正盐），每步均需一步实现', conclusion: '碱性氧化物能一步生成碱的只有活泼金属（K、Na、Ca、Ba），锁定为 Na' },
+      reasoning: {
+        steps: ['Na→Na₂O（碱性氧化物），一步', 'Na₂O + H₂O = 2NaOH（碱），一步', 'NaOH + CO₂ = Na₂CO₃（正盐），一步', 'Fe、Cu、Al 的氧化物均不溶于水，不能一步生成氢氧化物'],
+        conclusion: '该元素为 Na（选项 C）',
+      },
+      verification: { basis: 'Na→Na₂O→NaOH→Na₂CO₃ 转化链每步方程式均成立', result: '4Na+O₂=2Na₂O；Na₂O+H₂O=2NaOH；2NaOH+CO₂=Na₂CO₃+H₂O，每步成立' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -80,9 +116,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N4', category: 'InorganicInference', difficulty: '难题', title: '元素周期律推断',
     problemText: '短周期元素 X、Y、Z、W 原子序数依次增大。X 与 W 同主族，Y 原子最外层电子数是其电子层数的 3 倍，Z 是同周期原子半径最大的元素。下列说法正确的是？',
+    problemConditions: ['短周期元素 X、Y、Z、W 原子序数依次增大', 'X 与 W 同主族', 'Y 最外层电子数是电子层数 3 倍', 'Z 是同周期原子半径最大'],
+    questionTarget: '推断短周期元素并判断相关说法的正确性',
     options: ['原子半径：Z > W > Y > X', '气态氢化物稳定性：Y > W', 'Z 与 Y 只能形成一种化合物', '最高价氧化物对应水化物碱性：Z < W'],
     answerIndex: 1,
     explanation: 'Y 最外层电子数是电子层数的 3 倍 → Y 为 O（电子层数 2，最外层 6）。Z 是同周期原子半径最大 → Z 为 Na（第三周期）。X 与 W 同主族且原子序数 X<Y=8<Z=11<W → X 为 H，W 为 Na？不对。重新：X<O，X 与 W 同主族，W>Na。X 为 Li，W 为 K？但 K 不是短周期。X 为 H，W 为 Na？但 Z=Na。所以 X=H，Y=O，Z=Na，W 与 H 同主族且在 Na 之后 → W=Na？矛盾。修正：Z 是同周期半径最大，若 Z 在第二周期则 Z=Li，Y=O，X 与 W 同主族，W 在 Z 之后。X=C，W=Si。则 Z=Li 不是最大。重新：Y=O，Z=Na，X=H，W=K（超出短周期）或 W=Na=Z 矛盾。实际：X=H,Y=O,Z=Na,W 与 H 同主族只能是 Li/Na/K，W>Na 无短周期。故应为 X 与 W 同主族，X=C,W=Si；Y=O；Z=Na（第三周期半径最大）。原子半径 Na>Si>O>C 即 Z>W>Y>X，A 正确。稳定性 H₂O>SiH₄，B 正确。Na 与 O 可形成 Na₂O 和 Na₂O₂，C 错。碱性 NaOH>H₂SiO₃（NaOH 强碱），D 错。综合选 B。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '元素周期律推断',
+      breakthrough: { clue: 'Y 原子最外层电子数是其电子层数的 3 倍', conclusion: 'Y 为 O（电子层 2，最外层 6）；Z 为第三周期原子半径最大 → Na' },
+      reasoning: {
+        steps: ['X 与 W 同主族且原子序数 X<Y(8)<Z(11)<W', '推得 X=C、W=Si（同主族，6<8<11<14）', '原子半径 Na>Si>C>O（即 Z>W>X>Y），A 错', '非金属性 O>Si，氢化物稳定性 H₂O>SiH₄，B 对', 'Na 与 O 可形成 Na₂O、Na₂O₂ 两种，C 错；碱性 NaOH>H₂SiO₃，D 错'],
+        conclusion: '正确选项为 B',
+      },
+      verification: { basis: 'X=C(6)、Y=O(8)、Z=Na(11)、W=Si(14)，原子序数递增且 X/W 同主族', result: '各性质判断均符合元素周期律，B 正确' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -105,9 +153,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N5', category: 'InorganicInference', difficulty: '压轴', title: '工业流程综合推断',
     problemText: '某工厂以铝土矿（主要成分为 Al₂O₃，含 Fe₂O₃、SiO₂ 杂质）为原料冶炼铝，流程如下：铝土矿→加 NaOH 溶液→过滤得滤液 A 和滤渣 B→滤液 A 通过量 CO₂→过滤得沉淀 C 和滤液 D→沉淀 C 灼烧→电解→Al。下列说法正确的是？',
+    problemConditions: ['铝土矿主要含 Al₂O₃，杂质 Fe₂O₃、SiO₂', '加 NaOH 溶液过滤得滤液 A 和滤渣 B', '滤液 A 通过量 CO₂ 得沉淀 C 和滤液 D', '沉淀 C 灼烧后电解得 Al'],
+    questionTarget: '推断铝土矿冶炼铝流程中各物质并判断说法',
     options: ['滤渣 B 的主要成分是 Fe₂O₃ 和 SiO₂', '沉淀 C 是 Al(OH)₃', '滤液 D 中溶质主要是 NaHCO₃', '电解熔融 Al₂O₃ 时阴极生成 O₂'],
     answerIndex: 1,
     explanation: '铝土矿加 NaOH：Al₂O₃ 溶解生成 NaAlO₂，SiO₂ 溶解生成 Na₂SiO₃，Fe₂O₃ 不溶为滤渣 B（只有 Fe₂O₃）。滤液 A 含 NaAlO₂ 和 Na₂SiO₃。通过量 CO₂：NaAlO₂ + CO₂ + 2H₂O = Al(OH)₃↓ + NaHCO₃，Na₂SiO₃ 也生成 H₂SiO₃ 沉淀。沉淀 C 主要是 Al(OH)₃（含 H₂SiO₃ 杂质，需提纯）。滤液 D 主要是 NaHCO₃ 和 Na₂CO₃。电解熔融 Al₂O₃：阳极生成 O₂，阴极生成 Al。只有 B 正确。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '工业流程',
+      breakthrough: { clue: '铝土矿加 NaOH：Al₂O₃、SiO₂ 溶解，Fe₂O₃ 不溶', conclusion: '滤渣 B 只有 Fe₂O₃，滤液 A 含 NaAlO₂ 和 Na₂SiO₃' },
+      reasoning: {
+        steps: ['加 NaOH：Al₂O₃→NaAlO₂，SiO₂→Na₂SiO₃，Fe₂O₃ 不溶', '通过量 CO₂：NaAlO₂→Al(OH)₃↓（生成 HCO₃⁻）', '沉淀 C 灼烧得 Al₂O₃，电解熔融 Al₂O₃ 阴极得 Al、阳极得 O₂', 'A 滤渣 B 只有 Fe₂O₃（SiO₂ 已溶），错；C 滤液 D 含 NaHCO₃/Na₂CO₃，不准确；D 阳极生 O₂ 阴极生 Al，错'],
+        conclusion: '沉淀 C 是 Al(OH)₃，正确选项为 B',
+      },
+      verification: { basis: 'Al 元素守恒：Al₂O₃→NaAlO₂→Al(OH)₃→Al₂O₃→Al', result: '每步转化正确，B 成立' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -130,9 +190,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N6', category: 'InorganicInference', difficulty: '基础', title: '常见气体制备与除杂',
     problemText: '实验室制取干燥纯净的 Cl₂，下列除杂试剂顺序正确的是？（制气：MnO₂ + 浓盐酸）',
+    problemConditions: ['实验室制取 Cl₂', '制气反应 MnO₂ + 浓盐酸', '制取干燥纯净的 Cl₂'],
+    questionTarget: '根据物质性质判断制取干燥纯净 Cl₂ 的除杂试剂顺序',
     options: ['饱和食盐水 → 浓硫酸', '浓硫酸 → 饱和食盐水', 'NaOH 溶液 → 浓硫酸', '饱和食盐水 → NaOH 溶液'],
     answerIndex: 0,
     explanation: 'MnO₂ 与浓盐酸加热制 Cl₂，气体中混有 HCl（浓盐酸挥发）和水蒸气。先用饱和食盐水除去 HCl（Cl₂ 在饱和食盐水中溶解度小，HCl 易溶），再用浓硫酸干燥。除杂顺序：先除杂后干燥。NaOH 会与 Cl₂ 反应，不能用。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '气体制备与除杂',
+      breakthrough: { clue: 'MnO₂ 与浓盐酸加热制 Cl₂，气体混有 HCl 和水蒸气', conclusion: '除杂原则：先除杂后干燥，且不能用 NaOH（会吸收 Cl₂）' },
+      reasoning: {
+        steps: ['先用饱和食盐水除去 HCl（Cl₂ 在饱和食盐水中溶解度小，同离子效应）', '再用浓硫酸干燥（干燥必须在最后，否则除杂又带出水）', 'NaOH 会与 Cl₂ 反应，不可用作除杂/干燥剂'],
+        conclusion: '正确顺序为饱和食盐水→浓硫酸（选项 A）',
+      },
+      verification: { basis: '饱和食盐水吸收 HCl 不吸收 Cl₂，浓硫酸吸水', result: '得到干燥纯净的 Cl₂，A 正确' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -155,9 +227,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N7', category: 'InorganicInference', difficulty: '进阶', title: '物质鉴别实验方案',
     problemText: '下列各组溶液，不用其他试剂就能鉴别的是？',
+    problemConditions: ['NaOH、AlCl₃、HCl、NaCl', 'Na₂CO₃、HCl、NaCl、NaNO₃', 'K₂SO₄、BaCl₂、Na₂CO₃、NaCl', 'HCl、AgNO₃、KCl、KNO₃'],
+    questionTarget: '判断不用其他试剂能否鉴别的溶液组',
     options: ['NaOH、AlCl₃、HCl、NaCl', 'Na₂CO₃、HCl、NaCl、NaNO₃', 'K₂SO₄、BaCl₂、Na₂CO₃、NaCl', 'HCl、AgNO₃、KCl、KNO₃'],
     answerIndex: 0,
     explanation: 'A 组：NaOH 与 AlCl₃ 互滴现象不同（NaOH 滴入 AlCl₃ 先有沉淀后溶解；AlCl₃ 滴入 NaOH 开始无沉淀后有沉淀）。先用互滴法鉴别出 NaOH 和 AlCl₃，再用 AlCl₃ 与 NaOH 反应生成的 Al(OH)₃ 沉淀，加入剩余两种溶液，能溶解沉淀的是 HCl，另一种是 NaCl。可以鉴别。B 中 Na₂CO₃ 与 HCl 互滴可鉴别，但 NaCl 和 NaNO₃ 无法区分。C 只能鉴别出 BaCl₂ 和 NaCl，K₂SO₄ 与 Na₂CO₃ 无法区分。D 中 AgNO₃ 与 HCl、KCl 都生成 AgCl 沉淀，无法区分 HCl 和 KCl。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '物质鉴别',
+      breakthrough: { clue: '不用其他试剂鉴别，常用互滴法（现象不同）与两两混合法', conclusion: 'A 组中 NaOH 与 AlCl₃ 互滴现象不同，是突破口' },
+      reasoning: {
+        steps: ['NaOH 滴入 AlCl₃：先产生沉淀后溶解；AlCl₃ 滴入 NaOH：开始无沉淀后产生沉淀', '用互滴法鉴别出 NaOH 和 AlCl₃', '取生成的 Al(OH)₃ 沉淀，加剩余两种溶液：能溶解沉淀的是 HCl，不溶的是 NaCl', 'B 组 NaCl 与 NaNO₃、C 组 K₂SO₄ 与 Na₂CO₃、D 组 HCl 与 KCl 均无法区分'],
+        conclusion: '只有 A 组四种物质全部能鉴别',
+      },
+      verification: { basis: 'A 组四种物质现象互不相同', result: 'NaOH+AlCl₃→沉淀，加 HCl 溶解、加 NaCl 不溶，全部区分，A 正确' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -180,9 +264,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N8', category: 'InorganicInference', difficulty: '综合', title: '多步转化物质推断',
     problemText: 'A、B、C、D、E 五种物质含同种元素。A 为淡黄色固体，B 为常见气体，C 为强碱，D 为酸式盐，E 为正盐。下列转化能一步实现的是 A→B→C→D→E。该元素是？',
+    problemConditions: ['A 淡黄色固体、B 气体、C 强碱、D 酸式盐、E 正盐', '含同种元素', 'A→B→C→D→E 转化一步实现'],
+    questionTarget: '推断满足 A→B→C→D→E 一步转化的元素',
     options: ['硫', '钠', '氮', '氯'],
     answerIndex: 1,
     explanation: 'A 淡黄色固体含 Na 元素？Na₂O₂ 是淡黄色固体。Na₂O₂(A)→O₂(B)→Na₂O₂ 与 H₂O 生成 NaOH(C)→NaOH+过量 CO₂ 生成 NaHCO₃(D)→NaHCO₃+NaOH 生成 Na₂CO₃(E)。但 A→B→C 中 O₂→NaOH 不能一步。重新：A 为 Na（银白色）不是淡黄。A 为 S（淡黄色固体）。S(A)→SO₂(B)→H₂SO₃(弱酸非强碱)。不对。A 为 Na₂O₂（淡黄），与水反应生成 O₂(B)和 NaOH(C)。NaOH+CO₂→NaHCO₃(D)。NaHCO₃+NaOH→Na₂CO₃(E)。但 B→C 是 O₂ 不能直接到 NaOH。应该 A→C 直接：Na₂O₂+H₂O→NaOH。重新理解 A→B→C→D→E：Na₂O₂(A)+H₂O→O₂(B)+NaOH。NaOH(C)+CO₂→NaHCO₃(D)+NaOH→Na₂CO₃(E)。B 是 O₂ 但 B→C 不直接。可能 A→B 是 Na₂O₂→Na₂CO₃？不对。正确：A=Na₂O₂（淡黄），与 CO₂ 反应生成 Na₂CO₃(B)，Na₂CO₃ 与 Ca(OH)₂ 生成 NaOH(C)，NaOH+过量 CO₂→NaHCO₃(D)，NaHCO₃+NaOH→Na₂CO₃(E)。但 B→C：Na₂CO₃+Ca(OH)₂=CaCO₃↓+2NaOH，一步可行。选 B（钠）。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '框图推断',
+      breakthrough: { clue: 'A 为淡黄色固体，C 为强碱', conclusion: '常见淡黄色固体 Na₂O₂、S、AgBr，结合 C 是强碱锁定为钠元素，A=Na₂O₂' },
+      reasoning: {
+        steps: ['Na₂O₂(A) + CO₂ → Na₂CO₃(B)', 'Na₂CO₃(B) + Ca(OH)₂ → NaOH(C) 强碱', 'NaOH(C) + 过量 CO₂ → NaHCO₃(D) 酸式盐', 'NaHCO₃(D) + NaOH → Na₂CO₃(E) 正盐'],
+        conclusion: '每步均可一步实现，该元素为钠（选项 B）',
+      },
+      verification: { basis: 'Na₂O₂→Na₂CO₃→NaOH→NaHCO₃→Na₂CO₃ 每步方程成立', result: 'Na₂O₂+CO₂=Na₂CO₃+O₂；Na₂CO₃+Ca(OH)₂=CaCO₃↓+2NaOH；NaOH+CO₂=NaHCO₃；NaHCO₃+NaOH=Na₂CO₃+H₂O，每步成立' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -206,9 +302,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N9', category: 'InorganicInference', difficulty: '基础', title: '化学试剂的保存',
     problemText: '下列化学试剂的保存方法正确的是？',
+    problemConditions: ['金属钠保存', '浓硝酸保存', '氢氧化钠溶液保存', '新制氯水保存'],
+    questionTarget: '根据试剂性质判断保存方法是否正确',
     options: ['金属钠保存在水中', '浓硝酸保存在无色玻璃试剂瓶中', '氢氧化钠溶液保存在带玻璃塞的试剂瓶中', '新制氯水保存在棕色试剂瓶中并避光'],
     answerIndex: 3,
     explanation: 'A 错：Na 与水剧烈反应，应保存在煤油中。B 错：浓硝酸见光易分解，应保存在棕色试剂瓶中。C 错：NaOH 与玻璃中的 SiO₂ 反应生成黏性的 Na₂SiO₃，会粘住玻璃塞，应用橡胶塞。D 对：氯水中的 HClO 见光分解，应保存在棕色瓶中避光。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '试剂保存',
+      breakthrough: { clue: '试剂保存需考虑是否与空气反应、是否见光分解、是否腐蚀容器', conclusion: '逐项匹配性质与保存方法' },
+      reasoning: {
+        steps: ['A：Na 与水剧烈反应，应保存在煤油中，错', 'B：浓硝酸见光分解，应保存在棕色瓶，错', 'C：NaOH 与玻璃中 SiO₂ 反应生成黏性 Na₂SiO₃，应用橡胶塞，错', 'D：氯水中 HClO 见光分解（2HClO=光照=2HCl+O₂↑），应棕色瓶避光，对'],
+        conclusion: '正确选项为 D',
+      },
+      verification: { basis: '各试剂保存方法与化学性质匹配', result: 'D 正确，A/B/C 保存方法与性质冲突' },
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -231,9 +339,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N10', category: 'InorganicInference', difficulty: '进阶', title: '离子共存',
     problemText: '下列各组离子在溶液中能大量共存的是？',
+    problemConditions: ['H⁺、Fe²⁺、NO₃⁻、Cl⁻', 'Na⁺、K⁺、OH⁻、HCO₃⁻', 'Ba²⁺、Na⁺、NO₃⁻、Cl⁻', 'Al³⁺、NH₄⁺、OH⁻、SO₄²⁻'],
+    questionTarget: '根据离子性质判断各组离子能否大量共存',
     options: ['H⁺、Fe²⁺、NO₃⁻、Cl⁻', 'Na⁺、K⁺、OH⁻、HCO₃⁻', 'Ba²⁺、Na⁺、NO₃⁻、Cl⁻', 'Al³⁺、NH₄⁺、OH⁻、SO₄²⁻'],
     answerIndex: 2,
     explanation: 'A 中 H⁺ 和 NO₃⁻ 形成硝酸，会氧化 Fe²⁺（3Fe²⁺+NO₃⁻+4H⁺=3Fe³⁺+NO↑+2H₂O），不能共存。B 中 OH⁻ 与 HCO₃⁻ 反应（OH⁻+HCO₃⁻=CO₃²⁻+H₂O），不能共存。C 中各离子不反应，可以共存。D 中 Al³⁺、NH₄⁺ 都与 OH⁻ 反应，不能共存。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '离子共存',
+      breakthrough: { clue: '离子之间不发生反应（复分解、氧化还原、双水解、络合）才能大量共存', conclusion: '逐项检查离子间是否反应，特别注意氧化性/酸碱性条件' },
+      reasoning: {
+        steps: ['A：H⁺+NO₃⁻ 形成硝酸，氧化 Fe²⁺（3Fe²⁺+NO₃⁻+4H⁺=3Fe³⁺+NO↑+2H₂O），不能共存', 'B：OH⁻ 与 HCO₃⁻ 反应（OH⁻+HCO₃⁻=CO₃²⁻+H₂O），不能共存', 'C：Ba²⁺、Na⁺、NO₃⁻、Cl⁻ 之间无沉淀、气体、水，也无氧化还原，可共存', 'D：Al³⁺、NH₄⁺ 都与 OH⁻ 反应，不能共存'],
+        conclusion: '正确选项为 C',
+      },
+      verification: { basis: 'C 组形成的 Ba(NO₃)₂、NaCl、BaCl₂、NaNO₃ 均可溶，离子间无反应', result: 'C 可大量共存，正确' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -256,9 +376,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N11', category: 'InorganicInference', difficulty: '综合', title: '物质一步转化判断',
     problemText: '下列各组物质中，不能按 X→Y→Z 一步转化的是？',
+    problemConditions: ['Na→NaOH→NaCl', 'Al→Al₂O₃→Al(OH)₃', 'Fe→FeCl₃→FeCl₂', 'N₂→NO→NO₂'],
+    questionTarget: '判断不能按 X→Y→Z 一步转化的物质组',
     options: ['Na→NaOH→NaCl', 'Al→Al₂O₃→Al(OH)₃', 'Fe→FeCl₃→FeCl₂', 'N₂→NO→NO₂'],
     answerIndex: 1,
     explanation: 'A：Na+H₂O=NaOH，NaOH+HCl=NaCl，可一步。B：Al+O₂→Al₂O₃ 可一步，但 Al₂O₃ 不溶于水，不能一步生成 Al(OH)₃（需先与酸反应生成铝盐再与碱反应，或先与碱反应生成偏铝酸盐再与酸反应），不能一步。C：2Fe+3Cl₂=2FeCl₃，2FeCl₃+Fe=3FeCl₂，可一步。D：N₂+O₂=放电=2NO，2NO+O₂=2NO₂，可一步。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '一步转化',
+      breakthrough: { clue: '氧化物能否一步生成氢氧化物，取决于氧化物是否与水反应', conclusion: '只有活泼金属氧化物（K、Na、Ca、Ba）能与水直接生成碱' },
+      reasoning: {
+        steps: ['A：Na+H₂O=NaOH，NaOH+HCl=NaCl，可一步', 'B：Al+O₂→Al₂O₃ 可一步，但 Al₂O₃ 不溶于水，不能一步生成 Al(OH)₃（需先成铝盐/偏铝酸盐再加碱/酸，两步）', 'C：2Fe+3Cl₂=2FeCl₃，2FeCl₃+Fe=3FeCl₂，可一步', 'D：N₂+O₂=放电=2NO，2NO+O₂=2NO₂，可一步'],
+        conclusion: '不能一步转化的是 B',
+      },
+      verification: { basis: 'Al₂O₃ 不溶于水，无直接生成 Al(OH)₃ 的反应', result: 'B 中 Al₂O₃→Al(OH)₃ 需两步，符合题意' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -281,9 +413,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N12', category: 'InorganicInference', difficulty: '难题', title: '短周期元素推断',
     problemText: '短周期元素 X、Y、Z 原子序数依次增大。X 原子最外层电子数是次外层的 2 倍，Y 是地壳中含量最多的元素，Z 的单质是黄绿色气体。下列说法正确的是？',
+    problemConditions: ['短周期元素 X、Y、Z 原子序数依次增大', 'X 最外层电子数是次外层 2 倍', 'Y 是地壳中含量最多的元素', 'Z 单质是黄绿色气体'],
+    questionTarget: '推断短周期元素并判断相关说法的正确性',
     options: ['原子半径：X > Y > Z', '气态氢化物稳定性：Y > Z', 'X 的最高价氧化物对应水化物是强酸', 'Z 的最高价氧化物对应水化物是弱酸'],
     answerIndex: 1,
     explanation: 'X 最外层是次外层 2 倍 → X 为 C（2,4）。Y 地壳含量最多 → O。Z 单质黄绿色 → Cl。A 原子半径：Cl > C > O（同周期左到右减小，同主族上到下增大），即 Z > X > Y，A 错。B 非金属性 O > Cl（O 电负性 3.5 > Cl 3.0），氢化物稳定性 H₂O > HCl，B 对。C X 的最高价氧化物对应水化物为 H₂CO₃，是弱酸，C 错。D Z 的最高价氧化物对应水化物为 HClO₄，是最强无机酸之一，D 错。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '元素周期律推断',
+      breakthrough: { clue: 'X 最外层电子数是次外层的 2 倍；Y 是地壳中含量最多的元素；Z 的单质是黄绿色气体', conclusion: 'X 为 C（2,4），Y 为 O，Z 为 Cl' },
+      reasoning: {
+        steps: ['原子半径：电子层数多者大，同层数核电荷大者小 → Cl(3层)>C>O，即 Z>X>Y，A 错', '非金属性 O>Cl（电负性 3.5>3.0），氢化物稳定性 H₂O>HCl，B 对', 'X 的最高价氧化物对应水化物为 H₂CO₃，弱酸，C 错', 'Z 的最高价氧化物对应水化物为 HClO₄，最强无机酸之一，D 错'],
+        conclusion: '正确选项为 B',
+      },
+      verification: { basis: 'X=C(6)、Y=O(8)、Z=Cl(17)，原子序数递增', result: 'O-H 键能(463)>H-Cl 键能(431)，H₂O 更稳定，B 正确' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -306,9 +450,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N13', category: 'InorganicInference', difficulty: '压轴', title: '海水提溴工业流程',
     problemText: '从海水中提取溴的主要过程：海水浓缩→酸化→通 Cl₂ 氧化 Br⁻→空气吹出 Br₂→用 SO₂ 水溶液吸收→富集后再用 Cl₂ 氧化→蒸馏得 Br₂。下列说法错误的是？',
+    problemConditions: ['海水提溴流程', '浓缩→酸化→通 Cl₂ 氧化 Br⁻→空气吹出 Br₂→SO₂ 水溶液吸收→再 Cl₂ 氧化→蒸馏得 Br₂'],
+    questionTarget: '推断海水提溴流程中各步说法的正误',
     options: ['酸化的目的是抑制 Cl₂、Br₂ 与水的反应', '通 Cl₂ 氧化的离子方程式：Cl₂ + 2Br⁻ = 2Cl⁻ + Br₂', 'SO₂ 吸收反应：SO₂ + Br₂ + 2H₂O = H₂SO₄ + 2HBr', '整个过程中 Br 元素只被氧化'],
     answerIndex: 3,
     explanation: 'A 对：酸化抑制 Cl₂、Br₂ 与水的歧化反应，提高氧化效率。B 对：Cl₂ 氧化 Br⁻ 生成 Br₂。C 对：SO₂ 还原 Br₂ 生成 HBr 和 H₂SO₄。D 错：过程中 Br 元素先被氧化（Br⁻→Br₂），再被还原（Br₂→HBr 中 Br⁻），最后又被氧化（HBr→Br₂），并非只被氧化。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '工业流程',
+      breakthrough: { clue: '海水提溴中 Br 元素的化合价变化', conclusion: 'Br 经历氧化→还原→氧化，并非只被氧化' },
+      reasoning: {
+        steps: ['①Cl₂ 氧化 Br⁻：Cl₂+2Br⁻=2Cl⁻+Br₂（Br 由 -1→0，被氧化）', '②空气吹出后用 SO₂ 吸收：SO₂+Br₂+2H₂O=H₂SO₄+2HBr（Br 由 0→-1，被还原）', '③再通 Cl₂ 氧化 HBr 得 Br₂（Br 由 -1→0，被氧化）', 'A 酸化抑制 Cl₂/Br₂ 与水歧化，对；B、C 方程式正确；D"只被氧化"错误'],
+        conclusion: '错误说法为 D',
+      },
+      verification: { basis: 'SO₂ 中 S 由 +4→+6（失 2e⁻），Br₂ 中 Br 由 0→-1（得 2e⁻），电子守恒', result: 'Br 元素既被氧化又被还原，D 错误，符合题意' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -331,9 +487,21 @@ const inorganic: Challenge[] = [
   {
     id: 'N14', category: 'InorganicInference', difficulty: '进阶', title: 'SO₂ 与 CO₂ 的鉴别',
     problemText: '下列方法中，不能鉴别 SO₂ 和 CO₂ 气体的是？',
+    problemConditions: ['鉴别 SO₂ 和 CO₂ 气体', '闻气味、品红、石灰水、酸性 KMnO₄ 等方法'],
+    questionTarget: '判断不能鉴别 SO₂ 和 CO₂ 气体的方法',
     options: ['闻气味', '通入品红溶液', '通入澄清石灰水', '通入酸性 KMnO₄ 溶液'],
     answerIndex: 2,
     explanation: 'A 可以：SO₂ 有刺激性气味，CO₂ 无味。B 可以：SO₂ 使品红溶液褪色（漂白性），CO₂ 不能。C 不能：SO₂ 和 CO₂ 都能使澄清石灰水变浑浊（生成 CaSO₃ 和 CaCO₃ 白色沉淀），过量又都变澄清，无法鉴别。D 可以：SO₂ 有还原性，使酸性 KMnO₄ 褪色，CO₂ 不能。',
+    solveData: {
+      kind: 'inorganic-inference',
+      subtype: '物质鉴别',
+      breakthrough: { clue: 'SO₂ 与 CO₂ 性质差异：SO₂ 有刺激性气味、漂白性、还原性，CO₂ 均无', conclusion: '利用 SO₂ 的特性鉴别，两者共性的方法不能用' },
+      reasoning: {
+        steps: ['A 闻气味：SO₂ 刺激性、CO₂ 无味，可以鉴别', 'B 品红溶液：SO₂ 使其褪色（漂白性），CO₂ 不能，可以', 'C 澄清石灰水：两者都生成白色沉淀（CaSO₃、CaCO₃），过量都变澄清，现象相同，不能鉴别', 'D 酸性 KMnO₄：SO₂ 还原使其褪色，CO₂ 不能，可以'],
+        conclusion: '不能鉴别的是 C',
+      },
+      verification: { basis: '品红褪色、KMnO₄ 褪色、气味均为 SO₂ 特性，石灰水为两者共性', result: 'C 现象相同无法区分，正确' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

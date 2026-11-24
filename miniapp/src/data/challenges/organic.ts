@@ -5,9 +5,20 @@ const organic: Challenge[] = [
   {
     id: 'O1', category: 'OrganicChemistry', difficulty: '基础', title: '官能团识别',
     problemText: '某有机物结构简式为 CH₂=CH-CH₂-OH，该有机物含有的官能团是？',
+    problemConditions: ['有机物', '结构简式 CH₂=CH-CH₂-OH'],
+    questionTarget: '判断有机物 CH₂=CH-CH₂-OH 含有的官能团',
     options: ['只含碳碳双键', '只含羟基', '含碳碳双键和羟基', '含羧基和羟基'],
     answerIndex: 2,
     explanation: 'CH₂=CH-CH₂-OH 中，C=C 是碳碳双键（烯基），-OH 是羟基（醇羟基）。该有机物是丙烯醇，含有碳碳双键和羟基两种官能团。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [
+        { name: '碳碳双键', structure: 'C=C', property: '烯烃官能团，可发生加成、氧化反应' },
+        { name: '羟基', structure: '-OH', property: '醇羟基，可发生酯化、与 Na 反应放 H₂' },
+      ],
+      reactions: [{ reactants: '该有机物 CH₂=CH-CH₂-OH（丙烯醇）', type: '含两种官能团', conclusion: '既有 C=C 又有 -OH' }],
+      product: { formula: 'CH₂=CH-CH₂-OH', reasoning: '不饱和度=(3×2+2-6)/2=1，对应一个 C=C 双键', conclusion: '含碳碳双键和羟基两种官能团（选项 C）' },
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -30,9 +41,26 @@ const organic: Challenge[] = [
   {
     id: 'O2', category: 'OrganicChemistry', difficulty: '进阶', title: '反应类型判断',
     problemText: '下列反应中，属于取代反应的是？',
+    problemConditions: ['乙烯使溴水褪色', '乙醇与乙酸反应生成乙酸乙酯', '乙醇在 Cu 催化下生成乙醛', '乙烯使酸性高锰酸钾溶液褪色'],
+    questionTarget: '判断属于取代反应类型的反应',
     options: ['乙烯使溴水褪色', '乙醇与乙酸反应生成乙酸乙酯', '乙醇在 Cu 催化下生成乙醛', '乙烯使酸性高锰酸钾溶液褪色'],
     answerIndex: 1,
     explanation: 'A 乙烯与溴加成（加成反应）；B 乙醇与乙酸酯化反应，属于取代反应；C 乙醇催化氧化生成乙醛（氧化反应）；D 乙烯被酸性高锰酸钾氧化（氧化反应）。只有 B 是取代反应。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [
+        { name: '碳碳双键', structure: 'C=C', property: '乙烯使溴水褪色（加成）' },
+        { name: '羟基', structure: '-OH', property: '乙醇可酯化、催化氧化' },
+        { name: '羧基', structure: '-COOH', property: '乙酸可酯化' },
+      ],
+      reactions: [
+        { reactants: 'A 乙烯+溴水', type: '加成', conclusion: '不是取代' },
+        { reactants: 'B 乙醇+乙酸', type: '酯化', conclusion: '属于取代反应' },
+        { reactants: 'C 乙醇(Cu催化)', type: '氧化', conclusion: '生成乙醛，不是取代' },
+        { reactants: 'D 乙烯+酸性KMnO₄', type: '氧化', conclusion: '不是取代' },
+      ],
+      product: { equation: 'CH₃COOH + C₂H₅OH ⇌ CH₃COOC₂H₅ + H₂O', conclusion: '属于取代反应的是 B' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -55,9 +83,17 @@ const organic: Challenge[] = [
   {
     id: 'O3', category: 'OrganicChemistry', difficulty: '综合', title: '同分异构体',
     problemText: '分子式为 C₅H₁₀O₂ 且能与 NaHCO₃ 反应放出气体的有机物有（不考虑立体异构）？',
+    problemConditions: ['分子式 C₅H₁₀O₂', '能与 NaHCO₃ 反应放出气体', '不考虑立体异构'],
+    questionTarget: '确定符合条件的有机物同分异构体数目',
     options: ['3 种', '4 种', '5 种', '6 种'],
     answerIndex: 1,
     explanation: '能与 NaHCO₃ 反应放出气体说明含羧基 -COOH。分子式 C₅H₁₀O₂ 含一个 -COOH，剩余部分为 C₄H₉-（丁基）。丁基有 4 种同分异构体：正丁基、异丁基、仲丁基、叔丁基。所以共 4 种羧酸。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [{ name: '羧基', structure: '-COOH', property: '酸性强于碳酸，与 NaHCO₃ 反应放出 CO₂' }],
+      reactions: [{ reactants: '该有机物 + NaHCO₃', type: '复分解', conclusion: '放出 CO₂，证明含 -COOH' }],
+      product: { reasoning: 'C₅H₁₀O₂ 含一个 -COOH 后剩余 C₄H₉-（丁基），丁基有 4 种：正丁基、异丁基、仲丁基、叔丁基', count: '4 种', conclusion: '选 B：4 种羧酸' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -80,9 +116,20 @@ const organic: Challenge[] = [
   {
     id: 'O4', category: 'OrganicChemistry', difficulty: '难题', title: '有机推断',
     problemText: '某有机物 A 的分子式为 C₄H₈O₂，A 在酸性条件下水解生成 B 和 C，B 能发生银镜反应，C 与金属钠反应放出 H₂。则 A 的结构简式为？',
+    problemConditions: ['A 分子式 C₄H₈O₂', '酸性水解生成 B 和 C', 'B 能发生银镜反应', 'C 与 Na 反应放出 H₂'],
+    questionTarget: '推断有机物 A 的结构简式',
     options: ['CH₃COOCH₂CH₃', 'HCOOCH₂CH₂CH₃', 'CH₃CH₂COOCH₃', 'HCOOCH(CH₃)₂'],
     answerIndex: 1,
     explanation: 'A 水解生成 B 和 C，说明 A 是酯。B 能发生银镜反应说明 B 含醛基，B 是甲酸（HCOOH）或甲酸某酯？B 是水解产物，能银镜→B 为 HCOOH（甲酸含醛基结构）。C 与 Na 反应放 H₂→C 是醇。所以 A 是甲酸与丙醇形成的酯。丙醇有 1-丙醇和 2-丙醇。HCOOCH₂CH₂CH₃（甲酸丙酯）和 HCOOCH(CH₃)₂（甲酸异丙酯）。但选项中 B 能发生银镜反应——若 A=HCOOCH₂CH₂CH₃，水解得 HCOOH（能银镜）和 CH₃CH₂CH₂OH（与 Na 反应），符合。选 B。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [
+        { name: '酯基', structure: '-COO-', property: '酸性条件下水解生成羧酸和醇' },
+        { name: '醛基', structure: '-CHO', property: '能发生银镜反应（甲酸 HCOOH 含醛基结构）' },
+      ],
+      reactions: [{ reactants: 'A 酸性水解', type: '水解', conclusion: '生成 B（能银镜）和 C（与 Na 反应放 H₂）' }],
+      product: { formula: 'HCOOCH₂CH₂CH₃', equation: 'HCOOCH₂CH₂CH₃ + H₂O → HCOOH + CH₃CH₂CH₂OH', reasoning: 'B 能银镜 → B 是 HCOOH → A 是甲酸酯；C 是醇 → A 为 HCOO-C₃H₇', conclusion: 'A 的结构简式为 HCOOCH₂CH₂CH₃（选项 B）' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -105,9 +152,21 @@ const organic: Challenge[] = [
   {
     id: 'O5', category: 'OrganicChemistry', difficulty: '压轴', title: '有机合成路线',
     problemText: '以乙烯为原料合成乙酸乙酯，最合理的合成路线中，不涉及的反应类型是？',
+    problemConditions: ['以乙烯为原料合成乙酸乙酯', '判断最合理路线中不涉及的反应类型'],
+    questionTarget: '判断合成乙酸乙酯路线中不涉及的反应类型',
     options: ['加成反应', '氧化反应', '取代反应', '消去反应'],
     answerIndex: 3,
     explanation: '合成路线：乙烯 → 乙醇（加成，与水加成）→ 乙醛（氧化）→ 乙酸（氧化）；乙烯 → 乙醇；然后乙酸 + 乙醇 → 乙酸乙酯（酯化=取代）。涉及加成、氧化、取代，不涉及消去反应。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [{ name: '碳碳双键', structure: 'C=C', property: '乙烯可与水加成制乙醇' }],
+      reactions: [
+        { reactants: '乙烯→乙醇', type: '加成', conclusion: 'CH₂=CH₂+H₂O→C₂H₅OH' },
+        { reactants: '乙醇→乙醛→乙酸', type: '氧化', conclusion: '催化氧化两步' },
+        { reactants: '乙酸+乙醇→乙酸乙酯', type: '酯化(取代)', conclusion: 'CH₃COOH+C₂H₅OH→CH₃COOC₂H₅+H₂O' },
+      ],
+      product: { reasoning: '路线涉及加成、氧化、取代（酯化），消去反应（醇→烯）未出现', conclusion: '不涉及的反应类型是消去反应（选项 D）' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -130,9 +189,23 @@ const organic: Challenge[] = [
   {
     id: 'O6', category: 'OrganicChemistry', difficulty: '基础', title: '有机物结构与性质',
     problemText: '某有机物能使溴水褪色，也能与 NaHCO₃ 反应放出气体，该有机物可能是？',
+    problemConditions: ['有机物能使溴水褪色', '能与 NaHCO₃ 反应放出气体'],
+    questionTarget: '根据性质推断可能的有机物结构',
     options: ['CH₃CH₂OH', 'CH₂=CHCOOH', 'CH₃CHO', 'C₆H₅OH'],
     answerIndex: 1,
     explanation: '能使溴水褪色说明含碳碳双键或三键（加成）或还原性基团；能与 NaHCO₃ 反应放出气体说明含羧基（-COOH，酸性比碳酸强）。CH₂=CHCOOH 含 C=C（使溴水褪色）和 -COOH（与 NaHCO₃ 反应），符合。A 乙醇不能使溴水褪色也不与 NaHCO₃ 反应；C 乙醛能使溴水褪色（氧化）但不与 NaHCO₃ 反应；D 苯酚与溴水生成白色沉淀但不与 NaHCO₃ 反应（苯酚酸性比碳酸弱）。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [
+        { name: '碳碳双键', structure: 'C=C', property: '与溴加成使溴水褪色' },
+        { name: '羧基', structure: '-COOH', property: '酸性强于碳酸，与 NaHCO₃ 反应放 CO₂' },
+      ],
+      reactions: [
+        { reactants: '有机物 + Br₂', type: '加成', conclusion: '使溴水褪色' },
+        { reactants: '有机物 + NaHCO₃', type: '复分解', conclusion: '放出 CO₂' },
+      ],
+      product: { formula: 'CH₂=CHCOOH', reasoning: '需同时含 C=C 和 -COOH；A 乙醇无、C 乙醛无羧基、D 苯酚酸性弱于碳酸不与 NaHCO₃ 反应', conclusion: '符合的是 CH₂=CHCOOH（选项 B）' },
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -155,9 +228,25 @@ const organic: Challenge[] = [
   {
     id: 'O7', category: 'OrganicChemistry', difficulty: '进阶', title: '有机反应方程式判断',
     problemText: '下列有机反应方程式正确的是？',
+    problemConditions: ['乙酸与乙醇酯化反应', '乙烯与溴的加成反应', '乙醇消去反应制乙烯', '苯与液溴的取代反应'],
+    questionTarget: '判断各有机反应方程式及反应类型是否正确',
     options: ['CH₃COOH + CH₃CH₂OH → CH₃COOCH₂CH₃ + H₂O（浓硫酸，加热）', 'CH₂=CH₂ + Br₂ → CH₃CHBr₂', 'CH₃CH₂OH →(浓硫酸,140℃) CH₂=CH₂ + H₂O', '苯 + Br₂ →(FeBr₃) 溴苯 + HBr'],
     answerIndex: 3,
     explanation: 'A 酯化反应需要可逆号 ⇌ 且条件为浓硫酸△，选项未写可逆号。B 乙烯与溴加成产物应为 CH₂BrCH₂Br（1,2-二溴乙烷），不是 CH₃CHBr₂。C 乙醇消去生成乙烯需要 170℃，140℃ 生成乙醚（分子间脱水），温度错误。D 苯与液溴在 FeBr₃ 催化下发生取代反应生成溴苯和 HBr，正确。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [
+        { name: '碳碳双键', structure: 'C=C', property: '与 Br₂ 加成生成 1,2-二溴乙烷' },
+        { name: '苯环', structure: 'C₆H₆', property: '与液溴在 FeBr₃ 催化下取代生成溴苯' },
+      ],
+      reactions: [
+        { reactants: 'A 乙酸+乙醇', type: '酯化', conclusion: '缺可逆号 ⇌，错误' },
+        { reactants: 'B 乙烯+Br₂', type: '加成', conclusion: '产物应为 CH₂BrCH₂Br 不是 CH₃CHBr₂，错误' },
+        { reactants: 'C 乙醇(浓硫酸,140℃)', type: '分子间脱水', conclusion: '140℃ 生成乙醚，消去需 170℃，错误' },
+        { reactants: 'D 苯+Br₂(FeBr₃)', type: '取代', conclusion: '生成溴苯和 HBr，正确' },
+      ],
+      product: { equation: 'C₆H₆ + Br₂ →(FeBr₃) C₆H₅Br + HBr', conclusion: '正确的方程式是 D' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -180,9 +269,25 @@ const organic: Challenge[] = [
   {
     id: 'O8', category: 'OrganicChemistry', difficulty: '综合', title: '有机物分离提纯',
     problemText: '下列除去杂质的方法正确的是？',
+    problemConditions: ['除去乙烷中少量乙烯', '除去乙酸乙酯中少量乙酸', '除去苯中少量苯酚', '除去乙醇中少量水'],
+    questionTarget: '根据有机物结构与性质判断除杂方法是否正确',
     options: ['除去乙烷中少量乙烯：通过酸性 KMnO₄ 溶液', '除去乙酸乙酯中少量乙酸：加入 NaOH 溶液，分液', '除去苯中少量苯酚：加入浓溴水，过滤', '除去乙醇中少量水：加入生石灰，蒸馏'],
     answerIndex: 3,
     explanation: 'A 酸性 KMnO₄ 会将乙烯氧化为 CO₂，引入新杂质，应用溴水。B NaOH 会使乙酸乙酯水解，应用饱和 Na₂CO₃ 溶液。C 苯酚与溴水生成的三溴苯酚溶于苯，无法过滤分离，应用 NaOH 溶液分液。D 生石灰（CaO）与水反应生成 Ca(OH)₂，蒸馏可得无水乙醇，正确。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [
+        { name: '碳碳双键', structure: 'C=C', property: '乙烯能被酸性 KMnO₄ 氧化为 CO₂（引入新杂质）' },
+        { name: '酚羟基', property: '苯酚与溴水生成的三溴苯酚溶于苯' },
+      ],
+      reactions: [
+        { reactants: 'A 乙烷(乙烯)+酸性KMnO₄', type: '氧化', conclusion: '乙烯被氧化为 CO₂，引入新杂质，应用溴水' },
+        { reactants: 'B 乙酸乙酯(乙酸)+NaOH', type: '水解', conclusion: 'NaOH 使酯水解，应用饱和 Na₂CO₃' },
+        { reactants: 'C 苯(苯酚)+浓溴水', type: '取代', conclusion: '三溴苯酚溶于苯，无法过滤，应用 NaOH 分液' },
+        { reactants: 'D 乙醇(水)+生石灰', type: '化合', conclusion: 'CaO+H₂O=Ca(OH)₂，蒸馏得无水乙醇，正确' },
+      ],
+      product: { equation: 'CaO + H₂O = Ca(OH)₂', conclusion: '正确的除杂方法是 D' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -206,9 +311,17 @@ const organic: Challenge[] = [
   {
     id: 'O9', category: 'OrganicChemistry', difficulty: '基础', title: '同系物判断',
     problemText: '下列各组物质互为同系物的是？',
+    problemConditions: ['C₂H₄ 和 C₃H₆', 'CH₃OH 和 C₂H₅OH', '葡萄糖和蔗糖', 'CH₃COOH 和 HCOOCH₃'],
+    questionTarget: '根据结构相似判断互为同系物的物质组',
     options: ['C₂H₄ 和 C₃H₆', 'CH₃OH 和 C₂H₅OH', '葡萄糖和蔗糖', 'CH₃COOH 和 HCOOCH₃'],
     answerIndex: 1,
     explanation: '同系物要求结构相似、分子组成相差一个或若干个 CH₂ 原子团。A 中 C₃H₆ 可能是丙烯（同系物）也可能是环丙烷（非同系物），不一定。B 中 CH₃OH 和 C₂H₅OH 都是饱和一元醇，结构相似，相差一个 CH₂，互为同系物。C 中葡萄糖是单糖、蔗糖是二糖，结构不相似。D 中两者分子式相同（C₂H₄O₂），是同分异构体而非同系物。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [{ name: '羟基', structure: '-OH', property: '饱和一元醇的官能团' }],
+      reactions: [{ reactants: '同系物判断', type: '概念辨析', conclusion: '结构相似、分子组成相差 n 个 CH₂' }],
+      product: { reasoning: 'B 中 CH₃OH 与 C₂H₅OH 都是饱和一元醇，相差一个 CH₂，互为同系物；A 中 C₃H₆ 可能是环丙烷，不一定；C 结构不相似；D 分子式相同是同分异构体', conclusion: '互为同系物的是 B' },
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -231,9 +344,17 @@ const organic: Challenge[] = [
   {
     id: 'O10', category: 'OrganicChemistry', difficulty: '进阶', title: '燃烧法确定有机物组成',
     problemText: '某有机物在氧气中完全燃烧，生成 CO₂ 和 H₂O 的物质的量之比为 1:1，则该有机物可能是？',
+    problemConditions: ['有机物在氧气中完全燃烧', '生成 CO₂ 和 H₂O 物质的量之比 1:1'],
+    questionTarget: '由燃烧产物推断有机物的可能组成',
     options: ['CH₄', 'C₂H₄', 'C₂H₆', 'C₂H₂'],
     answerIndex: 1,
     explanation: 'n(CO₂):n(H₂O)=1:1，说明 n(C):n(H)=1:(1×2)=1:2。该有机物分子中 C:H=1:2。A CH₄ 中 C:H=1:4；B C₂H₄ 中 C:H=2:4=1:2；C C₂H₆ 中 C:H=2:6=1:3；D C₂H₂ 中 C:H=2:2=1:1。只有 B 符合。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [{ name: '碳碳双键', structure: 'C=C', property: 'C₂H₄ 含一个 C=C，C:H=1:2 符合烯烃通式' }],
+      reactions: [{ reactants: '有机物完全燃烧', type: '氧化(燃烧)', conclusion: '生成 CO₂ 和 H₂O' }],
+      product: { reasoning: 'n(CO₂):n(H₂O)=1:1 → n(C):n(H)=1:2；C₂H₄ 中 C:H=2:4=1:2', equation: 'C₂H₄ + 3O₂ =点燃= 2CO₂ + 2H₂O', conclusion: '该有机物可能是 C₂H₄（选项 B）' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -256,9 +377,25 @@ const organic: Challenge[] = [
   {
     id: 'O11', category: 'OrganicChemistry', difficulty: '综合', title: '官能团与反应类型',
     problemText: '某有机物结构简式为 CH₃-CH=CH-COOH，它不可能发生的反应是？',
+    problemConditions: ['有机物', '结构简式 CH₃-CH=CH-COOH'],
+    questionTarget: '根据官能团判断有机物不可能发生的反应类型',
     options: ['加成反应', '酯化反应', '水解反应', '中和反应'],
     answerIndex: 2,
     explanation: '该有机物含碳碳双键（C=C）和羧基（-COOH）。C=C 能发生加成反应；-COOH 能发生酯化反应（与醇）和中和反应（与碱）。分子中没有酯基、卤素原子等可水解基团，不能发生水解反应。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [
+        { name: '碳碳双键', structure: 'C=C', property: '能发生加成、氧化、加聚反应' },
+        { name: '羧基', structure: '-COOH', property: '能发生酯化反应、中和反应' },
+      ],
+      reactions: [
+        { reactants: 'C=C', type: '加成', conclusion: '可能发生' },
+        { reactants: '-COOH + 醇', type: '酯化', conclusion: '可能发生' },
+        { reactants: '-COOH + 碱', type: '中和', conclusion: '可能发生' },
+        { reactants: '无酯基/卤素原子', type: '水解', conclusion: '不可能发生' },
+      ],
+      product: { reasoning: '分子中只有 C=C 和 -COOH，没有 -COO-、-X、肽键等可水解基团', conclusion: '不可能发生的反应是水解反应（选项 C）' },
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -281,9 +418,17 @@ const organic: Challenge[] = [
   {
     id: 'O12', category: 'OrganicChemistry', difficulty: '难题', title: '醇的同分异构体',
     problemText: '分子式为 C₄H₁₀O 且能与金属 Na 反应放出 H₂ 的有机物有（不考虑立体异构）？',
+    problemConditions: ['分子式 C₄H₁₀O', '能与 Na 反应放出 H₂', '不考虑立体异构'],
+    questionTarget: '确定符合条件的有机物同分异构体数目',
     options: ['3 种', '4 种', '5 种', '6 种'],
     answerIndex: 1,
     explanation: '能与 Na 反应放出 H₂ 说明含羟基 -OH，是饱和一元醇。C₄H₁₀O 相当于丁烷（C₄H₁₀）的一个 H 被 -OH 取代。丁烷有两种同分异构体：正丁烷 CH₃CH₂CH₂CH₃ 和异丁烷 (CH₃)₃CH。正丁烷有 2 种等效氢（1、2 位），异丁烷有 2 种等效氢（CH 上 1 种，三个 CH₃ 上 1 种），共 4 种醇。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [{ name: '羟基', structure: '-OH', property: '醇羟基，与金属 Na 反应放出 H₂' }],
+      reactions: [{ reactants: '该有机物 + Na', type: '置换', conclusion: '放出 H₂，证明是醇' }],
+      product: { reasoning: 'C₄H₁₀O 相当于丁烷的一个 H 被 -OH 取代；正丁烷有 2 种等效氢，异丁烷有 2 种等效氢（即丁基 4 种）', count: '4 种', conclusion: '选 B：4 种醇' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -306,9 +451,20 @@ const organic: Challenge[] = [
   {
     id: 'O13', category: 'OrganicChemistry', difficulty: '压轴', title: '有机物分子式与结构推断',
     problemText: '某有机物 A 含 C、H、O 三种元素，相对分子质量为 60。A 与 Na 反应放出 H₂，与 NaHCO₃ 反应放出 CO₂。A 的结构简式为？',
+    problemConditions: ['A 含 C、H、O，相对分子质量 60', 'A 与 Na 反应放出 H₂', 'A 与 NaHCO₃ 反应放出 CO₂'],
+    questionTarget: '推断有机物 A 的结构简式',
     options: ['CH₃CH₂OH', 'CH₃COOH', 'HCOOCH₃', 'CH₃CHO'],
     answerIndex: 1,
     explanation: '与 NaHCO₃ 反应放出 CO₂ 说明含羧基 -COOH（式量 45）。相对分子质量 60，剩余部分为 60-45=15，即 -CH₃。所以 A 为 CH₃COOH（乙酸，式量 60）。验证：CH₃COOH 与 Na 反应放 H₂（含 -COOH），与 NaHCO₃ 反应放 CO₂（酸性比碳酸强），符合题意。A 乙醇不与 NaHCO₃ 反应；C 甲酸甲酯不与 Na、NaHCO₃ 反应；D 乙醛不与 NaHCO₃ 反应。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [{ name: '羧基', structure: '-COOH', property: '式量 45；与 NaHCO₃ 反应放 CO₂，与 Na 反应放 H₂' }],
+      reactions: [
+        { reactants: 'A + NaHCO₃', type: '复分解', conclusion: '放出 CO₂，含 -COOH' },
+        { reactants: 'A + Na', type: '置换', conclusion: '放出 H₂，含活泼氢' },
+      ],
+      product: { formula: 'CH₃COOH', reasoning: '式量 60，减去 -COOH（45）余 15 即 -CH₃', conclusion: 'A 为 CH₃COOH（乙酸，选项 B）' },
+    },
     thought: 'ModelCognition',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -331,9 +487,22 @@ const organic: Challenge[] = [
   {
     id: 'O14', category: 'OrganicChemistry', difficulty: '进阶', title: '加成反应判断',
     problemText: '下列反应中，属于加成反应的是？',
+    problemConditions: ['甲烷与氯气在光照下反应', '乙烯使溴水褪色', '乙醇与乙酸反应生成乙酸乙酯', '苯与浓硝酸反应生成硝基苯'],
+    questionTarget: '判断属于加成反应类型的反应',
     options: ['甲烷与氯气在光照下反应', '乙烯使溴水褪色', '乙醇与乙酸反应生成乙酸乙酯', '苯与浓硝酸反应生成硝基苯'],
     answerIndex: 1,
     explanation: 'A 甲烷与 Cl₂ 光照下发生取代反应（CH₄+Cl₂→CH₃Cl+HCl）。B 乙烯与溴加成：CH₂=CH₂+Br₂→CH₂BrCH₂Br，属于加成反应。C 酯化反应属于取代反应。D 苯的硝化反应属于取代反应。',
+    solveData: {
+      kind: 'organic-chemistry',
+      functionalGroups: [{ name: '碳碳双键', structure: 'C=C', property: '与 Br₂ 加成，不饱和键变饱和（只进不出）' }],
+      reactions: [
+        { reactants: 'A 甲烷+Cl₂(光照)', type: '取代', conclusion: '生成 CH₃Cl 和 HCl' },
+        { reactants: 'B 乙烯+溴水', type: '加成', conclusion: '生成 1,2-二溴乙烷' },
+        { reactants: 'C 乙醇+乙酸', type: '酯化(取代)', conclusion: '生成乙酸乙酯' },
+        { reactants: 'D 苯+浓硝酸', type: '硝化(取代)', conclusion: '生成硝基苯' },
+      ],
+      product: { equation: 'CH₂=CH₂ + Br₂ → CH₂BrCH₂Br', conclusion: '属于加成反应的是 B' },
+    },
     thought: 'Classification',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

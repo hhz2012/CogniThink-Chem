@@ -5,6 +5,7 @@ import StepsView from './StepsView'
 import RedoxElectronPanel from './RedoxElectronPanel'
 import IonicConservationPanel from './IonicConservationPanel'
 import EquilibriumShiftPanel from './EquilibriumShiftPanel'
+import ElectrochemCellPanel from './ElectrochemCellPanel'
 import GenericSolvePanel from './GenericSolvePanel'
 import ModelIcon, { ModelIconName } from './ModelIcon'
 import styles from './index.module.scss'
@@ -13,7 +14,7 @@ import styles from './index.module.scss'
 export const MODEL_ACCENT = '#2EA7C4'
 
 /** 题型 category → 线性图标名（统一青绿色系，替代多色 emoji） */
-const CATEGORY_ICON: Record<string, ModelIconName> = {
+export const CATEGORY_ICON: Record<string, ModelIconName> = {
   RedoxReaction: 'zap',
   IonicEquilibrium: 'droplet',
   ChemicalEquilibrium: 'refresh',
@@ -67,6 +68,8 @@ export default function SolveModelPanel({ challenge, mode }: Props) {
     specialized = <IonicConservationPanel data={sd} color={MODEL_ACCENT} />
   } else if (panelKind === 'equilibrium-shift' && sd?.kind === 'equilibrium-shift') {
     specialized = <EquilibriumShiftPanel data={sd} color={MODEL_ACCENT} />
+  } else if (panelKind === 'electrochem-cell' && sd?.kind === 'electrochem-cell') {
+    specialized = <ElectrochemCellPanel data={sd} color={MODEL_ACCENT} />
   }
 
   return (
@@ -77,11 +80,9 @@ export default function SolveModelPanel({ challenge, mode }: Props) {
           {model.name}
         </Text>
       </View>
+      {/* 答题前已引导过思考骨架，答后不再重复 StepsView，只展示专属可视化 */}
       {specialized ? (
-        <>
-          <StepsView steps={model.steps} color={MODEL_ACCENT} compact />
-          {specialized}
-        </>
+        specialized
       ) : (
         <GenericSolvePanel model={model} color={MODEL_ACCENT} />
       )}

@@ -5,6 +5,8 @@ const ionicEq: Challenge[] = [
   {
     id: 'I1', category: 'IonicEquilibrium', difficulty: '基础', title: '弱电解质电离平衡',
     problemText: '0.1 mol/L 醋酸溶液中，下列措施能使 c(H⁺) 增大且电离度减小的是？',
+    problemConditions: ['0.1 mol/L 醋酸溶液', '措施：加水稀释', '措施：加少量醋酸钠固体', '措施：加少量浓盐酸', '措施：加热'],
+    questionTarget: '选择使 c(H⁺) 浓度增大且电离度减小的措施',
     options: ['加水稀释', '加少量醋酸钠固体', '加少量浓盐酸', '加热'],
     answerIndex: 2,
     explanation: '加浓盐酸，c(H⁺) 直接增大，平衡 CH₃COOH ⇌ CH₃COO⁻ + H⁺ 逆向移动，醋酸电离度减小。加水稀释电离度增大；加醋酸钠 c(H⁺) 减小；加热电离度增大。',
@@ -44,9 +46,26 @@ const ionicEq: Challenge[] = [
   {
     id: 'I2', category: 'IonicEquilibrium', difficulty: '进阶', title: '盐类水解规律',
     problemText: '等浓度的下列溶液，pH 由大到小排列正确的是？① NaCl  ② Na₂CO₃  ③ NaHCO₃  ④ NH₄Cl',
+    problemConditions: ['等浓度溶液', '① NaCl', '② Na₂CO₃', '③ NaHCO₃', '④ NH₄Cl'],
+    questionTarget: '比较等浓度溶液 pH 由大到小的排序',
     options: ['②>③>①>④', '③>②>①>④', '②>①>③>④', '④>①>③>②'],
     answerIndex: 0,
     explanation: 'NaCl 不水解，pH=7。Na₂CO₃ 中 CO₃²⁻ 水解显碱性，NaHCO₃ 中 HCO₃⁻ 水解也显碱性，但 CO₃²⁻ 水解程度大于 HCO₃⁻（越弱越水解，HCO₃⁻ 酸性比 H₂CO₃ 弱）。NH₄⁺ 水解显酸性。所以 pH: ②>③>①>④。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'CO₃²⁻', source: '水解（碱性强）' },
+        { formula: 'HCO₃⁻', source: '水解（碱性弱）' },
+        { formula: 'NH₄⁺', source: '水解（酸性）' },
+        { formula: 'Na⁺', source: '不水解' },
+        { formula: 'Cl⁻', source: '不水解' },
+      ],
+      comparison: {
+        type: 'pH 排序',
+        order: '② Na₂CO₃ > ③ NaHCO₃ > ① NaCl > ④ NH₄Cl',
+        basis: '越弱越水解：酸性 H₂CO₃ > HCO₃⁻，故 CO₃²⁻ 水解程度 > HCO₃⁻，Na₂CO₃ 碱性更强；NH₄⁺ 水解显酸性；NaCl 不水解显中性',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -69,6 +88,8 @@ const ionicEq: Challenge[] = [
   {
     id: 'I3', category: 'IonicEquilibrium', difficulty: '综合', title: '单一溶液离子浓度比较',
     problemText: '0.1 mol/L Na₂S 溶液中，下列离子浓度关系正确的是？',
+    problemConditions: ['Na₂S 溶液', '浓度 0.1 mol/L'],
+    questionTarget: '判断 0.1 mol/L Na₂S 溶液中正确的离子浓度关系',
     options: ['c(Na⁺) > c(S²⁻) > c(OH⁻) > c(HS⁻) > c(H⁺)', 'c(Na⁺) > c(OH⁻) > c(S²⁻) > c(HS⁻) > c(H⁺)', 'c(Na⁺) = 2c(S²⁻) + 2c(HS⁻)', 'c(OH⁻) = c(H⁺) + c(HS⁻)'],
     answerIndex: 0,
     explanation: 'Na₂S 完全电离：Na₂S = 2Na⁺ + S²⁻。S²⁻ 分两步水解：S²⁻+H₂O⇌HS⁻+OH⁻（主），HS⁻+H₂O⇌H₂S+OH⁻（次）。水解程度不大，c(S²⁻) 仍较大。c(Na⁺) 最大，S²⁻ 次之，OH⁻ 来自水解，HS⁻ 来自第一步水解，H⁺ 最小。物料守恒：c(Na⁺)=2[c(S²⁻)+c(HS⁻)+c(H₂S)]。',
@@ -110,6 +131,8 @@ const ionicEq: Challenge[] = [
   {
     id: 'I4', category: 'IonicEquilibrium', difficulty: '难题', title: '缓冲溶液离子浓度',
     problemText: '将 0.2 mol/L CH₃COOH 溶液与 0.1 mol/L NaOH 溶液等体积混合后，溶液呈酸性。下列关系正确的是？',
+    problemConditions: ['0.2 mol/L CH₃COOH 溶液', '0.1 mol/L NaOH 溶液', '等体积混合', '溶液呈酸性'],
+    questionTarget: '比较混合溶液中离子浓度大小关系',
     options: ['c(CH₃COO⁻) > c(Na⁺) > c(H⁺) > c(OH⁻)', 'c(Na⁺) > c(CH₃COO⁻) > c(H⁺) > c(OH⁻)', 'c(CH₃COO⁻) = c(Na⁺) > c(H⁺) > c(OH⁻)', 'c(CH₃COOH) > c(CH₃COO⁻) > c(Na⁺) > c(H⁺)'],
     answerIndex: 0,
     explanation: '等体积混合后：CH₃COOH 与 NaOH 反应，生成等浓度的 CH₃COONa 和剩余 CH₃COOH（各 0.05 mol/L）。溶液呈酸性说明 CH₃COOH 电离程度 > CH₃COO⁻ 水解程度。所以 c(CH₃COO⁻) > c(Na⁺) > c(H⁺) > c(OH⁻)。',
@@ -149,6 +172,8 @@ const ionicEq: Challenge[] = [
   {
     id: 'I5', category: 'IonicEquilibrium', difficulty: '压轴', title: '三大守恒综合',
     problemText: '常温下，0.1 mol/L NH₄HSO₄ 溶液中，下列说法正确的是？',
+    problemConditions: ['常温', '0.1 mol/L NH₄HSO₄ 溶液'],
+    questionTarget: '判断 0.1 mol/L NH₄HSO₄ 溶液中正确的守恒与浓度关系',
     options: ['c(NH₄⁺) + c(H⁺) = c(SO₄²⁻) + c(OH⁻)', 'c(NH₄⁺) = 0.1 mol/L', 'c(H⁺) = c(NH₄⁺) + 2c(NH₃·H₂O) + c(OH⁻)', '溶液中 c(SO₄²⁻) 最大'],
     answerIndex: 2,
     explanation: 'NH₄HSO₄ = NH₄⁺ + H⁺ + SO₄²⁻。NH₄⁺ 水解：NH₄⁺ + H₂O ⇌ NH₃·H₂O + H⁺。物料守恒：c(SO₄²⁻) = c(NH₄⁺) + c(NH₃·H₂O) = 0.1。电荷守恒：c(NH₄⁺) + c(H⁺) = 2c(SO₄²⁻) + c(OH⁻)。将物料守恒代入电荷守恒，消去 c(SO₄²⁻)，得 c(H⁺) = c(NH₄⁺) + 2c(NH₃·H₂O) + c(OH⁻)。HSO₄⁻ 完全电离出 H⁺，c(H⁺) 最大。',
@@ -189,9 +214,29 @@ const ionicEq: Challenge[] = [
   {
     id: 'I6', category: 'IonicEquilibrium', difficulty: '基础', title: '水的电离与 pH',
     problemText: '常温下，0.01 mol/L 的 NaOH 溶液中，由水电离出的 c(H⁺) 为？',
+    problemConditions: ['常温', '0.01 mol/L NaOH 溶液'],
+    questionTarget: '求 NaOH 溶液中由水电离出的 c(H⁺) 浓度',
     options: ['1×10⁻² mol/L', '1×10⁻⁷ mol/L', '1×10⁻¹² mol/L', '1×10⁻¹⁴ mol/L'],
     answerIndex: 2,
     explanation: 'NaOH 溶液中 c(OH⁻)=0.01 mol/L=1×10⁻² mol/L。常温 Kw=1×10⁻¹⁴，溶液中 c(H⁺)=Kw/c(OH⁻)=1×10⁻¹⁴/1×10⁻²=1×10⁻¹² mol/L。溶液中的 H⁺ 全部来自水的电离，所以由水电离出的 c(H⁺)=1×10⁻¹² mol/L。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'Na⁺', source: 'NaOH 完全电离' },
+        { formula: 'OH⁻', source: 'NaOH 电离（主）+ 水电离' },
+        { formula: 'H⁺', source: '水电离' },
+      ],
+      calc: {
+        given: '0.01 mol/L NaOH 溶液，常温 Kw = 1×10⁻¹⁴',
+        target: '由水电离出的 c(H⁺)',
+        steps: [
+          'c(OH⁻) = 0.01 = 1×10⁻² mol/L（主要来自 NaOH）',
+          '溶液中 c(H⁺) = Kw / c(OH⁻) = 1×10⁻¹⁴ / 1×10⁻² = 1×10⁻¹² mol/L',
+          '碱溶液中 H⁺ 全部来自水的电离',
+        ],
+        result: '由水电离出的 c(H⁺) = 1×10⁻¹² mol/L',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -214,9 +259,29 @@ const ionicEq: Challenge[] = [
   {
     id: 'I7', category: 'IonicEquilibrium', difficulty: '进阶', title: '酸碱混合离子浓度',
     problemText: '常温下，将 pH=3 的盐酸与 pH=11 的氨水等体积混合后，溶液中离子浓度关系正确的是？',
+    problemConditions: ['常温', 'pH=3 盐酸', 'pH=11 氨水', '等体积混合'],
+    questionTarget: '判断 pH=3 盐酸与 pH=11 氨水等体积混合后离子浓度关系',
     options: ['c(Cl⁻) > c(NH₄⁺) > c(H⁺) > c(OH⁻)', 'c(NH₄⁺) > c(Cl⁻) > c(OH⁻) > c(H⁺)', 'c(NH₄⁺) = c(Cl⁻) > c(H⁺) = c(OH⁻)', 'c(Cl⁻) > c(NH₄⁺) > c(OH⁻) > c(H⁺)'],
     answerIndex: 1,
     explanation: 'pH=3 盐酸 c(H⁺)=10⁻³，pH=11 氨水 c(OH⁻)=10⁻³。等体积混合，H⁺ 与 OH⁻ 恰好中和生成 NH₄Cl，但氨水是弱碱，pH=11 时 c(NH₃·H₂O) >> 10⁻³（大量未电离），所以混合后氨水过量，溶液呈碱性（c(OH⁻)>c(H⁺)）。电荷守恒：c(NH₄⁺)+c(H⁺)=c(Cl⁻)+c(OH⁻)，碱性则 c(NH₄⁺)>c(Cl⁻)。所以 c(NH₄⁺)>c(Cl⁻)>c(OH⁻)>c(H⁺)。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'NH₄⁺', source: '生成 NH₄Cl + 氨水电离' },
+        { formula: 'Cl⁻', source: '盐酸完全电离' },
+        { formula: 'NH₃·H₂O', source: '过量氨水' },
+        { formula: 'OH⁻', source: '氨水电离（过量，溶液碱性）' },
+        { formula: 'H⁺', source: '水电离' },
+      ],
+      equations: [
+        { type: '电荷', expression: 'c(NH₄⁺) + c(H⁺) = c(Cl⁻) + c(OH⁻)' },
+      ],
+      comparison: {
+        type: '浓度大小',
+        order: 'c(NH₄⁺) > c(Cl⁻) > c(OH⁻) > c(H⁺)',
+        basis: 'pH 之和 = 14 的强酸与弱碱等体积混合，弱碱（氨水）过量，溶液呈碱性；电荷守恒中 c(OH⁻) > c(H⁺) 故 c(NH₄⁺) > c(Cl⁻)',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -239,9 +304,32 @@ const ionicEq: Challenge[] = [
   {
     id: 'I8', category: 'IonicEquilibrium', difficulty: '综合', title: '守恒关系综合判断',
     problemText: '0.1 mol/L NaHCO₃ 溶液中，下列关系正确的是？',
+    problemConditions: ['NaHCO₃ 溶液', '浓度 0.1 mol/L'],
+    questionTarget: '判断 0.1 mol/L NaHCO₃ 溶液中正确的守恒与浓度关系',
     options: ['c(Na⁺) > c(HCO₃⁻) > c(CO₃²⁻) > c(H₂CO₃)', 'c(Na⁺) + c(H⁺) = c(HCO₃⁻) + c(OH⁻)', 'c(H₂CO₃) + c(H⁺) = c(CO₃²⁻) + c(OH⁻)', 'c(Na⁺) = c(HCO₃⁻) + c(CO₃²⁻)'],
     answerIndex: 2,
     explanation: 'NaHCO₃ 溶液中 HCO₃⁻ 既电离又水解，NaHCO₃ 溶液呈碱性说明水解>电离，所以 c(H₂CO₃) > c(CO₃²⁻)，A 错。电荷守恒：c(Na⁺)+c(H⁺)=c(HCO₃⁻)+2c(CO₃²⁻)+c(OH⁻)，B 缺 2c(CO₃²⁻)。物料守恒：c(Na⁺)=c(HCO₃⁻)+c(CO₃²⁻)+c(H₂CO₃)，D 缺 c(H₂CO₃)。质子守恒（电荷守恒减物料守恒）：c(H₂CO₃)+c(H⁺)=c(CO₃²⁻)+c(OH⁻)，C 正确。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'Na⁺', source: '完全电离' },
+        { formula: 'HCO₃⁻', source: '完全电离（既电离又水解）' },
+        { formula: 'CO₃²⁻', source: 'HCO₃⁻ 电离' },
+        { formula: 'H₂CO₃', source: 'HCO₃⁻ 水解' },
+        { formula: 'OH⁻', source: '水解为主 + 水电离' },
+        { formula: 'H⁺', source: '水电离' },
+      ],
+      equations: [
+        { type: '电荷', expression: 'c(Na⁺) + c(H⁺) = c(HCO₃⁻) + 2c(CO₃²⁻) + c(OH⁻)' },
+        { type: '物料', expression: 'c(Na⁺) = c(HCO₃⁻) + c(CO₃²⁻) + c(H₂CO₃)' },
+        { type: '质子', expression: 'c(H₂CO₃) + c(H⁺) = c(CO₃²⁻) + c(OH⁻)' },
+      ],
+      comparison: {
+        type: '守恒判断',
+        conclusion: '正确项为 C（质子守恒）：c(H₂CO₃) + c(H⁺) = c(CO₃²⁻) + c(OH⁻)',
+        basis: 'A 水解 > 电离故 c(H₂CO₃) > c(CO₃²⁻) 错；B 电荷守恒缺 2c(CO₃²⁻)；D 物料守恒缺 c(H₂CO₃)',
+      },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -265,9 +353,29 @@ const ionicEq: Challenge[] = [
   {
     id: 'I9', category: 'IonicEquilibrium', difficulty: '基础', title: '强酸稀释的 pH 计算',
     problemText: '常温下，将 pH=2 的盐酸稀释 100 倍，所得溶液的 pH 为？',
+    problemConditions: ['常温', 'pH=2 盐酸', '稀释 100 倍'],
+    questionTarget: '求 pH=2 盐酸稀释 100 倍后溶液的 pH',
     options: ['1', '4', '6', '7'],
     answerIndex: 1,
     explanation: 'pH=2 的盐酸中 c(H⁺)=10⁻² mol/L。稀释 100 倍后 c(H⁺)=10⁻²/100=10⁻⁴ mol/L，pH=-lg(10⁻⁴)=4。强酸每稀释 10ⁿ 倍 pH 增大 n 个单位，但不会超过 7。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'H⁺', source: 'HCl 完全电离' },
+        { formula: 'Cl⁻', source: 'HCl 完全电离' },
+        { formula: 'OH⁻', source: '水电离' },
+      ],
+      calc: {
+        given: 'pH = 2 的盐酸，稀释 100 倍',
+        target: '稀释后溶液的 pH',
+        steps: [
+          '原 c(H⁺) = 10⁻² mol/L',
+          '稀释 100 倍后 c(H⁺) = 10⁻² / 100 = 10⁻⁴ mol/L',
+          'pH = -lg(10⁻⁴) = 4',
+        ],
+        result: 'pH = 4（强酸稀释 10ⁿ 倍 pH 增大 n，但不超过 7）',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -290,9 +398,30 @@ const ionicEq: Challenge[] = [
   {
     id: 'I10', category: 'IonicEquilibrium', difficulty: '进阶', title: '弱电解质电离度',
     problemText: '25℃时，0.1 mol/L 醋酸溶液中 c(H⁺)=1.3×10⁻³ mol/L，则醋酸的电离度为？',
+    problemConditions: ['25℃', '0.1 mol/L 醋酸溶液', 'c(H⁺)=1.3×10⁻³ mol/L'],
+    questionTarget: '根据 c(H⁺) 浓度求醋酸的电离度',
     options: ['1.3%', '0.13%', '13%', '0.013%'],
     answerIndex: 0,
     explanation: '电离度 α = 已电离的分子数 / 总分子数 × 100% = c(H⁺)/c(CH₃COOH)初始 × 100%。CH₃COOH 是一元弱酸，c(H⁺)=c(已电离的CH₃COOH)。α = 1.3×10⁻³ / 0.1 × 100% = 1.3%。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'CH₃COOH', source: '溶质（部分电离）' },
+        { formula: 'CH₃COO⁻', source: '醋酸电离' },
+        { formula: 'H⁺', source: '醋酸电离' },
+        { formula: 'OH⁻', source: '水电离' },
+      ],
+      calc: {
+        given: '0.1 mol/L 醋酸溶液，c(H⁺) = 1.3×10⁻³ mol/L',
+        target: '醋酸的电离度 α',
+        steps: [
+          '一元弱酸：已电离浓度 = c(H⁺) = 1.3×10⁻³ mol/L',
+          '电离度 α = 已电离浓度 / 初始浓度 × 100%',
+          'α = 1.3×10⁻³ / 0.1 × 100% = 1.3%',
+        ],
+        result: 'α = 1.3%',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -315,9 +444,31 @@ const ionicEq: Challenge[] = [
   {
     id: 'I11', category: 'IonicEquilibrium', difficulty: '综合', title: '酸碱滴定突跃前 pH',
     problemText: '用 0.1 mol/L NaOH 溶液滴定 20 mL 0.1 mol/L 盐酸，当滴入 NaOH 溶液 19.98 mL 时（差 0.02 mL 到终点），溶液的 pH 约为？',
+    problemConditions: ['0.1 mol/L NaOH 滴定 20 mL 0.1 mol/L 盐酸', '滴入 NaOH 19.98 mL', '差 0.02 mL 到终点'],
+    questionTarget: '求滴入 19.98 mL NaOH 时溶液的 pH',
     options: ['3.3', '4.3', '5.3', '6.3'],
     answerIndex: 1,
     explanation: '此时盐酸过量，剩余 n(H⁺)=0.1×(20.00-19.98)×10⁻³=0.1×0.02×10⁻³=2×10⁻⁶ mol。总体积≈20+19.98=39.98 mL≈0.04 L。c(H⁺)=2×10⁻⁶/0.04=5×10⁻⁵ mol/L。pH=-lg(5×10⁻⁵)=5-lg5≈5-0.7=4.3。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'H⁺', source: '过量盐酸' },
+        { formula: 'Cl⁻', source: '盐酸 + 生成 NaCl' },
+        { formula: 'Na⁺', source: '滴入的 NaOH' },
+        { formula: 'OH⁻', source: '水电离' },
+      ],
+      calc: {
+        given: '0.1 mol/L NaOH 滴定 20 mL 0.1 mol/L 盐酸，已滴入 NaOH 19.98 mL',
+        target: '溶液的 pH',
+        steps: [
+          '剩余 n(H⁺) = 0.1 × (20.00 − 19.98) × 10⁻³ = 2×10⁻⁶ mol',
+          '总体积 ≈ 39.98 mL ≈ 0.04 L',
+          'c(H⁺) = 2×10⁻⁶ / 0.04 = 5×10⁻⁵ mol/L',
+          'pH = -lg(5×10⁻⁵) ≈ 4.3',
+        ],
+        result: 'pH ≈ 4.3（强酸强碱滴定突跃起点）',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -340,9 +491,31 @@ const ionicEq: Challenge[] = [
   {
     id: 'I12', category: 'IonicEquilibrium', difficulty: '难题', title: '缓冲溶液 pH 计算',
     problemText: '已知 25℃ 时 Ka(CH₃COOH)=1.8×10⁻⁵。将 0.1 mol/L CH₃COOH 与 0.1 mol/L CH₃COONa 等体积混合，所得溶液的 pH 为？',
+    problemConditions: ['25℃，Ka(CH₃COOH)=1.8×10⁻⁵', '0.1 mol/L CH₃COOH 与 0.1 mol/L CH₃COONa 等体积混合'],
+    questionTarget: '求 CH₃COOH/CH₃COONa 缓冲溶液的 pH',
     options: ['4.74', '5.74', '3.74', '7.00'],
     answerIndex: 0,
     explanation: '缓冲溶液 pH 公式（亨德森-哈塞尔巴尔赫方程）：pH = pKa + lg(c盐/c酸)。等浓度混合 c盐=c酸，lg(1)=0，故 pH=pKa=-lg(1.8×10⁻⁵)=4.74。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'CH₃COOH', source: '弱酸' },
+        { formula: 'CH₃COO⁻', source: 'CH₃COONa 完全电离' },
+        { formula: 'Na⁺', source: '完全电离' },
+        { formula: 'H⁺', source: '醋酸电离' },
+        { formula: 'OH⁻', source: '水电离' },
+      ],
+      calc: {
+        given: 'Ka(CH₃COOH) = 1.8×10⁻⁵，0.1 mol/L CH₃COOH 与 0.1 mol/L CH₃COONa 等体积混合',
+        target: '混合溶液的 pH',
+        steps: [
+          '缓冲溶液 pH = pKa + lg(c盐 / c酸)',
+          '等浓度混合：c盐 = c酸，lg(1) = 0，故 pH = pKa',
+          'pKa = -lg(1.8×10⁻⁵) ≈ 4.74',
+        ],
+        result: 'pH = 4.74',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -365,9 +538,32 @@ const ionicEq: Challenge[] = [
   {
     id: 'I13', category: 'IonicEquilibrium', difficulty: '压轴', title: 'Na₂CO₃ 溶液三大守恒',
     problemText: '0.1 mol/L Na₂CO₃ 溶液中，下列关系式正确的是？',
+    problemConditions: ['Na₂CO₃ 溶液', '浓度 0.1 mol/L'],
+    questionTarget: '判断 0.1 mol/L Na₂CO₃ 溶液中正确的守恒与浓度关系',
     options: ['c(Na⁺) = c(CO₃²⁻) + c(HCO₃⁻) + c(H₂CO₃)', 'c(Na⁺) + c(H⁺) = c(CO₃²⁻) + c(HCO₃⁻) + c(OH⁻)', 'c(OH⁻) = c(H⁺) + c(HCO₃⁻) + c(H₂CO₃)', 'c(Na⁺) > c(CO₃²⁻) > c(OH⁻) > c(HCO₃⁻) > c(H⁺)'],
     answerIndex: 3,
     explanation: 'Na₂CO₃ 溶液中 CO₃²⁻ 分两步水解。A 物料守恒应为 c(Na⁺)=2[c(CO₃²⁻)+c(HCO₃⁻)+c(H₂CO₃)]，缺系数 2；B 电荷守恒中 CO₃²⁻ 应带系数 2；C 质子守恒应为 c(OH⁻)=c(H⁺)+c(HCO₃⁻)+2c(H₂CO₃)，H₂CO₃ 前缺系数 2；D 浓度大小顺序正确：Na⁺ 最大，CO₃²⁻ 水解程度小排第二，OH⁻ 来自两步水解排第三，HCO₃⁻ 来自第一步水解排第四，H⁺ 最小。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'Na⁺', source: '完全电离' },
+        { formula: 'CO₃²⁻', source: '完全电离（分步水解）' },
+        { formula: 'HCO₃⁻', source: '第一步水解' },
+        { formula: 'H₂CO₃', source: '第二步水解' },
+        { formula: 'OH⁻', source: '两步水解 + 水电离' },
+        { formula: 'H⁺', source: '水电离' },
+      ],
+      equations: [
+        { type: '电荷', expression: 'c(Na⁺) + c(H⁺) = 2c(CO₃²⁻) + c(HCO₃⁻) + c(OH⁻)' },
+        { type: '物料', expression: 'c(Na⁺) = 2[c(CO₃²⁻) + c(HCO₃⁻) + c(H₂CO₃)]' },
+        { type: '质子', expression: 'c(OH⁻) = c(H⁺) + c(HCO₃⁻) + 2c(H₂CO₃)' },
+      ],
+      comparison: {
+        type: '浓度大小',
+        order: 'c(Na⁺) > c(CO₃²⁻) > c(OH⁻) > c(HCO₃⁻) > c(H⁺)',
+        basis: 'A 物料守恒缺系数 2；B 电荷守恒 CO₃²⁻ 缺系数 2；C 质子守恒 H₂CO₃ 缺系数 2；D 浓度顺序正确（CO₃²⁻ 水解程度小，仍大于 OH⁻）',
+      },
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -390,9 +586,26 @@ const ionicEq: Challenge[] = [
   {
     id: 'I14', category: 'IonicEquilibrium', difficulty: '进阶', title: '盐溶液 pH 比较',
     problemText: '等浓度的下列溶液，pH 由小到大排列正确的是？① NaHSO₄  ② (NH₄)₂SO₄  ③ NaCl  ④ Na₂CO₃',
+    problemConditions: ['等浓度溶液', '① NaHSO₄', '② (NH₄)₂SO₄', '③ NaCl', '④ Na₂CO₃'],
+    questionTarget: '比较等浓度溶液 pH 由小到大的排序',
     options: ['①<②<③<④', '②<①<③<④', '①<③<②<④', '④<③<②<①'],
     answerIndex: 0,
     explanation: 'NaHSO₄ 完全电离出 H⁺（相当于一元强酸），pH 最小；(NH₄)₂SO₄ 中 NH₄⁺ 水解显酸性，但酸性弱于 NaHSO₄；NaCl 不水解显中性；Na₂CO₃ 水解显碱性，pH 最大。所以 pH：①<②<③<④。',
+    solveData: {
+      kind: 'ionic-conservation',
+      species: [
+        { formula: 'H⁺', source: 'NaHSO₄ 完全电离（强酸性）' },
+        { formula: 'NH₄⁺', source: '水解（弱酸性）' },
+        { formula: 'Na⁺', source: '不水解' },
+        { formula: 'Cl⁻', source: '不水解' },
+        { formula: 'CO₃²⁻', source: '水解（碱性）' },
+      ],
+      comparison: {
+        type: 'pH 排序',
+        order: '① NaHSO₄ < ② (NH₄)₂SO₄ < ③ NaCl < ④ Na₂CO₃',
+        basis: 'NaHSO₄ 完全电离出 H⁺ 相当于强酸，pH 最小；NH₄⁺ 水解显弱酸性；NaCl 不水解显中性；CO₃²⁻ 水解显碱性，pH 最大',
+      },
+    },
     thought: 'Equilibrium',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

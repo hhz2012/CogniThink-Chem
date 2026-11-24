@@ -1,11 +1,21 @@
 import { View, Text } from '@tarojs/components'
 import { Thought } from '../../types/chem'
 import { THOUGHT_META } from '../../utils/storage'
+import ModelIcon, { ModelIconName } from '../SolvePanels/ModelIcon'
 import styles from './index.module.scss'
 
 interface Props {
   thought: Thought
   size?: 'sm' | 'md'
+}
+
+/** 思维标签 → 青绿线性图标（统一色系，替代多色 emoji） */
+export const THOUGHT_ICON: Record<Thought, ModelIconName> = {
+  Conservation: 'link',
+  Structure: 'test-tube',
+  Equilibrium: 'refresh',
+  Classification: 'layout',
+  ModelCognition: 'lightbulb',
 }
 
 export default function ThoughtChip({ thought, size = 'md' }: Props) {
@@ -15,7 +25,7 @@ export default function ThoughtChip({ thought, size = 'md' }: Props) {
       className={`${styles.chip} ${size === 'sm' ? styles.sm : styles.md}`}
       style={{ background: `${meta.color}15`, color: meta.color, borderColor: `${meta.color}40` }}
     >
-      <Text>{meta.icon}</Text>
+      <ModelIcon name={THOUGHT_ICON[thought]} size={size === 'sm' ? 13 : 15} color={meta.color} />
       <Text>{meta.label}</Text>
     </View>
   )

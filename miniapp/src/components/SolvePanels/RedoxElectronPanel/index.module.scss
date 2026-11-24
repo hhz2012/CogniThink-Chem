@@ -110,3 +110,338 @@
   font-weight: $font-weight-bold;
   color: $color-primary;
 }
+
+/* ===== 阶段分组 ===== */
+.stageBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.stageBanner {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 14rpx;
+  border-left: 6rpx solid;
+  background: $color-bg-card;
+  border-radius: 0 $radius-md $radius-md 0;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  letter-spacing: 1rpx;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+/* ===== 候选剂 chips ===== */
+.chipGroup {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.chipLabel {
+  width: 96rpx;
+  flex-shrink: 0;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.chipRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8rpx;
+}
+
+.chip {
+  padding: 4rpx 14rpx;
+  border-radius: 999rpx;
+  font-size: $font-size-xs;
+  line-height: $line-height-tight;
+}
+
+.oxidant {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+.reductant {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+}
+
+/* ===== 介质 ===== */
+.mediumBadge {
+  align-self: flex-start;
+  padding: 6rpx 18rpx;
+  border-radius: 999rpx;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+}
+
+.ruleHint {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  line-height: $line-height-tight;
+}
+
+.hlCol {
+  color: #dc2626;
+  font-weight: $font-weight-bold;
+}
+
+/* ===== 通用说明卡片 ===== */
+.noteCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  padding: 14rpx;
+  border-radius: $radius-md;
+  background: $color-bg-card;
+  border: 1rpx solid $color-divider;
+}
+
+.noteText {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+}
+
+.ok {
+  border-left: 4rpx solid #16a34a;
+}
+
+.no {
+  border-left: 4rpx solid #dc2626;
+}
+
+/* ===== 反应信息 ===== */
+.eqCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  padding: 14rpx;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  border: 1rpx solid $color-divider;
+}
+
+.eqTagRow {
+  display: flex;
+  gap: 8rpx;
+  flex-wrap: wrap;
+}
+
+.eqTag {
+  align-self: flex-start;
+  padding: 2rpx 12rpx;
+  border-radius: 999rpx;
+  background: $color-bg-hover;
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+}
+
+.eqText {
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  line-height: $line-height-tight;
+  word-break: break-all;
+}
+
+/* ===== 四剂四产物 ===== */
+.agentGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+}
+
+.agentCell {
+  flex: 1 1 45%;
+  background: $color-bg-card;
+  border: 1rpx solid $color-divider;
+  border-radius: $radius-md;
+  padding: 12rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.agentLabel {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+}
+
+.agentVal {
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  font-weight: $font-weight-semibold;
+  word-break: break-all;
+}
+
+/* ===== 阶段二可展开 ===== */
+.expandBtn {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 16rpx;
+  border: 1rpx dashed;
+  border-radius: $radius-md;
+  background: $color-bg-card;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.expandBtnOpen {
+  border-style: solid;
+}
+
+.expandArrow {
+  margin-left: auto;
+  font-size: $font-size-xs;
+}
+
+.stage2Body {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  padding: 12rpx;
+  background: $color-bg-hover;
+  border-radius: $radius-md;
+}
+
+/* ===== 计算过程 ===== */
+.calcBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  padding: 14rpx;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  border: 1rpx solid $color-divider;
+}
+
+.calcRow {
+  display: flex;
+  gap: 10rpx;
+  align-items: flex-start;
+}
+
+.calcLabel {
+  width: 72rpx;
+  flex-shrink: 0;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.calcVal {
+  flex: 1;
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  line-height: $line-height-tight;
+}
+
+.calcStepsTitle {
+  margin-top: 4rpx;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-text-secondary;
+}
+
+.calcStep {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-tight;
+}
+
+.calcResult {
+  margin-top: 6rpx;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 12rpx 14rpx;
+  border: 1rpx solid;
+  border-radius: $radius-md;
+  background: $color-bg-hover;
+}
+
+.calcResultLabel {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+}
+
+.calcResultVal {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+}
+
+/* ===== 性质比较 ===== */
+.cmpBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  padding: 14rpx;
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  border: 1rpx solid $color-divider;
+}
+
+.cmpOrder {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+}
+
+.cmpBasis {
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  line-height: $line-height-tight;
+}
+
+/* ===== 涉及反应 ===== */
+.reactionList {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.reactionItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  padding: 12rpx 14rpx;
+  background: $color-bg-card;
+  border: 1rpx solid $color-divider;
+  border-radius: $radius-md;
+}
+
+.redoxBadge {
+  align-self: flex-start;
+  padding: 2rpx 12rpx;
+  border-radius: 999rpx;
+  font-size: 20rpx;
+}
+
+.redoxYes {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+}
+
+.redoxNo {
+  background: $color-bg-hover;
+  color: $color-text-tertiary;
+}
+
+.reactionEq {
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  line-height: $line-height-tight;
+  word-break: break-all;
+}
+
+.reactionType {
+  font-size: 20rpx;
+  color: $color-text-tertiary;
+}

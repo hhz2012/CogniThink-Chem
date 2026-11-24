@@ -5,9 +5,23 @@ const electrochem: Challenge[] = [
   {
     id: 'C1', category: 'Electrochemistry', difficulty: '基础', title: '原电池正负极',
     problemText: '将锌片和铜片用导线连接后插入稀硫酸中组成原电池。下列说法正确的是？',
+    problemConditions: ['锌片和铜片用导线连接', '插入稀硫酸', '组成原电池'],
+    questionTarget: '判断铜锌原电池的正负极及反应',
     options: ['铜片是负极，发生氧化反应', '锌片是负极，发生氧化反应', '电子从铜片经导线流向锌片', '铜片上有气泡产生，发生氧化反应'],
     answerIndex: 1,
     explanation: '锌比铜活泼，锌作负极失电子发生氧化反应（Zn-2e⁻=Zn²⁺）；铜作正极，H⁺ 得电子发生还原反应（2H⁺+2e⁻=H₂↑），铜片上有气泡。电子从锌（负极）经导线流向铜（正极）。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '原电池', electrolyte: '稀硫酸', electronFlow: '锌（负极）→ 铜（正极）' },
+      electrodes: { negative: '锌片', positive: '铜片' },
+      halfReactions: [
+        { electrode: '负极', equation: 'Zn - 2e⁻ = Zn²⁺', role: '氧化' },
+        { electrode: '正极', equation: '2H⁺ + 2e⁻ = H₂↑', role: '还原' },
+      ],
+      totalEquation: 'Zn + 2H⁺ = Zn²⁺ + H₂↑',
+      phenomena: ['锌片逐渐溶解', '铜片上有气泡（H₂）产生'],
+      conclusion: '选 B：锌片是负极，发生氧化反应',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -30,9 +44,22 @@ const electrochem: Challenge[] = [
   {
     id: 'C2', category: 'Electrochemistry', difficulty: '进阶', title: '电极反应式书写',
     problemText: '氢氧燃料电池（KOH 溶液为电解质）的负极反应式是？',
+    problemConditions: ['氢氧燃料电池', 'KOH 溶液为电解质'],
+    questionTarget: '写出氢氧燃料电池（KOH 电解质）的负极电极反应式',
     options: ['2H₂ - 4e⁻ = 4H⁺', '2H₂ + 4OH⁻ - 4e⁻ = 4H₂O', 'O₂ + 2H₂O + 4e⁻ = 4OH⁻', 'H₂ - 2e⁻ + 2OH⁻ = H₂O'],
     answerIndex: 1,
     explanation: '碱性电解质中，H₂ 在负极失电子，生成的 H⁺ 与 OH⁻ 结合成水。负极：2H₂ + 4OH⁻ - 4e⁻ = 4H₂O。正极：O₂ + 2H₂O + 4e⁻ = 4OH⁻。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '燃料电池', electrolyte: 'KOH 溶液（碱性）' },
+      electrodes: { negative: 'H₂ 极', positive: 'O₂ 极' },
+      halfReactions: [
+        { electrode: '负极', equation: '2H₂ + 4OH⁻ - 4e⁻ = 4H₂O', role: '氧化' },
+        { electrode: '正极', equation: 'O₂ + 2H₂O + 4e⁻ = 4OH⁻', role: '还原' },
+      ],
+      totalEquation: '2H₂ + O₂ = 2H₂O',
+      conclusion: '选 B：负极 2H₂ + 4OH⁻ - 4e⁻ = 4H₂O（D 配平错误，应为 2H₂）',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -55,9 +82,23 @@ const electrochem: Challenge[] = [
   {
     id: 'C3', category: 'Electrochemistry', difficulty: '综合', title: '电解池规律',
     problemText: '用惰性电极电解下列溶液，电解一段时间后，溶液 pH 增大的是？',
+    problemConditions: ['惰性电极电解', '溶液：CuSO₄、Na₂SO₄、NaCl、H₂SO₄'],
+    questionTarget: '判断惰性电极电解后溶液 pH 增大的电解池',
     options: ['CuSO₄ 溶液', 'Na₂SO₄ 溶液', 'NaCl 溶液', 'H₂SO₄ 溶液'],
     answerIndex: 2,
     explanation: 'A 电解 CuSO₄：阳极 OH⁻ 放电生成 O₂ 和 H⁺，阴极 Cu²⁺ 放电，生成 H₂SO₄，pH 减小。B 电解 Na₂SO₄ 实为电解水，pH 不变（中性）。C 电解 NaCl：阳极 Cl⁻ 放电，阴极 H⁺ 放电，生成 NaOH，pH 增大。D 电解 H₂SO₄ 实为电解水，浓度增大，pH 减小。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '电解池', electrolyte: '惰性电极电解各溶液' },
+      electrodes: { negative: '阳极（惰性）', positive: '阴极（惰性）' },
+      halfReactions: [
+        { electrode: '阳极', equation: '2Cl⁻ - 2e⁻ = Cl₂↑（NaCl 溶液）', role: '氧化' },
+        { electrode: '阴极', equation: '2H⁺ + 2e⁻ = H₂↑（NaCl 溶液）', role: '还原' },
+      ],
+      totalEquation: '2NaCl + 2H₂O =电解= 2NaOH + H₂↑ + Cl₂↑',
+      phenomena: ['NaCl 溶液：放氢生碱，生成 NaOH，pH 增大', 'CuSO₄：放氧生酸，pH 减小', 'Na₂SO₄：电解水，pH 不变', 'H₂SO₄：电解水浓度增大，pH 减小'],
+      conclusion: '选 C：NaCl 溶液电解后 pH 增大',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -80,9 +121,31 @@ const electrochem: Challenge[] = [
   {
     id: 'C4', category: 'Electrochemistry', difficulty: '难题', title: '电化学计算',
     problemText: '用惰性电极电解 CuSO₄ 溶液，通电一段时间后，阴极增重 6.4 g，则阳极产生的气体在标准状况下的体积为？',
+    problemConditions: ['惰性电极电解 CuSO₄ 溶液', '阴极增重 6.4 g'],
+    questionTarget: '电解池电解 CuSO₄ 计算阳极产生气体的体积',
     options: ['1.12 L', '2.24 L', '0.56 L', '4.48 L'],
     answerIndex: 0,
     explanation: '阴极：Cu²⁺ + 2e⁻ = Cu，6.4 g Cu 为 0.1 mol，转移电子 0.2 mol。阳极：4OH⁻ - 4e⁻ = 2H₂O + O₂↑，0.2 mol 电子生成 0.05 mol O₂。标况体积 = 0.05 × 22.4 = 1.12 L。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '电解池', electrolyte: 'CuSO₄ 溶液（惰性电极）' },
+      electrodes: { negative: '阳极（惰性）', positive: '阴极' },
+      halfReactions: [
+        { electrode: '阴极', equation: 'Cu²⁺ + 2e⁻ = Cu', role: '还原' },
+        { electrode: '阳极', equation: '4OH⁻ - 4e⁻ = 2H₂O + O₂↑', role: '氧化' },
+      ],
+      calc: {
+        given: '阴极增重 6.4 g Cu',
+        target: '阳极产生 O₂ 在标况下的体积',
+        steps: [
+          'n(Cu) = 6.4/64 = 0.1 mol，转移电子 n(e⁻) = 0.1 × 2 = 0.2 mol',
+          '阳极：4OH⁻ - 4e⁻ = O₂↑ + 2H₂O，n(O₂) = n(e⁻)/4 = 0.2/4 = 0.05 mol',
+          'V(O₂) = 0.05 × 22.4 = 1.12 L',
+        ],
+        result: 'V(O₂) = 1.12 L（电子守恒：Cu ~ 2e⁻，O₂ ~ 4e⁻）',
+      },
+      conclusion: '选 A：1.12 L',
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -105,9 +168,32 @@ const electrochem: Challenge[] = [
   {
     id: 'C5', category: 'Electrochemistry', difficulty: '压轴', title: '原电池+电解池综合',
     problemText: '左为铜锌原电池（稀硫酸），右为电解池（CuCl₂ 溶液，惰性电极）。当原电池中锌片溶解 6.5 g 时，电解池中阳极产生气体在标况下体积为？',
+    problemConditions: ['左：铜锌原电池（稀硫酸）', '右：电解池（CuCl₂ 溶液，惰性电极）', '锌片溶解 6.5 g'],
+    questionTarget: '原电池驱动电解池计算阳极产生气体的体积',
     options: ['1.12 L', '2.24 L', '0.56 L', '4.48 L'],
     answerIndex: 1,
     explanation: '原电池负极：Zn - 2e⁻ = Zn²⁺，6.5 g Zn 为 0.1 mol，转移 0.2 mol e⁻。电解池阳极（惰性）：2Cl⁻ - 2e⁻ = Cl₂↑，0.2 mol e⁻ 生成 0.1 mol Cl₂。标况体积 = 0.1 × 22.4 = 2.24 L。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '原电池', electrolyte: '左稀硫酸（原电池）+ 右 CuCl₂ 溶液（电解池，惰性电极）', electronFlow: '串联电路：全电路转移电子数相等' },
+      electrodes: { negative: 'Zn（原电池负极）', positive: '电解池阳极（惰性）' },
+      halfReactions: [
+        { electrode: '负极', equation: 'Zn - 2e⁻ = Zn²⁺', role: '氧化' },
+        { electrode: '阳极', equation: '2Cl⁻ - 2e⁻ = Cl₂↑', role: '氧化' },
+      ],
+      calc: {
+        given: '原电池锌片溶解 6.5 g',
+        target: '电解池阳极产生 Cl₂ 的标况体积',
+        steps: [
+          'n(Zn) = 6.5/65 = 0.1 mol，转移电子 n(e⁻) = 0.1 × 2 = 0.2 mol',
+          '串联电子守恒，电解池阳极也转移 0.2 mol e⁻',
+          '2Cl⁻ - 2e⁻ = Cl₂↑，n(Cl₂) = 0.2/2 = 0.1 mol',
+          'V(Cl₂) = 0.1 × 22.4 = 2.24 L',
+        ],
+        result: 'V(Cl₂) = 2.24 L',
+      },
+      conclusion: '选 B：2.24 L',
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -130,9 +216,23 @@ const electrochem: Challenge[] = [
   {
     id: 'C6', category: 'Electrochemistry', difficulty: '基础', title: '电解后溶液复原',
     problemText: '用惰性电极电解 CuSO₄ 溶液一段时间后，要使溶液恢复到电解前的状态，应加入的物质是？',
+    problemConditions: ['惰性电极电解 CuSO₄ 溶液', '需使溶液恢复到电解前状态'],
+    questionTarget: '判断电解池电解 CuSO₄ 后使溶液复原应加入的物质',
     options: ['CuSO₄', 'CuO', 'Cu(OH)₂', 'H₂O'],
     answerIndex: 1,
     explanation: '惰性电极电解 CuSO₄：阳极 4OH⁻-4e⁻=2H₂O+O₂↑，阴极 2Cu²⁺+4e⁻=2Cu。总反应：2CuSO₄+2H₂O=2Cu+O₂↑+2H₂SO₄。溶液中减少了 Cu 和 O（以 CuO 形式离开），要复原需加入 CuO（与 H₂SO₄ 反应生成 CuSO₄ 和 H₂O）。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '电解池', electrolyte: 'CuSO₄ 溶液（惰性电极）' },
+      electrodes: { negative: '阳极（惰性）', positive: '阴极' },
+      halfReactions: [
+        { electrode: '阳极', equation: '4OH⁻ - 4e⁻ = 2H₂O + O₂↑', role: '氧化' },
+        { electrode: '阴极', equation: '2Cu²⁺ + 4e⁻ = 2Cu', role: '还原' },
+      ],
+      totalEquation: '2CuSO₄ + 2H₂O =电解= 2Cu + O₂↑ + 2H₂SO₄',
+      phenomena: ['溶液中减少了 Cu 和 O（相当于移出 CuO）', '加 CuO 与 H₂SO₄ 反应：CuO + H₂SO₄ = CuSO₄ + H₂O，恰好复原'],
+      conclusion: '选 B：CuO（出什么加什么）',
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -155,9 +255,23 @@ const electrochem: Challenge[] = [
   {
     id: 'C7', category: 'Electrochemistry', difficulty: '进阶', title: '可充电电池分析',
     problemText: '铅蓄电池放电时总反应：Pb + PbO₂ + 2H₂SO₄ = 2PbSO₄ + 2H₂O。下列说法正确的是？',
+    problemConditions: ['铅蓄电池放电', '总反应 Pb + PbO₂ + 2H₂SO₄ = 2PbSO₄ + 2H₂O'],
+    questionTarget: '判断铅蓄电池放电时的正负极及电极反应',
     options: ['放电时 PbO₂ 作负极', '放电时正极反应：PbO₂ + 4H⁺ + SO₄²⁻ + 2e⁻ = PbSO₄ + 2H₂O', '充电时 Pb 极接电源正极', '放电时 H₂SO₄ 浓度增大'],
     answerIndex: 1,
     explanation: '放电时 Pb 失电子作负极（Pb-2e⁻+SO₄²⁻=PbSO₄），PbO₂ 得电子作正极（PbO₂+4H⁺+SO₄²⁻+2e⁻=PbSO₄+2H₂O），A 错 B 对。充电时原负极接电源负极（阴极），C 错。放电消耗 H₂SO₄ 生成水，浓度减小，D 错。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '可充电电池', electrolyte: 'H₂SO₄ 溶液' },
+      electrodes: { negative: 'Pb', positive: 'PbO₂' },
+      halfReactions: [
+        { electrode: '负极', equation: 'Pb - 2e⁻ + SO₄²⁻ = PbSO₄', role: '氧化' },
+        { electrode: '正极', equation: 'PbO₂ + 4H⁺ + SO₄²⁻ + 2e⁻ = PbSO₄ + 2H₂O', role: '还原' },
+      ],
+      totalEquation: 'Pb + PbO₂ + 2H₂SO₄ = 2PbSO₄ + 2H₂O',
+      phenomena: ['放电消耗 H₂SO₄ 生成水，H₂SO₄ 浓度减小', '充电时原负极接电源负极（阴极），原正极接电源正极'],
+      conclusion: '选 B：放电时正极反应 PbO₂ + 4H⁺ + SO₄²⁻ + 2e⁻ = PbSO₄ + 2H₂O',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -180,9 +294,31 @@ const electrochem: Challenge[] = [
   {
     id: 'C8', category: 'Electrochemistry', difficulty: '综合', title: '电解计算综合',
     problemText: '用惰性电极电解 200 mL 一定浓度的 CuSO₄ 溶液，通电 5 min 后，阴极增重 1.28 g，阳极产生气体体积（标况）为？',
+    problemConditions: ['惰性电极电解 200 mL CuSO₄ 溶液', '通电 5 min', '阴极增重 1.28 g'],
+    questionTarget: '电解池电解 CuSO₄ 计算阳极产生气体的体积',
     options: ['112 mL', '224 mL', '336 mL', '448 mL'],
     answerIndex: 1,
     explanation: '阴极：Cu²⁺+2e⁻=Cu，1.28 g Cu 为 0.02 mol，转移电子 0.04 mol。阳极：4OH⁻-4e⁻=2H₂O+O₂↑，0.04 mol 电子生成 0.01 mol O₂。标况体积=0.01×22.4=0.224 L=224 mL。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '电解池', electrolyte: 'CuSO₄ 溶液（惰性电极）' },
+      electrodes: { negative: '阳极（惰性）', positive: '阴极' },
+      halfReactions: [
+        { electrode: '阴极', equation: 'Cu²⁺ + 2e⁻ = Cu', role: '还原' },
+        { electrode: '阳极', equation: '4OH⁻ - 4e⁻ = 2H₂O + O₂↑', role: '氧化' },
+      ],
+      calc: {
+        given: '阴极增重 1.28 g Cu，通电 5 min',
+        target: '阳极产生 O₂ 的标况体积',
+        steps: [
+          'n(Cu) = 1.28/64 = 0.02 mol，n(e⁻) = 0.02 × 2 = 0.04 mol',
+          'n(O₂) = n(e⁻)/4 = 0.04/4 = 0.01 mol',
+          'V(O₂) = 0.01 × 22400 = 224 mL',
+        ],
+        result: 'V(O₂) = 224 mL',
+      },
+      conclusion: '选 B：224 mL',
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -206,9 +342,23 @@ const electrochem: Challenge[] = [
   {
     id: 'C9', category: 'Electrochemistry', difficulty: '基础', title: '原电池反应分析',
     problemText: '某原电池总反应为 Zn + 2Fe³⁺ = Zn²⁺ + 2Fe²⁺，下列说法正确的是？',
+    problemConditions: ['原电池总反应', 'Zn + 2Fe³⁺ = Zn²⁺ + 2Fe²⁺'],
+    questionTarget: '判断该原电池的正负极及电极反应',
     options: ['Zn 作正极，发生还原反应', 'Fe³⁺ 在正极得电子被还原', '电子从正极经导线流向负极', '正极反应式为 Zn - 2e⁻ = Zn²⁺'],
     answerIndex: 1,
     explanation: 'Zn 失电子被氧化（0→+2），作负极；Fe³⁺ 得电子被还原（+3→+2），在正极反应。电子从负极（Zn）经导线流向正极。正极反应为 Fe³⁺ + e⁻ = Fe²⁺。所以 B 正确。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '原电池', electrolyte: '含 Fe³⁺ 的溶液', electronFlow: 'Zn（负极）→ 正极' },
+      electrodes: { negative: 'Zn', positive: 'Fe³⁺ 所在电极' },
+      halfReactions: [
+        { electrode: '负极', equation: 'Zn - 2e⁻ = Zn²⁺', role: '氧化' },
+        { electrode: '正极', equation: '2Fe³⁺ + 2e⁻ = 2Fe²⁺', role: '还原' },
+      ],
+      totalEquation: 'Zn + 2Fe³⁺ = Zn²⁺ + 2Fe²⁺',
+      phenomena: ['Zn 失电子被氧化（0→+2）作负极', 'Fe³⁺ 得电子被还原（+3→+2）在正极'],
+      conclusion: '选 B：Fe³⁺ 在正极得电子被还原',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -231,9 +381,23 @@ const electrochem: Challenge[] = [
   {
     id: 'C10', category: 'Electrochemistry', difficulty: '进阶', title: '电解饱和食盐水',
     problemText: '用惰性电极电解饱和 NaCl 溶液，阳极产生的气体是？',
+    problemConditions: ['惰性电极电解', '饱和 NaCl 溶液'],
+    questionTarget: '判断电解池电解饱和 NaCl 溶液阳极产生的气体',
     options: ['H₂', 'Cl₂', 'O₂', 'Na'],
     answerIndex: 1,
     explanation: '惰性电极电解 NaCl 溶液时，阴离子放电顺序：Cl⁻ > OH⁻，阳极上 Cl⁻ 失电子生成 Cl₂：2Cl⁻ - 2e⁻ = Cl₂↑。阴极上 H⁺（来自水）得电子生成 H₂。所以阳极产物是 Cl₂。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '电解池', electrolyte: '饱和 NaCl 溶液（惰性电极）' },
+      electrodes: { negative: '阳极（惰性）', positive: '阴极（惰性）' },
+      halfReactions: [
+        { electrode: '阳极', equation: '2Cl⁻ - 2e⁻ = Cl₂↑', role: '氧化' },
+        { electrode: '阴极', equation: '2H₂O + 2e⁻ = H₂↑ + 2OH⁻', role: '还原' },
+      ],
+      totalEquation: '2NaCl + 2H₂O =电解= 2NaOH + H₂↑ + Cl₂↑',
+      phenomena: ['阳极 Cl⁻ 放电顺序先于 OH⁻，生成 Cl₂（黄绿色气体）', '阴极 H⁺ 放电生成 H₂，溶液生成 NaOH'],
+      conclusion: '选 B：阳极产物是 Cl₂',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -256,9 +420,23 @@ const electrochem: Challenge[] = [
   {
     id: 'C11', category: 'Electrochemistry', difficulty: '综合', title: '金属腐蚀与防护',
     problemText: '下列关于金属腐蚀与防护的说法正确的是？',
+    problemConditions: ['纯铁与生铁生锈比较', '钢铁吸氧腐蚀正极反应', '铁管镀锌保护', '外加电流阴极保护法'],
+    questionTarget: '判断金属腐蚀（原电池）与防护（阴极保护）说法的正确性',
     options: ['纯铁比生铁更容易生锈', '钢铁在潮湿空气中发生吸氧腐蚀，正极反应为 O₂ + 2H₂O + 4e⁻ = 4OH⁻', '在铁管上镀锌属于牺牲阴极保护法', '外加电流的阴极保护法中，被保护金属接电源正极'],
     answerIndex: 1,
     explanation: 'A 错：生铁含碳形成原电池，比纯铁更易生锈。B 对：吸氧腐蚀正极 O₂ 得电子生成 OH⁻。C 错：镀锌是牺牲阳极（Zn 比 Fe 活泼作负极被氧化）保护法。D 错：外加电流法中被保护金属接电源负极作阴极。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '金属腐蚀', electrolyte: '潮湿空气（中性/弱酸性）' },
+      electrodes: { negative: 'Fe', positive: 'C（杂质）/ O₂' },
+      halfReactions: [
+        { electrode: '负极', equation: 'Fe - 2e⁻ = Fe²⁺', role: '氧化' },
+        { electrode: '正极', equation: 'O₂ + 2H₂O + 4e⁻ = 4OH⁻', role: '还原' },
+      ],
+      totalEquation: '2Fe + O₂ + 2H₂O = 2Fe(OH)₂（吸氧腐蚀）',
+      phenomena: ['生铁含碳形成原电池，比纯铁更易生锈', '吸氧腐蚀正极：O₂ + 2H₂O + 4e⁻ = 4OH⁻', '镀锌是牺牲阳极（Zn 更活泼作负极）保护法；外加电流法被保护金属接电源负极'],
+      conclusion: '选 B：吸氧腐蚀正极反应 O₂ + 2H₂O + 4e⁻ = 4OH⁻',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -281,9 +459,31 @@ const electrochem: Challenge[] = [
   {
     id: 'C12', category: 'Electrochemistry', difficulty: '难题', title: '电解复原定量计算',
     problemText: '用惰性电极电解 CuSO₄ 溶液一段时间后，阴极析出 6.4 g Cu。要使溶液恢复到电解前的状态，需加入的物质及质量为？',
+    problemConditions: ['惰性电极电解 CuSO₄ 溶液', '阴极析出 6.4 g Cu', '需使溶液恢复到电解前状态'],
+    questionTarget: '计算电解 CuSO₄ 后使溶液复原需加入的物质及质量',
     options: ['8 g CuO', '9.8 g Cu(OH)₂', '16 g CuSO₄', '8 g Cu'],
     answerIndex: 0,
     explanation: '阴极析出 Cu：Cu²⁺+2e⁻=Cu，n(Cu)=6.4/64=0.1 mol。阳极放 O₂：4OH⁻-4e⁻=2H₂O+O₂↑。电路转移 0.2 mol e⁻，生成 0.05 mol O₂。溶液中减少了 0.1 mol Cu 和 0.1 mol O（来自 0.05 mol O₂），相当于移出 0.1 mol CuO，质量=0.1×80=8 g。CuO+H₂SO₄=CuSO₄+H₂O，恰好复原。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '电解池', electrolyte: 'CuSO₄ 溶液（惰性电极）' },
+      electrodes: { negative: '阳极（惰性）', positive: '阴极' },
+      halfReactions: [
+        { electrode: '阴极', equation: 'Cu²⁺ + 2e⁻ = Cu', role: '还原' },
+        { electrode: '阳极', equation: '4OH⁻ - 4e⁻ = 2H₂O + O₂↑', role: '氧化' },
+      ],
+      calc: {
+        given: '阴极析出 6.4 g Cu',
+        target: '复原需加入的物质及质量',
+        steps: [
+          'n(Cu) = 6.4/64 = 0.1 mol，转移电子 0.2 mol',
+          '阳极生成 n(O₂) = 0.05 mol，溶液减少了 0.1 mol Cu 和 0.1 mol O，相当于移出 0.1 mol CuO',
+          'm(CuO) = 0.1 × 80 = 8 g',
+        ],
+        result: '需加入 8 g CuO（CuO + H₂SO₄ = CuSO₄ + H₂O 恰好复原）',
+      },
+      conclusion: '选 A：8 g CuO',
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -306,9 +506,32 @@ const electrochem: Challenge[] = [
   {
     id: 'C13', category: 'Electrochemistry', difficulty: '压轴', title: '原电池驱动电解池计算',
     problemText: '左为铜锌原电池（稀硫酸），右为电解池（CuSO₄ 溶液，惰性电极）。当原电池中锌片溶解 6.5 g 时，电解池中阴极增重多少克？',
+    problemConditions: ['左：铜锌原电池（稀硫酸）', '右：电解池（CuSO₄ 溶液，惰性电极）', '锌片溶解 6.5 g'],
+    questionTarget: '原电池驱动电解池计算阴极增重质量',
     options: ['3.2 g', '6.4 g', '12.8 g', '1.6 g'],
     answerIndex: 1,
     explanation: '原电池负极：Zn - 2e⁻ = Zn²⁺，n(Zn)=6.5/65=0.1 mol，转移 0.2 mol e⁻。串联电路电子守恒，电解池阴极也得 0.2 mol e⁻。阴极：Cu²⁺ + 2e⁻ = Cu，析出 Cu 的物质的量=0.2/2=0.1 mol，质量=0.1×64=6.4 g。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '原电池', electrolyte: '左稀硫酸（原电池）+ 右 CuSO₄ 溶液（电解池，惰性电极）', electronFlow: '串联电路：全电路转移电子数相等' },
+      electrodes: { negative: 'Zn（原电池负极）', positive: '电解池阴极' },
+      halfReactions: [
+        { electrode: '负极', equation: 'Zn - 2e⁻ = Zn²⁺', role: '氧化' },
+        { electrode: '阴极', equation: 'Cu²⁺ + 2e⁻ = Cu', role: '还原' },
+      ],
+      calc: {
+        given: '原电池锌片溶解 6.5 g',
+        target: '电解池阴极增重质量',
+        steps: [
+          'n(Zn) = 6.5/65 = 0.1 mol，转移电子 n(e⁻) = 0.2 mol',
+          '串联电子守恒，电解池阴极得 0.2 mol e⁻',
+          'n(Cu) = n(e⁻)/2 = 0.2/2 = 0.1 mol',
+          'm(Cu) = 0.1 × 64 = 6.4 g',
+        ],
+        result: '阴极增重 6.4 g（Zn ~ 2e⁻ ~ Cu，n(Zn) = n(Cu)）',
+      },
+      conclusion: '选 B：6.4 g',
+    },
     thought: 'Conservation',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',
@@ -331,9 +554,22 @@ const electrochem: Challenge[] = [
   {
     id: 'C14', category: 'Electrochemistry', difficulty: '进阶', title: '酸性氢氧燃料电池',
     problemText: '氢氧燃料电池以 H₂SO₄ 溶液为电解质，其正极反应式为？',
+    problemConditions: ['氢氧燃料电池', 'H₂SO₄ 溶液为电解质'],
+    questionTarget: '写出酸性氢氧燃料电池的正极电极反应式',
     options: ['2H₂ - 4e⁻ = 4H⁺', 'O₂ + 4H⁺ + 4e⁻ = 2H₂O', 'O₂ + 2H₂O + 4e⁻ = 4OH⁻', '2H₂ + 4OH⁻ - 4e⁻ = 4H₂O'],
     answerIndex: 1,
     explanation: '酸性电解质中，正极 O₂ 得电子，与 H⁺ 结合生成水：O₂ + 4H⁺ + 4e⁻ = 2H₂O。A 是负极反应（酸性），C 是正极反应（碱性），D 是负极反应（碱性）。',
+    solveData: {
+      kind: 'electrochem-cell',
+      device: { type: '燃料电池', electrolyte: 'H₂SO₄ 溶液（酸性）' },
+      electrodes: { negative: 'H₂ 极', positive: 'O₂ 极' },
+      halfReactions: [
+        { electrode: '负极', equation: '2H₂ - 4e⁻ = 4H⁺', role: '氧化' },
+        { electrode: '正极', equation: 'O₂ + 4H⁺ + 4e⁻ = 2H₂O', role: '还原' },
+      ],
+      totalEquation: '2H₂ + O₂ = 2H₂O',
+      conclusion: '选 B：酸性正极 O₂ + 4H⁺ + 4e⁻ = 2H₂O（A 是酸性负极，C 是碱性正极，D 是碱性负极）',
+    },
     thought: 'Structure',
     guide: [
       { level: 1, title: '审题分类', cognitiveLayer: 'Ability', interaction: 'Probe',

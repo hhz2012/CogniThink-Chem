@@ -3,6 +3,8 @@ import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import TabBar from '../../components/TabBar'
+import ScaffoldPractice from '../../components/ScaffoldPractice'
+import { getChallengesByCategory } from '../../data/challenges'
 import ModelIcon, { ModelIconName } from '../../components/SolvePanels/ModelIcon'
 import { MODEL_ACCENT } from '../../components/SolvePanels'
 import { ChemCategory } from '../../types/chem'
@@ -40,6 +42,8 @@ export default function Home() {
     STAGES.indexOf(savedStage) >= 0 ? STAGES.indexOf(savedStage) : 2
   )
   const [moreOpen, setMoreOpen] = useState(false)
+  /** 当前正在抽题跳转的卡片 key，null=空闲；用于加载提示与防重复点击 */
+  const [loadingKey, setLoadingKey] = useState<string | null>(null)
 
   /** 切换学段，本地持久化 */
   const selectStage = (idx: number) => {
@@ -52,9 +56,20 @@ export default function Home() {
     selectStage(Number(e.detail.value))
   }
 
-  /** 点击推理卡片：进入题目求解（引擎推理链），携带分类提示 */
+  /** 点击推理卡片：从该专项题库抽一道题，进入答题页（带加载提示与防重复点击） */
   const goReason = (key: ChemCategory) => {
-    Taro.navigateTo({ url: `/pages/solve/index?category=${key}` })
+    if (loadingKey) return
+    const pool = getChallengesByCategory(key)
+    if (pool.length === 0) {
+      Taro.showToast({ title: '该专项暂无题目', icon: 'none' })
+      return
+    }
+    const pick = pool[Math.floor(Math.random() * pool.length)]
+    setLoadingKey(key)
+    Taro.navigateTo({
+      url: `/pages/challenge/index?id=${pick.id}`,
+      complete: () => setLoadingKey(null),
+    })
   }
 
   /** 拍照识题 / 导入题目：进入求解页 */
@@ -65,6 +80,11 @@ export default function Home() {
   /** 更多专项：进入求解页并携带标签 */
   const goMore = (name: string) => {
     Taro.navigateTo({ url: `/pages/solve/index?tag=${encodeURIComponent(name)}` })
+  }
+
+  /** 反应推理卡：进入反应卡列表（分步脚手架讲解） */
+  const goReaction = () => {
+    Taro.navigateTo({ url: '/pages/reaction/index' })
   }
 
   return (
@@ -120,25 +140,35 @@ export default function Home() {
 
         {/* 卡片网格 */}
         <View className={styles.grid}>
-          {CARDS.map((c) => (
-            <View
-              key={c.key}
-              className={classnames(styles.card, { [styles.cardDisabled]: c.disabled })}
-              onClick={() => {
-                if (c.disabled) {
-                  Taro.showToast({ title: '该模块开发中，敬请期待', icon: 'none' })
-                  return
-                }
-                goReason(c.key)
-              }}
-            >
-              {/* 图标：青绿线性 SVG，无背景无边框，直接贴在白卡上 */}
-              <ModelIcon name={c.icon} size={30} color={MODEL_ACCENT} className={styles.cardIcon} />
-              <Text className={styles.cardTitle}>{c.title}</Text>
-              <Text className={styles.cardDesc}>{c.desc}</Text>
-              {c.disabled && <Text className={styles.disabledTag}>敬请期待</Text>}
-            </View>
-          ))}
+          {CARDS.map((c) => {
+            const isLoading = loadingKey === c.key
+            return (
+              <View
+                key={c.key}
+                className={classnames(styles.card, {
+                  [styles.cardDisabled]: c.disabled,
+                  [styles.cardLoading]: isLoading,
+                })}
+                onClick={() => {
+                  if (c.disabled) {
+                    Taro.showToast({ title: '该模块开发中，敬请期待', icon: 'none' })
+                    return
+                  }
+                  goReason(c.key)
+                }}
+              >
+                {isLoading ? (
+                  <View className={styles.cardSpinner} />
+                ) : (
+                  <ModelIcon name={c.icon} size={30} color={MODEL_ACCENT} className={styles.cardIcon} />
+                )}
+                <Text className={styles.cardTitle}>{c.title}</Text>
+                <Text className={styles.cardDesc}>{c.desc}</Text>
+                {isLoading && <Text className={styles.cardLoadingText}>正在为你抽题…</Text>}
+                {c.disabled && <Text className={styles.disabledTag}>敬请期待</Text>}
+              </View>
+            )
+          })}
         </View>
 
         {/* 更多专项（可折叠） */}
@@ -164,6 +194,21 @@ export default function Home() {
             </View>
           )}
         </View>
+
+        {/* 反应推理卡入口：一条反应的分步脚手架讲解 */}
+        <View className={styles.reactionEntry} onClick={goReaction}>
+          <View className={styles.reactionEntryIcon}>
+            <ModelIcon name="hexagon" size={30} color={MODEL_ACCENT} />
+          </View>
+          <View className={styles.reactionEntryMain}>
+            <Text className={styles.reactionEntryTitle}>反应推理卡</Text>
+            <Text className={styles.reactionEntryDesc}>一条反应拆成分步脚手架，点提示看实例化讲解</Text>
+          </View>
+          <Text className={styles.reactionEntryArrow}>›</Text>
+        </View>
+
+        {/* A–F 精熟练习：学生作答 → 引擎校验 → 门控放行（Task 8 轴 2 解题侧） */}
+        <ScaffoldPractice />
 
         {/* 通栏拍照识题按钮 */}
         <View className={styles.photoBtn} onClick={goImport}>
