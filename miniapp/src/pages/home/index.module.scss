@@ -332,6 +332,61 @@
   flex-shrink: 0;
 }
 
+/* ===== A–F 精熟练习入口（与反应推理卡并列，作答内容在独立页） ===== */
+.practiceEntry {
+  margin-top: $spacing-md;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 24rpx 26rpx;
+  background: linear-gradient(135deg, #fef9f3, #fff);
+  border: 2rpx solid #fde6c8;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-card;
+  transition: all $transition-fast;
+
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.92;
+  }
+}
+
+.practiceEntryIcon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: $radius-round;
+  background: rgba(46, 167, 196, 0.12);
+  @include flex-center;
+  flex-shrink: 0;
+}
+
+.practiceEntryMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.practiceEntryTitle {
+  font-size: $font-size-md;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+}
+
+.practiceEntryDesc {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: 1.5;
+}
+
+.practiceEntryArrow {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-bold;
+  color: $color-primary;
+  flex-shrink: 0;
+}
+
 /* ===== 通栏拍照识题按钮 ===== */
 .photoBtn {
   margin-top: $spacing-lg;

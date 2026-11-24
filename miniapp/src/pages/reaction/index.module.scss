@@ -11,10 +11,15 @@
   box-sizing: border-box;
 }
 
-/* ============ 返回栏 ============ */
+/* ============ 返回栏（吸顶，给下方浮动进度条让出空间） ============ */
 .homeBar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
   display: flex;
   align-items: center;
+  height: 72rpx;
+  background: $color-bg-page;
   margin-bottom: 20rpx;
 }
 
@@ -408,25 +413,16 @@
 
 .bottomPad { height: 60rpx; }
 
-/* ============ 思路递进图卡片 ============ */
-.dagCard {
-  margin-top: 4rpx;
-  margin-bottom: 16rpx;
-  padding: 20rpx;
+/* ============ 思路递进：紧凑浮动迷你节点条 ============ */
+.progressWrap {
+  position: sticky;
+  top: 72rpx; // 避让吸顶的返回栏（homeBar 高 72rpx）
+  z-index: 20;
+  margin: 0 (-32rpx) 16rpx; // 横向撑满 body（body 左右内边距 32rpx）
+  padding: 12rpx 32rpx 14rpx;
   background: #fff;
-  border: 1rpx solid rgba(46, 167, 196, 0.25);
-  border-radius: $radius-md;
-}
-.dagCardHead {
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
-  margin-bottom: 12rpx;
-}
-.dagCardTitle {
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
+  border-bottom: 2rpx solid #eef2f5;
+  box-shadow: 0 4rpx 12rpx rgba(31, 41, 51, 0.06);
 }
 
 @keyframes ctFadeInUp {

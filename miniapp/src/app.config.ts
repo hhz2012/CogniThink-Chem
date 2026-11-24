@@ -6,6 +6,7 @@ export default defineAppConfig({
     'pages/mine/index',
     'pages/challenge/index',
     'pages/reaction/index',
+    'pages/practice/index',
     'pages/tutor/index',
     'pages/solve/index',
     'pages/knowledge/index'

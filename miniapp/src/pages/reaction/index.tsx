@@ -13,7 +13,7 @@ import { narrateReaction } from '../../engine/reactionNarration'
 import { SolveModelStep } from '../../engine/solveModels'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import { MODEL_ACCENT } from '../../components/SolvePanels'
-import ThoughtDagFlow from '../../components/ThoughtDagFlow'
+import StepProgress from '../../components/StepProgress'
 import styles from './index.module.scss'
 
 /** 列表分组顺序：无机基本 → 氧还 → 电极 → 离子平衡 → 热化学 → 有机 */
@@ -117,6 +117,10 @@ function ReactionDetailView({ entry }: { entry: ReactionEntry }) {
   const model = getReactionModel(reactionKind)
   const kindLabel = REACTION_KIND_LABEL[reactionKind]
 
+  // 紧凑浮动迷你节点条：步骤序号作节点标识，标题作短标签；高亮当前展开步
+  const progressSteps = model.steps.map((s) => ({ kind: String(s.index), label: s.title }))
+  const activeIdx = model.steps.findIndex((s) => expanded[s.index])
+
   return (
     <View className={styles.page}>
       <ScrollView scrollY className={styles.body}>
@@ -146,13 +150,14 @@ function ReactionDetailView({ entry }: { entry: ReactionEntry }) {
           )}
         </View>
 
-        {/* 思路递进图：该反应 kind 的分步推导链（线性单列，展示这条反应该怎么想） */}
-        <View className={styles.dagCard}>
-          <View className={styles.dagCardHead}>
-            <ModelIcon name="layout" size={16} color={MODEL_ACCENT} />
-            <Text className={styles.dagCardTitle}>思路递进图 · {model.name}</Text>
-          </View>
-          <ThoughtDagFlow reactionKind={reactionKind} mode="preview" />
+        {/* 思路递进：紧凑浮动迷你节点条（只读预览，高亮当前展开步） */}
+        <View className={styles.progressWrap}>
+          <StepProgress
+            steps={progressSteps}
+            activeIndex={activeIdx}
+            title={`思路递进图 · ${model.name}`}
+            preview
+          />
         </View>
 
         {/* 思考过程启发：每步先想再看，点提示揭示实例化讲解 */}

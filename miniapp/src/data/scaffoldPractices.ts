@@ -38,7 +38,7 @@ const CL2_FEI2_PRACTICE: ScaffoldPractice = {
       releases: {
         hint: '体系是 FeI₂ 溶液中通入 Cl₂，不含 NO₃⁻；酸性 / 中性水溶液中 OH⁻ 不是主要粒子，别多选。',
         probe: {
-          stem: '下列哪种粒子在「FeI₂ 溶液中通入 Cl₂」的体系里不应该被列入主要粒子清单？先自己判断，别急着看答案。',
+          stem: '下列哪种粒子不该列入「FeI₂ 溶液中通 Cl₂」体系的主要粒子清单？',
           options: ['NO₃⁻', 'I⁻', 'Fe²⁺', 'Cl₂'],
         },
         scaffold: {
@@ -74,7 +74,7 @@ const CL2_FEI2_PRACTICE: ScaffoldPractice = {
       releases: {
         hint: 'Fe²⁺ 和 I⁻ 都能失电子被氧化，都是还原剂；别把 Fe²⁺ 当成氧化剂，H₂O 在此不参与变价。',
         probe: {
-          stem: '关于 Fe²⁺ 在该反应中的角色，下列哪个说法更合理？先判断，不看结论。',
+          stem: '关于 Fe²⁺ 在该反应中的角色，下列哪个说法更合理？',
           options: ['Fe²⁺ 是还原剂（可失电子变 Fe³⁺）', 'Fe²⁺ 是氧化剂', 'Fe²⁺ 既不被氧化也不被还原'],
         },
         scaffold: {
@@ -109,7 +109,7 @@ const CL2_FEI2_PRACTICE: ScaffoldPractice = {
       releases: {
         hint: 'Cl₂ 的用量决定氧化到哪一步：少量只氧化 I⁻，过量则连 Fe²⁺ 一起氧化——这是本题的关键条件。',
         probe: {
-          stem: '若把题干改成「Cl₂ 过量」，产物会怎样变化？先想一想。',
+          stem: '若把题干改成「Cl₂ 过量」，产物会怎样变化？',
           options: ['过量时 Fe²⁺ 也会被氧化成 Fe³⁺', '过量时仍只生成 I₂', '过量时不发生反应'],
         },
         scaffold: {
@@ -143,7 +143,7 @@ const CL2_FEI2_PRACTICE: ScaffoldPractice = {
       releases: {
         hint: '还原性顺序 I⁻ > Fe²⁺ > Br⁻，所以 Cl₂ 先氧化 I⁻，再轮到 Fe²⁺，最后才是 Br⁻。',
         probe: {
-          stem: '下列还原性强弱排列，哪个是对的？先判断。',
+          stem: '下列还原性强弱排列，哪个是对的？',
           options: ['I⁻ > Fe²⁺ > Br⁻', 'Fe²⁺ > I⁻ > Br⁻', 'Br⁻ > Fe²⁺ > I⁻'],
         },
         scaffold: {
@@ -178,7 +178,7 @@ const CL2_FEI2_PRACTICE: ScaffoldPractice = {
       releases: {
         hint: 'Cl₂ 少量时只把 I⁻ 氧化成 I₂，自身被还原为 Cl⁻；Fe²⁺ 还没轮到，不会生成 Fe³⁺。',
         probe: {
-          stem: 'Cl₂ 少量时，下列哪种产物不会生成？先判断。',
+          stem: 'Cl₂ 少量时，下列哪种产物不会生成？',
           options: ['Fe³⁺', 'I₂', 'Cl⁻'],
         },
         scaffold: {
@@ -213,7 +213,7 @@ const CL2_FEI2_PRACTICE: ScaffoldPractice = {
       releases: {
         hint: '抓住还原性 I⁻ > Fe²⁺：少量氧化剂先满足还原性更强的 I⁻，Fe²⁺ 不被氧化。',
         probe: {
-          stem: '少量 Cl₂ 通入 FeI₂ 溶液，最终结论是？先判断。',
+          stem: '少量 Cl₂ 通入 FeI₂ 溶液，最终结论是？',
           options: ['只氧化 I⁻，Fe²⁺ 不被氧化', '同时氧化 I⁻ 和 Fe²⁺', '不发生反应'],
         },
         scaffold: {

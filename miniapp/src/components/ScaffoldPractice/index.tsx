@@ -8,7 +8,7 @@ import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import { MODEL_ACCENT } from '../SolvePanels'
-import ThoughtDagFlow from '../ThoughtDagFlow'
+import StepProgress from '../StepProgress'
 import {
   MODULE_CHAINS,
   initialGateStates,
@@ -18,7 +18,6 @@ import {
 } from '../../engine/scaffoldChains'
 import { validateStep, releaseTier } from '../../engine/scaffoldValidators'
 import { resolveBranch } from '../../engine/scaffoldBranches'
-import { scaffoldChainToDAG } from '../../engine/thoughtChainDAGs'
 import { SCAFFOLD_PRACTICES, getScaffoldPractice } from '../../data/scaffoldPractices'
 import { BRANCH_EXAMPLES } from '../../data/branchExamples'
 import type {
@@ -33,6 +32,8 @@ import styles from './index.module.scss'
 interface Props {
   /** 指定练习 id；缺省取第一条 */
   practiceId?: string
+  /** 浮动进度条的 sticky top 偏移（避让页面顶部固定栏）；缺省 0 */
+  progressTop?: string
 }
 
 const STATE_LABEL: Record<StepGateState, string> = {
@@ -59,7 +60,7 @@ const emptyAnswer = (truth: Practice['steps'][number]['truth']): StudentAnswer =
   return { type: 'order', ordered: truth.options.map((o) => o.key) }
 }
 
-export default function ScaffoldPractice({ practiceId }: Props) {
+export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Props) {
   const [id, setId] = useState<string>(practiceId ?? SCAFFOLD_PRACTICES[0].id)
   const practice = getScaffoldPractice(id) ?? SCAFFOLD_PRACTICES[0]
   const chain = MODULE_CHAINS[practice.module]
@@ -73,16 +74,6 @@ export default function ScaffoldPractice({ practiceId }: Props) {
   const [dismissed, setDismissed] = useState<Record<number, ScaffoldReleaseTier[]>>({})
   // Task 9：三级规则抽屉的展开 / 收起状态，缺省展开。
   const [drawerOpen, setDrawerOpen] = useState<Record<number, boolean>>({})
-
-  // 思路递进图：把 A–F 原子任务链转成 DAG（线性单列），未解锁步置灰
-  const dag = useMemo(() => scaffoldChainToDAG(chain), [chain])
-  const lockedIds = useMemo(() => {
-    const s = new Set<string>()
-    chain.tasks.forEach((t, i) => {
-      if (gate[i] === 'locked') s.add(`${chain.module}.${t.kind}`)
-    })
-    return s
-  }, [chain, gate])
 
   /** 当前进行中的步：第一个 unlocked 或 failed（failed 仍锁定在当前步，可改答案重试）；-1 表示全部通过 */
   const cur = gate.findIndex((s) => s === 'unlocked' || s === 'failed')
@@ -149,7 +140,9 @@ export default function ScaffoldPractice({ practiceId }: Props) {
 
   // ---- 提交校验 ----
   const onSubmit = (i: number) => {
-    const ans = answers[i]
+    // 用 getAnswer 而非 answers[i]：排序题初始顺序可能已正确，用户未交互（没点 ▲/▼）
+    // 时 answers[i] 仍为 undefined，直接提交会被误判为「未作答」。getAnswer 会回退到 emptyAnswer 初始值。
+    const ans = getAnswer(i)
     const truth = practice.steps[i].truth
     // 降级步无真值：不渲染提交控件，此处防御性返回
     if (!truth) return
@@ -184,6 +177,12 @@ export default function ScaffoldPractice({ practiceId }: Props) {
     return entry ? resolveBranch(entry, practice.conditions) : null
   }, [practice])
 
+  // 浮动紧凑进度条的节点：A–F 字母 + 短标签
+  const progressItems = chain.tasks.map((t) => ({
+    kind: t.kind,
+    label: KIND_LABEL[t.kind] ?? t.title,
+  }))
+
   return (
     <View className={styles.wrap}>
       <View className={styles.head}>
@@ -211,14 +210,13 @@ export default function ScaffoldPractice({ practiceId }: Props) {
         <Text className={styles.practiceModule}>{chain.name}</Text>
       </View>
 
-      {/* 思路递进图：A–F 推理链进度，未解锁步置灰 */}
-      <View className={styles.dagCard}>
-        <Text className={styles.dagCardTitle}>思路递进图 · {chain.name}</Text>
-        <ThoughtDagFlow
-          dag={dag}
-          mode="full"
-          dimmedIds={lockedIds}
-          legendLabels={{ active: '已解锁', dimmed: '未解锁' }}
+      {/* 浮动紧凑进度：A–F 迷你节点 + 连接线，替代大块思路递进图 */}
+      <View className={styles.progressWrap} style={{ top: progressTop }}>
+        <StepProgress
+          steps={progressItems}
+          states={gate}
+          activeIndex={cur}
+          title={chain.name}
         />
       </View>
 
@@ -263,7 +261,14 @@ export default function ScaffoldPractice({ practiceId }: Props) {
               </View>
             </View>
 
-            {!isLocked && (
+            {state === 'passed' ? (
+              <View className={styles.passedRow}>
+                <Text className={styles.passedSummary}>
+                  {KIND_LABEL[task.kind] ?? task.title}
+                  {val?.expectedLabel ? ` · 正确项：${val.expectedLabel}` : ' · 已通过'}
+                </Text>
+              </View>
+            ) : !isLocked ? (
               <>
                 <Text className={styles.stepGoal}>{task.goal}</Text>
 
@@ -440,7 +445,7 @@ export default function ScaffoldPractice({ practiceId }: Props) {
                   </View>
                 )}
               </>
-            )}
+            ) : null}
           </View>
         )
       })}

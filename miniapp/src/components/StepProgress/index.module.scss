@@ -1,0 +1,128 @@
+@use '@/styles/variables.scss' as *;
+
+$accent: #2ea7c4;
+$pass: #2bb673;
+$fail: #e05555;
+$locked: #b8bfc6;
+$ink: #1f2933;
+$ink-2: #52606d;
+
+.bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+  width: 100%;
+  background: #ffffff;
+}
+
+.cap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.capTitle {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $ink;
+}
+.capCount {
+  font-size: $font-size-xs;
+  color: $accent;
+  font-weight: $font-weight-semibold;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.seg {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.cell {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.node {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border: 2rpx solid $locked;
+  flex-shrink: 0;
+}
+.nodeText {
+  font-size: 20rpx;
+  font-weight: $font-weight-bold;
+  line-height: 1;
+  color: $locked;
+}
+.nodeTextLight {
+  color: #ffffff;
+}
+
+.nodePassed {
+  background: $pass;
+  border-color: $pass;
+}
+.nodeFailed {
+  background: $fail;
+  border-color: $fail;
+}
+.nodeActive {
+  background: $accent;
+  border-color: $accent;
+  box-shadow: 0 0 0 6rpx rgba(46, 167, 196, 0.18);
+}
+.nodeLocked {
+  background: #ffffff;
+  border-color: $locked;
+}
+/* preview 只读模式：可用态（白底 + 主题色描边），区别于锁定灰 */
+.nodeAvail {
+  background: #ffffff;
+  border-color: rgba(46, 167, 196, 0.55);
+}
+
+.nodeLabel {
+  font-size: 18rpx;
+  color: $ink-2;
+  white-space: nowrap;
+}
+.nodeLabelOn {
+  color: $ink;
+  font-weight: $font-weight-semibold;
+}
+.nodeLabelDim {
+  color: $locked;
+}
+.nodeLabelAvail {
+  color: $ink-2;
+}
+
+.conn {
+  flex: 1;
+  height: 2rpx;
+  margin-top: 19rpx; // 对齐到节点中心（节点 40rpx → 中心 20rpx）
+  background: #d8dee3;
+  border-radius: 2rpx;
+}
+.connPassed {
+  background: $pass;
+}
+.connAvail {
+  background: rgba(46, 167, 196, 0.4);
+}

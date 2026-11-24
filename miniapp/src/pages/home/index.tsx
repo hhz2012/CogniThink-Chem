@@ -3,7 +3,6 @@ import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import TabBar from '../../components/TabBar'
-import ScaffoldPractice from '../../components/ScaffoldPractice'
 import { getChallengesByCategory } from '../../data/challenges'
 import ModelIcon, { ModelIconName } from '../../components/SolvePanels/ModelIcon'
 import { MODEL_ACCENT } from '../../components/SolvePanels'
@@ -85,6 +84,11 @@ export default function Home() {
   /** 反应推理卡：进入反应卡列表（分步脚手架讲解） */
   const goReaction = () => {
     Taro.navigateTo({ url: '/pages/reaction/index' })
+  }
+
+  /** A–F 精熟练习：进入独立答题页（首页不内嵌作答内容） */
+  const goPractice = () => {
+    Taro.navigateTo({ url: '/pages/practice/index' })
   }
 
   return (
@@ -207,8 +211,17 @@ export default function Home() {
           <Text className={styles.reactionEntryArrow}>›</Text>
         </View>
 
-        {/* A–F 精熟练习：学生作答 → 引擎校验 → 门控放行（Task 8 轴 2 解题侧） */}
-        <ScaffoldPractice />
+        {/* A–F 精熟练习入口：作答内容放在独立页，首页只保留入口 */}
+        <View className={styles.practiceEntry} onClick={goPractice}>
+          <View className={styles.practiceEntryIcon}>
+            <ModelIcon name="zap" size={30} color={MODEL_ACCENT} />
+          </View>
+          <View className={styles.practiceEntryMain}>
+            <Text className={styles.practiceEntryTitle}>A–F 精熟练习</Text>
+            <Text className={styles.practiceEntryDesc}>六步推理逐一作答，答对解锁下一步，答错不泄答案</Text>
+          </View>
+          <Text className={styles.practiceEntryArrow}>›</Text>
+        </View>
 
         {/* 通栏拍照识题按钮 */}
         <View className={styles.photoBtn} onClick={goImport}>

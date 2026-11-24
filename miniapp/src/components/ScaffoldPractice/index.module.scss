@@ -423,17 +423,27 @@ $bg: #f5f8fa;
   color: $ink-2;
 }
 
-/* 思路递进图卡片（A–F 推理链进度） */
-.dagCard {
-  padding: 20rpx;
-  background: #fff;
-  border: 1rpx solid rgba(46, 167, 196, 0.25);
-  border-radius: $radius-md;
+/* 浮动紧凑进度条：sticky 常驻顶部，负边距撑满卡片宽度，替代大块思路递进图 */
+.progressWrap {
+  position: sticky;
+  z-index: 20;
+  margin: (-$spacing-md) (-$spacing-md) $spacing-sm;
+  padding: $spacing-sm $spacing-md;
+  background: #ffffff;
+  border-bottom: 2rpx solid #eef2f5;
+  box-shadow: 0 4rpx 12rpx rgba(31, 41, 51, 0.06);
 }
-.dagCardTitle {
-  display: block;
-  margin-bottom: 12rpx;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-semibold;
-  color: $ink;
+
+/* 已通过步：折叠为一行摘要，大幅压缩垂直空间 */
+.stepPassed {
+  padding: 16rpx $spacing-md;
+}
+.passedRow {
+  display: flex;
+  align-items: center;
+}
+.passedSummary {
+  font-size: $font-size-xs;
+  color: $pass;
+  line-height: $line-height-normal;
 }
