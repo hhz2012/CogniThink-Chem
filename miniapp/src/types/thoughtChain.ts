@@ -5,7 +5,6 @@
 //   ThoughtChainNode 是 SolveModelStep 的超集（讲题骨架）+ AtomicTask 的作答子集（interaction）。
 
 import type { ChemCategory } from './chem'
-import type { ReactionSolveKind } from './reaction'
 import type { AtomicTaskInteraction, ScaffoldModuleKind } from './scaffold'
 
 /** 认知层级：与 engine/solveModels.ModelLayer 保持一致 */
@@ -67,16 +66,15 @@ export interface ThoughtChainNode {
   pitfall?: string
 }
 
-/** 推导图作用域：题型视角 / 反应视角 / 脚手架模块视角 / 跨题型元骨架 */
+/** 推导图作用域：题型视角 / 跨题型元骨架 / 脚手架链（模块或反应侧） */
 export type ThoughtChainScope =
   | { kind: 'category'; category: ChemCategory }
-  | { kind: 'reaction'; reactionKind: ReactionSolveKind }
-  | { kind: 'scaffold'; module: ScaffoldModuleKind | 'reaction' }
   | { kind: 'meta' }
+  | { kind: 'scaffold'; module: ScaffoldModuleKind | 'reaction' }
 
 /** 一张标准推导 DAG */
 export interface ThoughtChainDAG {
-  /** 作用域：题型 或 反应 kind */
+  /** 作用域：题型视角 或 跨题型元骨架 */
   scope: ThoughtChainScope
   /** 图名，如「氧还反应推理 DAG」 */
   name: string

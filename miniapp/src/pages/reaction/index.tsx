@@ -14,6 +14,9 @@ import { SolveModelStep } from '../../engine/solveModels'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import { MODEL_ACCENT } from '../../components/SolvePanels'
 import StepProgress from '../../components/StepProgress'
+import ThoughtDagFlow from '../../components/ThoughtDagFlow'
+import { REACTION_SCAFFOLD_CHAIN } from '../../engine/scaffoldChains'
+import { scaffoldChainToDAG } from '../../engine/thoughtChainDAGs'
 import styles from './index.module.scss'
 
 /** 列表分组顺序：无机基本 → 氧还 → 电极 → 离子平衡 → 热化学 → 有机 */
@@ -160,6 +163,11 @@ function ReactionDetailView({ entry }: { entry: ReactionEntry }) {
           />
         </View>
 
+        {/* 思路递进图：反应推理通用 A–E 脚手架骨架（preview，反应无门控故全高亮） */}
+        <View className={styles.dagBlock}>
+          <ThoughtDagFlow dag={scaffoldChainToDAG(REACTION_SCAFFOLD_CHAIN)} mode="preview" />
+        </View>
+
         {/* 思考过程启发：每步先想再看，点提示揭示实例化讲解 */}
         <View className={styles.sectionLabelRow}>
           <Text className={styles.sectionLabel}>分步脚手架 · {model.name}</Text>
@@ -212,6 +220,23 @@ function ReactionDetailView({ entry }: { entry: ReactionEntry }) {
             )
           })}
         </View>
+
+        {/* 本类反应自查清单：来自 model.checks（每类反应的校验要点） */}
+        {model.checks.length > 0 && (
+          <View className={styles.checksBlock}>
+            <View className={styles.sectionLabelRow}>
+              <Text className={styles.sectionLabel}>本类反应自查清单</Text>
+            </View>
+            <View className={styles.checksWrap}>
+              {model.checks.map((c, i) => (
+                <View key={i} className={styles.checkItem}>
+                  <Text className={styles.checkItemIdx}>{i + 1}</Text>
+                  <Text className={styles.checkItemText}>{c}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        )}
 
         <View className={styles.bottomPad} />
       </ScrollView>

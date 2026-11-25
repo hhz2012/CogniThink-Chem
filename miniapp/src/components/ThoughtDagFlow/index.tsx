@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import { View, Text } from '@tarojs/components'
 import type { Challenge } from '../../types/chem'
-import type { ReactionSolveKind } from '../../types/reaction'
-import { getCategoryDAG, getReactionDAG } from '../../engine/thoughtChainDAGs'
+import { getCategoryDAG } from '../../engine/thoughtChainDAGs'
 import { resolveSkippedNodeIds } from '../../engine/thoughtChainSkip'
 import {
   META_PHASE_ORDER,
@@ -16,9 +15,7 @@ import styles from './index.module.scss'
 interface Props {
   /** 题型：取 category DAG，并在 full 模式下按本题实例结论判定跳过 */
   challenge?: Challenge
-  /** 反应：取该 kind 的线性推导 DAG */
-  reactionKind?: ReactionSolveKind
-  /** 直接传入 DAG（优先级最高）；脚手架侧用 scaffoldChainToDAG 生成后传入 */
+  /** 直接传入 DAG（优先级最高） */
   dag?: ThoughtChainDAG
   /** full=高亮实际执行 / 已解锁路径；preview=展示题型骨架（不读实例数据、不泄答案） */
   mode?: 'preview' | 'full'
@@ -40,12 +37,10 @@ const scopeToKey = (scope: ThoughtChainScope): string => {
   switch (scope.kind) {
     case 'category':
       return `cat-${scope.category}`
-    case 'reaction':
-      return `rx-${scope.reactionKind}`
-    case 'scaffold':
-      return `sc-${scope.module}`
     case 'meta':
       return 'meta'
+    case 'scaffold':
+      return `scaf-${scope.module}`
   }
 }
 
@@ -69,22 +64,15 @@ const boundaryPoint = (
 
 export default function ThoughtDagFlow({
   challenge,
-  reactionKind,
   dag,
   mode = 'full',
   dimmedIds,
   legendLabels,
 }: Props) {
-  // 取数优先级：dag > reactionKind > challenge
+  // 取数优先级：dag > challenge
   const resolvedDag = useMemo<ThoughtChainDAG | null>(
-    () =>
-      dag ??
-      (reactionKind
-        ? getReactionDAG(reactionKind)
-        : challenge
-          ? getCategoryDAG(challenge.category)
-          : null),
-    [dag, reactionKind, challenge],
+    () => dag ?? (challenge ? getCategoryDAG(challenge.category) : null),
+    [dag, challenge],
   )
 
   const scopeKey = resolvedDag ? scopeToKey(resolvedDag.scope) : 'x'
@@ -112,7 +100,7 @@ export default function ThoughtDagFlow({
 
     // 布局自适应：
     //   有 metaPhase → 按阶段横向分层（题型侧：每层节点并排，层间垂直）；
-    //   无 metaPhase → 纯线性链（反应侧 / 脚手架侧），每节点独占一行 → 单列垂直堆叠。
+    //   无 metaPhase → 纯线性链（外部传入的 DAG），每节点独占一行 → 单列垂直堆叠。
     let layers: ThoughtChainNode[][]
     if (nodes.some((n) => n.metaPhase)) {
       const layerMap = new Map<MetaPhase | 'none', ThoughtChainNode[]>()

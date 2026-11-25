@@ -447,3 +447,29 @@ $bg: #f5f8fa;
   color: $pass;
   line-height: $line-height-normal;
 }
+
+/* 思路递进图（ThoughtDagFlow）：答题前可折叠预览 + 通过后完整执行路径 */
+.dagToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12rpx 16rpx;
+  border-radius: $radius-sm;
+  background: rgba($accent, 0.06);
+  border: 2rpx solid rgba($accent, 0.25);
+}
+.dagToggleText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $accent;
+}
+.dagToggleCaret {
+  font-size: $font-size-xs;
+  color: $accent;
+}
+.dagBlock {
+  padding: $spacing-xs;
+  border-radius: $radius-sm;
+  background: #fff;
+  border: 2rpx solid #eef2f5;
+}

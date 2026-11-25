@@ -7,8 +7,8 @@ import { useMemo, useState } from 'react'
 import { View, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
-import { MODEL_ACCENT } from '../SolvePanels'
 import StepProgress from '../StepProgress'
+import ThoughtDagFlow from '../ThoughtDagFlow'
 import {
   MODULE_CHAINS,
   initialGateStates,
@@ -17,6 +17,7 @@ import {
   getGateState,
 } from '../../engine/scaffoldChains'
 import { validateStep, releaseTier } from '../../engine/scaffoldValidators'
+import { scaffoldChainToDAG } from '../../engine/thoughtChainDAGs'
 import { resolveBranch } from '../../engine/scaffoldBranches'
 import { SCAFFOLD_PRACTICES, getScaffoldPractice } from '../../data/scaffoldPractices'
 import { BRANCH_EXAMPLES } from '../../data/branchExamples'
@@ -74,6 +75,8 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
   const [dismissed, setDismissed] = useState<Record<number, ScaffoldReleaseTier[]>>({})
   // Task 9：三级规则抽屉的展开 / 收起状态，缺省展开。
   const [drawerOpen, setDrawerOpen] = useState<Record<number, boolean>>({})
+  // 答题前思路递进图（A–F 骨架预览）的展开 / 收起，缺省收起，避免干扰先看步骤。
+  const [dagOpen, setDagOpen] = useState(false)
 
   /** 当前进行中的步：第一个 unlocked 或 failed（failed 仍锁定在当前步，可改答案重试）；-1 表示全部通过 */
   const cur = gate.findIndex((s) => s === 'unlocked' || s === 'failed')
@@ -150,11 +153,11 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
       Taro.showToast({ title: '请先作答', icon: 'none' })
       return
     }
-    if (truth.type === 'multi-check' && ans.selected.length === 0) {
+    if (ans.type === 'multi-check' && ans.selected.length === 0) {
       Taro.showToast({ title: '请至少勾选一项', icon: 'none' })
       return
     }
-    if (truth.type === 'single-select' && !ans.selected) {
+    if (ans.type === 'single-select' && !ans.selected) {
       Taro.showToast({ title: '请选择一项', icon: 'none' })
       return
     }
@@ -176,6 +179,17 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
     const entry = BRANCH_EXAMPLES.find((e) => e.id === practice.branchEntryId)
     return entry ? resolveBranch(entry, practice.conditions) : null
   }, [practice])
+
+  // 思路递进图：A–F 链转 DAG（答题前预览骨架 / 通过后展示执行路径）
+  const dag = useMemo(() => scaffoldChainToDAG(chain), [chain])
+  // full 模式置灰：gate 中 locked 的步（id 与转换层约定一致：${module}.${kind}）
+  const lockedIds = useMemo(
+    () =>
+      new Set(
+        chain.tasks.filter((_, i) => gate[i] === 'locked').map((t) => `${chain.module}.${t.kind}`),
+      ),
+    [chain, gate],
+  )
 
   // 浮动紧凑进度条的节点：A–F 字母 + 短标签
   const progressItems = chain.tasks.map((t) => ({
@@ -210,7 +224,18 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
         <Text className={styles.practiceModule}>{chain.name}</Text>
       </View>
 
-      {/* 浮动紧凑进度：A–F 迷你节点 + 连接线，替代大块思路递进图 */}
+      {/* 思路递进图：答题前预览 A–F 推导骨架（不泄答案），默认收起 */}
+      <View className={styles.dagToggle} onClick={() => setDagOpen((v) => !v)}>
+        <Text className={styles.dagToggleText}>{dagOpen ? '收起思路图' : '展开思路图 · A–F 推导骨架'}</Text>
+        <Text className={styles.dagToggleCaret}>{dagOpen ? '▲' : '▼'}</Text>
+      </View>
+      {dagOpen && (
+        <View className={styles.dagBlock}>
+          <ThoughtDagFlow dag={dag} mode="preview" legendLabels={{ active: '常规步骤', dimmed: '视情况触发' }} />
+        </View>
+      )}
+
+      {/* 浮动紧凑进度：A–F 迷你节点 + 连接线，答题中常驻导航；与上方思路图并存（职责不同） */}
       <View className={styles.progressWrap} style={{ top: progressTop }}>
         <StepProgress
           steps={progressItems}
@@ -450,9 +475,12 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
         )
       })}
 
-      {/* 全部通过：展示总结 + 分支结论参照（Task 7） */}
+      {/* 全部通过：展示完整执行路径 + 总结 + 分支结论参照（Task 7） */}
       {allPassed && (
         <View className={styles.complete}>
+          <View className={styles.dagBlock}>
+            <ThoughtDagFlow dag={dag} mode="full" dimmedIds={lockedIds} legendLabels={{ active: '已通过', dimmed: '未解锁' }} />
+          </View>
           <Text className={styles.completeTitle}>🎉 全部通过！</Text>
           <Text className={styles.completeText}>你已独立完成 A–F 六步推理，引擎全程判定，未直接给答案。</Text>
           {branchRef?.matched && branchRef.conclusion.E && (

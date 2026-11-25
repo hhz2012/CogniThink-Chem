@@ -4,11 +4,9 @@
 // 文件无 import 副作用；结构合法性由 engine/thoughtChainValidation.ts 校验（见 verify 脚本 / 单测）。
 
 import type { ChemCategory } from '../types/chem'
-import type { ReactionSolveKind } from '../types/reaction'
 import type { AtomicTaskInteraction, ScaffoldChain } from '../types/scaffold'
 import type { MetaPhase, ThoughtChainDAG, ThoughtChainNode } from '../types/thoughtChain'
 import { SOLVE_MODELS, type SolveModelStep } from './solveModels'
-import { REACTION_SOLVE_MODELS } from './reactionSolveModels'
 
 /** 单个步骤的结构字段 overlay（id 与依赖边等；文案来自 SolveModelStep） */
 interface NodeOverlay {
@@ -311,61 +309,24 @@ export const CATEGORY_DAGS: Record<ChemCategory, ThoughtChainDAG> = {
 /** 取某题型的标准推导 DAG */
 export const getCategoryDAG = (category: ChemCategory): ThoughtChainDAG => CATEGORY_DAGS[category]
 
-// ============ 反应侧 DAG（Task 4）：由 REACTION_SOLVE_MODELS 派生 ============
-// 覆盖全部 19 个 ReactionSolveKind（18 非通用 + reaction-generic 降级兜底）。
-// 每步线性派生：id = `${kind}.step-${index}`，dependsOn 默认接前一步；
-// 有机 9 子类型的 ORGANIC_SHARED_STEPS 已在 reactionSolveModels 中拼入 steps（index 1/2），
-// 故线性派生自动满足「step2 认官能团 → step1 的依赖」与子类型步骤接共享第二步。
-const buildReactionDAG = (kind: ReactionSolveKind): ThoughtChainDAG => {
-  const model = REACTION_SOLVE_MODELS[kind]
-  const nodes: ThoughtChainNode[] = model.steps.map((s) => {
-    const id = `${kind}.step-${s.index}`
-    const dependsOn = s.index > 1 ? [`${kind}.step-${s.index - 1}`] : []
-    return {
-      id,
-      index: s.index,
-      title: s.title,
-      goal: s.goal,
-      analyze: s.analyze,
-      layer: s.layer,
-      stage: s.stage,
-      dependsOn,
-    }
-  })
-  return { scope: { kind: 'reaction', reactionKind: kind }, name: model.name, nodes }
-}
+// ============ 脚手架链 → 推导 DAG（P0 接入）============
+// 把脚手架 A–F（或反应侧 A–E）链转成 ThoughtChainDAG，供 ThoughtDagFlow 单列垂直渲染。
+// 不编造化学事实：节点文案取自 AtomicTask（title/goal/interaction/checks/pitfall），
+//   边取自 markPassed 的真实线性解锁依赖（前一步 passed 才解锁后一步）；
+//   AtomicTask 没有的字段（analyze/layer/metaPhase/skipWhen/branchKey/stage）一律省略。
+// 空链 → nodes: []，ThoughtDagFlow 对空节点返回 null，自然降级不崩。
 
-const reactionKinds = Object.keys(REACTION_SOLVE_MODELS) as ReactionSolveKind[]
-
-/** 反应侧 DAG 注册表（全 19 kind） */
-export const REACTION_DAGS: Record<ReactionSolveKind, ThoughtChainDAG> = reactionKinds.reduce(
-  (acc, kind) => {
-    acc[kind] = buildReactionDAG(kind)
-    return acc
-  },
-  {} as Record<ReactionSolveKind, ThoughtChainDAG>,
-)
-
-/** 取某反应 kind 的 DAG；未知 kind 降级到 reaction-generic */
-export const getReactionDAG = (kind: ReactionSolveKind): ThoughtChainDAG =>
-  REACTION_DAGS[kind] ?? REACTION_DAGS['reaction-generic']
-
-// ============ 脚手架侧 DAG：由 ScaffoldChain（A–F 原子任务链）派生 ============
-// 落实 types/thoughtChain.ts 的设计意图：ThoughtChainDAG 同时覆盖题型侧 / 反应侧 / 脚手架侧。
-// 节点文案取自 AtomicTask（真实单一真值源）；依赖边取自 scaffoldChains 的线性门控
-// （markPassed 通过后一步解锁），不凭想象补连线；无来源的 analyze / layer 诚实省略。
+/** 脚手架链 → 推导 DAG */
 export const scaffoldChainToDAG = (chain: ScaffoldChain): ThoughtChainDAG => {
-  const mod = chain.module
-  const tasks = chain.tasks
-  const nodes: ThoughtChainNode[] = tasks.map((t, i) => ({
-    id: `${mod}.${t.kind}`,
-    index: t.index,
-    title: t.title,
-    goal: t.goal,
-    dependsOn: i === 0 ? [] : [`${mod}.${tasks[i - 1].kind}`],
-    interaction: t.interaction,
-    checks: t.checks,
-    pitfall: t.pitfall,
+  const nodes: ThoughtChainNode[] = chain.tasks.map((task, i) => ({
+    id: `${chain.module}.${task.kind}`,
+    index: task.index,
+    title: task.title,
+    goal: task.goal,
+    dependsOn: i === 0 ? [] : [`${chain.module}.${chain.tasks[i - 1].kind}`],
+    interaction: task.interaction,
+    checks: task.checks,
+    pitfall: task.pitfall,
   }))
-  return { scope: { kind: 'scaffold', module: mod }, name: chain.name, nodes }
+  return { scope: { kind: 'scaffold', module: chain.module }, name: chain.name, nodes }
 }
