@@ -172,27 +172,42 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
 
   const getAnswer = (i: number): StudentAnswer =>
     answers[i] ?? emptyAnswer(practice.steps[i].truth, `${practice.id}-${practice.steps[i].kind}`)
-  const setAnswer = (i: number, ans: StudentAnswer) =>
-    setAnswers((prev) => ({ ...prev, [i]: ans }))
+  // 支持传入「基于最新作答的更新函数」：连续快速点击时也基于 prev 计算，
+  // 避免闭包旧 answers 被后写覆盖而丢状态（toggleMulti / moveOrder 均走此路径）。
+  const setAnswer = (
+    i: number,
+    next: StudentAnswer | ((prev: StudentAnswer) => StudentAnswer),
+  ) =>
+    setAnswers((prev) => {
+      const cur = prev[i] ?? emptyAnswer(practice.steps[i].truth, `${practice.id}-${practice.steps[i].kind}`)
+      const ans = typeof next === 'function' ? (next as (p: StudentAnswer) => StudentAnswer)(cur) : next
+      return { ...prev, [i]: ans }
+    })
 
   // ---- 作答交互 ----
   const toggleMulti = (i: number, key: string) => {
-    const ans = getAnswer(i)
-    if (ans.type !== 'multi-check') return
-    const has = ans.selected.includes(key)
-    setAnswer(i, { type: 'multi-check', selected: has ? ans.selected.filter((k) => k !== key) : [...ans.selected, key] })
+    setAnswer(i, (cur) => {
+      if (cur.type !== 'multi-check') return cur
+      const has = cur.selected.includes(key)
+      return {
+        type: 'multi-check',
+        selected: has ? cur.selected.filter((k) => k !== key) : [...cur.selected, key],
+      }
+    })
   }
   const selectSingle = (i: number, key: string) => {
-    setAnswer(i, { type: 'single-select', selected: key })
+    // 单选不依赖旧值，直接写入即可；走 updater 保持与其它作答一致的更新契约
+    setAnswer(i, () => ({ type: 'single-select', selected: key }))
   }
   const moveOrder = (i: number, idx: number, dir: -1 | 1) => {
-    const ans = getAnswer(i)
-    if (ans.type !== 'order') return
-    const j = idx + dir
-    if (j < 0 || j >= ans.ordered.length) return
-    const next = ans.ordered.slice()
-    ;[next[idx], next[j]] = [next[j], next[idx]]
-    setAnswer(i, { type: 'order', ordered: next })
+    setAnswer(i, (cur) => {
+      if (cur.type !== 'order') return cur
+      const j = idx + dir
+      if (j < 0 || j >= cur.ordered.length) return cur
+      const nextArr = cur.ordered.slice()
+      ;[nextArr[idx], nextArr[j]] = [nextArr[j], nextArr[idx]]
+      return { type: 'order', ordered: nextArr }
+    })
   }
 
   // ---- 阶梯释放（Task 9）：关闭某档 / 切换规则抽屉展开 ----
