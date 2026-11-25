@@ -1,6 +1,5 @@
 import {
   Challenge,
-  SolveModelStep,
   SolveData,
   RedoxSolveData,
   RedoxHalfReaction,
@@ -10,6 +9,7 @@ import {
   InferenceSolveData,
   OrganicSolveData,
 } from '../types/chem'
+import { SolveModelStep } from '../engine/solveModels'
 
 /**
  * 把题目结构化真值（solveData）拼成「结合本题具体内容」的实例化讲解文字。

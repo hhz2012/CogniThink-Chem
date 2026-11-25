@@ -6,7 +6,7 @@ import { chapters, getChallengeById } from '../../data/challenges'
 import {
   loadProgress, markSolved, markWrong, unmarkWrong, THOUGHT_META,
 } from '../../utils/storage'
-import { Challenge, UserProgress } from '../../types/chem'
+import { UserProgress } from '../../types/chem'
 import { getTutorScript } from '../../engine/tutorEngine'
 import { diagnoseAnswer, AnswerDiagnosis } from '../../engine/brainEngine'
 import { getSolveModel, getModelChecks, SolveModelStep } from '../../engine/solveModels'

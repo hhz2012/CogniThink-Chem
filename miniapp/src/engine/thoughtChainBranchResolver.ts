@@ -67,7 +67,10 @@ const mergeConditions = (...parts: (BranchConditions | undefined)[]): BranchCond
     if (!p) continue
     for (const k of Object.keys(p) as (keyof BranchConditions)[]) {
       const v = p[k]
-      if (v !== undefined && v !== null) out[k] = v
+      if (v !== undefined && v !== null) {
+        // 联合键索引赋值：TS 无法跨字段收窄 out[k]，用断言保留运行时确定性（值必为 string|boolean）
+        ;(out as Record<string, unknown>)[k] = v
+      }
     }
   }
   return out

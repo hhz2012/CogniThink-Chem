@@ -1,5 +1,5 @@
 import { View, Text } from '@tarojs/components'
-import { SolveModelStep } from '../../engine/solveModels'
+import { SolveModelStep } from '../../../engine/solveModels'
 import styles from './index.module.scss'
 
 interface Props {

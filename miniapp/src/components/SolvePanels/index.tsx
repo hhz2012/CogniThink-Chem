@@ -61,7 +61,7 @@ export default function SolveModelPanel({ challenge, mode }: Props) {
   const panelKind = getPanelKind(challenge)
   const sd = challenge.solveData
 
-  let specialized = null
+  let specialized: JSX.Element | null = null
   if (panelKind === 'redox-electron' && sd?.kind === 'redox-electron') {
     specialized = <RedoxElectronPanel data={sd} color={MODEL_ACCENT} />
   } else if (panelKind === 'ionic-conservation' && sd?.kind === 'ionic-conservation') {

@@ -273,7 +273,7 @@ export function analyzeOptionById(challengeId: string, index: number): OptionAna
 
 /** 根据错误选项推断薄弱知识点（优先直接关联，其次同类知识点） */
 function inferWeakKnowledge(
-  challenge: Challenge,
+  _challenge: Challenge,
   chosen: OptionAnalysis,
   allKps: KnowledgeRef[],
 ): KnowledgeRef[] {

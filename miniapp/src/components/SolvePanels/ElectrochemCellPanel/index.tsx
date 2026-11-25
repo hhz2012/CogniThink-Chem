@@ -1,5 +1,5 @@
 import { View, Text } from '@tarojs/components'
-import { ElectrochemSolveData } from '../../types/chem'
+import { ElectrochemSolveData } from '../../../types/chem'
 import ModelIcon from '../ModelIcon'
 import styles from './index.module.scss'
 

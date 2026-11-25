@@ -1,5 +1,5 @@
 import { View, Text } from '@tarojs/components'
-import { IonicSolveData } from '../../types/chem'
+import { IonicSolveData } from '../../../types/chem'
 import ModelIcon from '../ModelIcon'
 import styles from './index.module.scss'
 
@@ -36,7 +36,7 @@ export default function IonicConservationPanel({ data, color }: Props) {
         <Text>三大守恒关系</Text>
       </View>
       <View className={styles.equations}>
-        {data.equations.map((e, i) => {
+        {data.equations?.map((e, i) => {
           const c = EQ_COLOR[e.type] ?? color
           return (
             <View key={i} className={styles.eqCard} style={{ borderLeftColor: c }}>

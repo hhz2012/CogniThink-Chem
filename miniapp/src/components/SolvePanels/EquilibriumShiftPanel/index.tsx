@@ -1,5 +1,5 @@
 import { View, Text } from '@tarojs/components'
-import { EquilibriumSolveData } from '../../types/chem'
+import { EquilibriumSolveData } from '../../../types/chem'
 import ModelIcon from '../ModelIcon'
 import styles from './index.module.scss'
 
@@ -27,7 +27,7 @@ export default function EquilibriumShiftPanel({ data, color }: Props) {
           <Text className={styles.col}>K 变化</Text>
           <Text className={styles.col}>转化率</Text>
         </View>
-        {data.factors.map((f, i) => (
+        {data.factors?.map((f, i) => (
           <View key={i} className={styles.row}>
             <Text className={styles.col}>{f.factor}</Text>
             <Text className={styles.col}>{f.change}</Text>

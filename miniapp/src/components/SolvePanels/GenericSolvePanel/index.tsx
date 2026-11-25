@@ -1,5 +1,5 @@
 import { View, Text } from '@tarojs/components'
-import { SolveModel } from '../../engine/solveModels'
+import { SolveModel } from '../../../engine/solveModels'
 import StepsView from '../StepsView'
 import ModelIcon from '../ModelIcon'
 import styles from './index.module.scss'

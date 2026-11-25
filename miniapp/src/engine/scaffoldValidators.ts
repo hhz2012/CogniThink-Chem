@@ -36,10 +36,12 @@ export const validateStep = (
     return { passed: false, feedback: '作答形态与该步要求不符，请按题目提示的方式作答。' }
   }
 
-  switch (truth.type) {
+  // 用 answer.type 收窄 answer；truth 因 L35 保证与 answer.type 同型，逐分支断言收窄（TS 不跨变量收窄）
+  switch (answer.type) {
     case 'multi-check': {
-      const ok = setEq(answer.selected, truth.correct)
-      const expected = labelsOf(truth.options, truth.correct)
+      const t = truth as Extract<StepGroundTruth, { type: 'multi-check' }>
+      const ok = setEq(answer.selected, t.correct)
+      const expected = labelsOf(t.options, t.correct)
       return ok
         ? { passed: true, feedback: '目标项已全部正确标出 ✓', expectedLabel: expected }
         : {
@@ -49,8 +51,9 @@ export const validateStep = (
           }
     }
     case 'single-select': {
-      const ok = answer.selected === truth.correct
-      const expected = labelOf(truth.options, truth.correct)
+      const t = truth as Extract<StepGroundTruth, { type: 'single-select' }>
+      const ok = answer.selected === t.correct
+      const expected = labelOf(t.options, t.correct)
       return ok
         ? { passed: true, feedback: '判断正确 ✓', expectedLabel: expected }
         : {
@@ -60,10 +63,11 @@ export const validateStep = (
           }
     }
     case 'order': {
+      const t = truth as Extract<StepGroundTruth, { type: 'order' }>
       const ok =
-        answer.ordered.length === truth.correct.length &&
-        answer.ordered.every((k, i) => k === truth.correct[i])
-      const expected = labelsOf(truth.options, truth.correct)
+        answer.ordered.length === t.correct.length &&
+        answer.ordered.every((k, i) => k === t.correct[i])
+      const expected = labelsOf(t.options, t.correct)
       return ok
         ? { passed: true, feedback: '先后顺序正确 ✓', expectedLabel: expected }
         : {
