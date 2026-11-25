@@ -19,6 +19,12 @@
   box-shadow: $shadow-card;
 }
 
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
 .title {
   display: block;
   font-size: $font-size-xl;
@@ -71,6 +77,12 @@
   border-left: 6rpx solid;
   padding-left: 16rpx;
   margin-bottom: 10rpx;
+}
+
+.layerTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
 }
 
 .layerTitle {

@@ -1,4 +1,5 @@
 import { Challenge, ChemCategory, SolveModelKind } from '../types/chem'
+import type { ModelIconName } from '../types/chem'
 import { chapters } from '../data/challenges'
 
 /** 模型步骤的认知层级 */
@@ -23,7 +24,7 @@ export interface SolveModel {
   category: ChemCategory
   /** 模型名，如「电子守恒配平模型」 */
   name: string
-  icon: string
+  icon: ModelIconName
   color: string
   /** 专属可视化面板类型 */
   panelKind: SolveModelKind
@@ -40,7 +41,7 @@ export const SOLVE_MODELS: Record<ChemCategory, SolveModel> = {
   RedoxReaction: {
     category: 'RedoxReaction',
     name: '氧还反应推理模型',
-    icon: chapterOf('RedoxReaction')?.icon ?? '⚡',
+    icon: chapterOf('RedoxReaction')?.icon ?? 'zap',
     color: chapterOf('RedoxReaction')?.color ?? '#dc2626',
     panelKind: 'redox-electron',
     steps: [
@@ -160,7 +161,7 @@ export const SOLVE_MODELS: Record<ChemCategory, SolveModel> = {
   IonicEquilibrium: {
     category: 'IonicEquilibrium',
     name: '粒子·守恒分析模型',
-    icon: chapterOf('IonicEquilibrium')?.icon ?? '💧',
+    icon: chapterOf('IonicEquilibrium')?.icon ?? 'droplet',
     color: chapterOf('IonicEquilibrium')?.color ?? '#2563eb',
     panelKind: 'ionic-conservation',
     steps: [
@@ -196,7 +197,7 @@ export const SOLVE_MODELS: Record<ChemCategory, SolveModel> = {
   ChemicalEquilibrium: {
     category: 'ChemicalEquilibrium',
     name: '平衡移动推演模型',
-    icon: chapterOf('ChemicalEquilibrium')?.icon ?? '🔄',
+    icon: chapterOf('ChemicalEquilibrium')?.icon ?? 'refresh',
     color: chapterOf('ChemicalEquilibrium')?.color ?? '#ea580c',
     panelKind: 'equilibrium-shift',
     steps: [
@@ -240,7 +241,7 @@ export const SOLVE_MODELS: Record<ChemCategory, SolveModel> = {
   Electrochemistry: {
     category: 'Electrochemistry',
     name: '电极·电路分析模型',
-    icon: chapterOf('Electrochemistry')?.icon ?? '🔋',
+    icon: chapterOf('Electrochemistry')?.icon ?? 'battery',
     color: chapterOf('Electrochemistry')?.color ?? '#7c3aed',
     panelKind: 'electrochem-cell',
     steps: [
@@ -276,7 +277,7 @@ export const SOLVE_MODELS: Record<ChemCategory, SolveModel> = {
   InorganicInference: {
     category: 'InorganicInference',
     name: '突破口·转化链推断模型',
-    icon: chapterOf('InorganicInference')?.icon ?? '⚗️',
+    icon: chapterOf('InorganicInference')?.icon ?? 'test-tube',
     color: chapterOf('InorganicInference')?.color ?? '#16a34a',
     panelKind: 'generic',
     steps: [
@@ -312,7 +313,7 @@ export const SOLVE_MODELS: Record<ChemCategory, SolveModel> = {
   OrganicChemistry: {
     category: 'OrganicChemistry',
     name: '官能团·反应类型模型',
-    icon: chapterOf('OrganicChemistry')?.icon ?? '🧬',
+    icon: chapterOf('OrganicChemistry')?.icon ?? 'hexagon',
     color: chapterOf('OrganicChemistry')?.color ?? '#0891b2',
     panelKind: 'generic',
     steps: [

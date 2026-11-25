@@ -3,6 +3,7 @@ import { useState, useMemo } from 'react'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import TabBar from '../../components/TabBar'
+import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import { chapters } from '../../data/challenges'
 import { CATEGORY_KNOWLEDGE, knowledgeOfCategory, KnowledgeRef } from '../../data/knowledge'
 import { ChemCategory } from '../../types/chem'
@@ -57,7 +58,7 @@ export default function Atlas() {
         <Text className={styles.title}>物质速查</Text>
         <Text className={styles.subtitle}>6 大专项 · 知识点速查</Text>
         <View className={styles.searchBox}>
-          <Text className={styles.searchIcon}>🔍</Text>
+          <ModelIcon name="search" size={16} color="#9ca3af" className={styles.searchIcon} />
           <Input
             className={styles.searchInput}
             placeholder="搜索知识点，如 化合价 / 水解 / 原电池"
@@ -86,7 +87,8 @@ export default function Atlas() {
                 onClick={() => selectCategory(ch.category)}
                 style={isActive ? { background: ch.color, borderColor: ch.color } : {}}
               >
-                <Text className={styles.catTabText}>{ch.icon} {ch.name}</Text>
+                <ModelIcon name={ch.icon} size={14} color={isActive ? '#fff' : ch.color} />
+                <Text className={styles.catTabText}>{ch.name}</Text>
               </View>
             )
           })}
@@ -97,7 +99,7 @@ export default function Atlas() {
       <ScrollView scrollY className={styles.body}>
         {list.length === 0 ? (
           <View className={styles.empty}>
-            <Text className={styles.emptyIcon}>🔍</Text>
+            <ModelIcon name="search" size={48} color="#cbd5e1" className={styles.emptyIcon} />
             <Text className={styles.emptyTitle}>没有找到相关知识点</Text>
             <Text className={styles.emptySub}>换个关键词试试，或切换分类浏览</Text>
           </View>
@@ -113,7 +115,7 @@ export default function Atlas() {
                   <View key={ref.id} className={styles.kpCard} onClick={() => openKnowledge(category)}>
                     <View className={styles.kpTop}>
                       <View className={styles.kpIcon} style={{ background: `${ch.color}15` }}>
-                        <Text style={{ color: ch.color }}>{ch.icon}</Text>
+                        <ModelIcon name={ch.icon} size={28} color={ch.color} />
                       </View>
                       <View className={styles.kpMain}>
                         <Text className={styles.kpName}>{ref.name}</Text>

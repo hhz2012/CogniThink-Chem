@@ -85,6 +85,7 @@
 .catTab {
   display: inline-flex;
   align-items: center;
+  gap: 8rpx;
   padding: 12rpx 26rpx;
   border-radius: $radius-round;
   background: $color-bg-card;

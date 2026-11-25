@@ -7,7 +7,8 @@ import IonicConservationPanel from './IonicConservationPanel'
 import EquilibriumShiftPanel from './EquilibriumShiftPanel'
 import ElectrochemCellPanel from './ElectrochemCellPanel'
 import GenericSolvePanel from './GenericSolvePanel'
-import ModelIcon, { ModelIconName } from './ModelIcon'
+import ModelIcon from './ModelIcon'
+import type { ModelIconName } from '../../types/chem'
 import styles from './index.module.scss'
 
 /** 解题模型面板统一强调色：品牌青蓝，与 $color-primary 保持一致 */

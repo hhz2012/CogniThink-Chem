@@ -1,10 +1,11 @@
-import { View, Text, Picker, ScrollView } from '@tarojs/components'
+import { View, Text, ScrollView } from '@tarojs/components'
 import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import TabBar from '../../components/TabBar'
 import { getChallengesByCategory } from '../../data/challenges'
-import ModelIcon, { ModelIconName } from '../../components/SolvePanels/ModelIcon'
+import ModelIcon from '../../components/SolvePanels/ModelIcon'
+import type { ModelIconName } from '../../types/chem'
 import { MODEL_ACCENT } from '../../components/SolvePanels'
 import { ChemCategory } from '../../types/chem'
 import styles from './index.module.scss'
@@ -49,10 +50,6 @@ export default function Home() {
     if (idx < 0 || idx >= STAGES.length) return
     setStageIndex(idx)
     Taro.setStorageSync(STAGE_KEY, STAGES[idx])
-  }
-
-  const onStageChange = (e: { detail: { value: number | string } }) => {
-    selectStage(Number(e.detail.value))
   }
 
   /** 点击推理卡片：从该专项题库抽一道题，进入答题页（带加载提示与防重复点击） */
@@ -100,21 +97,7 @@ export default function Home() {
 
       {/* ========== 内容滚动区 ========== */}
       <ScrollView scrollY className={styles.body}>
-        {/* 学段选择 */}
-        <View className={styles.stageRow}>
-          <Picker
-            mode="selector"
-            range={STAGES}
-            value={stageIndex}
-            onChange={onStageChange}
-          >
-            <View className={styles.stageLabel}>
-              <Text className={styles.stageLabelText}>当前学段：{STAGES[stageIndex]}</Text>
-              <Text className={styles.stageArrow}>▾</Text>
-            </View>
-          </Picker>
-        </View>
-
+        {/* 学段切换：分段控件（唯一入口，移除冗余 Picker） */}
         <View className={styles.stagePills}>
           {STAGES.map((s, i) => (
             <View

@@ -2,6 +2,7 @@ import { View, Text } from '@tarojs/components'
 import { useState } from 'react'
 import Taro, { useDidShow } from '@tarojs/taro'
 import TabBar from '../../components/TabBar'
+import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import { loadProgress, resetProgress, THOUGHT_META } from '../../utils/storage'
 import { UserProgress, Thought } from '../../types/chem'
 import { chapters, allChallenges } from '../../data/challenges'
@@ -42,7 +43,7 @@ export default function Mine() {
   return (
     <View className={styles.page}>
       <View className={styles.header}>
-        <View className={styles.avatar}>🧪</View>
+        <View className={styles.avatar}><ModelIcon name="test-tube" size={34} color="#2EA7C4" /></View>
         <Text className={styles.nickname}>化学探险家</Text>
         <Text className={styles.desc}>用知识驱动，征服化学难题</Text>
         <View className={styles.progressRow}>
@@ -56,22 +57,22 @@ export default function Mine() {
       <View className={styles.body}>
         <View className={styles.statsGrid}>
           <View className={styles.statCard}>
-            <Text className={styles.statIcon}>✅</Text>
+            <ModelIcon name="check-circle" size={24} color="#16a34a" className={styles.statIcon} />
             <Text className={styles.statNum}>{solved}</Text>
             <Text className={styles.statLabel}>已通关</Text>
           </View>
           <View className={styles.statCard} onClick={goBank}>
-            <Text className={styles.statIcon}>📕</Text>
+            <ModelIcon name="book" size={24} color="#2563eb" className={styles.statIcon} />
             <Text className={styles.statNum}>{progress.wrongIds.length}</Text>
             <Text className={styles.statLabel}>错题本</Text>
           </View>
           <View className={styles.statCard}>
-            <Text className={styles.statIcon}>💡</Text>
+            <ModelIcon name="lightbulb" size={24} color="#ea580c" className={styles.statIcon} />
             <Text className={styles.statNum}>{progress.inspirations}</Text>
             <Text className={styles.statLabel}>灵感值</Text>
           </View>
           <View className={styles.statCard}>
-            <Text className={styles.statIcon}>🏆</Text>
+            <ModelIcon name="trophy" size={24} color="#d97706" className={styles.statIcon} />
             <Text className={styles.statNum}>{chapters.filter((ch) => ch.challenges.every((c) => progress.solvedIds.includes(c.id))).length}</Text>
             <Text className={styles.statLabel}>通关专项</Text>
           </View>
@@ -85,7 +86,7 @@ export default function Mine() {
               const count = progress.thoughtCounts[t]
               return (
                 <View key={t} className={styles.thoughtRow}>
-                  <Text className={styles.thoughtIcon} style={{ color: meta.color }}>{meta.icon}</Text>
+                  <ModelIcon name={meta.icon} size={18} color={meta.color} className={styles.thoughtIcon} />
                   <Text className={styles.thoughtLabel}>{meta.label}</Text>
                   <Text className={styles.thoughtCount} style={{ color: count > 0 ? meta.color : '#cbd5e1' }}>
                     {count} 枚

@@ -4,6 +4,7 @@ import Taro, { useDidShow } from '@tarojs/taro'
 import classnames from 'classnames'
 import TabBar from '../../components/TabBar'
 import ThoughtChip from '../../components/ThoughtChip'
+import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import { chapters, allChallenges, getChallengeById } from '../../data/challenges'
 import { loadProgress, unmarkWrong } from '../../utils/storage'
 import { UserProgress, Chapter } from '../../types/chem'
@@ -77,12 +78,13 @@ export default function Bank() {
                   <View className={styles.wrongHead}>
                     <View className={styles.chipRow}>
                       {ch && (
-                        <Text
+                        <View
                           className={styles.chapterTag}
                           style={{ background: `${ch.color}15`, color: ch.color }}
                         >
-                          {ch.icon} {ch.name}
-                        </Text>
+                          <ModelIcon name={ch.icon} size={12} color={ch.color} />
+                          <Text>{ch.name}</Text>
+                        </View>
                       )}
                       <Text className={styles.diffTag}>{c.difficulty}</Text>
                     </View>
@@ -120,9 +122,10 @@ export default function Bank() {
               {chapters.map((ch) => (
                 <View key={ch.id} className={styles.allChapter}>
                   <View className={styles.allChapterHead} style={{ background: `${ch.color}10` }}>
-                    <Text className={styles.allChapterName} style={{ color: ch.color }}>
-                      {ch.icon} {ch.name}
-                    </Text>
+                    <View className={styles.allChapterName} style={{ color: ch.color }}>
+                      <ModelIcon name={ch.icon} size={15} color={ch.color} />
+                      <Text>{ch.name}</Text>
+                    </View>
                     <Text className={styles.allChapterCount}>{ch.challenges.length} 题</Text>
                   </View>
                   <View className={styles.allItems}>

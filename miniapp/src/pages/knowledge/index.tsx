@@ -6,6 +6,7 @@ import { chapters } from '../../data/challenges'
 import { knowledgeOfCategory, getFullKnowledgePoint } from '../../data/knowledge'
 import { LAYER_META, KnowledgeLayer, KnowledgePoint } from '../../data/knowledge/redox'
 import Collapse from '../../components/Collapse'
+import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import styles from './index.module.scss'
 
 const LAYERS: KnowledgeLayer[] = ['Knowledge', 'Application', 'Ability']
@@ -56,9 +57,10 @@ export default function KnowledgePage() {
     <View className={styles.page}>
       <ScrollView scrollY className={styles.body}>
         <View className={styles.header}>
-          <Text className={styles.title}>
-            {chapter ? `${chapter.icon} ${chapter.name}` : '知识体系'} · 知识体系
-          </Text>
+          <View className={styles.titleRow}>
+            {chapter && <ModelIcon name={chapter.icon} size={22} color={chapter.color} />}
+            <Text className={styles.title}>{chapter ? chapter.name : '知识体系'} · 知识体系</Text>
+          </View>
           <Text className={styles.subtitle}>
             {total} 个知识点 · 三层进阶 · 先自测，不会就看讲解
           </Text>
@@ -77,7 +79,10 @@ export default function KnowledgePage() {
           return (
             <View key={layer} className={styles.layerSection}>
               <View className={styles.layerHead} style={{ borderLeftColor: meta.color }}>
-                <Text className={styles.layerTitle}>{meta.icon} {meta.label}</Text>
+                <View className={styles.layerTitleRow}>
+                  <ModelIcon name={meta.icon} size={18} color={meta.color} />
+                  <Text className={styles.layerTitle}>{meta.label}</Text>
+                </View>
                 <Text className={styles.layerDesc}>{meta.desc}</Text>
               </View>
 

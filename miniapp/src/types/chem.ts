@@ -14,6 +14,36 @@ export type Thought =
   | 'Classification'
   | 'ModelCognition'
 
+/**
+ * 全站统一线性图标名（单一权威源）。
+ * 数据层的 icon 字段与 UI 渲染层共用此类型，杜绝 emoji 多色不一致。
+ * 实际 SVG 路径由 components/SolvePanels/ModelIcon 维护。
+ */
+export type ModelIconName =
+  | 'zap'
+  | 'droplet'
+  | 'refresh'
+  | 'battery'
+  | 'test-tube'
+  | 'hexagon'
+  | 'link'
+  | 'check-circle'
+  | 'lightbulb'
+  | 'layout'
+  | 'camera'
+  | 'home'
+  | 'volume'
+  | 'book'
+  | 'user'
+  | 'search'
+  | 'trophy'
+  | 'scale'
+  | 'atom'
+  | 'layers'
+  | 'puzzle'
+  | 'wrench'
+  | 'target'
+
 // 难度等级（与高考难度分布对齐）
 export type Difficulty = '基础' | '进阶' | '综合' | '难题' | '压轴'
 
@@ -308,7 +338,7 @@ export interface Challenge {
 export interface Chapter {
   id: string
   name: string
-  icon: string
+  icon: ModelIconName
   category: ChemCategory
   color: string
   desc: string

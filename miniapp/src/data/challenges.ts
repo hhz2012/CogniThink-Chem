@@ -14,27 +14,27 @@ import organic from './challenges/organic'
 
 export const chapters: Chapter[] = [
   {
-    id: 'ch-redox', name: '氧化还原反应', icon: '⚡', category: 'RedoxReaction',
+    id: 'ch-redox', name: '氧化还原反应', icon: 'zap', category: 'RedoxReaction',
     color: '#dc2626', desc: '电子守恒·配平·产物推断', challenges: redox,
   },
   {
-    id: 'ch-ion', name: '水溶液离子平衡', icon: '💧', category: 'IonicEquilibrium',
+    id: 'ch-ion', name: '水溶液离子平衡', icon: 'droplet', category: 'IonicEquilibrium',
     color: '#2563eb', desc: '电离·水解·离子浓度比较', challenges: ionicEq,
   },
   {
-    id: 'ch-eq', name: '化学平衡', icon: '🔄', category: 'ChemicalEquilibrium',
+    id: 'ch-eq', name: '化学平衡', icon: 'refresh', category: 'ChemicalEquilibrium',
     color: '#ea580c', desc: '平衡移动·K·Ksp·等效平衡', challenges: chemEq,
   },
   {
-    id: 'ch-elec', name: '电化学综合', icon: '🔋', category: 'Electrochemistry',
+    id: 'ch-elec', name: '电化学综合', icon: 'battery', category: 'Electrochemistry',
     color: '#7c3aed', desc: '原电池·电解池·综合计算', challenges: electrochem,
   },
   {
-    id: 'ch-inorg', name: '元素化合物推断', icon: '🔬', category: 'InorganicInference',
+    id: 'ch-inorg', name: '元素化合物推断', icon: 'test-tube', category: 'InorganicInference',
     color: '#16a34a', desc: '框图推断·离子检验·工业流程', challenges: inorganic,
   },
   {
-    id: 'ch-org', name: '有机化学', icon: '🧬', category: 'OrganicChemistry',
+    id: 'ch-org', name: '有机化学', icon: 'hexagon', category: 'OrganicChemistry',
     color: '#0891b2', desc: '官能团·反应类型·合成推断', challenges: organic,
   },
 ]

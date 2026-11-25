@@ -1,3 +1,5 @@
+import type { ModelIconName } from '../../types/chem'
+
 // ============================================================
 // 氧化还原反应 · 知识体系（知识点 → 检测 → 教学闭环）
 // 三层：Knowledge 基础认知 / Application 规律应用 / Ability 综合能力
@@ -24,10 +26,10 @@ export interface KnowledgePoint {
   teach: { steps: string[]; example: string }
 }
 
-export const LAYER_META: Record<KnowledgeLayer, { label: string; icon: string; color: string; desc: string }> = {
-  Knowledge: { label: '基础认知', icon: '📖', color: '#2EA7C4', desc: '概念与判断：先弄清"是什么"' },
-  Application: { label: '规律应用', icon: '🛠️', color: '#2563eb', desc: '规律与方法：再学会"怎么用"' },
-  Ability: { label: '综合能力', icon: '🧠', color: '#7c3aed', desc: '计算与迁移：最后能"解新题"' },
+export const LAYER_META: Record<KnowledgeLayer, { label: string; icon: ModelIconName; color: string; desc: string }> = {
+  Knowledge: { label: '基础认知', icon: 'book', color: '#2EA7C4', desc: '概念与判断：先弄清"是什么"' },
+  Application: { label: '规律应用', icon: 'wrench', color: '#2563eb', desc: '规律与方法：再学会"怎么用"' },
+  Ability: { label: '综合能力', icon: 'target', color: '#7c3aed', desc: '计算与迁移：最后能"解新题"' },
 }
 
 export const redoxKnowledge: KnowledgePoint[] = [

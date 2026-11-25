@@ -119,6 +119,9 @@
 }
 
 .chapterTag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6rpx;
   font-size: 20rpx;
   font-weight: $font-weight-semibold;
   padding: 4rpx 16rpx;
@@ -237,6 +240,9 @@
 }
 
 .allChapterName {
+  display: inline-flex;
+  align-items: center;
+  gap: 8rpx;
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
 }

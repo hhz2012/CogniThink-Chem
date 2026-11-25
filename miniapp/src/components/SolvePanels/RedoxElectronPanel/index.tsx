@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { View, Text } from '@tarojs/components'
 import { RedoxSolveData } from '../../../types/chem'
-import ModelIcon, { ModelIconName } from '../ModelIcon'
+import ModelIcon from '../ModelIcon'
+import type { ModelIconName } from '../../../types/chem'
 import Collapse from '../../Collapse'
 import styles from './index.module.scss'
 
