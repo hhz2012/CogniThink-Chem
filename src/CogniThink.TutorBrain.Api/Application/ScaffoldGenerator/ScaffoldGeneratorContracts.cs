@@ -144,12 +144,14 @@ public sealed class StepPractice
 /// <summary>题面条件（分支判定依据；可空）。</summary>
 public sealed class BranchConditions
 {
-    [JsonPropertyName("medium")] public string? Medium { get; set; }
-    [JsonPropertyName("quantity")] public string? Quantity { get; set; }
-    [JsonPropertyName("concentration")] public string? Concentration { get; set; }
-    [JsonPropertyName("temperature")] public string? Temperature { get; set; }
-    [JsonPropertyName("electrolyzed")] public bool? Electrolyzed { get; set; }
-    [JsonPropertyName("membrane")] public string? Membrane { get; set; }
+    // 未设置字段省略：前端 strictNullChecks 下 `medium?: string` 等不接受 null 字面量，
+    // 只序列化有值的字段，输出稀疏对象对齐前端 undefined 语义（与 GeneratedScaffold.Conditions 同口径）。
+    [JsonPropertyName("medium")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public string? Medium { get; set; }
+    [JsonPropertyName("quantity")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public string? Quantity { get; set; }
+    [JsonPropertyName("concentration")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public string? Concentration { get; set; }
+    [JsonPropertyName("temperature")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public string? Temperature { get; set; }
+    [JsonPropertyName("electrolyzed")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public bool? Electrolyzed { get; set; }
+    [JsonPropertyName("membrane")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public string? Membrane { get; set; }
 }
 
 // ---------- 生成产物：GeneratedScaffold（ScaffoldPractice 超集） ----------

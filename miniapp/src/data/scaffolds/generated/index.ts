@@ -7,6 +7,9 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "id": "gen_pdf-104",
     "title": "氧化还原推理练习 pdf-104",
     "module": "redox-reasoning",
+    "conditions": {
+      "medium": "酸性"
+    },
     "steps": [
       {
         "kind": "A",
@@ -140,9 +143,26 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
       },
       {
         "kind": "C",
-        "truth": null,
+        "truth": {
+          "type": "single-select",
+          "options": [
+            {
+              "key": "acidic",
+              "label": "酸性"
+            },
+            {
+              "key": "neutral",
+              "label": "中性"
+            },
+            {
+              "key": "basic",
+              "label": "碱性"
+            }
+          ],
+          "correct": "acidic"
+        },
         "releases": {
-          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。先回到题干逐项核对，再作答。",
+          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。已知本步涉及：acidic。先确认你是否把它们都纳入了考虑。",
           "probe": {
             "stem": "关于「识别约束条件（最核心、引擎最大价值点）」，下列做法更合理的是？",
             "options": [
@@ -162,7 +182,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
           },
           "reveal": {
             "title": "识别约束条件（最核心、引擎最大价值点）",
-            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。"
+            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。\n本步对应事实：acidic。"
           }
         }
       },
@@ -317,14 +337,11 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "provenance": {
       "A": "ParsedEquation.AllSpecies",
       "B": "RedoxAnalysis.Changes",
+      "C": "QuestionCase.Question(keyword:酸性)",
       "E": "ParsedEquation.Right",
       "F": "case.answer"
     },
     "degradedSteps": [
-      {
-        "kind": "C",
-        "reason": "引擎无可靠真值（步级降级为只读揭示）"
-      },
       {
         "kind": "D",
         "reason": "引擎无可靠真值（步级降级为只读揭示）"
@@ -339,6 +356,9 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "id": "gen_pdf-110",
     "title": "氧化还原推理练习 pdf-110",
     "module": "redox-reasoning",
+    "conditions": {
+      "temperature": "加热"
+    },
     "steps": [
       {
         "kind": "A",
@@ -467,9 +487,22 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
       },
       {
         "kind": "C",
-        "truth": null,
+        "truth": {
+          "type": "single-select",
+          "options": [
+            {
+              "key": "heat",
+              "label": "加热/高温"
+            },
+            {
+              "key": "room",
+              "label": "常温"
+            }
+          ],
+          "correct": "heat"
+        },
         "releases": {
-          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。先回到题干逐项核对，再作答。",
+          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。已知本步涉及：heat。先确认你是否把它们都纳入了考虑。",
           "probe": {
             "stem": "关于「识别约束条件（最核心、引擎最大价值点）」，下列做法更合理的是？",
             "options": [
@@ -489,7 +522,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
           },
           "reveal": {
             "title": "识别约束条件（最核心、引擎最大价值点）",
-            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。"
+            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。\n本步对应事实：heat。"
           }
         }
       },
@@ -631,14 +664,11 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "provenance": {
       "A": "ParsedEquation.AllSpecies",
       "B": "RedoxAnalysis.Changes",
+      "C": "QuestionCase.Question(keyword:加热/高温)",
       "E": "ParsedEquation.Right",
       "F": "case.answer"
     },
     "degradedSteps": [
-      {
-        "kind": "C",
-        "reason": "引擎无可靠真值（步级降级为只读揭示）"
-      },
       {
         "kind": "D",
         "reason": "引擎无可靠真值（步级降级为只读揭示）"
@@ -653,6 +683,9 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "id": "gen_pdf-112",
     "title": "氧化还原推理练习 pdf-112",
     "module": "redox-reasoning",
+    "conditions": {
+      "quantity": "少量"
+    },
     "steps": [
       {
         "kind": "A",
@@ -799,9 +832,30 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
       },
       {
         "kind": "C",
-        "truth": null,
+        "truth": {
+          "type": "single-select",
+          "options": [
+            {
+              "key": "excess",
+              "label": "过量"
+            },
+            {
+              "key": "little",
+              "label": "少量"
+            },
+            {
+              "key": "none",
+              "label": "不影响"
+            },
+            {
+              "key": "equal",
+              "label": "等物质的量"
+            }
+          ],
+          "correct": "little"
+        },
         "releases": {
-          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。先回到题干逐项核对，再作答。",
+          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。已知本步涉及：little。先确认你是否把它们都纳入了考虑。",
           "probe": {
             "stem": "关于「识别约束条件（最核心、引擎最大价值点）」，下列做法更合理的是？",
             "options": [
@@ -821,7 +875,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
           },
           "reveal": {
             "title": "识别约束条件（最核心、引擎最大价值点）",
-            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。"
+            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。\n本步对应事实：little。"
           }
         }
       },
@@ -963,14 +1017,11 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "provenance": {
       "A": "ParsedEquation.AllSpecies",
       "B": "RedoxAnalysis.Changes",
+      "C": "QuestionCase.Question(keyword:少量)",
       "E": "ParsedEquation.Right",
       "F": "case.answer"
     },
     "degradedSteps": [
-      {
-        "kind": "C",
-        "reason": "引擎无可靠真值（步级降级为只读揭示）"
-      },
       {
         "kind": "D",
         "reason": "引擎无可靠真值（步级降级为只读揭示）"
@@ -985,6 +1036,9 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "id": "gen_pdf-298",
     "title": "氧化还原推理练习 pdf-298",
     "module": "redox-reasoning",
+    "conditions": {
+      "quantity": "少量"
+    },
     "steps": [
       {
         "kind": "A",
@@ -1121,9 +1175,30 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
       },
       {
         "kind": "C",
-        "truth": null,
+        "truth": {
+          "type": "single-select",
+          "options": [
+            {
+              "key": "excess",
+              "label": "过量"
+            },
+            {
+              "key": "little",
+              "label": "少量"
+            },
+            {
+              "key": "none",
+              "label": "不影响"
+            },
+            {
+              "key": "equal",
+              "label": "等物质的量"
+            }
+          ],
+          "correct": "little"
+        },
         "releases": {
-          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。先回到题干逐项核对，再作答。",
+          "hint": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。已知本步涉及：little。先确认你是否把它们都纳入了考虑。",
           "probe": {
             "stem": "关于「识别约束条件（最核心、引擎最大价值点）」，下列做法更合理的是？",
             "options": [
@@ -1143,7 +1218,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
           },
           "reveal": {
             "title": "识别约束条件（最核心、引擎最大价值点）",
-            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。"
+            "body": "识别所有会改变反应走向的前提：酸 / 碱性、浓度、加热、过量少量、是否沉淀、膜隔离、通电、温度。\n本步对应事实：little。"
           }
         }
       },
@@ -1272,14 +1347,11 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
     "provenance": {
       "A": "ParsedEquation.AllSpecies",
       "B": "RedoxAnalysis.Changes",
+      "C": "QuestionCase.Question(keyword:少量)",
       "E": "ParsedEquation.Right",
       "F": "case.answer"
     },
     "degradedSteps": [
-      {
-        "kind": "C",
-        "reason": "引擎无可靠真值（步级降级为只读揭示）"
-      },
       {
         "kind": "D",
         "reason": "引擎无可靠真值（步级降级为只读揭示）"

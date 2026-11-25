@@ -10,14 +10,18 @@ using CogniThink.TutorBrain.Application.Gateway;
 // 只读消费：复用 BalanceGatewaySolver 的公开抽取器 + Chem.Core 公开引擎，
 // 不调用 LlmGatewayService 判分链路，不修改任何引擎逻辑（零回归）。
 // 键约定（供 StepTruthExtractor / 校验门按名取值）：
-//   "parsed" : ParsedEquation? 解析结果（含 AllSpecies / Left / Right）
-//   "redox"  : RedoxAnalysis?  氧化还原分析（含 Changes / 半反应）
+//   "parsed"          : ParsedEquation?           解析结果（含 AllSpecies / Left / Right）
+//   "redox"           : RedoxAnalysis?            氧化还原分析（含 Changes / 半反应）
+//   "conditions"      : ConditionExtraction?      C 步约束条件（题干关键词扫描，P0-2）
+//   "reactivityOrder" : ReactivityOrderExtraction? D 步竞争排序（教材顺序过滤体系粒子，P0-2）
 // ============================================================
 
 public static class EngineArtifactsBuilder
 {
     public const string KeyParsed = "parsed";
     public const string KeyRedox = "redox";
+    public const string KeyConditions = "conditions";
+    public const string KeyReactivity = "reactivityOrder";
 
     /// <summary>
     /// 从题干构建引擎产物容器。任何环节失败（抽不到方程式 / 解析失败 / 引擎失败）
@@ -26,6 +30,10 @@ public static class EngineArtifactsBuilder
     public static EngineArtifacts Build(QuestionCase @case)
     {
         var artifacts = new EngineArtifacts { Case = @case };
+
+        // C 步：约束条件来自题干关键词，与方程式解析无关，先提取（无命中则不填，下游降级）。
+        var conditions = ConditionsExtractor.Extract(@case.Question);
+        if (conditions is not null) artifacts.EngineOutputs[KeyConditions] = conditions;
 
         var raw = ExtractEquation(@case.Question ?? string.Empty);
         if (string.IsNullOrWhiteSpace(raw)) return artifacts;
@@ -40,6 +48,10 @@ public static class EngineArtifactsBuilder
         var redox = RedoxBalancer.SplitHalfReactions(equation, "acidic");
         artifacts.EngineOutputs[KeyRedox] = redox;
 
+        // D 步：竞争排序依赖解析出的体系物种（<2 个命中 → 不填，下游降级）。
+        var reactivity = ReactivityOrderExtractor.Extract(parsed);
+        if (reactivity is not null) artifacts.EngineOutputs[KeyReactivity] = reactivity;
+
         return artifacts;
     }
 
@@ -50,6 +62,12 @@ public static class EngineArtifactsBuilder
 
     public static RedoxAnalysis? GetRedox(EngineArtifacts a)
         => a.EngineOutputs.TryGetValue(KeyRedox, out var v) && v is RedoxAnalysis r ? r : null;
+
+    internal static ConditionExtraction? GetConditions(EngineArtifacts a)
+        => a.EngineOutputs.TryGetValue(KeyConditions, out var v) && v is ConditionExtraction c ? c : null;
+
+    internal static ReactivityOrderExtraction? GetReactivityOrder(EngineArtifacts a)
+        => a.EngineOutputs.TryGetValue(KeyReactivity, out var v) && v is ReactivityOrderExtraction r ? r : null;
 
     // —— 方程式抽取：优先多等号/箭头（BalanceGatewaySolver），兜底单等号 ——
     // BalanceGatewaySolver.ExtractFirstEquation 的分隔符正则要求 ≥2 个等号（==/===），

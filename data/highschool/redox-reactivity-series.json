@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "source": "人教版《化学·必修第二册》氧化还原反应：常见还原性粒子顺序 S²⁻ > SO₃²⁻ > I⁻ > Fe²⁺ > Br⁻ > Cl⁻ > OH⁻（还原性由强到弱）。表外物种不判断，引擎不猜测。",
+  "reducing": [
+    { "match": "S2-",  "key": "S^2-",  "label": "S²⁻" },
+    { "match": "SO32-", "key": "SO3^2-", "label": "SO₃²⁻" },
+    { "match": "I-",   "key": "I-",    "label": "I⁻" },
+    { "match": "Fe2+", "key": "Fe^2+", "label": "Fe²⁺" },
+    { "match": "Br-",  "key": "Br-",   "label": "Br⁻" },
+    { "match": "Cl-",  "key": "Cl-",   "label": "Cl⁻" },
+    { "match": "OH-",  "key": "OH-",   "label": "OH⁻" }
+  ]
+}

@@ -4,9 +4,9 @@ using CogniThink.Chem.Core.Balancing;
 using CogniThink.Chem.Core.Parsing;
 
 // ============================================================
-// Task 1: 真值提取器 —— 从 EngineArtifacts 取 A/B/E/F 各步 correct。
+// Task 1: 真值提取器 —— 从 EngineArtifacts 取 A–F 各步 correct。
 // 铁律：correct 只来自引擎字段；取不到 → 返回 null（该步降级），绝不返回猜测值 / 空集合冒充。
-// C/D 步本轮不实现（返回 null → 降级为只读揭示），见 spec Open Questions。
+// C 步：题干关键词扫描约束条件（确定性，有 provenance）；D 步：教材还原性顺序过滤体系粒子。
 // ============================================================
 
 public sealed class StepTruthExtractor : IStepTruthExtractor
@@ -15,9 +15,11 @@ public sealed class StepTruthExtractor : IStepTruthExtractor
     {
         AtomicTaskKind.A => ExtractParticles(artifacts),
         AtomicTaskKind.B => ExtractRedoxChanges(artifacts),
+        AtomicTaskKind.C => ExtractConditions(artifacts),
+        AtomicTaskKind.D => ExtractReactivityOrder(artifacts),
         AtomicTaskKind.E => ExtractProducts(artifacts),
         AtomicTaskKind.F => ExtractAnswer(artifacts),
-        _ => null, // C / D → 降级
+        _ => null,
     };
 
     // A 步：体系粒子清单（方程式全部物种，去重），multi-check。
@@ -48,6 +50,32 @@ public sealed class StepTruthExtractor : IStepTruthExtractor
             Interaction = AtomicTaskInteraction.MultiCheck,
             Set = elements,
             Provenance = "RedoxAnalysis.Changes",
+        };
+    }
+
+    // C 步：约束条件（题干关键词扫描，P0-2）。无命中 → null 降级为只读揭示。
+    private static StepCorrect? ExtractConditions(EngineArtifacts a)
+    {
+        var c = EngineArtifactsBuilder.GetConditions(a);
+        if (c is null) return null;
+        return new StepCorrect
+        {
+            Interaction = AtomicTaskInteraction.SingleSelect,
+            Value = c.CorrectKey,
+            Provenance = c.Provenance,
+        };
+    }
+
+    // D 步：竞争排序（教材还原性顺序过滤体系粒子，P0-2）。<2 个命中 → null 降级。
+    private static StepCorrect? ExtractReactivityOrder(EngineArtifacts a)
+    {
+        var d = EngineArtifactsBuilder.GetReactivityOrder(a);
+        if (d is null || d.OrderedSpecies.Count < 2) return null;
+        return new StepCorrect
+        {
+            Interaction = AtomicTaskInteraction.Order,
+            Set = d.OrderedSpecies.Select(s => s.Key).ToList(),
+            Provenance = d.Provenance,
         };
     }
 

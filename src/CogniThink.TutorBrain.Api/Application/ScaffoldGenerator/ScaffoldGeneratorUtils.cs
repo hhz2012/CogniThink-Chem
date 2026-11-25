@@ -39,12 +39,14 @@ public static class ScaffoldGeneratorUtils
 
     /// <summary>
     /// 产出写入 StepGroundTruth.Correct 的运行时值：
-    /// multi-check / order → 排序后的 List&lt;string&gt;；single-select → string。
-    /// 排序保证可复现；multi-check 校验无序，order 校验有序（D 步本轮降级，order 暂未使用）。
+    /// multi-check → 排序后的 List&lt;string&gt;（校验无序，排序保证可复现）；
+    /// order → 保留引擎给出的原始顺序（校验有序，禁止按字母重排，否则 D 步正确序被破坏）；
+    /// single-select → string。
     /// </summary>
     public static object? CorrectValue(StepCorrect c) => c.Interaction switch
     {
         AtomicTaskInteraction.SingleSelect => c.Value,
+        AtomicTaskInteraction.Order => c.Set?.ToList(),
         _ => c.Set?.OrderBy(x => x, StringComparer.Ordinal).ToList(),
     };
 

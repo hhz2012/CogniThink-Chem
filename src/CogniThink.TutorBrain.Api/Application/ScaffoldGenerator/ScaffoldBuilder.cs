@@ -2,7 +2,7 @@ namespace CogniThink.TutorBrain.Application.ScaffoldGenerator;
 
 // ============================================================
 // Task 5: 生成器入口 —— 组装 Task 1~4 完整管线：
-//   求解（引擎真值）→ 选链 → 提真值（A/B/E/F，C/D 降级）→ 候选项 → 文案 → 校验门 → 产物或 null。
+//   求解（引擎真值）→ 选链 → 提真值（A–F，C/D 无来源即降级）→ 候选项 → 文案 → 校验门 → 产物或 null。
 // 红线（全程）：
 //   - correct 只来自引擎（StepTruthExtractor），LLM 只写文案（结构隔离）；
 //   - 校验门 Ok=false → 整题 null，绝不发布猜测 correct；
@@ -82,6 +82,9 @@ public sealed class ScaffoldBuilder : IScaffoldBuilder
             SourceQuestionId = @case.Id,
             Steps = new List<StepPractice>(),
         };
+
+        // C 步提取到的题面条件写入 scaffold（对齐手工题 conditions 口径，供分支判定与前端展示）
+        scaffold.Conditions = EngineArtifactsBuilder.GetConditions(artifacts)?.Conditions;
 
         foreach (var kind in ChainKinds)
         {

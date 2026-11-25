@@ -157,8 +157,10 @@ public class ScaffoldGeneratorTask1Tests
     }
 
     [Fact]
-    public void Extract_CDSteps_AlwaysNull_Degraded()
+    public void Extract_CDSteps_NoSource_Degraded()
     {
+        // 此输入：题干无约束关键词 + 体系无 ≥2 个还原序表内粒子 → C/D 均无来源 → 正确降级。
+        // 正向用例见 ScaffoldGeneratorCDTruthTests。
         var artifacts = EngineArtifactsBuilder.Build(new QuestionCase
         {
             Id = "t", Type = "choice",
@@ -166,7 +168,6 @@ public class ScaffoldGeneratorTask1Tests
             Answer = "A",
         });
         var extractor = new StepTruthExtractor();
-        // C/D 本轮不实现，恒降级
         Assert.Null(extractor.Extract(AtomicTaskKind.C, artifacts));
         Assert.Null(extractor.Extract(AtomicTaskKind.D, artifacts));
     }
