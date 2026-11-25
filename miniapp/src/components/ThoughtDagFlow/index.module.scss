@@ -8,9 +8,16 @@
 }
 
 .svg {
-  width: 100%;
+  // 单列窄图（scaffold DAG）viewBox 很窄，若 width:100% 会被等比拉伸到 2600px+ 高。
+  // 改为按固有尺寸渲染、居中，并限高，避免撑爆页面；宽图（多列）也保持原比例清晰。
+  // flex:none：父级 .wrap 是 flex column，否则 svg 会被 flex-shrink 压扁导致字过小。
+  width: auto;
+  max-width: 100%;
   height: auto;
+  max-height: 600px;
   display: block;
+  margin: 0 auto;
+  flex: none;
 }
 
 // —— 连线 ——

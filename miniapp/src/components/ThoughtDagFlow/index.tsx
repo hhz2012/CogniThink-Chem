@@ -161,6 +161,13 @@ export default function ThoughtDagFlow({
       <svg
         viewBox={`0 0 ${width} ${height}`}
         className={styles.svg}
+        style={{
+          aspectRatio: `${width} / ${height}`,
+          width: 'auto',
+          height: 'auto',
+          maxHeight: '600px',
+          flex: 'none',
+        }}
         preserveAspectRatio="xMidYMid meet"
         role="img"
         aria-label={`${resolvedDag.name} · 思路递进图`}
