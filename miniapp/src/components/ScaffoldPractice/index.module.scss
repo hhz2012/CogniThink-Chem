@@ -388,7 +388,7 @@ $bg: #f5f8fa;
 }
 .contrast {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 6rpx;
 }
 .contrastCol {
@@ -397,6 +397,13 @@ $bg: #f5f8fa;
   gap: 4rpx;
   padding: 8rpx 10rpx;
   border-radius: $radius-xs;
+  flex: 1;
+  min-width: 0;
+}
+@media (max-width: 750px) {
+  .contrast {
+    flex-direction: column;
+  }
 }
 .contrastCorrect {
   background: rgba($pass, 0.08);
