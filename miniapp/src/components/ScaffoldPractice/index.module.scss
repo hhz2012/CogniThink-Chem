@@ -11,8 +11,8 @@ $bg: #f5f8fa;
 .wrap {
   display: flex;
   flex-direction: column;
-  gap: $spacing-sm;
-  padding: $spacing-md;
+  gap: 12rpx;
+  padding: 16rpx;
   background: #ffffff;
   border-radius: $radius-lg;
   box-shadow: $shadow-card;
@@ -121,8 +121,8 @@ $bg: #f5f8fa;
 .step {
   display: flex;
   flex-direction: column;
-  gap: $spacing-sm;
-  padding: $spacing-md;
+  gap: 12rpx;
+  padding: 16rpx;
   border-radius: $radius-md;
   background: #fbfcfd;
   border: 2rpx solid #eef2f5;
