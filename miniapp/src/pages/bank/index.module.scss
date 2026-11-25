@@ -193,6 +193,7 @@
   align-items: center;
   gap: 14rpx;
   padding: 24rpx 26rpx;
+  @include pressable;
 }
 
 .allTitle {

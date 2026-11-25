@@ -128,3 +128,14 @@ $transition-slow: 0.35s ease;
     border: none;
   }
 }
+
+// 统一按压反馈：可点击元素按下时缩放 + 降透明度，transition 让回弹顺滑
+// 用法：在可点击容器的 class 内 @include pressable;
+// 注意：若元素已有 transition: all，请勿用此 mixin（会覆盖原有过渡），改为仅手动追加 :active 块
+@mixin pressable($scale: 0.97, $opacity: 0.85) {
+  transition: transform 0.12s ease, opacity 0.12s ease;
+  &:active {
+    transform: scale($scale);
+    opacity: $opacity;
+  }
+}

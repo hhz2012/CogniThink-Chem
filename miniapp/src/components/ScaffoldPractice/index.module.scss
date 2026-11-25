@@ -44,6 +44,7 @@ $bg: #f5f8fa;
   background: $bg;
   font-size: $font-size-xs;
   color: $ink-2;
+  @include pressable;
 }
 .tabActive {
   background: $accent;
@@ -227,6 +228,7 @@ $bg: #f5f8fa;
   border-radius: $radius-sm;
   background: #fff;
   border: 2rpx solid #e4e9ed;
+  @include pressable;
 }
 .optionCheck {
   // 勾选行
@@ -237,6 +239,12 @@ $bg: #f5f8fa;
 }
 .optionDisabled {
   opacity: 0.85;
+
+  // 非当前步的选项不可交互，不响应按压缩放
+  &:active {
+    opacity: 0.85;
+    transform: none;
+  }
 }
 .optionBox {
   width: 36rpx;
@@ -319,9 +327,16 @@ $bg: #f5f8fa;
   background: $bg;
   color: $accent;
   font-size: $font-size-xs;
+  @include pressable;
 }
 .orderBtnOff {
   color: #c5cdd4;
+
+  // 边界处按钮置灰且无操作，不响应按压缩放
+  &:active {
+    transform: none;
+    opacity: 1;
+  }
 }
 
 .feedback {
@@ -385,6 +400,7 @@ $bg: #f5f8fa;
   border-radius: $radius-round;
   background: $bg;
   border: 2rpx solid #e4e9ed;
+  @include pressable;
 }
 .releaseHint {
   font-size: $font-size-xs;
@@ -454,6 +470,7 @@ $bg: #f5f8fa;
   padding: 8rpx 10rpx;
   border-radius: $radius-xs;
   background: rgba($accent, 0.06);
+  @include pressable;
 }
 .drawerTitle {
   font-size: $font-size-xs;
@@ -479,6 +496,7 @@ $bg: #f5f8fa;
   padding: 10rpx 26rpx;
   border-radius: $radius-button;
   background: $accent;
+  @include pressable;
 }
 .submitText {
   font-size: $font-size-sm;
@@ -521,6 +539,7 @@ $bg: #f5f8fa;
   border-radius: $radius-button;
   border: 2rpx solid #d6dde2;
   background: #fff;
+  @include pressable;
 }
 .resetText {
   font-size: $font-size-xs;
@@ -561,6 +580,7 @@ $bg: #f5f8fa;
   border-radius: $radius-sm;
   background: rgba($accent, 0.06);
   border: 2rpx solid rgba($accent, 0.25);
+  @include pressable;
 }
 .dagToggleText {
   font-size: $font-size-xs;

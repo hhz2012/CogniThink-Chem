@@ -2,6 +2,7 @@ import { View, Text, ScrollView } from '@tarojs/components'
 import { useState } from 'react'
 import Taro, { useDidShow } from '@tarojs/taro'
 import classnames from 'classnames'
+import Collapse from '../../components/Collapse'
 import TabBar from '../../components/TabBar'
 import ThoughtChip from '../../components/ThoughtChip'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
@@ -117,7 +118,7 @@ export default function Bank() {
               ›
             </Text>
           </View>
-          {allOpen && (
+          <Collapse open={allOpen}>
             <View className={styles.allList}>
               {chapters.map((ch) => (
                 <View key={ch.id} className={styles.allChapter}>
@@ -153,7 +154,7 @@ export default function Bank() {
                 </View>
               ))}
             </View>
-          )}
+          </Collapse>
         </View>
 
         <View className={styles.bottomPad} />

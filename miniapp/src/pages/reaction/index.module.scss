@@ -282,6 +282,12 @@
   padding: 20rpx 22rpx;
   border-left: 6rpx solid transparent;
   transition: all $transition-fast;
+
+  // 已有 transition: all，仅追加 :active，不覆盖原过渡
+  &:active {
+    transform: scale(0.98);
+    opacity: 0.92;
+  }
 }
 
 .stepSectionHeadOpen {

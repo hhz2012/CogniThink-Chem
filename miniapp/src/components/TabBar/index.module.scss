@@ -23,6 +23,12 @@
   gap: 4rpx;
   color: $color-text-tertiary;
   transition: all $transition-fast;
+
+  // 已有 transition: all，仅追加 :active，不覆盖原过渡
+  &:active {
+    transform: scale(0.94);
+    opacity: 0.8;
+  }
 }
 
 .icon {

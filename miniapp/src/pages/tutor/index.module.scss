@@ -25,6 +25,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  @include pressable;
 }
 
 .backIcon {
@@ -66,6 +67,7 @@
   padding: 24rpx;
   box-shadow: $shadow-card;
   border-left: 6rpx solid $color-primary;
+  @include pressable;
 }
 
 .problemTop {
@@ -233,10 +235,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include pressable;
 }
 
 .submitBtnDisabled {
   opacity: 0.6;
+
+  // 禁用态保持置灰，不响应按压缩放/提亮
+  &:active {
+    opacity: 0.6;
+    transform: none;
+  }
 }
 
 /* ============ 反馈 ============ */
@@ -478,6 +487,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include pressable;
 }
 
 /* ============ 状态与提示 ============ */

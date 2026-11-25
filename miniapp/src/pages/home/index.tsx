@@ -2,6 +2,7 @@ import { View, Text, ScrollView } from '@tarojs/components'
 import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import classnames from 'classnames'
+import Collapse from '../../components/Collapse'
 import TabBar from '../../components/TabBar'
 import { getChallengesByCategory } from '../../data/challenges'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
@@ -170,7 +171,7 @@ export default function Home() {
               ›
             </Text>
           </View>
-          {moreOpen && (
+          <Collapse open={moreOpen}>
             <View className={styles.moreList}>
               {MORE_ITEMS.map((m) => (
                 <View key={m} className={styles.moreItem} onClick={() => goMore(m)}>
@@ -179,7 +180,7 @@ export default function Home() {
                 </View>
               ))}
             </View>
-          )}
+          </Collapse>
         </View>
 
         {/* 反应推理卡入口：一条反应的分步脚手架讲解 */}

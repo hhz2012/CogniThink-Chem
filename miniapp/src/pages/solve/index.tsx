@@ -150,7 +150,7 @@ function Result({
         <View className={styles.card}>
           <View className={styles.collapseHead} onClick={() => setShowDag(!showDag)}>
             <Text className={styles.sectionTitle}>🔗 推理过程（溯源链）</Text>
-            <Text className={styles.collapseArrow}>{showDag ? '▲' : '▼'}</Text>
+            <Text className={`${styles.collapseArrow} ${showDag ? styles.collapseArrowOpen : ''}`}>▸</Text>
           </View>
           <Collapse open={showDag}>
             <View className={styles.dag}>
@@ -182,7 +182,7 @@ function Result({
         <View className={styles.card}>
           <View className={styles.collapseHead} onClick={() => setShowExplain(!showExplain)}>
             <Text className={styles.sectionTitle}>🌱 微观解释</Text>
-            <Text className={styles.collapseArrow}>{showExplain ? '▲' : '▼'}</Text>
+            <Text className={`${styles.collapseArrow} ${showExplain ? styles.collapseArrowOpen : ''}`}>▸</Text>
           </View>
           <Collapse open={showExplain}>
             <View className={styles.dag}>

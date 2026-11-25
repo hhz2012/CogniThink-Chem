@@ -1,3 +1,5 @@
+@use '@/styles/variables.scss' as *;
+
 .page {
   min-height: 100vh;
   background: #f4f7f9;
@@ -47,10 +49,17 @@
   border-radius: 12px;
   padding: 16px 0;
   text-align: center;
+  @include pressable;
 }
 
 .btnDisabled {
   opacity: 0.45;
+
+  // 禁用态不响应按压缩放/提亮，保持置灰观感
+  &:active {
+    opacity: 0.45;
+    transform: none;
+  }
 }
 
 .btnText {
@@ -141,11 +150,18 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  @include pressable;
 }
 
 .collapseArrow {
   font-size: 22px;
   color: #9ca3af;
+  transition: transform $transition-fast;
+  transform: rotate(0deg);
+}
+
+.collapseArrowOpen {
+  transform: rotate(90deg);
 }
 
 .dag {

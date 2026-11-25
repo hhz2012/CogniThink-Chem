@@ -13,6 +13,7 @@ import { narrateReaction } from '../../engine/reactionNarration'
 import { SolveModelStep } from '../../engine/solveModels'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import { MODEL_ACCENT } from '../../components/SolvePanels'
+import Collapse from '../../components/Collapse'
 import StepProgress from '../../components/StepProgress'
 import ThoughtDagFlow from '../../components/ThoughtDagFlow'
 import { REACTION_SCAFFOLD_CHAIN } from '../../engine/scaffoldChains'
@@ -191,7 +192,7 @@ function ReactionDetailView({ entry }: { entry: ReactionEntry }) {
                   </View>
                   <Text className={classnames(styles.stepSectionChev, isOpen && styles.stepSectionChevOpen)}>▸</Text>
                 </View>
-                {isOpen && (
+                <Collapse open={isOpen}>
                   <View className={styles.stepSectionBody}>
                     <View className={styles.analyzeBlock}>
                       <Text className={styles.analyzeLabel}>这一步分析什么</Text>
@@ -215,7 +216,7 @@ function ReactionDetailView({ entry }: { entry: ReactionEntry }) {
                       )}
                     </View>
                   </View>
-                )}
+                </Collapse>
               </View>
             )
           })}
