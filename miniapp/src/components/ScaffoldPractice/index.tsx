@@ -53,12 +53,65 @@ const KIND_LABEL: Record<string, string> = {
   F: '作答',
 }
 
-/** 生成某步的空作答（按真值形态）；降级步 truth 为 null 时返回安全空作答，仅防 getAnswer 解引用崩溃 */
-const emptyAnswer = (truth: Practice['steps'][number]['truth']): StudentAnswer => {
+/** 稳定种子化哈希（FNV-1a）：同字符串 → 同数字，不依赖 Math.random，保证幂等 */
+const hashSeed = (s: string): number => {
+  let h = 2166136261
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i)
+    h = Math.imul(h, 16777619)
+  }
+  return h >>> 0
+}
+
+/** 稳定种子化 Fisher–Yates 打乱：同一种子 → 同一排列（切换 practice / 重渲染不串扰、不丢作答） */
+const seededShuffle = <T,>(arr: T[], seed: string): T[] => {
+  const a = arr.slice()
+  let state = hashSeed(seed) || 0x9e3779b9
+  const rand = () => {
+    state ^= state << 13
+    state ^= state >>> 17
+    state ^= state << 5
+    return (state >>> 0) / 0x100000000
+  }
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1))
+    ;[a[i], a[j]] = [a[j], a[i]]
+  }
+  return a
+}
+
+/** order 步初始作答：打乱选项源序，并保证初始序 ≠ 正确序，杜绝「不交互直接提交即判对」 */
+const initOrderedAnswer = (
+  options: { key: string }[],
+  correct: string[],
+  seed: string,
+): string[] => {
+  const keys = options.map((o) => o.key)
+  if (keys.length <= 1) return keys
+  let ordered = seededShuffle(keys, seed)
+  // 恰好等于正确序 → 反转；length=2 反转即正确序时 → 手动交换首位（保证至少错位一位）
+  const equalsCorrect = (a: string[]) =>
+    a.length === correct.length && a.every((k, i) => k === correct[i])
+  if (equalsCorrect(ordered)) {
+    ordered = ordered.slice().reverse()
+    if (equalsCorrect(ordered)) {
+      ;[ordered[0], ordered[1]] = [ordered[1], ordered[0]]
+    }
+  }
+  return ordered
+}
+
+/** 生成某步的空作答（按真值形态）；降级步 truth 为 null 时返回安全空作答，仅防 getAnswer 解引用崩溃。
+ *  order 步用 seed 稳定打乱初始序，杜绝「选项源序 = 正确序 → 不交互即判对」。 */
+const emptyAnswer = (
+  truth: Practice['steps'][number]['truth'],
+  seed = 'order-default',
+): StudentAnswer => {
   if (!truth) return { type: 'multi-check', selected: [] }
   if (truth.type === 'multi-check') return { type: 'multi-check', selected: [] }
   if (truth.type === 'single-select') return { type: 'single-select', selected: '' }
-  return { type: 'order', ordered: truth.options.map((o) => o.key) }
+  // 此处 truth 已被 TS 收窄为 order 变体：options / correct 均为 string[] 形态
+  return { type: 'order', ordered: initOrderedAnswer(truth.options, truth.correct, seed) }
 }
 
 export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Props) {
@@ -105,7 +158,8 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
     setDrawerOpen({})
   }
 
-  const getAnswer = (i: number): StudentAnswer => answers[i] ?? emptyAnswer(practice.steps[i].truth)
+  const getAnswer = (i: number): StudentAnswer =>
+    answers[i] ?? emptyAnswer(practice.steps[i].truth, `${practice.id}-${practice.steps[i].kind}`)
   const setAnswer = (i: number, ans: StudentAnswer) =>
     setAnswers((prev) => ({ ...prev, [i]: ans }))
 

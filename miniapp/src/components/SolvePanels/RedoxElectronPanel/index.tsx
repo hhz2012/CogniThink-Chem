@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { View, Text } from '@tarojs/components'
-import { RedoxSolveData } from '../../types/chem'
+import { RedoxSolveData } from '../../../types/chem'
 import ModelIcon, { ModelIconName } from '../ModelIcon'
 import styles from './index.module.scss'
 
