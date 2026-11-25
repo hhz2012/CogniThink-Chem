@@ -107,7 +107,7 @@
 .stepSections {
   display: flex;
   flex-direction: column;
-  gap: 14rpx;
+  gap: 10rpx;
   margin-bottom: 20rpx;
 }
 
@@ -135,7 +135,7 @@
   display: flex;
   align-items: center;
   gap: 14rpx;
-  padding: 20rpx 22rpx;
+  padding: 14rpx 18rpx;
   border-left: 6rpx solid transparent;
   transition: all $transition-fast;
 }
@@ -197,7 +197,7 @@
 }
 
 .stepSectionBody {
-  padding: 8rpx 22rpx 22rpx;
+  padding: 6rpx 16rpx 16rpx;
   border-top: 2rpx solid $color-border;
   animation: ctFadeInUp 0.25s ease;
 }
@@ -236,7 +236,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 16rpx;
-  padding: 20rpx 22rpx;
+  padding: 14rpx 18rpx;
   background: $color-primary-soft;
   border: 2rpx dashed $color-primary;
   border-radius: $radius-md;
@@ -269,7 +269,7 @@
 }
 
 .analyzeBlock {
-  margin-top: 18rpx;
+  margin-top: 12rpx;
 }
 
 .analyzeLabelRow {
