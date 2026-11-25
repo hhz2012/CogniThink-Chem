@@ -16,6 +16,7 @@ import SolveModelPanel, { MODEL_ACCENT, CATEGORY_ICON } from '../../components/S
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import ThoughtChip, { THOUGHT_ICON } from '../../components/ThoughtChip'
 import ThoughtDagFlow from '../../components/ThoughtDagFlow'
+import Collapse from '../../components/Collapse'
 import { useSpeech } from '../../hooks/useSpeech'
 import styles from './index.module.scss'
 
@@ -554,11 +555,11 @@ export default function ChallengePage() {
           </Text>
           <Text className={styles.stage2Arrow}>{showDagPreview ? '▲' : '▼'}</Text>
         </View>
-        {showDagPreview && (
+        <Collapse open={showDagPreview}>
           <View className={styles.dagPreviewBody}>
             <ThoughtDagFlow challenge={challenge} mode="preview" />
           </View>
-        )}
+        </Collapse>
 
         <View className={styles.stepSections}>
           {/* 阶段一（主链路）：每步默认展开，先想再点「提示」看实例化讲解 */}
@@ -658,27 +659,30 @@ export default function ChallengePage() {
               <Text className={styles.stage2Arrow}>{openStage2Guide ? '▲' : '▼'}</Text>
             </View>
           )}
-          {openStage2Guide &&
-            stage2GuideSteps.map((s) => {
-              const layerMeta = LAYER_META[s.layer]
-              return (
-                <View key={s.index} className={styles.stepSection}>
-                  <View className={classnames(styles.stepSectionHead, styles.stepSectionHeadOpen)}>
-                    <View className={styles.stepSectionIndex}>{s.index}</View>
-                    <View className={styles.stepSectionMain}>
-                      <Text className={styles.stepSectionTitle}>{s.title}</Text>
-                      <Text className={styles.stepSectionLayer}>{layerMeta.label}</Text>
+          <Collapse open={openStage2Guide}>
+            <View>
+              {stage2GuideSteps.map((s) => {
+                const layerMeta = LAYER_META[s.layer]
+                return (
+                  <View key={s.index} className={styles.stepSection}>
+                    <View className={classnames(styles.stepSectionHead, styles.stepSectionHeadOpen)}>
+                      <View className={styles.stepSectionIndex}>{s.index}</View>
+                      <View className={styles.stepSectionMain}>
+                        <Text className={styles.stepSectionTitle}>{s.title}</Text>
+                        <Text className={styles.stepSectionLayer}>{layerMeta.label}</Text>
+                      </View>
+                    </View>
+                    <View className={styles.stepSectionBody}>
+                      <View className={styles.analyzeBlock}>
+                        <Text className={styles.analyzeLabel}>这一步分析什么</Text>
+                        <Text className={styles.analyzeText}>{s.goal}</Text>
+                      </View>
                     </View>
                   </View>
-                  <View className={styles.stepSectionBody}>
-                    <View className={styles.analyzeBlock}>
-                      <Text className={styles.analyzeLabel}>这一步分析什么</Text>
-                      <Text className={styles.analyzeText}>{s.goal}</Text>
-                    </View>
-                  </View>
-                </View>
-              )
-            })}
+                )
+              })}
+            </View>
+          </Collapse>
         </View>
 
         {/* 选项 */}
@@ -820,7 +824,7 @@ export default function ChallengePage() {
               </View>
               <Text>{showConservation ? '收起' : '展开'}</Text>
             </View>
-            {showConservation && (
+            <Collapse open={showConservation}>
               <View className={styles.conservationBody}>
                 {tutor?.validation.checks.map((c) => (
                   <Text key={c} className={styles.conservationItem}>✓ {c}</Text>
@@ -834,7 +838,7 @@ export default function ChallengePage() {
                 ))}
                 <Text className={styles.conservationTip}>本题关键思维：{thoughtMeta.label}。逐条核对上述检查项再确认答案。</Text>
               </View>
-            )}
+            </Collapse>
           </View>
         )}
 

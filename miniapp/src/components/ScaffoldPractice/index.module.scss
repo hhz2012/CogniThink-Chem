@@ -245,6 +245,27 @@ $bg: #f5f8fa;
   line-height: $line-height-normal;
 }
 
+// chip 流式选择（multi-check / single-select）：横向换行排列，省垂直空间
+.optionsChips {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+.optionsChips .option {
+  width: auto;
+  padding: 10rpx 26rpx;
+  border-radius: 999rpx;
+  background: rgba($accent, 0.08);
+  border-color: rgba($accent, 0.35);
+}
+.optionsChips .option.optionOn {
+  background: $accent;
+  border-color: $accent;
+}
+.optionsChips .option.optionOn .optionLabel {
+  color: #fff;
+}
+
 .optionOrder {
   justify-content: flex-start;
 }

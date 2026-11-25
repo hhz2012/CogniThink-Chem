@@ -1,0 +1,32 @@
+.collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  // 时长与缓动由组件内联 style 控制，这里只声明过渡属性
+  transition-property: grid-template-rows;
+  // 允许 grid 子项收缩到 0，否则 min-height:auto 会阻止折叠
+  min-height: 0;
+}
+
+.open {
+  grid-template-rows: 1fr;
+}
+
+.body {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.fadeContent {
+  min-height: 0;
+}
+
+// 尊重系统“减少动态效果”：直接展开/收起，无任何过渡
+@media (prefers-reduced-motion: reduce) {
+  .collapse {
+    transition: none !important;
+  }
+
+  .fadeContent {
+    transition: none !important;
+  }
+}

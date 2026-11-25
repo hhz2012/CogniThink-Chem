@@ -5,6 +5,7 @@ import { ChemCategory } from '../../types/chem'
 import { chapters } from '../../data/challenges'
 import { knowledgeOfCategory, getFullKnowledgePoint } from '../../data/knowledge'
 import { LAYER_META, KnowledgeLayer, KnowledgePoint } from '../../data/knowledge/redox'
+import Collapse from '../../components/Collapse'
 import styles from './index.module.scss'
 
 const LAYERS: KnowledgeLayer[] = ['Knowledge', 'Application', 'Ability']
@@ -107,7 +108,7 @@ export default function KnowledgePage() {
                       </Text>
                     </View>
 
-                    {open && (
+                    <Collapse open={open}>
                       <View className={styles.cardBody}>
                         <Text className={styles.label}>核心要点</Text>
                         {kp.keyPoints.map((p, i) => (
@@ -168,7 +169,7 @@ export default function KnowledgePage() {
                           </View>
                         )}
                       </View>
-                    )}
+                    </Collapse>
                   </View>
                 )
               })}

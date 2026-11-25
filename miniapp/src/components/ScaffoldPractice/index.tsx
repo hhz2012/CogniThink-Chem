@@ -9,6 +9,7 @@ import Taro from '@tarojs/taro'
 import classnames from 'classnames'
 import StepProgress from '../StepProgress'
 import ThoughtDagFlow from '../ThoughtDagFlow'
+import Collapse from '../Collapse'
 import {
   MODULE_CHAINS,
   initialGateStates,
@@ -335,11 +336,11 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
         <Text className={styles.dagToggleText}>{dagOpen ? '收起思路图' : '展开思路图 · A–F 推导骨架'}</Text>
         <Text className={styles.dagToggleCaret}>{dagOpen ? '▲' : '▼'}</Text>
       </View>
-      {dagOpen && (
+      <Collapse open={dagOpen}>
         <View className={styles.dagBlock}>
           <ThoughtDagFlow dag={dag} mode="preview" legendLabels={{ active: '常规步骤', dimmed: '视情况触发' }} />
         </View>
-      )}
+      </Collapse>
 
       {/* 浮动紧凑进度：A–F 迷你节点 + 连接线，答题中常驻导航；与上方思路图并存（职责不同） */}
       <View className={styles.progressWrap} style={{ top: progressTop }}>
@@ -406,7 +407,7 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
                 {truth ? (
                   <>
                     {/* 作答控件：仅当前步可交互；passed/failed 展示已选 + 反馈 */}
-                <View className={styles.options}>
+                <View className={classnames(styles.options, (truth.type === 'multi-check' || truth.type === 'single-select') && styles.optionsChips)}>
                   {truth.type === 'multi-check' &&
                     truth.options.map((o) => {
                       const sel = getAnswer(i).type === 'multi-check' ? (getAnswer(i) as { selected: string[] }).selected : []
@@ -420,7 +421,6 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
                           })}
                           onClick={() => isActive && toggleMulti(i, o.key)}
                         >
-                          <Text className={styles.optionBox}>{on ? '✓' : ''}</Text>
                           <Text className={styles.optionLabel}>{o.label}</Text>
                         </View>
                       )
@@ -439,7 +439,6 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
                           })}
                           onClick={() => isActive && selectSingle(i, o.key)}
                         >
-                          <Text className={styles.optionRadio}>{on ? '●' : '○'}</Text>
                           <Text className={styles.optionLabel}>{o.label}</Text>
                         </View>
                       )

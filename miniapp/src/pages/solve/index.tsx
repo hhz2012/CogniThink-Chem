@@ -1,6 +1,7 @@
 import { View, Text, Textarea, ScrollView } from '@tarojs/components'
 import { useState } from 'react'
 import { tutorApi, StudentSolveView, ReasoningNodeDto } from '../../services/tutorApi'
+import Collapse from '../../components/Collapse'
 import styles from './index.module.scss'
 
 /** 证据强度中文标签（镜像后端 EvidenceLevel） */
@@ -151,7 +152,7 @@ function Result({
             <Text className={styles.sectionTitle}>🔗 推理过程（溯源链）</Text>
             <Text className={styles.collapseArrow}>{showDag ? '▲' : '▼'}</Text>
           </View>
-          {showDag ? (
+          <Collapse open={showDag}>
             <View className={styles.dag}>
               {view.reasoning_nodes.map((n) => (
                 <View key={n.step} className={styles.dagNode}>
@@ -172,7 +173,7 @@ function Result({
                 </View>
               ))}
             </View>
-          ) : null}
+          </Collapse>
         </View>
       ) : null}
 
@@ -183,7 +184,7 @@ function Result({
             <Text className={styles.sectionTitle}>🌱 微观解释</Text>
             <Text className={styles.collapseArrow}>{showExplain ? '▲' : '▼'}</Text>
           </View>
-          {showExplain ? (
+          <Collapse open={showExplain}>
             <View className={styles.dag}>
               <Text className={styles.explainWarn}>趋势级，帮助理解，不作判定依据。</Text>
               {view.explanation_nodes.map((n) => (
@@ -196,7 +197,7 @@ function Result({
                 </View>
               ))}
             </View>
-          ) : null}
+          </Collapse>
         </View>
       ) : null}
     </>

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { View, Text } from '@tarojs/components'
 import { RedoxSolveData } from '../../../types/chem'
 import ModelIcon, { ModelIconName } from '../ModelIcon'
+import Collapse from '../../Collapse'
 import styles from './index.module.scss'
 
 interface Props {
@@ -236,7 +237,7 @@ export default function RedoxElectronPanel({ data, color }: Props) {
             </Text>
           </View>
 
-          {openStage2 && (
+          <Collapse open={openStage2}>
             <View className={styles.stage2Body}>
               <View className={styles.sectionTitle}>
                 <ModelIcon name="zap" size={15} color={color} />
@@ -288,7 +289,7 @@ export default function RedoxElectronPanel({ data, color }: Props) {
                 </View>
               )}
             </View>
-          )}
+          </Collapse>
         </View>
       )}
 
