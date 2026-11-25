@@ -66,6 +66,58 @@ $bg: #f5f8fa;
   color: $accent;
 }
 
+/* 题面区：原始题干 + 已知条件标签（生成题有值时展示；无则整块不渲染） */
+.stemBlock {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+  padding: $spacing-sm $spacing-md;
+  background: $bg;
+  border-radius: $radius-md;
+  border: 2rpx solid #eef2f5;
+}
+.stemLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $accent;
+  line-height: $line-height-tight;
+}
+.stemText {
+  font-size: $font-size-sm;
+  line-height: 1.6;
+  color: $ink;
+  white-space: pre-wrap;
+}
+/* 已知条件行：统一基线（line-height:1），避免 View/Text 行高继承差异导致 label 与 chip 文本垂直错位 */
+.condRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: $spacing-xs;
+  line-height: 1;
+}
+.condLabel {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $ink-2;
+  line-height: $line-height-tight;
+}
+/* 条件标签：与全站 reaction 页 .condChip 视觉语言一致（主色浅底深字），inline-flex 保证文本垂直居中 */
+.condChip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+  background: $color-primary-soft;
+  line-height: 1;
+}
+.condChipText {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-primary-dark;
+  line-height: $line-height-tight;
+}
+
 .step {
   display: flex;
   flex-direction: column;

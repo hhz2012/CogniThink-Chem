@@ -221,6 +221,8 @@ export interface ScaffoldPractice {
   id: string
   /** 练习标题 */
   title: string
+  /** 可选：原始题干文本（生成题来自源题 QuestionCase.Question，provenance 真实不编造；手工题可空，靠 title 展示） */
+  stem?: string
   /** 所属模块（取对应 A–F 链） */
   module: ScaffoldModuleKind
   /** 可选：题面条件，用于 resolveBranch 取该分支 A–E 结论作 E 步参照 */

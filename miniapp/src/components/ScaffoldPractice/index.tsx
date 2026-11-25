@@ -22,6 +22,7 @@ import { resolveBranch } from '../../engine/scaffoldBranches'
 import { SCAFFOLD_PRACTICES, getScaffoldPractice } from '../../data/scaffoldPractices'
 import { BRANCH_EXAMPLES } from '../../data/branchExamples'
 import type {
+  BranchConditions,
   ScaffoldPractice as Practice,
   ScaffoldReleaseTier,
   StepGateState,
@@ -51,6 +52,16 @@ const KIND_LABEL: Record<string, string> = {
   D: '排序',
   E: '产物',
   F: '作答',
+}
+
+/** 题面条件字段 → 中文展示标签（仅展示有值字段，稀疏；与后端 BranchConditions 字段一一对应） */
+const CONDITION_LABELS: Record<keyof BranchConditions, string> = {
+  medium: '介质',
+  quantity: '用量',
+  concentration: '浓度',
+  temperature: '温度',
+  electrolyzed: '通电',
+  membrane: '膜',
 }
 
 /** 稳定种子化哈希（FNV-1a）：同字符串 → 同数字，不依赖 Math.random，保证幂等 */
@@ -234,6 +245,23 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
     return entry ? resolveBranch(entry, practice.conditions) : null
   }, [practice])
 
+  // 题面已知条件标签：仅取 conditions 中有值的字段，稀疏展示；无则空数组（不渲染，降级）
+  const condChips = useMemo(() => {
+    const c = practice.conditions
+    if (!c) return [] as { key: string; label: string; value: string }[]
+    const out: { key: string; label: string; value: string }[] = []
+    ;(Object.keys(CONDITION_LABELS) as (keyof BranchConditions)[]).forEach((k) => {
+      const v = c[k]
+      if (v === undefined || v === null || v === '') return
+      out.push({
+        key: k,
+        label: CONDITION_LABELS[k],
+        value: k === 'electrolyzed' ? (v ? '通电' : '未通电') : String(v),
+      })
+    })
+    return out
+  }, [practice.conditions])
+
   // 思路递进图：A–F 链转 DAG（答题前预览骨架 / 通过后展示执行路径）
   const dag = useMemo(() => scaffoldChainToDAG(chain), [chain])
   // full 模式置灰：gate 中 locked 的步（id 与转换层约定一致：${module}.${kind}）
@@ -277,6 +305,30 @@ export default function ScaffoldPractice({ practiceId, progressTop = '0' }: Prop
         <Text className={styles.practiceTitleText}>{practice.title}</Text>
         <Text className={styles.practiceModule}>{chain.name}</Text>
       </View>
+
+      {/* 题面：原始题干 + 已知条件（生成题有值时展示；无 stem 且无条件则整块不渲染，降级不崩） */}
+      {(practice.stem || condChips.length > 0) && (
+        <View className={styles.stemBlock}>
+          {practice.stem && (
+            <>
+              <Text className={styles.stemLabel}>题干</Text>
+              <Text className={styles.stemText}>{practice.stem}</Text>
+            </>
+          )}
+          {condChips.length > 0 && (
+            <View className={styles.condRow}>
+              <Text className={styles.condLabel}>已知条件</Text>
+              {condChips.map((c) => (
+                <View key={c.key} className={styles.condChip}>
+                  <Text className={styles.condChipText}>
+                    {c.label}：{c.value}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          )}
+        </View>
+      )}
 
       {/* 思路递进图：答题前预览 A–F 推导骨架（不泄答案），默认收起 */}
       <View className={styles.dagToggle} onClick={() => setDagOpen((v) => !v)}>

@@ -78,6 +78,7 @@ public sealed class ScaffoldBuilder : IScaffoldBuilder
         {
             Id = $"gen_{@case.Id}",
             Title = $"{ModuleTitles.GetValueOrDefault(module.Value, module.Value.ToString())}练习 {@case.Id}",
+            Stem = @case.Question,
             Module = module.Value,
             SourceQuestionId = @case.Id,
             Steps = new List<StepPractice>(),

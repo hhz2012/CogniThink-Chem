@@ -6,6 +6,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
   {
     "id": "gen_pdf-104",
     "title": "氧化还原推理练习 pdf-104",
+    "stem": "(2025·江苏南通三模·★★)FeS2在酸性条件下可发生反应:FeS2+H2SO4=FeSO4+S+H2S↑。以FeS2为原料制取FeSO4·7H2O晶体的实验操作或原理不能达到实验目的的是\nA. 用装置甲制取含FeSO4的悬浊液\nB. 用装置乙吸收挥发出的H2S气体\nC. 用装置丙除去S和未反应的FeS2\nD. 用装置丁蒸干溶液,获得FeSO4·7H2O",
     "module": "redox-reasoning",
     "conditions": {
       "medium": "酸性"
@@ -355,6 +356,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
   {
     "id": "gen_pdf-110",
     "title": "氧化还原推理练习 pdf-110",
+    "stem": "(2025·云南卷·★★)下列化学方程式错误的是( )\nA. 煤制水煤气:C+H2O(g)高温CO+H2\nB. Na2O2供氧:2Na2O2+2CO2=2Na2CO3+O2\nC. 覆铜板制作印刷电路板:2FeCl3+3Cu=2Fe+3CuCl2\nD. 铅酸蓄电池放电:Pb+PbO2+2H2SO4=2PbSO4+2H2O",
     "module": "redox-reasoning",
     "conditions": {
       "temperature": "加热"
@@ -682,6 +684,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
   {
     "id": "gen_pdf-112",
     "title": "氧化还原推理练习 pdf-112",
+    "stem": "(2024·福建卷·★★)从废线路板(主要成分为铜,含少量铅锡合金、铝、锌和铁)中提取铜的流程如下:已知:“滤液2”主要含SnO3^2-和HPbO2^-。下列说法正确的是( )\nA. “机械粉碎”将铅锡合金转变为铅和锡单质\nB. “酸溶”时产生Al3+、Fe3+和Zn2+离子\nC. “碱溶”时存在反应:Sn+2OH^-+O2=SnO3^2-+H2O\nD. “电解精炼”时,粗铜在阴极发生还原反应",
     "module": "redox-reasoning",
     "conditions": {
       "quantity": "少量"
@@ -1035,6 +1038,7 @@ export const GENERATED_SCAFFOLDS: GeneratedScaffold[] = [
   {
     "id": "gen_pdf-298",
     "title": "氧化还原推理练习 pdf-298",
+    "stem": "(2024·全国甲卷·★★★★☆)科学家使用 δ-MnO2 研制了一种 MnO2-Zn 可充电电池(如图所示)。电池工作一段时间后，MnO2 电极上检测到 MnOOH 和少量 ZnMn2O4。下列叙述正确的是（ ）\nA. 充电时，Zn2+ 向阳极方向迁移\nB. 充电时，会发生反应：Zn + 2MnO2 = ZnMn2O4\nC. 放电时，正极反应有：MnO2 + H2O + e- = MnOOH + OH-\nD. 放电时，Zn 电极质量减少 0.65 g，MnO2 电极生成了 0.020 mol MnOOH",
     "module": "redox-reasoning",
     "conditions": {
       "quantity": "少量"

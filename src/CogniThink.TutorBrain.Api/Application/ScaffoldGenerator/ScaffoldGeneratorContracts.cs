@@ -186,6 +186,8 @@ public sealed class GeneratedScaffold
     // —— ScaffoldPractice 字段 ——
     [JsonPropertyName("id")] public string Id { get; set; } = "";
     [JsonPropertyName("title")] public string Title { get; set; } = "";
+    /// <summary>原始题干文本（来源 QuestionCase.Question，provenance 真实、不编造）；为空时省略不序列化。</summary>
+    [JsonPropertyName("stem")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public string? Stem { get; set; }
     [JsonPropertyName("module")] public ScaffoldModuleKind Module { get; set; }
     // 可选字段为 null 时省略：前端 strictNullChecks 下 `conditions?: T` 不接受 null 字面量。
     [JsonPropertyName("conditions")] [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)] public BranchConditions? Conditions { get; set; }
