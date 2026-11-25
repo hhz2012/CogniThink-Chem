@@ -304,7 +304,7 @@ $bg: #f5f8fa;
   display: flex;
   flex-direction: column;
   gap: 6rpx;
-  padding: $spacing-sm;
+  padding: 12rpx;
   border-radius: $radius-sm;
 }
 .feedbackPass {
@@ -332,14 +332,14 @@ $bg: #f5f8fa;
 .releases {
   display: flex;
   flex-direction: column;
-  gap: $spacing-xs;
-  margin-top: 6rpx;
+  gap: 6rpx;
+  margin-top: 4rpx;
 }
 .releaseBlock {
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
-  padding: 14rpx;
+  gap: 6rpx;
+  padding: 10rpx;
   border-radius: $radius-sm;
   background: #fff;
   border: 2rpx solid #e4e9ed;
@@ -371,7 +371,7 @@ $bg: #f5f8fa;
   display: flex;
   flex-direction: column;
   gap: 4rpx;
-  padding: 10rpx 12rpx;
+  padding: 8rpx 10rpx;
   border-radius: $radius-xs;
   background: rgba($accent, 0.06);
 }
@@ -389,13 +389,13 @@ $bg: #f5f8fa;
 .contrast {
   display: flex;
   flex-direction: column;
-  gap: 8rpx;
+  gap: 6rpx;
 }
 .contrastCol {
   display: flex;
   flex-direction: column;
   gap: 4rpx;
-  padding: 10rpx 12rpx;
+  padding: 8rpx 10rpx;
   border-radius: $radius-xs;
 }
 .contrastCorrect {
@@ -420,7 +420,7 @@ $bg: #f5f8fa;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10rpx 12rpx;
+  padding: 8rpx 10rpx;
   border-radius: $radius-xs;
   background: rgba($accent, 0.06);
 }
@@ -437,7 +437,7 @@ $bg: #f5f8fa;
   font-size: $font-size-xs;
   color: $ink-2;
   line-height: $line-height-normal;
-  padding: 10rpx 12rpx;
+  padding: 8rpx 10rpx;
 }
 
 .actions {
