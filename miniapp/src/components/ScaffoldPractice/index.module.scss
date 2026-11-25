@@ -11,7 +11,7 @@ $bg: #f5f8fa;
 .wrap {
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
+  gap: 8rpx;
   padding: 16rpx;
   background: #ffffff;
   border-radius: $radius-lg;
@@ -70,8 +70,8 @@ $bg: #f5f8fa;
 .stemBlock {
   display: flex;
   flex-direction: column;
-  gap: $spacing-xs;
-  padding: 12rpx 16rpx;
+  gap: 6rpx;
+  padding: 10rpx 12rpx;
   background: $bg;
   border-radius: $radius-md;
   border: 2rpx solid #eef2f5;
@@ -121,8 +121,8 @@ $bg: #f5f8fa;
 .step {
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
-  padding: 16rpx;
+  gap: 8rpx;
+  padding: 12rpx;
   border-radius: $radius-md;
   background: #fbfcfd;
   border: 2rpx solid #eef2f5;
@@ -133,7 +133,30 @@ $bg: #f5f8fa;
 }
 .stepLocked {
   opacity: 0.55;
-  padding: 8rpx 16rpx;
+  padding: 6rpx 16rpx;
+  gap: 0;
+}
+/* 锁定步压扁为单行：徽章缩小 + 标题与状态横向并排，大幅压缩 5 张未来步的垂直空间 */
+.stepLocked .stepHead {
+  gap: 10rpx;
+}
+.stepLocked .badge {
+  width: 40rpx;
+  height: 40rpx;
+}
+.stepLocked .badgeText {
+  font-size: $font-size-xs;
+}
+.stepLocked .stepMeta {
+  flex-direction: row;
+  align-items: center;
+  gap: 8rpx;
+}
+.stepLocked .stepTitle {
+  font-size: $font-size-sm;
+}
+.stepLocked .stepState {
+  font-size: $font-size-xs;
 }
 .stepPassed {
   border-color: rgba($pass, 0.45);
@@ -147,7 +170,7 @@ $bg: #f5f8fa;
 .stepHead {
   display: flex;
   align-items: center;
-  gap: $spacing-sm;
+  gap: 12rpx;
 }
 .badge {
   width: 52rpx;
@@ -250,11 +273,11 @@ $bg: #f5f8fa;
 .optionsChips {
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 12rpx;
+  gap: 10rpx;
 }
 .optionsChips .option {
   width: auto;
-  padding: 10rpx 26rpx;
+  padding: 8rpx 22rpx;
   border-radius: 999rpx;
   background: rgba($accent, 0.08);
   border-color: rgba($accent, 0.35);
@@ -453,7 +476,7 @@ $bg: #f5f8fa;
   justify-content: flex-end;
 }
 .submitBtn {
-  padding: 12rpx 30rpx;
+  padding: 10rpx 26rpx;
   border-radius: $radius-button;
   background: $accent;
 }
@@ -504,12 +527,12 @@ $bg: #f5f8fa;
   color: $ink-2;
 }
 
-/* 浮动紧凑进度条：sticky 常驻顶部，负边距撑满卡片宽度，替代大块思路递进图 */
+/* 浮动紧凑进度条：sticky 常驻顶部，负边距与卡片 padding(16rpx) 对齐撑满宽度，替代大块思路递进图 */
 .progressWrap {
   position: sticky;
   z-index: 20;
-  margin: (-$spacing-md) (-$spacing-md) $spacing-sm;
-  padding: $spacing-sm $spacing-md;
+  margin: (-16rpx) (-16rpx) 8rpx;
+  padding: 10rpx 16rpx;
   background: #ffffff;
   border-bottom: 2rpx solid #eef2f5;
   box-shadow: 0 4rpx 12rpx rgba(31, 41, 51, 0.06);
@@ -534,7 +557,7 @@ $bg: #f5f8fa;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12rpx 16rpx;
+  padding: 8rpx 14rpx;
   border-radius: $radius-sm;
   background: rgba($accent, 0.06);
   border: 2rpx solid rgba($accent, 0.25);
