@@ -71,7 +71,7 @@ $bg: #f5f8fa;
   display: flex;
   flex-direction: column;
   gap: $spacing-xs;
-  padding: $spacing-sm $spacing-md;
+  padding: 12rpx 16rpx;
   background: $bg;
   border-radius: $radius-md;
   border: 2rpx solid #eef2f5;
@@ -453,7 +453,7 @@ $bg: #f5f8fa;
   justify-content: flex-end;
 }
 .submitBtn {
-  padding: 14rpx 36rpx;
+  padding: 12rpx 30rpx;
   border-radius: $radius-button;
   background: $accent;
 }
