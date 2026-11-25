@@ -222,6 +222,7 @@
   font-size: $font-size-sm;
   line-height: 1.7;
   box-sizing: border-box;
+  @include field-focus;
 }
 
 .submitBtn {

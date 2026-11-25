@@ -36,11 +36,15 @@
   width: 100%;
   min-height: 120px;
   background: #f4f7f9;
+  // 透明边框作为聚焦态变色的基底（border-box 下不撑大尺寸），配合 field-focus 光晕
+  border: 2px solid transparent;
   border-radius: 12px;
   padding: 14px;
   font-size: 26px;
   color: #1f2937;
   box-sizing: border-box;
+  // solve 页使用 px 单位，ring 传 px 保持视觉尺度一致
+  @include field-focus(0 0 0 4px rgba(46, 167, 196, 0.15));
 }
 
 .btn {

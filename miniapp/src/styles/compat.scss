@@ -18,3 +18,17 @@ label,
 navigator {
   box-sizing: border-box;
 }
+
+// 2. 原生表单控件外观归一化：去掉浏览器默认 outline / 内阴影 / 默认底色，
+//    让各页面 module.scss 完全接管输入框外观（聚焦态由 field-focus mixin 提供）
+input,
+textarea {
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent; // 透出父级/自身 module.scss 设定的背景，避免 H5 默认灰底
+}
+textarea {
+  // H5 下部分浏览器会给 textarea 加默认 resize 手柄，统一禁掉保持风格一致
+  resize: none;
+}

@@ -45,6 +45,13 @@
   padding: 0 24rpx;
   height: 76rpx;
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
+  // 内部 Input 聚焦时，搜索框整体显示主色边框 + 光晕（input 的 outline 已由全局重置）
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  &:focus-within {
+    border-color: $color-primary;
+    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03), 0 0 0 4rpx rgba(46, 167, 196, 0.15);
+  }
 }
 
 .searchIcon {

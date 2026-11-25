@@ -1,0 +1,28 @@
+@use '@/styles/variables.scss' as *;
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 0 80rpx;
+}
+
+.icon {
+  color: $color-text-tertiary;
+  opacity: 0.6;
+  margin-bottom: 20rpx;
+  line-height: 0;
+}
+
+.title {
+  font-size: $font-size-md;
+  color: $color-text-secondary;
+  font-weight: $font-weight-semibold;
+}
+
+.sub {
+  margin-top: 8rpx;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  text-align: center;
+}

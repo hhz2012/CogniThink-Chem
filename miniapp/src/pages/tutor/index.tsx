@@ -9,6 +9,8 @@ import {
   SubmitStepResponse
 } from '../../services/tutorApi'
 import ReasoningDag from '../../components/ReasoningDag'
+import Loading from '../../components/Loading'
+import Empty from '../../components/Empty'
 import styles from './index.module.scss'
 
 const STATUS_TEXT: Record<string, string> = {
@@ -149,7 +151,10 @@ export default function TutorPage() {
         </View>
 
         {error && <Text className={styles.errorText}>{error}</Text>}
-        {loading && <Text className={styles.loadingText}>加载中…</Text>}
+        {loading && <Loading />}
+        {!loading && !error && problems.length === 0 ? (
+          <Empty title="暂无题目" sub="服务地址可能未配置题目，或稍后再来看看" icon="book" />
+        ) : null}
 
         <View className={styles.listWrap}>
           {problems.map((p) => (

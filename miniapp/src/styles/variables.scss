@@ -139,3 +139,19 @@ $transition-slow: 0.35s ease;
     opacity: $opacity;
   }
 }
+
+// 表单控件聚焦态统一：去掉浏览器默认 outline，聚焦时主色边框 + 柔和光晕
+// 用法：在 input/textarea 的 class 内 @include field-focus;
+// 注意：光晕用 box-shadow（不改变 border-width），配合全局 border-box，聚焦不引起布局跳动
+// 注意：若元素已有 transition: all，请勿用此 mixin（会覆盖原有过渡），改为手动追加 :focus 块
+// 注意：同时匹配 :focus 与 :focus-within——Taro H5 下 className 落在 <taro-textarea-core>/
+//       包装器上、焦点在内部原生控件，需 :focus-within 才能命中；:focus 兼容 class 直接在控件上的端。
+@mixin field-focus($ring: 0 0 0 4rpx rgba(46, 167, 196, 0.15)) {
+  outline: none;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+  &:focus,
+  &:focus-within {
+    border-color: $color-primary;
+    box-shadow: $ring;
+  }
+}

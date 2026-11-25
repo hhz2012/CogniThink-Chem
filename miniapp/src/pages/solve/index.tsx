@@ -2,6 +2,7 @@ import { View, Text, Textarea, ScrollView } from '@tarojs/components'
 import { useState } from 'react'
 import { tutorApi, StudentSolveView, ReasoningNodeDto } from '../../services/tutorApi'
 import Collapse from '../../components/Collapse'
+import Loading from '../../components/Loading'
 import styles from './index.module.scss'
 
 /** 证据强度中文标签（镜像后端 EvidenceLevel） */
@@ -66,6 +67,12 @@ export default function Solve() {
         {err ? (
           <View className={styles.card}>
             <Text className={styles.err}>{err}</Text>
+          </View>
+        ) : null}
+
+        {loading ? (
+          <View className={styles.card}>
+            <Loading text="引擎求解中…" />
           </View>
         ) : null}
 
