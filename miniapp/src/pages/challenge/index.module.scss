@@ -7,7 +7,7 @@
 
 .body {
   height: 100vh;
-  padding: 24rpx 32rpx 0;
+  padding: 16rpx 24rpx 0;
 }
 
 /* ============ 返回首页 ============ */
@@ -48,7 +48,7 @@
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;
   color: $color-text-primary;
-  margin: 28rpx 4rpx 16rpx;
+  margin: 20rpx 4rpx 16rpx;
 
   &::before {
     content: '';
