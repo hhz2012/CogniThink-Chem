@@ -6,6 +6,7 @@ import Collapse from '../../components/Collapse'
 import TabBar from '../../components/TabBar'
 import ThoughtChip from '../../components/ThoughtChip'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
+import Empty from '../../components/Empty'
 import { chapters, allChallenges, getChallengeById } from '../../data/challenges'
 import { loadProgress, unmarkWrong } from '../../utils/storage'
 import { UserProgress, Chapter } from '../../types/chem'
@@ -63,9 +64,7 @@ export default function Bank() {
         {/* ===== 错题列表 / 空状态 ===== */}
         {wrongList.length === 0 ? (
           <View className={styles.empty}>
-            <Text className={styles.emptyIcon}>🎉</Text>
-            <Text className={styles.emptyTitle}>太棒了，暂无错题</Text>
-            <Text className={styles.emptySub}>去挑战几道题，错题会自动收录到这里</Text>
+            <Empty title="太棒了，暂无错题" sub="去挑战几道题，错题会自动收录到这里" icon="trophy" />
             <View className={styles.goBtn} onClick={goHome}>
               <Text className={styles.goBtnText}>去做题</Text>
             </View>

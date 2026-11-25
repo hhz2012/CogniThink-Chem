@@ -73,6 +73,11 @@
   font-size: 24rpx;
   color: $color-text-tertiary;
   padding: 8rpx;
+  transition: opacity $transition-fast;
+
+  &:active {
+    opacity: 0.6;
+  }
 }
 
 /* ===== 分类切换胶囊 ===== */
@@ -99,6 +104,12 @@
   border: 1rpx solid $color-border;
   flex-shrink: 0;
   transition: all $transition-fast;
+
+  // 已有 transition: all，手动追加按压态（不覆盖原过渡）
+  &:active {
+    transform: scale(0.97);
+    opacity: 0.85;
+  }
 }
 
 .catTabActive {

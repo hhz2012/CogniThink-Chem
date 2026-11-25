@@ -355,6 +355,7 @@
   background: #f0f9f8;
   border: 2rpx solid #cceae8;
   border-radius: $radius-lg;
+  @include pressable;
 }
 
 .kpLeft {
@@ -603,6 +604,7 @@
   color: $color-primary-dark;
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
+  @include pressable;
 }
 
 .conservationBody {
@@ -754,6 +756,7 @@
   border-radius: $radius-md;
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
+  @include pressable;
 }
 
 .bottomPad { height: 60rpx; }
@@ -916,6 +919,7 @@
   background: rgba(46, 167, 196, 0.06);
   border: 1rpx dashed rgba(46, 167, 196, 0.5);
   border-radius: $radius-md;
+  @include pressable;
 }
 .stage2ToggleText {
   font-size: $font-size-sm;
@@ -937,6 +941,7 @@
   background: rgba(46, 167, 196, 0.06);
   border: 1rpx dashed rgba(46, 167, 196, 0.5);
   border-radius: $radius-md;
+  @include pressable;
 }
 .dagPreviewToggleText {
   font-size: $font-size-sm;

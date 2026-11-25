@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { tutorApi, StudentSolveView, ReasoningNodeDto } from '../../services/tutorApi'
 import Collapse from '../../components/Collapse'
 import Loading from '../../components/Loading'
+import ModelIcon from '../../components/SolvePanels/ModelIcon'
 import styles from './index.module.scss'
 
 /** 证据强度中文标签（镜像后端 EvidenceLevel） */
@@ -147,7 +148,10 @@ function Result({
       {/* ===== 教学话术（分级提示）===== */}
       {view.reply ? (
         <View className={styles.card}>
-          <Text className={styles.sectionTitle}>💬 讲解</Text>
+          <View className={styles.sectionTitleRow}>
+            <ModelIcon name="message" size={18} color="#2EA7C4" />
+            <Text className={styles.sectionTitle}>讲解</Text>
+          </View>
           <Text className={styles.reply}>{view.reply}</Text>
         </View>
       ) : null}
@@ -156,7 +160,10 @@ function Result({
       {isConfirmed && view.reasoning_nodes.length > 0 ? (
         <View className={styles.card}>
           <View className={styles.collapseHead} onClick={() => setShowDag(!showDag)}>
-            <Text className={styles.sectionTitle}>🔗 推理过程（溯源链）</Text>
+            <View className={styles.sectionTitleRow}>
+              <ModelIcon name="link" size={18} color="#2EA7C4" />
+              <Text className={styles.sectionTitle}>推理过程（溯源链）</Text>
+            </View>
             <Text className={`${styles.collapseArrow} ${showDag ? styles.collapseArrowOpen : ''}`}>▸</Text>
           </View>
           <Collapse open={showDag}>
@@ -188,7 +195,10 @@ function Result({
       {!isInsufficient && view.explanation_nodes.length > 0 ? (
         <View className={styles.card}>
           <View className={styles.collapseHead} onClick={() => setShowExplain(!showExplain)}>
-            <Text className={styles.sectionTitle}>🌱 微观解释</Text>
+            <View className={styles.sectionTitleRow}>
+              <ModelIcon name="atom" size={18} color="#2EA7C4" />
+              <Text className={styles.sectionTitle}>微观解释</Text>
+            </View>
             <Text className={`${styles.collapseArrow} ${showExplain ? styles.collapseArrowOpen : ''}`}>▸</Text>
           </View>
           <Collapse open={showExplain}>

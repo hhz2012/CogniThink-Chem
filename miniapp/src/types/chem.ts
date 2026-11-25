@@ -29,6 +29,7 @@ export type ModelIconName =
   | 'link'
   | 'check-circle'
   | 'lightbulb'
+  | 'message'
   | 'layout'
   | 'camera'
   | 'home'

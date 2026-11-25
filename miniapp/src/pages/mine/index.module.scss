@@ -86,6 +86,7 @@
   padding: 16rpx 12rpx;
   text-align: center;
   box-shadow: $shadow-card;
+  @include pressable;
 }
 
 .statIcon {

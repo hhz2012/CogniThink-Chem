@@ -209,8 +209,9 @@ function ReactionDetailView({ entry }: { entry: ReactionEntry }) {
                         <Text className={styles.analyzeText}>{analyzeText}</Text>
                       ) : (
                         <View className={styles.hintPrompt}>
+                          <ModelIcon name="lightbulb" size={16} color="#1C86A1" />
                           <Text className={styles.hintPromptText}>
-                            💡 先自己想一想：这一步你会怎么分析这条反应？点右上角「提示」查看实例化讲解。
+                            先自己想一想：这一步你会怎么分析这条反应？点右上角「提示」查看实例化讲解。
                           </Text>
                         </View>
                       )}
