@@ -126,14 +126,14 @@
 .kpList {
   display: flex;
   flex-direction: column;
-  gap: 14rpx;
+  gap: 10rpx;
 }
 
 .kpCard {
   background: $color-bg-card;
   border-radius: $radius-lg;
   border: 1rpx solid $color-divider;
-  padding: 22rpx;
+  padding: 16rpx;
   box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
   transition: transform $transition-fast;
 
