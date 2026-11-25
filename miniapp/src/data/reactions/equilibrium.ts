@@ -7,7 +7,6 @@ const equilibrium: ReactionEntry[] = [
   // 醋酸电离（弱酸部分电离）
   {
     id: 'RX-PL-ION-001',
-    reactionType: 'IonEquilibrium',
     tags: ['电离', '弱电解质'],
     equation: 'CH₃COOH ⇌ CH₃COO⁻ + H⁺',
     conditions: [],
@@ -31,7 +30,6 @@ const equilibrium: ReactionEntry[] = [
   // 铵根水解（溶液显酸性）
   {
     id: 'RX-PL-HYD-001',
-    reactionType: 'IonEquilibrium',
     tags: ['水解', '强酸弱碱盐'],
     equation: 'NH₄⁺ + H₂O ⇌ NH₃·H₂O + H⁺',
     conditions: [],
@@ -56,7 +54,6 @@ const equilibrium: ReactionEntry[] = [
   // 氢气燃烧的热化学方程式
   {
     id: 'RX-PL-THM-001',
-    reactionType: 'Thermochemical',
     tags: ['热化学', '放热', '燃烧热'],
     equation: '2H₂ + O₂ = 2H₂O',
     conditions: ['点燃'],
@@ -73,7 +70,6 @@ const equilibrium: ReactionEntry[] = [
   // 稀盐酸与稀氢氧化钠中和的热化学方程式
   {
     id: 'RX-PL-THM-003',
-    reactionType: 'Thermochemical',
     tags: ['热化学', '放热', '中和热'],
     equation: 'HCl + NaOH = NaCl + H₂O',
     conditions: [],

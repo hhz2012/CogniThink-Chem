@@ -6,7 +6,6 @@ const redox: ReactionEntry[] = [
   // 实验室制氯气：MnO₂ 氧化浓盐酸
   {
     id: 'RX-IN-CL-006',
-    reactionType: 'Redox',
     tags: ['氧化还原', '实验室制氯气'],
     equation: 'MnO₂ + 4HCl = MnCl₂ + Cl₂↑ + 2H₂O',
     conditions: ['△', '浓'],
@@ -40,7 +39,6 @@ const redox: ReactionEntry[] = [
   // 亚铁离子被酸性高锰酸钾氧化（滴定经典）
   {
     id: 'RX-IN-ION-012',
-    reactionType: 'Redox',
     tags: ['氧化还原', '高锰酸钾'],
     equation: '5Fe²⁺ + MnO₄⁻ + 8H⁺ = 5Fe³⁺ + Mn²⁺ + 4H₂O',
     conditions: ['酸性'],
@@ -75,7 +73,6 @@ const redox: ReactionEntry[] = [
   // 铁离子氧化碘离子（离子共存经典）
   {
     id: 'RX-IN-ION-022',
-    reactionType: 'Redox',
     tags: ['氧化还原', '不相容'],
     equation: '2Fe³⁺ + 2I⁻ = 2Fe²⁺ + I₂',
     conditions: [],

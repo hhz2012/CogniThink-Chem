@@ -7,6 +7,8 @@ export type ModelLayer = 'Knowledge' | 'Application' | 'Ability'
 /** 题型标准解题步骤 */
 export interface SolveModelStep {
   index: number
+  /** 稳定标识：叙述层（narrateReaction）按此分发，不随 title 文案变动；反应侧必填，题型侧可选 */
+  key?: string
   title: string
   goal: string
   layer: ModelLayer

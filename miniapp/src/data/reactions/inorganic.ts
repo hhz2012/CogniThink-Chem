@@ -6,7 +6,6 @@ const inorganic: ReactionEntry[] = [
   // ============ 化合反应（多变一） ============
   {
     id: 'RX-IN-NA-001',
-    reactionType: 'Combination',
     tags: ['化合', '氧化还原'],
     equation: '2Na + Cl₂ = 2NaCl',
     conditions: ['点燃'],
@@ -24,7 +23,6 @@ const inorganic: ReactionEntry[] = [
   },
   {
     id: 'RX-IN-FE-007',
-    reactionType: 'Combination',
     tags: ['化合', '氧化还原', '强氧化剂'],
     equation: '2Fe + 3Cl₂ = 2FeCl₃',
     conditions: ['点燃'],
@@ -42,7 +40,6 @@ const inorganic: ReactionEntry[] = [
   },
   {
     id: 'RX-IN-C-001',
-    reactionType: 'Combination',
     tags: ['化合', '氧化还原'],
     equation: 'C + O₂ = CO₂',
     conditions: ['点燃'],
@@ -62,7 +59,6 @@ const inorganic: ReactionEntry[] = [
   // ============ 分解反应（一变多） ============
   {
     id: 'RX-IN-HO-002',
-    reactionType: 'Decomposition',
     tags: ['分解', '电解'],
     equation: '2H₂O = 2H₂↑ + O₂↑',
     conditions: ['通电'],
@@ -77,7 +73,6 @@ const inorganic: ReactionEntry[] = [
   },
   {
     id: 'RX-IN-C-011',
-    reactionType: 'Decomposition',
     tags: ['分解', '工业制生石灰'],
     equation: 'CaCO₃ = CaO + CO₂↑',
     conditions: ['高温'],
@@ -93,7 +88,6 @@ const inorganic: ReactionEntry[] = [
   // ============ 置换反应（单质 + 化合物 → 新单质 + 新化合物） ============
   {
     id: 'RX-IN-FE-006',
-    reactionType: 'Displacement',
     tags: ['置换', '湿法炼铜'],
     equation: 'Fe + CuSO₄ = FeSO₄ + Cu',
     conditions: [],
@@ -108,7 +102,6 @@ const inorganic: ReactionEntry[] = [
   },
   {
     id: 'RX-IN-AL-003',
-    reactionType: 'Displacement',
     tags: ['置换', '铝热反应', '金属冶炼'],
     equation: '2Al + Fe₂O₃ = Al₂O₃ + 2Fe',
     conditions: ['高温'],
@@ -123,7 +116,6 @@ const inorganic: ReactionEntry[] = [
   },
   {
     id: 'RX-IN-CL-007',
-    reactionType: 'Displacement',
     tags: ['置换', '卤素活泼性'],
     equation: 'Cl₂ + 2KBr = 2KCl + Br₂',
     conditions: [],
@@ -140,7 +132,6 @@ const inorganic: ReactionEntry[] = [
   // ============ 复分解反应（两化合物互相交换成分） ============
   {
     id: 'RX-IN-ION-002',
-    reactionType: 'DoubleDisplacement',
     tags: ['复分解', '沉淀', '硫酸根检验'],
     equation: 'Ba²⁺ + SO₄²⁻ = BaSO₄↓',
     conditions: [],
@@ -155,7 +146,6 @@ const inorganic: ReactionEntry[] = [
   },
   {
     id: 'RX-IN-S-010',
-    reactionType: 'DoubleDisplacement',
     tags: ['复分解', '产气'],
     equation: 'Na₂SO₃ + H₂SO₄ = Na₂SO₄ + H₂O + SO₂↑',
     conditions: [],
@@ -172,7 +162,6 @@ const inorganic: ReactionEntry[] = [
   // ============ 燃烧 ============
   {
     id: 'RX-OR-HC-001',
-    reactionType: 'Combustion',
     tags: ['燃烧', '氧化反应'],
     equation: 'CH₄ + 2O₂ = CO₂ + 2H₂O',
     conditions: ['点燃'],
@@ -190,7 +179,6 @@ const inorganic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-HC-015',
-    reactionType: 'Combustion',
     tags: ['燃烧', '氧化反应'],
     equation: '2C₆H₆ + 15O₂ = 12CO₂ + 6H₂O',
     conditions: ['点燃'],

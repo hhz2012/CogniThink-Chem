@@ -8,7 +8,6 @@ import type { ReactionEntry } from '../types/reaction'
 /** 教材代表例 1：NO₃⁻ / Fe²⁺（条件分支：有 / 无 H⁺ 走向不同） */
 export const NO3_FE2_ENTRY: ReactionEntry = {
   id: 'BR-NO3-FE2',
-  reactionType: 'Redox',
   tags: ['氧化还原', '条件分支', '硝酸根氧化性'],
   equation: 'Fe²⁺ + NO₃⁻（± H⁺）',
   phenomenon: '酸性下生成无色 NO，遇空气变红棕色；无 H⁺ 时无明显反应',
@@ -43,7 +42,6 @@ export const NO3_FE2_ENTRY: ReactionEntry = {
 /** 教材代表例 2：Cl₂ / FeI₂（数量分支：Cl₂ 少量 / 过量产物不同） */
 export const CL2_FEI2_ENTRY: ReactionEntry = {
   id: 'BR-CL2-FEI2',
-  reactionType: 'Redox',
   tags: ['氧化还原', '数量分支', '竞争排序', '还原性顺序'],
   equation: 'Cl₂ + FeI₂',
   phenomenon: '少量 Cl₂ 出现 I₂ 的颜色；过量 Cl₂ 则 Fe²⁺ 也被氧化为 Fe³⁺',

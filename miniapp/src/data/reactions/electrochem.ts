@@ -7,7 +7,6 @@ const electrochem: ReactionEntry[] = [
   // 锌铜原电池（CuSO₄ 溶液）
   {
     id: 'RX-PL-ELC-001',
-    reactionType: 'Electrode',
     tags: ['原电池', '电极反应'],
     equation: 'Zn + CuSO₄ = ZnSO₄ + Cu',
     conditions: [],
@@ -26,7 +25,6 @@ const electrochem: ReactionEntry[] = [
   // 电解氯化铜溶液
   {
     id: 'RX-PL-ELC-003',
-    reactionType: 'Electrode',
     tags: ['电解池', '电极反应'],
     equation: 'CuCl₂ = Cu + Cl₂↑',
     conditions: ['通电'],

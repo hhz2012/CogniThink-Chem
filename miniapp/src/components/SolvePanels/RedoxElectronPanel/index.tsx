@@ -380,7 +380,7 @@ export default function RedoxElectronPanel({ data, color }: Props) {
                   {r.isRedox ? '氧化还原' : '非氧化还原'}
                 </Text>
                 <Text className={styles.reactionEq}>{r.equation}</Text>
-                {r.type && <Text className={styles.reactionType}>{r.type}</Text>}
+                {r.type && <Text className={styles.halfReactionType}>{r.type}</Text>}
               </View>
             ))}
           </View>

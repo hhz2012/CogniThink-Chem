@@ -200,8 +200,6 @@ export type ReactionSolveData =
 /** 反应条目（前端反应子集 data/reactions 的条目形状；Task 3 按此填充，narrateReaction 消费） */
 export interface ReactionEntry {
   id: string
-  /** 主类型名（对应后端 ReactionType 枚举名），用于匹配 ReactionSolveModel */
-  reactionType: string
   /** 有机子类型等精细标签，可选 */
   tags?: string[]
   equation?: string

@@ -8,7 +8,6 @@ const organic: ReactionEntry[] = [
   // ============ 取代反应 ============
   {
     id: 'RX-OR-HC-002',
-    reactionType: 'Organic',
     tags: ['取代', '连锁反应'],
     equation: 'CH₄ + Cl₂ = CH₃Cl + HCl',
     conditions: ['光照'],
@@ -29,7 +28,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-HC-017',
-    reactionType: 'Organic',
     tags: ['取代', '硝化'],
     equation: 'C₆H₆ + HNO₃ = C₆H₅NO₂ + H₂O',
     conditions: ['浓H₂SO₄', '水浴', '△'],
@@ -52,7 +50,6 @@ const organic: ReactionEntry[] = [
   // ============ 加成反应 ============
   {
     id: 'RX-OR-HC-007',
-    reactionType: 'Organic',
     tags: ['加成', '碳碳双键检验'],
     equation: 'C₂H₄ + Br₂ = C₂H₄Br₂',
     conditions: [],
@@ -73,7 +70,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-HC-010',
-    reactionType: 'Organic',
     tags: ['加成', '水化', '工业制乙醇'],
     equation: 'C₂H₄ + H₂O = C₂H₅OH',
     conditions: ['催化剂', '△', '加压'],
@@ -96,7 +92,6 @@ const organic: ReactionEntry[] = [
   // ============ 消去反应 ============
   {
     id: 'RX-OR-HX-002',
-    reactionType: 'Organic',
     tags: ['消去', '卤代烃'],
     equation: 'C₂H₅Br + NaOH = C₂H₄↑ + NaBr + H₂O',
     conditions: ['醇溶液', '△'],
@@ -117,7 +112,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-OH-004',
-    reactionType: 'Organic',
     tags: ['消去', '实验室制乙烯'],
     equation: 'C₂H₅OH = C₂H₄↑ + H₂O',
     conditions: ['浓H₂SO₄', '170℃'],
@@ -139,7 +133,6 @@ const organic: ReactionEntry[] = [
   // ============ 氧化反应（有机） ============
   {
     id: 'RX-OR-OH-003',
-    reactionType: 'Organic',
     tags: ['氧化', '催化氧化'],
     equation: '2C₂H₅OH + O₂ = 2CH₃CHO + 2H₂O',
     conditions: ['Cu', '△'],
@@ -160,7 +153,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-ALD-003',
-    reactionType: 'Organic',
     tags: ['氧化', '银镜反应', '醛基检验'],
     equation: 'CH₃CHO + 2Ag(NH₃)₂OH = CH₃COONH₄ + 2Ag↓ + 3NH₃ + H₂O',
     conditions: ['水浴', '△'],
@@ -183,7 +175,6 @@ const organic: ReactionEntry[] = [
   // ============ 还原反应（有机，催化加氢） ============
   {
     id: 'RX-OR-HC-008',
-    reactionType: 'Organic',
     tags: ['还原', '加成', '催化加氢'],
     equation: 'C₂H₄ + H₂ = C₂H₆',
     conditions: ['Ni', '△'],
@@ -203,7 +194,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-HC-018',
-    reactionType: 'Organic',
     tags: ['还原', '加成', '催化加氢'],
     equation: 'C₆H₆ + 3H₂ = C₆H₁₂',
     conditions: ['Ni', '△'],
@@ -225,7 +215,6 @@ const organic: ReactionEntry[] = [
   // ============ 酯化反应 ============
   {
     id: 'RX-OR-ACD-004',
-    reactionType: 'Organic',
     tags: ['酯化', '取代', '可逆'],
     equation: 'CH₃COOH + C₂H₅OH ⇌ CH₃COOCH₂CH₃ + H₂O',
     conditions: ['浓H₂SO₄', '△'],
@@ -249,7 +238,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-EST-004',
-    reactionType: 'Organic',
     tags: ['酯化', '取代'],
     equation: 'CH₃COOH + HOCH₂CH₂OH ⇌ CH₃COOCH₂CH₂OH + H₂O',
     conditions: [],
@@ -273,7 +261,6 @@ const organic: ReactionEntry[] = [
   // ============ 水解反应 ============
   {
     id: 'RX-OR-EST-001',
-    reactionType: 'Organic',
     tags: ['水解', '可逆'],
     equation: 'CH₃COOCH₂CH₃ + H₂O ⇌ CH₃COOH + C₂H₅OH',
     conditions: ['浓H₂SO₄', '△'],
@@ -293,7 +280,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-EST-002',
-    reactionType: 'Organic',
     tags: ['水解', '碱性'],
     equation: 'CH₃COOCH₂CH₃ + NaOH = CH₃COONa + C₂H₅OH',
     conditions: ['△'],
@@ -316,7 +302,6 @@ const organic: ReactionEntry[] = [
   // ============ 加聚反应（教材标准，后端 KB 待同步） ============
   {
     id: 'RX-OR-POL-001',
-    reactionType: 'Organic',
     tags: ['加聚', '聚合', '后端KB待同步'],
     equation: 'n CH₂=CH₂ → [CH₂-CH₂]ₙ',
     conditions: ['催化剂', '△', '加压'],
@@ -338,7 +323,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-POL-002',
-    reactionType: 'Organic',
     tags: ['加聚', '聚合', '后端KB待同步'],
     equation: 'n CH₂=CHCl → [CH₂-CHCl]ₙ',
     conditions: ['催化剂', '△', '加压'],
@@ -362,7 +346,6 @@ const organic: ReactionEntry[] = [
   // ============ 缩聚反应（教材标准，后端 KB 待同步） ============
   {
     id: 'RX-OR-POL-003',
-    reactionType: 'Organic',
     tags: ['缩聚', '聚合', '后端KB待同步'],
     equation: 'n HOOC-C₆H₄-COOH + n HOCH₂CH₂OH → H-[OC-C₆H₄-COOCH₂CH₂O]ₙ-H + (2n-1)H₂O',
     conditions: ['催化剂', '△'],
@@ -387,7 +370,6 @@ const organic: ReactionEntry[] = [
   },
   {
     id: 'RX-OR-POL-004',
-    reactionType: 'Organic',
     tags: ['缩聚', '聚合', '后端KB待同步'],
     equation: 'n HOOC(CH₂)₄COOH + n H₂N(CH₂)₆NH₂ → H-[OC(CH₂)₄CONH(CH₂)₆NH]ₙ-H + (2n-1)H₂O',
     conditions: ['△'],

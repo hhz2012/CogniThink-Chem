@@ -17,19 +17,26 @@ export interface ReactionSolveModel {
   checks: string[]
 }
 
+type StepWithoutIndex = Omit<SolveModelStep, 'index'>
+
+/** 按数组顺序自动赋 step.index（i+1），消除有机「共享步 + 专属步」拼接时硬编码 3/4/5 的脆弱写法 */
+function indexSteps(steps: StepWithoutIndex[]): SolveModelStep[] {
+  return steps.map((s, i) => ({ ...s, index: i + 1 }))
+}
+
 // 有机反应共享前置步骤（所有有机子类型模型都先经过这两步，再进入子类型专属步骤）
-const ORGANIC_SHARED_STEPS: SolveModelStep[] = [
+const ORGANIC_SHARED_STEPS: StepWithoutIndex[] = [
   {
-    index: 1,
     title: '认官能团',
+    key: 'recognize-functional-group',
     goal: '识别反应物中的官能团，确定可能的反应位点',
     layer: 'Knowledge',
     analyze:
       '先看反应物的结构简式，逐一识别其中的官能团（碳碳双键、羟基、醛基、羧基、酯基、卤素原子等）；回忆各官能团的特征反应，初步判断这条反应可能发生在哪类官能团上。',
   },
   {
-    index: 2,
     title: '定反应类型',
+    key: 'identify-reaction-type',
     goal: '由试剂与反应条件判断所属的有机反应子类型',
     layer: 'Application',
     analyze:
@@ -48,6 +55,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '认特征',
+        key: 'recognize-feature',
         goal: '判断是否「多变一」：反应物 ≥ 2、产物 = 1',
         layer: layer('Knowledge'),
         analyze:
@@ -56,6 +64,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '判条件',
+        key: 'judge-condition',
         goal: '确定反应条件对产物的影响',
         layer: layer('Application'),
         analyze:
@@ -64,6 +73,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '析价态',
+        key: 'analyze-valence',
         goal: '若有价态变化则属氧化还原，标注氧化剂与还原剂',
         layer: layer('Application'),
         analyze:
@@ -72,6 +82,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '验守恒',
+        key: 'verify-conservation',
         goal: '配平并检查原子守恒',
         layer: layer('Ability'),
         analyze:
@@ -89,6 +100,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '认特征',
+        key: 'recognize-feature',
         goal: '判断是否「一变多」：反应物 = 1、产物 ≥ 2',
         layer: layer('Knowledge'),
         analyze:
@@ -97,6 +109,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '判条件',
+        key: 'judge-condition',
         goal: '确定分解所需的外加能量类型',
         layer: layer('Knowledge'),
         analyze:
@@ -105,6 +118,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '定产物',
+        key: 'determine-products',
         goal: '按条件确定分解产物',
         layer: layer('Application'),
         analyze:
@@ -113,6 +127,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '验守恒',
+        key: 'verify-conservation',
         goal: '配平，标注气体 ↑ 与沉淀 ↓',
         layer: layer('Ability'),
         analyze:
@@ -130,6 +145,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '认特征',
+        key: 'recognize-feature',
         goal: '判断是否「单质 + 化合物 → 新单质 + 新化合物」',
         layer: layer('Knowledge'),
         analyze:
@@ -138,6 +154,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '判活动性',
+        key: 'judge-activity',
         goal: '用活动性顺序判断反应能否发生及方向',
         layer: layer('Application'),
         analyze:
@@ -146,6 +163,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '写产物',
+        key: 'write-products',
         goal: '写出被置换出的单质与新化合物，注意价态',
         layer: layer('Application'),
         analyze:
@@ -154,6 +172,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '验方向与守恒',
+        key: 'verify-direction-conservation',
         goal: '强置换弱，配平原子与电子守恒',
         layer: layer('Ability'),
         analyze:
@@ -171,6 +190,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '认特征',
+        key: 'recognize-feature',
         goal: '判断是否「两化合物互相交换成分」',
         layer: layer('Knowledge'),
         analyze:
@@ -179,6 +199,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '判发生条件',
+        key: 'judge-occurrence-condition',
         goal: '检查是否生成沉淀 / 气体 / 水 之一',
         layer: layer('Application'),
         analyze:
@@ -187,6 +208,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '拆离子写式子',
+        key: 'write-ionic-equation',
         goal: '写离子方程式，强酸强碱可溶盐拆写',
         layer: layer('Application'),
         analyze:
@@ -195,6 +217,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '验守恒',
+        key: 'verify-conservation',
         goal: '电荷守恒 + 原子守恒',
         layer: layer('Ability'),
         analyze:
@@ -212,6 +235,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '认可燃物与助燃物',
+        key: 'recognize-combustibles',
         goal: '确定可燃物与助燃剂（通常为 O₂）',
         layer: layer('Knowledge'),
         analyze:
@@ -220,6 +244,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '判完全/不完全',
+        key: 'judge-combustion-completeness',
         goal: '由氧气量判断氧化产物',
         layer: layer('Application'),
         analyze:
@@ -228,6 +253,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '析价态与能量',
+        key: 'analyze-valence-energy',
         goal: '燃烧均为氧化还原且放热',
         layer: layer('Application'),
         analyze:
@@ -236,6 +262,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '配平燃烧式',
+        key: 'balance-combustion',
         goal: '用 C/H/O 原子守恒配平',
         layer: layer('Ability'),
         analyze:
@@ -253,6 +280,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '标价态',
+        key: 'mark-oxidation-state',
         goal: '标出所有变价元素反应前后的化合价',
         layer: layer('Knowledge'),
         analyze:
@@ -261,6 +289,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '算电子',
+        key: 'count-electrons',
         goal: '计算每个变价元素的转移电子数与总数',
         layer: layer('Application'),
         analyze:
@@ -269,6 +298,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '配守恒',
+        key: 'balance-conservation',
         goal: '电子守恒 → 原子守恒 → 电荷守恒',
         layer: layer('Ability'),
         analyze:
@@ -277,6 +307,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '验方向',
+        key: 'verify-direction',
         goal: '用强弱律验证反应方向是否合理',
         layer: layer('Ability'),
         analyze:
@@ -294,6 +325,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '判装置',
+        key: 'judge-device',
         goal: '判断是原电池还是电解池，确定电极名称',
         layer: layer('Knowledge'),
         analyze:
@@ -302,6 +334,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '定电极与放电顺序',
+        key: 'determine-electrodes-order',
         goal: '确定各电极名称及放电物种',
         layer: layer('Application'),
         analyze:
@@ -310,6 +343,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '写半反应',
+        key: 'write-half-reaction',
         goal: '按介质配平两极的电极反应式',
         layer: layer('Application'),
         analyze:
@@ -318,6 +352,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '合并验守恒',
+        key: 'combine-verify-conservation',
         goal: '电子守恒配平两电极，写出总反应',
         layer: layer('Ability'),
         analyze:
@@ -335,6 +370,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '认平衡类型',
+        key: 'recognize-equilibrium-type',
         goal: '区分电离、水解、沉淀溶解、络合平衡',
         layer: layer('Knowledge'),
         analyze:
@@ -343,6 +379,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '写平衡式',
+        key: 'write-equilibrium',
         goal: '用可逆号书写平衡，注意部分电离/水解',
         layer: layer('Application'),
         analyze:
@@ -351,6 +388,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '判移动方向',
+        key: 'judge-shift-direction',
         goal: '用勒夏特列原理判浓度/温度/同离子效应的影响',
         layer: layer('Application'),
         analyze:
@@ -359,6 +397,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '写守恒式',
+        key: 'write-conservation',
         goal: '写出电荷 / 物料 / 质子守恒关系式',
         layer: layer('Ability'),
         analyze:
@@ -376,6 +415,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '写配平方程',
+        key: 'write-balanced-equation',
         goal: '先写出普通化学方程式并配平',
         layer: layer('Application'),
         analyze:
@@ -384,6 +424,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '标状态',
+        key: 'mark-states',
         goal: '标注各物质的状态 g / l / s / aq',
         layer: layer('Application'),
         analyze:
@@ -392,6 +433,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '算 ΔH',
+        key: 'calculate-delta-h',
         goal: '用键能或盖斯定律计算反应热',
         layer: layer('Ability'),
         analyze:
@@ -400,6 +442,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 4,
         title: '验',
+        key: 'verify',
         goal: '检查 ΔH 数值、符号、单位与方程对应',
         layer: layer('Ability'),
         analyze:
@@ -415,33 +458,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-substitution': {
     kind: 'reaction-organic-substitution',
     name: '取代反应模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '定取代位点与试剂',
+        key: 'determine-substitution-site',
         goal: '确定哪个原子/基团被取代、用什么试剂',
         layer: layer('Application'),
         analyze:
           '根据子类型确定取代位点和试剂：烷烃在光照下与卤素单质发生自由基取代（可逐步取代到 CCl₄）；苯环在 Fe 催化下与液溴卤代、在浓硝酸/浓硫酸下硝化；醇的羟基可被卤素取代（与 HX 反应）。注意反应条件决定取代位置与程度。',
       },
       {
-        index: 4,
         title: '写产物',
+        key: 'write-products',
         goal: '写出取代产物，注意一取代/多取代',
         layer: layer('Application'),
         analyze:
           '写出取代产物：被取代的原子/基团被新基团替换。注意甲烷氯代可逐步生成一氯到四氯甲烷；苯环的取代通常以一取代为主（条件剧烈时可多取代）。取代反应中有机物的不饱和度不变。',
       },
       {
-        index: 5,
         title: '验条件与守恒',
+        key: 'verify-conditions-conservation',
         goal: '标注反应条件，配平原子守恒',
         layer: layer('Ability'),
         analyze:
           '标注反应条件（光照、Fe、催化剂、加热等）；配平方程式使原子守恒。验证取代反应的特征——「有进有出」，即一个基团被替换下来，不饱和度保持不变。',
       },
-    ],
+    ]),
     checks: ['取代位点与试剂是否匹配', '是否注意一取代/多取代', '条件是否标注正确', '不饱和度是否不变、原子是否守恒'],
   },
 
@@ -449,33 +492,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-addition': {
     kind: 'reaction-organic-addition',
     name: '加成反应模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '认不饱和键',
+        key: 'recognize-unsaturated-bond',
         goal: '识别 C=C / C≡C / C=O 等可加成的位点',
         layer: layer('Application'),
         analyze:
           '找出分子中的不饱和键：碳碳双键 C=C、碳碳三键 C≡C、碳氧双键 C=O（醛、酮）、苯环等。加成反应发生在不饱和键上，反应后不饱和度降低。',
       },
       {
-        index: 4,
         title: '定试剂与方向',
+        key: 'determine-reagent-direction',
         goal: '确定加成试剂与区域选择性',
         layer: layer('Application'),
         analyze:
           '确定加成试剂（H₂、卤素、HX、H₂O、HCN 等）和区域选择性：不对称烯烃与 HX 加成遵循马氏规则（氢加到含氢较多的碳上）；过氧化物存在时反马氏加成；共轭二烯烃可发生 1,2-加成和 1,4-加成。',
       },
       {
-        index: 5,
         title: '写产物并验',
+        key: 'write-products-verify',
         goal: '写出加成产物并配平',
         layer: layer('Ability'),
         analyze:
           '写出加成产物：不饱和键打开，试剂的两部分分别加到两个原子上。加成反应「只进不出」，没有小分子生成。C=C 与 H₂ 加成需 Ni 催化。配平后检查原子守恒。',
       },
-    ],
+    ]),
     checks: ['不饱和键是否识别正确', '加成方向（马氏/反马氏）是否正确', '是否为「只进不出」无小分子生成', '产物与配平是否正确'],
   },
 
@@ -483,33 +526,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-elimination': {
     kind: 'reaction-organic-elimination',
     name: '消去反应模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '确认消去位点',
+        key: 'confirm-elimination-site',
         goal: '识别可消去的醇或卤代烃，且必须有 β-H',
         layer: layer('Application'),
         analyze:
           '能发生消去反应的是醇（含 -OH）和卤代烃（含 -X），且与官能团相连碳的邻位碳（β 碳）上必须有氢（β-H），否则不能消去。没有 β-H 的醇/卤代烃只能发生其他反应。',
       },
       {
-        index: 4,
         title: '定反应条件',
+        key: 'determine-conditions',
         goal: '醇用浓硫酸 170℃，卤代烃用 NaOH 醇溶液 △',
         layer: layer('Application'),
         analyze:
           '消去反应的条件是关键：醇的消去用浓硫酸、170℃（140℃ 时生成乙醚，是分子间脱水，不是消去）；卤代烃的消去用 NaOH 的醇溶液、加热（NaOH 水溶液则是水解，不是消去）。',
       },
       {
-        index: 5,
         title: '写不饱和产物',
+        key: 'write-unsaturated-product',
         goal: '脱去小分子生成 C=C，遵循扎伊采夫规则',
         layer: layer('Ability'),
         analyze:
           '消去反应脱去一个小分子（醇脱 H₂O、卤代烃脱 HX），生成含碳碳双键的不饱和化合物。多种消去可能时遵循扎伊采夫规则：优先生成取代基较多（较稳定）的烯烃。配平并标注条件。',
       },
-    ],
+    ]),
     checks: ['是否有 β-H（无则不能消去）', '条件是否正确（170℃/醇溶液）', '是否区分消去与分子间脱水/水解', '产物是否遵循扎伊采夫规则'],
   },
 
@@ -517,33 +560,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-oxidation': {
     kind: 'reaction-organic-oxidation',
     name: '有机氧化模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '认可氧化基团',
+        key: 'recognize-oxidizable-group',
         goal: '识别可被氧化的官能团',
         layer: layer('Application'),
         analyze:
           '找出可被氧化的官能团：伯醇 -CH₂OH（可氧化到醛再到酸）、仲醇 -CHOH（氧化到酮）、醛 -CHO（氧化到羧酸）、碳碳双键/三键、苯的同系物侧链。叔醇一般不被氧化。',
       },
       {
-        index: 4,
         title: '定氧化剂与条件',
+        key: 'determine-oxidant-conditions',
         goal: '确定氧化剂及对应的氧化产物层级',
         layer: layer('Application'),
         analyze:
           '根据氧化剂判断氧化程度：O₂/Cu/△ 把醇氧化为醛或酮；银氨溶液、新制 Cu(OH)₂ 把醛氧化为羧酸（银镜/砖红色沉淀）；酸性 KMnO₄ 氧化碳碳双键、三键以及苯的同系物侧链（生成羧基，要求与苯环相连的碳上有氢）。',
       },
       {
-        index: 5,
         title: '写氧化产物并验',
+        key: 'write-oxidation-product-verify',
         goal: '写出氧化产物，注意断键位置',
         layer: layer('Ability'),
         analyze:
           '写出氧化产物：伯醇→醛→羧酸，仲醇→酮，醛→羧酸；苯的同系物侧链氧化为 -COOH。注意与苯环直接相连的碳上没有氢时侧链不被氧化。配平并检查产物的官能团是否正确。',
       },
-    ],
+    ]),
     checks: ['可氧化官能团是否识别正确', '氧化剂与产物层级是否匹配', '苯同系物侧链碳是否有 α-H', '产物官能团是否正确'],
   },
 
@@ -551,33 +594,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-reduction': {
     kind: 'reaction-organic-reduction',
     name: '有机还原模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '认可还原基团',
+        key: 'recognize-reducible-group',
         goal: '识别可加氢/脱氧的官能团',
         layer: layer('Application'),
         analyze:
           '找出可被还原的官能团：碳碳双键/三键、碳氧双键（醛、酮）、硝基（-NO₂）、苯环等。这些官能团可通过加氢或脱氧被还原。',
       },
       {
-        index: 4,
         title: '定还原剂',
+        key: 'determine-reductant',
         goal: '确定还原剂与反应条件',
         layer: layer('Application'),
         analyze:
           '常用还原剂：H₂/Ni（催化加氢，可还原 C=C、C≡C、醛酮羰基、苯环、硝基）；硝基（-NO₂）还原为氨基（-NH₂）常用 Fe/HCl。注意高中阶段酯基（-COO-）一般难被 H₂ 还原。',
       },
       {
-        index: 5,
         title: '写还原产物并验',
+        key: 'write-reduction-product-verify',
         goal: '写出还原产物',
         layer: layer('Ability'),
         analyze:
           '写出还原产物：醛、酮加氢生成醇；碳碳双键加氢变单键；硝基还原为氨基。配平并检查产物中官能团的变化是否与还原剂的能力匹配（不要把酯还原了）。',
       },
-    ],
+    ]),
     checks: ['可还原官能团是否识别正确', '还原剂与还原能力是否匹配（酯不被 H₂ 还原）', '产物官能团是否正确', '配平是否成立'],
   },
 
@@ -585,33 +628,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-esterification': {
     kind: 'reaction-organic-esterification',
     name: '酯化反应模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '认反应物',
+        key: 'recognize-reactants',
         goal: '识别羧酸（或含氧酸）与醇',
         layer: layer('Application'),
         analyze:
           '酯化反应是羧酸（或含氧无机酸）与醇反应生成酯和水。识别反应物中的羧基（-COOH）和羟基（-OH）。酯化反应属于取代反应，本质是「酸脱羟基、醇脱氢」。',
       },
       {
-        index: 4,
         title: '定断键方式',
+        key: 'determine-bond-cleavage',
         goal: '明确 -COO- 中哪个氧来自醇',
         layer: layer('Application'),
         analyze:
           '用同位素示踪的思路理解断键：羧酸脱去羟基（-OH），醇脱去氢原子（-H），二者结合生成水；剩下的部分连接成酯（-COO-）。因此酯中 -COO- 的那个与烷基相连的氧来自醇，另一个氧来自羧酸。',
       },
       {
-        index: 5,
         title: '写酯与水并验',
+        key: 'write-ester-water-verify',
         goal: '写出酯和水，标注可逆与条件',
         layer: layer('Ability'),
         analyze:
           '写出产物：酯（羧酸酯，命名为「某酸某酯」）和水。酯化反应是可逆反应，用可逆号 ⇌；条件是浓硫酸、加热（浓硫酸作催化剂和吸水剂）。配平并验证原子守恒。',
       },
-    ],
+    ]),
     checks: ['是否识别出羧酸与醇', '断键方式「酸脱羟基醇脱氢」是否正确', '是否标注可逆号与浓硫酸△条件', '产物酯的命名与结构是否正确'],
   },
 
@@ -619,33 +662,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-hydrolysis': {
     kind: 'reaction-organic-hydrolysis',
     name: '水解反应模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '认可水解键',
+        key: 'recognize-hydrolyzable-bond',
         goal: '识别可水解的化学键',
         layer: layer('Application'),
         analyze:
           '找出可水解的化学键：酯基（-COO-）、卤代烃的碳卤键（-X）、二糖/多糖的糖苷键、蛋白质的肽键、油脂的酯键。水解是这些键在水的作用下断裂，生成相应的小分子。',
       },
       {
-        index: 4,
         title: '定反应条件',
+        key: 'determine-conditions',
         goal: '确定酸性 / 碱性 / 酶催化条件',
         layer: layer('Application'),
         analyze:
           '水解条件决定反应程度和产物：酯在酸性条件下水解可逆（生成羧酸和醇），在碱性条件下水解完全（生成羧酸盐和醇，即皂化反应）；卤代烃水解用 NaOH 水溶液、加热；糖类、蛋白质的水解可用酸、碱或酶催化。',
       },
       {
-        index: 5,
         title: '写水解产物并验',
+        key: 'write-hydrolysis-product-verify',
         goal: '写出断裂后的产物',
         layer: layer('Ability'),
         analyze:
           '写出水解产物：酯→羧酸（或羧酸盐）+ 醇；卤代烃→醇（羟基取代卤素）；二糖→单糖（如蔗糖→葡萄糖+果糖）；蛋白质→氨基酸。碱性条件下羧酸变为盐。配平并检查产物是否与条件匹配。',
       },
-    ],
+    ]),
     checks: ['可水解键是否识别正确', '酸性（可逆）/碱性（完全）条件是否区分', '碱性条件下酸是否变为盐', '产物是否正确'],
   },
 
@@ -653,33 +696,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-polyaddition': {
     kind: 'reaction-organic-polyaddition',
     name: '加聚反应模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '认单体',
+        key: 'recognize-monomer',
         goal: '识别含碳碳双键的单体',
         layer: layer('Application'),
         analyze:
           '加聚反应的单体必须含有碳碳双键（或三键），如乙烯、氯乙烯、苯乙烯、丙烯腈等。单烯烃发生加聚生成碳链高分子；共轭二烯烃也可加聚。',
       },
       {
-        index: 4,
         title: '断双键成链',
+        key: 'break-double-bond-chain',
         goal: '打开双键连接成高分子链',
         layer: layer('Application'),
         analyze:
           '单体的碳碳双键打开，彼此连接成高分子长链。写出重复单元（链节）：把单体的双键变成单键，两个原本成双键的碳分别向外延伸连接下一个单体。链节的组成与单体相同。',
       },
       {
-        index: 5,
         title: '写聚合物并验',
+        key: 'write-polymer-verify',
         goal: '写出高聚物结构简式与 n',
         layer: layer('Ability'),
         analyze:
           '写出高聚物的结构简式，在方括号外右下角标 n（聚合度）。加聚反应没有小分子生成，链节与单体的化学组成相同。检查链节是否正确反映单体的结构（取代基位置不变）。',
       },
-    ],
+    ]),
     checks: ['单体是否含碳碳双键', '链节是否正确（双键变单键、取代基位置不变）', '是否无小分子生成', '链节与单体组成是否相同'],
   },
 
@@ -687,33 +730,33 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
   'reaction-organic-polycondensation': {
     kind: 'reaction-organic-polycondensation',
     name: '缩聚反应模型',
-    steps: [
+    steps: indexSteps([
       ...ORGANIC_SHARED_STEPS,
       {
-        index: 3,
         title: '认双官能团单体',
+        key: 'recognize-bifunctional-monomer',
         goal: '识别含两个官能团的单体',
         layer: layer('Application'),
         analyze:
           '缩聚反应的单体必须含有两个（或以上）官能团：二元酸与二元醇（生成聚酯）、羟基酸（自身缩聚）、氨基酸（生成多肽/蛋白质）、二元酸与二元胺（生成聚酰胺）。',
       },
       {
-        index: 4,
         title: '定脱除小分子',
+        key: 'determine-eliminated-molecule',
         goal: '确定缩合时脱去的小分子',
         layer: layer('Application'),
         analyze:
           '缩聚反应在生成高分子的同时脱去小分子：酯化缩聚脱去 H₂O；酰胺缩聚（成肽）脱去 H₂O；酚醛缩聚也脱去 H₂O。明确每形成一个新键脱去几个小分子。',
       },
       {
-        index: 5,
         title: '写链节与聚合物并验',
+        key: 'write-repeat-unit-polymer-verify',
         goal: '写出高聚物与小分子，标 n',
         layer: layer('Ability'),
         analyze:
           '写出高聚物的链节和结构简式，标 n；同时写出脱去的小分子（如 n H₂O）。缩聚反应有小分子生成，因此链节的组成与单体不同（少了脱去的小分子）。检查端基与链节是否正确。',
       },
-    ],
+    ]),
     checks: ['单体是否含两个官能团', '脱去的小分子是否正确', '是否有小分子生成（与加聚区分）', '链节组成是否与单体不同'],
   },
 
@@ -725,6 +768,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 1,
         title: '写方程式',
+        key: 'write-equation',
         goal: '写出并配平反应的化学方程式',
         layer: layer('Application'),
         analyze:
@@ -733,6 +777,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 2,
         title: '判类型',
+        key: 'judge-type',
         goal: '判断所属反应类型及核心特征',
         layer: layer('Application'),
         analyze:
@@ -741,6 +786,7 @@ export const REACTION_SOLVE_MODELS: Record<ReactionSolveKind, ReactionSolveModel
       {
         index: 3,
         title: '验守恒',
+        key: 'verify-conservation',
         goal: '检验原子守恒与电荷守恒',
         layer: layer('Ability'),
         analyze:
