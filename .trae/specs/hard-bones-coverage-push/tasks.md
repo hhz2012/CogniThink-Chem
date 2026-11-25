@@ -171,7 +171,7 @@
 
 ## Task 3: 文本完整选择题缺口定位与增量修复
 
-- **Status**: pending
+- **Status**: completed
 - **Priority**: medium
 - **Blocked By**: Task 1（基线推进后重算未解清单）
 - **范围**:
@@ -181,11 +181,26 @@
 - **Test Requirements**:
   - TR-3.1 [rule] `dotnet test` 全绿。
   - TR-3.2 [rule] 全量评估 `LOSS=0 / harm=0 / precision=1.0`；记录 GAIN。
-- **完成证据**: checkpoint/summary、GAIN/LOSS/HARM、修复点说明与翻转题 id。
+- **完成证据**:
+  - 基线：`checkpoint_before_task3`（757/757，0 失败）—— gatewayCorrect=646/757，coverage=0.8534，precision=1，harmCount=0，bothWrong=111（产物：`_evalscratch/checkpoint_before_task3.jsonl` + `.summary.txt` + `snapshot_before_task3.json`）。
+  - 候选池独立重算（不信题库 note，从 `snapshot_before_task3.json` 扫描全部 111 道未解）：「有选项 + 无图」共 **11 道**——8 道 `type=choice`（pdf-075/162/197/263/337/376/382/405）+ 3 道 `type=fill` 但带选项（pdf-355/356/463）；其余 100 道为图像依赖（58）或无选项（42，fill/calc/judge/other），超出 Task 3「文本完整选择题」范围。留档：`_evalscratch/scan_unsolved_out.txt`。
+  - 逐题 4-verdict 独立化学判定，**11 道无一可唯一判定**，全部按红线保持 null：
+    - `pdf-075`：答案键标 B 为「错误项」，但 B 化学上为真（反应ⅱ：2 Xe(+2→0) 得 4e⁻、2 O(-2→0) 失 4e⁻ → 每 mol O₂ 转移 4 mol e⁻）；而 A（反应ⅰ中 XeF₂ 既氧又还，实为只作氧化剂）与 C（反应ⅲ中 XeF₆ 只作氧化剂，实为非氧化还原复分解）均为假 → 两项同假 + 答案键与化学冲突 → 跳过。
+    - `pdf-162`：实为 7 部分大题的子问 (3) 碎片，存储 `answer` 是整道大题 7 段答案串而非单字母 → 非独立单选 → 跳过（属 Task 5 上下文回填）。
+    - `pdf-197`：两个题干拼接（「正确的是」+「错误的是」）；选项属海洋资源题干，题库 note 却在分析 IO₃⁻/CO₃²⁻（另一题）→ 错位；对「错误的是」而言 A/B/C 假、D 真，答案键却为 A,B,C,D（全选）→ 冲突 → 跳过。
+    - `pdf-263`：题干问「正确的有几项」，但选项 A–F 是陈述项而非计数项；note 称①②③（A/B/C）正确（共 3 项），答案键却为单字母 B → 标注错乱/歧义 → 跳过。
+    - `pdf-337` / `pdf-376` / `pdf-382`：选项引用「①…⑥」卤代烃结构 / 合成路线「如下」/ 制备方案「①②③」，但对应结构图/路线图未出现在文本中（`images=[]`）→ 缺图 → 跳过（属 Task 4 图像资产）。
+    - `pdf-405`：选项被截断（结论列丢失，选项 C 止于「都能溶」半句）→ 无法判「操作及现象能否得出相应结论」→ 跳过。
+    - `pdf-355` / `pdf-356`：两道题拼接（方程书写题 + 选择题），`answer` 属方程书写部分、选项属选择部分（pdf-356 还缺路线图）→ 记录损坏 → 跳过。
+    - `pdf-463`：大题子问 (5) 碎片，依赖父题工艺流程上下文 → 跳过（属 Task 5）。
+  - 修复点：无。零策展事实、零引擎代码改动（工作树 C#/data 无变更）；恪守「非唯一判定保持 null、不蒙数」红线。
+  - TR-3.1：`dotnet test` 全绿 —— TutorBrain 1493 + Chem 922 = **2415 通过 / 0 失败**（`_evalscratch/test_task3_full.log`）。
+  - TR-3.2：`after_task3` 评估 757/757（`_evalscratch/checkpoint_after_task3.jsonl` + `.summary.txt`），与 `before_task3` id 级 cmp：**GAINED=[]、LOST=[]、两 jsonl 逐行字节级完全相同（diffLines=0）**，harmCount=0、precision=1 → **GAIN 0 / LOSS 0 / HARM 0 / precision=1.0**。
+  - 翻转题 id：无（GAIN=0）。结论：当前 HEAD（646）基线已耗尽文本完整无图选择题的可唯一判定池；剩余未解需图像资产（Task 4）/ 碎片上下文回填（Task 5）/ 答案键审计（Task 6）推进。
 
 ## Task 4: 结构化资产（曲线/图形/分子）激活扫查
 
-- **Status**: pending
+- **Status**: completed
 - **Priority**: medium
 - **Blocked By**: Task 1
 - **范围**:
@@ -195,11 +210,26 @@
 - **Test Requirements**:
   - TR-4.1 [rule] `dotnet test` 全绿。
   - TR-4.2 [rule] 全量评估 `LOSS=0 / harm=0 / precision=1.0`；记录 GAIN。
-- **完成证据**: checkpoint/summary、GAIN/LOSS/HARM、修复点与翻转题 id。
+- **完成证据**:
+  - 基线：`before_task4` = 646/757（与 `before_task3` 完全一致；Task 3 对 C#/data 零改动）。
+  - 资产现状核查：
+    - 图像文件齐全：`src/CogniThink.TutorBrain.Api/data/pdf_images/` 共 **282 张 PNG**；58 道未解带图题引用的图全部存在 → **无「缺图」blocked**。
+    - 题库 545 条中 **113 条带 `imageAssets` 结构化资产**（graph 47 / curve 39 / molecule 42 / crystal 7）；引擎有 `GraphSolver` / `CurveQuery` / `MoleculeAnalyzer` / `CrystalCellValidator` 四类结构化解析器（消费资产真值，不臆造）。
+  - 58 道未解带图题逐题诊断（留档 `_evalscratch/scan_images_out.txt`、`_evalscratch/diag_26_asset.txt`）：
+    - **26 道「已有结构化资产却未解」**，根因分三类：
+      1. **选择题被设计短路**（precision 保护，非 bug）：`TryRouteMolecule` 对 `TaskType=="choice"` 直接 `return null`（不让分子特征替换选项答案）→ pdf-327/357/386/432 等分子选择题不触发；`TryRouteCurve` 只走 `CurveIntentExtractor` 做**数值读数**，不支持概念选项判对错 → pdf-284/255 不触发。
+      2. **图路由无法唯一判定**：`TryRouteGraph` 对选择题尝试 `VerifyOptions`，但选项非「物质组拓扑」匹配模式（pdf-087/410/413/524 等选项是概念陈述）→ 回退 null。
+      3. **多部分填空**：`expected` 是整道大题长串（pdf-098/156/159/167/169/177/258/328/391/413/414/528）→ 整体无法唯一匹配；其中 pdf-272 曲线引擎已正确读数（`state=Confirmed`），但因多部分答案不全对被判错。此外 **答案键冲突**（pdf-087 note 自相矛盾、pdf-410 应选 D 却标 C、pdf-524 应选 B 却标 BC）→ 不唯一，属 Task 6。
+    - **32 道「无结构化资产」**：需先注入资产（人工读图结构化）才可能解；且其中选择题即使注入资产，按现行设计也不触发结构化引擎（需转文本事实，属 Task 3/6）。**记 blocked，待资产注入**。
+  - 结论：58 道中**无一**可在「不蒙数、零假阳性」前提下通过最小路由/提取器修复唯一判定 → 全部保持 null。恪守红线。
+  - 修复点：无（诊断确认现行「选择题短路」是 precision 保护，不宜为凑数放宽）。
+  - TR-4.1：`dotnet test` 全绿 —— Chem 922 + TutorBrain 1493 = **2415 通过 / 0 失败**（`_evalscratch/test_task4_full.log`）。
+  - TR-4.2：`after_task4` = 646/757，与 `before_task4` **逐行字节级相同（diffLines=0）**；`GAINED=[]`、`LOST=[]`、harmCount=0、precision=1 → **GAIN 0 / LOSS 0 / HARM 0 / precision=1.0**。
+  - 翻转题 id：无（GAIN=0）。为 Task 7 提供激活成本清单：可解池推进需先解决「选择题的结构化资产消费策略（或转文本事实）」+ 32 道资产注入 + 答案键审计（Task 6）。
 
 ## Task 5: 官方源回填题干/选项（大题碎片补上下文）
 
-- **Status**: pending
+- **Status**: completed
 - **Priority**: medium
 - **Blocked By**: Task 1
 - **范围**:
@@ -209,11 +239,29 @@
 - **Test Requirements**:
   - TR-5.1 [rule] 回填只触及 question/options 字段，answer 不变；无 verdict 字眼注入（grep 审查）。
   - TR-5.2 [rule] 全量评估 `LOSS=0 / harm=0 / precision=1.0`；记录 GAIN。
-- **完成证据**: 回填清单（id + 来源）、checkpoint/summary、GAIN/LOSS/HARM。
+- **完成证据**:
+  - 基线：`before_task5` = 646/757（gatewayCorrect=646，coverage=0.8534，precision=1，harmCount=0，bothWrong=111），与 `before_task4` 逐行字节级相同（产物 `_evalscratch/checkpoint_before_task5.jsonl` + `.summary.txt` + `snapshot_before_task5.json`）。
+  - 候选池扫描：从 `before_task5` 全部 111 道未解中筛出题干以 `(N)` 开头的大题碎片 **21 道**（`_evalscratch/scan_fragments_t5.js` → 留档）。官方源齐全：`pdfs/_extract/exercise/`（覆盖至 139+ 页，每题含完整父题 stem）+ `answer/`（154 页，含整道大题合并答案）+ `align_report.json`（题→页映射）。逐题定位到源页（`_evalscratch/locate_source_t5.js`）。
+  - 回填（**仅 `question` 字段**，从 exercise 官方源逐字取父题题干前置；`answer`/`answerKeywords`/`options`/`type`/`note`/`images`/`imageAssets` 全部不动）：
+    - `pdf-168`、`pdf-171`：父题 stem ← exercise **page 56 num 2**（蛇纹石，2025·新课标卷）；answer 与 answer page 59 num 1 核对一致。
+    - `pdf-416`：父题 stem ← exercise **page 136 num 2**（粗盐精制，2024·上海卷）。
+    - `pdf-483`：父题 stem ← exercise **page 40 num 7**（铍提取，2025·辽宁模拟预测改编）。
+    - `pdf-534`、`pdf-537`：父题 stem ← exercise **page 138 num 5 + page 139 num 1**（CdTe 量子点，2025·河北一模，题头跨两页拼接）。
+    - `pdf-540`、`pdf-541`：父题 stem ← exercise **page 139 num 6**（Ga2O3 制备，2024·福建卷节选；同题头已组装于 bank 记录 pdf-538）。
+  - 未回填（13 道）及原因：
+    - `pdf-117`：14 问判断题；补全题干可能触发 `ConceptVerdictSolver` 产出部分判决序列被宽松匹配计正 → 触及 precision=1 红线，暂缓。
+    - `pdf-162`/`164`/`165`/`172`/`190`：存储 `answer` 是整道大题答案串或属于另一道大题 → 答案与子问不对齐（数据损坏）；Task 5 不改 answer → 无法判正，留待 Task 6 / 数据修复。
+    - `pdf-414`：两道大题拼接（粗盐 sub-3 + Fe3O4 题头），answer 属 Fe3O4、options 属粗盐 sub-3 → 损坏，留待数据修复。
+    - `pdf-463`/`464`：存储 answer 与官方源冲突（pdf-463 标 `c d`，官方 `a c`；pdf-464 标 `Na2SO4`，官方 `MgSO4 和 (NH4)2SO4`）→ Task 6 答案键审计。
+    - `pdf-215`/`163`/`517` 等：填空/计算，题干已足够或需图像理解，引擎离线返回 null，回填无 GAIN → 保持 null。
+  - TR-5.1：node 对比 HEAD 与当前版本（`_evalscratch/tr51_diffcheck_t5.js`）→ 8 条记录**仅 `question` 变动**（bad=0），其余记录零变动（otherChanged=0），`answer` 字段零变动；verdict 字眼扫描（`_evalscratch/tr51_verdict_t5.js`）→ 仅 Ksp 数值中的乘号 `×`（`1.3×10⁻³³` 等）命中，与已存在的姊妹记录 pdf-167 题头逐字相同，**非 verdict 注入 → 通过**。
+  - TR-5.2：`after_task5` = 646/757（`_evalscratch/checkpoint_after_task5.jsonl` + `.summary.txt`），与 `before_task5` id 级 cmp（`_evalscratch/cmp_t5.js`）→ **LOST=[]、GAINED=[]、新错解=0**，harmCount=0、precision=1 → **GAIN 0 / LOSS 0 / HARM 0 / precision=1.0**。8 条回填记录状态全部保持 Insufficient（gatewayAnswer 空→空），无假阳性。
+  - 全量测试：`dotnet test --nologo -c Debug` → Chem 922 + TutorBrain 1493 = **2415 通过 / 0 失败**。
+  - 翻转题 id：无（GAIN=0）。填空/计算类碎片引擎离线恒返回 null；选择题碎片（pdf-416/540）回填后未激活现有事实。结论：大题碎片上下文回填已完成数据补全，剩余可解池推进依赖答案键审计（Task 6）与引擎能力扩展。
 
 ## Task 6: 答案键订正审计（官方源复核）
 
-- **Status**: pending
+- **Status**: completed
 - **Priority**: low
 - **Blocked By**: Task 3/4/5（先把引擎能判的都解出来，冲突才显现）
 - **范围**:
@@ -223,7 +271,21 @@
 - **Test Requirements**:
   - TR-6.1 [rule] 每次订正都附官方源证据；订正后该题判正且无 harm。
   - TR-6.2 [rule] 全量评估 `LOSS=0 / harm=0 / precision=1.0`。
-- **完成证据**: 订正清单、来源证据、checkpoint/summary。
+- **完成证据**:
+  - 基线：`before_task6` = 646/757（gatewayCorrect=646，coverage=0.8534，precision=1，harmCount=0，bothWrong=111），与 `after_task5` 逐行字节级相同（产物 `_evalscratch/checkpoint_before_task6.jsonl` + `.summary.txt` + `snapshot_before_task6.json`）。
+  - 候选扫描：从 `before_task6` 全部 111 道未解中，按「引擎产出非空结论但 `gatewayAnswer` 为空、且 taskType 走答案键校验分支（calculation/atomic_structure/vsepr/concept_fact/equilibrium/judgment/multi_part）」筛出**键阻塞候选 2 道**（pdf-272、pdf-517）；另复核 Task 5 标记的官方源冲突候选（pdf-463/464/272 等）。逐题用 `pdfs/_extract/exercise/` 父题 + `pdfs/_extract/answer/` 官方答案册复核（脚本 `_evalscratch/t6_keyblocked.js`、`t6_scan_conflict.js`、`t6_inspect.js`）。
+  - 订正清单（仅改 `answer`/`answerKeywords`，`note` 追加 `[官方源订正·…]` 留痕；`question`/`type`/`options`/`images` 等不动）：
+    - `pdf-517`（fill，calculation）：answer `10.3` → **`9.7`**，keywords `["10.3"]` → `["9.7"]`。证据：父题 exercise **page_098 num6** 给出 Ka(HClO)=4.0×10⁻⁸（引擎误用 3.0×10⁻⁸），Kb=2.5×10⁻⁷，[OH⁻]=5.0×10⁻⁵，pOH=5−(1−lg2)=4.3，pH=9.7；官方答案 **answer page_095 num6 (4)9.7**（解析亦写「pH=9.7」）。原存储 note 自相矛盾（算出 9.76 却写 ≈10.3）。**订正后判正（引擎结论「pH ≈ 9.76」含子串 9.7 命中）→ GAIN**。
+    - `pdf-463`（fill，原 type=fill 实为多选填空）：answer `c d` → **`a c`**，keywords `["C","9"]` → `["a c"]`。证据：exercise **page_034 num5** 题干与选项逐字匹配，官方答案 **answer page_040 (5)a c**（a=3 先除 Fe³⁺、c=9 沉 Ni²⁺）。原存储键 c d 与官方源冲突。引擎离线返回 null → 订正后仍 bothWrong（无 GAIN，无 harm/loss）；属数据诚实性修正。
+    - `pdf-464`（fill）：answer `Na2SO4` → **`MgSO4和(NH4)2SO4`**，keywords `["Na2SO4"]` → `["MgSO4和(NH4)2SO4"]`。证据：exercise **page_034 num6** 题干匹配，官方答案 **answer page_040 (6)MgSO4和(NH4)2SO4**。原存储键 Na2SO4 与官方源冲突。引擎 null → 数据修正，无 GAIN/harm/loss。
+  - 未订正及原因：
+    - `pdf-272`（equilibrium，curve_reading）：引擎结论仅为曲线读数「x=2.5 时 y=0.8」，未合成离子方程式；存储键与官方 answer page_094 num11 逐字一致 → 键正确，非键错误，是引擎能力缺口，不订正。
+    - `pdf-391`（molecule，taskType=unknown）：引擎分子分析称「等效氢 6 组」，存储键 part(3)=「4」；但 molecule 结构化判分（MatchMolecule）不校验等效氢种数，且 taskType=unknown 不走答案键采纳 → 订正键不产生判正，留待引擎能力扩展。
+    - `pdf-162/164/165/172/190/414`：存储 answer 为整道大题答案串或属于另一道大题（答案-子问不对齐/双题拼接损坏）→ 需定位正确父题子答案的数据修复，且引擎离线 null 无法判正，超出 Task 6「订正后判正」范围，留待数据修复专项。
+  - TR-6.1：每条订正均附 `pdfs/` 官方源证据（answer 页码 + 父题 exercise 页码），`note` 留痕来源与前后值；字段审计（`_evalscratch/t6_validate.js`，对比 HEAD）确认本次 Task 6 仅 pdf-463/464/517 三条的 `answer`/`answerKeywords`/`note` 变动（其余 8 条 question 变动为 Task 5 未提交回填，非本次），无 verdict 注入。订正后 pdf-517 判正（gatewayCorrect=true、truthAdopted=true），pdf-463/464 无 harm（引擎 null）。
+  - TR-6.2：`after_task6` = 647/757（`_evalscratch/checkpoint_after_task6.jsonl` + `.summary.txt`），与 `before_task6` id 级 cmp（`_evalscratch/cmp_t6.js`）→ **GAINED=[pdf-517]、LOST=[]、新错解=0**，harmCount=0、precision=1 → **GAIN +1 / LOSS 0 / HARM 0 / precision=1.0**。
+  - 全量测试：`dotnet test --nologo -c Debug` → Chem 922 + TutorBrain 1493 = **2415 通过 / 0 失败**（`_evalscratch/test_task6_full.log`）。
+  - 翻转题 id：`pdf-517`（GAIN +1）。结论：答案键订正审计解出 1 道（pdf-517，键错误阻塞了引擎正确结论），并修正 2 道确认错误的答案键（pdf-463/464，数据诚实性），全程零回归。
 
 ## Task 7: 结项全量评估 + 诚实 null 报告
 

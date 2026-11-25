@@ -30,6 +30,7 @@
 | [verify-50-triage](./verify-50-triage/spec.md) | verify 50 个新发现嫌疑题真假分诊 | ⚠️ review 含未闭合 FAIL（见下方注 1） |
 | [verify-fix-all-suspects](./verify-fix-all-suspects/spec.md) | 全量可疑题修复：千问视觉 OCR 解锁习题册/答案册缺失文本层 + 数据修复 | ✅ review |
 | [world-model-minimal](./world-model-minimal/spec.md) | 世界模型最小解释（命中链可溯源） | ✅ review |
+| [reaction-scaffolding](./reaction-scaffolding/spec.md) | 轴 1：为 10 反应主类型 + 9 有机子类型定义分步骤思维框架（19 kind 注册表）+ `narrateReaction` 实例化引擎 + 前端反应子集 39 条 `ReactionSolveData` 真值（覆盖率 100%）+ 反应卡页 UI（列表按 kind 分组 + 详情「提示」揭示实例化讲解）；轴 2：通用 A–F 原子任务骨架模型（Task 6）+ 条件 / 数量分支建模与 `resolveBranch` 求值（Task 7，NO₃⁻/Fe²⁺、Cl₂/FeI₂ 两教材例）；Task 8：A–F 精熟练习 UI（勾选 / 单选 / 排序作答 → 确定性引擎校验门控，答对解锁下一步 / 答错锁定当前步 + 阶梯释放提示） | ✅ review（轴 1 AC-1~AC-5 pass；轴 2 Task 6 / AC-6、Task 7 / AC-7、Task 8 / AC-8 已完成，Task 9 / AC-9 已完成，见 [tasks.md](./reaction-scaffolding/tasks.md)） |
 
 ## 进行中 / 待执行（无 review.md）
 
