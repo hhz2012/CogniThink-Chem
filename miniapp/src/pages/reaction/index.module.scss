@@ -78,7 +78,7 @@
 
 /* ============ 列表：分组 ============ */
 .group {
-  margin-bottom: 26rpx;
+  margin-bottom: 16rpx;
 }
 
 .groupHead {
@@ -113,7 +113,7 @@
 .groupList {
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
+  gap: 8rpx;
 }
 
 .reactionCard {
@@ -122,7 +122,7 @@
   gap: 16rpx;
   background: #fff;
   border-radius: $radius-lg;
-  padding: 22rpx 24rpx;
+  padding: 14rpx 18rpx;
   box-shadow: $shadow-card;
   border-left: 6rpx solid $color-primary;
   transition: all $transition-fast;
