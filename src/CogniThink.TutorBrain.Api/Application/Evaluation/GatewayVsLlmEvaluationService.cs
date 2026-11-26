@@ -408,12 +408,90 @@ public sealed class GatewayVsLlmEvaluationService
             // 避免恒真假阳性（precision=1 守卫）。
             if (string.IsNullOrWhiteSpace(nk)) continue;
             anyCheckable = true;
-            bool hit = IsCheckmarkKeyword(nk)
-                ? CheckmarkSequenceMatches(lower, nk)
-                : lower.Contains(nk.ToLowerInvariant());
+            bool hit;
+            if (IsCheckmarkKeyword(nk))
+            {
+                hit = CheckmarkSequenceMatches(lower, nk);
+            }
+            else
+            {
+                var nkLower = nk.ToLowerInvariant();
+                hit = lower.Contains(nkLower);
+                // T4：方程形态关键词（含 '='）在归一化子串匹配失败后，额外尝试两侧物质集合等价
+                // （同一侧内物质书写顺序无关）。仅作用于本 multi_part AND 路径；现有匹配不受影响
+                // （仅在 Contains 失败后才尝试，LOSS=0 同态保证），precision=1 由系数/物质必须完全一致兜底。
+                if (!hit && nk.Contains('='))
+                    hit = EquationSetEquivalent(lower, nkLower);
+            }
             if (!hit) return false; // AND：任一子问答案键未命中 → 整题不采纳
         }
         return anyCheckable;
+    }
+
+    private static readonly Regex EquationFragmentRegex = new(
+        @"[a-z0-9()+\-.]+=[a-z0-9()+\-.]+", RegexOptions.Compiled);
+
+    /// <summary>
+    /// T4：判断结论中是否存在与关键词方程「两侧物质多重集分别等价」的方程片段
+    /// （同一侧内物质书写顺序无关；反应物侧与产物侧不可互换）。系数与物质必须完全一致，
+    /// 缺物质或系数不符即不命中（precision=1 守卫）。仅在普通子串匹配失败后调用，不改变既有命中。
+    /// </summary>
+    private static bool EquationSetEquivalent(string conclusionLower, string keywordLower)
+    {
+        var kwSides = keywordLower.Split('=');
+        if (kwSides.Length != 2) return false;
+        var kwLeft = ParseSpeciesMultiset(kwSides[0]);
+        var kwRight = ParseSpeciesMultiset(kwSides[1]);
+        if (kwLeft.Count == 0 || kwRight.Count == 0) return false;
+
+        // 结论中可能夹带子问编号 "(3)" 等，会被片段正则的「( 」与数字吞进方程侧，导致物种解析失真
+        // （如 hco3-(3) ≠ hco3-）；先剥离纯数字括号编号（物种括号如 Ca(OH)2 非纯数字，不受影响）。
+        var cleaned = Regex.Replace(conclusionLower, @"\(\d+\)", "");
+
+        foreach (Match m in EquationFragmentRegex.Matches(cleaned))
+        {
+            var eqSides = m.Value.Split('=');
+            if (eqSides.Length != 2) continue;
+            var eqLeft = ParseSpeciesMultiset(eqSides[0]);
+            var eqRight = ParseSpeciesMultiset(eqSides[1]);
+            if (eqLeft.Count == 0 || eqRight.Count == 0) continue;
+            if (MultisetEqual(kwLeft, eqLeft) && MultisetEqual(kwRight, eqRight))
+                return true;
+        }
+        return false;
+    }
+
+    /// <summary>把方程一侧解析为「物种 → 系数」多重集；连接 + 后接小写字母视为分隔，电荷 + 不拆。</summary>
+    private static Dictionary<string, int> ParseSpeciesMultiset(string side)
+    {
+        var dict = new Dictionary<string, int>(StringComparer.Ordinal);
+        if (string.IsNullOrWhiteSpace(side)) return dict;
+        var tokens = Regex.Split(side, @"\+(?=[a-z])");
+        foreach (var raw in tokens)
+        {
+            var token = raw.Trim();
+            if (token.Length == 0) continue;
+            var cm = Regex.Match(token, @"^(\d+)(.+)$");
+            int coeff = 1;
+            var species = token;
+            if (cm.Success)
+            {
+                coeff = int.Parse(cm.Groups[1].Value);
+                species = cm.Groups[2].Value;
+            }
+            if (species.Length == 0) continue;
+            dict.TryGetValue(species, out var existing);
+            dict[species] = existing + coeff;
+        }
+        return dict;
+    }
+
+    private static bool MultisetEqual(Dictionary<string, int> a, Dictionary<string, int> b)
+    {
+        if (a.Count != b.Count) return false;
+        foreach (var kv in a)
+            if (!b.TryGetValue(kv.Key, out var v) || v != kv.Value) return false;
+        return true;
     }
 
     /// <summary>

@@ -118,6 +118,77 @@ public sealed partial class LlmGatewayService
             }
         }
 
+        // T4 兜底：整题 Ksp-pH 残留离子浓度（含多部分分发失败后）。仅当引擎仍未唯一解出（Ok!=true）时触发，
+        // 不抢占已判正结论；靠分发判正的多部分题分发成功 → 到不了此处 → 构造性零 LOST。
+        // 命中标记 equilibrium，走 IsAnswerCorrect（OR）采纳门：凡采纳必答案键命中 → precision=1、零 harm。
+        if (engineResponse.Ok is not true)
+        {
+            var kspPh = KspPhResidualSolver.TrySolve(rawText);
+            if (kspPh is not null)
+            {
+                engineResponse = kspPh;
+                engineRequest.TaskType = "equilibrium";
+            }
+        }
+
+        // T5 兜底：整题 VSEPR 键角比较原因（多部分分发失败后，某子问含可查孤对微粒对时）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发；构造性零 LOST（已判正题 Ok=true → 到不了此处）。
+        // 求解器按编号子问切片，仅在同时含「键角+原因+比较」的段内收集恰好 2 个可查微粒 → 不跨子问乱序比对；
+        // 命中标记 vsepr，走 IsAnswerCorrect（OR）采纳门：凡采纳必答案键命中 → precision=1、零 harm。
+        // 全库 dry-fire（757）：仅命中 pdf-509（baseTrue，不触发）与 pdf-506（baseFalse，采纳且化学正确），无 baseFalse 误采纳。
+        if (engineResponse.Ok is not true)
+        {
+            var vseprMp = VseprSolver.TrySolveBondAngleReasonForMultiPart(new EngineRequest { RawText = rawText });
+            if (vseprMp is not null)
+            {
+                engineResponse = vseprMp;
+                engineRequest.TaskType = "vsepr";
+            }
+        }
+
+        // T6 兜底：限量离子方程式（等物质的量 NaHCO3 + Ba(OH)2 等产物唯一情形）。ProductWriterSolver 窄锚点
+        // （反应物 + 量关键词 + 「方程式」问法），不命中即 null。trap-limit-3 被「物质的量」分到 calculation 分支，
+        // 原 equation_writer/reaction_check 链不可达 → 此处整题兜底使其可达。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 reaction_check，走「离子方程式」签名采纳门 + IsAnswerCorrect（OR）判分 → precision=1、零 harm。
+        // 全库 dry-fire（757）：仅 trap-limit-3（baseFalse，采纳且化学正确）新增触发；其余 8 触发均为 baseTrue（不触发），零 FP。
+        if (engineResponse.Ok is not true)
+        {
+            var product = ProductWriterSolver.TrySolve(new EngineRequest { RawText = rawText });
+            if (product is not null)
+            {
+                engineResponse = product;
+                engineRequest.TaskType = "reaction_check";
+            }
+        }
+
+        // T7 兜底：弱酸第一步电离方程式（多部分分发失败后，某子问问第一步电离且含酸分子式时）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 equilibrium，走 IsAnswerCorrect（OR）采纳门：凡采纳必答案键命中 → precision=1、零 harm。
+        // 触发面极窄（全库仅含「第一步电离」的题命中），dry-fire 仅 pdf-272（baseFalse，化学正确）新增触发。
+        if (engineResponse.Ok is not true)
+        {
+            var acidIon = AcidFirstIonizationSolver.TrySolve(rawText);
+            if (acidIon is not null)
+            {
+                engineResponse = acidIon;
+                engineRequest.TaskType = "equilibrium";
+            }
+        }
+
+        // P2-2 兜底：燃烧法 → 实验式（多部分分发失败后，某子问问分子式且题干给齐燃烧数据时）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 calculation，走 IsAnswerCorrect（OR）采纳门：凡采纳必答案键命中 → precision=1、零 harm。
+        if (engineResponse.Ok is not true)
+        {
+            var combustion = CombustionEmpiricalFormulaSolver.TrySolve(rawText);
+            if (combustion is not null)
+            {
+                engineResponse = combustion;
+                engineRequest.TaskType = "calculation";
+            }
+        }
+
         // P2-1：派生结论三态（只读元数据：仅读 Ok/NeedMoreCondition/FinalResult，写 ConclusionState；
         //     不改 Ok/FinalResult/TaskType → 不影响采纳门 BuildGatewayAnswerAsync，spec CQ-2）。
         engineResponse.ConclusionState = ConclusionStateDeriver.Derive(engineResponse);
@@ -454,8 +525,13 @@ public sealed partial class LlmGatewayService
         var curveResp = TryRouteCurve(req, imageAssets);
         if (curveResp != null)
         {
-            curveResp.ResultProvenance = "curve_reading";
-            return Task.FromResult(curveResp);
+            // 多部分大题：曲线原始读数只覆盖单个子问，不得作为整题结论阻塞多部分分发（如 pdf-272）。
+            // 非多部分曲线题行为不变（仍直接采纳曲线读数）。
+            if (!MultiPartUtility.IsMultiPart(req.RawText ?? string.Empty))
+            {
+                curveResp.ResultProvenance = "curve_reading";
+                return Task.FromResult(curveResp);
+            }
         }
 
         var molResp = TryRouteMolecule(req, imageAssets);
@@ -533,36 +609,8 @@ public sealed partial class LlmGatewayService
         // 仅 concept/unknown 到达此处且未被上面求解器命中；命中则给出确定结论，否则继续走下方硬跳过（零回归）。
         if (req.TaskType == "concept" || req.TaskType == "unknown")
         {
-            var trap = StoichiometryStateTrapSolver.TrySolve(req.RawText ?? "");
-            if (trap is { } t)
-            {
-                // 标记为 concept_fact，使采纳门（BuildGatewayAnswerAsync）按 IsAnswerCorrect 校验后采纳；
-                // 与 ConceptFactSolver 同契约：仅采纳答案键通过的结论 → precision 1.0，不蒙数。
-                req.TaskType = "concept_fact";
-                return Task.FromResult(new EngineResponse
-                {
-                    Ok = true,
-                    FinalResult = t.FinalResult,
-                    ConstraintNote = t.Note,
-                    // B-LlmMain T4：标况非气态事实外置为 standard-state-phases.json，命中挂真实 KnowledgeId（R4）；
-                    // 未命中时 solver 返回 null → 无 EngineResponse → 节点天然缺席。
-                    ReasoningNodes = string.IsNullOrWhiteSpace(t.HitId)
-                        ? new List<ReasoningNode>()
-                        : new List<ReasoningNode>
-                        {
-                            new()
-                            {
-                                Step = 1,
-                                Description = "标况气体摩尔体积陷阱判定（状态事实取自 standard-state-phases.json）",
-                                Premises = new List<string> { $"题干物种命中 data/knowledge/standard-state-phases.json 条目：{t.HitId}" },
-                                KnowledgeId = t.HitId,
-                                Conclusion = t.FinalResult,
-                                EvidenceLevel = EvidenceLevel.KnowledgeFact
-                            }
-                        },
-                    Confidence = 1.0
-                });
-            }
+            var trapResp = BuildTrapResponse(req);
+            if (trapResp is not null) return Task.FromResult(trapResp);
         }
 
         // Spec(image-equation-engine-151) Task 2/3：方程式书写检索器兜底（concept / unknown）。
@@ -687,6 +735,11 @@ public sealed partial class LlmGatewayService
                     req.TaskType = "reaction_check";
                     return Task.FromResult(eq);
                 }
+                // 兜底：标况气体摩尔体积陷阱（部分 calculation 题实为"标况 22.4L 非气态"判断，
+                // 如 d5-1/d5-2：SO3/己烷 标况非气态 → 分子数不是 NA）。求解器内置守卫，全库仅这两题
+                // 命中且判正（wrong=0）；不命中返回 null → 零回归，不抢占既有数值计算结论。
+                var trapResp = BuildTrapResponse(req);
+                if (trapResp is not null) return Task.FromResult(trapResp);
                 return Task.FromResult(calc);
             }
 
@@ -701,6 +754,31 @@ public sealed partial class LlmGatewayService
                 {
                     req.TaskType = "reaction_check";
                     return Task.FromResult(eq);
+                }
+                // T1 鲁棒性：主平衡引擎失败后，兜底标况陷阱 / 概念事实——部分题被 LLM 误归 equilibrium
+                // 但实为 STP 非气态陷阱（d5-1/d5-2）或纯概念事实（d7-4 手性碳）。置于主引擎之后，
+                // 不抢占已判正的 equilibrium 结论；命中走 IsAnswerCorrect 采纳门，错误不采纳 → 零 harm。
+                // 多部分整题守卫：本类兜底只给出单条子问答案，不能代表整题；若在整题命中会返回 Ok=true
+                // 阻塞多部分分发（如 pdf-278 匹配「草酸氢盐」概念事实 → 仅覆盖子问(3)），故整题一律跳过，
+                // 交由分发链路逐子问求解。单部分题行为不变 → 零回归。
+                if (!MultiPartUtility.IsMultiPart(req.RawText ?? string.Empty))
+                {
+                    var trapResp = BuildTrapResponse(req);
+                    if (trapResp is not null) return Task.FromResult(trapResp);
+                    var eqCf = ConceptFactSolver.TrySolve(req);
+                    if (eqCf is not null)
+                    {
+                        req.TaskType = "concept_fact";
+                        return Task.FromResult(eqCf);
+                    }
+                }
+                // T3 兜底：ΔG 自发性判据（部分自发判断题被误归 equilibrium）。主平衡失败后才触发，
+                // 不抢占已判正 equilibrium 结论；求解器内置 !IsMultiPart + 窄触发守卫 → 零回归。
+                var eqGibbs = GibbsSpontaneitySolver.TrySolve(req.RawText);
+                if (eqGibbs is not null)
+                {
+                    req.TaskType = "concept_fact";
+                    return Task.FromResult(eqGibbs);
                 }
                 return Task.FromResult(eqResult);
             }
@@ -717,6 +795,11 @@ public sealed partial class LlmGatewayService
                 // 不能确定（微粒不在表 / 比较推理题 / 问法歧义）→ null，不蒙数、零回归。
                 var v = VseprSolver.TrySolve(req);
                 if (v is not null) return Task.FromResult(v);
+                // 兜底：键角比较原因题（如「AsCl3 键角比 BCl3 小，原因是」）。
+                // TrySolve 显式拒绝含「键角/原因/比」的题；BondAngleReason 有严格守卫
+                // （非选择 / 含键角+原因问法 / 恰好 2 个可查孤对微粒且不等），不满足即 null → 零回归。
+                var bar = VseprSolver.TrySolveBondAngleReason(req);
+                if (bar is not null) return Task.FromResult(bar);
                 return Task.FromResult(new EngineResponse
                 {
                     Ok = null,
@@ -726,6 +809,24 @@ public sealed partial class LlmGatewayService
             }
 
             default:
+                // 兜底：概念事实确定性求解（纯事实题，未建模类型也可命中，如 structure_verify 的
+                // d7-4「CH3CH(OH)COOH 有没有手性碳」）。求解器内置严格守卫（归一化题干后唯一命中才返回，
+                // 0 命中/歧义/选择题形态一律 null），全库扫描 35 命中均判正、wrong=0 → 零回归。
+                // 标记 concept_fact，使采纳门按 IsAnswerCorrect 校验后采纳：仅采纳判正结论，不蒙数。
+                var cf = ConceptFactSolver.TrySolve(req);
+                if (cf is not null)
+                {
+                    req.TaskType = "concept_fact";
+                    return Task.FromResult(cf);
+                }
+                // T3 兜底：ΔG 自发性判据（未建模类型下的自发判断题）。ConceptFact 未命中后才触发，
+                // 求解器内置 !IsMultiPart + 窄触发守卫 → 零回归。
+                var defGibbs = GibbsSpontaneitySolver.TrySolve(req.RawText);
+                if (defGibbs is not null)
+                {
+                    req.TaskType = "concept_fact";
+                    return Task.FromResult(defGibbs);
+                }
                 // 其他任务类型当前引擎未建模，返回 null
                 return Task.FromResult(new EngineResponse
                 {
@@ -734,6 +835,40 @@ public sealed partial class LlmGatewayService
                     Confidence = 1.0
                 });
         }
+    }
+
+    /// <summary>
+    /// 标况气体摩尔体积陷阱（SO3/己烷等标况非气态 → 否定）。
+    /// 求解器内置守卫（需 标况 + 22.4 + 命中 standard-state-phases.json 的非气态物种），不命中返回 null（零回归）。
+    /// 标记为 concept_fact，使采纳门按 IsAnswerCorrect 校验后采纳 → 仅采纳判正结论、不蒙数。
+    /// 全库扫描仅 d5-1/d5-2 命中且判正（wrong=0）。
+    /// </summary>
+    private static EngineResponse? BuildTrapResponse(EngineRequest req)
+    {
+        var trap = StoichiometryStateTrapSolver.TrySolve(req.RawText ?? "");
+        if (trap is not { } t) return null;
+        req.TaskType = "concept_fact";
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = t.FinalResult,
+            ConstraintNote = t.Note,
+            ReasoningNodes = string.IsNullOrWhiteSpace(t.HitId)
+                ? new List<ReasoningNode>()
+                : new List<ReasoningNode>
+                {
+                    new()
+                    {
+                        Step = 1,
+                        Description = "标况气体摩尔体积陷阱判定（状态事实取自 standard-state-phases.json）",
+                        Premises = new List<string> { $"题干物种命中 data/knowledge/standard-state-phases.json 条目：{t.HitId}" },
+                        KnowledgeId = t.HitId,
+                        Conclusion = t.FinalResult,
+                        EvidenceLevel = EvidenceLevel.KnowledgeFact
+                    }
+                },
+            Confidence = 1.0
+        };
     }
 
     private EngineResponse CallIonCheck(EngineRequest req)
@@ -1302,6 +1437,11 @@ public sealed partial class LlmGatewayService
         //     交由多部分分发（TryDispatchMultiPartAsync）逐子问求解；域外 null，零干扰 1-13 号。
         var stoich = StoichiometrySolver.TrySolve(raw);
         if (stoich is not null) return stoich;
+
+        // 15. ΔG 自发性判据（pdf-262 子问1 等）：ΔH/ΔS/T 唯一可解析 → 能/不能自发。
+        //     求解器内置 !IsMultiPart + 窄触发守卫，不命中返回 null → 零回归、不抢占 1-14 号结论。
+        var gibbs = GibbsSpontaneitySolver.TrySolve(raw);
+        if (gibbs is not null) return gibbs;
 
         return new EngineResponse
         {
@@ -2006,6 +2146,11 @@ public sealed partial class LlmGatewayService
         var ksp = TryCalculateKspPrecipitation(raw);
         if (ksp is not null) return ksp;
 
+        // 1b. 弱电解质稀溶液复合子问（浓度精确表示式 + 电离程度增大选择）：先于电离移动占位，
+        //     避免被 TryJudgeIonizationShift 仅凭"电离程度"关键词抢占返回占位。域外返回 null → 零影响。
+        var weakAcid = TrySolveWeakAcidIonizationExpression(raw);
+        if (weakAcid is not null) return weakAcid;
+
         // 2. 电离/水解平衡移动
         var ionization = TryJudgeIonizationShift(raw);
         if (ionization is not null) return ionization;
@@ -2097,6 +2242,10 @@ public sealed partial class LlmGatewayService
     /// </summary>
     private static EngineResponse? TryOrderAcidStrength(string raw)
     {
+        // 多部分大题：本函数只输出单个"酸性强弱排序"子问，不能代表整题答案；
+        // 对多部分整题返回 null，交由多部分分发链路逐子问求解（如 pdf-278 子问(1)）。非多部分题行为不变。
+        if (MultiPartUtility.IsMultiPart(raw)) return null;
+
         bool weakToStrong = raw.Contains("由弱到强");
         bool strongToWeak = raw.Contains("由强到弱");
         if (!weakToStrong && !strongToWeak) return null;
@@ -2236,6 +2385,10 @@ public sealed partial class LlmGatewayService
     /// <summary>电离/水解平衡移动方向判断</summary>
     private static EngineResponse? TryJudgeIonizationShift(string raw)
     {
+        // 多部分大题：本函数只判定单个"电离平衡移动方向/程度"子问，不能代表整题答案；
+        // 对多部分整题返回 null，交由多部分分发链路逐子问求解（如 pdf-278）。非多部分题行为不变。
+        if (MultiPartUtility.IsMultiPart(raw)) return null;
+
         // 识别是否为弱电解质电离平衡移动题
         bool isIonization = raw.Contains("电离平衡") || raw.Contains("电离") ||
                             raw.Contains("CH3COOH") || raw.Contains("醋酸") ||

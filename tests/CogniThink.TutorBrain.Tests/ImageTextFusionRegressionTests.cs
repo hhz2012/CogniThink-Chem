@@ -70,21 +70,23 @@ public class ImageTextFusionRegressionTests
     // ==================== 3. 曲线原始读数永不被采纳（回归守卫，核心红线） ====================
 
     /// <summary>
-    /// pdf-272：无平衡求解器命中 → 回退曲线原始读数（中间量 "x=2.5 时 y=0.8"）。
-    /// P2-3：该读数应标记 provenance="curve_reading"（高风险类可观测），且 <b>不得</b> 通过答案键校验 → 不采纳 → 无 harm。
-    /// 若未来有人改门控让 curve_reading 被采纳，本测试立即红。
+    /// pdf-272：多部分大题（3 子问曲线题）。T1（pdf-278 spec）后，多部分题干的 curve 占位被静默
+    /// （不打标 curve_reading、不标记 curve 资产、不吐曲线中间量读数），交由多部分分发链路接管；
+    /// 因子问依赖的曲线读数能力未补齐，整体诚实 null（Ok!=true）→ 不被采纳 → 无 harm。
+    /// 红线（不削弱）：曲线中间量读数不得被答案键采纳——此处以"多部分不产生可采纳中间量"守住。
     /// </summary>
     [Fact]
-    public async Task Pdf272_CurveReading_TaggedProvenance_AndNeverAdopted()
+    public async Task Pdf272_MultiPart_CurvePlaceholderSilenced_NeverAdopted()
     {
         var c = Case("pdf-272");
         Assert.Contains(c.ImageAssets, a => a.Type == "curve");
+        Assert.True(MultiPartUtility.IsMultiPart(c.Question), "pdf-272 应为多部分题");
 
         var resp = await NewGateway().CallEngineAsync(EqReq(c), c.ImageAssets);
 
-        // 回退到曲线读数（能力不丢失）→ 标记为高风险 provenance
-        Assert.Equal("curve_reading", resp.ResultProvenance);
-        Assert.Equal("curve", resp.AssetKind);
+        // 多部分静默：不再打标 curve_reading、不标记 curve 资产、不吐曲线中间量
+        Assert.NotEqual("curve_reading", resp.ResultProvenance);
+        Assert.NotEqual("curve", resp.AssetKind);
 
         // 核心红线：曲线中间量读数不得被答案键采纳（不蒙数 / 零 harm）
         Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect(resp.FinalResult, c),

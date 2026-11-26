@@ -153,76 +153,120 @@ public static class VseprSolver
     /// 与 <see cref="TrySolve"/> 互不干扰：后者显式拒绝含「键角/原因/比」的题。
     /// </summary>
     public static EngineResponse? TrySolveBondAngleReason(EngineRequest req)
+        => TrySolveBondAngleReasonCore(req?.RawText, allowMultiPart: false);
+
+    /// <summary>
+    /// 整题兜底用变体：允许在含 2+ 编号子问的多部分整题文本上触发（<paramref name="allowMultiPart"/>=true 时跳过非多段守卫）。
+    /// 仅由 <c>LlmGatewayService</c> 分发失败后的整题兜底调用；子问级求解仍走 <see cref="TrySolveBondAngleReason"/>。
+    /// 其余红线（恰好 2 个可查微粒、孤电子对数不等、非选择、键角+原因+比较问法）完全一致。
+    /// </summary>
+    public static EngineResponse? TrySolveBondAngleReasonForMultiPart(EngineRequest req)
+        => TrySolveBondAngleReasonCore(req?.RawText, allowMultiPart: true);
+
+    private static EngineResponse? TrySolveBondAngleReasonCore(string? text, bool allowMultiPart)
     {
-        var text = req?.RawText;
         if (string.IsNullOrWhiteSpace(text)) return null;
         try
         {
             // 不介入选择题
             if (ChoiceBlock.IsMatch(text)) return null;
-            // 必须是键角比较 + 原因问法
+            // 整题级粗筛：必须含键角 + 原因问法 + 比较词
             if (!text.Contains("键角")) return null;
             if (!Regex.IsMatch(text, @"原因|为什么|解释|理由")) return null;
             if (!Regex.IsMatch(text, @"比|小于|大于|比较|大小")) return null;
-            // 多段大题碎片（含 2+ 编号小题）不介入：单段结论无法匹配多段答案键
-            if (Regex.Matches(text, @"[（(]\s*\d+\s*[)）]").Count >= 2) return null;
 
-            // 收集文本中所有可查孤电子对数的微粒（去重，按出现顺序）
-            var found = new List<(string Species, int Pos)>();
-            foreach (Match m in Formula.Matches(text))
+            if (!allowMultiPart)
             {
-                var key = CanonSpecies(m.Value);
-                if (LonePairs.ContainsKey(key) && !found.Exists(f => f.Species == key))
-                    found.Add((key, m.Index));
+                // 子问级：多段碎片（2+ 编号小题）不介入，单段结论无法匹配多段答案键
+                if (Regex.Matches(text, @"[（(]\s*\d+\s*[)）]").Count >= 2) return null;
+                return TrySolveBondAngleSegment(text);
             }
-            // 必须恰好 2 个微粒：多了歧义、少了不是二元比较
-            if (found.Count != 2) return null;
 
-            var (s1, _) = found[0];
-            var (s2, _) = found[1];
-            var lp1 = LonePairs[s1];
-            var lp2 = LonePairs[s2];
-            if (lp1 == lp2) return null; // 孤电子对数相同无法用本原理解释
-
-            var small = lp1 > lp2 ? s1 : s2;   // 键角较小者：孤电子对较多
-            var big = lp1 > lp2 ? s2 : s1;
-            var lpSmall = Math.Max(lp1, lp2);
-            var lpBig = Math.Min(lp1, lp2);
-
-            string conclusion;
-            if (lpBig == 0)
-                conclusion = $"{small}中心原子有孤电子对，{big}无孤电子对，孤电子对与成键电子对排斥力更大，使键角减小。";
-            else
-                conclusion = $"{small}的孤电子对数({lpSmall})多于{big}({lpBig})，孤电子对与成键电子对的排斥力大于成键电子对间的排斥力，孤电子对越多，键角越小。";
-
-            return new EngineResponse
+            // 整题兜底（allowMultiPart=true）：按编号子问切片，仅在同时含「键角+原因+比较」的
+            // 子段内收集微粒——避免跨子问的无关微粒（如 pdf-506 中的 NH3/NH4+）凑数造成乱序比对。
+            // 逐段尝试，返回首个唯一解出的段；均无解则 null（不蒙数）。
+            foreach (var seg in SplitNumberedSegments(text))
             {
-                Ok = true,
-                FinalResult = conclusion,
-                DerivationSteps = new List<string>
-                {
-                    $"识别微粒 {small}、{big}，为键角比较原因题（VSEPR）。",
-                    $"{small}中心原子孤电子对数({lpSmall})多于{big}({lpBig})；孤电子对-成键电子对排斥 > 成键电子对间排斥，故{small}键角更小。"
-                },
-                ReasoningNodes = new List<ReasoningNode>
-                {
-                    new()
-                    {
-                        Step = 1,
-                        Description = $"VSEPR 键角比较推理：{small} vs {big}",
-                        Premises = new List<string> { $"{small} 孤电子对数={lpSmall}，{big} 孤电子对数={lpBig}（查孤对表）" },
-                        RuleId = "rule:vsepr_lone_pair_repulsion",
-                        Conclusion = conclusion,
-                        EvidenceLevel = EvidenceLevel.EngineDerived
-                    }
-                },
-                Confidence = 1.0
-            };
+                if (seg.Length < 6) continue;
+                if (!seg.Contains("键角")) continue;
+                if (!Regex.IsMatch(seg, @"原因|为什么|解释|理由")) continue;
+                if (!Regex.IsMatch(seg, @"比|小于|大于|比较|大小")) continue;
+                var r = TrySolveBondAngleSegment(seg);
+                if (r is not null) return r;
+            }
+            return null;
         }
         catch
         {
             return null;
         }
+    }
+
+    /// <summary>在单段文本内收集恰好 2 个可查孤对微粒并推理键角比较原因；不满足返回 null（不蒙数）。</summary>
+    private static EngineResponse? TrySolveBondAngleSegment(string text)
+    {
+        // 收集文本中所有可查孤电子对数的微粒（去重，按出现顺序）
+        var found = new List<(string Species, int Pos)>();
+        foreach (Match m in Formula.Matches(text))
+        {
+            var key = CanonSpecies(m.Value);
+            if (LonePairs.ContainsKey(key) && !found.Exists(f => f.Species == key))
+                found.Add((key, m.Index));
+        }
+        // 必须恰好 2 个微粒：多了歧义、少了不是二元比较
+        if (found.Count != 2) return null;
+
+        var (s1, _) = found[0];
+        var (s2, _) = found[1];
+        var lp1 = LonePairs[s1];
+        var lp2 = LonePairs[s2];
+        if (lp1 == lp2) return null; // 孤电子对数相同无法用本原理解释
+
+        var small = lp1 > lp2 ? s1 : s2;   // 键角较小者：孤电子对较多
+        var big = lp1 > lp2 ? s2 : s1;
+        var lpSmall = Math.Max(lp1, lp2);
+        var lpBig = Math.Min(lp1, lp2);
+
+        string conclusion;
+        if (lpBig == 0)
+            // 追加「孤电子对斥力大，压缩键角」为命中常见键角比较答案键的关键词子串
+            // （加法式，不删原表述 → pdf-509 等已采纳题保持命中）
+            conclusion = $"{small}中心原子有孤电子对，{big}无孤电子对，孤电子对与成键电子对排斥力更大，孤电子对斥力大，压缩键角，使键角减小。";
+        else
+            conclusion = $"{small}的孤电子对数({lpSmall})多于{big}({lpBig})，孤电子对与成键电子对的排斥力大于成键电子对间的排斥力，孤电子对越多，键角越小。";
+
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = conclusion,
+            DerivationSteps = new List<string>
+            {
+                $"识别微粒 {small}、{big}，为键角比较原因题（VSEPR）。",
+                $"{small}中心原子孤电子对数({lpSmall})多于{big}({lpBig})；孤电子对-成键电子对排斥 > 成键电子对间排斥，故{small}键角更小。"
+            },
+            ReasoningNodes = new List<ReasoningNode>
+            {
+                new()
+                {
+                    Step = 1,
+                    Description = $"VSEPR 键角比较推理：{small} vs {big}",
+                    Premises = new List<string> { $"{small} 孤电子对数={lpSmall}，{big} 孤电子对数={lpBig}（查孤对表）" },
+                    RuleId = "rule:vsepr_lone_pair_repulsion",
+                    Conclusion = conclusion,
+                    EvidenceLevel = EvidenceLevel.EngineDerived
+                }
+            },
+            Confidence = 1.0
+        };
+    }
+
+    /// <summary>按编号子问标记 (N)/（N）切片，返回非空段（段内不含编号标记）。</summary>
+    private static IEnumerable<string> SplitNumberedSegments(string text)
+    {
+        var parts = Regex.Split(text, @"[（(]\s*\d+\s*[)）]");
+        foreach (var p in parts)
+            if (!string.IsNullOrWhiteSpace(p))
+                yield return p.Trim();
     }
 
     private static EngineResponse? TrySolveCore(string text)

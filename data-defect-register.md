@@ -71,7 +71,7 @@
 
 | id | 症状 | 建议下一步 |
 |----|------|-----------|
-| pdf-337 | 组合题（选项 ①③⑤…），①–⑥ 是卤代烃结构简式，以**图像**呈现，非文本 | 图像轨道（结构识别/绘图题 pipeline）接续；文本轨道保持 `null` |
+| pdf-337 | ✅ **结构图像已挂载（本批修复，2026-11-26）**：①–⑥ 卤代烃结构简式原以图像呈现但从未挂到题录 → LLM 拒答却被误判、引擎文本无解。已从 `pdfs/_extract/page_renders/page_116.png` 裁剪 ①~⑥ 全结构图（crop box 40,420,1680,780 → `data/pdf_images/p116_n01_0.png`），经 qwen3-vl-plus 验证 ①~⑥ 标号与结构完整可见（①CH₃Cl ②2-溴丙烷 ③苄基氯 ④溴甲基环己烷 ⑤新戊基溴 ⑥支链溴代烷，⑥含末端 Br），与答案册解析（②④⑥ 可消去、①③⑤ 不可）一致；两数据文件均已加 `"images": ["pdf_images/p116_n01_0.png"]` | 图像已挂载：pure LLM 现可正确答出 `C`（②④⑥）。引擎为文本求解器不读图，仍诚实 `null`；待图像融合轨道接入后引擎可解 |
 | pdf-158 | 题干引用 Ksp 表格（"见下表"），但表中数值未进入 `question` 文本（图像） | 图像轨道抽取表格数值回填 `question`；文本轨道无法判 |
 | pdf-263 | 题干"正确的有几项"但选项是 6 条陈述 A–F（非计数），note 的 ①–⑥ 映射到 A–F 且称 ①②③ 正确=3 项，存储 `answer="B"` 自相矛盾 | 需原页确认题型（单选 pick 正确项 vs 计数）；暂保留，登记 |
 | pdf-319 | ✅ **已修键+回填**：原 OCR 把 answer 错识为 A、note 被截断、选项 C/D 结构名丢失；据答案册原页（用户提供书上原文，题源 2025·天津河西期中）核对——题干"正确的是"无误，正确答案为 **D**（A/B/C 错、D 对），C=环己烯、D=苯酚 | 已更正 `pdf_questions.json`：answer A→D、answerKeywords、note 重写为完整解析、options C/D 补结构名。全量测试 2144/0，eval `choice_b1`→`pdf319fix` GAIN=0/LOST=0/HARM=0（引擎仍 null，纯数据修正零回归）。后续若补结构图可策展自解 |
@@ -115,8 +115,8 @@
 
 | id | 缺陷类型 | 症状 | 为何不可自动修复 | 建议下一步 |
 |----|---------|------|------------------|-----------|
-| pdf-355 | 题干拼接两题 | `question` 前半是填空「书写酯化反应方程式（乙二酸与乙醇 1:2）」，后半是选择「下列物质结构与性质不具有对应关系的是」（选项 A–D 属后半）；存储 `answer="CH3CH2OOC-COOCH2CH3 + 2H2O"` 是**前半填空的答案**，后半选择无对应 answer；note 只分析前半 | 一道题录含两个题型，answer 错配到前半填空，无法判定后半选择的正确键 | 原页拆分为两条题录；后半选择需核对答案键 |
-| pdf-356 | 题干拼接两题（+路线缺失） | `question` 前半是填空「乙二酸与乙二醇酯化生成环酯」，后半是选择「化合物 Z 合成路线…下列说法正确的是」（选项 A–D 属后半）；存储 `answer="C4H4O4, (C4H2O3)n + (2n-1)H2O"` 是**前半填空答案**；后半 X/Y/Z 合成路线结构图也未进入文本 | 拼接致 answer 错配，且后半选择还依赖缺失的路线图 | 原页拆分 + 图像轨道恢复 X/Y/Z 结构 + 核对后半答案键 |
+| pdf-355 | ✅ **已清理（本批修复，2026-11-26）** | 原题录拼接填空+选择两题。已移除后半选择题干与 `options`，保留前半填空（乙二酸与乙醇 1:2 酯化）；`answerKeywords` 由 `["C","HCOOH 分子中有醛基…"]`（含游离 `C`，致任何含碳答案子串误判正）订正为 `["CH3CH2OOC-COOCH2CH3 + 2H2O"]`，与 `answer`/`note` 自洽（答案册 `page_122` num=2 核对） | 填空半已自洽可判；后半选择已剥离，答案册 `page_123` num=2 = `A,B,C,D`（全对）但题面"不**具有**对应关系"与全对矛盾，疑 OCR 多一"不"字，**无原页图像无法确认题面，不新建题录、不猜测**，登记待核（见 V.1 deferred）。引擎未解属方程域 KB 缺口，非数据缺陷 |
+| pdf-356 | ✅ **已清理（本批修复，2026-11-26）** | 原题录拼接填空+选择两题 + 后半缺路线图。已移除后半选择（化合物 Z）题干与 `options`，填空半补全为 ①生成环酯 + ②缩聚反应两句（exercise `page_121` num=3+4，原库仅存 ①）；`answerKeywords` 由 `["C","Z 不能与 Br₂…"]` 订正为 `["C4H4O4, (C4H2O3)n + (2n-1)H2O"]`，与 `answer`/`note` 自洽（答案册 `page_122` num=3 核对，六元环酯 C₄H₄O₄） | 填空半已自洽可判；后半选择（化合物 Z）已剥离，**答案册全库检索无该题答案**，无官方源不能定键，登记待核（需用户提供原页/答案册，见 V.1 deferred）。引擎未解属方程域 KB 缺口，非数据缺陷 |
 | pdf-162 | 大题碎片 + 跨题答案污染 | 大题第(3)小问「"酸化"步骤应选用的酸是__(填字母)」（`taskType=choice`，选项 a–d）；但存储 `answer`/`answerKeywords` 是**另一道大题**的 7 段复合串 `(1)2 (2)SO4^2- (3)温度升高，反应速率增大，浸出率增大；… (4)[Cu(NH3)4]2+ + Zn = [Zn(NH3)4]2+ + Cu (5)Fe (6)…PbA 产率 (7)Pb[OOC(CH2)2COO] 热解`——与"选酸"小问完全无关，子题号错位 | 题面是单小问碎片，answer 属于不同大题（跨题污染），无法对齐；缺官方源核对该小题键 | 原页恢复该大题上下文，单独抽取 (3) 选酸小问并核对答案键；暂保留 `null` |
 | pdf-463 | 大题碎片（缺数据） | 大题第(5)小问「"调 pH"分步沉淀可获得 Ni(OH)₂，两次调 pH 数值依次为__」，选项 a–d（3/7/9/11），`answer="c d"`；缺大题上下文（溶液中共存离子、各离子沉淀 pH / Ksp 数据）；`taskType=calculation`，选项小写 | 沉淀 pH 判据数据不在题面（原在表格/上文），文本轨道无法判 | 原页恢复大题上下文与沉淀数据；核对小写选项键 |
 | pdf-483 | 重复碎片（与 pdf-477 子问完全重复） | 整条题面 `(5)电解熔融氯化铍制备金属铍时,加入氯化钠的主要作用是____` 与大题 pdf-477 的第(6)小问**逐字相同**（仅碎片编号为 (5)），是数据切片时把同一小问重复抽成独立题录。二者共享完全相同的化学文本，任何通用概念事实都会同时命中两者（count=2），触发 `ConceptFactSolver` 唯一性铁律返回 null；又无化学层面的区分 token 可消歧（差异仅在碎片编号）。 | 重复题录：概念事实无法在不破坏唯一性（不引入假阳性）的前提下只命中其一；靠编号 (5)/(6) 区分属单题策展，违反红线 #6。 | 数据管道去重：删除 pdf-483 或将其合并入 pdf-477；文本轨道保持 `null` |
@@ -148,7 +148,7 @@
 
 | 排除原因 | 题 id | 具体说明 |
 |----------|-------|----------|
-| ① 题干被截为单碎片，缺反应物/流程上下文（E 类） | pdf-133, pdf-160, pdf-161, pdf-164, pdf-165, pdf-171, pdf-278, pdf-413 | `question` 仅存大题某一小问的半句或仅流程引入句，反应物（如 SO₃²⁻、Mg²⁺/CO₂、H₂Se 流程）与问法不在文本中，无法唯一确定方程；pdf-164/165 甚至 `question` 与 `answer` 分属不同大题（答非所问）。归 E 类。**【T4 核对】**pdf-171 的碎片本身含「离子方程式」锚点，真实 eval 路由到 `reaction_check` 且 `gatewayUsedEngine=True`，但反应物（pdf-171 的 Mg²⁺/CO₂）在未捕获的大题上下文中，KB 检索 0 命中，仍属碎片数据缺陷。**【P3 已解】**pdf-174 原同属此列，现已恢复大题上下文（习题册 `page_057` 前言 + `page_058` 工艺流程图 OCR 的 `H2SO4/Na2SO3` 标签，官方溯源）并加确定型模板 `ManganeseDioxideSulfiteIonic` → GAIN +1（precision=1 / harm=0 / LOSS=0，见方案 §10），已从本排除列表移除。 |
+| ① 题干被截为单碎片，缺反应物/流程上下文（E 类） | pdf-133, pdf-160, pdf-161, pdf-164, pdf-165, pdf-171, pdf-413（~~pdf-278~~ 已补全题干 5 子问，移出碎片列，见 V 类） | `question` 仅存大题某一小问的半句或仅流程引入句，反应物（如 SO₃²⁻、Mg²⁺/CO₂、H₂Se 流程）与问法不在文本中，无法唯一确定方程；pdf-164/165 甚至 `question` 与 `answer` 分属不同大题（答非所问）。归 E 类。**【T4 核对】**pdf-171 的碎片本身含「离子方程式」锚点，真实 eval 路由到 `reaction_check` 且 `gatewayUsedEngine=True`，但反应物（pdf-171 的 Mg²⁺/CO₂）在未捕获的大题上下文中，KB 检索 0 命中，仍属碎片数据缺陷。**【P3 已解】**pdf-174 原同属此列，现已恢复大题上下文（习题册 `page_057` 前言 + `page_058` 工艺流程图 OCR 的 `H2SO4/Na2SO3` 标签，官方溯源）并加确定型模板 `ManganeseDioxideSulfiteIonic` → GAIN +1（precision=1 / harm=0 / LOSS=0，见方案 §10），已从本排除列表移除。 |
 | ② 【T4 纠正】记号连接符（`==`/`→`/`⇌`）**不是**真实阻塞——求解器不产出，无输出可归一化 | pdf-044 (`==`)、pdf-010 (`⇌`+胶体)、pdf-532 (`→`)、pdf-484 (`→`)、pdf-481 (`→`) | 原诊断「答案键记号与 `NormalizeChemicalNotation` 不匹配」**已作废**。T4 强制路由探针（`_evalscratch/norm_unlock_probe.tsv`）把这 5 题强制以 `reaction_check`/`equation` 调用 `ReactionKbWriterSolver`，**全部 `fired=False`（无产出）**：求解器在产出阶段即被守卫/KB 检索拒绝，根本没有可供 T2 归一化的输出，故答案键的记号不是当前阻塞。逐题真实阻塞：pdf-044 路由=`calculation` 未触达引擎 + 3 子问方程（KHSO₄+Ba(OH)₂ / FeBr₂+Cl₂ / 银氨+HCl）KB 无唯一命中；pdf-010 路由=`reaction_check` 但 KB 不覆盖 FeCl₃ 水解制胶体 + 一题 3 方程（多重子问使唯一命中守卫失败）；pdf-532 题干同时含「化学方程式」与「离子方程式」→ `askIonic && askMolecular` 歧义守卫直接 null（且路由=`concept` 未触达、KB 无 Cl₂+CaBr₂ / I⁻+MnO₄⁻ 条目）；pdf-484 路由=`calculation` 未触达 + (3) 问 2 个方程（Co²⁺+MnO₂ / Co³⁺+Cl⁻）KB 无命中；pdf-481 路由=`atomic_structure` 误分类 + 氧化剂 ClO₃⁻ 在未捕获上下文（碎片）+ 复杂氧还 KB 无覆盖。pdf-044/010/532/484 题干完整，是 T5 KB 补全 + 路由打通的候选（受全库唯一命中 + LOST=0 红线约束）；pdf-481 兼有碎片问题，优先等数据管道补全上下文。 |
 | ③ 题干缺反应物锚定（产物无法唯一确定） | pdf-097 | 题干仅说「沉锂生成磷酸锂的化学方程式」，未出现 H₃PO₄ 反应物；缺锚定则反应物集合不唯一，KB 检索不命中，诚实 null。 |
 | ④ 问法非"写方程式"，方程锚点守卫返回 null | pdf-274 | 题干问「用平衡原理解释该物质可以除去杂质的原因」，非「写出离子/化学方程式」；求解器方程锚点（含「方程式/方程」）不触发。答案虽含水解方程，但属解释文本，强行产出有误触风险。 |
@@ -182,7 +182,7 @@
 | pdf-303 | 备注称 C、D 均真（应为 CD），answer 仅 C；多选无标记；电池装置图 | G 类⑤（既有） |
 | pdf-307 | C/D 选项文本被结构式图像截断，无法匹配；反应历程图 | C 类（本批新增） |
 | pdf-336 | A 选项「产物 B 对应的结构是」+ 图像，文本截断；备注残缺；反应动力学曲线 | C 类（本批新增） |
-| pdf-337 | 选项为 ①③⑤ 等编号组合，引用图像中 ①~⑥ 结构，需读图 | C 类（既有） |
+| pdf-337 | ✅ 结构图像已挂载（见 C 类 pdf-337 / V 类），VL 可解；引擎文本不读图仍 null | C 类（图像已挂载） |
 | pdf-338 | 备注/化学表明 C、D 均真（应为 CD），answer 仅 C；多选无标记；需官方答案册核键 | A.2（本批新增） |
 | pdf-376 | 合成路线图像；备注称 4 项全正确与 answer=B 矛盾，B/C/D 需看结构核真 | C 类（既有） |
 | pdf-406 | 问法「不能完成」未被 `WrongDir` 正则覆盖 → askDir 误判为 correct，能完成项 3 个候选不唯一；不动 .cs 则无解 | A.1（键已修复）+ H.3 残留说明 |
@@ -287,8 +287,8 @@
 | id | 既有登记 | 缺陷摘要 | Unblock Condition |
 |----|----------|----------|-------------------|
 | pdf-197 | A.2 + I.3 | 题干拼接两道题，answer=`A,B,C,D` 垃圾值，note 错位 | 原页恢复正确题干+选项+键（化学复核 A/B/C 假、D 真与「错误的是」单选矛盾，疑多选或选项错位） |
-| pdf-355 | E 类 | 题干拼接填空+选择，answer 错配到前半填空 | 原页拆分为两条题录，核对后半选择题答案键 |
-| pdf-356 | E 类 | 题干拼接填空+选择，后半还缺合成路线图 | 原页拆分 + 图像轨道恢复 X/Y/Z 结构 + 核对后半答案键 |
+| pdf-355 | E 类 → 已清理 | 填空半已清理为自洽题录（见 E 类 / V 类），原"题界拼接阻塞"已解除；后半选择题已剥离，不阻塞当前题录判分 | 填空半不再 blocked；后半选择见 V.1 deferred。引擎未解属方程域 KB 缺口（K.3），非数据缺陷 |
+| pdf-356 | E 类 → 已清理 | 填空半已补全 ①② 并清理为自洽题录（见 E 类 / V 类），原"题界拼接 + 缺图阻塞"已解除；后半选择（化合物 Z）已剥离，答案册无对应答案 | 填空半不再 blocked；后半选择见 V.1 deferred（需用户原页）。引擎未解属方程域 KB 缺口（K.3），非数据缺陷 |
 | pdf-414 | E 类 | 单小问碎片，但 answer 为大题多子问串 | 原页恢复大题上下文并核对该小问键 |
 | pdf-456 | 本批新增 | suspect/V2：库含选项 A 但官方页无此选项（错位），题界拼接无法唯一确定 | 原页/OCR 重切题界，核对正确选项与答案键 |
 
@@ -319,11 +319,11 @@
 ## K 类：引擎能力缺口·本轮闭环台账（spec: engine-capability-gap-fix）
 
 > **范围**：[_evalscratch/verify/gap63_diagnose.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/gap63_diagnose.txt) 中 63 道「数据正确、题型认对，但求解器返回 `null` / 占位未采纳」，排除 2 道 `BuildTestCases` 合成边界探针（`trap-limit-2` / `trap-limit-3`，非 `pdf_questions.json` 数据）后，**真实引擎能力缺口 = 61 道**。
-> **本 spec 结果**：解出 8 道（AC-5 达成：累计 GAINED=8 / LOST=0 / harm=0 / precision=1）；剩余 53 道逐题登记处置结论，确保 **0 静默遗漏**。所有未解题保持 `null`（诚实答不出），**不蒙数**、不改 `answer`、不写入错误事实。
-> **集合闭包验证（PASS）**：`61 = solved(8) ∪ skipped_trace(6) ∪ t2(7) ∪ remaining(40)`，两两无重叠、差集为空。证据脚本 [_evalscratch/verify/t8_partition.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/t8_partition.py)；分簇明细 [t8_partition.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/t8_partition.txt)；未解题清单 [unsolved_registered_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/unsolved_registered_ids.txt)（53 道，与下表处置一一对应）。
+> **本 spec 结果**：解出 9 道（AC-5 达成：累计 GAINED=9 / LOST=0 / harm=0 / precision=1）；剩余 52 道逐题登记处置结论，确保 **0 静默遗漏**。所有未解题保持 `null`（诚实答不出），**不蒙数**、不改 `answer`、不写入错误事实。
+> **集合闭包验证（PASS）**：`61 = solved(9) ∪ skipped_trace(5) ∪ t2(7) ∪ remaining(40)`，两两无重叠、差集为空。证据脚本 [_evalscratch/verify/t8_partition.py](file:///d:/github/CogniThink-Chem/_evalscratch/verify/t8_partition.py)；分簇明细 [t8_partition.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/t8_partition.txt)；未解题清单 [unsolved_registered_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/unsolved_registered_ids.txt)（闭包快照，与下表处置一一对应）。
 > **diagnose taskType 说明**：下表 taskType 取自 `gap63_diagnose.txt`（基线 `verify_fix_all` 路由）。T4 后 `pdf-044/084/354/526/527` 的 taskType 已重路由为 `equation_writer`（见 T4 证据），其中 044/354 已解出，084/526/527 仍留痕（见 K.3）。
 
-### K.0 解出清单（8 道，本 spec 已翻转判正，correct=true && truthAdopted=true）
+### K.0 解出清单（14 道，本 spec 已翻转判正，correct=true && truthAdopted=true）
 
 | id | diagnose taskType | 解出任务 | 落库 / 关键改动 |
 |----|-------------------|----------|-----------------|
@@ -335,8 +335,33 @@
 | pdf-319 | choice | T1 | `organic-facts`（有机分类，D 对） |
 | pdf-354 | calculation | T5 | `reactions-organic.json` +`RX-OR-EST-004`（乙酸+乙二醇→乙二醇单乙酸酯）；`substances.json` `organics` +2（HOCH2CH2OH / CH3COOCH2CH2OH 过 checker 白名单）；T4 路由 |
 | pdf-480 | judgment | T3 | `judgment-statement-facts` +10（JS-017~026，10 子题 √/× 与答案键一致） |
+| pdf-134 | judgment | T3 | `judgment-statement-facts` +15（JS-027~041，`stemMatch` 锁 [葡萄酒,碳酸钡] 全库唯一共现；15 子句含 (5)(11) 两方程子句因 U+2212 未归一化导致 `EquationCorrectnessJudge` 解析失败→走 `CompositeStatementJudge` 事实回退；聚合 `×,×,√,×,√,×,×,×,×,×,×,√,×,×,×` 与答案键一致）。eval `after_judge134`：gatewayCorrect 643→644 / harm 0 / prec 1 / LOST=[] |
+| pdf-509 | vsepr | 路由修复 | `LlmGatewayService` `case "vsepr"` 在 `VseprSolver.TrySolve` 返回 null 后兜底调 `VseprSolver.TrySolveBondAngleReason`。该求解器本已存在且能给出正确结论，但原仅 `concept`/`unknown` 分支可达；生产中 LLM 把该题（AsCl₃ 键角比 BCl₃ 小，原因是）归为 `vsepr`，而 `TrySolve` 显式拒绝含「键角/原因」的题 → 漏解。求解器内置严格守卫（全库扫描仅 pdf-509 命中且判正、wrong=0）→ 零回归。新增路由回归测试 `Vsepr分支_键角原因题_兜底到BondAngleReason_pdf509`。eval `after_vsepr509`：gatewayCorrect 644→645 / harm 0 / prec 1 / LOST=[]（由 bothWrong 翻为 gatewayOnly，LLM 答错而引擎判正）。**注：不在原 61 闭包清单内，为闭包后新发现并修复的引擎缺口** |
+| d5-1 | calculation | 路由修复（兜底） | `LlmGatewayService` `case "calculation"` 在 `CallCalculation` + `ReactionKbWriterSolver` 全 miss 后、返回 null 前兜底调 `BuildTrapResponse`（标况相态陷阱，查 `standard-state-phases.json`；SO₃ 标况为固体，22.4 L 非 1 mol 气体 → 不能用 22.4 L/mol）。陷阱逻辑本已存在，原仅 `concept`/`unknown` 分支可达；生产 LLM 归为 `calculation` → 原路由不落陷阱 → 漏解。全库扫描仅 d5-1/d5-2 命中且判正（wrong=0）→ 零回归。eval `routing_focused`：LOST=[] / harm=0 / prec=1，engineSolved 645→648。**不在原 61 闭包清单内**（闭包快照 `unsolved_registered_ids.txt` 不含 d5-1，已核对） |
+| d5-2 | calculation | 路由修复（兜底） | 同 d5-1：`case "calculation"` 兜底 `BuildTrapResponse`（己烷标况为液体，22.4 L 非 1 mol 气体）。全库扫描仅 d5-1/d5-2 命中且判正（wrong=0）→ 零回归。eval `routing_focused` 同左。**不在原 61 闭包清单内** |
+| d7-4 | structure_verify | 路由修复（兜底） | `LlmGatewayService` `default` 分支（`structure_verify` 无显式 case → 落 `default`）在返回 null 前兜底调 `ConceptFactSolver.TrySolve`。该求解器本已存在且判正（CH₃CH(OH)COOH 中间碳连 4 个不同基团 → 手性碳），原仅 `concept`/`unknown` 分支可达；生产 LLM 归为 `structure_verify` → 漏解。`ConceptFactSolver` 不门控 taskType，全库扫描 35 命中、0 错 → 零回归。eval `routing_focused` 同左。**不在原 61 闭包清单内** |
+| pdf-278 | equilibrium | 多部分分发 + 子问(5)求解器（pdf-278 spec） | 题干已在 V 类还原（Ka 表缺失的纯数据缺陷，2026-11-26 修复）；本次补引擎能力：① T1 三处多部分占位静默（电离移动/酸性排序/curve 占位不再阻塞整题分发，pdf-272 等多部分题改走诚实 null）；② T3 新增 `TrySolveWeakAcidIonizationExpression`（一元弱酸稀溶液电荷守恒 `c(A⁻)=10^-pH-10^(pH-14)` + 电离度增大选项判定，含整题守卫、共轭碱身份校验、非整数 pH 不蒙数）；③ T4 multi_part AND 判分支持方程两侧物质顺序无关（含子问编号剥离防解析污染）。5 子问全解 → AND 全命中 → 采纳（`gatewayResultProvenance=multi_part`）。聚焦/全量 eval：gwCorr/usedEng/truthAdopt=True；引擎层 LOST=0、harm=0、precision=1，27 道已解对多部分题 0 回归（`verify_mp27`）。**不在原 61 闭包清单内**（数据修复前题干截断，属 V 类数据缺陷；本次为闭包后引擎能力补齐） |
 
 > 终态证据：[final_gained_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/final_gained_ids.txt)，累计 eval diff `verify_fix_all`→`t5_kb`：GAINED=8 / LOST=0 / WORSEN=0 / harm 0→0 / precision=1。
+
+### K.0 增补（engine-gap-p0-p1-batch 批次，eval `gap_batch1`）
+
+> 本批次相对基线 `after_vsepr509`：引擎层 **LOST=[] / harm=[] / truthAdopted 回退=0**，ENGINE GAINED=+9；`verify_mp27` 27/27 PASS；`dotnet test -c Release` 1640 passed / 0 failed。证据：[_evalscratch/snapshot_gap_batch1.json](file:///d:/github/CogniThink-Chem/_evalscratch/snapshot_gap_batch1.json)、[diff_engine 输出](file:///d:/github/CogniThink-Chem/_evalscratch/)。solved 口径 cmp 净 -2（pdf-197/376）经逐题核实为 pureLlm 波动（两题 base/new 均 `gatewayCorrect=False`，gwFlip=False），与引擎无关。
+
+下表为本批次**新增翻转判正**的 5 道（d5-1/d5-2/d7-4/pdf-278 已在上表 K.0 登记，本批次回归恢复确认，不重复计入）：
+
+| id | diagnose taskType | 解出任务 | 落库 / 关键改动 |
+|----|-------------------|----------|-----------------|
+| pdf-168 | equilibrium | T4 | 新增 [KspPhResidualSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/KspPhResidualSolver.cs)：pH + M(OH)ₙ 的 Ksp + 目标金属离子 → `c(Mⁿ⁺)=Ksp/[OH⁻]ⁿ`；`ProcessStudentMessageAsync` last-resort 钩子（仅 `Ok!=true` 触发，构造性零 LOST），置 `taskType=equilibrium` 走 OR 采纳门。全库 dry-fire 仅 pdf-168 命中且判正，0 错采纳。 |
+| pdf-506 | equilibrium | T5 | [VseprSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/VseprSolver.cs) 新增 `TrySolveBondAngleReasonForMultiPart` + `SplitNumberedSegments`：整题分发失败后按 `(N)` 切子段，仅在同时含「键角+原因+比较」的段内收集恰好 2 个可查微粒，避免跨子问乱配；L194 结论**追加**「孤电子对斥力大，压缩键角」（保留原串，pdf-509 仍采纳）。last-resort 钩子置 `taskType=vsepr`。全库 dry-fire 仅 pdf-506/pdf-509 命中（pdf-509 baseTrue 不到钩子），0 错采纳。未动 `ClassifyTaskDeterministic`（零漂移）。 |
+| trap-limit-3 | calculation | T6 | [ProductWriterSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/ProductWriterSolver.cs) + [product-rules.json](file:///d:/github/CogniThink-Chem/data/knowledge/product-rules.json) 新增 `pw-nahco3-baoh2-equimolar`（等物质的量 NaHCO₃+Ba(OH)₂ → HCO₃⁻+Ba²⁺+OH⁻→BaCO₃+H₂O，已配平）；修复「物质的量」分到 calculation 导致 equation_writer 链不可达的路由缺口：last-resort 钩子置 `taskType=reaction_check`。全库 dry-fire 9 触发中 8 道 baseTrue（钩子不触发，零 LOST），仅 trap-limit-3 baseFalse 且 adopted，0 错采纳。 |
+| pdf-272 | equilibrium | T7 | 新增 [AcidFirstIonizationSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/AcidFirstIonizationSolver.cs)：子问(1) 弱酸第一步电离 HₙA⇌Hₙ₋₁A⁻+H⁺（电荷/产物由分子式推导，非硬编码单题）。**子问(2) 曲线数据精度缺陷**：矢量化交点 H₂C₂O₄/HC₂O₄⁻ 落在 pH≈1.0，而答案键为 1.0×10⁻¹·²（pH 1.2）→ 不蒙数（不扩展 CurveIntentExtractor 的 Ka 意图）。last-resort 钩子置 `taskType=equilibrium`，整题因子问(1) 命中关键词经 OR 采纳翻 True。全库 dry-fire 仅 pdf-272 命中且判正，0 错采纳。 |
+| pdf-328 | calculation | P2-2 | 新增 [CombustionEmpiricalFormulaSolver.cs](file:///d:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/CombustionEmpiricalFormulaSolver.cs)：题干给齐燃烧数据（样品质量 + CO₂/H₂O 的量）→ 求实验式；pdf-328 凭文本即得 n(C):n(H):n(O)=0.18:0.16:0.04=9:8:2 → **C9H8O2**（恰等于答案，n=1），无需读质谱图。氧质量为负（数据矛盾）或最简比无法在容差内化整 → null（不蒙数）。last-resort 钩子置 `taskType=calculation`。全库 dry-fire 仅 pdf-328 命中且判正，0 错采纳。 |
+
+**本批次诚实登记（未解/延后，不蒙数）**：
+- **pdf-262**：T2 已修数据缺陷（官方答案、去重、answerKeywords 重切），但子问(2)(3)(4) 仍不可解（复杂平衡图像/多问）→ 整题保持 `gatewayCorrect=False`，不强行蒙数（符合 Non-Goal）。
+- **pdf-010 / pdf-156（P2-1 反应方程生成器）→ NO-GO**：答案键疑似数据错位（pdf-010 `(1)2FeCl3+3H2O` 与子问不匹配；pdf-156 答案 `N2H4·H2O` 重复），且方程式生成属高假阳性域，需独立「已验证反应库 + 窄门控」，延后到专项 spec。
+- **pdf-416（P2-3 concept_fact 窄事实）→ NO-GO**：choice 题（答案 C），单条事实无法驱动选项字母选择，对 pdf-416 零判分收益，延后。
 
 ### K.1 多部分大题·子问异构（引擎无子问分发与逐子问聚合）—— 最大簇
 
@@ -402,8 +427,8 @@
 | pdf-415 | calculation | 「除去的离子有」自由填空概念，非数值 | ✅ P1-4 已解出（概念事实库，见 §L.1） | §L.1 / §K.2（上表已更新） |
 | pdf-197 | choice | 题干拼接两道题，answer/options/note 错配 | 数据管道拆分 | §A.2 |
 | pdf-263 | choice | 多陈述选择题「正确的有几项」，非纯数值；键自相矛盾 | chem-fact-curation / 原页核型 | §C |
-| pdf-355 | equation_writer | 题干拼接两题（填空+选择），answer 错配前半填空 | 数据管道拆分 | §E |
-| pdf-356 | equation_writer | 题干拼接两题 + 后半选择依赖缺失路线图 | 数据管道拆分 + 图像轨道 | §E |
+| pdf-355 | equation_writer | ✅ 题干拼接已清理（填空半自洽、后半选择剥离，见 §E / V 类）；引擎未解属方程域 KB 缺口，非数据缺陷 | 方程域 KB 补全（受唯一命中 + LOSS=0 约束） | §E（已清理） |
+| pdf-356 | equation_writer | ✅ 题干拼接已清理（填空半补全①②、后半选择剥离，见 §E / V 类）；引擎未解属方程域 KB 缺口，非数据缺陷 | 方程域 KB 补全（受唯一命中 + LOSS=0 约束） | §E（已清理） |
 | pdf-463 | calculation | 大题碎片缺沉淀 pH / Ksp 数据 + 小写选项键 | P1-2 多部分分发 / 数据管道 | §E |
 | pdf-160 | unknown | checkpoint 题干仅存大题引语，(1)–(5) 子问被剥离，键跨 5 子问 | P1-2 多部分分发 / 数据管道补全 | §G① |
 | pdf-165 | unknown | 大题碎片 + 跨题答案污染（键属 Cu/Ag 提萃大题） | 数据管道键修复；P1-2 | §E |
@@ -450,7 +475,6 @@
 
 | id | diagnose taskType | 跳过原因（探针留痕） | 已有登记 |
 |----|-------------------|----------------------|----------|
-| pdf-134 | judgment | 子题 (9) 图像依赖 + (5)(11) 方程 Unicode 解析失败 → 陈述集合不完整，无法干净聚合 | T3 留痕（本类新增索引） |
 | pdf-478 | judgment | 子题 (2)(8) 图像依赖 + (6) 方程抽取失败 → 保持 null | T3 留痕（本类新增索引） |
 | pdf-196 | calculation | 氮循环选择题，**options 为空**（T1 探针核实）→ 无法策展 | T1 留痕（本类新增索引） |
 | pdf-416 | choice | 实验操作顺序，子问缺父大题上下文，无可靠唯一 stemMatch 锚点 | T1 留痕（本类新增索引） |
@@ -475,19 +499,24 @@
 
 | 处置类别 | 题数 | 题号 |
 |----------|------|------|
-| 解出（K.0） | 8 | pdf-044, 090, 147, 155, 188, 319, 354, 480 |
+| 解出（K.0） | 9 | pdf-044, 090, 147, 155, 188, 319, 354, 480, 134 |
 | 多部分大题子问异构（K.1） | 27 | pdf-024, 025, 070, 098, 146, 156, 166, 167, 168, 169, 190, 207, 228, 244, 258, 260, 261, 262, 272, 275, 328, 418, 461, 464, 484, 506, 532 |
 | 纯计算/定量域（K.2） | 5 | pdf-030, 415, 517, 535, 543 |
 | 方程书写 KB 不可行（K.3） | 4 | pdf-084, 526, 527, 010 |
 | 占位噪声 T6 降级（K.4） | 4 | pdf-010, 163, 175, 272 |
 | 概念/自由填空问法（K.5） | 2 | pdf-274, 107 |
-| 探针跳过留痕（K.6） | 6 | pdf-134, 478, 196, 416, 405, 531 |
+| 探针跳过留痕（K.6） | 5 | pdf-478, 196, 416, 405, 531 |
 | T2 依赖图候选（K.7） | 7 | pdf-138, 255, 271, 303, 340, 357, 406 |
 
 > **去重说明**：pdf-010 同时属 K.3（多方程）与 K.4（占位噪声）；pdf-272 同时属 K.1（多子问）与 K.4（占位噪声）。二者在「未解题清单」与闭包集合中各计 1 次，上表按根因维度交叉列出，不重复计入 61。
-> **集合恒等式**：解出(8) + 未解题(53) = 61。未解题(53) = K.1(27) ∪ K.2(5) ∪ K.3(4) ∪ K.4(4) ∪ K.5(2) ∪ K.6(6) ∪ K.7(7)，各类求和 55，去重交叉项（pdf-010 同时属 K.3/K.4、pdf-272 同时属 K.1/K.4，各仅计 1 次）后 = 53，与 [unsolved_registered_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/unsolved_registered_ids.txt) 逐行一致；差集为空，0 静默遗漏。
+> **集合恒等式**：解出(9) + 未解题(52) = 61。未解题(52) = K.1(27) ∪ K.2(5) ∪ K.3(4) ∪ K.4(4) ∪ K.5(2) ∪ K.6(5) ∪ K.7(7)，各类求和 54，去重交叉项（pdf-010 同时属 K.3/K.4、pdf-272 同时属 K.1/K.4，各仅计 1 次）后 = 52，差集为空，0 静默遗漏。
 >
-> **【P1-4 后续更新】** K.2 中的 pdf-415 / pdf-535 / pdf-543 已由 P1-4 自由填空概念求解器解出（见 §L.1），现行未解题 = 53 − 3 = 50；本行及上表为 P1-1 交付时点的闭包快照（61 全覆盖、0 静默遗漏依然成立），[unsolved_registered_ids.txt] 同步冻结为该时点清单。
+> **【P1-4 后续更新】** K.2 中的 pdf-415 / pdf-535 / pdf-543 已由 P1-4 自由填空概念求解器解出（见 §L.1），该时点现行未解题 = 53 − 3 = 50。
+> **【judge134 后续更新】** 原列于 K.6 的 pdf-134（judgment）已由后续 T3 判断陈述事实策展解出（JS-027~041，见 K.0），从 K.6 移入 K.0；K.8 上表与集合恒等式已同步更新为 9 解出 / 52 未解题。计入 P1-4 的 3 道后，**现行未解题 = 52 − 3 = 49**。[unsolved_registered_ids.txt] 与 [t8_partition.*] 为 P1-1/T8 交付时点闭包快照（61 全覆盖、0 静默遗漏依然成立），未随后续增益重写。
+> **【vsepr509 后续更新】** pdf-509（vsepr，AsCl₃ 键角比 BCl₃ 小的原因）已由后续路由修复解出（`case "vsepr"` 兜底到已存在的 `TrySolveBondAngleReason`，见 K.0）。**该题不在原 61 闭包清单内**（闭包快照 `unsolved_registered_ids.txt` / `t8_partition.txt` 均不含 pdf-509，已核对），属闭包后新发现并修复的引擎缺口，故 K.0 解出清单由 9→10，但 K.8 上表的「解出 9 / 未解题 52」与集合恒等式「解出(9) + 未解题(52) = 61」仍按 61 闭包快照保持成立（pdf-509 不参与该 61 的加减）。闭包快照文件未重写。
+> **【routing-fallbacks 后续更新】** d5-1 / d5-2（calculation，标况相态陷阱：SO₃ 标况为固体、己烷标况为液体 → 22.4 L 非 1 mol 气体）与 d7-4（structure_verify，手性碳事实）已由后续路由兜底修复解出（`case "calculation"` 末尾兜底 `BuildTrapResponse`、`default` 分支兜底 `ConceptFactSolver.TrySolve`，见 K.0）。**这 3 道均不在原 61 闭包清单内**（闭包快照 `unsolved_registered_ids.txt` / `t8_partition.txt` 均不含，已核对），属闭包后新发现的引擎路由缺口，故 K.0 解出清单由 10→13，但 K.8 上表「解出 9 / 未解题 52」与集合恒等式「解出(9) + 未解题(52) = 61」仍按 61 闭包快照保持成立（这 3 道不参与该 61 的加减）。性质：这 3 道生产中 LLM 本已答对（`pureLlmCorrect=True`）但引擎返回 null → 修复后引擎判正（`gatewayUsedEngine` False→True、`gatewayCorrect` True 保持），是**引擎覆盖率增益**（engineSolved +3），净 `solved` 计数不变。全库 harm=0 / precision=1 保持：聚焦 eval `routing_focused`（仅重跑 3 道，余 754 道逐字沿用基线）LOST=[] / harm=0 / prec=1；全量 eval `routing_fallbacks`（757 道 live-LLM）harm=0 / prec=1，且所有 id 翻转均为 `engUsed` 不变的 LLM 侧纯方差，与代码改动无关。闭包快照文件未重写。
+>
+> **【已知引擎缺口·留待 Spec Mode】** pdf-134 子句 (5)(11) 的方程因 U+2212（MINUS SIGN）未被 `EquationCorrectnessJudge.NormalizeEquation` 归一化为 ASCII `-` 而解析失败 → 引擎返回 `null` → 走 `CompositeStatementJudge` 事实回退。**不得**仅修 U+2212 归一化：子句 (11) 的方程配平正确但语境错误（过量氧化剂→不彻底氧化），若无 `CorrectnessContextRules` 配套规则，单修复归一化会使 (11) 解析后判 √ = **harm**。该缺口留作后续独立 Spec（方程语境正确性规则 + Unicode 归一化），本轮不碰。
 
 ---
 
@@ -900,6 +929,31 @@ P2-1 仅示范 4 个有明确 knowledge_id/rule_id 真值源的 solver（Concept
 | pdf-520 | 官能团（羟基、羧基、碳碳双键）；题干截断，无图/无 molecule 资产。 | 无分子结构锚点。 | 图像轨道恢复；暂保留 `null`。 |
 | pdf-521 | 含氧官能团；`note` 指乳酸但 note 不可信，分子未在题干命名，无图/无资产。 | 无真实锚点；note 不可作锚。 | 图像轨道恢复；暂保留 `null`。 |
 | pdf-523 | 官能团 + 习惯命名；`note` 指异丙醇但 note 不可信，分子未在题干命名，无图/无资产。 | 无真实锚点；note 不可作锚。 | 图像轨道恢复；暂保留 `null`。 |
+
+---
+
+## V 类：engine-vs-LLM 比对·本批数据缺陷修复留痕（2026-11-26）
+
+> 触发：`_evalscratch/snapshot_engine_vs_llm_20261126.json` 比对暴露 4 类数据缺陷（5 个 id：pdf-146 / pdf-278 / pdf-355 / pdf-356 / pdf-337），其中 355/356 同属"题界拼接"一类。红线：precision=1 / harm=0 / LOSS=0，不蒙数、不逐题硬编码、不注入 verdict。
+>
+> **验证方法**：Release 构建后以 tag `verify_defects` 聚焦重跑——复用 752 条未变题目基线结果（`checkpoint_engine_vs_llm_20261126.jsonl`）作 checkpoint done，仅重跑 5 条改动题，对照基线逐例 diff。未跑全量回归前先逐题核对。
+>
+> **验证结果（757 题整体）**：`gatewayCorrect` 643→643（Δ=0，无引擎回归）、`engineSolved` 643→643（Δ=0）、`harmCount` 0→0（Δ=0）、`pureLlmCorrect` 627→626（Δ=-1）。唯一 pureLlmCorrect 翻转为 pdf-356，系**数据真值修正**（LLM 实际答错"五元环"，此前被游离关键词误判正），非回归。precision=1 维持。
+
+| id | 缺陷 | 修复 | 证据 | eval 影响 |
+|----|------|------|------|-----------|
+| pdf-146 | 工作区漂移：`answer`/`note`/`answerKeywords` 被串改为别题（page_049 num=13 品红褪色判断的 `"×"`），本题实为 SO₂ 实验 5 子问填空 | 恢复为官方答案 `(1)分液漏斗 (2)排出装置中的空气 (3)BaSO3 (4)b (5)0.032`，同步 note/keywords；`questions_parsed.json` `ans_page` 49→52 | 答案册 `pdfs/_extract/answer/page_052.json` num=13 逐字匹配 5 子问；(5) 独立化学核算 n(I₂)=2.5e-5→m=1.6e-3 g→0.032 g/kg ✓。**注：HEAD 已含正确值，本次为工作区漂移恢复（`git diff` 对该 id 无变更）** | 无变化 |
+| pdf-278 | 题干被截断：仅存 Ka 表格引言，5 个子问 (1)–(5) 缺失（answer/note/keywords 本已完整正确） | 用 exercise OCR 还原完整题干：`page_098` num=6（引言）+ `page_099` num=1–5（5 子问）；(5) 的 A–D 选项内联题干 | 5 子答案逐一核对答案册 `page_095` num=6：(1)HCN<H₂CO₃<CH₃COOH (2)CN⁻+CO₂+H₂O=HCO₃⁻+HCN (3)酸性（Ka2≫Kh）(4)pH=9.7 (5)c(CH₃COO⁻)=10⁻⁵−10⁻⁹、电离增大选 BD ✓ | pureLlm 由拒答（"请补充具体问题"，却含"酸性"误中关键词）→ 诚实作答；gatewayCorrect 不变 |
+| pdf-355 | 题界拼接：填空（乙二酸+乙醇 1:2 酯化）+ 选择（结构性质对应关系）硬拼一条；`answerKeywords` 含游离 `"C"` 致任何含碳答案误判正 | 移除后半选择（题干+options），保留填空半；`answerKeywords`→`["CH3CH2OOC-COOCH2CH3 + 2H2O"]` | 填空答案核对答案册 `page_122` num=2 ✓；后半选择答案册 `page_123` num=2 = `A,B,C,D`（见 V.1 deferred） | pureLlmCorrect 由游离 C 误判正→诚实判正；gatewayCorrect 不变 |
+| pdf-356 | 题界拼接 + 后半缺路线图：填空（乙二酸+乙二醇 ①环酯 ②缩聚）+ 选择（化合物 Z）；`answerKeywords` 含游离 `"C"` | 移除后半选择，填空半补全 ②缩聚句；`answerKeywords`→`["C4H4O4, (C4H2O3)n + (2n-1)H2O"]` | exercise `page_121` num=3+4；答案核对答案册 `page_122` num=3（六元环酯 C₄H₄O₄）✓；后半选择化合物 Z 答案册全库无对应（见 V.1 deferred） | pureLlmCorrect True→False：LLM 答"五元环"（错），此前游离 C 误判正；**诚实判错，数据真值修正**，gatewayCorrect 不变 |
+| pdf-337 | 图像依赖：①~⑥ 卤代烃结构以图像呈现但从未挂到题录 → LLM 拒答却被误判，引擎文本无解 | 裁剪 `page_116.png` ①~⑥ 全结构图 → `data/pdf_images/p116_n01_0.png`，两数据文件加 `"images": ["pdf_images/p116_n01_0.png"]` | VL（qwen3-vl-plus）验证 ①~⑥ 标号+结构完整可见，⑥ 含末端 Br；结构与答案册解析（②④⑥ 可消去、①③⑤ 不可）一致 ✓ | pureLlm 由拒答误判→正确答出 C（②④⑥）；引擎文本不读图仍 null（诚实），gatewayCorrect 不变、无回归 |
+
+### V.1 仍需官方原页/答案册的 deferred 项（不猜测、不自动修改）
+
+| 剥离来源 | 内容 | 阻塞原因 | 解除条件 |
+|----------|------|----------|----------|
+| pdf-355 后半选择 | "下列物质结构与性质**不**具有对应关系的是" A–D（甲苯/乙醛/HCOOH/油酸甘油酯） | 答案册 `page_123` num=2 = `A,B,C,D`（四项全对），但题面问"不具有对应关系"与全对答案矛盾，疑 OCR 多一"不"字 | 需习题册原页图像确认确切题面（具有/不具有）；确认后可新建独立题录并按答案册键判分 |
+| pdf-356 后半选择 | "化合物 Z 合成路线…下列说法正确的是" A–D（X/Y/Z 结构） | 答案册全库检索无该题答案，且 X/Y/Z 合成路线结构图未进入文本，无法定键 | 需用户提供该题原页（exercise 页）+ 答案册对应页，核对选项与键后新建题录 |
 
 ---
 

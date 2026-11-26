@@ -113,4 +113,75 @@ public class MultiPartAndScoringTests
         Assert.False(GatewayVsLlmEvaluationService.AllKeywordsHit("(1)√ (2)√ (3)√", c),
             "中间子问 × 被错写为 √ → 序列不匹配 → 不得采纳");
     }
+
+    // ===== T4：方程两侧物质书写顺序无关（仅 multi_part AND 路径；pdf-278 子问2 场景）=====
+
+    // TR-4.1 正例：产物顺序互换 → 命中
+    [Fact]
+    public void Equation_ProductOrderSwapped_Hits()
+    {
+        var c = Case("CN- + CO2 + H2O = HCO3- + HCN");
+        Assert.True(GatewayVsLlmEvaluationService.AllKeywordsHit(
+            "离子方程式：CN- + CO2 + H2O → HCN + HCO3-", c),
+            "产物 HCN/HCO3- 书写顺序与键相反 → 集合等价应命中");
+    }
+
+    // TR-4.1 正例：反应物顺序互换 → 命中
+    [Fact]
+    public void Equation_ReactantOrderSwapped_Hits()
+    {
+        var c = Case("CN- + CO2 + H2O = HCO3- + HCN");
+        Assert.True(GatewayVsLlmEvaluationService.AllKeywordsHit(
+            "CO2 + CN- + H2O → HCO3- + HCN", c));
+    }
+
+    // TR-4.2 反例（precision）：缺物质（缺 H2O）→ 不命中
+    [Fact]
+    public void Equation_MissingSpecies_NoHit()
+    {
+        var c = Case("CN- + CO2 + H2O = HCO3- + HCN");
+        Assert.False(GatewayVsLlmEvaluationService.AllKeywordsHit(
+            "CN- + CO2 → HCO3- + HCN", c), "缺 H2O → 不得命中（precision=1）");
+    }
+
+    // TR-4.2 反例（precision）：系数不符 → 不命中
+    [Fact]
+    public void Equation_WrongCoefficient_NoHit()
+    {
+        var c = Case("H2 + O2 = H2O");
+        Assert.False(GatewayVsLlmEvaluationService.AllKeywordsHit(
+            "2H2 + O2 → 2H2O", c), "系数 2H2/2H2O ≠ 键 H2/H2O → 不得命中（precision=1）");
+    }
+
+    // TR-4.2 反例：反应物/产物侧写反 → 不命中（侧间不可互换）
+    [Fact]
+    public void Equation_ReversedDirection_NoHit()
+    {
+        var c = Case("CN- + CO2 + H2O = HCO3- + HCN");
+        Assert.False(GatewayVsLlmEvaluationService.AllKeywordsHit(
+            "HCN + HCO3- → CN- + CO2 + H2O", c), "侧间写反 → 不得命中");
+    }
+
+    // TR-4.3：非方程关键词不受方程回退影响，普通子串匹配语义不变
+    [Fact]
+    public void NonEquationKeyword_UnchangedByEquivalenceFallback()
+    {
+        var c = Case("10^-5 - 10^-9 BD", "9.7");
+        Assert.True(GatewayVsLlmEvaluationService.AllKeywordsHit(
+            "c(CH3COO⁻) = 10^-5 - 10^-9 BD；pH 9.7", c));
+        Assert.False(GatewayVsLlmEvaluationService.AllKeywordsHit(
+            "c(CH3COO⁻) = 10^-5 - 10^-9 BD", c), "缺 9.7 → AND 不命中");
+    }
+
+    // TR-4.3：方程等价扩展仅作用于 AllKeywordsHit（AND），不泄漏到 IsAnswerCorrect（OR）
+    [Fact]
+    public void OrPath_NotAffectedByEquationFallback()
+    {
+        var c = Case("CN- + CO2 + H2O = HCO3- + HCN");
+        var swapped = "CN- + CO2 + H2O → HCN + HCO3-";
+        Assert.False(GatewayVsLlmEvaluationService.IsAnswerCorrect(swapped, c),
+            "OR 路径：产物顺序不同 → 旧口径仍判负（不变）");
+        Assert.True(GatewayVsLlmEvaluationService.AllKeywordsHit(swapped, c),
+            "AND 路径：方程集合等价 → 新增命中");
+    }
 }

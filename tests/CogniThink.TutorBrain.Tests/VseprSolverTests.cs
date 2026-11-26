@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using CogniThink.TutorBrain.Application.Common;
 using CogniThink.TutorBrain.Application.Evaluation;
 using CogniThink.TutorBrain.Application.Gateway;
@@ -167,5 +168,75 @@ public class VseprSolverTests
         // 锁定：当前题库仅 pdf-509 命中（AsCl3 vs BCl3）；pdf-506 为多段碎片被多段守卫排除，
         // pdf-501 为选择题被排除。任何新增触发都必须先判明正确性。
         Assert.Equal(new[] { "pdf-509" }, firedIds.OrderBy(x => x));
+    }
+
+    // ============================================================
+    // 整题兜底变体（TrySolveBondAngleReasonForMultiPart，T5）：
+    // 允许多部分整题触发，按编号子问切片，仅在含「键角+原因+比较」的段内求解。
+    // 用于分发失败后的整题兜底（OR 采纳门），构造性零 LOST、零假阳性。
+    // ============================================================
+    private static EngineResponse? SolveBarMp(string raw) =>
+        VseprSolver.TrySolveBondAngleReasonForMultiPart(new EngineRequest { TaskType = "unknown", RawText = raw });
+
+    [Fact]
+    public void Pdf506_整题多段_键角比较原因_子问切片判正()
+    {
+        var c = Case("pdf-506");
+        Assert.NotNull(c);
+        // 原方法（非多段守卫）必须仍拒绝 pdf-506 整题 → 守卫零回归
+        Assert.Null(SolveBar(c!.Question));
+        // 整题变体：按编号子问切片后，sub-2（H2O vs SO4^2-）唯一解出
+        var r = SolveBarMp(c.Question);
+        Assert.NotNull(r);
+        Assert.True(r!.Ok);
+        Assert.Contains("孤电子对斥力大", r.FinalResult);
+        Assert.Contains("压缩键角", r.FinalResult);
+        Assert.True(Correct(r.FinalResult, c), "pdf-506 整题变体结论应命中答案键（OR 采纳）");
+    }
+
+    [Fact]
+    public void BondAngleReasonMultiPart_全题库无假阳性()
+    {
+        var cases = GatewayVsLlmEvaluationService.BuildTestCases();
+        Assert.NotEmpty(cases);
+
+        var firedIds = new List<string>();
+        foreach (var c in cases)
+        {
+            if (c.Type == "choice") continue; // 求解器不介入选择题
+            var r = SolveBarMp(c.Question);
+            if (r is null) continue;
+            firedIds.Add(c.Id);
+            Assert.True(Correct(r.FinalResult, c),
+                $"{c.Id} 整题变体返回 {r.FinalResult} 但未通过判分 → 损害精确率");
+        }
+
+        // 锁定：pdf-509（单段，与原方法一致）+ pdf-506（多段切片 sub-2）。
+        // 任何新增触发都必须先判明正确性（全库 dry-fire 已证零 baseFalse 误采纳）。
+        Assert.Equal(new[] { "pdf-506", "pdf-509" }, firedIds.OrderBy(x => x));
+    }
+
+    // ============================================================
+    // 路由回归：vsepr 分支必须兜底到 TrySolveBondAngleReason。
+    // 生产中 LLM 把 pdf-509 归为 vsepr（ClassifyTaskDeterministic 对该题判 unknown、不覆盖 LLM 判定），
+    // 而 VseprSolver.TrySolve 显式拒绝含「键角/原因」的题 → 若无兜底则 Ok=null 漏解。
+    // 修复：case "vsepr" 在 TrySolve 返回 null 后回退 BondAngleReason（其内置守卫保证域外一律 null → 零回归）。
+    // ============================================================
+    private static LlmGatewayService NewGateway() =>
+        (LlmGatewayService)RuntimeHelpers.GetUninitializedObject(typeof(LlmGatewayService));
+
+    [Fact]
+    public async Task Vsepr分支_键角原因题_兜底到BondAngleReason_pdf509()
+    {
+        var c = Case("pdf-509");
+        Assert.NotNull(c);
+        // 模拟生产路由：LLM 归 vsepr（确定性规则对该题判 unknown，不覆盖）
+        var req = new EngineRequest { TaskType = "vsepr", RawText = c!.Question };
+        var resp = await NewGateway().CallEngineAsync(req, new List<ImageAsset>());
+
+        Assert.NotNull(resp);
+        Assert.True(resp!.Ok == true, $"vsepr 键角原因题应兜底判正，got FinalResult={resp.FinalResult}");
+        Assert.Contains("孤电子对", resp.FinalResult);
+        Assert.True(Correct(resp.FinalResult, c), "vsepr 兜底结论应通过判分");
     }
 }

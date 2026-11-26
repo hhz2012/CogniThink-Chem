@@ -218,6 +218,21 @@
                        {"id": "JS-023", "match": ["制备并收集干燥的氨气"], "stemMatch": ["装有NO2的密闭烧瓶"], "verdict": false, "reason": "图中用P2O5干燥NH3，P2O5为酸性干燥剂会与碱性NH3反应，不能干燥NH3（应用碱石灰）。故该陈述错误（×）。"},
                        {"id": "JS-024", "match": ["灼热的木炭", "浓硝酸", "红棕色气体"], "stemMatch": [], "verdict": false, "reason": "红棕色NO2也可由浓硝酸受热分解产生，不能证明木炭与浓硝酸发生了反应。故该陈述错误（×）。"},
                        {"id": "JS-025", "match": ["红色石蕊试纸变蓝", "一定是铵盐"], "stemMatch": [], "verdict": false, "reason": "使湿润红色石蕊试纸变蓝的气体为NH3，但待测液不一定是铵盐（可能为其它铵态物质/有机胺），'一定'表述错误。故该陈述错误（×）。"},
-                       {"id": "JS-026", "match": ["合成少量氨气并检验氨气的存在"], "stemMatch": ["装有NO2的密闭烧瓶"], "verdict": true, "reason": "图为铁丝绒催化、N2:H2=1:3加热的合成氨（Haber）装置，可合成并检验NH3。故该陈述正确（√）。"}
+                       {"id": "JS-026", "match": ["合成少量氨气并检验氨气的存在"], "stemMatch": ["装有NO2的密闭烧瓶"], "verdict": true, "reason": "图为铁丝绒催化、N2:H2=1:3加热的合成氨（Haber）装置，可合成并检验NH3。故该陈述正确（√）。"},
+                       {"id": "JS-027", "match": ["澄清石灰水", "酸性 KMnO4", "区分"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "澄清石灰水与CO2、SO2均生成白色沉淀(CaCO3/CaSO3)，无法区分二者；只有酸性KMnO4可区分。故‘均可以区分’错误（×）。"},
+                       {"id": "JS-028", "match": ["饱和 Na2CO3", "除去", "CO2", "SO2"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "饱和Na2CO3溶液会吸收CO2(Na2CO3+CO2+H2O→2NaHCO3)，不能用于除去CO2中的SO2；应使用饱和NaHCO3溶液。故该陈述错误（×）。"},
+                       {"id": "JS-029", "match": ["葡萄酒", "防止", "氧化"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": true, "reason": "SO2具有还原性，可消耗葡萄酒中的溶解氧，抑制多酚等成分被氧化，起到保质作用。故该陈述正确（√）。"},
+                       {"id": "JS-030", "match": ["碳酸钡", "硫酸钡", "X射线"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "硫酸钡(BaSO4)不溶于胃酸，可用作钡餐；碳酸钡(BaCO3)溶于胃酸生成可溶性Ba2+使人中毒，不可内服。故‘均可’错误（×）。"},
+                       {"id": "JS-031", "match": ["少量 SO2", "Ca(ClO)2", "CaSO4"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": true, "reason": "少量SO2通入Ca(ClO)2，ClO-过量将SO2氧化为SO4^2-并生成CaSO4沉淀，部分ClO-被还原为Cl-，同时生成HClO；所给离子方程式原子、电荷均守恒且产物正确。故该陈述正确（√）。"},
+                       {"id": "JS-032", "match": ["K2SO3", "品红", "褪色"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "能使品红溶液褪色的气体除SO2外还有Cl2(如KMnO4/KClO与浓盐酸反应)等，不能由此验证钾盐一定是K2SO3。故该陈述错误（×）。"},
+                       {"id": "JS-033", "match": ["待测液", "BaCl2", "白色沉淀", "SO4"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "加BaCl2生成白色沉淀的离子还可能是CO3^2-、SO3^2-、Ag+(AgCl)等，不能据此断定待测液含SO4^2-。故该陈述错误（×）。"},
+                       {"id": "JS-034", "match": ["SO2", "BaCl2", "Ba(NO3)2", "不产生沉淀"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "SO2通入BaCl2不反应(弱酸不制强酸)，但Ba(NO3)2中NO3-在SO2溶于水形成的酸性条件下将SO2氧化为SO4^2-，与Ba2+生成BaSO4沉淀。故‘也不产生沉淀’错误（×）。"},
+                       {"id": "JS-035", "match": ["装置", "制备并收集 SO2"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "图示用排水法收集SO2，但SO2易溶于水，不能用排水法收集(应向上排空气法)。故该陈述错误（×）。"},
+                       {"id": "JS-036", "match": ["胆矾", "纸张", "原理相同"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "胆矾(CuSO4·5H2O)变白是浓硫酸的吸水性(吸去结晶水)；纸张变黑是浓硫酸的脱水性(按H:O=2:1脱去有机物中H、O生成C)。二者原理不同。故该陈述错误（×）。"},
+                       {"id": "JS-037", "match": ["Na2SO3", "吸收足量的 Cl2"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "足量Cl2应将SO3^2-完全氧化为SO4^2-；所给方程仅部分氧化(生成HSO3-)，与‘足量Cl2’语境不符。故该陈述错误（×）。"},
+                       {"id": "JS-038", "match": ["盐酸酸化", "Na2SO3", "变质"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": true, "reason": "检验Na2SO3是否变质(被氧化为Na2SO4)：加足量盐酸酸化的BaCl2，盐酸除去SO3^2-，若产生不溶于酸的BaSO4白色沉淀则证明含SO4^2-即已变质。方法正确（√）。"},
+                       {"id": "JS-039", "match": ["品红溶液", "褪色", "该气体为 SO2"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "能使品红溶液褪色的气体除SO2外还有Cl2、O3等，不能断定该气体一定是SO2。故该陈述错误（×）。"},
+                       {"id": "JS-040", "match": ["Na2S2O3", "稀硫酸", "氧化性"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "Na2S2O3+H2SO4→Na2SO4+S↓+SO2↑+H2O，浑浊由S2O3^2-歧化(S由+2→0和+4)产生，H2SO4中S仍为+6，未作氧化剂。故‘H2SO4具有氧化性’错误（×）。"},
+                       {"id": "JS-041", "match": ["铜和浓硫酸", "将水倒入", "观察溶液颜色"], "stemMatch": ["葡萄酒", "碳酸钡"], "verdict": false, "reason": "反应后试管中残留浓硫酸，直接将水倒入会因浓硫酸遇水暴沸而飞溅伤人；应将反应液缓慢倒入水中。操作错误（×）。"}
                    ]
 }

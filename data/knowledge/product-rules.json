@@ -36,6 +36,11 @@
       "id": "pw-nacn-co2-little",
       "left": ["CN^-", "CO2", "H2O"],
       "right": ["HCN", "HCO3^-"]
+    },
+    {
+      "id": "pw-nahco3-baoh2-equimolar",
+      "left": ["HCO3^-", "Ba^2+", "OH^-"],
+      "right": ["BaCO3", "H2O"]
     }
   ]
 }

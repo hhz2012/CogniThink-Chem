@@ -61,6 +61,7 @@ public sealed partial class LlmGatewayService
                 "【多部分分发】逐子问经确定性求解器求解；整题结论由各子问结论聚合，评估侧按答案键 AND 校验后采纳"
             },
             ConstraintNote = "【多部分分发聚合】仅当全部子问均唯一解出时产出；任一子问未解则整体 null（不蒙数、不输出部分答案）",
+            ResultProvenance = MultiPartUtility.MultiPartTaskType,
             Confidence = 1.0
         };
     }

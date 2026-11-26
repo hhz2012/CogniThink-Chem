@@ -184,6 +184,10 @@ public static class ProductWriterSolver
         if ((text.Contains("NaCN") || Regex.IsMatch(text, @"CN-")) && text.Contains("CO2") && text.Contains("少量"))
             return Rules.Value.TryGetValue("pw-nacn-co2-little", out var n) ? n : null;
 
+        // 碳酸氢钠 + 等物质的量氢氧化钡：1 mol HCO3- 中和 1 mol OH-，Ba2+ 与生成的 CO3^2- 沉淀（1:1 产物唯一）
+        if (text.Contains("NaHCO3") && text.Contains("Ba(OH)2") && text.Contains("等物质的量"))
+            return Rules.Value.TryGetValue("pw-nahco3-baoh2-equimolar", out var b) ? b : null;
+
         return null;
     }
 }
