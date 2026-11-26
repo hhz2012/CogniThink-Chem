@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -129,5 +130,93 @@ public class MoleculeGatewayTests
             new List<ImageAsset> { asset },
         });
         Assert.Null(result);
+    }
+
+    /// <summary>TR-1.1/TR-1.2：多个 molecule 资产 → 分析全部，官能团取并集（去重保序），名称拼接，结论分块。</summary>
+    [Fact]
+    public async Task 多分子资产_聚合官能团并集去重保序()
+    {
+        // 曲美托嗪（醚键/酰胺基/苯环/肽键） + 2,4,6-三溴苯酚（羟基/苯环/碳溴键，命名命中）
+        var a = MakeMoleculeAsset("{\"smiles\":\"O=C1N(Cc2cc(OC)c(OC)c(OC)c2)CCOC1\"}");
+        var b = MakeMoleculeAsset("{\"smiles\":\"Oc1c(Br)cc(Br)cc1Br\"}");
+        var req = new EngineRequest { RawText = "分析各分子的官能团", TaskType = "fill" };
+
+        var resp = await NewGateway().CallEngineAsync(req, new List<ImageAsset> { a, b });
+
+        Assert.True(resp.Ok == true, resp.FinalResult);
+        Assert.Equal("molecule", resp.AssetKind);
+        Assert.NotNull(resp.MoleculeFunctionalGroups);
+        // 并集：两个分子各自的特征都出现（醚键仅 A，羟基仅 B）
+        Assert.Contains("醚键", resp.MoleculeFunctionalGroups);
+        Assert.Contains("羟基", resp.MoleculeFunctionalGroups);
+        // 去重：苯环两分子都有，只出现一次
+        Assert.Single(resp.MoleculeFunctionalGroups!.Where(g => g == "苯环"));
+        // 保序：A 的特征先于 B 的特征
+        var idxEther = Array.IndexOf(resp.MoleculeFunctionalGroups, "醚键");
+        var idxHydroxyl = Array.IndexOf(resp.MoleculeFunctionalGroups, "羟基");
+        Assert.True(idxEther >= 0 && idxHydroxyl >= 0 && idxEther < idxHydroxyl,
+            $"醚键@{idxEther} 应先于 羟基@{idxHydroxyl}");
+        // 名称拼接：B 的命名被纳入
+        Assert.Contains("2,4,6-三溴苯酚", resp.MoleculeName ?? "");
+        // 结论分块：含 (1)(2)
+        Assert.Contains("(1)", resp.FinalResult);
+        Assert.Contains("(2)", resp.FinalResult);
+    }
+
+    /// <summary>TR-1.3：部分资产解析失败 → 仅成功资产贡献特征，不臆造；单成功走单分子分支。</summary>
+    [Fact]
+    public void 多分子资产_部分失败_仅成功资产贡献()
+    {
+        var bad = MakeMoleculeAsset("{\"smiles\":\"not_a_valid_smiles_###\"}");
+        var good = MakeMoleculeAsset("{\"smiles\":\"O=C1N(Cc2cc(OC)c(OC)c(OC)c2)CCOC1\"}");
+        var svc = NewGateway();
+        var m = typeof(LlmGatewayService).GetMethod(
+            "TryRouteMolecule", BindingFlags.NonPublic | BindingFlags.Instance)!;
+
+        var result = (EngineResponse?)m.Invoke(svc, new object[]
+        {
+            new EngineRequest { RawText = "分析该分子", TaskType = "fill" },
+            new List<ImageAsset> { bad, good },
+        });
+
+        Assert.NotNull(result);
+        Assert.True(result!.Ok == true, result.FinalResult);
+        Assert.Contains("醚键", result.MoleculeFunctionalGroups ?? Array.Empty<string>());
+        // 仅一个成功资产 → 走单分子分支，ConstraintNote 不含"聚合"
+        Assert.DoesNotContain("聚合", result.ConstraintNote ?? "");
+    }
+
+    /// <summary>TR-1.3：全部资产解析失败 → 返回 null，不臆造。</summary>
+    [Fact]
+    public void 多分子资产_全部失败_回退null()
+    {
+        var bad1 = MakeMoleculeAsset("{\"smiles\":\"not_a_valid_smiles_###\"}");
+        var bad2 = MakeMoleculeAsset("{\"smiles\":\"also_bad_$$$\"}");
+        var svc = NewGateway();
+        var m = typeof(LlmGatewayService).GetMethod(
+            "TryRouteMolecule", BindingFlags.NonPublic | BindingFlags.Instance)!;
+
+        var result = m.Invoke(svc, new object[]
+        {
+            new EngineRequest { RawText = "分析该分子", TaskType = "fill" },
+            new List<ImageAsset> { bad1, bad2 },
+        });
+
+        Assert.Null(result);
+    }
+
+    /// <summary>TR-2.2/AC-3：单个 molecule 资产 → 走单分子分支，不进入聚合（与旧行为一致）。</summary>
+    [Fact]
+    public async Task 单分子资产_不进入聚合分支()
+    {
+        var a = MakeMoleculeAsset("{\"smiles\":\"O=C1N(Cc2cc(OC)c(OC)c(OC)c2)CCOC1\"}");
+        var req = new EngineRequest { RawText = "分析该分子", TaskType = "fill" };
+
+        var resp = await NewGateway().CallEngineAsync(req, new List<ImageAsset> { a });
+
+        Assert.True(resp.Ok == true, resp.FinalResult);
+        Assert.Equal("molecule", resp.AssetKind);
+        Assert.DoesNotContain("聚合", resp.ConstraintNote ?? "");
+        Assert.Contains("醚键", resp.MoleculeFunctionalGroups ?? Array.Empty<string>());
     }
 }
