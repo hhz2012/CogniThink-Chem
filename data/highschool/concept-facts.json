@@ -307,6 +307,24 @@
       "answer": "操作更简便，反应条件更温和",
       "derivation": ["相比于方案 3，方案 2 操作更简便", "且反应条件更温和"],
       "constraint": "【高中限定】该流程方案对比语境"
+    },
+    {
+      "id": "fact-molten-becl2-nacl-lower-mp",
+      "kind": "fact",
+      "required": ["电解熔融", "氯化铍", "氯化钠"],
+      "requiredAny": ["作用", "目的"],
+      "answer": "降低熔点",
+      "derivation": ["电解熔融氯化铍时加入氯化钠（NaCl）作助熔剂", "NaCl 的主要作用是降低熔融温度（降低熔点），节约能耗"],
+      "constraint": "【高中限定】熔盐电解助熔语境"
+    },
+    {
+      "id": "fact-polyacetylene-monomer",
+      "kind": "fact",
+      "required": ["[ch=ch]n", "官能团", "单体"],
+      "requiredAny": [],
+      "answer": "碳碳三键, 乙炔",
+      "derivation": ["高分子 [CH=CH]n 为聚乙炔，其单体为乙炔（CH≡CH）", "乙炔含有的官能团名称为碳碳三键，单体的化学名称为乙炔"],
+      "constraint": "【高中限定】聚乙炔单体"
     }
   ]
 }

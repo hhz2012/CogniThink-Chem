@@ -208,4 +208,22 @@ M  END
         Assert.True(r.Success, r.FailReason);
         Assert.Null(r.MoleculeName);
     }
+
+    /// <summary>
+    /// batch3：σ 键数（补氢后 getNumBonds，每条连接 = 1 σ 键；双键/三键仍计 1 条连接）。
+    /// 覆盖 pdf-098（NH4Cl → [NH4+].[Cl-] 含 4 条 N–H σ 键）及常见共价分子口径。
+    /// </summary>
+    [Theory]
+    [InlineData("[NH4+].[Cl-]", 4)]
+    [InlineData("C", 4)]             // CH4：4 条 C–H
+    [InlineData("O=C=O", 2)]         // CO2：2 条 C=O（每条计 1 σ）
+    [InlineData("C=C", 5)]           // C2H4：1 C–C + 4 C–H
+    [InlineData("C#C", 3)]           // C2H2：1 C–C + 2 C–H
+    [InlineData("O", 2)]             // H2O：2 条 O–H
+    public void SigmaBondCount_补氢后计数正确(string smiles, int expected)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        Assert.Equal(expected, r.SigmaBondCount);
+    }
 }

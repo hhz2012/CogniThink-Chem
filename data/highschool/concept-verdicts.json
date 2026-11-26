@@ -11,6 +11,16 @@
         "故\"SiO2 为碱性氧化物\"的说法错误"
       ],
       "constraintNote": "【高中限定】SiO2 为酸性氧化物（仅与 HF 反应是特性）"
+    },
+    {
+      "id": "concept-verdict-iva-all-semiconductor-false",
+      "pattern": "ⅣA族[^。；\\n]{0,40}单质[^。；\\n]{0,30}都是[^。；\\n]{0,30}半导体材料",
+      "verdict": "×",
+      "derivationSteps": [
+        "ⅣA族（碳族）元素单质并非都是半导体材料：C（石墨/金刚石）为导体或绝缘体，Sn、Pb 为金属导体",
+        "只有 Si、Ge 等少数单质是半导体，故“ⅣA族元素的单质都是半导体材料”的说法错误"
+      ],
+      "constraintNote": "【高中限定】以偏概全：同族性质相似但有递变与特例"
     }
   ]
 }

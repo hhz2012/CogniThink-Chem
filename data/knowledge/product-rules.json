@@ -41,6 +41,11 @@
       "id": "pw-nahco3-baoh2-equimolar",
       "left": ["HCO3^-", "Ba^2+", "OH^-"],
       "right": ["BaCO3", "H2O"]
+    },
+    {
+      "id": "pw-fe-cu2-displacement",
+      "left": ["Fe", "Cu^2+"],
+      "right": ["Fe^2+", "Cu"]
     }
   ]
 }

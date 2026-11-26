@@ -49,6 +49,8 @@ public sealed class MoleculeAnalysisResult
     public int Sp2CarbonCount { get; init; }
     /// <summary>sp³ 杂化的碳原子数。</summary>
     public int Sp3CarbonCount { get; init; }
+    /// <summary>σ 键数 = RDKit getNumBonds（每条连接含且仅含 1 个 σ 键；双键/三键仍计 1 条连接）。</summary>
+    public int SigmaBondCount { get; init; }
 
     /// <summary>人类可读结论（含可被关键词命中的规范词：极性/非极性、sp³、不饱和度 Ω=n、官能团名）。</summary>
     public string FinalResult { get; init; } = "";
@@ -154,6 +156,15 @@ public static class MoleculeAnalyzer
         }
 
         var bondCount = (int)mol.getNumBonds();
+        // σ 键数需计入与隐式 H 的成键（RDKit 默认 H 隐式，getNumBonds 不含 X–H）。
+        // 对补氢后的副本计数：每条连接含且仅含 1 个 σ 键；失败回退到重原子键数。
+        int sigmaBondCount;
+        try
+        {
+            using var molH = RDKFuncs.addHs(mol);
+            sigmaBondCount = molH is null ? bondCount : (int)molH.getNumBonds();
+        }
+        catch { sigmaBondCount = bondCount; }
         for (int b = 0; b < bondCount; b++)
         {
             using var bond = mol.getBondWithIdx((uint)b);
@@ -248,6 +259,7 @@ public static class MoleculeAnalyzer
             AddableH2Count = addH2,
             Sp2CarbonCount = sp2c,
             Sp3CarbonCount = sp3c,
+            SigmaBondCount = sigmaBondCount,
             FinalResult = finalResult,
             MoleculeName = moleculeName,
         };

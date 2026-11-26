@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using CogniThink.Chem.Core.Parsing;
+using CogniThink.Chem.Core.Stoichiometry;
 
 namespace CogniThink.TutorBrain.Application.Gateway;
 
@@ -34,6 +36,8 @@ public static class StoichiometrySolver
         if (TrySymbolicDissolutionConcentration(raw, out var d)) matched.Add(("D 符号式气体溶解浓度", d));
         if (TryMixSpectatorIon(raw, out var e)) matched.Add(("E 混合旁观离子", e));
         if (TryChargeBalance(raw, out var f)) matched.Add(("F 电荷平衡", f));
+        // B5-Cluster3：化合物质量 → 基团物质的量 → 标况气体体积（pdf-172 等误归 unknown 后改判 calculation 的题）。
+        if (TryCompoundMassToGasVolume(raw, out var g)) matched.Add(("G 化合物质量→基团→标况体积", g));
 
         // 整题多模式并存（≥2）→ 返回 null，交多部分分发逐子问求解；零模式 → null（不蒙数）。
         if (matched.Count != 1) return null;
@@ -222,5 +226,67 @@ public static class StoichiometrySolver
             ? 1
             : int.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture);
         return m.Groups[2].Value == "+" ? num : -num;
+    }
+
+    // ---------- G. 化合物质量 → 目标基团物质的量 → 标况气体体积（pdf-172） ----------
+    // 题干给化合物质量 + 化合物分子式（可含结晶水·nH2O）+ 问「相当于固定/生成 X 气体 __ L(标准状况)」：
+    // X 气体的"定义元素"（gas 解析后第一个元素）在化合物中的计数 × 化合物物质的量 × 22.4 = 体积。
+    // 守卫极窄：必须同时有「标况」信号、体积问法、可解析化合物式、可解析目标气体、质量数；任一缺失 → null（不蒙数）。
+    private static bool TryCompoundMassToGasVolume(string raw, out string final)
+    {
+        final = "";
+        if (!raw.Contains("标准状况") && !raw.Contains("标况")) return false;
+        if (!Regex.IsMatch(raw, @"[Ll]\s*[（(]?\s*(?:标准状况|标况)")
+            && !raw.Contains("体积")
+            && !Regex.IsMatch(raw, @"_{2,}\s*[Ll]"))
+            return false;
+
+        // 目标气体：固定/吸收/生成/相当于/放出 + 气体式
+        var gasM = Regex.Match(raw, @"(?:固定|吸收|生成|相当于|放出)\s*([A-Z][A-Za-z0-9]{1,4})");
+        if (!gasM.Success) return false;
+        var gas = gasM.Groups[1].Value;
+        if (!FormulaParser.TryParse(gas, out var gasSp, out _) || gasSp is null) return false;
+        var defEl = gasSp.Elements.Keys.FirstOrDefault();
+        if (string.IsNullOrEmpty(defEl)) return false;
+
+        // 质量（kg / g）：收集全部候选，稍后为每个化合物式取紧邻其前的那个，
+        // 避免误取题干中更早出现的无关质量（如 pdf-172 蛇纹石 1.0 Kg 应取 0.466 kg）。
+        var masses = new List<(double grams, int end)>();
+        foreach (Match mm in Regex.Matches(raw, @"(\d+(?:\.\d+)?)\s*(kg|g)\b", RegexOptions.IgnoreCase))
+        {
+            if (!double.TryParse(mm.Groups[1].Value, NumberStyles.Float, CultureInfo.InvariantCulture, out var m0)) continue;
+            if (mm.Groups[2].Value.Equals("kg", StringComparison.OrdinalIgnoreCase)) m0 *= 1000;
+            if (m0 > 0) masses.Add((m0, mm.Index + mm.Length));
+        }
+        if (masses.Count == 0) return false;
+
+        // 化合物分子式：含括号或·的式（排除气体本身）；取第一个含定义元素且摩尔质量合理的
+        var fms = Regex.Matches(raw, @"[A-Z][A-Za-z0-9]*(?:\([A-Za-z0-9]+\)\d*)*(?:·\d*[A-Za-z0-9]+)*");
+        foreach (Match fm in fms)
+        {
+            var f = fm.Value;
+            if (f.Length < 4) continue;
+            if (f == gas) continue;
+            // 取紧邻该化合物式之前（窗口 30 字符内）且最靠近的质量；找不到则跳过该候选（不蒙数）
+            double? mass = null;
+            var bestEnd = -1;
+            foreach (var (g, end) in masses)
+            {
+                if (end <= fm.Index && fm.Index - end <= 30 && end > bestEnd)
+                { mass = g; bestEnd = end; }
+            }
+            if (mass is null) continue;
+            if (!FormulaParser.TryParse(f, out var sp, out _) || sp is null) continue;
+            if (!sp.Elements.TryGetValue(defEl, out var cnt) || cnt <= 0) continue;
+            if (!MoleCalculator.TryMolarMass(f, out var molarR, out _)) continue;
+            var molar = (double)molarR.Num / molarR.Den;
+            if (!double.IsFinite(molar) || molar <= 0) continue;
+            double n = mass.Value / molar;
+            double v = n * cnt * VM;
+            if (!double.IsFinite(v) || v <= 0) return false;
+            final = $"相当于固定 {gas} 的体积为 {v.ToString("0.0", CultureInfo.InvariantCulture)} L（标准状况）";
+            return true;
+        }
+        return false;
     }
 }

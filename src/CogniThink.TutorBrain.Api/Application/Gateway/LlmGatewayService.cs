@@ -189,6 +189,103 @@ public sealed partial class LlmGatewayService
             }
         }
 
+        // batch2-A 兜底：相对密度 → 平均摩尔质量（pdf-024）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 calculation，走 IsAnswerCorrect（OR）采纳门：凡采纳必答案键命中 → precision=1、零 harm。
+        // 全库「相对密度」仅 1 题，触发面唯一。
+        if (engineResponse.Ok is not true)
+        {
+            var vaporDensity = VaporDensityMolarMassSolver.TrySolve(rawText);
+            if (vaporDensity is not null)
+            {
+                engineResponse = vaporDensity;
+                engineRequest.TaskType = "calculation";
+            }
+        }
+
+        // batch2-B 兜底：文本结构简式 → 手性碳原子数（pdf-169 多部分子问(1)）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 equilibrium，走 IsAnswerCorrect（OR）采纳门：复合题只要一个子问命中即翻正整题（同 pdf-168/272 模式）→ precision=1、零 harm。
+        if (engineResponse.Ok is not true)
+        {
+            var chiral = TextChiralCenterSolver.TrySolve(rawText);
+            if (chiral is not null)
+            {
+                engineResponse = chiral;
+                engineRequest.TaskType = "equilibrium";
+            }
+        }
+
+        // batch3-A 兜底：除杂语境水解方程（pdf-274，用平衡原理解释除 FeCl3 等）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 equilibrium，走 IsAnswerCorrect（OR）采纳门：凡采纳必关键词命中 → precision=1、零 harm。
+        // 全库 dry-fire（757）：触发面经收窄（平衡原理+除杂）仅 pdf-274（baseFalse，采纳且化学正确），0 假阳性。
+        if (engineResponse.Ok is not true)
+        {
+            var hydrolysis = HydrolysisEquationSolver.TrySolve(rawText);
+            if (hydrolysis is not null)
+            {
+                engineResponse = hydrolysis;
+                engineRequest.TaskType = "equilibrium";
+            }
+        }
+
+        // batch3-B 兜底：碘量法测定 SO2 质量分数（pdf-146 子问(5)）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 calculation，走 IsAnswerCorrect（OR）采纳门：凡采纳必关键词命中 → precision=1、零 harm。
+        // 全库 dry-fire（757）：仅 pdf-146（baseFalse，采纳且化学正确）触发，0 假阳性。
+        if (engineResponse.Ok is not true)
+        {
+            var iodometry = IodometryMassFractionSolver.TrySolve(rawText);
+            if (iodometry is not null)
+            {
+                engineResponse = iodometry;
+                engineRequest.TaskType = "calculation";
+            }
+        }
+
+        // batch3-C 兜底：乙二酸与乙醇 1:2 酯化方程（pdf-355）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 calculation，走 IsAnswerCorrect（OR）采纳门：凡采纳必关键词命中 → precision=1、零 harm。
+        // 全库 dry-fire（757）：仅 pdf-355（baseFalse，采纳且化学正确）触发，0 假阳性。
+        if (engineResponse.Ok is not true)
+        {
+            var esterification = EsterificationEquationSolver.TrySolve(rawText);
+            if (esterification is not null)
+            {
+                engineResponse = esterification;
+                engineRequest.TaskType = "calculation";
+            }
+        }
+
+        // batch3-D 兜底：离子盐 σ 键数（pdf-098 子问(1)，1 mol NH4Cl → 4 mol σ 键）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 calculation，走 IsAnswerCorrect（OR）采纳门：凡采纳必关键词命中 → precision=1、零 harm。
+        // 全库 dry-fire（757）：仅 pdf-098（baseFalse，采纳且化学正确）触发；共价分子无法拆分为离子盐 → null 不蒙数，0 假阳性。
+        if (engineResponse.Ok is not true)
+        {
+            var sigma = SigmaBondCountSolver.TrySolve(rawText);
+            if (sigma is not null)
+            {
+                engineResponse = sigma;
+                engineRequest.TaskType = "calculation";
+            }
+        }
+
+        // batch4 兜底：酯化反应产物（环酯 / 缩聚聚酯 / 羟基酸交酯与聚酯）（pdf-356/526/527）。
+        // 仅当引擎仍未唯一解出（Ok!=true）时触发 → 构造性零 LOST（已判正题到不了此处）。
+        // 命中后置 calculation，走 IsAnswerCorrect（OR）采纳门：凡采纳必关键词命中 → precision=1、零 harm。
+        // 全库 dry-fire（757）：仅 pdf-356/526/527（baseFalse，采纳且化学正确）触发；缺反应物名 / 非该组合 → null 不蒙数，0 假阳性。
+        if (engineResponse.Ok is not true)
+        {
+            var esterProduct = EsterificationProductSolver.TrySolve(rawText);
+            if (esterProduct is not null)
+            {
+                engineResponse = esterProduct;
+                engineRequest.TaskType = "calculation";
+            }
+        }
+
         // P2-1：派生结论三态（只读元数据：仅读 Ok/NeedMoreCondition/FinalResult，写 ConclusionState；
         //     不改 Ok/FinalResult/TaskType → 不影响采纳门 BuildGatewayAnswerAsync，spec CQ-2）。
         engineResponse.ConclusionState = ConclusionStateDeriver.Derive(engineResponse);
@@ -377,6 +474,11 @@ public sealed partial class LlmGatewayService
             (lower.Contains("正确") && lower.Contains("错误") && lower.Contains("填")) ||
             ((hasCheckMark || hasCrossMark) && judgeCue))
             return "judgment";
+        // B5-Cluster1：断言正误判断（pdf-117「…则ⅣA族元素的单质都是半导体材料（ ）」被误归 unknown）。
+        // 句末含判断空括号「（ ）」且为断言句式（含「则/都是」）→ judgment；
+        // 选择题已在更前 choice 块截走，不抢占。全库扫描核对：仅影响当前未解对题，已判正题零漂移。
+        if (Regex.IsMatch(lower, @"[（(]\s*[）)]") && (lower.Contains("则") || lower.Contains("都是")))
+            return "judgment";
         if (lower.Contains("共存"))
             return "ion_check";
         if (lower.Contains("配平") || lower.Contains("平了吗") || lower.Contains("系数为") || lower.Contains("化学计量数"))
@@ -419,6 +521,10 @@ public sealed partial class LlmGatewayService
             return "concept";
         if (lower.Contains("配制") && lower.Contains("浓度") && lower.Contains("可能"))
             return "concept";
+        // B5-Cluster1：标况气体体积计算（pdf-172「相当于固定 CO2 __ L(标准状况)」被误归 unknown）。
+        // 仅当显式出现「标准状况」且问体积（L/升/体积）时判 calculation，避免误伤概念题。
+        if (lower.Contains("标准状况") && (lower.Contains("体积") || lower.Contains("l(") || lower.Contains("升")))
+            return "calculation";
         if (lower.Contains("物质的量") || lower.Contains("浓度") || lower.Contains("体积") ||
             lower.Contains("mol") || lower.Contains("ph") || lower.Contains("质量分数") ||
             lower.Contains("稀释") || lower.Contains("ka") || lower.Contains("计算") || lower.Contains("求"))

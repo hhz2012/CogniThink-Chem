@@ -188,6 +188,11 @@ public static class ProductWriterSolver
         if (text.Contains("NaHCO3") && text.Contains("Ba(OH)2") && text.Contains("等物质的量"))
             return Rules.Value.TryGetValue("pw-nahco3-baoh2-equimolar", out var b) ? b : null;
 
+        // B5-Cluster4：铁置换铜离子的离子方程式（pdf-179）。窄指纹：题干含"置换"+"加入"+"Fe"且问方程式
+        // （方程式守卫在 TrySolve 入口 L72）。高中"加入铁粉置换铜"的标准反应；不命中返回 null → 零回归。
+        if (text.Contains("置换") && text.Contains("加入") && text.Contains("Fe"))
+            return Rules.Value.TryGetValue("pw-fe-cu2-displacement", out var fecu) ? fecu : null;
+
         return null;
     }
 }

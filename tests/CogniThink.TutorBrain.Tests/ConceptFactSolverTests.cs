@@ -117,7 +117,8 @@ public class ConceptFactSolverTests
             "pdf-516",
             "pdf-278", // 题干补全后 Concept 正确解出子问(3)“KHC2O4 溶液呈酸性”(Ka2>Kb)，凡触发必判正
             "pdf-465","pdf-389","pdf-536",
-            "pdf-415","pdf-530","pdf-535","pdf-542","pdf-543" // P1-4：自由填空概念事实（唯一匹配 + 0 漂移 + 答案键命中，凡触发必判正）
+            "pdf-415","pdf-530","pdf-535","pdf-542","pdf-543", // P1-4：自由填空概念事实（唯一匹配 + 0 漂移 + 答案键命中，凡触发必判正）
+            "pdf-324","pdf-477","pdf-483" // B5-Cluster5：聚乙炔单体 / 熔盐电解助熔（降低熔点）；唯一匹配 + 答案键命中，凡触发必判正
         };
 
         var fired = new List<string>();
@@ -141,10 +142,10 @@ public class ConceptFactSolverTests
     // 数据驱动：事实全在 JSON，逻辑零硬编码
     // ============================================================
     [Fact]
-    public void 事实库_34条且分类分布符合预期()
+    public void 事实库_36条且分类分布符合预期()
     {
         var data = RuleStore.Load().Query<ConceptFactData>("concept-facts");
-        Assert.Equal(34, data.Entries.Count);
+        Assert.Equal(36, data.Entries.Count);
         Assert.Equal(5, data.Entries.Count(e => e.Kind == "ion_test"));
         Assert.Equal(2, data.Entries.Count(e => e.Kind == "ion_color"));
         Assert.Equal(3, data.Entries.Count(e => e.Kind == "concept_def"));
