@@ -121,6 +121,6 @@
 - **Evidence**: `_evalscratch/scenario_b_feasibility.txt` 或 spec 内评估章节
 
 ## Open Questions
-- [ ] 场景 A 探针 `GAIN` 是否 ≥ 1？（决定机制保留还是 FR-4 收口）
-- [ ] 引语回填是否需要门控（仅对 equation/calculation 子问，避免概念/判断题引语噪声）？（取决于探针 `newlyFiredWrong`）
-- [ ] 场景 B（跨 case 重组）是否启动？（取决于 A 的收益 + AC-7 评估 + 用户决策）
+- [x] 场景 A 探针 `GAIN` 是否 ≥ 1？→ **否**。两轮探针（b7_on / b7_gated）均 GAIN=0，且引入 pdf-278 回归 → 按 FR-4 回滚收口。证据 `_evalscratch/probe_context_refill.txt`。
+- [x] 引语回填是否需要门控（仅对 equation/calculation 子问，避免概念/判断题引语噪声）？→ 门控（分类用原子问、引语仅喂求解器，b7_gated）**仍 0 增益且仍回归 pdf-278**。根因是 scope drift 发生在求解器侧（求解器从引语 RawText 吸入额外信息过度产出），门控分类无法消除 → 门控不能挽救机制。
+- [x] 场景 B（跨 case 重组）是否启动？→ **NO-GO**。场景 A 已证恢复引语≈0 增益（同一瓶颈：Production 求解器不能从自由文本解析结构化输入）；无 parentId 匹配歧义高→潜在 harm；碎片数据质量差。详见 `_evalscratch/scenario_b_feasibility.txt` 与登记册 Z.5。若未来启动需独立 spec。

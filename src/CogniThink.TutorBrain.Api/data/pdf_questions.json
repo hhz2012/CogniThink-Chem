@@ -12442,7 +12442,17 @@
     ],
     "note": "该化合物含有1个酰胺基（—CONRR′）和4个醚键（—C—O—C—）；含1个碳碳双键、1个碳溴键（—C—Br）或溴原子（—Br）、1个酮羰基或羰基（—C=O）；含1个硝基（—NO₂）、1个酯基（—COOR）、1个碳氟键（—C—F）或氟原子（—F）和1个碳氯键（—C—Cl）或氯原子（—Cl）。但题目问的是含氧官能团，因此答案为硝基（—NO₂）、酯基（—COOR）",
     "type": "fill",
-    "answer": "氨基、羧基, 3-氨基苯甲酸"
+    "answer": "氨基、羧基, 3-氨基苯甲酸",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "3-氨基苯甲酸",
+          "smiles": "Nc1cccc(C(=O)O)c1",
+          "valid": true
+        }
+      }
+    ]
   },
   {
     "id": "pdf-324",
@@ -18219,7 +18229,17 @@
     ],
     "note": "[千问求解] 该有机物为乳酸（CH₃CH(OH)COOH），含羟基（—OH）和羧基（—COOH）两种含氧官能团。",
     "type": "fill",
-    "answer": "羟基、羧基"
+    "answer": "羟基、羧基",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "乳酸",
+          "smiles": "CC(O)C(=O)O",
+          "valid": true
+        }
+      }
+    ]
   },
   {
     "id": "pdf-522",
@@ -18257,7 +18277,17 @@
     ],
     "note": "[千问求解] 分子含—OH连在仲碳上，官能团为羟基；习惯命名按烃基+醇，异丙基对应异丙醇。",
     "type": "fill",
-    "answer": "羟基；异丙醇"
+    "answer": "羟基；异丙醇",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "异丙醇",
+          "smiles": "CC(C)O",
+          "valid": true
+        }
+      }
+    ]
   },
   {
     "id": "pdf-524",

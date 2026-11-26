@@ -4,7 +4,13 @@
 > 红线：precision=1 / harm=0 / LOST=0 / mp27 不退化。所有任务默认不提交，等用户明确要求。
 
 ## Task 1: 实现可开关引语回填 + 全库 ROI 探针
-- **Status**: `pending`
+- **Status**: `completed`
+- **Completion Evidence**:
+  - 实现（探针临时代码，Task 2 已回滚）：`MultiPartUtility.GetLeadingIntro` + `MultiPartDispatch` 环境变量开关 `COGNITHINK_REFILL_SUBQUESTION_CONTEXT`。
+  - TR-1.1（关闭态零回归）：env 未设时 `hasIntro=false` → `subReq` 与基线逐字一致（构造性）；回滚后 `b7_final` vs `b6baseline` diff `GAINED(0) / LOST(0)` 实证。
+  - TR-1.2：两轮探针四值齐全 — b7_on: GAIN=0 / LOST={pdf-278} / harm=0 / newlyFiredWrong=0；b7_gated: 同。证据 `_evalscratch/probe_context_refill.txt`。
+  - TR-1.3：两轮 `verify_mp27 b6baseline b7_on|b7_gated` 均 `PASS (27/27)`。
+  - TR-1.4（rubric）：5/5 — 四值齐全，pdf-278 scope-drift 明细可追溯（`_evalscratch/analyze_b7.py`、`dump_one.py`）。
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
@@ -21,7 +27,13 @@
 - **Notes**: 本任务产出的开关 + 回填代码是 Task 2「固化或回滚」的对象。探针用 Production（LLM-off）保证确定性与速度。
 
 ## Task 2: 依据探针数据固化或回滚机制
-- **Status**: `pending`
+- **Status**: `completed`
+- **Completion Evidence**:
+  - 决策（FR-4 回滚分支）：探针 GAIN=0 且引入 pdf-278 回归（门控亦无法避免 scope drift）→ 机制无 ROI，移除特性代码，恢复基线。
+  - TR-2.1 / TR-2.2：回滚后 `b7_final` vs `b6baseline` diff `LOST(0)`，summary `harm=0 / precision=1`。
+  - TR-2.3：`dotnet test -c Release` 2623 通过 / 0 失败 / 0 跳过（含全部既有护栏测试）。
+  - TR-2.4（rubric，AC-6）：5/5 — 去留决策与探针数据严格一致（GAIN=0+回归→回滚），记录于登记册 Z 类 + spec Open Questions。
+  - `git diff` 两改动文件内容为空（仅行尾提示）→ 生产代码零净变更。
 - **Priority**: high
 - **Depends On**: Task 1
 - **Description**:
@@ -38,7 +50,11 @@
 - **Notes**: 若走回滚分支，本任务完成后队列可能直接进入评审（无后续实现），此时 AC-7（场景 B 评估）仍由 Task 3 覆盖。
 
 ## Task 3: 场景 B（跨 case 碎片重组）可行性评估
-- **Status**: `pending`
+- **Status**: `completed`
+- **Completion Evidence**:
+  - TR-3.1：量化 — 未解碎片 12 题，相邻可恢复引言 11/12，文本可能足够（不缺图）9 题，缺图 2 题，无邻居 1 题。证据 `_evalscratch/scenario_b_feasibility.txt`。
+  - TR-3.2（rubric，AC-7）：4/5 — 明确 NO-GO，理由含：场景 A 零增益证据、无 parentId 匹配歧义（pdf-162 命中 3 个大题）、数据质量差、scope drift 风险放大。
+  - 纯只读，未改任何文件（报告写 `_evalscratch/`）。
 - **Priority**: medium
 - **Depends On**: None（可与 Task 1 并行）
 - **Description**:
@@ -52,7 +68,12 @@
 - **Notes**: 纯只读，不改任何文件（报告写 `_evalscratch/`）。
 
 ## Task 4: 全量回归验证（最终态）
-- **Status**: `pending`
+- **Status**: `completed`
+- **Completion Evidence**:
+  - TR-4.1：`diff_eval b6baseline b7_final` → `GAINED (0) / LOST (0)`；summary `harmCount=0 / precision=1`。
+  - TR-4.2：`verify_mp27 b6baseline b7_final` → `RESULT: PASS (27/27)`，无 True→False 回归。
+  - TR-4.3：`tests/` 下无本批引入的 `_Probe*` 残留（仅 `EquationEngineProbeTests.cs` 为前批预存，非本批）。
+  - `dotnet build -c Release` 0 错误；`dotnet test -c Release` 全绿。
 - **Priority**: high
 - **Depends On**: Task 2
 - **Description**:
@@ -68,7 +89,11 @@
 - **Notes**: 最终态若为回滚（与基线一致），则 GAIN 也=0，diff 应为全 0——此为有效验证，证明回滚干净。
 
 ## Task 5: 登记册回填 + spec 状态收尾
-- **Status**: `pending`
+- **Status**: `completed`
+- **Completion Evidence**:
+  - TR-5.1：`data-defect-register.md` 追加 **Z 类** 区段（Z.1–Z.7），记录探针数据、回滚决策、场景 B NO-GO、红线验证、证据指针。
+  - TR-5.2（rubric）：5/5 — 结论+数据+证据+下一步建议齐全（登记册 Z.6 + spec Open Questions 全部勾选解决）。
+  - spec.md Open Questions 3 项全部标记 [x] 并附数据结论。
 - **Priority**: low
 - **Depends On**: Task 4
 - **Description**:

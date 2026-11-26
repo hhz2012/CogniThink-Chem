@@ -1141,6 +1141,47 @@ pdf-322 / pdf-323 / pdf-519 / pdf-520 / pdf-521 / pdf-523：题干仅「中官�
 
 ---
 
+## Z 类：轨道1·多子问母题上下文恢复探针（2026-11-26）——机制验证净负，回滚收口
+
+> spec：[.trae/specs/multipart-context-recovery/spec.md](file:///d:/github/CogniThink-Chem/.trae/specs/multipart-context-recovery/spec.md)。证据均在 `_evalscratch/`（gitignore）。本批**最终不改任何生产代码 / 题录 / 答案键**（探针临时改动已全部回滚，`git diff` 内容为空）。
+
+### Z.1 动机
+batch6（Y 类）确认窄 solver/fact 增益枯竭，推荐架构转向轨道 1（多子问母题上下文恢复）。根因：`LlmGatewayService.MultiPartDispatch.TryDispatchMultiPartAsync` 逐子问请求只含子问碎片，丢弃了第一个 `(N)` 标记前的大题引语 → 子问求解器缺工艺流程/反应物上下文。X.3 实测配平器可用、缺的是上下文。
+
+### Z.2 探针设计与结果（全库 757 题，Production LLM-off）
+在 `MultiPartDispatch` 加环境变量开关 `COGNITHINK_REFILL_SUBQUESTION_CONTEXT=1`，默认关闭（=基线）。两轮：
+
+| 变体 | GAIN | LOST | mp27 | harm | summary precision |
+|------|------|------|------|------|-----------|
+| b7_on（引语同时喂分类器 + 求解器） | 0 | pdf-278 | 27/27 | 0 | 0.9985（gwCorr=668, engineSolved=669） |
+| b7_gated（分类用原子问，引语仅喂求解器） | 0 | pdf-278 | 27/27 | 0 | 1（gwCorr=668, engineSolved=668） |
+
+两轮 gatewayCorrect 均为 668（基线 669 少 pdf-278）、harmCount 均为 0；summary precision=gatewayCorrect/engineSolved，两轮 engineSolved 计数口径微差致比值不同，安全精度（harm=0）两轮均成立。
+
+两轮在 757 题上唯一差异 = pdf-278 判正→判负；其余 756 题逐字不变。最终回滚后 `b7_final` 与 `b6baseline` diff：GAINED(0) / LOST(0)，mp27=27/27，precision=1，harm=0 → 基线完全恢复。
+
+### Z.3 回归根因：pdf-278 答案范围漂移（scope drift）
+pdf-278（5 子问）基线由 multi_part 分发解出。引语回填后，子问 (1) 求解器从引语的**完整 Ka 表**吸入题未问的 HClO、H2C2O4，输出由「HCN < H2CO3 < CH3COOH」变为「HCN < HClO < H2CO3 < CH3COOH < H2C2O4」→ 不再命中答案键 → AND 门判负。化学排序本身正确，但评测走严格答案键匹配，「过度产出」即判负。门控分类无法消除（求解器仍从 RawText 读到引语）。→ **引语回填的固有机制风险**。
+
+### Z.4 零增益根因
+17 个「引语就在本 case 内」的完整大题（场景 A）两轮探针行为全部不变。整题主链路第一次 `CallEngineAsync`（LlmGatewayService.cs:106）已用含引语的完整题干求解并失败；子问再喂引语是**冗余上下文**。瓶颈不在「引语不可得」，而在 Production（LLM-off）求解器不能从自由文本引语解析结构化输入（reaction/known 依赖 LLM 解析或确定性关键词锚点）。
+
+### Z.5 场景 B（跨 case 碎片重组）评估：NO-GO
+- 未解碎片 12 题，11 题相邻 case 有可恢复引言，9 题文本可能足够（不缺图）。
+- 但：①场景 A 已证恢复引语 ≈ 0 增益（同一瓶颈）；②题录无 parentId，仅靠 id 邻近 + 编号重叠匹配歧义高（pdf-162 同时命中 3 个不同大题），误拼接 = 喂错上下文 → 潜在 harm；③碎片题数据质量差（答案错位 pdf-165/E 类、引语重复 pdf-412、题干截断 pdf-160/161）；④scope drift 风险在更长引语下放大。
+- 结论：场景 B 不启动；若未来做需独立 spec（题录 parentId 建模 + 跨 case 拼接 + 假阳性守卫），且先验证 Production 解析器能消费恢复的引语。详见 `_evalscratch/scenario_b_feasibility.txt`。
+
+### Z.6 结论
+轨道 1「运行时引语回填」机制经全库探针验证**净负（0 增益 + 1 回归）**，按 spec FR-4 回滚收口，不硬上场景 B。产出价值：用数据排除了一个架构方向，定位了真实瓶颈（Production 自由文本→结构化输入的解析能力，非上下文可得性），为后续方向（轨道 2 图像/结构 ingest，或新 spec「Production 散文抽取」）提供证据。
+
+### Z.7 红线验证
+- 回滚后 `b7_final` vs `b6baseline`：GAINED(0) / LOST(0)，precision=1，harm=0，mp27=27/27。
+- `dotnet test -c Release`：2623 通过 / 0 失败 / 0 跳过。
+- `git diff` 两改动文件内容为空（仅行尾提示）→ 生产代码零净变更。
+- 无本批引入的 `_Probe*` .cs 残留（`EquationEngineProbeTests.cs` 为前批预存，非本批）。
+
+---
+
 ## 处理原则（固化，防止回退到硬编码路线）
 
 1. **引擎是唯一真值源**：化学判定走 `IStatementJudge` 聚合器（事实库/计数/氧化还原电子），不向 `general-choice-facts` 追加单题策展条目。
