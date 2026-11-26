@@ -44,45 +44,17 @@ public sealed class LlmProxyService
         CancellationToken ct = default)
     {
         if (!IsAvailable) return null;
-
-        try
+        var messages = new object[]
         {
-            var url = $"{_options.BaseUrl!.TrimEnd('/')}/chat/completions";
-            var payload = new
-            {
-                model = _options.Model,
-                temperature,
-                max_tokens = maxTokens,
-                messages = new object[]
-                {
-                    new { role = "system", content = systemPrompt },
-                    new { role = "user", content = userPrompt }
-                }
-            };
-
-            using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);
-            cts.CancelAfter(TimeSpan.FromSeconds(_options.TimeoutSeconds));
-
-            using var req = new HttpRequestMessage(HttpMethod.Post, url);
-            req.Headers.Add("Authorization", $"Bearer {_options.ApiKey}");
-            req.Content = JsonContent.Create(payload);
-
-            var resp = await _http.SendAsync(req, cts.Token);
-            if (!resp.IsSuccessStatusCode) return null;
-
-            var dto = await resp.Content.ReadFromJsonAsync<ChatCompletionResponse>(cancellationToken: cts.Token);
-            var text = dto?.Choices?.FirstOrDefault()?.Message?.Content?.Trim();
-            return string.IsNullOrWhiteSpace(text) ? null : text;
-        }
-        catch
-        {
-            return null;
-        }
+            new { role = "system", content = systemPrompt },
+            new { role = "user", content = userPrompt }
+        };
+        return await PostChatAsync(messages, temperature, maxTokens, ct);
     }
 
     /// <summary>
-    /// 带配图调用 LLM。仅当 <see cref="SupportsVision"/> 为 true 且提供了图片时才走多模态，
-    /// 否则自动回退到纯文本 <see cref="ChatAsync"/>，对纯文本模型完全无感。
+    /// 带配图调用 LLM（图片来自磁盘相对路径）。仅当 <see cref="SupportsVision"/> 为 true
+    /// 且提供了可用图片时才走多模态，否则自动回退到纯文本 <see cref="ChatAsync"/>。
     /// </summary>
     /// <param name="imagePaths">图片相对路径（相对 data/ 目录，如 pdf_images/p007_n04_1.png）。</param>
     public async Task<string?> ChatWithImagesAsync(
@@ -107,15 +79,63 @@ public sealed class LlmProxyService
             try { bytes = await File.ReadAllBytesAsync(full, ct); }
             catch { continue; }
             if (bytes.Length == 0) continue;
-            var b64 = Convert.ToBase64String(bytes);
             var mime = rel.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ? "image/png" : "image/jpeg";
-            content.Add(new { type = "image_url", image_url = new { url = $"data:{mime};base64,{b64}" } });
+            content.Add(BuildImageContent(mime, bytes));
         }
 
         // 没有任何可用图片：退回纯文本
         if (content.Count == 1)
             return await ChatAsync(systemPrompt, userPrompt, temperature, maxTokens, ct);
 
+        var messages = new object[]
+        {
+            new { role = "system", content = systemPrompt },
+            new { role = "user", content }
+        };
+        return await PostChatAsync(messages, temperature, maxTokens, ct);
+    }
+
+    /// <summary>
+    /// 带配图调用 LLM（图片直接来自内存字节，如用户拍照上传）。仅当
+    /// <see cref="SupportsVision"/> 为 true 且提供了图片时走多模态，否则回退纯文本。
+    /// </summary>
+    /// <param name="images">图片列表，每项为 (MIME 类型, 字节数据)。</param>
+    public async Task<string?> ChatWithImageBytesAsync(
+        string systemPrompt,
+        string userPrompt,
+        IReadOnlyList<(string Mime, byte[] Data)>? images,
+        float temperature = 0.3f,
+        int maxTokens = 800,
+        CancellationToken ct = default)
+    {
+        if (!IsAvailable) return null;
+        if (!SupportsVision || images is null || images.Count == 0)
+            return await ChatAsync(systemPrompt, userPrompt, temperature, maxTokens, ct);
+
+        var content = new List<object> { new { type = "text", text = userPrompt } };
+        foreach (var img in images)
+        {
+            if (img.Data is null || img.Data.Length == 0) continue;
+            var mime = string.IsNullOrWhiteSpace(img.Mime) ? "image/jpeg" : img.Mime;
+            content.Add(BuildImageContent(mime, img.Data));
+        }
+
+        if (content.Count == 1)
+            return await ChatAsync(systemPrompt, userPrompt, temperature, maxTokens, ct);
+
+        var messages = new object[]
+        {
+            new { role = "system", content = systemPrompt },
+            new { role = "user", content }
+        };
+        return await PostChatAsync(messages, temperature, maxTokens, ct);
+    }
+
+    private static object BuildImageContent(string mime, byte[] bytes)
+        => new { type = "image_url", image_url = new { url = $"data:{mime};base64,{Convert.ToBase64String(bytes)}" } };
+
+    private async Task<string?> PostChatAsync(object messages, float temperature, int maxTokens, CancellationToken ct)
+    {
         try
         {
             var url = $"{_options.BaseUrl!.TrimEnd('/')}/chat/completions";
@@ -124,11 +144,7 @@ public sealed class LlmProxyService
                 model = _options.Model,
                 temperature,
                 max_tokens = maxTokens,
-                messages = new object[]
-                {
-                    new { role = "system", content = systemPrompt },
-                    new { role = "user", content }
-                }
+                messages
             };
 
             using var cts = CancellationTokenSource.CreateLinkedTokenSource(ct);

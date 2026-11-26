@@ -2,11 +2,12 @@ import Taro from '@tarojs/taro'
 
 /**
  * 推理导学后端地址
- * - 微信开发者工具 / 浏览器预览：http://localhost:5080
+ * - H5 浏览器预览：用空串走同源，由 dev server（config/dev.ts）把 /api 代理到 5080，
+ *   避免浏览器跨域 / 沙箱端口不可达
+ * - 微信开发者工具：http://localhost:5080（需在开发者工具勾选「不校验合法域名」）
  * - 真机调试：改为电脑局域网 IP，例如 http://192.168.1.10:5080
- * - 微信小程序需在开发者工具中勾选「不校验合法域名」，或在后台配置 request 域名
  */
-export const TUTOR_API_BASE = 'http://localhost:5080'
+export const TUTOR_API_BASE = Taro.getEnv() === Taro.ENV_TYPE.WEB ? '' : 'http://localhost:5080'
 
 // ==================== DTO ====================
 
@@ -112,6 +113,8 @@ export interface StudentSolveView {
   conclusion_state: 'Confirmed' | 'CandidateSet' | 'Insufficient'
   task_type: string
   final_result?: string | null
+  /** 引擎逐步推导过程（文字步骤），仅 Confirmed 时有值；空/缺省表示该题无逐步推导 */
+  derivation_steps?: string[]
   reasoning_nodes: ReasoningNodeDto[]
   candidates: string[]
   explanation_nodes: ReasoningNodeDto[]
@@ -180,6 +183,45 @@ export const tutorApi = {
   /** 题目求解（学生面：按结论状态裁剪，不泄露未采纳结论） */
   solve(text: string): Promise<StudentSolveView> {
     return request<StudentSolveView>('/api/gateway/solve', 'POST', { text })
+  },
+
+  /** 拍照 OCR：上传题目图片，返回视觉模型抽取的题干文本（供前端编辑后再求解） */
+  async ocrPhoto(tempFilePath: string): Promise<{ text: string; available: boolean }> {
+    const res = await Taro.uploadFile({
+      url: `${TUTOR_API_BASE}/api/gateway/ocr-photo`,
+      filePath: tempFilePath,
+      name: 'file',
+      timeout: 60000
+    })
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      let msg = `识别失败（${res.statusCode}）`
+      try { const d = JSON.parse(res.data); if (d?.message) msg = d.message } catch { /* ignore */ }
+      throw new Error(msg)
+    }
+    const data = JSON.parse(res.data) as { text?: string; available?: boolean }
+    return { text: data.text ?? '', available: !!data.available }
+  },
+
+  /** 拍照一键解题：OCR 抽题干 → 网关求解 → 返回学生面视图 */
+  async solvePhoto(
+    tempFilePath: string
+  ): Promise<{ ocrText: string; view: StudentSolveView; available: boolean; note?: string }> {
+    const res = await Taro.uploadFile({
+      url: `${TUTOR_API_BASE}/api/gateway/solve-photo`,
+      filePath: tempFilePath,
+      name: 'file',
+      timeout: 120000
+    })
+    if (res.statusCode < 200 || res.statusCode >= 300) {
+      let msg = `求解失败（${res.statusCode}）`
+      try { const d = JSON.parse(res.data); if (d?.message) msg = d.message } catch { /* ignore */ }
+      throw new Error(msg)
+    }
+    const data = JSON.parse(res.data) as {
+      ocrText?: string; view?: StudentSolveView; available?: boolean; note?: string
+    }
+    if (!data.view) throw new Error(data.note || '未能从图片中识别出可解的题目，请改用拍照识别后手动核对')
+    return { ocrText: data.ocrText ?? '', view: data.view, available: !!data.available, note: data.note }
   }
 }
 

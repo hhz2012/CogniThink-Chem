@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 // ============================================================
 // P2-4：前端接入网关求解 —— 学生面视图投影（只读、加性）
 // 把完整 GatewayResult 按 ConclusionState 裁剪为 StudentSolveView：
-//   Confirmed   → 下发 final_result + reasoning_nodes + explanation_nodes（确定结论可溯源）
+//   Confirmed   → 下发 final_result + derivation_steps + reasoning_nodes + explanation_nodes（确定结论可溯源）
 //   CandidateSet→ 下发 candidates（当前无生产路径，留空）+ explanation_nodes，不下发 final_result
 //   Insufficient→ 不下发 final_result / reasoning_nodes / explanation_nodes（不泄露未采纳结论），
 //                 仅透传 constraint_note 提示缺什么条件
@@ -29,6 +29,10 @@ public sealed class StudentSolveView
     /// <summary>推理 DAG（P2-1），仅 Confirmed 时下发。</summary>
     [JsonPropertyName("reasoning_nodes")]
     public List<ReasoningNode> ReasoningNodes { get; set; } = new();
+
+    /// <summary>引擎逐步推导过程（文字步骤），仅 Confirmed 时下发；空表示该题无逐步推导。</summary>
+    [JsonPropertyName("derivation_steps")]
+    public List<string> DerivationSteps { get; set; } = new();
 
     /// <summary>候选集（CandidateSet 时下；当前无生产路径，恒为空，预留）。</summary>
     [JsonPropertyName("candidates")]
@@ -73,6 +77,7 @@ public static class GatewaySolveProjector
                 // 引擎给出唯一可溯源结论（含 Ok=false 的确定判错）→ 可展示
                 view.FinalResult = resp.FinalResult;
                 view.ReasoningNodes = resp.ReasoningNodes;
+                view.DerivationSteps = resp.DerivationSteps;
                 view.ExplanationNodes = resp.ExplanationNodes;
                 break;
 

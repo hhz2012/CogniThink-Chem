@@ -231,3 +231,98 @@
   margin-bottom: 10px;
   font-weight: 600;
 }
+
+/* 拍照入口 */
+.photoRow {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.photoBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #EAF6FA;
+  border: 1px solid rgba(46, 167, 196, 0.25);
+  border-radius: 10px;
+  padding: 12px 0;
+  @include pressable;
+}
+
+.photoBtnDisabled {
+  opacity: 0.5;
+
+  &:active {
+    opacity: 0.5;
+    transform: none;
+  }
+}
+
+.photoBtnText {
+  font-size: 24px;
+  font-weight: 600;
+  color: #2EA7C4;
+}
+
+.preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 10px;
+  background: #f4f7f9;
+  border-radius: 10px;
+}
+
+.previewImg {
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.previewClear {
+  font-size: 22px;
+  color: #2EA7C4;
+  text-decoration: underline;
+}
+
+/* 解题过程：逐步推导 */
+.steps {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stepItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.stepIdx {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 50%;
+  background: #2EA7C4;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.stepText {
+  flex: 1;
+  font-size: 26px;
+  color: #1f2937;
+  line-height: 1.65;
+  padding-top: 4px;
+  word-break: break-all;
+}

@@ -68,6 +68,9 @@ builder.Services.AddSingleton<ChemicalReverseInferenceEngine>();
 // ==================== 话术层（可切换模型） ====================
 builder.Services.AddSingleton<RuleBasedNarrativeAgent>();
 var llm = builder.Configuration.GetSection("Llm").Get<LlmOptions>() ?? new LlmOptions();
+// 本地开发：配置文件中的 ApiKey 可能已过期，回退到环境变量 QWEN_API_KEY（活 key 不入库）
+if (string.IsNullOrWhiteSpace(llm.ApiKey))
+    llm.ApiKey = Environment.GetEnvironmentVariable("QWEN_API_KEY");
 builder.Services.AddSingleton(llm);
 if (llm.Enabled)
 {

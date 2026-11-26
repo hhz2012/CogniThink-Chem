@@ -33,6 +33,9 @@ var config = new ConfigurationBuilder()
     .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: false)
     .Build();
 var llmOptions = config.GetSection("Llm").Get<LlmOptions>() ?? new LlmOptions();
+// 与 API Program.cs 一致：配置文件中无 ApiKey 时回退到环境变量 QWEN_API_KEY（活 key 不入库）
+if (string.IsNullOrWhiteSpace(llmOptions.ApiKey))
+    llmOptions.ApiKey = Environment.GetEnvironmentVariable("QWEN_API_KEY");
 
 // ==================== 服务构造（复刻 Program.cs 的 DI 图，仅评估所需子集） ====================
 var kb = ChemicalKnowledgeBase.Load(apiDir);

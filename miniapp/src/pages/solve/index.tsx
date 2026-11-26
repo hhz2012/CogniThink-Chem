@@ -1,4 +1,5 @@
-import { View, Text, Textarea, ScrollView } from '@tarojs/components'
+import { View, Text, Textarea, ScrollView, Image } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { tutorApi, StudentSolveView, ReasoningNodeDto } from '../../services/tutorApi'
 import Collapse from '../../components/Collapse'
@@ -21,6 +22,8 @@ export default function Solve() {
   const [err, setErr] = useState('')
   const [showDag, setShowDag] = useState(false)
   const [showExplain, setShowExplain] = useState(false)
+  const [photoPath, setPhotoPath] = useState('')
+  const [ocrLoading, setOcrLoading] = useState(false)
 
   const run = async () => {
     const q = text.trim()
@@ -40,17 +43,99 @@ export default function Solve() {
     }
   }
 
+  // 拍照/选图 → OCR 抽题干 → 回填可编辑文本框（用户核对后再点“开始求解”）
+  const pickAndOcr = async () => {
+    try {
+      const res = await Taro.chooseImage({
+        count: 1,
+        sourceType: ['album', 'camera'],
+        sizeType: ['compressed']
+      })
+      const path = res.tempFilePaths?.[0]
+      if (!path) return
+      setPhotoPath(path)
+      setOcrLoading(true)
+      setErr('')
+      try {
+        const { text: extracted, available } = await tutorApi.ocrPhoto(path)
+        if (!available) setErr('后端未配置视觉模型，无法识别图片')
+        if (extracted) setText(extracted)
+      } catch (e) {
+        setErr(e instanceof Error ? e.message : '图片识别失败，请重试')
+      } finally {
+        setOcrLoading(false)
+      }
+    } catch {
+      /* 用户取消选图，忽略 */
+    }
+  }
+
+  // 拍照/选图 → 一键 OCR + 求解（快速尝鲜，建议核对 OCR 文本）
+  const pickAndSolve = async () => {
+    try {
+      const res = await Taro.chooseImage({
+        count: 1,
+        sourceType: ['album', 'camera'],
+        sizeType: ['compressed']
+      })
+      const path = res.tempFilePaths?.[0]
+      if (!path) return
+      setPhotoPath(path)
+      setLoading(true)
+      setErr('')
+      setView(null)
+      setShowDag(false)
+      setShowExplain(false)
+      try {
+        const { view: v, ocrText } = await tutorApi.solvePhoto(path)
+        setView(v)
+        if (ocrText) setText(ocrText)
+      } catch (e) {
+        setErr(e instanceof Error ? e.message : '拍照求解失败，请稍后重试')
+      } finally {
+        setLoading(false)
+      }
+    } catch {
+      /* 用户取消选图，忽略 */
+    }
+  }
+
   return (
     <View className={styles.page}>
       <ScrollView scrollY className={styles.body}>
         {/* ===== 输入区 ===== */}
         <View className={styles.card}>
-          <Text className={styles.label}>输入题目（文本）</Text>
+          <Text className={styles.label}>输入题目（文本 / 拍照）</Text>
+          <View className={styles.photoRow}>
+            <View
+              className={`${styles.photoBtn} ${ocrLoading || loading ? styles.photoBtnDisabled : ''}`}
+              onClick={ocrLoading || loading ? undefined : pickAndOcr}
+            >
+              <ModelIcon name="camera" size={18} color="#2EA7C4" />
+              <Text className={styles.photoBtnText}>{ocrLoading ? '识别中…' : '拍照识别'}</Text>
+            </View>
+            <View
+              className={`${styles.photoBtn} ${loading ? styles.photoBtnDisabled : ''}`}
+              onClick={loading ? undefined : pickAndSolve}
+            >
+              <ModelIcon name="zap" size={18} color="#2EA7C4" />
+              <Text className={styles.photoBtnText}>{loading ? '求解中…' : '拍照直解'}</Text>
+            </View>
+          </View>
+          {photoPath ? (
+            <View className={styles.preview}>
+              <Image className={styles.previewImg} src={photoPath} mode="aspectFit" />
+              <Text
+                className={styles.previewClear}
+                onClick={() => { setPhotoPath(''); setErr('') }}
+              >清除图片</Text>
+            </View>
+          ) : null}
           <Textarea
             className={styles.input}
             value={text}
             onInput={(e) => setText(e.detail.value)}
-            placeholder='粘贴一道化学题，例如：判断反应 2H₂ + O₂ = 2H₂O 是否配平…'
+            placeholder='粘贴或拍照识别一道化学题，例如：判断反应 2H₂ + O₂ = 2H₂O 是否配平…'
             maxlength={2000}
             autoHeight
           />
@@ -61,7 +146,7 @@ export default function Solve() {
             <Text className={styles.btnText}>{loading ? '求解中…' : '开始求解'}</Text>
           </View>
           <Text className={styles.hint}>
-            结论由化学引擎确定性求解得出；信息不足时不会给出猜测答案。
+            拍照后请核对识别出的文本，再点“开始求解”；结论由化学引擎确定性求解得出，信息不足时不会猜测。
           </Text>
         </View>
 
@@ -144,6 +229,24 @@ function Result({
           {view.result_provenance ? ` · 来源: ${view.result_provenance}` : ''}
         </Text>
       </View>
+
+      {/* ===== 逐步推导过程（引擎文字步骤；仅 Confirmed 下发）===== */}
+      {isConfirmed && view.derivation_steps && view.derivation_steps.length > 0 ? (
+        <View className={styles.card}>
+          <View className={styles.sectionTitleRow}>
+            <ModelIcon name="layers" size={18} color="#2EA7C4" />
+            <Text className={styles.sectionTitle}>解题过程</Text>
+          </View>
+          <View className={styles.steps}>
+            {view.derivation_steps.map((s, i) => (
+              <View key={i} className={styles.stepItem}>
+                <Text className={styles.stepIdx}>{i + 1}</Text>
+                <Text className={styles.stepText}>{s}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      ) : null}
 
       {/* ===== 教学话术（分级提示）===== */}
       {view.reply ? (
