@@ -106,21 +106,12 @@ export default function Solve() {
         {/* ===== 输入区 ===== */}
         <View className={styles.card}>
           <Text className={styles.label}>输入题目（文本 / 拍照）</Text>
-          <View className={styles.photoRow}>
-            <View
-              className={`${styles.photoBtn} ${ocrLoading || loading ? styles.photoBtnDisabled : ''}`}
-              onClick={ocrLoading || loading ? undefined : pickAndOcr}
-            >
-              <ModelIcon name="camera" size={18} color="#2EA7C4" />
-              <Text className={styles.photoBtnText}>{ocrLoading ? '识别中…' : '拍照识别'}</Text>
-            </View>
-            <View
-              className={`${styles.photoBtn} ${loading ? styles.photoBtnDisabled : ''}`}
-              onClick={loading ? undefined : pickAndSolve}
-            >
-              <ModelIcon name="zap" size={18} color="#2EA7C4" />
-              <Text className={styles.photoBtnText}>{loading ? '求解中…' : '拍照直解'}</Text>
-            </View>
+          <View
+            className={`${styles.photoPrimary} ${loading ? styles.photoBtnDisabled : ''}`}
+            onClick={loading ? undefined : pickAndSolve}
+          >
+            <ModelIcon name="camera" size={20} color="#fff" />
+            <Text className={styles.photoPrimaryText}>{loading ? '求解中…' : '拍照讲题'}</Text>
           </View>
           {photoPath ? (
             <View className={styles.preview}>
@@ -135,19 +126,21 @@ export default function Solve() {
             className={styles.input}
             value={text}
             onInput={(e) => setText(e.detail.value)}
-            placeholder='粘贴或拍照识别一道化学题，例如：判断反应 2H₂ + O₂ = 2H₂O 是否配平…'
+            placeholder='粘贴或输入一道化学题…'
             maxlength={2000}
             autoHeight
           />
+          <Text
+            className={`${styles.ocrLink} ${ocrLoading || loading ? styles.ocrLinkDisabled : ''}`}
+            onClick={ocrLoading || loading ? undefined : pickAndOcr}
+          >{ocrLoading ? '识别中…' : '先拍照识别，再编辑文本 ›'}</Text>
           <View
             className={`${styles.btn} ${loading || !text.trim() ? styles.btnDisabled : ''}`}
             onClick={loading || !text.trim() ? undefined : run}
           >
             <Text className={styles.btnText}>{loading ? '求解中…' : '开始求解'}</Text>
           </View>
-          <Text className={styles.hint}>
-            拍照后请核对识别出的文本，再点“开始求解”；结论由化学引擎确定性求解得出，信息不足时不会猜测。
-          </Text>
+          <Text className={styles.hint}>结论由引擎确定性求解，信息不足时不会猜测，仅供参考。</Text>
         </View>
 
         {err ? (
@@ -224,10 +217,6 @@ function Result({
           </>
         )}
 
-        <Text className={styles.meta}>
-          task_type: {view.task_type}
-          {view.result_provenance ? ` · 来源: ${view.result_provenance}` : ''}
-        </Text>
       </View>
 
       {/* ===== 逐步推导过程（引擎文字步骤；仅 Confirmed 下发）===== */}
