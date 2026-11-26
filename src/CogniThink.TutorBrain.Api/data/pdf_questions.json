@@ -12432,7 +12432,57 @@
     ],
     "note": "本题考查常见官能团识别及命名规则。需按优先次序表判断母体：-COOH＞-COO-＞-CONH2＞-CHO＞醇-OH/酚-OH＞-NH2＞碳碳三键/双键＞-Ph(苯基)＞烷基＞-X＞-NO2。多官能团分子以顺序靠前的为主官能团作母体，同时找最长碳链。例如(5)为苯酚三溴代物，(6)为邻苯二酚含两个酚羟基。",
     "type": "fill",
-    "answer": "(1)醚键、酰胺基,(2)碳碳双键、酮羰基(或羰基)、碳溴键(或溴原子),(3)硝基、酯基,(4)硝基、酮羰基(或羰基)、氨基、碳氯键(或氯原子),(5)2,4,6-三溴苯酚,(6)羟基(或酚羟基)邻苯二酚"
+    "answer": "(1)醚键、酰胺基,(2)碳碳双键、酮羰基(或羰基)、碳溴键(或溴原子),(3)硝基、酯基,(4)硝基、酮羰基(或羰基)、氨基、碳氯键(或氯原子),(5)2,4,6-三溴苯酚,(6)羟基(或酚羟基)邻苯二酚",
+    "imageAssets": [
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "曲美托嗪",
+          "smiles": "O=C1N(Cc2cc(OC)c(OC)c(OC)c2)CCOC1",
+          "valid": true
+        }
+      },
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "3-溴-2-环己烯酮",
+          "smiles": "O=C1C(Br)=CCCC1",
+          "valid": true
+        }
+      },
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "硝基氟氯代苯甲酸酯",
+          "smiles": "CC(=O)Oc1cc(Cl)c(F)c([N+](=O)[O-])c1",
+          "valid": true
+        }
+      },
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "硝基氨基氯代二苯甲酮",
+          "smiles": "Nc1ccc(C(=O)c2ccc(Cl)cc2)cc1[N+](=O)[O-]",
+          "valid": true
+        }
+      },
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "2,4,6-三溴苯酚",
+          "smiles": "Oc1c(Br)cc(Br)cc1Br",
+          "valid": true
+        }
+      },
+      {
+        "type": "molecule",
+        "payload": {
+          "name": "邻苯二酚",
+          "smiles": "Oc1ccccc1O",
+          "valid": true
+        }
+      }
+    ]
   },
   {
     "id": "pdf-323",
