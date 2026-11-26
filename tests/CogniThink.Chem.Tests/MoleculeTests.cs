@@ -95,4 +95,28 @@ public class MoleculeTests
         Assert.Equal(RiskTags.ParseError, report.RiskTag);
         Assert.NotEmpty(report.ErrorMessage);
     }
+
+    /// <summary>
+    /// 漂移守护：MoleculeAnalyzer 与 MoleculeValidator 共用 <see cref="FunctionalGroupVocabulary.InScope"/>，
+    /// 对一组覆盖各类官能团的分子，两者识别出的官能团名称集合应完全一致（顺序无关）。
+    /// 若未来有人改了其中一套词表，本测试会红，倒逼口径统一。
+    /// </summary>
+    [Theory]
+    [InlineData("CC(N)=O")]
+    [InlineData("COc1ccccc1")]
+    [InlineData("CN(C)C")]
+    [InlineData("CSC")]
+    [InlineData("NCC(=O)O")]
+    [InlineData("CC(=O)OCC")]
+    [InlineData("O=[N+]([O-])c1ccccc1")]
+    [InlineData("Nc1cccc(C(=O)O)c1")]
+    [InlineData("c1ccccc1")]
+    public void Analyzer与Validator_官能团集合一致(string smiles)
+    {
+        var a = MoleculeAnalyzer.Analyze(smiles);
+        var v = MoleculeValidator.Analyze(smiles);
+        Assert.True(a.Success, a.FailReason);
+        Assert.True(v.Success, v.FailReason);
+        Assert.Equal(new HashSet<string>(a.FunctionalGroups), new HashSet<string>(v.FunctionalGroups));
+    }
 }

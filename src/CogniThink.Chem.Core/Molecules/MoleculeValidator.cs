@@ -35,32 +35,17 @@ public sealed class MoleculeAnalysis
 /// 易错点：
 /// <list type="bullet">
 /// <item>羧基中的羟基不计入"羟基"（用 SMARTS 负向环境排除）。</item>
-/// <item>酯的烷氧基氧不计入"醚键"（要求两个邻碳均为 sp3）。</item>
+/// <item>酯的烷氧基氧不计入"醚键"（SMARTS 负向排除连羰基碳的氧；醚键两侧邻碳可为 sp³/sp²/芳基）。</item>
 /// <item>SMILES 解析失败（非法价态等）直接返回失败，引擎不猜测结构。</item>
 /// </list>
 /// </summary>
 public static class MoleculeValidator
 {
     /// <summary>
-    /// 高中课内官能团白名单：名称 → SMARTS。
+    /// 高中课内官能团白名单：引用 <see cref="FunctionalGroupVocabulary.InScope"/>（与 MoleculeAnalyzer 共用同一真相源）。
     /// 来源：人教版《化学·选择性必修三·有机化学基础》常见官能团。
     /// </summary>
-    private static readonly (string Name, string Smarts)[] WhitelistGroups =
-    {
-        ("碳碳双键", "C=C"),
-        ("碳碳三键", "C#C"),
-        ("羧基", "[CX3](=O)[OX2H]"),
-        ("醛基", "[$([CX3H1](=O)[#6]),$([CX3H2]=O)]"),
-        ("酯基", "[CX3](=O)[OX2][#6]"),
-        ("羟基", "[OX2H;!$([OX2H][CX3]=O)]"),
-        ("酮羰基", "[CX3](=O)([#6])[#6]"),
-        ("醚键", "[OD2]([CX4])[CX4]"),
-        ("卤原子", "[F,Cl,Br,I][#6]"),
-        ("硝基", "[$([NX3](=O)=O),$([NX3+](=O)[O-])]"),
-        ("氨基", "[NX3H2][#6]"),
-        ("肽键", "[CX3](=O)[NX3]"),
-        ("苯环", "c1ccccc1")
-    };
+    private static readonly (string Name, string Smarts)[] WhitelistGroups = FunctionalGroupVocabulary.InScope;
 
     /// <summary>
     /// 超纲（竞赛/大学）结构特征：名称 → SMARTS。

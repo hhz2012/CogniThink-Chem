@@ -69,22 +69,8 @@ public sealed class MoleculeAnalysisResult
 /// </summary>
 public static class MoleculeAnalyzer
 {
-    /// <summary>高中常见官能团：名称 → SMARTS（与 MoleculeValidator 白名单一致，保证口径统一）。</summary>
-    private static readonly (string Name, string Smarts)[] GroupSmarts =
-    {
-        ("苯环", "c1ccccc1"),
-        ("碳碳双键", "C=C"),
-        ("碳碳三键", "C#C"),
-        ("羟基", "[OX2H;!$([OX2H][CX3]=O)]"),
-        ("羧基", "[CX3](=O)[OX2H]"),
-        ("醛基", "[$([CX3H1](=O)[#6]),$([CX3H2]=O)]"),
-        ("酮羰基", "[CX3](=O)([#6])[#6]"),
-        ("酯基", "[CX3](=O)[OX2][#6]"),
-        ("醚键", "[OD2]([CX4])[CX4]"),
-        ("氨基", "[NX3H2][#6]"),
-        ("硝基", "[$([NX3](=O)=O),$([NX3+](=O)[O-])]"),
-        ("卤原子", "[F,Cl,Br,I][#6]"),
-    };
+    /// <summary>高中课内官能团词表：引用 <see cref="FunctionalGroupVocabulary.InScope"/>（与 MoleculeValidator 共用同一真相源，保证口径统一）。</summary>
+    private static readonly (string Name, string Smarts)[] GroupSmarts = FunctionalGroupVocabulary.InScope;
 
     private static readonly HashSet<string> Halogens = new(StringComparer.Ordinal) { "F", "Cl", "Br", "I", "At" };
     private static readonly Regex FormulaToken = new(@"([A-Z][a-z]?)(\d*)", RegexOptions.Compiled);

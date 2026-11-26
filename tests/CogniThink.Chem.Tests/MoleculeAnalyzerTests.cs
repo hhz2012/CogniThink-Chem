@@ -226,4 +226,59 @@ M  END
         Assert.True(r.Success, r.FailReason);
         Assert.Equal(expected, r.SigmaBondCount);
     }
+
+    /// <summary>
+    /// 轨道2 词表扩展：新增 酰胺基/肽键/硫醚；扩 醚键（芳基/sp²）与 氨基（仲/叔胺）；
+    /// 并修掉「酰胺 N 被误标氨基」。同步断言无交叉假阳性。
+    /// </summary>
+    [Theory]
+    [InlineData("CC(N)=O", "酰胺基,肽键", "氨基")]                       // 乙酰胺：命中酰胺/肽键，不再误标氨基
+    [InlineData("CC(=O)NC", "酰胺基,肽键", "氨基")]                     // N-甲基乙酰胺
+    [InlineData("COc1ccccc1", "醚键,苯环", "羟基")]                     // 苯甲醚：芳基醚命中
+    [InlineData("CNC", "氨基", "")]                                     // 二甲胺（仲胺）命中
+    [InlineData("CN(C)C", "氨基", "")]                                  // 三甲胺（叔胺）命中
+    [InlineData("CSC", "硫醚", "")]                                     // 二甲硫醚命中
+    [InlineData("CCS", "", "硫醚")]                                     // 乙硫醇 ≠ 硫醚
+    [InlineData("CSSC", "", "硫醚")]                                    // 二甲基二硫 ≠ 硫醚
+    [InlineData("CC(=O)OCC", "酯基", "醚键")]                           // 酯 ≠ 醚
+    [InlineData("O=[N+]([O-])c1ccccc1", "硝基,苯环", "氨基")]           // 硝基 N ≠ 氨基
+    [InlineData("Oc1ccccc1", "羟基,苯环", "醚键")]                      // 酚 ≠ 醚
+    [InlineData("NCC(=O)O", "氨基,羧基", "")]                           // 甘氨酸：真氨基仍命中（不回归）
+    public void 词表扩展_新增命中且无假阳性(string smiles, string mustContainCsv, string mustNotContainCsv)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        foreach (var g in SplitCsv(mustContainCsv))
+            Assert.Contains(g, r.FunctionalGroups);
+        foreach (var g in SplitCsv(mustNotContainCsv))
+            Assert.DoesNotContain(g, r.FunctionalGroups);
+    }
+
+    /// <summary>
+    /// 轨道2 匹配侧 alias：答案口径别名（羰基←酮羰基；碳卤键/卤原子←卤原子）。
+    /// 断言 alias 命中 + 保守边界（酯/醛不触发「羰基」）+ 不回归旧口径。
+    /// </summary>
+    [Theory]
+    [InlineData("CCBr", "卤原子,溴原子,碳溴键", "氯原子,碳氯键,羰基")]     // 溴乙烷
+    [InlineData("CC(=O)C", "酮羰基,羰基", "醛基,酯基,羧基")]               // 丙酮：羰基 alias 命中
+    [InlineData("Brc1ccccc1", "卤原子,溴原子,碳溴键,苯环", "氯原子")]      // 溴苯
+    [InlineData("CCl", "卤原子,氯原子,碳氯键", "溴原子,碳溴键")]           // 氯甲烷
+    [InlineData("CC(=O)OCC", "酯基", "羰基,酮羰基,碳溴键")]                // 乙酸乙酯：酯不触发羰基 alias（保守边界）
+    [InlineData("O=CC", "醛基", "羰基,酮羰基")]                            // 乙醛：醛不触发羰基 alias（保守边界）
+    [InlineData("CCBr", "卤原子", "羰基")]                                 // 旧口径「卤原子」仍可用，不回归
+    [InlineData("CC(=O)C", "酮羰基", "溴原子")]                            // 旧口径「酮羰基」仍可用，不回归
+    public void 匹配侧alias_命中且保守边界无假阳性(string smiles, string mustContainCsv, string mustNotContainCsv)
+    {
+        var r = MoleculeAnalyzer.Analyze(smiles);
+        Assert.True(r.Success, r.FailReason);
+        foreach (var g in SplitCsv(mustContainCsv))
+            Assert.Contains(g, r.FunctionalGroups);
+        foreach (var g in SplitCsv(mustNotContainCsv))
+            Assert.DoesNotContain(g, r.FunctionalGroups);
+    }
+
+    private static string[] SplitCsv(string csv) =>
+        string.IsNullOrEmpty(csv)
+            ? Array.Empty<string>()
+            : csv.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 }
