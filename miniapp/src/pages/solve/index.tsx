@@ -219,32 +219,26 @@ function Result({
 
       </View>
 
-      {/* ===== 逐步推导过程（引擎文字步骤；仅 Confirmed 下发）===== */}
-      {isConfirmed && view.derivation_steps && view.derivation_steps.length > 0 ? (
+      {/* ===== 解题过程 + 讲解（合并为一张卡）===== */}
+      {(isConfirmed && view.derivation_steps && view.derivation_steps.length > 0) || view.reply ? (
         <View className={styles.card}>
           <View className={styles.sectionTitleRow}>
             <ModelIcon name="layers" size={18} color="#2EA7C4" />
             <Text className={styles.sectionTitle}>解题过程</Text>
           </View>
-          <View className={styles.steps}>
-            {view.derivation_steps.map((s, i) => (
-              <View key={i} className={styles.stepItem}>
-                <Text className={styles.stepIdx}>{i + 1}</Text>
-                <Text className={styles.stepText}>{s}</Text>
-              </View>
-            ))}
-          </View>
-        </View>
-      ) : null}
-
-      {/* ===== 教学话术（分级提示）===== */}
-      {view.reply ? (
-        <View className={styles.card}>
-          <View className={styles.sectionTitleRow}>
-            <ModelIcon name="message" size={18} color="#2EA7C4" />
-            <Text className={styles.sectionTitle}>讲解</Text>
-          </View>
-          <Text className={styles.reply}>{view.reply}</Text>
+          {isConfirmed && view.derivation_steps && view.derivation_steps.length > 0 ? (
+            <View className={styles.steps}>
+              {view.derivation_steps.map((s, i) => (
+                <View key={i} className={styles.stepItem}>
+                  <Text className={styles.stepIdx}>{i + 1}</Text>
+                  <Text className={styles.stepText}>{s}</Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
+          {view.reply ? (
+            <Text className={`${styles.reply} ${isConfirmed && view.derivation_steps?.length ? styles.replyDivider : ''}`}>{view.reply}</Text>
+          ) : null}
         </View>
       ) : null}
 

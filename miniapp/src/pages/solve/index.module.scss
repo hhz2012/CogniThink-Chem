@@ -148,6 +148,13 @@
   white-space: pre-wrap;
 }
 
+/* 步骤与讲解并存时，讲解上方细分隔 */
+.replyDivider {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 1px solid #eef2f5;
+}
+
 .collapseHead {
   display: flex;
   flex-direction: row;
