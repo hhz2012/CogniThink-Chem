@@ -933,6 +933,26 @@
                        {"id": "GC-763-C", "match": ["Cl2分子中共价键的电子云轮廓图"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": true, "reason": "Cl2中Cl-Cl为σ键,电子云轮廓图轴对称,表述正确。"},
                        {"id": "GC-763-D", "match": ["基态Br原子的价层电子排布式", "3d104s24p5"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "Br价层电子排布式为4s24p5,3d10不属价层电子。"},
                        {"id": "GC-075-A", "match": ["还原性", "H2O", "OH"], "stemMatch": ["Na4XeO6"], "verdict": true, "reason": "同一氧化剂XeF6，与H2O反应（ⅲ）Xe化合价不变（非氧还），与OH⁻反应（ⅳ）OH⁻中O被氧化为O2，故OH⁻还原性强于H2O。"},
-                       {"id": "GC-075-D", "match": ["电离能", "化合物", "Xe"], "stemMatch": ["Na4XeO6"], "verdict": true, "reason": "同族稀有气体自上而下原子半径增大、电离能减小；Xe在He/Ne/Ar/Kr/Xe中半径最大、电离能最小，最易形成化合物，故含Xe的化合物种类更多。"}
+                       {"id": "GC-075-D", "match": ["电离能", "化合物", "Xe"], "stemMatch": ["Na4XeO6"], "verdict": true, "reason": "同族稀有气体自上而下原子半径增大、电离能减小；Xe在He/Ne/Ar/Kr/Xe中半径最大、电离能最小，最易形成化合物，故含Xe的化合物种类更多。"},
+                       {"id": "GC-764-A", "match": ["每个原子都达到最外层8电子"], "stemMatch": ["M的简单阳离子半径是同周期中最小的", "某种化学品的结构如图所示"], "verdict": false, "reason": "Z=S形成6条共价键，价层有12个电子（超八隅体），故该物质中并非每个原子都达到最外层8电子稳定结构，A错。"},
+                       {"id": "GC-764-B", "match": ["Z>W>X>M"], "stemMatch": ["M的简单阳离子半径是同周期中最小的", "某种化学品的结构如图所示"], "verdict": true, "reason": "W=O、X=F、Y=C（第二周期），Z=S、M=Al；简单离子半径r(S2-)>r(O2-)>r(F-)>r(Al3+)，即Z>W>X>M，B对。"},
+                       {"id": "GC-764-C", "match": ["X>Z>Y"], "stemMatch": ["M的简单阳离子半径是同周期中最小的", "某种化学品的结构如图所示"], "verdict": false, "reason": "X=F无最高价氧化物对应水化物（氟无正价含氧酸），不可能强于Z=S的H2SO4，故酸性X>Z>Y不成立，C错。"},
+                       {"id": "GC-764-D", "match": ["处在Z和M之间的元素有3种"], "stemMatch": ["M的简单阳离子半径是同周期中最小的", "某种化学品的结构如图所示"], "verdict": false, "reason": "第三周期第一电离能序为Al<Si<S<P（P因3p3半满稳定而高于S），介于Z=S与M=Al之间的仅Si一种，不是3种，D错。"},
+                       {"id": "GC-765-A", "match": ["平衡常数 K 相等"], "stemMatch": ["绝热反应管", "CO2 加氢制甲醇"], "verdict": false, "reason": "绝热反应管内温度沿程升高(L4<L5)，反应①吸热(ΔH1=+41.2)，平衡常数K随温度升高而增大，故K4<K5，L4与L5处K不相等，A错。"},
+                       {"id": "GC-765-B", "match": ["反应②的焓变"], "stemMatch": ["绝热反应管", "CO2 加氢制甲醇"], "verdict": false, "reason": "绝热反应管温度L1→L7升高，净反应放热；反应①吸热(+41.2 kJ/mol)，故反应②必为放热(ΔH2<0)，B称ΔH2>0错。"},
+                       {"id": "GC-765-C", "match": ["体积分数大于 L5 处"], "stemMatch": ["绝热反应管", "CO2 加氢制甲醇"], "verdict": true, "reason": "由图L5→L6甲醇体积分数增大(反应②正向耗CO)而CO体积分数不变，说明反应①正向生成CO与H2O；n(H2O)增大且反应②使气体总物质的量减小，故H2O体积分数L6处大于L5处，C对。"},
+                       {"id": "GC-765-D", "match": ["生成速率小于 CH3OH"], "stemMatch": ["绝热反应管", "CO2 加氢制甲醇"], "verdict": false, "reason": "CO是反应①的产物、又是反应②的反应物(中间产物)；CO生成速率(反应①)=CO积累速率+CO消耗速率(=CH3OH生成速率)，故CO生成速率大于CH3OH生成速率，D错。"},
+                       {"id": "GC-766-A", "match": ["苯甲酸甲酯的习惯命名"], "stemMatch": ["化学用语或图示正确的是"], "verdict": false, "reason": "图中结构为甲酸苯甲酯(HCOOCH2C6H5，甲酸与苯甲醇成酯)，不是苯甲酸甲酯(C6H5COOCH3)，A错。"},
+                       {"id": "GC-766-B", "match": ["质荷比为92的峰归属于"], "stemMatch": ["化学用语或图示正确的是"], "verdict": true, "reason": "甲苯C7H8相对分子质量为92，质谱图中质荷比m/z=92的峰为甲苯的分子离子峰[C7H8]+·，归属于甲苯，B对。"},
+                       {"id": "GC-766-C", "match": ["C-H键键能相等"], "stemMatch": ["化学用语或图示正确的是"], "verdict": false, "reason": "苯中C为sp2杂化、环己烷中C为sp3杂化，C-H键长与键能均不相等，C错。"},
+                       {"id": "GC-766-D", "match": ["p-p π键形成的轨道重叠示意图"], "stemMatch": ["化学用语或图示正确的是"], "verdict": false, "reason": "图示两p轨道沿键轴头碰头重叠、结果为沿轴的单一σ电子云，是p-p σ键；π键应为p轨道肩并肩重叠、呈上下两瓣，故D错。"},
+                       {"id": "GC-767-A", "match": ["从右室向左室移动"], "stemMatch": ["百里酚(TY)", "百里醌(TQ)"], "verdict": true, "reason": "电极b为阳极(TY→TQ氧化,右室)、a为阴极(左室)；H+在阳极生成、阴极消耗，经质子交换膜从右室向左室迁移，A对。"},
+                       {"id": "GC-767-B", "match": ["TQ + 2H2"], "stemMatch": ["百里酚(TY)", "百里醌(TQ)"], "verdict": true, "reason": "阳极TY-4e-+H2O→TQ+4H+，阴极4H++4e-→2H2↑，总反应TY+H2O—(电解)→TQ+2H2↑，B对。"},
+                       {"id": "GC-767-C", "match": ["为原料，也可得到 TQ"], "stemMatch": ["百里酚(TY)", "百里醌(TQ)"], "verdict": true, "reason": "选项C原料为相应二酚(对苯二酚衍生物)，相同电解条件下氧化—OH及其对位C—H同样得到TQ，C对。"},
+                       {"id": "GC-767-D", "match": ["标记电解液中的水"], "stemMatch": ["百里酚(TY)", "百里醌(TQ)"], "verdict": false, "reason": "反应历程中—OH始终连碳环，前两步氧化为醌羰基，第三步由H2O提供—OH连到原—OH对位或甲基邻位碳再氧化为新醌羰基；故18O应在该位置，图示标在醌环内侧O位置错误，D错。"},
+                               {"id": "GC-768-A", "match": ["产物 B 对应的结构是"], "stemMatch": ["1-苯基丙炔"], "verdict": false, "reason": "产物B为热力学稳定异构体(Cl与CH3处于双键同侧、排斥力更小)；选项A所示结构中苯基与CH3处于同侧(排斥力大，实为产物A)，并非产物B，A错。"},
+                               {"id": "GC-768-B", "match": ["应适当缩短反应时间"], "stemMatch": ["1-苯基丙炔"], "verdict": true, "reason": "由含量-时间曲线，产物A先增后减(动力学产物)、产物B持续增加(热力学产物)；缩短反应时间可在A大量转化为B前获取A，B对。"},
+                               {"id": "GC-768-C", "match": ["可用核磁共振氢谱加以区分"], "stemMatch": ["1-苯基丙炔"], "verdict": true, "reason": "产物A、B为烯烃立体异构体(E/Z)，双键氢及CH3的化学位移/耦合不同，核磁共振氢谱可区分，C对。"},
+                               {"id": "GC-768-D", "match": ["平衡常数 K = 35"], "stemMatch": ["1-苯基丙炔"], "verdict": true, "reason": "体系中存在A⇌B，平衡时产物A与产物B含量之比为1:35，故K=[B]/[A]=35，D对。"}
                    ]
 }

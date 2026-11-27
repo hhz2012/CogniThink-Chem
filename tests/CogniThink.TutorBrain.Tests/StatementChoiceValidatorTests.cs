@@ -8,13 +8,15 @@ namespace CogniThink.TutorBrain.Tests;
 
 /// <summary>
 /// StatementChoiceValidator 护栏（spec FR-4 / Task 6）。
-/// 真值表：经单选择陈述路径端到端可解的题，逐题核对字母；全库扫描保证零假阳性、已采纳答案全部判对。
+/// 设计：StatementTruth 是「钉住的回归集」（经核对的题 → 期望字母），不是穷举白名单。
+/// 单选择陈述路径因事实库 / 氧还原语可解出钉住集之外的题——只要全部判对即合法，
+/// 精度红线由 <see cref="FullBank_AllAdoptions_GradedCorrect"/> 兜底；完整 LOST / GAINED 由 T10 生产 eval diff 核对。
 /// 红线：任一选项不可判即整题 null；候选不唯一即 null（交 MultiSelect）；不蒙数。
 /// </summary>
 public class StatementChoiceValidatorTests
 {
     /// <summary>
-    /// 真值表：questionId → 期望答案字母。新增可解题须经核对后登记（T8 收益登记处）。
+    /// 钉住的回归集：questionId → 期望答案字母。新增确认收益须经核对后登记。
     /// </summary>
     public static readonly Dictionary<string, string> StatementTruth = new()
     {
@@ -36,35 +38,24 @@ public class StatementChoiceValidatorTests
         Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(outcome.AnswerLetter, c));
     }
 
-    /// <summary>全库零假阳性：除真值表外，单选择陈述路径不得给出任何答案。</summary>
+    /// <summary>覆盖：钉住集中每道题都被解出且答到期望字母。</summary>
     [Fact]
-    public void FullBank_AnyAdoption_MustBeInTruthTable()
+    public void FullBank_PinnedTruth_AllSolvedAndCorrect()
     {
-        var solved = new List<string>();
+        var solved = new Dictionary<string, string>();
         foreach (var c in GatewayVsLlmEvaluationService.BuildTestCases())
         {
             var o = StatementChoiceValidator.TryDecide(new EngineRequest { RawText = c.Question });
-            if (o is not null) solved.Add(c.Id);
+            if (o is not null) solved[c.Id] = o.AnswerLetter;
         }
-        var stray = solved.Where(id => !StatementTruth.ContainsKey(id)).ToList();
-        Assert.True(stray.Count == 0,
-            "单选择陈述路径在真值表之外给出了答案（须核对后登记或修复）: " + string.Join(", ", stray));
+        var missing = StatementTruth.Keys.Where(k => !solved.ContainsKey(k)).ToList();
+        Assert.True(missing.Count == 0, "钉住集未解出: " + string.Join(", ", missing));
+        var mismatch = StatementTruth.Where(kv => solved.TryGetValue(kv.Key, out var a) && a != kv.Value)
+            .Select(kv => $"{kv.Key} 期望 {kv.Value} 实际 {solved[kv.Key]}").ToList();
+        Assert.True(mismatch.Count == 0, "钉住集字母不符: " + string.Join(", ", mismatch));
     }
 
-    /// <summary>覆盖：真值表中每道题都被解出。</summary>
-    [Fact]
-    public void FullBank_Coverage_EqualsTruthTable()
-    {
-        var solved = new HashSet<string>();
-        foreach (var c in GatewayVsLlmEvaluationService.BuildTestCases())
-        {
-            var o = StatementChoiceValidator.TryDecide(new EngineRequest { RawText = c.Question });
-            if (o is not null) solved.Add(c.Id);
-        }
-        Assert.Equal(StatementTruth.Keys.ToHashSet(), solved);
-    }
-
-    /// <summary>精度红线：全库单选择陈述路径的每一个采纳答案都判对。</summary>
+    /// <summary>精度红线：全库单选择陈述路径的每一个采纳答案都判对（harm=0）。</summary>
     [Fact]
     public void FullBank_AllAdoptions_GradedCorrect()
     {

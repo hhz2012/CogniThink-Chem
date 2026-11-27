@@ -1,7 +1,7 @@
 # 氧化还原陈述判定扩展（路径 B）— 求解 pdf-075 等氧还计数选择题 - Implementation Plan
 
 ## Task 1: 恢复 pdf-075 选项文本 + 登记册登记
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: None
 - **Description**:
@@ -14,7 +14,7 @@
   - `rule` TR-1.1: 读取 pdf-075，4 选项与原书一致、answer=="B"、question/note/type 未变；`git diff` 仅 pdf-075 options(+answerKeywords) 变动。证据：探针输出 + diff。
 
 ## Task 2: 探针验证现有电子计数 judge 对反应Ⅳ 的判定 + Xe 方程可解析/配平
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 1
 - **Description**:
@@ -26,7 +26,7 @@
   - `rule` TR-2.1: 探针输出 B→False；4 个方程均成功解析配平；ⅰ/ⅱ/ⅳ IsRedox=true、ⅲ IsRedox=false。证据：探针输出。
 
 ## Task 3: 新增 RedoxCountStatementJudge（氧还反应计数判定）
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 2
 - **Description**:
@@ -39,7 +39,7 @@
   - `rule` TR-3.1: pdf-075-C（3 个）→True；声称 2 →False；范围外/歧义→Undecided。证据：xUnit 通过。
 
 ## Task 4: 新增 RedoxRoleRatioStatementJudge（角色/比值判定，通用能力）
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: medium
 - **Depends On**: Task 2
 - **Description**:
@@ -53,7 +53,7 @@
   - `rule` TR-4.1: 歧化（如 3S+6NaOH→2Na2S+Na2SO3+3H2O）被氧化:被还原=1:2 →True；声称 2:1 →False；非氧还方程问角色/比值→Undecided。证据：xUnit 通过。
 
 ## Task 5: pdf-075 的 A（还原性比较）与 D（周期律）判定
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 3
 - **Description**:
@@ -65,7 +65,7 @@
   - `rule` TR-5.1: pdf-075-A→True、D→True；全库扫描该机制无其它误命中（stray-hit=0）。证据：探针输出。
 
 ## Task 6: 新增单选择陈述路径 + 注册三处 CompositeStatementJudge
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 3, Task 4, Task 5
 - **Description**:
@@ -77,7 +77,7 @@
   - `rule` TR-6.1: 单测：候选唯一→返回字母；候选2→null；含Undecided→null；pdf-075 端到端→B。证据：xUnit 通过。
 
 ## Task 7: 单测 + 护栏真值登记
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 6
 - **Description**:
@@ -89,7 +89,7 @@
   - `rule` TR-7.1: 新增测试全通过；pdf-075 真值→B 被护栏锁定；无 `*.wipbak` 残留。证据：测试输出。
 
 ## Task 8: 全库 blast-radius 探针回归 + 扫描额外收益
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 6
 - **Description**:
@@ -100,7 +100,7 @@
   - `rule` TR-8.1: 探针输出 pdf-075→B；被改变题集合仅含目标收益；stray-hit=0、LOST=0。证据：探针输出。
 
 ## Task 9: build + 护栏测试
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 7
 - **Description**:
@@ -111,7 +111,7 @@
   - `rule` TR-9.1: build 退出码 0；测试 0 失败；无 `*.wipbak` 残留；无 testhost 锁。证据：命令输出。
 
 ## Task 10: 生产 eval + diff 红线核对
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: high
 - **Depends On**: Task 9
 - **Description**:
@@ -122,7 +122,7 @@
   - `rule` TR-10.1: diff 输出全部红线满足；gwCorrect 708→至少 709。证据：eval 快照 + diff 输出。
 
 ## Task 11: 登记册更新 + 独立评审
-- **Status**: `pending`
+- **Status**: `done`
 - **Priority**: medium
 - **Depends On**: Task 10
 - **Description**:

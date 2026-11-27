@@ -16,11 +16,11 @@ public sealed class HardBonesTraceTests
     private static readonly string[] UnsolvedChoiceIds =
     {
         "pdf-037","pdf-075","pdf-087","pdf-090","pdf-100","pdf-115","pdf-138","pdf-147","pdf-155","pdf-162",
-        "pdf-197","pdf-217","pdf-218","pdf-220","pdf-227","pdf-255","pdf-263","pdf-271","pdf-284","pdf-289",
-        "pdf-295","pdf-303","pdf-306","pdf-307","pdf-319","pdf-325","pdf-327","pdf-332","pdf-336","pdf-337",
+        "pdf-197","pdf-217","pdf-218","pdf-220","pdf-227","pdf-263","pdf-271","pdf-284","pdf-289",
+        "pdf-295","pdf-303","pdf-306","pdf-319","pdf-327","pdf-332","pdf-337",
         "pdf-338","pdf-347","pdf-376","pdf-382","pdf-386","pdf-387","pdf-388","pdf-390","pdf-394","pdf-398",
         "pdf-400","pdf-405","pdf-406","pdf-409","pdf-410","pdf-412","pdf-414","pdf-416","pdf-432","pdf-458",
-        "pdf-459","pdf-475","pdf-498","pdf-511","pdf-524","pdf-531","pdf-540",
+        "pdf-459","pdf-475","pdf-511","pdf-524","pdf-531","pdf-540",
     };
 
     [Fact]

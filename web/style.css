@@ -2241,20 +2241,24 @@ main { padding: 28px 20px 60px; }
 .sim-icon.running { filter: none; opacity: 1; }
 
 .sim-icon svg { display: block; overflow: visible; }
-.sim-flask-body, .sim-flask-neck { fill: #e0f2fe; stroke: #0ea5e9; stroke-width: 1.5; }
+.sim-flask-body { fill: url(#simGlassGrad); stroke: #38bdf8; stroke-width: 1.2; }
+.sim-flask-rim { fill: #e0f2fe; stroke: #38bdf8; stroke-width: 1.1; }
+.sim-flask-mouth { fill: rgba(100, 116, 139, 0.45); }
+.sim-flask-shine { fill: none; stroke: #ffffff; stroke-width: 1.6; stroke-linecap: round; opacity: 0.75; }
+.sim-flask-scale line { stroke: #7dd3fc; stroke-width: 0.8; opacity: 0.6; }
 .sim-liquid { fill: #38bdf8; opacity: 0.85; transform-box: fill-box; transform-origin: center bottom; }
-.sim-ring { fill: none; stroke: #6366f1; stroke-width: 1.4; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.sim-ring { fill: url(#simGlowGrad); opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity 0.5s ease; }
 .sim-bubble { fill: #bae6fd; opacity: 0; }
 
-/* 运行态：轨道环旋转、液体脉动、气泡上升 */
-.sim-icon.running .sim-ring { opacity: 0.9; animation: simRingSpin 3s linear infinite; }
+/* 运行态：光晕脉冲、液体脉动、气泡上升 */
+.sim-icon.running .sim-ring { opacity: 0.85; animation: simRingPulse 2.6s ease-in-out infinite; }
 .sim-icon.running .sim-liquid { animation: simLiquidPulse 2.2s ease-in-out infinite; }
 .sim-icon.running .sim-bubble { opacity: 0.95; animation: simBubbleRise 1.7s ease-in infinite; }
 .sim-icon.running .sim-b1 { animation-delay: 0s; }
 .sim-icon.running .sim-b2 { animation-delay: 0.5s; }
 .sim-icon.running .sim-b3 { animation-delay: 0.9s; }
 
-@keyframes simRingSpin { to { transform: rotate(360deg); } }
+@keyframes simRingPulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.07); } }
 @keyframes simLiquidPulse { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.07); } }
 @keyframes simBubbleRise {
   0% { transform: translateY(0) scale(0.6); opacity: 0; }
@@ -2398,3 +2402,214 @@ main { padding: 28px 20px 60px; }
 }
 .sim-btn-quick:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.45); filter: brightness(1.06); }
 .sim-btn-quick:active { transform: translateY(0); filter: brightness(0.97); }
+
+/* ============================================================
+   模拟器界面视觉升级（加性，仅作用于 .sim-*；置于文件末尾以覆盖前述同优先级规则）
+   ============================================================ */
+
+/* —— 设计 token（模拟器域内） —— */
+.sim-panel {
+  --sim-r: 12px;
+  --sim-r-sm: 9px;
+  --sim-border: #e7ecf3;
+  --sim-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 18px rgba(15, 23, 42, 0.06);
+  --sim-shadow-hover: 0 3px 8px rgba(15, 23, 42, 0.06), 0 12px 28px rgba(15, 23, 42, 0.10);
+}
+
+/* —— 面板卡片化：.panel 原本无样式，给模拟器面板统一表面 —— */
+.sim-panel {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid var(--sim-border);
+  border-radius: var(--sim-r);
+  padding: 18px 20px;
+  box-shadow: var(--sim-shadow);
+  position: relative;
+}
+/* 顶部细渐变高光条，增加层次 */
+.sim-panel::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  border-radius: var(--sim-r) var(--sim-r) 0 0;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #0d9488);
+  opacity: 0.9; pointer-events: none;
+}
+
+/* —— 头部 —— */
+.sim-head { gap: 16px; }
+.sim-title h2 { color: #0f172a; letter-spacing: -0.01em; }
+
+/* —— 卡片通用质感 —— */
+.sim-event, .sim-snap, .sim-phase, .sim-numerical, .sim-summary, .sim-final {
+  border-radius: var(--sim-r-sm);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+.sim-phase, .sim-numerical, .sim-summary, .sim-final {
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+.sim-event { transition: opacity 0.45s cubic-bezier(.22,.61,.36,1), transform 0.45s cubic-bezier(.22,.61,.36,1), box-shadow 0.25s ease, border-color 0.25s ease; }
+.sim-snap  { transition: opacity 0.50s cubic-bezier(.22,.61,.36,1), transform 0.50s cubic-bezier(.22,.61,.36,1), box-shadow 0.25s ease, border-color 0.25s ease; }
+.sim-event:hover, .sim-snap:hover, .sim-phase:hover, .sim-numerical:hover, .sim-summary:hover, .sim-final:hover {
+  box-shadow: var(--sim-shadow-hover);
+  transform: translateY(-1px);
+}
+
+/* —— 事件卡：左侧类型色条（--etc 由内联 style 注入） —— */
+.sim-event {
+  border: 1px solid var(--sim-border);
+  border-left: 3px solid var(--etc, #cbd5e1);
+  background: #ffffff;
+}
+.sim-event.on { border-color: #e0f2fe; border-left-color: var(--etc, #cbd5e1); background: #f8fbff; }
+/* 类型小标签 */
+.sim-type-tag {
+  display: inline-block; padding: 1px 8px; margin-right: 6px;
+  border: 1px solid; border-radius: 999px; font-size: 11px; font-weight: 700;
+  line-height: 1.6; vertical-align: middle;
+}
+.sim-event-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+
+/* —— 时间线：连接线与节点更精致 —— */
+.sim-timeline { padding-left: 26px; gap: 14px; }
+.sim-timeline::before { left: 11px; width: 2px; background: linear-gradient(180deg, #7dd3fc, #a5b4fc 60%, #cbd5e1); }
+.sim-snap { border: 1px solid var(--sim-border); background: #fff; }
+.sim-snap::before { left: -23px; width: 13px; height: 13px; top: 16px; }
+.sim-snap.show { border-color: #bae6fd; }
+.sim-snap.show::before { background: #0ea5e9; box-shadow: 0 0 0 3px #fff, 0 0 0 4px #0ea5e9, 0 0 12px rgba(14,165,233,0.55); }
+
+/* —— 阶段 / 数值 / 总结块：微渐变表面 —— */
+.sim-phase { border: 1px solid #e0f2fe; background: linear-gradient(180deg, #f0f9ff, #ffffff); }
+.sim-numerical { border-color: #bbf7d0; background: linear-gradient(180deg, #f0fdf4, #ffffff); }
+.sim-summary { border: 1px solid #e2e8f0; background: linear-gradient(180deg, #f8fafc, #ffffff); }
+
+/* —— 终态卡：突出强调 —— */
+.sim-final {
+  border: 1px solid #99f6e4; border-top: 3px solid #14b8a6;
+  background: linear-gradient(180deg, #f0fdfa, #ffffff);
+  padding: 14px 16px; margin-top: 4px;
+}
+.sim-final-label { color: #0f766e; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.sim-final-label::before {
+  content: '✓'; display: inline-flex; width: 18px; height: 18px;
+  align-items: center; justify-content: center; border-radius: 50%;
+  background: #14b8a6; color: #fff; font-size: 12px;
+}
+
+/* —— 模式标签 / 小按钮反馈更顺滑 —— */
+.sim-mode { transition: all 0.18s ease; }
+.sim-mode:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(14,165,233,0.18); }
+.sim-mode.active { box-shadow: 0 3px 10px rgba(13,148,136,0.35); }
+.sim-btn-mini { transition: all 0.15s ease; }
+.sim-btn-mini:hover { transform: translateY(-1px); box-shadow: 0 2px 6px rgba(14,165,233,0.2); }
+
+/* —— 烧瓶 idle 微呼吸（仅非运行态，极轻量） —— */
+.sim-icon:not(.running) { animation: simIdleBreathe 3.6s ease-in-out infinite; }
+@keyframes simIdleBreathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
+/* —— 空状态占位 —— */
+.sim-empty { text-align: center; padding: 36px 24px; }
+.sim-empty-icon { font-size: 40px; line-height: 1; margin-bottom: 10px; animation: simIdleBreathe 3s ease-in-out infinite; }
+.sim-empty-title { font-size: 16px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.sim-empty-desc { font-size: 13px; color: #64748b; max-width: 460px; margin: 0 auto; line-height: 1.7; }
+
+/* ============================================================
+   烧瓶图标：化学状态数据驱动（变色 / 沉淀 / 冒泡 / 固态）
+   由 simApplyIconState 通过 CSS 变量 --sol / --sol-opaque / --precip
+   与 class .colored / .has-precip / .bubbling / .solid-state 切换。
+   置于文件末尾以覆盖前述同优先级规则。
+   ============================================================ */
+
+/* 默认变量：JS 运行前图标也呈清水态，避免 fill 回退成黑色 */
+.sim-icon {
+  --sol: rgba(186, 230, 253, 0.22);
+  --sol-opaque: 0.55;
+  --precip: #ffffff;
+}
+/* 液态：颜色随 --sol 平滑过渡 → 溶液变色动画 */
+.sim-liquid {
+  fill: var(--sol);
+  opacity: var(--sol-opaque, 0.85);
+  transition: fill 0.9s cubic-bezier(.22,.61,.36,1), opacity 0.6s ease;
+}
+/* 液面波纹：仅有色溶液显现，轻微起伏增强液态感 */
+.sim-liquid-wave {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.65);
+  stroke-width: 1;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.6s ease;
+}
+.sim-icon.colored .sim-liquid-wave { opacity: 0.7; animation: simWave 2.6s ease-in-out infinite; }
+
+/* 沉淀层：默认收起（scaleY 0），.has-precip 时沉降展开 */
+.sim-precip {
+  fill: var(--precip);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  transform: scaleY(0);
+  transition: transform 0.75s cubic-bezier(.34,1.56,.64,1), opacity 0.5s ease;
+}
+.sim-icon.has-precip .sim-precip { opacity: 0.92; transform: scaleY(1); }
+
+/* 固态颗粒：无溶液的纯固体体系显现，替代液态填充 */
+.sim-solids { opacity: 0; transition: opacity 0.6s ease; }
+.sim-granule { fill: #94a3b8; }
+.sim-icon.solid-state .sim-solids { opacity: 0.85; animation: simGranuleDrift 2.8s ease-in-out infinite; }
+.sim-icon.solid-state .sim-liquid,
+.sim-icon.solid-state .sim-liquid-wave { opacity: 0; }
+
+/* 气泡：仅 .bubbling（产气反应）时上升；覆盖原 .running 即冒泡的规则 */
+.sim-icon.running:not(.bubbling) .sim-bubble { opacity: 0; animation: none; }
+.sim-icon.bubbling .sim-bubble { opacity: 0.95; animation: simBubbleRise 1.8s ease-in infinite; }
+.sim-icon.bubbling .sim-b1 { animation-delay: 0s; }
+.sim-icon.bubbling .sim-b2 { animation-delay: 0.55s; }
+.sim-icon.bubbling .sim-b3 { animation-delay: 1.05s; }
+
+@keyframes simWave { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(1.5px); } }
+@keyframes simGranuleDrift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-0.8px); } }
+
+/* ============================================================
+   模拟效果舞台：大烧瓶图标 + 模拟按钮 + 出现的过程 聚合布局
+   把原来散布在整页的「图标 / 按钮 / 过程」收拢到同一块，
+   并把效果图标放大到 140px（SVG 用 viewBox，子元素等比缩放）。
+   置于文件末尾，加性覆盖，不影响既有控件。
+   ============================================================ */
+/* —— 舞台整体做成一张统一卡片：图标 / 按钮 / 提示 / 结果 同属一个表面 —— */
+.sim-stage {
+  display: flex; flex-direction: column; align-items: stretch; gap: 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid #e7ecf3;
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 6px 18px rgba(15, 23, 42, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+/* 顶部统一高光条，与上方配置面板呼应 —— 整张舞台是一张卡 */
+.sim-stage::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #0d9488);
+  opacity: 0.9; pointer-events: none; z-index: 1;
+}
+/* 控制区：大图标居中 */
+.sim-stage-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; padding: 22px 20px 4px;
+}
+.sim-stage-icon .sim-icon-wrap { flex: 0 0 auto; }
+/* 舞台大图标默认清晰显示（去掉小图标的灰化），idle 仍保留呼吸 */
+.sim-stage-icon .sim-icon { filter: none; opacity: 1; }
+/* 按钮行在舞台内居中 */
+.sim-stage-actions { justify-content: center; gap: 10px; margin-top: 6px; padding: 0 20px; }
+/* 提示文案居中并占满宽度 */
+.sim-stage-hint { width: 100%; text-align: center; padding: 6px 20px 16px; }
+/* 结果区：与控制区用细分隔线区分，但无独立卡片边框 → 整体仍是一张卡 */
+.sim-stage #simResult { width: 100%; border-top: 1px solid #eef2f7; padding: 16px 20px 18px; }
+/* 打平结果区内层卡片：去掉「卡中卡」的双重边框 / 底色 / 阴影 / 顶部高光条 */
+.sim-stage .sim-panel,
+.sim-stage .panel { background: transparent; border: none; box-shadow: none; padding: 0; position: static; }
+.sim-stage .sim-panel::before,
+.sim-stage .panel::before { display: none; }
+/* 空状态：去掉过大留白，紧凑融入结果区（视觉锚点已是上方大烧瓶） */
+.sim-stage #simResult .sim-empty { margin: 0; padding: 6px 4px 2px; text-align: center; }

@@ -154,6 +154,15 @@ internal sealed class RedoxRoleRatioStatementJudge : IStatementJudge
         {
             var changes = rx.Changes.Where(c => c.Element == element).ToList();
             if (changes.Count == 0) continue;
+
+            // FromText/ToText 是该元素在对应侧的「全部」氧化态集合（非单一半反应的跃迁），
+            // 歧化时同一元素的氧化/还原两条 change 共享这组文本。据此分别筛选氧化/还原目标态：
+            //   氧化产物 → 产物中该元素的态属于「右侧高于某左侧」的态；还原产物 → 右侧低于某左侧。
+            var fromStates = ParseStates(changes.First().FromText);
+            var toStates = ParseStates(changes.First().ToText);
+            if (fromStates is null || toStates is null
+                || fromStates.Count == 0 || toStates.Count == 0) return Verdict.Undecided;
+
             if (!assign.States.TryGetValue(element, out var xStates) || xStates.Count == 0)
                 return Verdict.Undecided;
 
@@ -164,13 +173,15 @@ internal sealed class RedoxRoleRatioStatementJudge : IStatementJudge
                 xSet.Add((int)v.Num);
             }
 
-            var target = changes.Where(c => c.IsOxidation == oxidized).ToList();
-            foreach (var ch in target)
+            var targets = new HashSet<int>();
+            foreach (var t in toStates)
             {
-                var toStates = ParseStates(ch.ToText);
-                if (toStates is null) return Verdict.Undecided;
-                if (xSet.Overlaps(toStates)) return Verdict.True;
+                foreach (var f in fromStates)
+                {
+                    if (oxidized ? t > f : t < f) { targets.Add(t); break; }
+                }
             }
+            if (xSet.Overlaps(targets)) return Verdict.True;
         }
         return Verdict.False;
     }
@@ -201,21 +212,33 @@ internal sealed class RedoxRoleRatioStatementJudge : IStatementJudge
 
         var elements = rx.Changes.Select(c => c.Element).Distinct(StringComparer.Ordinal).ToList();
         if (elements.Count != 1) return Verdict.Undecided;   // 跨元素 → 物种/原子比歧义，不判
+        var element = elements[0];
 
-        Rational oxidizedMoles = Rational.Zero, reducedMoles = Rational.Zero;
-        foreach (var ch in rx.Changes)
+        if (!EquationParser.TryParse(equation, out var parsed, out _) || parsed is null)
+            return Verdict.Undecided;
+        var bal = EquationBalancer.Balance(parsed);
+        if (!bal.Success) return Verdict.Undecided;
+
+        var terms = parsed.AllTerms.ToList();
+        var leftCount = parsed.Left.Count;
+        // 取该元素左右两侧氧化数的多重集（系数 × 原子数），排序后逐位配对，
+        // 统计被氧化（右 > 左）与被还原（右 < 左）的原子物质的量之比。
+        // 不依赖 Core 的 OxidationChange.FromText/ToText（歧化时为该侧全集，非单一半反应跃迁）。
+        var leftVals = CollectElementValues(terms, bal.Coefficients, leftCount, element, isLeft: true);
+        var rightVals = CollectElementValues(terms, bal.Coefficients, leftCount, element, isLeft: false);
+        if (leftVals.Count == 0 || leftVals.Count != rightVals.Count) return Verdict.Undecided;
+        leftVals.Sort(); rightVals.Sort();
+
+        long oxidizedAtoms = 0, reducedAtoms = 0;
+        for (var k = 0; k < leftVals.Count; k++)
         {
-            var from = ParseStates(ch.FromText);
-            var to = ParseStates(ch.ToText);
-            if (from is null || to is null || from.Count != 1 || to.Count != 1) return Verdict.Undecided;
-            var delta = Math.Abs(to.Single() - from.Single());
-            if (delta == 0) return Verdict.Undecided;
-            var moles = ch.Electrons / new Rational(delta);
-            if (ch.IsOxidation) oxidizedMoles += moles; else reducedMoles += moles;
+            var diff = rightVals[k] - leftVals[k];
+            if (diff > 0) oxidizedAtoms++;
+            else if (diff < 0) reducedAtoms++;
         }
-        if (oxidizedMoles.IsZero || reducedMoles.IsZero) return Verdict.Undecided;
+        if (oxidizedAtoms == 0 || reducedAtoms == 0) return Verdict.Undecided;
 
-        var (trueOx, trueRed) = ToIntPair(oxidizedMoles, reducedMoles);
+        var (trueOx, trueRed) = SimplifyIntPair(oxidizedAtoms, reducedAtoms);
         return trueOx == claimedOx && trueRed == claimedRed ? Verdict.True : Verdict.False;
     }
 
@@ -245,17 +268,36 @@ internal sealed class RedoxRoleRatioStatementJudge : IStatementJudge
         return set.Count == 0 ? null : set;
     }
 
-    // 把 (ox, red) 两个正有理数化为最简正整数对
-    private static (int ox, int red) ToIntPair(Rational ox, Rational red)
+    // 收集指定元素在某一侧（左/右）的氧化数多重集：系数 × 原子数重复该值。
+    private static List<int> CollectElementValues(
+        List<ParsedTerm> terms, Rational[] coeff, int leftCount, string element, bool isLeft)
     {
-        long lcm = Lcm(ox.Den, red.Den);
-        long on = ox.Num * (lcm / ox.Den);
-        long rn = red.Num * (lcm / red.Den);
-        if (on <= 0 || rn <= 0) return (0, 0);
-        long g = Gcd(on, rn);
-        return ((int)(on / g), (int)(rn / g));
+        var vals = new List<int>();
+        for (var i = 0; i < terms.Count; i++)
+        {
+            if ((i < leftCount) != isLeft) continue;
+            var c = coeff[i];
+            if (c.Den != 1 || c.IsZero) return new List<int>();   // 非整数系数 → 多重集语义不明，交由上层判 Undecided
+            long coef = c.Num;
+            var assign = OxidationStateAnalyzer.Assign(terms[i].Species);
+            if (!assign.Success) continue;
+            if (!assign.States.TryGetValue(element, out var list) || list.Count == 0) continue;
+            foreach (var (v, cnt) in list)
+            {
+                if (!v.IsInteger) continue;
+                for (var j = 0; j < coef * cnt; j++) vals.Add((int)v.Num);
+            }
+        }
+        return vals;
+    }
+
+    // 把 (ox, red) 两个正整数化为最简正整数对
+    private static (int ox, int red) SimplifyIntPair(long a, long b)
+    {
+        if (a <= 0 || b <= 0) return (0, 0);
+        long g = Gcd(a, b);
+        return ((int)(a / g), (int)(b / g));
     }
 
     private static long Gcd(long a, long b) { a = Math.Abs(a); b = Math.Abs(b); while (b != 0) { a %= b; (a, b) = (b, a); } return a; }
-    private static long Lcm(long a, long b) => a / Gcd(a, b) * b;
 }

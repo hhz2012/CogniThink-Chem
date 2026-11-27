@@ -96,11 +96,20 @@ public class RedoxRoleRatioStatementJudgeTests
     }
 
     [Fact]
-    public void SpeciesOnBothSides_ReturnsUndecided()
+    public void Disproportion_H2O2_H2O_IsOxidationProduct_ReturnsFalse()
     {
-        // H2O 既在左侧又在右侧 → 物种歧义，不判
-        Assert.Equal(Verdict.Undecided,
+        // 2H2O2 = 2H2O + O2：O -1→-2（H2O，还原）与 -1→0（O2，氧化）
+        // → H2O 是还原产物而非氧化产物，陈述为假（化学正确）
+        Assert.Equal(Verdict.False,
             Judge.Judge("反应：2H2O2 = 2H2O + O2", "H2O 是氧化产物"));
+    }
+
+    [Fact]
+    public void ReactantAskedAsProduct_ReturnsUndecided()
+    {
+        // 2H2O = 2H2 + O2：H2O 只在左侧（反应物），却被问作产物 → 物种侧位歧义，不判
+        Assert.Equal(Verdict.Undecided,
+            Judge.Judge("反应：2H2O = 2H2 + O2", "H2O 是氧化产物"));
     }
 
     [Fact]

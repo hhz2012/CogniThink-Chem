@@ -44,14 +44,14 @@
 | pdf-227 | `answer="A"`（问「错误的是」），但 A（超分子相关陈述）经化学判定为**真**，与 answer 矛盾；备注亦称 A 正确。 | 存储 answer 与化学真值冲突，无官方答案册核对不能定键（贸然改键有引入 harm 的风险）。 | 原页/答案册核对正确键后订正；暂保留 `null`。 |
 | pdf-295 | `answer="A"`（问「不正确的是」），但 A（锂作负极）为真；备注自相矛盾；选项依赖电池原理图。 | answer 与化学真值冲突，且需读图核真，无官方源不能定键。 | 原页核对键 + 图像轨道恢复原理图；暂保留 `null`。 |
 | pdf-306 | `answer="A"`（问「错误的是」），但 A（K⁺向左室迁移）为真；备注冲突；依赖电解装置图。 | answer 与化学冲突，无官方源不能定键。 | 原页核对键 + 图像轨道恢复装置图；暂保留 `null`。 |
-| pdf-325 | `answer="B"`（问「正确的是」），但 B（质荷比 92 归 CH₃）经备注推理为假；备注推理疑似 OCR 损坏。 | answer 与备注/化学矛盾，疑似 OCR 损坏，无官方源不能定键。 | 原页/答案册核对；暂保留 `null`。 |
+| ~~pdf-325~~ | ✅ **已修复（hard-bone-data-repair-2）**：存储 answer=B 本就正确（官方 answer/page_110.json num 1 = B）；缺陷为选项 B 末尾甲苯结构图在 OCR 时丢失、仅残留"CH₃"致文本荒谬。已据渲染页 page_113.png 放大核对，订正选项 B / answerKeywords / note 文本为"归属于甲苯(C7H8)分子离子峰"（键不变），并策展 GC-766-A~D 使 Concept 命中 B。eval `hardbone325` GAIN +1，LOSS=0、harm=0、precision=1。 | — | — |
 | pdf-327 | `answer="A"`（问「错误的是」），但 A（5 个手性碳）为真，备注称 A 正确；依赖结构图。 | answer 与化学冲突，需读图核真，无官方源不能定键。 | 原页核对键 + 图像轨道恢复结构图；暂保留 `null`。 |
 | pdf-386 | 备注自相矛盾、答案疑似误标（既往舍弃题）；选项依赖结构图。 | note 数据损坏 + 选项图像依赖，无法可靠判定；无官方源。 | 原页核对 + 图像轨道恢复结构；暂保留 `null`。 |
 | pdf-409 | `answer="D"`（问「错误的是」），但 D（Li+nNH₃ 反应式）为真；错误项应为 C（P₂O₅ 不能干燥 NH₃），与 answer 冲突。 | answer 与化学真值冲突，无官方源不能定键。 | 原页/答案册核对正确键；暂保留 `null`。 |
 | pdf-410 | `answer="C"`（问「不正确的是」），但 C（凯氏定氮步骤）为真；错误项应为 D，冲突。 | answer 与化学冲突，无官方源不能定键。 | 原页核对键；暂保留 `null`。 |
 | pdf-432 | `answer="B"`（问「不正确的是」），但 B（CH₄ 球棍模型）为真；错误项应为 A（H₂O₂ 电子式），冲突。 | answer 与化学冲突，无官方源不能定键。 | 原页核对键；暂保留 `null`。 |
 | pdf-524 | `answer="BC"`，但备注称 C 错（c/d 不互为同分异构体），与 answer 冲突；依赖合成路线图。 | answer 与备注/化学冲突，无官方源不能定键；且需读图核真。 | 原页核对键 + 图像轨道恢复路线图；暂保留 `null`。 |
-| pdf-338 | `answer="C"`，但备注/化学表明 C、D 均真（疑应为 CD 多选）；题干无「双选/多选」标记；Friedel 烷基化。 | answer 存疑（单 C vs 化学 CD），无官方答案册不能定键；键未核前策展有写入错误 verdict、引入 harm 的风险，故不策展。 | 原页/答案册核对是否为 CD 多选；若确认 CD 且 4 选项文本完整，可经既有 MultiSelect 路径策展（同 pdf-115/475）；暂保留 `null`。 |
+| ~~pdf-338~~ | ⏭️ **已跳过（命题缺陷，hard-bone-data-repair-2）**：官方答案 `answer/page_115.json` 标 C，但官方解析自相矛盾——其论证"CF₃ 吸电子降电子云、CH₃ 推电子升电子云 → 反应活性 CF₃-苯 < CH₃-苯"恰是选项 D 的表述，却误标"D 错"。独立核验：—CF₃ 强钝化、—CH₃ 活化，按题给前提 C、D 双真 → 4 选项不能唯一判真。按零蒙数/零误伤红线不策展假事实、不改键，仅登记。 | 命题缺陷（官方解析与自身推理矛盾），无唯一真项；待题源确认是否多选。 | — |
 
 ---
 
@@ -84,10 +84,10 @@
 | pdf-218 | ✅ **answer 键已订正为 D**（答案册 `page_078` num=3 确认单选 D：A/B/C 对、D 错）；原「多选 BCD」系 answer 字段污染误判。晶胞结构仍依赖图像。 | 晶胞结构 + 图像轨道恢复后重评（键已定，见 I.1）；引擎未解保持 `null` |
 | pdf-220 | ✅ **answer 键已订正为 D**（答案册 `page_078` num=5 确认单选 D；原 kw0=A 亦同步修正为 D）；原「多选 ABC」系污染误判。晶胞结构仍依赖图像。 | 晶胞结构 + 图像轨道恢复后重评（键已定，见 I.1）；引擎未解保持 `null` |
 | pdf-284 | C、D 均为错误项（≥2）但无多选标记 → Concept 返回 null；需读滴定曲线图像 | 图像轨道恢复滴定曲线；若原页确认多选且选项文本完整，可经既有 MultiSelect 路径策展；暂保留 `null` |
-| pdf-307 | C/D 选项文本被结构式图像截断，无法匹配；依赖反应历程图 | 图像轨道恢复 C/D 结构式与反应历程图；文本轨道保持 `null` |
-| pdf-336 | A 选项「产物 B 对应的结构是」+ 图像，文本截断；备注残缺；依赖反应动力学曲线 | 图像轨道恢复产物结构与动力学曲线，原页补全备注；暂保留 `null` |
+| pdf-307 | ✅ **已策展自解（hard-bone-data-repair-2）**：存储 answer=D 正确（官方 answer/page_104.json num 3 = D，选错误项）。独立电化学核验 A/B/C 真、D 假（¹⁸O 标错位置），唯一错误项=D。C/D 缺结构图但文本前缀可唯一匹配；策展 GC-767-A~D（askDir=错误）Concept 命中 D。无数据改动。eval `hardbone307` GAIN +1，LOSS=0、harm=0、precision=1。 | — |
+| pdf-336 | ✅ **已策展自解（hard-bone-data-repair-2）**：存储 answer=A 正确（选错误项）。据渲染页 page_115.png 读图 + VL 缓存动力学曲线：产物A先增后减（动力学）、产物B持续增加（热力学），平衡 A:B=1:35；A 假（选项A把苯基与CH₃同侧的较不稳定构型标作产物B）、B/C/D 真，唯一错误项=A。策展 GC-768-A~D（askDir=错误）Concept 命中 A。无数据改动。eval `hardbone336` GAIN +1，LOSS=0、harm=0、precision=1。 | — |
 | pdf-458 | ✅ **已由引擎解出**（spec `engine-ext-structure-periodic`，GAIN +1）：4 选项文本完整可判——选项 B 实为完整文本描述「H—N←B—H（图示为 N 与 B 间配位键…）」，**非图像缺失**（原登记「选项 B 含结构式图像，文本不全」系误判）。引擎推导：A `[Ar]4s²4p¹` 漏 `3d¹⁰` 假、B `NH₃BH₃` 含 N→B 配位键真、C 氮化镓分子晶体假（实为原子晶体）、D `BCl₃` 键角 120° 真 → 产出 `BD`。键未动（仍 `ans_page=-1`，但化学推导与存储 `answer=BD` 一致） | 已闭环；`ans_page=-1` 仍建议后续官方源核键，但不阻塞判分。详见 AB 类 |
-| pdf-498 | 元素推断依赖「结构如图所示」；备注为[千问求解]，元素身份需核真 | 图像轨道恢复结构图 + 原页核真元素身份；暂保留 `null` |
+| pdf-498 | ✅ **已修复并策展自解**（hard-bone-data-repair-2）：原存储 `answer=D`、note 猜 Z=Mg 均误；据答案册 `pdfs/_extract/answer/page_067.json` **num 7** 官方解析核正为 **B**（Z=S 成 6 条共价键、M=Al 第三周期最小 +3 阳离子；推 W=O、X=F、Y=C，离子半径 r(S²⁻)>r(O²⁻)>r(F⁻)>r(Al³⁺) 完美对上 B）。4-verdict 独立闭环：A 假（S 超八隅体 12e，非每原子 8e）、B 真、C 假（F 无最高价含氧酸，不可能强于 H₂SO₄）、D 假（第三周期 I₁ 序 Al<Si<S<P，介于 Al 与 S 间仅 Si 一种，非 3 种）。修正 `pdf_questions.json` 的 answer/answerKeywords/note（question/options/images 不动），加 `GC-764-A/B/C/D` 事实（stemMatch「M的简单阳离子半径是同周期中最小的」全库唯一，4 选项各命中唯一事实），Concept 端到端命中 B。eval `redox_stmt`→`hardbone498`：**GAIN +1**（pdf-498），LOSS=0、harm=0、precision=1，gwCorrect 709→710、bothWrong 48→47。 |
 | pdf-511 | 元素推断依赖「其结构如图所示」；备注[千问求解]含自我修正，需核真 | 图像轨道恢复结构图 + 原页核真；暂保留 `null` |
 | pdf-170 | 大题第(4)小问「NiO 晶胞如右图所示，晶胞中含有 Ni²⁺的个数为__」——NiO 岩盐结构的原子排布仅在**晶胞图**中，题干文本未描述具体结构；需均摊法从图计数 | ✅ 已解（晶胞轨道单独立项落地，见 `.trae/specs/crystal-cell-validator/`）：录入 NiO 岩盐 crystal 资产（Ni 顶点×8 + 面心×6，坐标与 `pdf_images/p057_n04_r0.png` 核对），`CrystalCellValidator` 均摊得 4；同时订正 answer 键（见 A.1）。eval `ie_final`→`ie_crystal`：**GAIN +1**（bothWrong→gatewayOnly），LOSS=0、harm=0、precision=1 |
 | pdf-178 | 大题第(6)小问「Mn₃Sb 合金立方晶胞结构如右图」问每个 Sb 周围最近的 Mn 个数（配位数）+ 晶胞密度——原子坐标仅在图中，文本无；密度需边长 a（题干给出 a nm） | ✅ 已解：穷尽检索后在 `pdfs/_extract/answer/page_060.json` **num 4 第(6)小问**找到官方答案 `①12 ②122×1×55×3 / (NA×10^-7)^3`（同条 (1)~(5) 与 `exercise/page_058` 大题 A 逐一吻合，铁证）。录入 Mn₃Sb crystal 资产（Sb 顶点×8 + Mn 面心×6，Z=1 公式单元，M≈287，CN=12，坐标与 `pdf_images/p058_n06_1.png` 核对）；求解器扩宽配位意图（「周围+最近」）与多物种密度 `formulaUnits` 字段，产出「12；2.87×10^23/(N_A·a³)」命中关键词。同时订正 answer 键（见 A.1）。eval `ie_crystal`→`ie_crystal178`：**GAIN +1**，LOSS=0、harm=0、precision=1 |
@@ -103,7 +103,7 @@
 | id | 症状 |
 |----|------|
 | pdf-381 | note 损坏（称题干问"错误的是"，实际题干问"正确的是"），但存储 `answer="D"`（碳酸镁属于无机盐）对当前题干化学上正确。不改动；留痕提醒 note 需重写。 |
-| pdf-075 | 🔧 选项已恢复（spec: redox-statement-judge-pdf075，进行中）：存储 `answer="B"` 经原书 `page_022` VL 核对**正确**（问「错误的是」，B 为假陈述）。**存储选项文本与官方题面错配**——实为另一套变体选项（两假 A/C 不自洽、无来源），属 OCR/拼接错乱。已按原书恢复 A/B/C/D 真选项（键 B 不动，answerKeywords 同步），question/note/type 未动。引擎氧还求解器（新增 RedoxCount/RoleRatio + 既有 RedoxElectron + 单选择陈述路径）目标解出 →B，待全库 eval 回归确认零 stray-hit。note 仍张冠李戴（谈及变体 A），不影响判分，留待数据管道重写。**不是答案键错误**，此前误判为键冲突已纠正。 |
+| pdf-075 | ✅ 已闭环（spec: redox-statement-judge-pdf075，路径 B）：存储 `answer="B"` 经原书 `page_022` VL 核对**正确**（问「错误的是」，B 为假陈述）。存储选项文本原与官方题面错配（另一套变体、两假 A/C 不自洽），已按原书恢复 A/B/C/D 真选项（键 B 不动，answerKeywords 同步），question/note/type 未动。引擎接入 redox 求解器：新增 `RedoxCountStatementJudge` / `RedoxRoleRatioStatementJudge` + 单选择陈述路径 `StatementChoiceValidator`（任一选项 Undecided→整题 null、候选不唯一→null 交 MultiSelect）；`EquationBalancer` 欠定基分支放行用户系数（Xe 反应Ⅳ null-space dim 2，守恒校验通过即接受，不臆造）。A/D 由 `choice-curated-facts` 锚定（GC-075-A/D，全库零 stray-hit），B 由 RedoxElectron 判 False（实际每 mol O₂ 6e），C 由 RedoxCount 判 True → 唯一假项 B。全库 eval（tag `redox_stmt`，Production 确定性）：**GAINED=[pdf-075]，LOST=[]，harm=0，enginePrecision=1，已正确 gatewayAnswer 零变动**，gwCorrect 708→709、bothWrong 49→48。note 仍张冠李戴（谈及变体 A），不影响判分，留待数据管道重写。**不是答案键错误**。 |
 | pdf-291 | 选项集不全：仅存 A/B/C，**缺 D 选项文本**。存储 `answer="C"` 与 note 推导一致（A/B 错误、C 正确，题干问"正确的是"），但缺 D 致选项集不完整、引擎无法对齐 → 保持 `null`。键仅 note 推导、未官方核对。外部「选项补全」WIP 正在补 D（未提交），待其落地后复核。 |
 | pdf-437 | 选项集不全：仅存 A/B，**缺 C/D 选项文本**，但存储 `answer="C"` 指向当前不存在的选项。note 推导 A/B 错误、C 正确（题干问"表示正确的是"），键大概率正确但未官方核对；选项缺失致引擎无法对齐 → 保持 `null`。外部「选项补全」WIP 正在补 C/D（未提交），待其落地后复核。 |
 
@@ -180,14 +180,14 @@
 | pdf-263 | 问法「正确的有几项」为计数型（非选项字母匹配），6 选项；需计数逻辑 | C 类（既有） |
 | pdf-284 | C、D 均为错误项（≥2）无多选标记 → Concept 返回 null；需读滴定曲线图像 | C 类（本批新增） |
 | pdf-303 | 备注称 C、D 均真（应为 CD），answer 仅 C；多选无标记；电池装置图 | G 类⑤（既有） |
-| pdf-307 | C/D 选项文本被结构式图像截断，无法匹配；反应历程图 | C 类（本批新增） |
-| pdf-336 | A 选项「产物 B 对应的结构是」+ 图像，文本截断；备注残缺；反应动力学曲线 | C 类（本批新增） |
+| pdf-307 | ✅ 已策展自解（见 C 类 pdf-307）：GC-767，Concept 命中 D（选错误项），无数据改动 | 已移出未解 |
+| pdf-336 | ✅ 已策展自解（见 C 类 pdf-336）：GC-768，Concept 命中 A（选错误项），无数据改动 | 已移出未解 |
 | pdf-337 | ✅ 结构图像已挂载（见 C 类 pdf-337 / V 类），VL 可解；引擎文本不读图仍 null | C 类（图像已挂载） |
-| pdf-338 | 备注/化学表明 C、D 均真（应为 CD），answer 仅 C；多选无标记；需官方答案册核键 | A.2（本批新增） |
+| pdf-338 | ⏭️ 已跳过（命题缺陷，见 A 类 pdf-338）：官方解析自相矛盾，C、D 双真无唯一真项；不策展、不改键 | 命题缺陷（非数据缺陷） |
 | pdf-376 | 合成路线图像；备注称 4 项全正确与 answer=B 矛盾，B/C/D 需看结构核真 | C 类（既有） |
 | pdf-406 | 问法「不能完成」未被 `WrongDir` 正则覆盖 → askDir 误判为 correct，能完成项 3 个候选不唯一；不动 .cs 则无解 | A.1（键已修复）+ H.3 残留说明 |
 | pdf-458 | ✅ 已由引擎解出（见 C 类 pdf-458 / AB 类）：4 选项文本完整，引擎推导 A 假 B 真 C 假 D 真 → `BD`；原「选项 B 文本不全」系误判 | AB 类（本批已闭环） |
-| pdf-498 | 元素推断依赖「结构如图所示」；备注 [千问求解]，元素身份需核真 | C 类（本批新增） |
+| pdf-498 | ✅ 已修复（见 C 类 pdf-498）：答案册核正键 D→B + 策展 GC-764，Concept 命中 B；已移出未解 | 已移出未解 |
 | pdf-511 | 元素推断依赖「其结构如图所示」；备注 [千问求解] 含自我修正，需核真 | C 类（本批新增） |
 | pdf-531 | ✅ 已解（engine-ext-experiment-operation，EF-531 滴定操作，多选 BC 经 MultiSelectChoiceValidator）；原"拼接/askDir 不可靠"过时 | 已移出未解 |
 
@@ -202,7 +202,7 @@
 | pdf-295 | answer=A 选不正确项，但 A（锂作负极）为真；备注自相矛盾；电池原理图 | A.2（本批新增） |
 | pdf-306 | answer=A 选错误项，但 A（K⁺向左室迁移）为真；备注冲突；电解装置图 | A.2（本批新增） |
 | pdf-319 | ✅ 已修键+回填（见 C 类 pdf-319 行）：原分诊误判为 askDir 矛盾，实为 answer OCR 错为 A，书上正确答案 D；note 截断 + C/D 结构名丢失已一并回填 | A.1（键已修复） |
-| pdf-325 | answer=B 选正确项，但 B（质荷比 92 归 CH₃）为假；备注推理有误，疑似 OCR 损坏 | A.2（本批新增） |
+| pdf-325 | ✅ 已修复（见 A 类 pdf-325）：键 B 本正确，OCR 损坏的选项 B 文本已订正 + 策展 GC-766 命中 B | 已移出未解 |
 | pdf-327 | answer=A 选错误项，但 A（5 个手性碳）为真；备注称 A 正确，冲突；结构图 | A.2（本批新增） |
 | pdf-382 | answer=B 选正确项，但备注称 B 错误（②为加聚非缩聚），冲突；合成路线图 | C 类（既有） |
 | pdf-386 | 备注自相矛盾 / 数据损坏（答案误标）；选项依赖结构图；维持既往舍弃 | A.2（本批新增） |
@@ -542,7 +542,7 @@
 | id | diagnose taskType | 图像依赖 | 已有登记 |
 |----|-------------------|----------|----------|
 | pdf-138 | choice | H₂S 制备/干燥/检验/尾气装置图（B 干燥 H₂S 错，浓硫酸氧化 H₂S） | 本类新增 |
-| pdf-255 | choice | CO₂ 加氢绝热反应管温度/体积分数曲线图 | 本类新增 |
+| ~~pdf-255~~ | choice | ✅ 已策展自解（hard-bone-data-repair-2）：存储 answer=C 正确，缺陷为曲线图缺失致引擎 null；据 page_090.png 读图 + 答案册 page_087.json 核 4-verdict（A/B 假、C 真、D 假），策展 GC-765-A~D 命中 C。eval GAIN +1，LOSS=0、harm=0。 | 已移出未解 |
 | pdf-271 | choice | 三组滴定实验曲线图（指示剂选择），键已修 | register line 235（键修复） |
 | pdf-303 | choice | 电池装置图，`answer='C'` 存疑（note 称应为 CD） | G 类⑤ / H.1（既有） |
 | pdf-340 | equilibrium | 有机手性碳结构图（D 仅含 3 个手性碳） | 本类新增 |

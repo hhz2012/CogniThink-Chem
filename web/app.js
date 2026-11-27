@@ -2387,27 +2387,56 @@ function structuredHtml(s) {
  * 图标动画与轨迹逐步展开严格同步。
  */
 
-// 模拟器特有图标：running=true 时气泡上升、轨道环旋转、液体脉动
+// 模拟器特有图标：running=true 时轨道环旋转、液体脉动；
+// 沉淀层 / 溶液颜色 / 气泡 / 固态由 simApplyIconState 数据驱动（见下）
 function simFlaskIcon(running, size) {
   const s = size || 36;
   return `<span class="sim-icon${running ? ' running' : ''}" title="反应模拟器">` +
     `<svg viewBox="0 0 64 64" width="${s}" height="${s}" aria-hidden="true" focusable="false">` +
-      `<ellipse class="sim-ring" cx="32" cy="30" rx="27" ry="8.5" />` +
-      `<path class="sim-flask-neck" d="M27 7 H37 V10 H27 Z" />` +
-      `<path class="sim-flask-body" d="M28.5 10 V21 L13 51.5 Q12.5 56 16.5 56 H47.5 Q51.5 56 51 51.5 L35.5 21 V10 Z" />` +
-      `<path class="sim-liquid" d="M16.5 44 V51.5 Q16 55 19.5 55 H44.5 Q48 55 47.5 51.5 V44 Q40 47 32 44 Q24 41 16.5 44 Z" />` +
-      `<circle class="sim-bubble sim-b1" cx="27" cy="50" r="1.8" />` +
-      `<circle class="sim-bubble sim-b2" cx="33" cy="52" r="1.3" />` +
-      `<circle class="sim-bubble sim-b3" cx="38" cy="49" r="2.1" />` +
+      `<defs>` +
+        `<linearGradient id="simGlassGrad" x1="0" y1="0" x2="1" y2="1">` +
+          `<stop offset="0%" stop-color="#f0f9ff"/><stop offset="55%" stop-color="#e0f2fe"/><stop offset="100%" stop-color="#b9e3f7"/>` +
+        `</linearGradient>` +
+        `<radialGradient id="simGlowGrad" cx="50%" cy="50%" r="50%">` +
+          `<stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.55"/><stop offset="70%" stop-color="#38bdf8" stop-opacity="0.12"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>` +
+        `</radialGradient>` +
+      `</defs>` +
+      // 运行光晕（瓶身后方，.running 时脉冲亮起）
+      `<ellipse class="sim-ring" cx="32" cy="34" rx="24" ry="22" />` +
+      // 玻璃锥形瓶身：瓶颈 + 圆弧肩部 + 锥底（顶部不闭合，由瓶口椭圆封口）
+      `<path class="sim-flask-body" d="M27 7 L27 15 Q24 17 18 30 L14.5 49 Q13.5 53.5 17.5 53.5 L46.5 53.5 Q50.5 53.5 49.5 49 L46 30 Q40 17 37 15 L37 7" />` +
+      // 瓶口内孔 + 外缘椭圆（真实容器开口）
+      `<ellipse class="sim-flask-mouth" cx="32" cy="7" rx="4" ry="1.1" />` +
+      `<ellipse class="sim-flask-rim" cx="32" cy="7" rx="5.6" ry="1.7" />` +
+      // 玻璃左侧反光条 + 刻度线
+      `<path class="sim-flask-shine" d="M23 22 L19 47" />` +
+      `<g class="sim-flask-scale">` +
+        `<line x1="16.5" y1="38" x2="20.5" y2="38" /><line x1="15.8" y1="43" x2="20" y2="43" /><line x1="15" y1="48" x2="20" y2="48" />` +
+      `</g>` +
+      // 液态：溶液颜色由 --sol 驱动；带弯月液面，液面波纹（有色溶液时显现）
+      `<path class="sim-liquid" d="M18 41 Q24 42.6 32 41 Q40 39.4 46 41 L45 49 Q44.4 52.2 41.3 52.2 L22.7 52.2 Q19.6 52.2 19 49 Z" />` +
+      `<path class="sim-liquid-wave" d="M18 41 Q24 42.6 32 41 Q40 39.4 46 41" />` +
+      // 固态颗粒（无溶液、纯固体体系时显现，替代液态）
+      `<g class="sim-solids">` +
+        `<circle class="sim-granule" cx="24" cy="49" r="1.7" /><circle class="sim-granule" cx="30" cy="50.5" r="1.3" />` +
+        `<circle class="sim-granule" cx="36" cy="49" r="1.8" /><circle class="sim-granule" cx="41" cy="50" r="1.4" />` +
+        `<circle class="sim-granule" cx="28" cy="47.5" r="1.2" /><circle class="sim-granule" cx="38" cy="47.5" r="1.1" />` +
+      `</g>` +
+      // 沉淀层：底部固体，颜色 --precip，默认沉降前收起
+      `<path class="sim-precip" d="M19 48 Q22 46.8 25 48 T31 48 T37 48 T43 48 L43.5 52.2 Q43.5 52.6 40.5 52.6 L21.5 52.6 Q18.5 52.6 19 52.2 Z" />` +
+      // 气泡（仅 .bubbling——产气反应——时上升）
+      `<circle class="sim-bubble sim-b1" cx="27" cy="49" r="1.8" />` +
+      `<circle class="sim-bubble sim-b2" cx="33" cy="51" r="1.3" />` +
+      `<circle class="sim-bubble sim-b3" cx="38" cy="48" r="2.1" />` +
     `</svg></span>`;
 }
 
 // 颜色名 -> 色值（用于物种色点）
 const SIM_COLORS = {
-  '蓝色': '#3b82f6', '浅蓝色': '#60a5fa', '蓝绿色': '#2dd4bf',
-  '浅绿色': '#86efac', '绿色': '#22c55e', '黄绿色': '#a3e635',
-  '黄色': '#eab308', '浅黄色': '#fde047', '橙黄色': '#fbbf24',
-  '红色': '#ef4444', '橙红色': '#f97316', '橙色': '#f97316',
+  '蓝色': '#3b82f6', '浅蓝色': '#60a5fa', '蓝绿色': '#2dd4bf', '深蓝色': '#1d4ed8',
+  '浅绿色': '#86efac', '绿色': '#22c55e', '黄绿色': '#a3e635', '墨绿色': '#15803d',
+  '黄色': '#eab308', '浅黄色': '#fde047', '橙黄色': '#fbbf24', '棕黄色': '#ca8a04',
+  '红色': '#ef4444', '橙红色': '#f97316', '橙色': '#f97316', '血红色': '#be123c',
   '紫红色': '#be123c', '红褐色': '#b45309', '棕色': '#92400e',
   '黑色': '#1f2937', '白色': '#ffffff', '无色': '#ffffff',
   '银白色': '#cbd5e1', '灰色': '#94a3b8', '紫色': '#a855f7'
@@ -2415,6 +2444,86 @@ const SIM_COLORS = {
 function simDot(name) {
   const c = (name && SIM_COLORS[name]) || '#94a3b8';
   return `<span class="sim-dot" style="background:${c}" title="${esc(name || '')}"></span>`;
+}
+
+/* ---------- 烧瓶图标：化学状态数据驱动（溶液颜色 / 沉淀 / 产气 / 固态） ---------- */
+// 沉淀文本 → 颜色：取其中出现的颜色词（长词优先，避免"红色"抢"紫红色"）
+const SIM_PRECIP_COLOR_ORDER = Object.keys(SIM_COLORS).sort((a, b) => b.length - a.length);
+function simPrecipColor(text) {
+  if (!text) return null;
+  for (const name of SIM_PRECIP_COLOR_ORDER) {
+    if (text.indexOf(name) >= 0) return SIM_COLORS[name];
+  }
+  return '#ffffff';
+}
+// 「无色/白色」视为清水；多色描述（如「黄色、血红色」）也算有色
+function simIsClearColor(name) {
+  if (!name) return true;
+  const tokens = name.split(/[、\/,，]/).map((t) => t.trim()).filter(Boolean);
+  return tokens.length > 0 && tokens.every((t) => t === '无色' || t === '白色');
+}
+// 溶液颜色文本 → 色值：精确匹配 → 多色取最后命中（结果色优先）→ 子串最长匹配兜底
+function simSolColor(name) {
+  if (!name) return null;
+  if (SIM_COLORS[name]) return SIM_COLORS[name];
+  const tokens = name.split(/[、\/,，]/).map((t) => t.trim()).filter(Boolean);
+  for (let i = tokens.length - 1; i >= 0; i--) {
+    if (SIM_COLORS[tokens[i]]) return SIM_COLORS[tokens[i]];
+  }
+  for (const cname of SIM_PRECIP_COLOR_ORDER) {
+    if (name.indexOf(cname) >= 0) return SIM_COLORS[cname];
+  }
+  return null;
+}
+
+// 从「事件 / 状态 / 快照」推断烧瓶应呈现的化学状态
+//   - solutionColor / solutionColorAfter → 溶液颜色
+//   - precipitates[] / 现象含沉淀 → 底部沉淀层及其颜色
+//   - type=GasEvolution / 现象含气体 → 上升气泡
+//   - 无溶液且物种为固体 → 固态颗粒（替代液态）
+function simInferIconState(source) {
+  const st = { solutionColor: null, precipColor: null, gas: false, solid: false };
+  if (!source) return st;
+  const state = source.state || source;                 // 快照取 .state，事件/终态取自身
+  st.solutionColor = state.solutionColor || state.solutionColorAfter || null;
+  const precips = state.precipitates;
+  if (precips && precips.length) st.precipColor = simPrecipColor(precips[0]);
+  const evs = source.events || (source.type ? [source] : []);
+  for (const ev of evs) {
+    if (!ev) continue;
+    if (ev.type === 'GasEvolution') st.gas = true;
+    const phen = ev.phenomena || [];
+    if (phen.some((p) => /气体|气泡|冒泡|逸出|放出/.test(p))) st.gas = true;
+    if (!st.precipColor && phen.some((p) => /沉淀|析出|浑浊|生成.*固体/.test(p))) {
+      st.precipColor = simPrecipColor(phen.join(' ')) || '#ffffff';
+    }
+  }
+  // 无溶液、无沉淀，且物种标注为固体/粉末/片/粒 → 视为固态体系
+  if (!st.solutionColor && !st.precipColor) {
+    const sp = state.species || [];
+    if (sp.some((s) => /固体|粉末|片|粒|块状/.test((s.amountText || '') + ' ' + (s.name || '')))) st.solid = true;
+  }
+  return st;
+}
+
+// 把推断出的状态应用到烧瓶图标（通过 CSS 变量 + class，不重建 SVG，避免打断动画）
+function simApplyIconState(wrap, iconState) {
+  if (!wrap) return;
+  const icon = wrap.querySelector('.sim-icon');
+  if (!icon) return;
+  const st = iconState || {};
+  // 能解析出非清水色才算有色（支持「黄色、血红色」多色描述）；「无色/白色」视为清水
+  const solColor = simSolColor(st.solutionColor);
+  const colored = !!solColor && !simIsClearColor(st.solutionColor);
+  // 有色溶液用实色 + 较高不透明度；否则清水（极浅蓝、半透明）
+  const sol = colored ? solColor : 'rgba(186, 230, 253, 0.22)';
+  icon.style.setProperty('--sol', sol);
+  icon.style.setProperty('--sol-opaque', colored ? '0.85' : '0.55');
+  icon.style.setProperty('--precip', st.precipColor || '#ffffff');
+  icon.classList.toggle('colored', colored);
+  icon.classList.toggle('has-precip', !!st.precipColor);
+  icon.classList.toggle('bubbling', !!st.gas);
+  icon.classList.toggle('solid-state', !!st.solid);
 }
 function simSetIconRunning(wrap, running) {
   if (!wrap) return;
@@ -2459,6 +2568,7 @@ function simStopEmbeddedVisual(state) {
   if (!state) return;
   if (state.timer) { clearInterval(state.timer); state.timer = null; }
   simSetIconRunning(state.iconWrap, false);
+  simApplyIconState(state.iconWrap, {}); // 复位颜色/沉淀/气泡
   if (state.bar) state.bar.style.width = '0%';
   if (state.eventEls) state.eventEls.forEach((el) => el.classList.remove('on'));
   if (state.finalEl) { state.finalEl.hidden = true; state.finalEl.classList.remove('show'); }
@@ -2482,6 +2592,7 @@ function initLiveSimPlayer(hostEl, view) {
 
   function reveal(i) {
     if (eventEls[i]) eventEls[i].classList.add('on');
+    simApplyIconState(iconWrap, simInferIconState((trace.events || [])[i])); // 变色/沉淀/冒泡随事件更新
     const pct = state.total ? Math.round(((i + 1) / state.total) * 100) : 100;
     if (bar) bar.style.width = pct + '%';
   }
@@ -2503,6 +2614,7 @@ function initLiveSimPlayer(hostEl, view) {
     simStopEmbeddedVisual(state);
     state.step = 0;
     simSetIconRunning(iconWrap, true);
+    simApplyIconState(iconWrap, {}); // 复位到清水初始态
     reveal(0);
     state.timer = setInterval(tick, 1100);
   };
@@ -2535,17 +2647,13 @@ function renderSimPanel() {
   const host = document.getElementById('simView');
   host.innerHTML = `
     <div class="live-solve">
-      <div class="panel sim-panel">
+      <!-- 配置面板：标题 / API 地址 / 模式 / 反应物输入 -->
+      <div class="panel sim-panel sim-config">
         <div class="sim-head">
-          <div class="sim-icon-wrap" id="standSimIcon">${simFlaskIcon(false, 44)}</div>
           <div class="sim-title">
             <h2 style="margin-top:0">⚗️ 反应模拟器</h2>
-            <p class="panel-note" style="margin:2px 0 0">前端模拟器控件：输入物质与条件，调用化学引擎实时模拟；烧瓶图标随模拟运行转动，并与现象/颜色/沉淀动画同步。结果不参与判分，仅供可视化。</p>
+            <p class="panel-note" style="margin:2px 0 0">输入物质与条件，调用化学引擎实时模拟；下方烧瓶随反应运行转动，并与颜色 / 沉淀 / 冒泡动画同步。结果不参与判分，仅供可视化。</p>
           </div>
-        </div>
-        <div class="sim-quick-row">
-          <button class="sim-btn-quick" id="simQuickReasonBtn" type="button">模拟</button>
-          <span class="panel-note">一键执行推理计划，烧瓶随状态轨迹转动并同步现象</span>
         </div>
         <p class="panel-note"><label>API 地址：<input id="simApiBase" class="live-input" value="${esc(defaultLiveApiBase())}" spellcheck="false" /></label></p>
         <div class="sim-mode-tabs" id="simModeTabs">
@@ -2567,19 +2675,28 @@ function renderSimPanel() {
           <button class="sim-btn-mini sim-add-step" id="simAddStep" type="button">＋ 添加步骤</button>
           <label class="sim-check"><input type="checkbox" id="simReasonAqueous" checked /> 水溶液条件</label>
         </div>
-        <div class="live-actions">
+      </div>
+      <!-- 模拟效果舞台：大烧瓶图标 + 模拟按钮 + 出现的过程，聚合在同一块 -->
+      <div class="sim-stage">
+        <div class="sim-stage-icon">
+          <div class="sim-icon-wrap" id="standSimIcon">${simFlaskIcon(false, 140)}</div>
+        </div>
+        <div class="live-actions sim-stage-actions">
           <button class="hero-cta" id="simRunBtn" type="button">▶ 开始模拟</button>
           <button class="hero-cta hero-cta-ghost" id="simStopBtn2" type="button">■ 停止</button>
+          <button class="sim-btn-quick" id="simQuickReasonBtn" type="button">模拟</button>
           <span id="simStatus" class="panel-note"></span>
         </div>
+        <div class="sim-stage-hint">
+          <span class="panel-note">「模拟」一键执行多步推理计划，烧瓶随状态轨迹转动并同步现象</span>
+        </div>
+        <div id="simResult"></div>
       </div>
-      <div id="simResult"></div>
     </div>`;
   // 空状态占位：首次进入时提示如何开始（运行后被结果替换）
   const resultHost = host.querySelector('#simResult');
   if (resultHost) resultHost.innerHTML = `
     <div class="panel sim-panel sim-empty">
-      <div class="sim-empty-icon">🧪</div>
       <div class="sim-empty-title">开始模拟</div>
       <div class="sim-empty-desc">选择模式并输入物质后点「开始模拟」，或直接点上方「模拟」一键执行多步推理 —— 烧瓶随反应轨迹转动，颜色与沉淀实时同步。</div>
     </div>`;
@@ -2608,10 +2725,13 @@ function simStopStandalone() {
   if (st) {
     if (st.timer) { clearInterval(st.timer); st.timer = null; }
     simSetIconRunning(st.iconWrap, false);
+    simApplyIconState(st.iconWrap, {}); // 复位颜色/沉淀/气泡到清水态
     if (st.bar) st.bar.style.width = '0%';
     if (st.eventEls) st.eventEls.forEach((el) => el.classList.remove('on'));
     if (st.finalEl) { st.finalEl.hidden = true; st.finalEl.classList.remove('show'); }
   }
+  // 兜底：即使 st 已被置空，也把独立图标复位到清水态
+  simApplyIconState(document.getElementById('standSimIcon'), {});
   // 复位多步推理时间线的快照高亮与终态（加性，对其他模式无副作用）
   const res = document.getElementById('simResult');
   if (res) {
@@ -2685,6 +2805,7 @@ async function simRunTrace(base, species, aqueous, resultEl, status) {
   status.textContent = '正在模拟…';
   resultEl.innerHTML = '';
   simSetIconRunning(iconWrap, true);
+  simApplyIconState(iconWrap, {}); // 复位到清水初始态，避免沿用上次反应的颜色/沉淀
   try {
     const res = await fetch(base + '/api/chemistry/trace', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -2744,10 +2865,12 @@ function simRenderTraceAnimation(data, resultEl, status, state) {
 
   function reveal(i) {
     if (eventEls[i]) eventEls[i].classList.add('on');
+    simApplyIconState(state.iconWrap, simInferIconState(events[i])); // 随事件更新：变色/沉淀/冒泡
     if (bar) bar.style.width = (total ? Math.round(((i + 1) / total) * 100) : 100) + '%';
   }
   function finish() {
     simSetIconRunning(state.iconWrap, false);
+    simApplyIconState(state.iconWrap, simInferIconState(fin)); // 终态：保留溶液颜色与沉淀，停止冒泡
     if (finalEl) { finalEl.hidden = false; finalEl.classList.add('show'); }
     status.textContent = '模拟完成（收敛：' + (data.converged ? '是' : '否') + '）';
   }
@@ -2858,6 +2981,7 @@ async function simRunReason(base, req, resultEl, status) {
   status.textContent = '正在推理…';
   resultEl.innerHTML = '';
   simSetIconRunning(iconWrap, true);
+  simApplyIconState(iconWrap, {}); // 复位到清水初始态
   try {
     const res = await fetch(base + '/api/chemistry/reason', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
@@ -2989,11 +3113,13 @@ function simRenderReasonAnimation(data, resultEl, status, state) {
       const evs = el.querySelectorAll('.sim-event');
       evs.forEach((evEl, k) => { setTimeout(() => { if (LIVE_SIM.standalone === state) evEl.classList.add('on'); }, 130 * k + 90); });
     }
+    simApplyIconState(state.iconWrap, simInferIconState(traj[i])); // 随快照更新：变色/沉淀/冒泡
     if (bar) bar.style.width = (total ? Math.round(((i + 1) / total) * 100) : 100) + '%';
   }
   function finish() {
     if (LIVE_SIM.standalone !== state) return;
     simSetIconRunning(state.iconWrap, false);
+    simApplyIconState(state.iconWrap, simInferIconState(fin)); // 终态：保留颜色与沉淀，停止冒泡
     if (finalEl) { finalEl.hidden = false; finalEl.classList.add('show'); }
     status.textContent = '推理完成，共 ' + total + ' 个状态快照';
   }

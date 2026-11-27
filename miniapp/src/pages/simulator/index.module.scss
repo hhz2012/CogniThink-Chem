@@ -91,11 +91,20 @@
 /* ===== CSS 烧瓶图标（镜像 solve SimPlayer）===== */
 .simIcon { position: relative; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.3s ease; flex-shrink: 0; }
 .simIconRun { opacity: 1; }
-.simRing { position: absolute; top: 14px; left: 2px; width: 52px; height: 10px; border: 2px solid #6366f1; border-radius: 50%; box-sizing: border-box; opacity: 0; }
-.simIconRun .simRing { opacity: 0.9; animation: simRingSpin 3s linear infinite; }
+/* 运行光晕：瓶身后方的径向渐变辉光，运行时脉冲（不支持时退化为不显示） */
+.simRing { position: absolute; top: 8px; left: 0; width: 56px; height: 44px; border-radius: 50%; opacity: 0; background: radial-gradient(circle at 50% 50%, rgba(125,211,252,0.55) 0%, rgba(56,189,248,0.12) 70%, rgba(56,189,248,0) 100%); transform-origin: center; transition: opacity 0.5s ease; }
+.simIconRun .simRing { opacity: 0.85; animation: simRingPulse 2.6s ease-in-out infinite; }
 .simFlask { position: relative; width: 32px; height: 40px; display: flex; flex-direction: column; align-items: center; }
-.simNeck { width: 12px; height: 6px; background: #e0f2fe; border: 1.5px solid #0ea5e9; border-radius: 3px 3px 0 0; box-sizing: border-box; margin-bottom: -1px; z-index: 1; }
-.simBody { position: relative; width: 30px; height: 28px; background: #e0f2fe; border: 1.5px solid #0ea5e9; border-radius: 6px 6px 45% 45% / 6px 6px 65% 65%; box-sizing: border-box; overflow: hidden; }
+/* 瓶口：外缘椭圆（玻璃唇）+ 内孔（深色，模拟看向瓶内） */
+.simRim { position: relative; width: 18px; height: 4px; background: #e0f2fe; border: 1.5px solid #38bdf8; border-radius: 50%; box-sizing: border-box; z-index: 2; margin-bottom: -1px; }
+.simMouth { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 2.2px; border-radius: 50%; background: rgba(100, 116, 139, 0.5); }
+.simNeck { width: 12px; height: 6px; background: linear-gradient(90deg, #b9e3f7 0%, #f0f9ff 50%, #b9e3f7 100%); border: 1.5px solid #38bdf8; border-top: none; border-radius: 0; box-sizing: border-box; z-index: 1; }
+/* 锥形瓶身：clip-path 裁出上窄下宽的锥台，玻璃渐变 + 投影描边（不支持 clip-path 时回退为矩形） */
+.simBody { position: relative; width: 30px; height: 28px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 55%, #b9e3f7 100%); box-sizing: border-box; overflow: hidden; clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); filter: drop-shadow(0 0 0.5px #38bdf8) drop-shadow(0 0 0.5px #38bdf8); }
+/* 玻璃左侧反光条 + 刻度线（浮在液面之上，模拟玻璃表面） */
+.simShine { position: absolute; left: 22%; top: 14%; width: 2px; height: 62%; background: #ffffff; opacity: 0.7; border-radius: 2px; transform: rotate(10deg); z-index: 3; }
+.simScale { position: absolute; left: 16%; top: 28%; display: flex; flex-direction: column; gap: 4px; z-index: 3; }
+.simScale .simTick { width: 7px; height: 1px; background: rgba(56, 189, 248, 0.6); }
 .simLiquid { position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #38bdf8; opacity: 0.85; transform-origin: center bottom; }
 .simIconRun .simLiquid { animation: simLiquidPulse 2.2s ease-in-out infinite; }
 .simBubble { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #bae6fd; opacity: 0; }
@@ -104,7 +113,7 @@
 .simIconRun .simBubble { opacity: 0.95; animation: simBubbleRise 1.7s ease-in infinite; }
 .simIconRun .simB2 { animation-delay: 0.5s; }
 
-@keyframes simRingSpin { to { transform: rotate(360deg); } }
+@keyframes simRingPulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.9; transform: scale(1.07); } }
 @keyframes simLiquidPulse { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.08); } }
 @keyframes simBubbleRise { 0% { transform: translateY(0) scale(0.6); opacity: 0; } 20% { opacity: 0.9; } 100% { transform: translateY(-14px) scale(1); opacity: 0; } }
 @keyframes simFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
@@ -178,3 +187,141 @@
 }
 .quickBtn:active { opacity: 0.85; transform: scale(0.98); }
 .quickBtnText { color: #fff; font-size: 28px; font-weight: 700; }
+
+/* ===== 界面视觉升级（镜像 web，加性） ===== */
+
+/* 事件卡：左侧类型色条（颜色由内联 borderLeftColor 注入） */
+.event { border-left: 3px solid #cbd5e1; }
+.eventMeta { display: flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+.typeTag {
+  display: inline-block; padding: 1px 8px; margin-right: 4px;
+  border: 1px solid; border-radius: 999px; font-size: 20px; font-weight: 700;
+  line-height: 1.5; vertical-align: middle;
+}
+
+/* 终态卡：对勾 + 实色顶边 */
+.finalLabelRow { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.finalCheck {
+  display: inline-flex; width: 32px; height: 32px; align-items: center; justify-content: center;
+  border-radius: 50%; background: #14b8a6; color: #fff; font-size: 22px; font-weight: 700;
+}
+.final { border-top: 3px solid #14b8a6; border-top-left-radius: 10px; border-top-right-radius: 10px; }
+
+/* 烧瓶 idle 微呼吸（仅非运行态） */
+.simIconIdle { animation: simIdleBreathe 3.6s ease-in-out infinite; }
+@keyframes simIdleBreathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+
+/* 空状态占位 */
+.empty { text-align: center; padding: 30px 20px; }
+.emptyIcon { font-size: 48px; line-height: 1; margin-bottom: 10px; display: block; animation: simIdleBreathe 3s ease-in-out infinite; }
+.emptyTitle { display: block; font-size: 28px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+.emptyDesc { display: block; font-size: 22px; color: #64748b; line-height: 1.7; }
+
+/* ===== 烧瓶图标：化学状态数据驱动（变色 / 沉淀 / 冒泡 / 固态）镜像 web ===== */
+/* 颜色由内联 style 注入，这里只补过渡与状态 class */
+.simLiquid { transition: background 0.9s cubic-bezier(.22,.61,.36,1), opacity 0.6s ease; }
+
+/* 液面波纹：有色溶液才显现 */
+.simLiquidWave {
+  position: absolute; left: 0; right: 0; bottom: 14px; height: 2px;
+  background: rgba(255, 255, 255, 0.65); border-radius: 2px; opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.simIconColored .simLiquidWave { opacity: 0.8; animation: simWave 2.6s ease-in-out infinite; }
+
+/* 沉淀层：底部固体，默认收起（scaleY 0），.simIconHasPrecip 时沉降展开 */
+.simPrecip {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 6px;
+  background: #ffffff; opacity: 0; transform-origin: center bottom;
+  transform: scaleY(0); transition: transform 0.75s cubic-bezier(.34,1.56,.64,1), opacity 0.5s ease;
+}
+.simIconHasPrecip .simPrecip { opacity: 0.92; transform: scaleY(1); }
+
+/* 固态颗粒：无溶液的纯固体体系显现，替代液态 */
+.simSolids { position: absolute; left: 0; right: 0; bottom: 0; height: 12px; opacity: 0; transition: opacity 0.6s ease; }
+.simGranule { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #94a3b8; }
+.simG1 { left: 6px; bottom: 3px; }
+.simG2 { left: 13px; bottom: 5px; }
+.simG3 { left: 20px; bottom: 3px; }
+.simG4 { left: 9px; bottom: 8px; }
+.simIconSolid .simSolids { opacity: 0.9; animation: simGranuleDrift 2.8s ease-in-out infinite; }
+.simIconSolid .simLiquidWave { opacity: 0; }
+
+/* 气泡：仅产气（.simIconBubbling）时上升；覆盖原 .simIconRun 即冒泡的规则 */
+.simIconRun .simBubble { opacity: 0; animation: none; }
+.simIconBubbling .simBubble { opacity: 0.95; animation: simBubbleRise 1.7s ease-in infinite; }
+.simIconBubbling .simB2 { animation-delay: 0.5s; }
+.simB3 { left: 22px; bottom: 4px; }
+.simIconBubbling .simB3 { animation-delay: 1s; }
+
+@keyframes simWave { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(1.5px); } }
+@keyframes simGranuleDrift { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1px); } }
+
+/* ===== 效果舞台：大烧瓶图标 + 模拟按钮 + 出现的过程 聚合（镜像 web .sim-stage）===== */
+/* —— 舞台整体做成一张统一卡片：图标 / 按钮 / 提示 / 结果 同属一个表面（镜像 web） —— */
+.stage {
+  display: flex; flex-direction: column; align-items: stretch; gap: 0;
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcfe 100%);
+  border: 1px solid #e7ecf3; border-radius: 14px;
+  padding: 0; margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.05);
+  position: relative; overflow: visible;
+}
+/* 顶部统一高光条，与上方配置面板呼应 —— 整张舞台是一张卡 */
+.stage::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  border-radius: 14px 14px 0 0;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1, #0d9488);
+  opacity: 0.9; pointer-events: none; z-index: 1;
+}
+/* 大图标居中容器：顶部留白给运行态外发光（不被裁切） */
+.stageIcon {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; min-height: 176px; padding: 20px 14px 0; overflow: visible;
+}
+/* 大图：直接放大布局尺寸（约 2.7× 基础 / 对齐 web 104→140 的 1.35×）。
+   taro H5 全局 px→rem 缩放会等比跟随，比 transform: scale() 更可靠。 */
+.simIconLarge { width: 173px; height: 173px; }
+.simIconLarge .simIcon { width: 151px; height: 151px; }
+.simIconLarge .simRing { top: 20px; left: 5px; width: 140px; height: 110px; }
+.simIconLarge .simFlask { width: 86px; height: 108px; }
+.simIconLarge .simRim { width: 24px; height: 5px; border-width: 2px; }
+.simIconLarge .simMouth { width: 16px; height: 3px; }
+.simIconLarge .simNeck { width: 32px; height: 16px; border-width: 2px; margin-bottom: -2px; }
+.simIconLarge .simBody { width: 81px; height: 76px; }
+.simIconLarge .simShine { width: 3px; }
+.simIconLarge .simScale { gap: 5px; }
+.simIconLarge .simTick { width: 9px; height: 1.5px; }
+.simIconLarge .simLiquid { height: 38px; }
+.simIconLarge .simLiquidWave { bottom: 38px; height: 5px; }
+.simIconLarge .simPrecip { height: 16px; }
+.simIconLarge .simSolids { height: 32px; }
+.simIconLarge .simGranule { width: 11px; height: 11px; }
+.simIconLarge .simBubble { width: 11px; height: 11px; }
+.simIconLarge .simB1 { left: 16px; bottom: 8px; }
+.simIconLarge .simB2 { left: 43px; bottom: 5px; }
+.simIconLarge .simB3 { left: 59px; bottom: 11px; }
+.simIconLarge .simG1 { left: 16px; bottom: 8px; }
+.simIconLarge .simG2 { left: 35px; bottom: 14px; }
+.simIconLarge .simG3 { left: 54px; bottom: 8px; }
+.simIconLarge .simG4 { left: 24px; bottom: 22px; }
+/* 大图气泡上升距离同步放大 */
+.simIconLarge .simIcon.simIconBubbling .simBubble { animation-name: simBubbleRiseLarge; }
+@keyframes simBubbleRiseLarge { 0% { transform: translateY(0) scale(0.6); opacity: 0; } 20% { opacity: 0.9; } 100% { transform: translateY(-38px) scale(1); opacity: 0; } }
+/* 舞台大图标默认清晰显示，覆盖 .simIcon 的 opacity:0.6 灰化 */
+.stageIcon .simIcon { opacity: 1; }
+/* 按钮行在舞台内居中 */
+.stageActions { justify-content: center; gap: 10px; margin-top: 4px; padding: 0 14px; }
+/* 提示文案居中并占满宽度 */
+.stageHint { width: 100%; text-align: center; padding: 6px 14px 14px; }
+
+/* 结果区：打平内层卡片，去掉「卡中卡」的双重边框 / 底色 / 阴影 / 左侧色条；
+   顶部细分隔线把控制区与结果区分开，但整体仍是同一张卡 */
+.stage .panel {
+  background: transparent; border: none; border-left: none;
+  box-shadow: none; border-radius: 0;
+  padding: 14px 14px 16px; margin-bottom: 0;
+  border-top: 1px solid #eef2f7;
+}
+/* 空状态：去掉过大留白，紧凑融入结果区（视觉锚点已是上方大烧瓶） */
+.stage .empty { padding: 8px 4px 2px; text-align: center; }

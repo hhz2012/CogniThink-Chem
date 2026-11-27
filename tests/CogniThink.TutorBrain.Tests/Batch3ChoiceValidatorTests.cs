@@ -450,7 +450,34 @@ public class Batch3ChoiceValidatorTests
         // pdf-227（原 A→B）、pdf-327（原 A→B）、pdf-409（原 D→C）；data-defect-register 交叉验证，探针 TOTAL PROBLEMS=0。
         ["pdf-227"] = "B",
         ["pdf-327"] = "B",
-        ["pdf-409"] = "C"
+        ["pdf-409"] = "C",
+        // hard-bone-data-repair-2：pdf-498（湖南模拟预测·元素推断·正确项=B）。
+        // 原存储 answer=D、note 猜 Z=Mg 均误；据答案册 answer/page_067.json 官方解析核正为 B（Z=S、M=Al），
+        // 同步修正 pdf_questions.json 的 answer+answerKeywords+note。事实写入 choice-curated-facts（GC-764-A~D）；
+        // stemMatch 全库唯一，4 选项各命中唯一事实，verdict 与官方 answer 一致，与 Experiment/Organic/Structure 无路由二义。
+        ["pdf-498"] = "B",
+        // hard-bone-data-repair-2：pdf-255（江苏卷·CO2 加氢制甲醇绝热反应管曲线·正确项=C）。
+        // 存储 answer=C 已正确；缺陷为曲线图缺失致引擎返回 null。据渲染页 page_renders/page_090.png 读图 + 答案册
+        // answer/page_087.json（num 4，answer=C）官方解析核实：A 错(K4<K5)、B 错(ΔH2<0)、C 对、D 错；策展 GC-765-A~D
+        // 使 Concept 解出。无 pdf_questions.json 改动（键已正确）；stemMatch 全库唯一，4 选项各命中唯一事实，无路由二义。
+        ["pdf-255"] = "C",
+        // hard-bone-data-repair-2：pdf-325（湖南模拟卷·化学用语图示·正确项=B）。
+        // 原存储 answer=B 已正确（官方 answer/page_110.json num 1 = B）；缺陷为选项 B 末尾的甲苯结构图在 OCR 时丢失、
+        // 仅残留"CH3"，致文本荒谬、引擎判 null。据渲染页 page_113.png 放大核对 + 官方解析，订正选项 B / answerKeywords / note 文本
+        // 为"归属于甲苯(C7H8)分子离子峰"（键不变），并策展 GC-766-A~D（A/C/D 假、B 真）使 Concept 解出。4 选项各命中唯一事实，无路由二义。
+        ["pdf-325"] = "B",
+        // hard-bone-data-repair-2：pdf-307（晋陕宁青卷·电解池由百里酚(TY)合成百里醌(TQ)·选错误项=D）。
+        // 原存储 answer=D 已正确（官方 answer/page_104.json num 3 = D）。独立电化学核验：A 真(H+ 右室→左室)、B 真(总反应
+        // TY+H2O→TQ+2H2)、C 真(二酚原料同条件得 TQ)、D 假(18O 标错位置)，唯一错误项=D。选项 C/D 缺结构图但文本前缀可唯一匹配；
+        // 策展 GC-767-A~D（A/B/C 真、D 假）由 askDir=错误 路径解出。无 pdf_questions.json 改动；stemMatch 全库唯一，无路由二义。
+        ["pdf-307"] = "D",
+        // hard-bone-data-repair-2：pdf-336（成都二诊·1-苯基丙炔与HCl加成得两种氯代烯烃·选错误项=A）。
+        // 存储 answer=A 已正确。据渲染页 page_115.png 读图 + VL 缓存动力学曲线核实：产物A先增后减(动力学)、产物B
+        // 持续增加(热力学)，平衡 A:B=1:35；A 假(选项A把苯基与CH3同侧的较不稳定构型标作产物B，产物B应为Cl与CH3
+        // 同侧的稳定异构体)、B 真(缩短时间得A)、C 真(NMR可区分立体异构)、D 真(K=[B]/[A]=35)，唯一错误项=A。
+        // 策展 GC-768-A~D（A 假、B/C/D 真）由 askDir=错误 路径解出。无 pdf_questions.json 改动；
+        // stemMatch 命中 pdf-251/pdf-336 但 match 关键词仅出现在 pdf-336 选项，零串扰；与 Organic/Structure/Experiment 无路由二义。
+        ["pdf-336"] = "A"
     };
 
     public static IEnumerable<object[]> ConceptCases =>
