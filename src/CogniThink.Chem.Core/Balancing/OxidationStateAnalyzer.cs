@@ -79,6 +79,24 @@ public static class OxidationStateAnalyzer
             {
                 ["Fe"] = new() { (new Rational(2), 1) },
                 ["S"] = new() { (new Rational(-1), 2) }
+            },
+            // 金属羰基配合物：配体 CO 中 C +2、O -2，中心金属为 0 价（pdf-084 回收 Co：Co2(CO)8）。
+            // 常规规则无法同时确定 Co 与 C 的氧化数，需人工指定（Co 0 价由题面明确给出）。
+            ["Co2(CO)8"] = new()
+            {
+                ["Co"] = new() { (Rational.Zero, 2) },
+                ["C"] = new() { (new Rational(2), 8) },
+                ["O"] = new() { (new Rational(-2), 8) }
+            },
+            // 带结晶水的草酸铈(Ⅲ)煅烧（pdf-084）：Ce +3、草酸根 C +3（与 C2O4 离子团一致），
+            // 结晶水 H +1 / O -2。常规分词器不支持 "·" 结晶水分隔符，导致 Ce 与 C 双双未知，
+            // 此处精确指定（原子数与 Species.Parse 解析结果一致：Ce2 C6 O22 H20）。
+            ["Ce2(C2O4)3·10H2O"] = new()
+            {
+                ["Ce"] = new() { (new Rational(3), 2) },
+                ["C"] = new() { (new Rational(3), 6) },
+                ["O"] = new() { (new Rational(-2), 22) },
+                ["H"] = new() { (Rational.One, 20) }
             }
         };
 

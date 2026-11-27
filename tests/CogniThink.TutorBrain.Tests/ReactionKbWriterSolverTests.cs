@@ -32,6 +32,16 @@ public class ReactionKbWriterSolverTests
         {
             var raw = c.Question ?? string.Empty;
             var det = LlmGatewayService.ClassifyTaskDeterministic(raw);
+            // 模拟真实网关 equation_writer 分支的求解链顺序（ProductWriter → KnownEquationWriter →
+            // ReactionKbWriter，见 LlmGatewayService equation_writer case）：前置求解器命中时真实网关
+            // 不会到达 ReactionKbWriter，其直连产出不被采纳，不纳入本护栏。否则如 pdf-177（askBoth
+            // 门控放开后直连 ReactionKbWriter 会产出分子方程）会被误报——真实网关由 ProductWriter 前置拦截。
+            if (det == "equation_writer")
+            {
+                var preReq = new EngineRequest { RawText = raw, TaskType = det };
+                if (ProductWriterSolver.TrySolve(preReq) is not null) continue;
+                if (KnownEquationWriterSolver.TrySolve(preReq) is not null) continue;
+            }
             var resp = ReactionKbWriterSolver.TrySolve(new EngineRequest { RawText = raw, TaskType = det });
             if (resp is null || string.IsNullOrWhiteSpace(resp.FinalResult)) continue;
             fires++;
@@ -165,9 +175,40 @@ public class ReactionKbWriterSolverTests
     }
 
     [Fact]
-    public void BothIonicAndMolecularAsked_ReturnsNull_Ambiguous()
+    public void BothIonicAndMolecularAsked_Produces_WhenEitherPathHasUniqueHit()
     {
-        Assert.Null(Solve("写出 NaOH 与盐酸反应的离子方程式和化学方程式"));
+        // askBoth 不再整体短路：NaOH+盐酸 分子路径唯一命中（离子模板未触发），
+        // 仍产出带“化学方程式：”前缀的合并串——单路径命中也产出，不蒙数。
+        var resp = Solve("写出 NaOH 与盐酸反应的离子方程式和化学方程式");
+        Assert.NotNull(resp);
+        Assert.True(resp!.FinalResult.Contains("化学方程式：") || resp.FinalResult.Contains("离子方程式："),
+            $"askBoth 产出未携带前缀：{resp.FinalResult}");
+    }
+
+    [Theory]
+    [InlineData("pdf-166")]
+    [InlineData("pdf-461")]
+    [InlineData("pdf-532")]
+    public void BothIonicAndMolecularAsked_Targets_ProduceDualPrefixAndScore(string id)
+    {
+        // askBoth 双路径合并：166/461/532 题面同问离子+化学方程式，两路径各唯一命中 → 带
+        // “离子方程式：”/“化学方程式：”双前缀的合并串，且判分命中真实答案碎片（OR 子串）。
+        var c = Case(id);
+        Assert.NotNull(c);
+        var det = LlmGatewayService.ClassifyTaskDeterministic(c!.Question ?? string.Empty);
+        var resp = Solve(c.Question ?? string.Empty, det);
+        Assert.NotNull(resp);
+        Assert.Contains("离子方程式：", resp!.FinalResult);
+        Assert.Contains("化学方程式：", resp.FinalResult);
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(resp.FinalResult, c),
+            $"{id} askBoth 产出判分未通过：{resp.FinalResult}");
+    }
+
+    [Fact]
+    public void BothIonicAndMolecularAsked_ReturnsNull_WhenBothPathsHaveNoUniqueHit()
+    {
+        // askBoth 仍守“不蒙数”：Xe/F2 既不在分子 KB、也不触发任何离子模板 → 两条路径均空 → null。
+        Assert.Null(Solve("写出 Xe 与 F2 反应的离子方程式和化学方程式"));
     }
 
     [Fact]

@@ -25,6 +25,9 @@
     "HCN",
     "LiOH", "Li3PO4",
     "AlOOH",
-    "TiCl4", "(NH4)2C2O4", "BaTiO(C2O4)2"
+    "TiCl4", "(NH4)2C2O4", "BaTiO(C2O4)2",
+    "Co2O3", "Co2(CO)8", "Ce2O3",
+    "Cu2(OH)2CO3", "Zn2(OH)2CO3",
+    "CaBr2", "Ce2(C2O4)3·10H2O"
   ]
 }

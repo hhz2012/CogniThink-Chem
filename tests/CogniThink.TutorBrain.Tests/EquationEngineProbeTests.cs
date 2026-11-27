@@ -518,6 +518,15 @@ public sealed class EquationEngineProbeTests
             ("pdf-462", "Al^3+ + 2H2O ⇌ AlOOH↓ + 3H^+"),
             ("pdf-484a", "2Co^2+ + MnO2 + 4H^+ = 2Co^3+ + Mn^2+ + 2H2O"),
             ("pdf-484b", "2Co^3+ + 2Cl^- = 2Co^2+ + Cl2↑"),
+            // —— P1 剩余排除题候选预检（askBoth 放开 + cued 补录前）——
+            ("pdf-084a", "Co2O3 + 11CO = Co2(CO)8 + 3CO2"),
+            ("pdf-084b", "2Ce2(C2O4)3·10H2O + 3O2 = 2Ce2O3 + 12CO2 + 20H2O"),
+            ("pdf-166a", "2CuCl2 + 2H2O + 3Na2CO3 = Cu2(OH)2CO3 + 2NaHCO3 + 4NaCl"),
+            ("pdf-166b", "Zn2(OH)2CO3 + Fe^3+ + H^+ = 2Zn^2+ + CO2↑ + Fe(OH)3↓"),
+            ("pdf-532a", "Cl2 + CaBr2 = CaCl2 + Br2"),
+            ("pdf-532b", "10I^- + 2MnO4^- + 16H^+ = 5I2 + 2Mn^2+ + 8H2O"),
+            ("pdf-461a", "2Al2O3 = 4Al + 3O2"),
+            ("pdf-461b", "Ga^3+ + 4Cl^- = [GaCl4]^-"),
         };
 
         var outPath = Path.Combine(ChemistryFixture.RepoRoot, "_evalscratch", "eqp0_candidate_check.tsv");

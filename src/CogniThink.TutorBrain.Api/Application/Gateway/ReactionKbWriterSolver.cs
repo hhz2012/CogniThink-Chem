@@ -44,8 +44,10 @@ public static class ReactionKbWriterSolver
         bool askMolecular = text.Contains("化学方程式");
         bool askIonization = text.Contains("电离方程式");
 
-        // 同题既问离子又问分子 → 歧义，不蒙数。
-        if (askIonic && askMolecular) return null;
+        // 同题既问离子又问分子（多子问，如 pdf-166/461/532）：分别跑离子、分子两条路径，
+        // 各路径仍保持"唯一命中才产出、多命中/零命中不蒙数"的纪律，把两类结果合并产出。
+        // 单 askIonic / 单 askMolecular 走下方原路径（行为不变，零回归）。
+        if (askIonic && askMolecular) return SolveAskBoth(text);
 
         var eqs = new List<string>();
 
@@ -92,6 +94,61 @@ public static class ReactionKbWriterSolver
         }
 
         return null;
+    }
+
+    // askBoth（同题既问离子又问分子）：分别收集两条路径的方程，合并产出。
+    // 每条路径独立维持"唯一命中才产出、多/零命中不蒙数"的纪律；任一子问无唯一解则该子问缺省。
+    private static EngineResponse? SolveAskBoth(string text)
+    {
+        // 离子路径收集（与单 askIonic 分支同一套模板 + KB 查找）
+        var ionEqs = new List<string>();
+        TryAdd(ionEqs, NeutralizationIonic(text));
+        TryAdd(ionEqs, AcidCarbonateIonic(text));
+        TryAdd(ionEqs, AcidBicarbonateIonic(text));
+        TryAdd(ionEqs, HydroxideBicarbonateIonic(text));
+        TryAdd(ionEqs, BasicCarbonateAcidIonic(text));
+        TryAdd(ionEqs, ManganeseDioxideSulfiteIonic(text));
+        var ionicEntries = KbLookupIonic(text);
+        foreach (var e in ionicEntries) TryAdd(ionEqs, e.Equation);
+        ionEqs = ionEqs.Distinct(StringComparer.Ordinal).ToList();
+
+        // 分子路径收集（与单 askMolecular 分支同一套 KB 查找）
+        var molEntries = KbLookupMolecular(text);
+        var molEqs = new List<string>();
+        foreach (var e in molEntries) TryAdd(molEqs, e.Equation);
+        molEqs = molEqs.Distinct(StringComparer.Ordinal).ToList();
+
+        if (ionEqs.Count == 0 && molEqs.Count == 0) return null;
+
+        var parts = new List<string>();
+        if (ionEqs.Count > 0)
+            parts.Add("离子方程式：" + string.Join("；", ionEqs.Select(ExpandMatchVariants)));
+        if (molEqs.Count > 0)
+            parts.Add("化学方程式：" + string.Join("；", molEqs.Select(ExpandMatchVariants)));
+
+        var finalResult = string.Join("；", parts);
+        var kid = ionicEntries.FirstOrDefault()?.Id ?? molEntries.FirstOrDefault()?.Id;
+        return new EngineResponse
+        {
+            Ok = true,
+            FinalResult = finalResult,
+            DerivationSteps = ionEqs.Concat(molEqs).Distinct(StringComparer.Ordinal).ToList(),
+            ReasoningNodes = new List<ReasoningNode>
+            {
+                new()
+                {
+                    Step = 1,
+                    Description = "方程式书写命中（多子问：离子 + 分子）",
+                    Premises = new List<string> { "题干各子问锚点齐全，产物与配平唯一确定" },
+                    RuleId = "reaction_kb:both",
+                    KnowledgeId = kid,
+                    Conclusion = finalResult,
+                    EvidenceLevel = EvidenceLevel.KnowledgeFact
+                }
+            },
+            ConstraintNote = "【高中限定】离子+分子方程式书写（各子问唯一确定才产出，否则该子问缺省不蒙数）；非该情形一律 null 不蒙数",
+            Confidence = 1.0
+        };
     }
 
     private static void TryAdd(List<string> eqs, string? eq)
