@@ -1,7 +1,7 @@
 import { View, Text, Textarea, ScrollView, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { useState } from 'react'
-import { tutorApi, StudentSolveView, ReasoningNodeDto } from '../../services/tutorApi'
+import { useState, useRef, useEffect } from 'react'
+import { tutorApi, StudentSolveView, ReasoningNodeDto, ReactionTraceSnapshotDto } from '../../services/tutorApi'
 import Collapse from '../../components/Collapse'
 import Loading from '../../components/Loading'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
@@ -180,6 +180,7 @@ function Result({
   const isConfirmed = view.conclusion_state === 'Confirmed'
   const isInsufficient = view.conclusion_state === 'Insufficient'
   const isCandidate = view.conclusion_state === 'CandidateSet'
+  const trace = view.structured?.reaction_trace ?? null
 
   return (
     <>
@@ -303,6 +304,218 @@ function Result({
           </Collapse>
         </View>
       ) : null}
+
+      {/* ===== 结构化辅助数据（数值/守恒/pH；加性，与判分无关；反应轨迹由下方模拟器卡片承载）===== */}
+      {view.structured &&
+      (view.structured.numeric || view.structured.aqueous || view.structured.equilibrium) ? (
+        <View className={styles.card}>
+          <View className={styles.sectionTitleRow}>
+            <ModelIcon name="wrench" size={18} color="#2EA7C4" />
+            <Text className={styles.sectionTitle}>结构化辅助数据</Text>
+          </View>
+          {!isConfirmed ? (
+            <Text className={styles.disclaimer}>
+              以下为引擎对题给数据的辅助计算结果，不作最终判定结论，仅供参考。
+            </Text>
+          ) : null}
+          <View className={styles.dag}>
+            {view.structured.numeric ? (
+              <View className={styles.dagNode}>
+                <Text className={styles.dagStep}>定量计算</Text>
+                <Text className={styles.dagDesc}>
+                  {view.structured.numeric.formula ? `${view.structured.numeric.formula} → ` : ''}
+                  {view.structured.numeric.value ?? '-'}
+                  {view.structured.numeric.unit ? ` ${view.structured.numeric.unit}` : ''}
+                  {view.structured.numeric.species ? `（${view.structured.numeric.species}）` : ''}
+                </Text>
+              </View>
+            ) : null}
+            {view.structured.aqueous ? (
+              <View className={styles.dagNode}>
+                <Text className={styles.dagStep}>水相离子平衡</Text>
+                {view.structured.aqueous.ph != null ? (
+                  <Text className={styles.dagDesc}>pH ≈ {view.structured.aqueous.ph}</Text>
+                ) : null}
+                {view.structured.aqueous.acidity_verdict ? (
+                  <Text className={styles.dagDesc}>{view.structured.aqueous.acidity_verdict}</Text>
+                ) : null}
+                {view.structured.aqueous.ordering.length > 0 ? (
+                  <Text className={styles.dagDesc}>排序：{view.structured.aqueous.ordering.join(' > ')}</Text>
+                ) : null}
+                {view.structured.aqueous.conservation_equations.length > 0
+                  ? view.structured.aqueous.conservation_equations.map((e, i) => (
+                      <Text key={i} className={styles.dagDesc}>守恒：{e}</Text>
+                    ))
+                  : null}
+              </View>
+            ) : null}
+            {view.structured.equilibrium &&
+            (view.structured.equilibrium.ksp_residual_concentration != null ||
+              view.structured.equilibrium.conversion_constant_k ||
+              view.structured.equilibrium.conversion_proceeds != null) ? (
+              <View className={styles.dagNode}>
+                <Text className={styles.dagStep}>沉淀溶解平衡</Text>
+                {view.structured.equilibrium.ksp_residual_concentration != null ? (
+                  <Text className={styles.dagDesc}>
+                    Ksp 残留浓度：{view.structured.equilibrium.ksp_residual_concentration}
+                    {view.structured.equilibrium.ksp_residual_ion
+                      ? `（${view.structured.equilibrium.ksp_residual_ion}）`
+                      : ''}
+                  </Text>
+                ) : null}
+                {view.structured.equilibrium.conversion_constant_k ? (
+                  <Text className={styles.dagDesc}>
+                    转化常数 K：{view.structured.equilibrium.conversion_constant_k}
+                  </Text>
+                ) : null}
+                {view.structured.equilibrium.conversion_proceeds != null ? (
+                  <Text className={styles.dagDesc}>
+                    沉淀转化自发：{view.structured.equilibrium.conversion_proceeds ? '是' : '否'}
+                  </Text>
+                ) : null}
+              </View>
+            ) : null}
+            {view.structured.warnings && view.structured.warnings.length > 0
+              ? view.structured.warnings.map((w, i) => (
+                  <Text key={i} className={styles.disclaimer}>⚠ {w}</Text>
+                ))
+              : null}
+          </View>
+        </View>
+      ) : null}
+
+      {/* ===== 反应模拟器（前端控件；reaction_trace 存在时出现，加性可视化，与判分无关）===== */}
+      {trace && (trace.events.length > 0 || trace.final_species.length > 0) ? (
+        <SimPlayer trace={trace} isConfirmed={isConfirmed} />
+      ) : null}
     </>
+  )
+}
+
+// ==================== 反应模拟器（嵌入式播放器，镜像 web /solve 的 sim-panel）====================
+/**
+ * 特有标志：CSS 绘制的烧瓶图标（瓶身+液体+气泡+轨道环）。
+ * 运行/停止：.simIconRun 触发关键帧；状态用 ref 存定时器避免闭包旧值；
+ * 图标动画与反应事件逐步点亮、终态揭示严格同步。
+ */
+function SimPlayer({ trace, isConfirmed }: { trace: ReactionTraceSnapshotDto; isConfirmed: boolean }) {
+  const [running, setRunning] = useState(false)
+  const [revealed, setRevealed] = useState(0) // 已点亮的事件数
+  const [showFinal, setShowFinal] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const finTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const events = trace.events || []
+  const total = events.length
+
+  const clearTimers = () => {
+    if (timerRef.current != null) { clearInterval(timerRef.current); timerRef.current = null }
+    if (finTimerRef.current != null) { clearTimeout(finTimerRef.current); finTimerRef.current = null }
+  }
+  useEffect(() => () => clearTimers(), [])
+
+  const stop = () => {
+    clearTimers()
+    setRunning(false)
+    setRevealed(0)
+    setShowFinal(false)
+  }
+  const play = () => {
+    clearTimers()
+    setRunning(true)
+    setShowFinal(false)
+    setRevealed(total > 0 ? 1 : 0)
+    if (total === 0) {
+      finTimerRef.current = setTimeout(() => {
+        setRunning(false)
+        setShowFinal(true)
+      }, 600)
+      return
+    }
+    let step = 1
+    timerRef.current = setInterval(() => {
+      step += 1
+      if (step >= total) {
+        if (timerRef.current != null) { clearInterval(timerRef.current); timerRef.current = null }
+        setRevealed(total)
+        finTimerRef.current = setTimeout(() => {
+          setRunning(false)
+          setShowFinal(true)
+        }, 500)
+      } else {
+        setRevealed(step)
+      }
+    }, 1100)
+  }
+
+  const pct = total ? Math.round((revealed / total) * 100) : 0
+
+  return (
+    <View className={styles.simCard}>
+      <View className={styles.simHead}>
+        <View className={`${styles.simIcon} ${running ? styles.simIconRun : ''}`}>
+          <View className={styles.simRing} />
+          <View className={styles.simFlask}>
+            <View className={styles.simNeck} />
+            <View className={styles.simBody}>
+              <View className={styles.simLiquid} />
+              <View className={`${styles.simBubble} ${styles.simB1}`} />
+              <View className={`${styles.simBubble} ${styles.simB2}`} />
+            </View>
+          </View>
+        </View>
+        <View className={styles.simTitle}>
+          <Text className={styles.simTitleMain}>反应模拟器</Text>
+          <Text className={styles.simTitleSub}>点击播放，烧瓶转动与反应步骤同步展开</Text>
+        </View>
+      </View>
+
+      <View className={styles.simActions}>
+        <View className={`${styles.simBtn} ${running ? styles.simBtnDisabled : ''}`} onClick={running ? undefined : play}>
+          <Text className={styles.simBtnText}>{running ? '播放中…' : '▶ 播放'}</Text>
+        </View>
+        <View className={`${styles.simBtn} ${styles.simBtnGhost}`} onClick={stop}>
+          <Text className={styles.simBtnTextGhost}>■ 停止</Text>
+        </View>
+        <Text className={styles.simConv}>收敛：{trace.converged ? '是' : '否'}</Text>
+      </View>
+
+      {!isConfirmed ? (
+        <Text className={styles.disclaimer}>辅助可视化，不作最终判定结论，仅供参考。</Text>
+      ) : null}
+
+      <View className={styles.simProgress}>
+        <View className={styles.simProgressBar} style={{ width: `${pct}%` }} />
+      </View>
+
+      <View className={styles.simEvents}>
+        {events.map((ev, i) => (
+          <View key={i} className={`${styles.simEvent} ${i < revealed ? styles.simEventOn : ''}`}>
+            <Text className={styles.simEventEq}>
+              {i + 1}. {ev.equation ?? ''}
+            </Text>
+            <Text className={styles.simEventMeta}>
+              阶段 {ev.stage_index} · 进度 {ev.extent}
+              {ev.basis_knowledge_ids && ev.basis_knowledge_ids.length > 0
+                ? ` · 依据：${ev.basis_knowledge_ids.join(', ')}`
+                : ''}
+            </Text>
+          </View>
+        ))}
+      </View>
+
+      {showFinal && trace.final_species.length > 0 ? (
+        <View className={`${styles.simFinal} ${styles.simFinalShow}`}>
+          <Text className={styles.simFinalLabel}>最终物种</Text>
+          <View className={styles.simChips}>
+            {trace.final_species.map((sp, i) => (
+              <Text key={i} className={styles.simChip}>
+                {sp.substance ?? ''}
+                {sp.moles != null ? `：${sp.moles} mol` : ''}
+              </Text>
+            ))}
+          </View>
+        </View>
+      ) : null}
+    </View>
   )
 }

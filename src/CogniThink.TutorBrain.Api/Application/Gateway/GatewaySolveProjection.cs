@@ -53,12 +53,16 @@ public sealed class StudentSolveView
     /// <summary>结论来源 provenance（P2-3，观测用），始终透传。</summary>
     [JsonPropertyName("result_provenance")]
     public string? ResultProvenance { get; set; }
+
+    /// <summary>结构化辅助数据（数值/水相/平衡/反应轨迹）；加性，仅由 HTTP /solve 层 enricher 填充，不参与判分。为 null 表示无可下发的辅助结构。</summary>
+    [JsonPropertyName("structured")]
+    public StudentSolveStructured? Structured { get; set; }
 }
 
 /// <summary>纯函数投影：GatewayResult → StudentSolveView，按 ConclusionState 裁剪。不修改输入。</summary>
 public static class GatewaySolveProjector
 {
-    public static StudentSolveView Project(GatewayResult result)
+    public static StudentSolveView Project(GatewayResult result, StudentSolveStructured? enriched = null)
     {
         var resp = result.EngineResponse;
         var state = resp.ConclusionState;
@@ -69,6 +73,7 @@ public static class GatewaySolveProjector
             TaskType = result.TaskType,
             Reply = result.Reply,
             ResultProvenance = resp.ResultProvenance,
+            Structured = enriched,
         };
 
         switch (state)

@@ -2210,3 +2210,191 @@ main { padding: 28px 20px 60px; }
   .given-grid dt { margin-top: 6px; }
   .search { min-width: 0; flex: 1; }
 }
+
+/* ===== 实时求解视图（加性，仅作用于 .live-*，不影响既有样式） ===== */
+.live-solve { display: flex; flex-direction: column; gap: 16px; }
+.live-input {
+  width: 340px; max-width: 100%; padding: 7px 11px;
+  border: 1px solid #e2e8f0; border-radius: 8px; font-size: 14px;
+}
+.live-textarea {
+  width: 100%; min-height: 120px; padding: 11px 13px;
+  border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14.5px;
+  line-height: 1.65; font-family: inherit; resize: vertical; box-sizing: border-box;
+}
+.live-actions { display: flex; align-items: center; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+
+/* ===== 反应模拟器（前端控件，加性，仅作用于 .sim-*，不影响既有样式） ===== */
+.sim-panel { display: flex; flex-direction: column; gap: 12px; }
+
+.sim-head { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.sim-icon-wrap { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+.sim-title { flex: 1 1 220px; min-width: 0; }
+.sim-controls { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* —— 模拟器特有图标：SVG 烧瓶 —— */
+.sim-icon {
+  display: inline-flex; align-items: center; justify-content: center;
+  filter: grayscale(0.6); opacity: 0.75;
+  transition: filter 0.3s ease, opacity 0.3s ease;
+}
+.sim-icon.running { filter: none; opacity: 1; }
+
+.sim-icon svg { display: block; overflow: visible; }
+.sim-flask-body, .sim-flask-neck { fill: #e0f2fe; stroke: #0ea5e9; stroke-width: 1.5; }
+.sim-liquid { fill: #38bdf8; opacity: 0.85; transform-box: fill-box; transform-origin: center bottom; }
+.sim-ring { fill: none; stroke: #6366f1; stroke-width: 1.4; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.sim-bubble { fill: #bae6fd; opacity: 0; }
+
+/* 运行态：轨道环旋转、液体脉动、气泡上升 */
+.sim-icon.running .sim-ring { opacity: 0.9; animation: simRingSpin 3s linear infinite; }
+.sim-icon.running .sim-liquid { animation: simLiquidPulse 2.2s ease-in-out infinite; }
+.sim-icon.running .sim-bubble { opacity: 0.95; animation: simBubbleRise 1.7s ease-in infinite; }
+.sim-icon.running .sim-b1 { animation-delay: 0s; }
+.sim-icon.running .sim-b2 { animation-delay: 0.5s; }
+.sim-icon.running .sim-b3 { animation-delay: 0.9s; }
+
+@keyframes simRingSpin { to { transform: rotate(360deg); } }
+@keyframes simLiquidPulse { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.07); } }
+@keyframes simBubbleRise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: translateY(-22px) scale(1); opacity: 0; }
+}
+@keyframes simFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* —— 进度条 —— */
+.sim-progress { height: 6px; width: 100%; background: #e2e8f0; border-radius: 999px; overflow: hidden; }
+.sim-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, #0ea5e9, #6366f1); border-radius: 999px; transition: width 0.4s ease; }
+
+/* —— 事件列表（逐步展开） —— */
+.sim-events { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.sim-event {
+  border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px;
+  background: #f8fafc; opacity: 0.35; transform: translateX(-6px);
+  transition: opacity 0.4s ease, transform 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+.sim-event.on { opacity: 1; transform: none; border-color: #38bdf8; background: #f0f9ff; }
+.sim-event-eq { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; }
+.sim-step-no {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: 50%; flex: 0 0 22px;
+  background: #0ea5e9; color: #fff; font-size: 12px; font-weight: 700;
+}
+.sim-event-meta { font-size: 12px; color: #64748b; margin-top: 3px; }
+.sim-delta { font-size: 13px; margin-top: 4px; color: #334155; }
+.sim-phen { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.sim-color-line { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 13px; color: #475569; }
+
+/* —— 终态 —— */
+.sim-final { border-top: 1px dashed #cbd5e1; padding-top: 12px; }
+.sim-final.show { animation: simFadeIn 0.45s ease both; }
+.sim-final-label { font-weight: 700; color: #0f766e; margin-bottom: 6px; }
+
+/* —— 物种 chips / 色点 —— */
+.sim-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.sim-chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border: 1px solid #cbd5e1; border-radius: 999px;
+  background: #fff; font-size: 12.5px; line-height: 1.5;
+}
+.sim-chip-soft { background: #f1f5f9; border-color: #e2e8f0; color: #475569; }
+.sim-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.15); flex: 0 0 12px; }
+
+/* —— 初始态阶段 / 总结 —— */
+.sim-phase { padding: 8px 12px; border-left: 3px solid #38bdf8; background: #f0f9ff; border-radius: 6px; font-size: 13px; }
+.sim-summary { margin-top: 8px; padding: 8px 12px; border-left: 3px solid #94a3b8; background: #f8fafc; border-radius: 6px; font-size: 13px; color: #475569; }
+
+/* —— 模式切换标签 —— */
+.sim-mode-tabs { display: flex; gap: 8px; margin: 4px 0 10px; flex-wrap: wrap; }
+.sim-mode {
+  padding: 5px 14px; border: 1px solid #cbd5e1; border-radius: 999px;
+  background: #fff; font-size: 13px; cursor: pointer; transition: all 0.15s;
+}
+.sim-mode:hover { border-color: #0ea5e9; color: #0ea5e9; }
+.sim-mode.active { background: #0d9488; color: #fff; border-color: #0d9488; }
+
+.sim-check { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; margin-top: 6px; }
+
+/* ===== 多步推理模式：计划步骤构建器（加性） ===== */
+.sim-plan { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.sim-plan-label { font-size: 13px; font-weight: 600; color: #475569; margin-top: 8px; }
+.sim-step-row {
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  padding: 8px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc;
+  animation: simFadeIn 0.3s ease both;
+}
+.sim-step-row select, .sim-step-row input[type="text"] {
+  padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; background: #fff;
+}
+.sim-step-name { flex: 1 1 150px; min-width: 110px; }
+.sim-step-spec { flex: 1 1 170px; min-width: 130px; }
+.sim-btn-mini {
+  padding: 4px 10px; border: 1px solid #cbd5e1; border-radius: 6px; background: #fff;
+  font-size: 12px; cursor: pointer; transition: all 0.15s;
+}
+.sim-btn-mini:hover { border-color: #0ea5e9; color: #0ea5e9; }
+.sim-rm-step:hover { border-color: #ef4444; color: #ef4444; }
+.sim-add-step { margin-top: 6px; align-self: flex-start; }
+
+/* ===== 多步推理模式：状态轨迹时间线（加性） ===== */
+.sim-timeline { position: relative; padding-left: 22px; display: flex; flex-direction: column; gap: 12px; }
+.sim-timeline::before {
+  content: ''; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px;
+  background: linear-gradient(#38bdf8, #6366f1); border-radius: 2px;
+}
+.sim-snap {
+  position: relative; border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px 12px;
+  background: #fff; opacity: 0; transform: translateY(10px);
+  transition: opacity 0.45s ease, transform 0.45s ease, border-color 0.45s ease;
+}
+.sim-snap.show { opacity: 1; transform: none; border-color: #7dd3fc; }
+.sim-snap::before {
+  content: ''; position: absolute; left: -19px; top: 14px; width: 12px; height: 12px;
+  border-radius: 50%; background: #cbd5e1; border: 2px solid #fff; box-shadow: 0 0 0 2px #cbd5e1;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.sim-snap.show::before { background: #0ea5e9; box-shadow: 0 0 0 2px #0ea5e9, 0 0 10px rgba(14,165,233,0.6); }
+.sim-snap-head { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14px; color: #0f172a; margin-bottom: 6px; }
+.sim-step-badge {
+  display: inline-flex; align-items: center; justify-content: center; min-width: 22px; height: 22px;
+  padding: 0 6px; border-radius: 999px; background: #0d9488; color: #fff; font-size: 12px;
+}
+.sim-snap-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin: 8px 0 4px; }
+.sim-snap-label:first-child { margin-top: 0; }
+.sim-numerical {
+  margin-top: 4px; padding: 8px 10px; background: #f0fdf4; border: 1px solid #bbf7d0;
+  border-radius: 8px; font-size: 12.5px;
+}
+.sim-numerical ul { margin: 0; padding-left: 18px; }
+.sim-evidence { padding-left: 20px; }
+
+/* ===== 动画增强（加性，作用于已有 .sim-* 控件） ===== */
+@keyframes simSnapIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes simFinalPop { 0% { opacity: 0; transform: scale(0.96); } 60% { transform: scale(1.015); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes simIconGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(14,165,233,0.0); } 50% { box-shadow: 0 0 18px 4px rgba(14,165,233,0.45); } }
+@keyframes simShimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* 运行时烧瓶外发光（.sim-icon-wrap.running 由 simSetIconRunning 同步切换） */
+.sim-icon-wrap.running { border-radius: 50%; animation: simIconGlow 1.8s ease-in-out infinite; }
+/* 终态出现改为更有强调感的弹出（覆盖原 simFadeIn，向后兼容） */
+.sim-final.show { animation: simFinalPop 0.5s ease both; }
+/* 进度条流光 */
+.sim-progress-bar { position: relative; overflow: hidden; }
+.sim-progress-bar::after {
+  content: ''; position: absolute; inset: 0; border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  animation: simShimmer 1.6s linear infinite;
+}
+
+/* ===== 专属「模拟」按钮（醒目 CTA，一键多步推理，加性） ===== */
+.sim-quick-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 12px 0 4px; }
+.sim-btn-quick {
+  padding: 10px 22px; font-size: 16px; font-weight: 700; color: #fff;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  border: none; border-radius: 10px; cursor: pointer;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+.sim-btn-quick:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(14, 165, 233, 0.45); filter: brightness(1.06); }
+.sim-btn-quick:active { transform: translateY(0); filter: brightness(0.97); }

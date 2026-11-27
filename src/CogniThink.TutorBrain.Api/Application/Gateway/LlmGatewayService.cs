@@ -1418,6 +1418,24 @@ public sealed partial class LlmGatewayService
             };
         }
 
+        // spec FR-4 / Task 6：单选择陈述路径——逐选项经 IStatementJudge 判定；全部非 Undecided 且
+        // 满足问法方向的候选唯一 → 返回字母；候选 ≥2 → null（交下方 MultiSelect）；任一 Undecided → null。
+        // 加性末端，不抢跑在既有单选校验器之前，已解题字节级不变。
+        var stmt = StatementChoiceValidator.TryDecide(req);
+        if (stmt is not null)
+        {
+            return new EngineResponse
+            {
+                Ok = true,
+                FinalResult = stmt.FinalResult,
+                DerivationSteps = stmt.Reasons,
+                ErrorTags = InferErrorTags(stmt.FinalResult),
+                ConstraintNote = stmt.ConstraintNote,
+                ReasoningNodes = GatewayReasoningNodes.Clone(stmt.ReasoningNodes),
+                Confidence = 1.0
+            };
+        }
+
         // spec FR-1 / Task 2：多选判定 fallback——仅当前面所有单选校验器都返回 null 时触发。
         // 逐选项用 IStatementJudge 判定；≥2 选项确定满足问法方向 → 返回拼接字母串；任一选项不可判或
         // 候选不足 → null。不依赖题干「双选/多选」标记。置于 ChoiceVerifier 兜底之前，已解题字节级不变。

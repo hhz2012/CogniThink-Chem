@@ -26,13 +26,26 @@ internal static class MultiSelectChoiceValidator
 
     // 选错误项的问法标记（与 FactChoiceMatcher.WrongDir 同口径，避免性质选择题误伤）。
     // 「不规范」全库仅 pdf-544 题干命中，零暴露面。
+    // 「不能完成」全库仅 pdf-406 题干命中（气体发生收集装置，单选选不能完成的 C 项）；
+    // 加入后 MultiSelect 按选错方向仅 C 为假（候选 1 < 2 → 返回 null），避免 EF-406 事实
+    // 使 A/B/D 判真而被误凑成多选 ABD（harm）。与 FactChoiceMatcher.WrongDir 保持同步。
     private static readonly Regex WrongDir = new(
-        @"错误|不正确|不相符|不符|不具有对应|不能达到|无法达到|不能实现|不能用来|不能用|不属于|不合理|不可行|不能说明|不能证明|不能用于|没有关联|不规范",
+        @"错误|不正确|不相符|不符|不具有对应|不能完成|不能达到|无法达到|不能实现|不能用来|不能用|不属于|不合理|不可行|不能说明|不能证明|不能用于|没有关联|不规范",
         RegexOptions.Compiled);
 
-    // 聚合真值源：事实库（四个库）+ 计数 + 氧化还原电子转移计数（Task 4）。
-    private static readonly CompositeStatementJudge Judge =
-        new(new FactBaseStatementJudge(), new CountingStatementJudge(), new RedoxElectronStatementJudge());
+    // 聚合真值源：事实库（四个库）+ 计数 + 氧化还原电子转移计数（Task 4）
+    // + 氧还反应计数（FR-2）+ 氧还角色/比值（FR-3）
+    // + 结构/周期律/化学键比较原语（电子排布 / VSEPR 键角 / 晶体类型 / 配位键）。
+    // internal：供 StatementChoiceValidator 共享，保证单选择陈述路径（FR-4）与多选 fallback
+    // 逐选项判定口径完全一致，二者仅在候选数阈值（1 vs ≥2）上不同。
+    internal static readonly CompositeStatementJudge StatementJudge =
+        new(new FactBaseStatementJudge(), new CountingStatementJudge(), new RedoxElectronStatementJudge(),
+            new RedoxCountStatementJudge(), new RedoxRoleRatioStatementJudge(),
+            new ElectronConfigStatementJudge(), new VseprBondAngleStatementJudge(),
+            new CrystalTypeStatementJudge(), new CoordinateBondStatementJudge());
+
+    /// <summary>问法方向：题干要求选「错误/不正确…」项 → true（选 verdict==False 的选项）。与 WrongDir 同口径。</summary>
+    internal static bool AskWrong(string stem) => WrongDir.IsMatch(stem);
 
     /// <summary>尝试多选求解；不能干净判定返回 null（任一选项 Undecided 或候选不足 2 项）。</summary>
     public static ChoiceVerifier.Outcome? TryDecide(EngineRequest req)
@@ -50,7 +63,7 @@ internal static class MultiSelectChoiceValidator
         var optionHits = new List<ChoiceReasoningNodes.OptionHit>();
         foreach (var L in letters)
         {
-            var (v, hitIds) = Judge.JudgeWithIds(stem, opts[L]);
+            var (v, hitIds) = StatementJudge.JudgeWithIds(stem, opts[L]);
             if (v == Verdict.Undecided) return null;   // 任一选项不可判 → 整题 null，不蒙数
             verdicts[L] = v;
             reasons.Add($"{L}：{(v == Verdict.True ? "正确" : "错误")}（IStatementJudge 判定）");

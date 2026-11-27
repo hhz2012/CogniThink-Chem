@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "source": "高中物质结构与性质：常见化合物晶体类型 + 含配位键物种（教材通用真值，逐题化学核对；非单题策展，可跨题复用）。匹配时对题面做上下标→ASCII、破折号统一归一化。",
+  "crystalTypes": [
+    { "formula": "GaN",  "names": ["氮化镓"],           "type": "原子晶体" },
+    { "formula": "SiC",  "names": ["碳化硅", "金刚砂"], "type": "原子晶体" },
+    { "formula": "SiO2", "names": ["二氧化硅", "硅石", "石英", "水晶", "硅氧四面体"], "type": "原子晶体" },
+    { "formula": "BN",   "names": ["氮化硼", "立方氮化硼"], "type": "原子晶体" },
+    { "formula": "C",    "names": ["金刚石"],           "type": "原子晶体" },
+    { "formula": "Si",   "names": ["晶体硅", "单晶硅", "硅单质"], "type": "原子晶体" },
+
+    { "formula": "CO2",  "names": ["二氧化碳", "干冰"], "type": "分子晶体" },
+    { "formula": "H2O",  "names": ["水", "冰"],         "type": "分子晶体" },
+    { "formula": "NH3",  "names": ["氨", "氨气", "液氨"], "type": "分子晶体" },
+    { "formula": "PH3",  "names": ["磷化氢"],           "type": "分子晶体" },
+    { "formula": "CS2",  "names": ["二硫化碳"],         "type": "分子晶体" },
+    { "formula": "SiCl4","names": ["四氯化硅"],         "type": "分子晶体" },
+    { "formula": "GeCl4","names": ["四氯化锗"],         "type": "分子晶体" },
+    { "formula": "SnCl4","names": ["四氯化锡"],         "type": "分子晶体" },
+    { "formula": "C60",  "names": ["富勒烯", "足球烯"], "type": "分子晶体" },
+
+    { "formula": "NaCl", "names": ["氯化钠"], "type": "离子晶体" },
+    { "formula": "KCl",  "names": ["氯化钾"], "type": "离子晶体" },
+    { "formula": "MgO",  "names": ["氧化镁"], "type": "离子晶体" },
+    { "formula": "ZnO",  "names": ["氧化锌"], "type": "离子晶体" },
+    { "formula": "ZnS",  "names": ["硫化锌"], "type": "离子晶体" },
+    { "formula": "NaOH", "names": ["氢氧化钠"], "type": "离子晶体" },
+    { "formula": "KNO3", "names": ["硝酸钾"], "type": "离子晶体" },
+
+    { "formula": "Cu",   "names": ["铜"], "type": "金属晶体" },
+    { "formula": "Fe",   "names": ["铁"], "type": "金属晶体" },
+    { "formula": "Al",   "names": ["铝"], "type": "金属晶体" }
+  ],
+  "coordinateBonds": [
+    { "species": "NH3BH3",        "match": "NH3BH3",   "names": ["氨硼烷", "BH3NH3", "三氢硼氨"], "hasCoordinateBond": true,  "donor": "N", "acceptor": "B" },
+    { "species": "BF3NH3",        "match": "BF3NH3",   "names": ["三氟化硼氨", "NH3BF3", "氟硼氨"], "hasCoordinateBond": true,  "donor": "N", "acceptor": "B" },
+    { "species": "NH4+",          "match": "NH4",      "names": ["铵根", "铵根离子"], "hasCoordinateBond": true,  "donor": "N", "acceptor": "H" },
+    { "species": "[Cu(NH3)4]2+",  "match": "Cu(NH3)4", "names": ["四氨合铜离子", "铜氨络离子", "四氨合铜"], "hasCoordinateBond": true, "donor": "N", "acceptor": "Cu" },
+    { "species": "[Ag(NH3)2]+",   "match": "Ag(NH3)2", "names": ["二氨合银离子", "银氨络离子", "二氨合银"], "hasCoordinateBond": true, "donor": "N", "acceptor": "Ag" },
+    { "species": "SiF6",          "match": "SiF6",     "names": ["六氟合硅酸根", "氟硅酸根"], "hasCoordinateBond": true,  "donor": "F", "acceptor": "Si" },
+    { "species": "CH4",           "match": "CH4",      "names": ["甲烷"], "hasCoordinateBond": false }
+  ]
+}

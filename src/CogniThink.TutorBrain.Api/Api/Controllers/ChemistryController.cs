@@ -28,6 +28,9 @@ public sealed class ChemistryController : ControllerBase
     private readonly ChemicalReverseInferenceEngine _reverse;
     private readonly ReactionEquationParser _equationParser;
     private readonly TutorDbContext _db;
+    private readonly ChemicalSimulator _traceSimulator;
+    private readonly ChemicalMultiStepReasoningSimulator _multiStep;
+    private readonly EquilibriumStateSimulator _equilibrium;
 
     public ChemistryController(
         ChemicalKnowledgeBase kb,
@@ -36,7 +39,10 @@ public sealed class ChemistryController : ControllerBase
         ChemicalSimulationEngine simulator,
         ChemicalReverseInferenceEngine reverse,
         ReactionEquationParser equationParser,
-        TutorDbContext db)
+        TutorDbContext db,
+        ChemicalSimulator traceSimulator,
+        ChemicalMultiStepReasoningSimulator multiStep,
+        EquilibriumStateSimulator equilibrium)
     {
         _kb = kb;
         _chem = chem;
@@ -45,6 +51,9 @@ public sealed class ChemistryController : ControllerBase
         _reverse = reverse;
         _equationParser = equationParser;
         _db = db;
+        _traceSimulator = traceSimulator;
+        _multiStep = multiStep;
+        _equilibrium = equilibrium;
     }
 
     /// <summary>物质检索（名称、化学式、别名）</summary>
@@ -183,6 +192,50 @@ public sealed class ChemistryController : ControllerBase
     public ActionResult<ReverseInferenceResult> Reverse([FromBody] ReverseInferenceRequest request)
     {
         return Ok(_reverse.Infer(request));
+    }
+
+    /// <summary>
+    /// 正向模拟轨迹（统一契约）：返回富化 ReactionEvent（含化学依据 Basis、优先级 Priority、反应进度 Extent）
+    /// 与最终体系状态。与 /simulate 行为等价但输出新契约 SimulationTrace；旧端点保持不变。
+    /// 例：{"species":[{"substance":"Fe","moles":1}],"conditions":{"aqueous":true,"returnConsidered":true}}
+    /// </summary>
+    [HttpPost("trace")]
+    public ActionResult<SimulationTrace> Trace([FromBody] ChemicalSystemInput input)
+    {
+        if (input is null || input.Species.Count == 0)
+            return BadRequest(new { message = "species 不能为空" });
+        return Ok(_traceSimulator.Simulate(input));
+    }
+
+    /// <summary>
+    /// 多步推理：按计划逐步加料 / 切换条件，返回状态轨迹（每步反应事件 + 可选平衡数值 Numerical）。
+    /// 例：{"initial":{"species":[{"substance":"AlCl3","concentration":0.1,"volume":1}]},"plan":{"steps":[
+    ///   {"kind":"AddSpecies","name":"加过量 NaOH","species":[{"substance":"NaOH","moles":0.5}],
+    ///    "numerical":{"quantities":["Ph"]}}]}}
+    /// </summary>
+    [HttpPost("reason")]
+    public ActionResult<ReasoningResult> Reason([FromBody] ReasonRequest request)
+    {
+        if (request is null)
+            return BadRequest(new { message = "请求体不能为空" });
+        return Ok(_multiStep.Reason(
+            request.Plan ?? new ReasoningPlan(),
+            request.Initial ?? new ChemicalSystemInput()));
+    }
+
+    /// <summary>
+    /// 平衡态数值：给定体系与查询项，返回 pH / 离子浓度 / Ksp 残留 / 沉淀转化 K / 粒子排序 / 守恒式 / 酸碱性。
+    /// 常数只来自 acid-constants.json 或题给 query.given；缺数据返回 status=Underdetermined，不蒙数。
+    /// 例：{"input":{"species":[{"substance":"CH3COOH","concentration":0.1}]},"query":{"quantities":["Ph"]}}
+    /// </summary>
+    [HttpPost("equilibrium")]
+    public ActionResult<EquilibriumNumericalResult> Equilibrium([FromBody] EquilibriumRequest request)
+    {
+        if (request is null)
+            return BadRequest(new { message = "请求体不能为空" });
+        return Ok(_equilibrium.Compute(
+            request.Input ?? new ChemicalSystemInput(),
+            request.Query ?? new EquilibriumQuery()));
     }
 
     /// <summary>知识库健康检查（数量与自检错误）</summary>

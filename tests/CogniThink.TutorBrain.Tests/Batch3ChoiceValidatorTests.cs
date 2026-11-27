@@ -160,7 +160,8 @@ public class Batch3ChoiceValidatorTests
 
         // batch3 扩展（第十五批 / Task 37 续）：全链路 dump 后从 235 道未解中筛出的纯文本、可化学唯一判定题。
         // pdf-184（核反应守恒）、pdf-294（Ksp 沉淀转化，note 确认）、pdf-028（差量法气体计算）。
-        // 舍弃 pdf-386（note 自相矛盾、数据损坏）与 pdf-075（存储 answer 与化学真值冲突，待官方题源核对）；
+        // 舍弃 pdf-386（note 自相矛盾、数据损坏）；pdf-075 原为存储选项错乱，已恢复原书选项（A/C 真、仅 B 假），
+        // 改由单选择陈述路径（氧还电子计数 + 氧还反应计数 + 锚定事实）解出 B，见 redox-statement-judge-pdf075；
         // 其余候选多为图像/结构缺失或选项文本截断，无法零风险策展。
         // 注（image-ocr-choice-coverage 数据修复后）：pdf-006 / pdf-424 原在截断数据（仅 A/B）下可被 Concept
         // 唯一求解；后从源 PDF 恢复完整 C/D 选项，Concept 契约要求四选项全部命中事实（每选项恰好 1 条），
@@ -422,7 +423,34 @@ public class Batch3ChoiceValidatorTests
         // 事实写入 general-choice-facts（GC-742~GC-743）；探针 TOTAL PROBLEMS=0，4 选项各命中唯一事实，
         // verdict 与官方 answer 一致，与 Experiment/Organic/Structure 无路由二义（screen_overlap clean）。
         ["pdf-271"] = "A",
-        ["pdf-220"] = "D"
+        ["pdf-220"] = "D",
+        // svg_batch35：pdf-218（湖南卷·Li2CN2晶胞·错项=D）+ pdf-357（贵州卷·灵芝酸B·错项=B）+ pdf-386（河北衡水期中·共面共线·错项=A）。
+        // 事实写入 general-choice-facts（GC-744~GC-746）；探针 TOTAL PROBLEMS=0，4 选项各命中唯一事实，
+        // verdict 与官方 answer 一致，与 Experiment/Organic/Structure 无路由二义（screen_overlap clean）。
+        ["pdf-218"] = "D",
+        ["pdf-357"] = "B",
+        ["pdf-386"] = "A",
+        // svg_batch36：pdf-337（河北承德期中·卤代烃消去+水解·正确项=C=②④⑥）。
+        // 事实写入 general-choice-facts（GC-747）；探针 TOTAL PROBLEMS=0，4 选项各命中唯一事实，
+        // verdict 与官方 answer 一致，与 Experiment/Organic/Structure 无路由二义（screen_overlap clean）。
+        // 本批候选池 27 道中仅 pdf-337 答案键自洽可安全策展；其余 9 道答案键冲突、17 道属 playbook 不可解。
+        ["pdf-337"] = "C",
+        // keyfix_b37：用户授权修正答案键冲突的 7 道单选题（原 answer 与化学真值冲突，致 Concept 无法策展）。
+        // 同步修正 pdf_questions.json 的 answer + answerKeywords，并补事实使 Concept 输出与新键一致。
+        // 跳过 pdf-075（已恢复原书选项并由单选择陈述路径解出 B，不归 Concept 策展）与 pdf-325（A 选项结构图缺失，无法唯一判定）。
+        ["pdf-087"] = "B",
+        ["pdf-284"] = "B",
+        ["pdf-295"] = "C",
+        ["pdf-306"] = "B",
+        ["pdf-410"] = "D",
+        ["pdf-432"] = "A",
+        ["pdf-511"] = "B",
+        // keyfix_b38：用户授权修正答案键冲突的 3 道单选题（原 answer 与化学真值冲突，致 Concept 无法策展）。
+        // 同步修正 pdf_questions.json 的 answer + answerKeywords，并补 12 条事实（GC-755~757）使 Concept 输出与新键一致。
+        // pdf-227（原 A→B）、pdf-327（原 A→B）、pdf-409（原 D→C）；data-defect-register 交叉验证，探针 TOTAL PROBLEMS=0。
+        ["pdf-227"] = "B",
+        ["pdf-327"] = "B",
+        ["pdf-409"] = "C"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

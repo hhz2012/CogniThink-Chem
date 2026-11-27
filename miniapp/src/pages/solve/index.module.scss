@@ -338,3 +338,202 @@
   padding-top: 4px;
   word-break: break-all;
 }
+
+/* ===== 反应模拟器（嵌入式播放器，加性，仅作用于 .sim*，不影响既有样式）===== */
+.simCard {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.05);
+  display: flex;
+  flex-direction: column;
+  border-left: 3px solid #0ea5e9;
+}
+
+.simHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* —— 模拟器特有标志：CSS 绘制烧瓶 —— */
+.simIcon {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  flex-shrink: 0;
+}
+.simIconRun {
+  opacity: 1;
+}
+
+.simRing {
+  position: absolute;
+  top: 14px;
+  left: 2px;
+  width: 52px;
+  height: 10px;
+  border: 2px solid #6366f1;
+  border-radius: 50%;
+  box-sizing: border-box;
+  opacity: 0;
+}
+.simIconRun .simRing {
+  opacity: 0.9;
+  animation: simRingSpin 3s linear infinite;
+}
+
+.simFlask {
+  position: relative;
+  width: 32px;
+  height: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.simNeck {
+  width: 12px;
+  height: 6px;
+  background: #e0f2fe;
+  border: 1.5px solid #0ea5e9;
+  border-radius: 3px 3px 0 0;
+  box-sizing: border-box;
+  margin-bottom: -1px;
+  z-index: 1;
+}
+
+.simBody {
+  position: relative;
+  width: 30px;
+  height: 28px;
+  background: #e0f2fe;
+  border: 1.5px solid #0ea5e9;
+  border-radius: 6px 6px 45% 45% / 6px 6px 65% 65%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.simLiquid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 14px;
+  background: #38bdf8;
+  opacity: 0.85;
+  transform-origin: center bottom;
+}
+.simIconRun .simLiquid {
+  animation: simLiquidPulse 2.2s ease-in-out infinite;
+}
+
+.simBubble {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #bae6fd;
+  opacity: 0;
+}
+.simB1 { left: 6px; bottom: 3px; }
+.simB2 { left: 16px; bottom: 2px; }
+.simIconRun .simBubble {
+  opacity: 0.95;
+  animation: simBubbleRise 1.7s ease-in infinite;
+}
+.simIconRun .simB2 { animation-delay: 0.5s; }
+
+@keyframes simRingSpin { to { transform: rotate(360deg); } }
+@keyframes simLiquidPulse { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.08); } }
+@keyframes simBubbleRise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0; }
+  20% { opacity: 0.9; }
+  100% { transform: translateY(-14px) scale(1); opacity: 0; }
+}
+@keyframes simFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.simTitle { flex: 1; min-width: 0; }
+.simTitleMain { font-size: 28px; font-weight: 700; color: #0ea5e9; }
+.simTitleSub { font-size: 22px; color: #9ca3af; margin-top: 2px; }
+
+.simActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.simBtn {
+  padding: 8px 18px;
+  border-radius: 10px;
+  background: #0ea5e9;
+  @include pressable;
+}
+.simBtnGhost {
+  background: #fff;
+  border: 1px solid #0ea5e9;
+}
+.simBtnDisabled { opacity: 0.5; }
+.simBtnText { color: #fff; font-size: 24px; font-weight: 600; }
+.simBtnTextGhost { color: #0ea5e9; font-size: 24px; font-weight: 600; }
+.simConv { font-size: 22px; color: #9ca3af; }
+
+.simProgress {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+.simProgressBar {
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+.simEvents {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.simEvent {
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  opacity: 0.4;
+  transition: opacity 0.4s ease, border-color 0.4s ease, background 0.4s ease;
+}
+.simEventOn {
+  opacity: 1;
+  border-color: #38bdf8;
+  background: #f0f9ff;
+}
+.simEventEq { font-size: 26px; font-weight: 600; color: #1f2937; }
+.simEventMeta { font-size: 22px; color: #64748b; margin-top: 3px; }
+
+.simFinal {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed #cbd5e1;
+}
+.simFinalShow { animation: simFadeIn 0.45s ease both; }
+.simFinalLabel { font-size: 24px; font-weight: 700; color: #0f766e; margin-bottom: 6px; }
+.simChips { display: flex; flex-wrap: wrap; gap: 6px; }
+.simChip {
+  padding: 3px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 999px;
+  background: #fff;
+  font-size: 22px;
+  color: #1f2937;
+}

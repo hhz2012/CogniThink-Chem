@@ -45,6 +45,7 @@ public class MultiSelectChoiceValidatorTests
     [InlineData("pdf-071", "BD")]
     [InlineData("pdf-115", "AC")]
     [InlineData("pdf-475", "ACD")]
+    [InlineData("pdf-531", "BC")]
     public void NoMarkerVariant_SolvesMultiSelect_AndGradedCorrect(string id, string expected)
     {
         var c = GatewayVsLlmEvaluationService.BuildTestCases().First(x => x.Id == id);

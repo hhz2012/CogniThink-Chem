@@ -72,7 +72,7 @@ internal sealed class RedoxElectronStatementJudge : IStatementJudge
 
     private static Claim? ParseElectronClaim(string statement)
     {
-        var s = NormalizeText(statement);
+        var s = RedoxStatementPrimitives.NormalizeText(statement);
 
         // 必须是"转移电子"类陈述
         if (!s.Contains("转移")) return null;
@@ -132,104 +132,20 @@ internal sealed class RedoxElectronStatementJudge : IStatementJudge
         return new Claim(species.Body, generated, n / moles);
     }
 
-    // ===================== 方程式定位 =====================
-
-    // 方程式抽取（与 StoichiometryChoiceValidator 同口径，额外允许电荷中的 '-'）。
-    private static readonly Regex EquationRe = new(
-        @"[A-Za-z0-9()^\s+\-\u00b7]+(?:=|\u2192|->)[A-Za-z0-9()^\s+\-\u00b7\u2191\u2193]+",
-        RegexOptions.Compiled);
-
-    private static List<string> FindEquations(string text)
-    {
-        var list = new List<string>();
-        foreach (Match m in EquationRe.Matches(text))
-        {
-            var cand = m.Value.Trim();
-            if (EquationParser.TryParse(cand, out _, out _))
-                list.Add(cand);
-        }
-        return list;
-    }
-
-    // 陈述引用的反应标签（反应ⅱ / 反应① / 反应(1) / 步骤④ / 过程① …）。
-    private static readonly Regex LabelRefRe = new(
-        @"(?:反应|步骤|过程|第)\s*([\u2160-\u2179\u2460-\u2469]|\(\d+\)|\d+|一二三四五六七八九十)",
-        RegexOptions.Compiled);
+    // ===================== 方程式定位（共享原语，见 RedoxStatementPrimitives） =====================
 
     private static string? ResolveEquation(string stem, string statement)
     {
-        var s = NormalizeText(stem);
+        var s = RedoxStatementPrimitives.NormalizeText(stem);
 
-        var labelValue = FindLabelRef(statement);
+        var labelValue = RedoxStatementPrimitives.FindLabelRef(statement);
         if (labelValue is not null)
         {
-            var labeled = ResolveLabeled(s, labelValue.Value);
+            var labeled = RedoxStatementPrimitives.ResolveLabeled(s, labelValue.Value);
             if (labeled is not null) return labeled;
             // 标签未命中时退化为"唯一方程式"，避免漏判
         }
-        return ResolveUnique(s);
-    }
-
-    private static int? FindLabelRef(string statement)
-    {
-        var m = LabelRefRe.Match(statement);
-        return m.Success ? LabelValue(m.Groups[1].Value) : null;
-    }
-
-    private static int? LabelValue(string token)
-    {
-        if (token.Length == 1)
-        {
-            var c = token[0];
-            if (c >= '\u2160' && c <= '\u2169') return c - '\u2160' + 1; // Ⅰ-Ⅹ
-            if (c >= '\u2170' && c <= '\u2179') return c - '\u2170' + 1; // ⅰ-ⅹ
-            if (c >= '\u2460' && c <= '\u2469') return c - '\u2460' + 1; // ①-⑩
-        }
-        if (token.StartsWith('(') && token.EndsWith(')') && token.Length > 2)
-        {
-            if (int.TryParse(token.Substring(1, token.Length - 2), out var p)) return p;
-        }
-        if (int.TryParse(token, out var d)) return d;
-        var ci = "一二三四五六七八九十".IndexOf(token, StringComparison.Ordinal);
-        if (ci >= 0) return ci + 1; // 一..十 → 1..10
-        return null;
-    }
-
-    // 题干中的标签标记（罗马数字 / 圆圈数字），按出现位置排序。
-    private static List<(int value, int end)> FindLabelMarkers(string text)
-    {
-        var list = new List<(int, int)>();
-        for (var i = 0; i < text.Length; i++)
-        {
-            var c = text[i];
-            int? v = c >= '\u2160' && c <= '\u2169' ? c - '\u2160' + 1
-                   : c >= '\u2170' && c <= '\u2179' ? c - '\u2170' + 1
-                   : c >= '\u2460' && c <= '\u2469' ? c - '\u2460' + 1
-                   : null;
-            if (v.HasValue) list.Add((v.Value, i + 1));
-        }
-        return list;
-    }
-
-    private static string? ResolveLabeled(string stem, int labelValue)
-    {
-        var markers = FindLabelMarkers(stem);
-        if (markers.Count == 0) return null;
-        var mi = markers.FindIndex(m => m.value == labelValue);
-        if (mi < 0) return null;
-        var segStart = markers[mi].end;
-        var segEnd = mi + 1 < markers.Count ? markers[mi + 1].end - 1 : stem.Length;
-        // segEnd 指向下一标记的起始位置（end-1 即下一标记 char 的 index）
-        if (segEnd <= segStart) return null;
-        var segment = stem.Substring(segStart, segEnd - segStart);
-        var eqs = FindEquations(segment);
-        return eqs.Count > 0 ? eqs[0] : null;
-    }
-
-    private static string? ResolveUnique(string stem)
-    {
-        var eqs = FindEquations(stem);
-        return eqs.Count == 1 ? eqs[0] : null; // 多个方程式且无标签 → 歧义，不判
+        return RedoxStatementPrimitives.ResolveUnique(s);
     }
 
     // ===================== 真值计算 =====================
@@ -278,51 +194,6 @@ internal sealed class RedoxElectronStatementJudge : IStatementJudge
         if (coeff.IsZero) return null;
 
         return ToDouble(rx.ElectronsTransferred) / ToDouble(coeff);
-    }
-
-    // ===================== 文本归一化 =====================
-
-    // 上标数字 → 普通数字；上标 +/- → ^ 电荷标注；下标数字 → 普通数字。
-    // 使 OH⁻ / Cr2O7²⁻ / H₂ 等变为 EquationParser 可识别的 OH^- / Cr2O7^2- / H2。
-    private static readonly Dictionary<char, char> SuperDigits = new()
-    {
-        ['\u2070'] = '0', ['\u00b9'] = '1', ['\u00b2'] = '2', ['\u00b3'] = '3',
-        ['\u2074'] = '4', ['\u2075'] = '5', ['\u2076'] = '6', ['\u2077'] = '7',
-        ['\u2078'] = '8', ['\u2079'] = '9'
-    };
-
-    private static string NormalizeText(string s)
-    {
-        if (string.IsNullOrEmpty(s)) return s;
-        var sb = new StringBuilder(s.Length);
-        for (var i = 0; i < s.Length; i++)
-        {
-            var c = s[i];
-            if (c == '\u207a') { sb.Append("^+"); continue; }
-            if (c == '\u207b') { sb.Append("^-"); continue; }
-            if (SuperDigits.TryGetValue(c, out var d))
-            {
-                var digits = new StringBuilder();
-                var j = i;
-                while (j < s.Length && SuperDigits.TryGetValue(s[j], out var d2)) { digits.Append(d2); j++; }
-                if (j < s.Length && (s[j] == '\u207a' || s[j] == '\u207b'))
-                {
-                    sb.Append('^');
-                    sb.Append(digits);
-                    sb.Append(s[j] == '\u207a' ? '+' : '-');
-                    i = j; // 循环末尾 i++ 跳过 sign
-                }
-                else
-                {
-                    sb.Append(digits);
-                    i = j - 1; // 循环末尾 i++ 落到 j
-                }
-                continue;
-            }
-            if (c >= '\u2080' && c <= '\u2089') { sb.Append((char)('0' + (c - '\u2080'))); continue; }
-            sb.Append(c);
-        }
-        return sb.ToString();
     }
 
     // ===================== 工具 =====================

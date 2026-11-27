@@ -413,4 +413,35 @@ public static class VseprSolver
         }
         return new string(chars);
     }
+
+    /// <summary>
+    /// 供键角数值判定原语复用：查某微粒的构型（同义词串）与孤电子对数。
+    /// 不命中返回 false（不蒙数）；不改变 <see cref="TrySolve"/> 行为。
+    /// </summary>
+    internal static bool TryGetShapeInfo(string? rawSpecies, out string shape, out int lonePairs)
+    {
+        shape = string.Empty;
+        lonePairs = 0;
+        if (string.IsNullOrWhiteSpace(rawSpecies)) return false;
+        var key = CanonSpecies(rawSpecies);
+        if (!Table.TryGetValue(key, out var v)) return false;
+        shape = v.Shape;
+        LonePairs.TryGetValue(key, out lonePairs);
+        return true;
+    }
+
+    /// <summary>
+    /// 供键角判定原语复用：在文本中查找首个在对照表内的微粒（归一化键）。
+    /// 与 <see cref="TrySolveBondAngleReasonCore"/> 同口径，但只取首个，用于单微粒键角数值断言。
+    /// </summary>
+    internal static string? FindKnownSpeciesInText(string? text)
+    {
+        if (string.IsNullOrEmpty(text)) return null;
+        foreach (Match m in Formula.Matches(text))
+        {
+            var key = CanonSpecies(m.Value);
+            if (Table.ContainsKey(key)) return key;
+        }
+        return null;
+    }
 }

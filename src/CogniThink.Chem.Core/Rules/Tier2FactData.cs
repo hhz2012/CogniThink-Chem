@@ -95,3 +95,44 @@ public sealed class CountingFact
     /// <summary>核对依据（供讲解/留痕）。</summary>
     public string Note { get; set; } = "";
 }
+
+/// <summary>
+/// 结构/周期律/化学键比较通用真值库：data/highschool/structure-property-facts.json。
+/// 供选择项陈述真伪判定（CompositeStatementJudge 追加原语）使用。
+/// 每条均为教材通用化学真值，可跨题复用，非单题策展。
+/// </summary>
+public sealed class StructurePropertyData
+{
+    public string Version { get; set; } = "";
+    public string Source { get; set; } = "";
+    /// <summary>常见化合物 → 晶体类型。</summary>
+    public List<CrystalTypeEntry> CrystalTypes { get; set; } = new();
+    /// <summary>含（或不含）配位键的常见物种。</summary>
+    public List<CoordinateBondEntry> CoordinateBonds { get; set; } = new();
+}
+
+public sealed class CrystalTypeEntry
+{
+    /// <summary>归一化化学式（ASCII，无上下标），如 "GaN"、"SiO2"。</summary>
+    public string Formula { get; set; } = "";
+    /// <summary>中文别名，如 "氮化镓"、"二氧化硅"。</summary>
+    public List<string> Names { get; set; } = new();
+    /// <summary>真值晶体类型：原子晶体 / 分子晶体 / 离子晶体 / 金属晶体。</summary>
+    public string Type { get; set; } = "";
+}
+
+public sealed class CoordinateBondEntry
+{
+    /// <summary>归一化物种展示键，如 "NH3BH3"。</summary>
+    public string Species { get; set; } = "";
+    /// <summary>在题面中检索的归一化子串（去括号/电荷），如 "Cu(NH3)4"。</summary>
+    public string Match { get; set; } = "";
+    /// <summary>中文别名。</summary>
+    public List<string> Names { get; set; } = new();
+    /// <summary>该物种是否含配位键。</summary>
+    public bool HasCoordinateBond { get; set; }
+    /// <summary>配位键给体原子（可选，供留痕）。</summary>
+    public string Donor { get; set; } = "";
+    /// <summary>配位键受体原子（可选，供留痕）。</summary>
+    public string Acceptor { get; set; } = "";
+}

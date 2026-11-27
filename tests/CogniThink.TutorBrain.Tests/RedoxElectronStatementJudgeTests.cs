@@ -137,14 +137,14 @@ public class RedoxElectronStatementJudgeTests
     // ===== 真实题面探针：pdf-075（处理 OCR 上标 / 表格多反应）=====
 
     [Fact]
-    public void RealPdf075_OptionB_JudgedChemicallyTrue()
+    public void RealPdf075_OptionB_JudgedFalse()
     {
         var c = GatewayVsLlmEvaluationService.BuildTestCases().FirstOrDefault(x => x.Id == "pdf-075");
         if (c is null) return; // 数据缺失时跳过（不硬失败）
-        // 化学真值：反应ⅱ每生成 1 mol O2 转移 4 mol 电子 → True。
-        // 注意：pdf-075 存储 answer 与化学真值冲突（已知数据缺陷，见 data-defect-register），
-        // 本探针只验证原语的化学计算正确性，不强制解题。
-        Assert.Equal(Verdict.True, Judge.Judge(c.Question, "反应ⅱ中每生成1 mol O2转移4 mol电子"));
+        var (_, opts) = ChoiceVerifier.ParseOptions(c.Question);
+        // 真实选项 B（已按原书恢复）：反应Ⅳ中每生成1 mol O₂转移4 mol电子。
+        // 反应ⅳ为 Xe 歧化 + O 氧化的组合方程，每生成 1 mol O2 实际转移 6 mol 电子 → B 为假（正是答案）。
+        Assert.Equal(Verdict.False, Judge.Judge(c.Question, opts["B"]));
     }
 
     // ===== 全库护栏：接入聚合器后永不与既有事实判定矛盾（只能更保守）=====

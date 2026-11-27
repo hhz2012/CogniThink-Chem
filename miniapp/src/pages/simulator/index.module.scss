@@ -1,0 +1,180 @@
+/* ===== 反应模拟器独立页（加性，仅作用于本页 class）===== */
+.page {
+  min-height: 100vh;
+  background: #f1f5f9;
+  display: flex;
+  flex-direction: column;
+}
+.body {
+  flex: 1;
+  padding: 12px;
+  box-sizing: border-box;
+}
+.panel {
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(17, 24, 39, 0.05);
+  border-left: 3px solid #0ea5e9;
+}
+.note { font-size: 22px; color: #64748b; }
+
+/* —— 头部：烧瓶图标 + 标题 —— */
+.simHead { display: flex; align-items: center; gap: 12px; }
+.simIconWrap {
+  width: 64px; height: 64px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.simIconWrapRun { animation: simIconGlow 1.8s ease-in-out infinite; }
+.simTitle { flex: 1; min-width: 0; }
+.simTitleMain { font-size: 32px; font-weight: 700; color: #0ea5e9; }
+.simTitleSub { font-size: 22px; color: #9ca3af; margin-top: 2px; }
+
+/* —— 模式切换标签 —— */
+.tabs { display: flex; gap: 8px; margin: 10px 0; flex-wrap: wrap; }
+.tab {
+  padding: 6px 16px; border: 1px solid #cbd5e1; border-radius: 999px;
+  background: #fff; font-size: 24px; color: #475569;
+}
+.tabActive { background: #0d9488; color: #fff; border-color: #0d9488; }
+
+/* —— 输入 —— */
+.baseRow { margin: 4px 0 8px; display: flex; align-items: center; gap: 6px; }
+.baseLabel { font-size: 22px; color: #64748b; }
+.baseInput { flex: 1; min-width: 0; font-size: 22px; padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 6px; }
+.textarea {
+  width: 100%; min-height: 120px; padding: 10px; box-sizing: border-box;
+  border: 1px solid #cbd5e1; border-radius: 8px; font-size: 24px; background: #f8fafc;
+}
+.checkRow { display: flex; align-items: center; gap: 6px; margin-top: 8px; font-size: 24px; color: #475569; }
+
+/* —— 计划步骤构建器（多步推理）—— */
+.planLabel { font-size: 24px; font-weight: 600; color: #475569; margin: 10px 0 6px; }
+.planList { display: flex; flex-direction: column; gap: 8px; }
+.planRow {
+  display: flex; gap: 6px; flex-wrap: wrap; align-items: center;
+  padding: 8px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc;
+}
+.planKind {
+  padding: 5px 10px; border: 1px solid #cbd5e1; border-radius: 6px;
+  font-size: 22px; background: #fff; min-width: 90px; text-align: center;
+}
+.planName { flex: 1 1 160px; min-width: 120px; font-size: 22px; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; }
+.planSpec { flex: 1 1 180px; min-width: 130px; font-size: 22px; padding: 5px 8px; border: 1px solid #cbd5e1; border-radius: 6px; }
+.planCheck { font-size: 22px; color: #475569; display: flex; align-items: center; gap: 4px; }
+.planRm { padding: 4px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 22px; color: #ef4444; }
+.planAdd {
+  align-self: flex-start; margin-top: 6px; padding: 6px 14px;
+  border: 1px dashed #0ea5e9; border-radius: 8px; font-size: 24px; color: #0ea5e9; background: #fff;
+}
+
+/* —— 操作按钮 —— */
+.actions { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+.btn { padding: 9px 20px; border-radius: 10px; background: #0ea5e9; }
+.btn:active { opacity: 0.75; }
+.btnGhost { background: #fff; border: 1px solid #0ea5e9; }
+.btnText { color: #fff; font-size: 26px; font-weight: 600; }
+.btnTextGhost { color: #0ea5e9; font-size: 26px; font-weight: 600; }
+.status { font-size: 22px; color: #64748b; }
+
+/* —— 进度条 —— */
+.progress { height: 6px; background: #e2e8f0; border-radius: 999px; overflow: hidden; margin-top: 12px; }
+.progressBar { height: 100%; background: linear-gradient(90deg, #0ea5e9, #6366f1); border-radius: 999px; transition: width 0.4s ease; position: relative; overflow: hidden; }
+.progressBar::after {
+  content: ''; position: absolute; left: 0; top: 0; right: 0; bottom: 0; border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.55), transparent);
+  animation: simShimmer 1.6s linear infinite;
+}
+
+/* ===== CSS 烧瓶图标（镜像 solve SimPlayer）===== */
+.simIcon { position: relative; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; opacity: 0.6; transition: opacity 0.3s ease; flex-shrink: 0; }
+.simIconRun { opacity: 1; }
+.simRing { position: absolute; top: 14px; left: 2px; width: 52px; height: 10px; border: 2px solid #6366f1; border-radius: 50%; box-sizing: border-box; opacity: 0; }
+.simIconRun .simRing { opacity: 0.9; animation: simRingSpin 3s linear infinite; }
+.simFlask { position: relative; width: 32px; height: 40px; display: flex; flex-direction: column; align-items: center; }
+.simNeck { width: 12px; height: 6px; background: #e0f2fe; border: 1.5px solid #0ea5e9; border-radius: 3px 3px 0 0; box-sizing: border-box; margin-bottom: -1px; z-index: 1; }
+.simBody { position: relative; width: 30px; height: 28px; background: #e0f2fe; border: 1.5px solid #0ea5e9; border-radius: 6px 6px 45% 45% / 6px 6px 65% 65%; box-sizing: border-box; overflow: hidden; }
+.simLiquid { position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #38bdf8; opacity: 0.85; transform-origin: center bottom; }
+.simIconRun .simLiquid { animation: simLiquidPulse 2.2s ease-in-out infinite; }
+.simBubble { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #bae6fd; opacity: 0; }
+.simB1 { left: 6px; bottom: 3px; }
+.simB2 { left: 16px; bottom: 2px; }
+.simIconRun .simBubble { opacity: 0.95; animation: simBubbleRise 1.7s ease-in infinite; }
+.simIconRun .simB2 { animation-delay: 0.5s; }
+
+@keyframes simRingSpin { to { transform: rotate(360deg); } }
+@keyframes simLiquidPulse { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.08); } }
+@keyframes simBubbleRise { 0% { transform: translateY(0) scale(0.6); opacity: 0; } 20% { opacity: 0.9; } 100% { transform: translateY(-14px) scale(1); opacity: 0; } }
+@keyframes simFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes simSnapIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes simEventIn { from { opacity: 0; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+@keyframes simFinalPop { 0% { opacity: 0; transform: scale(0.96); } 60% { transform: scale(1.015); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes simIconGlow { 0%, 100% { box-shadow: 0 0 0 0 rgba(14,165,233,0); } 50% { box-shadow: 0 0 18px 4px rgba(14,165,233,0.45); } }
+@keyframes simShimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* —— 事件列表（逐步点亮，镜像 solve）—— */
+.events { margin-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+.event { padding: 10px 12px; border: 1px solid #e2e8f0; border-radius: 10px; background: #f8fafc; opacity: 0.4; transition: opacity 0.4s ease, border-color 0.4s ease, background 0.4s ease; }
+.eventOn { opacity: 1; border-color: #38bdf8; background: #f0f9ff; }
+/* 时间线内事件：挂载时错峰淡入 */
+.eventAnim { animation: simEventIn 0.4s ease both; }
+.eventEq { font-size: 26px; font-weight: 600; color: #1f2937; }
+.eventMeta { font-size: 22px; color: #64748b; margin-top: 3px; }
+.delta { font-size: 22px; margin-top: 4px; color: #334155; }
+.mono { font-family: monospace; }
+.phen { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.colorLine { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 22px; color: #475569; }
+.dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.15); flex-shrink: 0; }
+
+/* —— chips —— */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border: 1px solid #cbd5e1; border-radius: 999px; background: #fff; font-size: 22px; color: #1f2937; }
+.chipSoft { background: #f1f5f9; border-color: #e2e8f0; color: #475569; }
+
+/* —— 终态 —— */
+.final { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #cbd5e1; }
+.finalShow { animation: simFinalPop 0.5s ease both; }
+.finalLabel { font-size: 24px; font-weight: 700; color: #0f766e; margin-bottom: 6px; }
+.summary { margin-top: 8px; padding: 8px 12px; border-left: 3px solid #94a3b8; background: #f8fafc; border-radius: 6px; font-size: 22px; color: #475569; }
+
+/* ===== 多步推理：状态轨迹时间线 ===== */
+.timeline { position: relative; padding-left: 24px; display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.timeline::before { content: ''; position: absolute; left: 10px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(#38bdf8, #6366f1); border-radius: 2px; }
+.snap {
+  position: relative; border: 1px solid #7dd3fc; border-radius: 10px; padding: 10px 12px; background: #fff;
+  animation: simSnapIn 0.45s ease both;
+}
+.snap::before {
+  content: ''; position: absolute; left: -20px; top: 14px; width: 12px; height: 12px;
+  border-radius: 50%; background: #0ea5e9; border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #0ea5e9, 0 0 10px rgba(14,165,233,0.6);
+}
+.snapHead { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 26px; color: #0f172a; margin-bottom: 6px; }
+.stepBadge { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 6px; border-radius: 999px; background: #0d9488; color: #fff; font-size: 22px; }
+.snapLabel { font-size: 20px; color: #94a3b8; letter-spacing: 0.5px; margin: 8px 0 4px; }
+
+/* —— 平衡数值块（嵌入快照 / 平衡计算结果）—— */
+.numerical { margin-top: 4px; padding: 8px 10px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; font-size: 22px; }
+.numerical ul { margin: 0; padding-left: 20px; }
+.evidence { padding-left: 20px; }
+.bottomPad { height: 30px; }
+
+/* —— 自定义勾选框（替代 Taro Checkbox，跨端更稳）—— */
+.checkBox {
+  width: 24px; height: 24px; border: 1px solid #cbd5e1; border-radius: 5px;
+  display: flex; align-items: center; justify-content: center; background: #fff;
+}
+.checkBoxOn { background: #0ea5e9; border-color: #0ea5e9; }
+.checkTick { color: #fff; font-size: 20px; line-height: 1; }
+
+/* —— 专属「模拟」按钮（醒目 CTA，一键多步推理，加性）—— */
+.quickRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 12px 0 4px; }
+.quickBtn {
+  padding: 10px 22px; border-radius: 10px;
+  background: linear-gradient(135deg, #0ea5e9, #6366f1);
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+}
+.quickBtn:active { opacity: 0.85; transform: scale(0.98); }
+.quickBtnText { color: #fff; font-size: 28px; font-weight: 700; }

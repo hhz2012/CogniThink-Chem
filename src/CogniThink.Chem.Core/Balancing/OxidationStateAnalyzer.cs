@@ -97,6 +97,16 @@ public static class OxidationStateAnalyzer
                 ["C"] = new() { (new Rational(3), 6) },
                 ["O"] = new() { (new Rational(-2), 22) },
                 ["H"] = new() { (Rational.One, 20) }
+            },
+            // 碱式碳酸镁水合物（pdf-171 蛇纹石"矿化"固定 CO2 的产物）：Mg +2、碳酸根 C +4 / O -2、
+            // 氢氧根与结晶水 H +1 / O -2。常规分词器不支持 "·" 结晶水分隔符，需人工指定
+            // （原子数与 Species.Parse 一致：Mg5 C4 O18 H10）。
+            ["Mg5(CO3)4(OH)2·4H2O"] = new()
+            {
+                ["Mg"] = new() { (new Rational(2), 5) },
+                ["C"] = new() { (new Rational(4), 4) },
+                ["O"] = new() { (new Rational(-2), 18) },
+                ["H"] = new() { (Rational.One, 10) }
             }
         };
 

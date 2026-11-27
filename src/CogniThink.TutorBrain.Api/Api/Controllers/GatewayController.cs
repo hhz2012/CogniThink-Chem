@@ -15,11 +15,13 @@ public sealed class GatewayController : ControllerBase
 {
     private readonly LlmGatewayService _gateway;
     private readonly LlmProxyService _llm;
+    private readonly SolveStructuredEnricher _enricher;
 
-    public GatewayController(LlmGatewayService gateway, LlmProxyService llm)
+    public GatewayController(LlmGatewayService gateway, LlmProxyService llm, SolveStructuredEnricher enricher)
     {
         _gateway = gateway;
         _llm = llm;
+        _enricher = enricher;
     }
 
     private const string OcrSystemPrompt =
@@ -49,6 +51,7 @@ public sealed class GatewayController : ControllerBase
     /// 学生面求解入口：输入学生文本，返回按 ConclusionState 裁剪的学生面视图，
     /// 不泄露未采纳结论（Insufficient 不下发 final_result / 推理 / 解释）。
     /// P2-4；内部复用 ProcessStudentMessageAsync，仅加只读投影，不改求解与判分。
+    /// 追加：HTTP 层 best-effort 富化 structured（数值/守恒/pH/反应轨迹），不进判分路径。
     /// </summary>
     [HttpPost("solve")]
     public async Task<IActionResult> Solve([FromBody] ProcessRequest request, CancellationToken ct)
@@ -57,7 +60,8 @@ public sealed class GatewayController : ControllerBase
             return BadRequest(new { message = "text 不能为空" });
 
         var result = await _gateway.ProcessStudentMessageAsync(request.Text, ct: ct);
-        return Ok(GatewaySolveProjector.Project(result));
+        var enriched = _enricher.Enrich(result, request.Text);
+        return Ok(GatewaySolveProjector.Project(result, enriched));
     }
 
     /// <summary>仅做输入标准化（识别任务 + 组装引擎请求），不调用引擎</summary>
@@ -117,7 +121,8 @@ public sealed class GatewayController : ControllerBase
             return Ok(new { ocrText = string.Empty, available = _llm.SupportsVision, note = "未能从图片中识别出题目文本，请换一张清晰图片或手动输入" });
 
         var result = await _gateway.ProcessStudentMessageAsync(normalized, ct: ct);
-        return Ok(new { ocrText = normalized, view = GatewaySolveProjector.Project(result) });
+        var enriched = _enricher.Enrich(result, normalized);
+        return Ok(new { ocrText = normalized, view = GatewaySolveProjector.Project(result, enriched) });
     }
 
     /// <summary>

@@ -173,6 +173,8 @@ function switchView(view) {
   document.getElementById('vizView').hidden = view !== 'viz';
   document.getElementById('knowledgeView').hidden = view !== 'knowledge';
   document.getElementById('qaView').hidden = view !== 'qa';
+  document.getElementById('liveView').hidden = view !== 'live';
+  document.getElementById('simView').hidden = view !== 'sim';
   document.querySelector('.toolbar').style.display = (view === 'problems' || view === 'knowledge') ? '' : 'none';
   document.getElementById('catTabs').style.display = view === 'problems' ? '' : 'none';
 
@@ -188,6 +190,12 @@ function switchView(view) {
   } else if (view === 'qa') {
     location.hash = '#qa';
     renderQAPanel();
+  } else if (view === 'live') {
+    location.hash = '#live';
+    renderLivePanel();
+  } else if (view === 'sim') {
+    location.hash = '#sim';
+    renderSimPanel();
   }
 }
 
@@ -197,6 +205,8 @@ function route() {
   if (hash === 'knowledge') { switchView('knowledge'); return; }
   if (hash === 'qa') { switchView('qa'); return; }
   if (hash === 'viz') { switchView('viz'); return; }
+  if (hash === 'live') { switchView('live'); return; }
+  if (hash === 'sim') { switchView('sim'); return; }
   switchView('problems');
   const rec = hash ? DATA.problems.find((r) => r.problem.id === hash) : null;
   if (rec) showDetail(rec);
@@ -2194,4 +2204,811 @@ function showError(msg) {
   const el = document.getElementById('errorTip');
   el.hidden = false;
   el.textContent = msg;
+}
+
+/* ---------- 实时求解（调用 /api/gateway/solve，独立视图，不影响离线题库） ---------- */
+
+const LIVE_STATE_BADGE = {
+  Confirmed: { text: '已确认', cls: 'ok' },
+  CandidateSet: { text: '候选结论', cls: 'warn' },
+  Insufficient: { text: '条件不足', cls: 'err' },
+};
+
+function defaultLiveApiBase() {
+  try { return localStorage.getItem('liveApiBase') || 'http://localhost:5080'; }
+  catch (e) { return 'http://localhost:5080'; }
+}
+
+function renderLivePanel() {
+  simStopEmbedded();
+  const host = document.getElementById('liveView');
+  host.innerHTML = `
+    <div class="live-solve">
+      <div class="panel">
+        <h2 style="margin-top:0">🧪 实时求解</h2>
+        <p class="panel-note">输入化学题，调用 <code>/api/gateway/solve</code> 实时返回引擎结论与结构化辅助数据（数值 / 粒子排序 / 守恒式 / pH / 反应轨迹）。结论字段按学生面规则裁剪，<b>不参与判分</b>。</p>
+        <p class="panel-note">
+          <label>API 地址：
+            <input id="liveApiBase" class="live-input" value="${esc(defaultLiveApiBase())}" spellcheck="false" />
+          </label>
+        </p>
+        <textarea id="liveInput" class="live-textarea" placeholder="在此粘贴题目文本，例如：&#10;500 mL NaOH 溶液中含有 0.5 mol NaOH，该溶液的物质的量浓度是多少？"></textarea>
+        <div class="live-actions">
+          <button id="liveSolveBtn" class="hero-cta" type="button">求解</button>
+          <button id="liveClearBtn" class="hero-cta hero-cta-ghost" type="button">清空</button>
+          <span id="liveStatus" class="panel-note"></span>
+        </div>
+      </div>
+      <div id="liveResult"></div>
+    </div>`;
+  document.getElementById('liveSolveBtn').addEventListener('click', doLiveSolve);
+  document.getElementById('liveClearBtn').addEventListener('click', () => {
+    document.getElementById('liveInput').value = '';
+    document.getElementById('liveResult').innerHTML = '';
+    document.getElementById('liveStatus').textContent = '';
+  });
+  const baseInput = document.getElementById('liveApiBase');
+  baseInput.addEventListener('change', () => {
+    try { localStorage.setItem('liveApiBase', baseInput.value.trim()); } catch (e) {}
+  });
+  document.getElementById('liveInput').addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') doLiveSolve();
+  });
+}
+
+async function doLiveSolve() {
+  const text = document.getElementById('liveInput').value.trim();
+  const statusEl = document.getElementById('liveStatus');
+  const resultEl = document.getElementById('liveResult');
+  if (!text) { statusEl.textContent = '请输入题目文本。'; return; }
+  const base = document.getElementById('liveApiBase').value.trim().replace(/\/+$/, '');
+  statusEl.textContent = '正在调用引擎…';
+  resultEl.innerHTML = '';
+  try {
+    const res = await fetch(base + '/api/gateway/solve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    });
+    if (!res.ok) {
+      statusEl.textContent = '请求失败：HTTP ' + res.status;
+      return;
+    }
+    const view = await res.json();
+    statusEl.textContent = '完成（结论：' + (view.conclusion_state || '?') + '）';
+    resultEl.innerHTML = renderLiveResult(view);
+    initLiveSimPlayer(resultEl, view);
+  } catch (err) {
+    statusEl.textContent = '调用失败：' + err.message +
+      '（请确认后端服务已启动且 API 地址正确；浏览器需允许跨域）';
+  }
+}
+
+function renderLiveResult(view) {
+  const st = LIVE_STATE_BADGE[view.conclusion_state] || { text: view.conclusion_state || '未知', cls: 'warn' };
+  const notConfirmed = view.conclusion_state && view.conclusion_state !== 'Confirmed';
+  const s = view.structured;
+  const hasStructured = !!(s && (s.numeric || s.aqueous || s.equilibrium || s.reaction_trace));
+
+  let html = `<div class="panel"><div class="badges">
+    <span class="badge st-badge st-${st.cls}">结论：${esc(st.text)}</span>
+    <span class="badge cat-badge">任务：${esc(view.task_type || '-')}</span>
+  </div>`;
+  if (view.final_result) html += `<h4>最终结果</h4><div class="eq-block"><ul><li>${chem(view.final_result)}</li></ul></div>`;
+  if (view.constraint_note) html += `<p class="panel-note" style="color:#b45309">⚠ ${esc(view.constraint_note)}</p>`;
+  if (view.candidates && view.candidates.length) {
+    html += `<h4>候选结论</h4><ul>${view.candidates.map((c) => `<li>${esc(c)}</li>`).join('')}</ul>`;
+  }
+  if (view.derivation_steps && view.derivation_steps.length) {
+    html += `<h4>推导步骤</h4><ol class="steps">${view.derivation_steps.map((x) => `<li><div class="step-body">${esc(x)}</div></li>`).join('')}</ol>`;
+  }
+  if (view.reasoning_nodes && view.reasoning_nodes.length) html += liveNodesHtml('推理节点', view.reasoning_nodes);
+  if (view.explanation_nodes && view.explanation_nodes.length) html += liveNodesHtml('讲解节点', view.explanation_nodes);
+  if (view.reply) html += `<h4>回复</h4><div class="step-body">${esc(view.reply)}</div>`;
+  html += `</div>`;
+
+  if (hasStructured) {
+    html += `<div class="panel"><h4>🧮 结构化辅助数据</h4>`;
+    if (notConfirmed) {
+      html += `<p class="panel-note" style="color:#b45309">以下为引擎对题给数据的<b>辅助计算结果</b>，不作最终判定结论，仅供参考。</p>`;
+    }
+    html += structuredHtml(s);
+    if (s.warnings && s.warnings.length) {
+      html += `<ul class="panel-note">${s.warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul>`;
+    }
+    html += `</div>`;
+  }
+  if (s && s.reaction_trace && s.reaction_trace.events && s.reaction_trace.events.length) {
+    html += simPlayerMarkup(s.reaction_trace);
+  }
+  return html;
+}
+
+function liveNodesHtml(title, nodes) {
+  const items = nodes.map((n) => {
+    const type = n.node_type || n.type || 'step';
+    return `<li><div class="step-body"><span class="chip chip-type chip-type-${esc(type)}">${esc(type)}</span> ${esc(n.content || '')}</div></li>`;
+  }).join('');
+  return `<h4>${esc(title)}</h4><ol class="steps">${items}</ol>`;
+}
+
+function structuredHtml(s) {
+  let h = '';
+  if (s.numeric) {
+    const n = s.numeric;
+    h += `<div class="eq-block"><h5>定量计算</h5><ul>
+      <li><span class="mono">${esc(n.formula || '')}</span> → <b>${n.value ?? '-'}</b> ${esc(n.unit || '')}${n.species ? '（' + chem(n.species) + '）' : ''}</li>
+    </ul></div>`;
+  }
+  if (s.aqueous) {
+    const a = s.aqueous;
+    let inner = '';
+    if (a.ph != null) inner += `<li>pH ≈ <b>${a.ph}</b></li>`;
+    if (a.acidity_verdict) inner += `<li>酸碱性：${esc(a.acidity_verdict)}</li>`;
+    if (a.ordering && a.ordering.length) inner += `<li>浓度排序：<span class="mono">${a.ordering.map(chem).join(' > ')}</span></li>`;
+    if (a.conservation_equations && a.conservation_equations.length) {
+      inner += `<li>守恒式：<ul>${a.conservation_equations.map((e) => `<li class="mono">${chem(e)}</li>`).join('')}</ul></li>`;
+    }
+    if (a.ion_concentrations && Object.keys(a.ion_concentrations).length) {
+      const ions = Object.entries(a.ion_concentrations)
+        .map(([k, v]) => `<li class="mono">${chem(k)} = ${v}</li>`).join('');
+      inner += `<li>离子浓度：<ul>${ions}</ul></li>`;
+    }
+    h += `<div class="eq-block"><h5>水相离子平衡</h5><ul>${inner}</ul></div>`;
+  }
+  if (s.equilibrium) {
+    const e = s.equilibrium;
+    let inner = '';
+    if (e.ksp_residual_concentration != null) {
+      inner += `<li>Ksp 残留离子浓度：<span class="mono">${e.ksp_residual_concentration}</span>（${esc(e.ksp_residual_ion || '')}）</li>`;
+    }
+    if (e.conversion_constant_k) inner += `<li>沉淀转化常数 K：<span class="mono">${esc(e.conversion_constant_k)}</span></li>`;
+    if (e.conversion_proceeds != null) inner += `<li>沉淀转化是否自发：${e.conversion_proceeds ? '是' : '否'}</li>`;
+    if (inner) h += `<div class="eq-block"><h5>沉淀溶解平衡</h5><ul>${inner}</ul></div>`;
+  }
+  if (s.reaction_trace) {
+    const t = s.reaction_trace;
+    let events = '';
+    if (t.events && t.events.length) {
+      events = t.events.map((ev) => `<li><div class="step-body"><span class="chip chip-type chip-type-reaction">反应</span> ${chem(ev.equation || '')}<span class="panel-note">（阶段 ${ev.stage_index}，进度 ${ev.extent}）</span></div></li>`).join('');
+    }
+    let finalSp = '';
+    if (t.final_species && t.final_species.length) {
+      finalSp = t.final_species.map((sp) => `<li class="mono">${chem(sp.substance || '')}${sp.moles != null ? '：' + sp.moles + ' mol' : ''}</li>`).join('');
+    }
+    h += `<div class="eq-block"><h5>反应轨迹 <span class="panel-note">（收敛：${t.converged ? '是' : '否'}）</span></h5><ul>${events}${finalSp ? '<li>最终物种：<ul>' + finalSp + '</ul></li>' : ''}</ul></div>`;
+  }
+  return h;
+}
+
+/* ===================== 反应模拟器（前端控件） =====================
+ * 特有图标：SVG 烧瓶 + 上升气泡 + 轨道环，集中由 simFlaskIcon 生成（禁止散改字符）。
+ * 运行/停止：.sim-icon.running 触发 CSS 关键帧；状态集中存于 LIVE_SIM（对象，避免闭包旧值），
+ * 图标动画与轨迹逐步展开严格同步。
+ */
+
+// 模拟器特有图标：running=true 时气泡上升、轨道环旋转、液体脉动
+function simFlaskIcon(running, size) {
+  const s = size || 36;
+  return `<span class="sim-icon${running ? ' running' : ''}" title="反应模拟器">` +
+    `<svg viewBox="0 0 64 64" width="${s}" height="${s}" aria-hidden="true" focusable="false">` +
+      `<ellipse class="sim-ring" cx="32" cy="30" rx="27" ry="8.5" />` +
+      `<path class="sim-flask-neck" d="M27 7 H37 V10 H27 Z" />` +
+      `<path class="sim-flask-body" d="M28.5 10 V21 L13 51.5 Q12.5 56 16.5 56 H47.5 Q51.5 56 51 51.5 L35.5 21 V10 Z" />` +
+      `<path class="sim-liquid" d="M16.5 44 V51.5 Q16 55 19.5 55 H44.5 Q48 55 47.5 51.5 V44 Q40 47 32 44 Q24 41 16.5 44 Z" />` +
+      `<circle class="sim-bubble sim-b1" cx="27" cy="50" r="1.8" />` +
+      `<circle class="sim-bubble sim-b2" cx="33" cy="52" r="1.3" />` +
+      `<circle class="sim-bubble sim-b3" cx="38" cy="49" r="2.1" />` +
+    `</svg></span>`;
+}
+
+// 颜色名 -> 色值（用于物种色点）
+const SIM_COLORS = {
+  '蓝色': '#3b82f6', '浅蓝色': '#60a5fa', '蓝绿色': '#2dd4bf',
+  '浅绿色': '#86efac', '绿色': '#22c55e', '黄绿色': '#a3e635',
+  '黄色': '#eab308', '浅黄色': '#fde047', '橙黄色': '#fbbf24',
+  '红色': '#ef4444', '橙红色': '#f97316', '橙色': '#f97316',
+  '紫红色': '#be123c', '红褐色': '#b45309', '棕色': '#92400e',
+  '黑色': '#1f2937', '白色': '#ffffff', '无色': '#ffffff',
+  '银白色': '#cbd5e1', '灰色': '#94a3b8', '紫色': '#a855f7'
+};
+function simDot(name) {
+  const c = (name && SIM_COLORS[name]) || '#94a3b8';
+  return `<span class="sim-dot" style="background:${c}" title="${esc(name || '')}"></span>`;
+}
+function simSetIconRunning(wrap, running) {
+  if (!wrap) return;
+  // 外层 .running 触发 .sim-icon-wrap 的外发光关键帧；内层 .sim-icon.running 触发烧瓶转动/气泡/液体
+  wrap.classList.toggle('running', running);
+  const icon = wrap.querySelector('.sim-icon');
+  if (icon) icon.classList.toggle('running', running);
+}
+
+// 状态集中管理（避免定时器闭包读到旧值）
+const LIVE_SIM = { embedded: null, standalone: null };
+
+/* ---------- 1. 嵌入式播放面板（/solve 返回 reaction_trace 时） ---------- */
+function simPlayerMarkup(trace) {
+  const events = trace.events || [];
+  const evHtml = events.map((ev, i) => {
+    const basis = (ev.basis_knowledge_ids && ev.basis_knowledge_ids.length)
+      ? `<span class="panel-note"> · 依据：${esc(ev.basis_knowledge_ids.join(', '))}</span>` : '';
+    return `<li class="sim-event" data-i="${i}">` +
+      `<div class="sim-event-eq"><span class="sim-step-no">${i + 1}</span>${chem(ev.equation || '')}</div>` +
+      `<div class="sim-event-meta">阶段 ${ev.stage_index ?? '-'} · 反应进度 ${ev.extent ?? '-'}${basis}</div>` +
+      `</li>`;
+  }).join('');
+  const fin = (trace.final_species || []).map((sp) =>
+    `<span class="sim-chip">${chem(sp.substance || '')}${sp.moles != null ? '：' + sp.moles + ' mol' : ''}</span>`
+  ).join('');
+  return `<div class="panel sim-panel">` +
+    `<div class="sim-head">` +
+      `<div class="sim-icon-wrap" id="liveSimIcon">${simFlaskIcon(false, 40)}</div>` +
+      `<div class="sim-title"><h4 style="margin:0">⚗️ 反应模拟器 <span class="panel-note">（轨迹播放）</span></h4>` +
+      `<p class="panel-note" style="margin:2px 0 0">点击播放，烧瓶图标转动与反应步骤逐步展开同步；停止即复位。</p></div>` +
+      `<div class="sim-controls"><button class="hero-cta" id="simPlayBtn" type="button">▶ 播放</button>` +
+      `<button class="hero-cta hero-cta-ghost" id="simStopBtn" type="button">■ 停止</button></div>` +
+    `</div>` +
+    `<div class="sim-progress"><div class="sim-progress-bar" id="simProgressBar"></div></div>` +
+    `<ol class="sim-events" id="simEvents">${evHtml}</ol>` +
+    `<div class="sim-final" id="simFinal" hidden><div class="sim-final-label">最终物种</div><div class="sim-chips">${fin || '<span class="panel-note">无</span>'}</div></div>` +
+  `</div>`;
+}
+
+function simStopEmbeddedVisual(state) {
+  if (!state) return;
+  if (state.timer) { clearInterval(state.timer); state.timer = null; }
+  simSetIconRunning(state.iconWrap, false);
+  if (state.bar) state.bar.style.width = '0%';
+  if (state.eventEls) state.eventEls.forEach((el) => el.classList.remove('on'));
+  if (state.finalEl) { state.finalEl.hidden = true; state.finalEl.classList.remove('show'); }
+}
+function simStopEmbedded() {
+  simStopEmbeddedVisual(LIVE_SIM.embedded);
+  LIVE_SIM.embedded = null;
+}
+
+function initLiveSimPlayer(hostEl, view) {
+  const trace = view && view.structured && view.structured.reaction_trace;
+  const panel = hostEl.querySelector('.sim-panel');
+  if (!trace || !panel) { simStopEmbedded(); return; }
+  simStopEmbedded();
+  const iconWrap = panel.querySelector('#liveSimIcon');
+  const bar = panel.querySelector('#simProgressBar');
+  const eventEls = Array.prototype.slice.call(panel.querySelectorAll('.sim-event'));
+  const finalEl = panel.querySelector('#simFinal');
+  const state = { timer: null, step: 0, total: eventEls.length, iconWrap, bar, eventEls, finalEl };
+  LIVE_SIM.embedded = state;
+
+  function reveal(i) {
+    if (eventEls[i]) eventEls[i].classList.add('on');
+    const pct = state.total ? Math.round(((i + 1) / state.total) * 100) : 100;
+    if (bar) bar.style.width = pct + '%';
+  }
+  function finish() {
+    simSetIconRunning(iconWrap, false);
+    if (finalEl) { finalEl.hidden = false; finalEl.classList.add('show'); }
+  }
+  function tick() {
+    state.step++;
+    if (state.step >= state.total) {
+      clearInterval(state.timer); state.timer = null;
+      if (state.total) reveal(state.total - 1);
+      setTimeout(finish, 500);
+      return;
+    }
+    reveal(state.step);
+  }
+  state.play = function () {
+    simStopEmbeddedVisual(state);
+    state.step = 0;
+    simSetIconRunning(iconWrap, true);
+    reveal(0);
+    state.timer = setInterval(tick, 1100);
+  };
+  const playBtn = panel.querySelector('#simPlayBtn');
+  const stopBtn = panel.querySelector('#simStopBtn');
+  if (playBtn) playBtn.addEventListener('click', () => state.play());
+  if (stopBtn) stopBtn.addEventListener('click', () => simStopEmbedded());
+}
+
+/* ---------- 2. 独立「反应模拟器」视图 ---------- */
+function simParseReactants(text) {
+  return text.split(/[,，、\n]+/).map((p) => p.trim()).filter(Boolean).map((p) => {
+    const parts = p.split(/[:：]/);
+    const substance = parts[0].trim();
+    const moles = parts[1] != null ? parseFloat(parts[1]) : 1;
+    return { substance, moles: isNaN(moles) ? 1 : moles };
+  }).filter((s) => s.substance);
+}
+function simParseSolute(text) {
+  return text.split(/[,，、\n]+/).map((p) => p.trim()).filter(Boolean).map((p) => {
+    const parts = p.split(/[:：]/);
+    const substance = parts[0].trim();
+    const c = parts[1] != null ? parseFloat(parts[1]) : 0.1;
+    return { substance, concentration: isNaN(c) ? 0.1 : c, volume: 1.0 };
+  }).filter((s) => s.substance);
+}
+
+function renderSimPanel() {
+  simStopStandalone();
+  const host = document.getElementById('simView');
+  host.innerHTML = `
+    <div class="live-solve">
+      <div class="panel sim-panel">
+        <div class="sim-head">
+          <div class="sim-icon-wrap" id="standSimIcon">${simFlaskIcon(false, 44)}</div>
+          <div class="sim-title">
+            <h2 style="margin-top:0">⚗️ 反应模拟器</h2>
+            <p class="panel-note" style="margin:2px 0 0">前端模拟器控件：输入物质与条件，调用化学引擎实时模拟；烧瓶图标随模拟运行转动，并与现象/颜色/沉淀动画同步。结果不参与判分，仅供可视化。</p>
+          </div>
+        </div>
+        <div class="sim-quick-row">
+          <button class="sim-btn-quick" id="simQuickReasonBtn" type="button">模拟</button>
+          <span class="panel-note">一键执行推理计划，烧瓶随状态轨迹转动并同步现象</span>
+        </div>
+        <p class="panel-note"><label>API 地址：<input id="simApiBase" class="live-input" value="${esc(defaultLiveApiBase())}" spellcheck="false" /></label></p>
+        <div class="sim-mode-tabs" id="simModeTabs">
+          <button class="sim-mode active" data-mode="trace" type="button">反应轨迹</button>
+          <button class="sim-mode" data-mode="equilibrium" type="button">平衡计算</button>
+          <button class="sim-mode" data-mode="reason" type="button">多步推理</button>
+        </div>
+        <div id="simTraceInputs">
+          <textarea id="simInput" class="live-textarea" placeholder="反应物，格式 物质:物质的量，逗号分隔，例如：&#10;Fe:1, CuSO4:1&#10;HCl:1, NaOH:1"></textarea>
+          <label class="sim-check"><input type="checkbox" id="simAqueous" checked /> 水溶液条件</label>
+        </div>
+        <div id="simEqInputs" hidden>
+          <textarea id="simEqInput" class="live-textarea" placeholder="溶质与浓度，格式 物质:浓度(mol/L)，例如：&#10;CH3COONa:0.1&#10;CH3COOH:0.1"></textarea>
+        </div>
+        <div id="simReasonInputs" hidden>
+          <textarea id="simReasonInitial" class="live-textarea" placeholder="初始体系，格式 物质:物质的量，例如：&#10;AlCl3:1">AlCl3:1</textarea>
+          <div class="sim-plan-label">推理计划（按顺序执行：加料 / 切换条件 / 断言；可勾选每步的平衡数值）</div>
+          <div class="sim-plan" id="simPlan"></div>
+          <button class="sim-btn-mini sim-add-step" id="simAddStep" type="button">＋ 添加步骤</button>
+          <label class="sim-check"><input type="checkbox" id="simReasonAqueous" checked /> 水溶液条件</label>
+        </div>
+        <div class="live-actions">
+          <button class="hero-cta" id="simRunBtn" type="button">▶ 开始模拟</button>
+          <button class="hero-cta hero-cta-ghost" id="simStopBtn2" type="button">■ 停止</button>
+          <span id="simStatus" class="panel-note"></span>
+        </div>
+      </div>
+      <div id="simResult"></div>
+    </div>`;
+  // 空状态占位：首次进入时提示如何开始（运行后被结果替换）
+  const resultHost = host.querySelector('#simResult');
+  if (resultHost) resultHost.innerHTML = `
+    <div class="panel sim-panel sim-empty">
+      <div class="sim-empty-icon">🧪</div>
+      <div class="sim-empty-title">开始模拟</div>
+      <div class="sim-empty-desc">选择模式并输入物质后点「开始模拟」，或直接点上方「模拟」一键执行多步推理 —— 烧瓶随反应轨迹转动，颜色与沉淀实时同步。</div>
+    </div>`;
+  const tabs = host.querySelectorAll('.sim-mode');
+  tabs.forEach((b) => b.addEventListener('click', () => simSetMode(host, b.dataset.mode)));
+  const baseInput = host.querySelector('#simApiBase');
+  baseInput.addEventListener('change', () => {
+    try { localStorage.setItem('liveApiBase', baseInput.value.trim()); } catch (e) {}
+  });
+  // 多步推理：计划步骤构建器（默认一个可直接演示的步骤）
+  const planHost = host.querySelector('#simPlan');
+  simRenderPlan(planHost, [
+    { kind: 'AddSpecies', name: '加过量 NaOH', species: [{ substance: 'NaOH', moles: 0.5 }], numerical: true }
+  ]);
+  host.querySelector('#simAddStep').addEventListener('click', () => {
+    planHost.insertAdjacentHTML('beforeend', simPlanRowHtml({ kind: 'AddSpecies' }));
+    simBindPlanRows(planHost);
+  });
+  host.querySelector('#simRunBtn').addEventListener('click', () => simRunStandalone());
+  host.querySelector('#simQuickReasonBtn').addEventListener('click', () => simQuickReason());
+  host.querySelector('#simStopBtn2').addEventListener('click', () => simStopStandalone());
+}
+
+function simStopStandalone() {
+  const st = LIVE_SIM.standalone;
+  if (st) {
+    if (st.timer) { clearInterval(st.timer); st.timer = null; }
+    simSetIconRunning(st.iconWrap, false);
+    if (st.bar) st.bar.style.width = '0%';
+    if (st.eventEls) st.eventEls.forEach((el) => el.classList.remove('on'));
+    if (st.finalEl) { st.finalEl.hidden = true; st.finalEl.classList.remove('show'); }
+  }
+  // 复位多步推理时间线的快照高亮与终态（加性，对其他模式无副作用）
+  const res = document.getElementById('simResult');
+  if (res) {
+    res.querySelectorAll('.sim-snap.show').forEach((el) => el.classList.remove('show'));
+    res.querySelectorAll('.sim-snap .sim-event.on').forEach((el) => el.classList.remove('on'));
+    const rf = res.querySelector('#reasonFinal');
+    if (rf) { rf.hidden = true; rf.classList.remove('show'); }
+  }
+  LIVE_SIM.standalone = null;
+}
+
+// 切换模拟器模式标签（集中管理显示/隐藏，供标签点击与专属「模拟」按钮共用）
+function simSetMode(host, mode) {
+  host.querySelectorAll('.sim-mode').forEach((x) => x.classList.toggle('active', x.dataset.mode === mode));
+  host.querySelector('#simTraceInputs').hidden = mode !== 'trace';
+  host.querySelector('#simEqInputs').hidden = mode !== 'equilibrium';
+  host.querySelector('#simReasonInputs').hidden = mode !== 'reason';
+}
+// 从 DOM 收集多步推理请求体（供「开始模拟」reason 分支与专属「模拟」按钮共用）
+function simBuildReasonRequest(host) {
+  const initText = host.querySelector('#simReasonInitial').value.trim();
+  const aqueous = host.querySelector('#simReasonAqueous').checked;
+  const initial = simParseReactants(initText);
+  const plan = simCollectPlan(host.querySelector('#simPlan'));
+  if (!initial.length) return { error: '请输入初始体系，如 AlCl3:1' };
+  if (!plan.length) return { error: '请至少添加一个推理步骤' };
+  return { req: { initial: { species: initial, conditions: { aqueous } }, plan: { steps: plan } } };
+}
+// 专属「模拟」按钮：直接执行多步推理并播放动画，不依赖先切模式标签
+function simQuickReason() {
+  const host = document.getElementById('simView');
+  const base = host.querySelector('#simApiBase').value.trim().replace(/\/+$/, '');
+  const status = host.querySelector('#simStatus');
+  const resultEl = host.querySelector('#simResult');
+  simSetMode(host, 'reason'); // 切到多步推理视图，便于看到输入与结果上下文
+  simStopStandalone();
+  const built = simBuildReasonRequest(host);
+  if (built.error) { status.textContent = built.error; return; }
+  simRunReason(base, built.req, resultEl, status);
+}
+
+function simRunStandalone() {
+  const host = document.getElementById('simView');
+  const base = host.querySelector('#simApiBase').value.trim().replace(/\/+$/, '');
+  const status = host.querySelector('#simStatus');
+  const resultEl = host.querySelector('#simResult');
+  const mode = host.querySelector('.sim-mode.active').dataset.mode;
+  simStopStandalone();
+  if (mode === 'trace') {
+    const text = host.querySelector('#simInput').value.trim();
+    const aqueous = host.querySelector('#simAqueous').checked;
+    const species = simParseReactants(text);
+    if (!species.length) { status.textContent = '请输入反应物，如 Fe:1, CuSO4:1'; return; }
+    simRunTrace(base, species, aqueous, resultEl, status);
+  } else if (mode === 'reason') {
+    const built = simBuildReasonRequest(host);
+    if (built.error) { status.textContent = built.error; return; }
+    simRunReason(base, built.req, resultEl, status);
+  } else {
+    const text = host.querySelector('#simEqInput').value.trim();
+    const species = simParseSolute(text);
+    if (!species.length) { status.textContent = '请输入溶质与浓度，如 CH3COONa:0.1'; return; }
+    simRunEquilibrium(base, species, resultEl, status);
+  }
+}
+
+async function simRunTrace(base, species, aqueous, resultEl, status) {
+  const iconWrap = document.getElementById('standSimIcon');
+  const state = { timer: null, iconWrap };
+  LIVE_SIM.standalone = state;
+  status.textContent = '正在模拟…';
+  resultEl.innerHTML = '';
+  simSetIconRunning(iconWrap, true);
+  try {
+    const res = await fetch(base + '/api/chemistry/trace', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ species, conditions: { aqueous } }),
+    });
+    if (!res.ok) { simStopStandalone(); status.textContent = '请求失败：HTTP ' + res.status; return; }
+    const data = await res.json();
+    simRenderTraceAnimation(data, resultEl, status, state);
+  } catch (err) {
+    simStopStandalone();
+    status.textContent = '调用失败：' + err.message + '（请确认后端已启动且允许跨域）';
+  }
+}
+
+function simRenderTraceAnimation(data, resultEl, status, state) {
+  const initial = data.initialSpecies || [];
+  const events = data.events || [];
+  const fin = data.finalState || {};
+  const finSpecies = fin.species || [];
+  const chip = (sp) => `<span class="sim-chip">${simDot(sp.color)}${chem(sp.formula || sp.name || sp.id || '')}${sp.initialMoles != null ? '：' + sp.initialMoles + ' mol' : ''}<span class="panel-note">${esc(sp.amountText || '')}</span></span>`;
+  const evHtml = events.map((ev, i) => {
+    const consumed = Object.entries(ev.consumed || {}).map(([k, v]) => `${chem(k)} -${v}`).join('，');
+    const produced = Object.entries(ev.produced || {}).map(([k, v]) => `${chem(k)} +${v}`).join('，');
+    const phen = (ev.phenomena || []).map((p) => `<span class="sim-chip sim-chip-soft">${esc(p)}</span>`).join('');
+    const tm = simEventTypeMeta(ev.type);
+    return `<li class="sim-event" data-i="${i}" style="--etc:${tm.color}">` +
+      `<div class="sim-event-eq"><span class="sim-step-no">${i + 1}</span>${chem(ev.equation || '')}</div>` +
+      `<div class="sim-event-meta"><span class="sim-type-tag" style="background:${tm.color}1a;color:${tm.color};border-color:${tm.color}33">${esc(tm.label)}</span>${esc(ev.type || '')} · 进度 ${fmtExtent(ev.extent)}</div>` +
+      (consumed ? `<div class="sim-delta">消耗：<span class="mono">${consumed}</span></div>` : '') +
+      (produced ? `<div class="sim-delta">生成：<span class="mono">${produced}</span></div>` : '') +
+      (phen ? `<div class="sim-phen">${phen}</div>` : '') +
+      (ev.solutionColorAfter ? `<div class="sim-color-line">溶液颜色 → ${simDot(ev.solutionColorAfter)}${esc(ev.solutionColorAfter)}</div>` : '') +
+    `</li>`;
+  }).join('');
+  const finChips = finSpecies.map((sp) =>
+    `<span class="sim-chip">${simDot(sp.color)}${chem(sp.formula || sp.name || '')}${sp.finalMoles != null ? '：' + sp.finalMoles + ' mol' : ''}<span class="panel-note">${esc(sp.amountText || '')}</span></span>`
+  ).join('');
+  resultEl.innerHTML = `<div class="panel sim-panel">` +
+    `<div class="sim-progress"><div class="sim-progress-bar" id="standProg"></div></div>` +
+    `<div class="sim-phase"><b>初始态</b><div class="sim-chips" style="margin-top:4px">${initial.map(chip).join('') || '<span class="panel-note">无</span>'}</div></div>` +
+    `<ol class="sim-events" id="standEvents">${evHtml}</ol>` +
+    `<div class="sim-final" id="standFinal" hidden>` +
+      `<div class="sim-final-label">终态</div>` +
+      (fin.solutionColor ? `<div class="sim-color-line">溶液颜色：${simDot(fin.solutionColor)}${esc(fin.solutionColor)}</div>` : '') +
+      `<div class="sim-chips">${finChips || '<span class="panel-note">无</span>'}</div>` +
+      ((fin.precipitates && fin.precipitates.length) ? `<div class="sim-phen">${fin.precipitates.map((p) => `<span class="sim-chip sim-chip-soft">沉淀：${esc(p)}</span>`).join('')}</div>` : '') +
+      (fin.summary ? `<div class="sim-summary">${esc(fin.summary)}</div>` : '') +
+    `</div>` +
+    ((data.warnings && data.warnings.length) ? `<ul class="panel-note">${data.warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul>` : '') +
+  `</div>`;
+
+  const eventEls = Array.prototype.slice.call(resultEl.querySelectorAll('.sim-event'));
+  const bar = resultEl.querySelector('#standProg');
+  const finalEl = resultEl.querySelector('#standFinal');
+  const total = eventEls.length;
+  state.step = 0; state.total = total; state.eventEls = eventEls; state.bar = bar; state.finalEl = finalEl;
+
+  function reveal(i) {
+    if (eventEls[i]) eventEls[i].classList.add('on');
+    if (bar) bar.style.width = (total ? Math.round(((i + 1) / total) * 100) : 100) + '%';
+  }
+  function finish() {
+    simSetIconRunning(state.iconWrap, false);
+    if (finalEl) { finalEl.hidden = false; finalEl.classList.add('show'); }
+    status.textContent = '模拟完成（收敛：' + (data.converged ? '是' : '否') + '）';
+  }
+  function tick() {
+    state.step++;
+    if (state.step >= total) {
+      clearInterval(state.timer); state.timer = null;
+      if (total) reveal(total - 1);
+      setTimeout(finish, 550);
+      return;
+    }
+    reveal(state.step);
+  }
+  if (total === 0) { finish(); return; }
+  reveal(0);
+  state.timer = setInterval(tick, 1300);
+}
+
+async function simRunEquilibrium(base, species, resultEl, status) {
+  const iconWrap = document.getElementById('standSimIcon');
+  const state = { iconWrap };
+  LIVE_SIM.standalone = state;
+  status.textContent = '正在计算…';
+  resultEl.innerHTML = '';
+  simSetIconRunning(iconWrap, true);
+  try {
+    const res = await fetch(base + '/api/chemistry/equilibrium', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ input: { species }, query: { quantities: ['Ph', 'IonConcentrations', 'ConcentrationOrdering', 'Conservations', 'AcidityQualitative'] } }),
+    });
+    simSetIconRunning(iconWrap, false);
+    if (!res.ok) { status.textContent = '请求失败：HTTP ' + res.status; return; }
+    const d = await res.json();
+    let inner = `<div class="eq-block"><ul>`;
+    inner += `<li>状态：<b>${esc(d.status || '')}</b></li>`;
+    if (d.ph != null) inner += `<li>pH ≈ <b>${d.ph}</b></li>`;
+    if (d.acidityVerdict) inner += `<li>酸碱性：${esc(d.acidityVerdict)}</li>`;
+    if (d.concentrationOrdering && d.concentrationOrdering.length) inner += `<li>浓度排序：<span class="mono">${d.concentrationOrdering.map(chem).join(' > ')}</span></li>`;
+    if (d.conservationEquations && d.conservationEquations.length) inner += `<li>守恒式：<ul>${d.conservationEquations.map((e) => `<li class="mono">${chem(e)}</li>`).join('')}</ul></li>`;
+    if (d.ionConcentrations && Object.keys(d.ionConcentrations).length) inner += `<li>离子浓度：<ul>${Object.entries(d.ionConcentrations).map(([k, v]) => `<li class="mono">${chem(k)} = ${v}</li>`).join('')}</ul></li>`;
+    if (d.conversionConstantK) inner += `<li>沉淀转化常数 K：<span class="mono">${esc(d.conversionConstantK)}</span>（自发：${d.conversionProceeds ? '是' : '否'}）</li>`;
+    inner += `</ul></div>`;
+    if (d.derivationSteps && d.derivationSteps.length) inner += `<h5>推导</h5><ol class="steps">${d.derivationSteps.map((x) => `<li><div class="step-body">${esc(x)}</div></li>`).join('')}</ol>`;
+    if (d.warnings && d.warnings.length) inner += `<ul class="panel-note">${d.warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul>`;
+    resultEl.innerHTML = `<div class="panel sim-panel">${inner}</div>`;
+    status.textContent = '计算完成（' + (d.status || '') + '）';
+  } catch (err) {
+    simSetIconRunning(iconWrap, false);
+    status.textContent = '调用失败：' + err.message + '（请确认后端已启动且允许跨域）';
+  }
+}
+
+/* ---------- 3. 多步推理模式（/reason，状态轨迹逐步展开动画） ---------- */
+
+// 单行推理步骤的 HTML（加料 / 切换条件 / 断言）
+function simPlanRowHtml(step) {
+  step = step || {};
+  const kind = step.kind || 'AddSpecies';
+  const name = step.name || '';
+  const spec = (step.species || []).map((s) => `${s.substance}:${s.moles}`).join(', ');
+  const num = step.numerical ? 'checked' : '';
+  return `<div class="sim-step-row">` +
+    `<select class="sim-step-kind" title="步骤类型">` +
+      `<option value="AddSpecies"${kind === 'AddSpecies' ? ' selected' : ''}>加料</option>` +
+      `<option value="SetConditions"${kind === 'SetConditions' ? ' selected' : ''}>切换条件</option>` +
+      `<option value="Assert"${kind === 'Assert' ? ' selected' : ''}>断言</option>` +
+    `</select>` +
+    `<input class="sim-step-name" type="text" placeholder="步骤名，如 加过量 NaOH" value="${esc(name)}" />` +
+    `<input class="sim-step-spec" type="text" placeholder="物质:物质的量，如 NaOH:0.5" value="${esc(spec)}" />` +
+    `<label class="sim-check"><input type="checkbox" class="sim-step-num" ${num} /> 查平衡数值</label>` +
+    `<button class="sim-btn-mini sim-rm-step" type="button" title="删除此步">✕</button>` +
+  `</div>`;
+}
+function simBindPlanRows(host) {
+  host.querySelectorAll('.sim-rm-step').forEach((btn) => {
+    btn.onclick = () => { const row = btn.closest('.sim-step-row'); if (row) row.remove(); };
+  });
+}
+function simRenderPlan(host, plan) {
+  host.innerHTML = '';
+  (plan || []).forEach((s) => { host.insertAdjacentHTML('beforeend', simPlanRowHtml(s)); });
+  simBindPlanRows(host);
+}
+// 从 DOM 收集推理计划 -> ReasoningPlan.steps
+function simCollectPlan(host) {
+  const rows = host.querySelectorAll('.sim-step-row');
+  const steps = [];
+  rows.forEach((row) => {
+    const kind = row.querySelector('.sim-step-kind').value;
+    const name = row.querySelector('.sim-step-name').value.trim();
+    const specText = row.querySelector('.sim-step-spec').value.trim();
+    const num = row.querySelector('.sim-step-num').checked;
+    const step = { kind, name: name || ('步骤 ' + (steps.length + 1)) };
+    if (kind === 'AddSpecies') {
+      const species = simParseReactants(specText);
+      if (species.length) step.species = species;
+    }
+    if (num) step.numerical = { quantities: ['Ph', 'IonConcentrations', 'ConcentrationOrdering', 'Conservations', 'AcidityQualitative'] };
+    steps.push(step);
+  });
+  return steps;
+}
+
+async function simRunReason(base, req, resultEl, status) {
+  const iconWrap = document.getElementById('standSimIcon');
+  const state = { timer: null, iconWrap };
+  LIVE_SIM.standalone = state;
+  status.textContent = '正在推理…';
+  resultEl.innerHTML = '';
+  simSetIconRunning(iconWrap, true);
+  try {
+    const res = await fetch(base + '/api/chemistry/reason', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(req),
+    });
+    if (!res.ok) { simStopStandalone(); status.textContent = '请求失败：HTTP ' + res.status; return; }
+    const data = await res.json();
+    simRenderReasonAnimation(data, resultEl, status, state);
+  } catch (err) {
+    simStopStandalone();
+    status.textContent = '调用失败：' + err.message + '（请确认后端已启动且允许跨域）';
+  }
+}
+
+// 单个物种 chip（带色点 + 化学式 + 量）
+function simSpeciesChip(sp) {
+  return `<span class="sim-chip">${simDot(sp.color)}${chem(sp.formula || sp.name || sp.id || '')}${sp.finalMoles != null ? '：' + sp.finalMoles + ' mol' : ''}<span class="panel-note">${esc(sp.amountText || '')}</span></span>`;
+}
+
+// 反应类型 → 配色与中文标签（仅用于事件卡左侧色条与类型标签，纯展示，不影响逻辑）
+const SIM_EVENT_TYPES = {
+  Precipitation:   { color: '#dc2626', label: '沉淀' },
+  GasEvolution:    { color: '#ea580c', label: '气体' },
+  Neutralization:  { color: '#db2777', label: '中和' },
+  Displacement:    { color: '#2563eb', label: '置换' },
+  Redox:           { color: '#4f46e5', label: '氧化还原' },
+  Oxidation:       { color: '#7c3aed', label: '氧化' },
+  Complexation:    { color: '#0891b2', label: '络合' },
+  Metathesis:      { color: '#0d9488', label: '复分解' },
+  Combination:     { color: '#16a34a', label: '化合' },
+  Decomposition:   { color: '#d97706', label: '分解' },
+  Hydrolysis:      { color: '#475569', label: '水解' },
+  WeakElectrolyte: { color: '#be185d', label: '弱电解质' },
+  Esterification:  { color: '#9333ea', label: '酯化' },
+  Addition:        { color: '#0284c7', label: '加成' },
+  Substitution:    { color: '#059669', label: '取代' },
+  NoReaction:      { color: '#94a3b8', label: '无反应' },
+};
+function simEventTypeMeta(type) {
+  return (type && SIM_EVENT_TYPES[type]) || { color: '#64748b', label: type || '' };
+}
+function fmtExtent(v) {
+  return typeof v === 'number' ? v.toFixed(3).replace(/\.?0+$/, '') : (v ?? '-');
+}
+
+// 反应事件 HTML（与 trace 模式同形，复用 .sim-event 样式与展开动画）
+function simEventHtml(ev, i) {
+  const consumed = Object.entries(ev.consumed || {}).map(([k, v]) => `${chem(k)} -${v}`).join('，');
+  const produced = Object.entries(ev.produced || {}).map(([k, v]) => `${chem(k)} +${v}`).join('，');
+  const phen = (ev.phenomena || []).map((p) => `<span class="sim-chip sim-chip-soft">${esc(p)}</span>`).join('');
+  const tm = simEventTypeMeta(ev.type);
+  return `<li class="sim-event" data-i="${i}" style="--etc:${tm.color}">` +
+    `<div class="sim-event-eq"><span class="sim-step-no">${i + 1}</span>${chem(ev.equation || '')}</div>` +
+    `<div class="sim-event-meta"><span class="sim-type-tag" style="background:${tm.color}1a;color:${tm.color};border-color:${tm.color}33">${esc(tm.label)}</span>${esc(ev.type || '')} · 进度 ${fmtExtent(ev.extent)}</div>` +
+    (consumed ? `<div class="sim-delta">消耗：<span class="mono">${consumed}</span></div>` : '') +
+    (produced ? `<div class="sim-delta">生成：<span class="mono">${produced}</span></div>` : '') +
+    (phen ? `<div class="sim-phen">${phen}</div>` : '') +
+    (ev.solutionColorAfter ? `<div class="sim-color-line">溶液颜色 → ${simDot(ev.solutionColorAfter)}${esc(ev.solutionColorAfter)}</div>` : '') +
+  `</li>`;
+}
+
+// 平衡数值块（mirror simRunEquilibrium 的渲染，嵌入到每个快照）
+function simNumericalHtml(d) {
+  if (!d) return '';
+  let inner = `<div class="sim-numerical"><ul>`;
+  inner += `<li>状态：<b>${esc(d.status || '')}</b></li>`;
+  if (d.ph != null) inner += `<li>pH ≈ <b>${d.ph}</b></li>`;
+  if (d.acidityVerdict) inner += `<li>酸碱性：${esc(d.acidityVerdict)}</li>`;
+  if (d.concentrationOrdering && d.concentrationOrdering.length) inner += `<li>浓度排序：<span class="mono">${d.concentrationOrdering.map(chem).join(' > ')}</span></li>`;
+  if (d.conservationEquations && d.conservationEquations.length) inner += `<li>守恒式：<ul>${d.conservationEquations.map((e) => `<li class="mono">${chem(e)}</li>`).join('')}</ul></li>`;
+  if (d.ionConcentrations && Object.keys(d.ionConcentrations).length) inner += `<li>离子浓度：<ul>${Object.entries(d.ionConcentrations).map(([k, v]) => `<li class="mono">${chem(k)} = ${v}</li>`).join('')}</ul></li>`;
+  if (d.conversionConstantK) inner += `<li>沉淀转化常数 K：<span class="mono">${esc(d.conversionConstantK)}</span>（自发：${d.conversionProceeds ? '是' : '否'}）</li>`;
+  inner += `</ul>`;
+  if (d.warnings && d.warnings.length) inner += `<ul class="panel-note">${d.warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul>`;
+  inner += `</div>`;
+  return inner;
+}
+
+// 单个状态快照卡片 HTML
+function simSnapHtml(snap, idx) {
+  const st = snap.state || {};
+  const species = st.species || [];
+  const events = snap.events || [];
+  const chips = species.map(simSpeciesChip).join('');
+  const evHtml = events.map(simEventHtml).join('');
+  const stage = esc(snap.stageName || ('步骤 ' + idx));
+  return `<div class="sim-snap" data-step="${idx}">` +
+    `<div class="sim-snap-head"><span class="sim-step-badge">${idx}</span>${stage}</div>` +
+    `<div class="sim-snap-label">体系状态</div><div class="sim-chips">${chips || '<span class="panel-note">无</span>'}</div>` +
+    (st.solutionColor ? `<div class="sim-color-line">溶液颜色：${simDot(st.solutionColor)}${esc(st.solutionColor)}</div>` : '') +
+    ((st.precipitates && st.precipitates.length) ? `<div class="sim-phen">${st.precipitates.map((p) => `<span class="sim-chip sim-chip-soft">沉淀：${esc(p)}</span>`).join('')}</div>` : '') +
+    (events.length ? `<div class="sim-snap-label">反应事件</div><ol class="sim-events">${evHtml}</ol>` : '') +
+    (snap.numerical ? `<div class="sim-snap-label">该步平衡数值</div>${simNumericalHtml(snap.numerical)}` : '') +
+  `</div>`;
+}
+
+// 状态轨迹逐步展开：与烧瓶图标动画同步
+function simRenderReasonAnimation(data, resultEl, status, state) {
+  if (LIVE_SIM.standalone !== state) return; // 期间用户已停止，放弃渲染
+  const traj = data.trajectory || [];
+  const fin = data.finalState || {};
+  const snapsHtml = traj.map((s, i) => simSnapHtml(s, i)).join('');
+  const finChips = (fin.species || []).map(simSpeciesChip).join('');
+  resultEl.innerHTML = `<div class="panel sim-panel">` +
+    `<div class="sim-progress"><div class="sim-progress-bar" id="reasonProg"></div></div>` +
+    `<div class="sim-timeline" id="reasonTimeline">${snapsHtml}</div>` +
+    `<div class="sim-final" id="reasonFinal" hidden>` +
+      `<div class="sim-final-label">终态</div>` +
+      (fin.solutionColor ? `<div class="sim-color-line">溶液颜色：${simDot(fin.solutionColor)}${esc(fin.solutionColor)}</div>` : '') +
+      `<div class="sim-chips">${finChips || '<span class="panel-note">无</span>'}</div>` +
+      ((fin.precipitates && fin.precipitates.length) ? `<div class="sim-phen">${fin.precipitates.map((p) => `<span class="sim-chip sim-chip-soft">沉淀：${esc(p)}</span>`).join('')}</div>` : '') +
+      (fin.summary ? `<div class="sim-summary">${esc(fin.summary)}</div>` : '') +
+    `</div>` +
+    ((data.evidence && data.evidence.length) ? `<ul class="panel-note sim-evidence"><b>依据：</b>${data.evidence.map((e) => `<li>${esc(e)}</li>`).join('')}</ul>` : '') +
+    ((data.warnings && data.warnings.length) ? `<ul class="panel-note">${data.warnings.map((w) => `<li>${esc(w)}</li>`).join('')}</ul>` : '') +
+  `</div>`;
+
+  const snapEls = Array.prototype.slice.call(resultEl.querySelectorAll('.sim-snap'));
+  const bar = resultEl.querySelector('#reasonProg');
+  const finalEl = resultEl.querySelector('#reasonFinal');
+  const total = snapEls.length;
+  state.step = 0; state.total = total; state.snapEls = snapEls; state.bar = bar; state.finalEl = finalEl;
+
+  function revealSnap(i) {
+    const el = snapEls[i];
+    if (el) {
+      el.classList.add('show');
+      // 快照内的事件错峰展开（视觉更顺滑）
+      const evs = el.querySelectorAll('.sim-event');
+      evs.forEach((evEl, k) => { setTimeout(() => { if (LIVE_SIM.standalone === state) evEl.classList.add('on'); }, 130 * k + 90); });
+    }
+    if (bar) bar.style.width = (total ? Math.round(((i + 1) / total) * 100) : 100) + '%';
+  }
+  function finish() {
+    if (LIVE_SIM.standalone !== state) return;
+    simSetIconRunning(state.iconWrap, false);
+    if (finalEl) { finalEl.hidden = false; finalEl.classList.add('show'); }
+    status.textContent = '推理完成，共 ' + total + ' 个状态快照';
+  }
+  function tick() {
+    state.step++;
+    if (state.step >= total) {
+      clearInterval(state.timer); state.timer = null;
+      if (total) revealSnap(total - 1);
+      setTimeout(finish, 650);
+      return;
+    }
+    revealSnap(state.step);
+  }
+  simSetIconRunning(state.iconWrap, true);
+  if (total === 0) { finish(); return; }
+  revealSnap(0);
+  state.timer = setInterval(tick, 1500);
 }

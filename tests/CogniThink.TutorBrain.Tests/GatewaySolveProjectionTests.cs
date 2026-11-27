@@ -138,4 +138,62 @@ public class GatewaySolveProjectionTests
         Assert.Equal("x=1", view.FinalResult);
         Assert.Equal("concept_choice", view.ResultProvenance);
     }
+
+    // ==================== 加性 structured 透传（不改变判决裁剪）====================
+
+    [Fact]
+    public void Project_PassesThroughStructuredEnrichment()
+    {
+        var resp = new EngineResponse
+        {
+            ConclusionState = ConclusionState.Confirmed,
+            FinalResult = "x=1",
+        };
+        var enriched = new StudentSolveStructured
+        {
+            Numeric = new NumericSnapshot { Value = 1.0, Unit = "mol/L", Species = "NaOH" }
+        };
+
+        var view = GatewaySolveProjector.Project(MakeResult(resp), enriched);
+
+        Assert.Same(enriched, view.Structured);
+        Assert.NotNull(view.Structured?.Numeric);
+        Assert.Equal(1.0, view.Structured!.Numeric!.Value);
+        Assert.Equal("mol/L", view.Structured.Numeric.Unit);
+    }
+
+    [Fact]
+    public void Insufficient_WithStructured_DoesNotLeakVerdictFields()
+    {
+        // 核心：加性 structured 不改变判决门控——Insufficient 仍不泄露 final_result / 推理 / 解释
+        var resp = new EngineResponse
+        {
+            FinalResult = "SHOULD-NOT-LEAK",
+            ConstraintNote = "缺少反应物浓度",
+            ConclusionState = ConclusionState.Insufficient,
+        };
+        resp.ReasoningNodes.Add(Node("不应泄露的推理"));
+        resp.ExplanationNodes.Add(Node("不应泄露的解释"));
+        var enriched = new StudentSolveStructured { Numeric = new NumericSnapshot { Value = 1.0 } };
+
+        var view = GatewaySolveProjector.Project(MakeResult(resp), enriched);
+
+        Assert.Equal(ConclusionState.Insufficient, view.ConclusionState);
+        Assert.Null(view.FinalResult);
+        Assert.Empty(view.ReasoningNodes);
+        Assert.Empty(view.ExplanationNodes);
+        Assert.Equal("缺少反应物浓度", view.ConstraintNote);
+        // structured 作为辅助仍可下发
+        Assert.NotNull(view.Structured);
+        Assert.Equal(1.0, view.Structured!.Numeric!.Value);
+    }
+
+    [Fact]
+    public void Project_BackwardCompatible_DefaultStructuredNull()
+    {
+        // 旧调用方不传 enriched → structured 为 null，不破坏既有契约
+        var resp = new EngineResponse { ConclusionState = ConclusionState.Confirmed, FinalResult = "x=1" };
+        var view = GatewaySolveProjector.Project(MakeResult(resp));
+        Assert.Null(view.Structured);
+    }
 }

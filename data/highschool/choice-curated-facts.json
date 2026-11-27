@@ -931,6 +931,8 @@
                        {"id": "GC-763-A", "match": ["基态V原子的价层电子轨道表示式", "3d↑↑↑↑↑"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "V为[Ar]3d34s2,3d应有3个单电子,不是5个。"},
                        {"id": "GC-763-B", "match": ["聚丙烯的结构简式", "+CH3-CH-CH2+n"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "聚丙烯应为-[-CH2-CH(CH3)-]n-,主链含CH3错误。"},
                        {"id": "GC-763-C", "match": ["Cl2分子中共价键的电子云轮廓图"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": true, "reason": "Cl2中Cl-Cl为σ键,电子云轮廓图轴对称,表述正确。"},
-                       {"id": "GC-763-D", "match": ["基态Br原子的价层电子排布式", "3d104s24p5"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "Br价层电子排布式为4s24p5,3d10不属价层电子。"}
+                       {"id": "GC-763-D", "match": ["基态Br原子的价层电子排布式", "3d104s24p5"], "stemMatch": ["化学用语表述正确的是", "山西三模改编"], "verdict": false, "reason": "Br价层电子排布式为4s24p5,3d10不属价层电子。"},
+                       {"id": "GC-075-A", "match": ["还原性", "H2O", "OH"], "stemMatch": ["Na4XeO6"], "verdict": true, "reason": "同一氧化剂XeF6，与H2O反应（ⅲ）Xe化合价不变（非氧还），与OH⁻反应（ⅳ）OH⁻中O被氧化为O2，故OH⁻还原性强于H2O。"},
+                       {"id": "GC-075-D", "match": ["电离能", "化合物", "Xe"], "stemMatch": ["Na4XeO6"], "verdict": true, "reason": "同族稀有气体自上而下原子半径增大、电离能减小；Xe在He/Ne/Ar/Kr/Xe中半径最大、电离能最小，最易形成化合物，故含Xe的化合物种类更多。"}
                    ]
 }

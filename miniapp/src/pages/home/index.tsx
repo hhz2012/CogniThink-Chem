@@ -84,6 +84,11 @@ export default function Home() {
     Taro.navigateTo({ url: '/pages/reaction/index' })
   }
 
+  /** 反应模拟器：实时调用化学引擎（反应轨迹 / 平衡计算 / 多步推理） */
+  const goSimulator = () => {
+    Taro.navigateTo({ url: '/pages/simulator/index' })
+  }
+
   /** A–F 精熟练习：进入独立答题页（首页不内嵌作答内容） */
   const goPractice = () => {
     Taro.navigateTo({ url: '/pages/practice/index' })
@@ -191,6 +196,18 @@ export default function Home() {
           <View className={styles.reactionEntryMain}>
             <Text className={styles.reactionEntryTitle}>反应推理卡</Text>
             <Text className={styles.reactionEntryDesc}>一条反应拆成分步脚手架，点提示看实例化讲解</Text>
+          </View>
+          <Text className={styles.reactionEntryArrow}>›</Text>
+        </View>
+
+        {/* 反应模拟器入口：实时调用化学引擎，烧瓶动画与现象同步 */}
+        <View className={styles.reactionEntry} onClick={goSimulator}>
+          <View className={styles.reactionEntryIcon}>
+            <ModelIcon name="test-tube" size={30} color={MODEL_ACCENT} />
+          </View>
+          <View className={styles.reactionEntryMain}>
+            <Text className={styles.reactionEntryTitle}>反应模拟器</Text>
+            <Text className={styles.reactionEntryDesc}>反应轨迹 / 平衡计算 / 多步推理，烧瓶动画与现象同步</Text>
           </View>
           <Text className={styles.reactionEntryArrow}>›</Text>
         </View>

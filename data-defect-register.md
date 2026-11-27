@@ -25,7 +25,7 @@
 | pdf-185 | `(1)B (2)D` → `D` | 答案册 OCR `_evalscratch/ocr_answers/page_064`：⁴⁰K 衰变题问「不正确的是」，D（衰变属化学变化）错误；原存储键串抄自另一道多小题题（page_070 q5 标记 `.B(2)D`），与本题完全错配 | 5b |
 | pdf-213 | `B, C` → `A` | 答案册 OCR `page_076-077`：问「解释错误的是」，A（植物油制肥皂是皂化反应而非催化加氢）解释错误；原键 `B,C` 是**正确**解释，与问法方向相反 | 5b |
 | pdf-405 | `A, B, C, D` → `C` | 答案册 OCR `page_137` 第 11 题标记 `11.C`：问「能得出相应结论的是」，仅 C（Mg(OH)₂/Al(OH)₃ 两性比较）成立，A/B/D 均不能得出 | 5b |
-| pdf-406 | `A, B, C, D` → `C` | 答案册 OCR `page_137` 第 12 题标记 `12.C`：问「不能完成气体发生和收集的是」，C（乙醇脱水制乙烯需 170℃ 控温，无温度计）不能完成；与 pdf-405 共享同一 `"A,B,C,D"` 损坏模式。同页 pdf-407 键 `A` 经核对已正确，未改动 | 5b |
+| pdf-406 | `A, B, C, D` → `C` | 答案册 OCR `page_137` 第 12 题标记 `12.C`：问「不能完成气体发生和收集的是」，C（乙醇脱水制乙烯需 170℃ 控温，无温度计）不能完成；与 pdf-405 共享同一 `"A,B,C,D"` 损坏模式。同页 pdf-407 键 `A` 经核对已正确，未改动 | 5b；本批引擎解出（见 K.2，GAIN +1）|
 | pdf-237 | `B` → `A` | 官方答案键：2024 重庆卷化学第 12 题（学科网含答案卷 `12.A`）；化学核算 R=H、X=B、Y=F、Z=N，A（原子半径 Z(N)<X(B)）真、B（非金属性 Y(F)<Z(N)）假，原键 B 错误。验证：EvalRunner diff `after_b6pure3`→`after_keyfix_237` 逐例 `gatewayAnswer` 变更=0，precision=1、harm=0（引擎对该题返回 null，改键不影响判分）；本轮策展 `GC-700-*` 事实（4 选项各 1 条、stemMatch 锁域）后判正 A，eval `after_curate_237` engineSolved 507→508、LOST=0、precision=1、harm=0 | keyfix_237+curate |
 | pdf-485 | `1:1` → `2:1（或1:2）`（answerKeywords 同步 `["1:1"]`→`["2:1","1:2"]`，note 同步订正） | 官方答案册 `pdfs/_extract/answer/page_064.json` 模块2 num=1：S(Z=16) 基态价层 3s²3p⁴，轨道表示式 3s↑↓ 3p↑↓↑↑，两种自旋状态电子数之比 2:1（或 1:2）。原键 `1:1` 及其 note 解析「p⁴ 必有 2↑2↓」违反洪特规则（正确为 3↑1↓）。**与上表其余 10 道不同**：本轮同时扩展引擎（`PeriodicTable.ValenceSpinCounts` + `AtomicStructureSolver` 自旋比锚点）使该题可解，故改键后引擎产出 `2:1（或1:2）` 并判正，eval diff `after_pdf536`→`after_pdf485` **GAIN +1 / LOSS 0 / HARM 0**，precision=1 | pdf485（键订正 + 引擎扩展，GAIN +1） |
 | pdf-170 | `B` → `4`（answerKeywords `["B"]`→`["4"]`，note 增补官方溯源） | 官方答案册 `pdfs/_extract/answer/page_059.json` num 2（模块：一化·高考化学核心方法）：NiO 岩盐，O²⁻ 半径大，顶点和面心为 Ni²⁺，晶胞中 Ni²⁺ 个数 = 8×1/8 + 6×1/2 = 4。原 `answer="B"` 与 note（Ca/C 电子排布）属 PDF 抽取错位。本轮同时新增晶胞轨道（`CrystalCellValidator` + NiO crystal 资产，坐标与 `pdf_images/p057_n04_r0.png` 核对）使该题可解，改键后引擎产出 `4` 并判正，eval diff `ie_final`→`ie_crystal` **GAIN +1 / LOSS 0 / HARM 0**，precision=1 | crystal-cell（键订正 + 晶胞资产，GAIN +1） |
@@ -40,7 +40,7 @@
 |----|------|------------------|-----------|
 | pdf-197 | 题干拼接了**两道题**：前半「下列有关物质结构或性质的比较中，正确的是」+ 后半「（2025·安徽二模）海洋资源…下列有关物质结构或性质的说法，错误的是」。存储选项（NH₃/NO₃⁻/NH₂OH/羟胺氢键）属于前题，但 note 分析的是后题（IO₃⁻/CO₃²⁻/N₂H₄）；`answer="A,B,C,D"` 为垃圾值。答案册中未能定位到对应题（OCR 检索词无命中）。 | 题面文本已损坏；已化学复核：选项 A（键角 NH3>NO3⁻）、B、C 均假、D 真，与「错误的是」单选矛盾（疑多选或选项 OCR 错位），note 完全错位。 | 需书原页恢复正确题干+选项+键；见 I.3；暂保留 `null`。 |
 | pdf-090 | 题干为「钠及其化合物的部分转化关系如图…设 N_A 为阿伏加德罗常数…下列说法正确的是」完整选择题，但存储 `answer="1,3,1,3"` 为垃圾值（非选项字母）。 | 无官方答案册核对，无法确定正确选项键；引擎对该题返回 `null`。 | 原页/答案册核对正确键后订正；暂保留 `null`。 |
-| pdf-100 | 题干为「实验室中利用右图装置验证铁与水蒸气反应…下列说法错误的是」完整选择题（选项 A 含化学方程式），但 `answer="A,B,C,D"` 为垃圾值。 | 答案册 `page_037` num=2 解析**内容**已指向 B（湿棉花移至下方无法提供足够温度，实验效果差），化学核算亦指向 B；但解析「正确/错误」标签被 OCR 全污染为「正确」，机器无法 100% 确认。 | 需书原页（答案册页）核对确认 B；见 I.3；暂保留 `null`。 |
+| ~~pdf-100~~ | ✅ **已在 data-repair-engine-exp-batch1 修复（见 K.1/K.2）**：`A,B,C,D`→`B`（答案册 p37n2 解析正文证 B 为错误陈述），并加 EF-100 事实使引擎判正，GAIN +1。 | — | — |
 | pdf-227 | `answer="A"`（问「错误的是」），但 A（超分子相关陈述）经化学判定为**真**，与 answer 矛盾；备注亦称 A 正确。 | 存储 answer 与化学真值冲突，无官方答案册核对不能定键（贸然改键有引入 harm 的风险）。 | 原页/答案册核对正确键后订正；暂保留 `null`。 |
 | pdf-295 | `answer="A"`（问「不正确的是」），但 A（锂作负极）为真；备注自相矛盾；选项依赖电池原理图。 | answer 与化学真值冲突，且需读图核真，无官方源不能定键。 | 原页核对键 + 图像轨道恢复原理图；暂保留 `null`。 |
 | pdf-306 | `answer="A"`（问「错误的是」），但 A（K⁺向左室迁移）为真；备注冲突；依赖电解装置图。 | answer 与化学冲突，无官方源不能定键。 | 原页核对键 + 图像轨道恢复装置图；暂保留 `null`。 |
@@ -86,7 +86,7 @@
 | pdf-284 | C、D 均为错误项（≥2）但无多选标记 → Concept 返回 null；需读滴定曲线图像 | 图像轨道恢复滴定曲线；若原页确认多选且选项文本完整，可经既有 MultiSelect 路径策展；暂保留 `null` |
 | pdf-307 | C/D 选项文本被结构式图像截断，无法匹配；依赖反应历程图 | 图像轨道恢复 C/D 结构式与反应历程图；文本轨道保持 `null` |
 | pdf-336 | A 选项「产物 B 对应的结构是」+ 图像，文本截断；备注残缺；依赖反应动力学曲线 | 图像轨道恢复产物结构与动力学曲线，原页补全备注；暂保留 `null` |
-| pdf-458 | 多选 BD 无「双选/多选」标记；选项 B 含结构式图像，文本不全 | 图像轨道恢复 B 结构式 + 原页核对是否多选；暂保留 `null` |
+| pdf-458 | ✅ **已由引擎解出**（spec `engine-ext-structure-periodic`，GAIN +1）：4 选项文本完整可判——选项 B 实为完整文本描述「H—N←B—H（图示为 N 与 B 间配位键…）」，**非图像缺失**（原登记「选项 B 含结构式图像，文本不全」系误判）。引擎推导：A `[Ar]4s²4p¹` 漏 `3d¹⁰` 假、B `NH₃BH₃` 含 N→B 配位键真、C 氮化镓分子晶体假（实为原子晶体）、D `BCl₃` 键角 120° 真 → 产出 `BD`。键未动（仍 `ans_page=-1`，但化学推导与存储 `answer=BD` 一致） | 已闭环；`ans_page=-1` 仍建议后续官方源核键，但不阻塞判分。详见 AB 类 |
 | pdf-498 | 元素推断依赖「结构如图所示」；备注为[千问求解]，元素身份需核真 | 图像轨道恢复结构图 + 原页核真元素身份；暂保留 `null` |
 | pdf-511 | 元素推断依赖「其结构如图所示」；备注[千问求解]含自我修正，需核真 | 图像轨道恢复结构图 + 原页核真；暂保留 `null` |
 | pdf-170 | 大题第(4)小问「NiO 晶胞如右图所示，晶胞中含有 Ni²⁺的个数为__」——NiO 岩盐结构的原子排布仅在**晶胞图**中，题干文本未描述具体结构；需均摊法从图计数 | ✅ 已解（晶胞轨道单独立项落地，见 `.trae/specs/crystal-cell-validator/`）：录入 NiO 岩盐 crystal 资产（Ni 顶点×8 + 面心×6，坐标与 `pdf_images/p057_n04_r0.png` 核对），`CrystalCellValidator` 均摊得 4；同时订正 answer 键（见 A.1）。eval `ie_final`→`ie_crystal`：**GAIN +1**（bothWrong→gatewayOnly），LOSS=0、harm=0、precision=1 |
@@ -103,7 +103,7 @@
 | id | 症状 |
 |----|------|
 | pdf-381 | note 损坏（称题干问"错误的是"，实际题干问"正确的是"），但存储 `answer="D"`（碳酸镁属于无机盐）对当前题干化学上正确。不改动；留痕提醒 note 需重写。 |
-| pdf-075 | 答案册 OCR `page_026` 确认存储 `answer="B"` **正确**（本题问「错误的是」，官方 B 为假陈述）。但**存储选项文本与官方题面错配**：存储 B「反应ⅱ中每生成 1 mol O₂ 转移 4 mol 电子」经 `RedoxElectronStatementJudge` 判定化学上为**真**，而官方 B 是关于反应ⅳ 的假陈述；note 也误判 A 正确。选项文本错配使引擎无法对齐 → 保持 `null`。需重新 OCR 恢复正确选项文本后，`RedoxElectronStatementJudge` 应能自解（奖励）。**不是答案键错误**，此前误判为键冲突已纠正。 |
+| pdf-075 | 🔧 选项已恢复（spec: redox-statement-judge-pdf075，进行中）：存储 `answer="B"` 经原书 `page_022` VL 核对**正确**（问「错误的是」，B 为假陈述）。**存储选项文本与官方题面错配**——实为另一套变体选项（两假 A/C 不自洽、无来源），属 OCR/拼接错乱。已按原书恢复 A/B/C/D 真选项（键 B 不动，answerKeywords 同步），question/note/type 未动。引擎氧还求解器（新增 RedoxCount/RoleRatio + 既有 RedoxElectron + 单选择陈述路径）目标解出 →B，待全库 eval 回归确认零 stray-hit。note 仍张冠李戴（谈及变体 A），不影响判分，留待数据管道重写。**不是答案键错误**，此前误判为键冲突已纠正。 |
 | pdf-291 | 选项集不全：仅存 A/B/C，**缺 D 选项文本**。存储 `answer="C"` 与 note 推导一致（A/B 错误、C 正确，题干问"正确的是"），但缺 D 致选项集不完整、引擎无法对齐 → 保持 `null`。键仅 note 推导、未官方核对。外部「选项补全」WIP 正在补 D（未提交），待其落地后复核。 |
 | pdf-437 | 选项集不全：仅存 A/B，**缺 C/D 选项文本**，但存储 `answer="C"` 指向当前不存在的选项。note 推导 A/B 错误、C 正确（题干问"表示正确的是"），键大概率正确但未官方核对；选项缺失致引擎无法对齐 → 保持 `null`。外部「选项补全」WIP 正在补 C/D（未提交），待其落地后复核。 |
 
@@ -117,7 +117,7 @@
 |----|---------|------|------------------|-----------|
 | pdf-355 | ✅ **已清理（本批修复，2026-11-26）** | 原题录拼接填空+选择两题。已移除后半选择题干与 `options`，保留前半填空（乙二酸与乙醇 1:2 酯化）；`answerKeywords` 由 `["C","HCOOH 分子中有醛基…"]`（含游离 `C`，致任何含碳答案子串误判正）订正为 `["CH3CH2OOC-COOCH2CH3 + 2H2O"]`，与 `answer`/`note` 自洽（答案册 `page_122` num=2 核对） | 填空半已自洽可判；后半选择已剥离，答案册 `page_123` num=2 = `A,B,C,D`（全对）但题面"不**具有**对应关系"与全对矛盾，疑 OCR 多一"不"字，**无原页图像无法确认题面，不新建题录、不猜测**，登记待核（见 V.1 deferred）。引擎未解属方程域 KB 缺口，非数据缺陷 |
 | pdf-356 | ✅ **已清理（本批修复，2026-11-26）** | 原题录拼接填空+选择两题 + 后半缺路线图。已移除后半选择（化合物 Z）题干与 `options`，填空半补全为 ①生成环酯 + ②缩聚反应两句（exercise `page_121` num=3+4，原库仅存 ①）；`answerKeywords` 由 `["C","Z 不能与 Br₂…"]` 订正为 `["C4H4O4, (C4H2O3)n + (2n-1)H2O"]`，与 `answer`/`note` 自洽（答案册 `page_122` num=3 核对，六元环酯 C₄H₄O₄） | 填空半已自洽可判；后半选择（化合物 Z）已剥离，**答案册全库检索无该题答案**，无官方源不能定键，登记待核（需用户提供原页/答案册，见 V.1 deferred）。引擎未解属方程域 KB 缺口，非数据缺陷 |
-| pdf-162 | 大题碎片 + 跨题答案污染 | 大题第(3)小问「"酸化"步骤应选用的酸是__(填字母)」（`taskType=choice`，选项 a–d）；但存储 `answer`/`answerKeywords` 是**另一道大题**的 7 段复合串 `(1)2 (2)SO4^2- (3)温度升高，反应速率增大，浸出率增大；… (4)[Cu(NH3)4]2+ + Zn = [Zn(NH3)4]2+ + Cu (5)Fe (6)…PbA 产率 (7)Pb[OOC(CH2)2COO] 热解`——与"选酸"小问完全无关，子题号错位 | 题面是单小问碎片，answer 属于不同大题（跨题污染），无法对齐；缺官方源核对该小题键 | 原页恢复该大题上下文，单独抽取 (3) 选酸小问并核对答案键；暂保留 `null` |
+| pdf-162 | ✅ **键已修复（data-repair-engine-exp-batch1，见 K.1）**：answer/ak 由 Pb 大题 7 段串订正为 `c`（答案册 p57n5 第(3)子问「应选盐酸，c 正确」）；题面仍为单小问碎片（大题上下文未恢复），但键已对齐。引擎仍 `null`（缺选酸推理事实，GAIN=0，纯真值修正）。 | 题面是单小问碎片，原 answer 跨题污染；键现已官方源核对订正 | 引擎可解性待后续事实/求解器覆盖；暂保留 `null` |
 | pdf-463 | 大题碎片（缺数据） | 大题第(5)小问「"调 pH"分步沉淀可获得 Ni(OH)₂，两次调 pH 数值依次为__」，选项 a–d（3/7/9/11），`answer="c d"`；缺大题上下文（溶液中共存离子、各离子沉淀 pH / Ksp 数据）；`taskType=calculation`，选项小写 | 沉淀 pH 判据数据不在题面（原在表格/上文），文本轨道无法判 | 原页恢复大题上下文与沉淀数据；核对小写选项键 |
 | pdf-483 | 重复碎片（与 pdf-477 子问完全重复） | 整条题面 `(5)电解熔融氯化铍制备金属铍时,加入氯化钠的主要作用是____` 与大题 pdf-477 的第(6)小问**逐字相同**（仅碎片编号为 (5)），是数据切片时把同一小问重复抽成独立题录。二者共享完全相同的化学文本，任何通用概念事实都会同时命中两者（count=2），触发 `ConceptFactSolver` 唯一性铁律返回 null；又无化学层面的区分 token 可消歧（差异仅在碎片编号）。 | 重复题录：概念事实无法在不破坏唯一性（不引入假阳性）的前提下只命中其一；靠编号 (5)/(6) 区分属单题策展，违反红线 #6。 | 数据管道去重：删除 pdf-483 或将其合并入 pdf-477；文本轨道保持 `null` |
 | pdf-412 | 大题碎片（多子问答案错配） | `question` 是「双水杨醛缩乙二胺锰配合物 (MnLClx) 制备与组成确定」大题的部分，但存储 `answer="B, (2) Mn²⁺氧化, (3) c"` 是**多子问复合串**（含 (2)(3) 子问答案），与单条题录无法对齐；`taskType=choice` 但答案非纯选项字母。 | answer 为大题串，无法拆出本题键；缺官方源核对。 | 原页恢复大题上下文，单独抽取各子问并核对键；暂保留 `null`。 |
@@ -128,7 +128,7 @@
 | pdf-172 | 大题碎片 + 跨题答案污染（**P1-3 新登记**） | 大题第(6)小问「1.0 Kg 蛇纹石“矿化”固定 CO₂，得到 0.466 kg Mg₅(CO₃)₄(OH)₂·4H₂O，相当于固定 CO₂______ L（标准状况）」——题面是**完整的数值计算小问**（数据齐备、可由摩尔质量唯一确定体积）；但存储 `answerKeywords=['AC']` 与 `note`（通篇讲 1~36 号元素中 Cr / Cu 核外电子排布是否遵循构造原理）属于**另一道选择题**，与 CO₂ 固定体积完全无关（答非所问） | 题面与 answer/note 分属不同题（跨题污染），数值计算键缺失、无法对齐；缺官方源核对该小题数值键 | 原页恢复蛇纹石矿化大题上下文，单独抽取 (6) 小问并核对数值键；归**数据管道键修复**。暂保留 `null`。P1-3 审计出处：[p13_inspect_ids.txt](file:///d:/github/CogniThink-Chem/_evalscratch/verify/p13_inspect_ids.txt) |
 | pdf-117 | 大题子问抽取丢失（仅抽到 (1)） | `question` 仅含判断大题第(1)小问「Si 是半导体材料，同族的 Ge 也是半导体材料，则ⅣA 族元素的单质都是半导体材料（ ）」（`taskType=judgment`，`frag=True`）；但 `answerKeywords` 列了 **14 条判断结果**（对应完整 14 小问 (1)–(14)）——数据切片时只抽到了 (1)，(2)–(14) 的题干全部丢失 | 题面缺 (2)–(14) 子问原文，引擎无文本可判 14 条结论；answerKeywords 与题面条目数不匹配 | 原页恢复 (2)–(14) 子问题干后重判；暂保留 `null` |
 | pdf-461 | ✅ **已修复（本批次 J.1）** | 原题干在 p32 页尾截断（仅剩镓提取工艺背景），answer/kw/note 占位「题目不完整，缺少具体问题」、type=other 无图。据 OCR p32/p33 + 流程图 `p033_n01_r0.png` 重建子问 (1)–(4)，type→fill，挂流程图；answer 据官方答案册 `page_040.json` num=5。 | 官方 exercise 抽取截断（V3 假阳性），库题干补全后与原页题 5 逐字吻合，答案与官方册一致。 | 已修复；recheck 为 info/V6 + suspect/V3（官方截断假阳性），0 新增 α 缺陷。详见 J.1。 |
-| pdf-531 | 题干拼接两题 + 题型混杂 | 题干前半为滴定题、后半为 Te 量子点，且带填空型片段；askDir/stemMatch 不可靠，无全库唯一锚点 | 拼接致题干语义不唯一，无法提取可靠 stemMatch；题型混杂致选项/答案对齐失败 | 原页拆分为独立题录后重判；暂保留 `null` |
+| pdf-531 | ✅ 已解（engine-ext-experiment-operation） | 题面"下列滴定分析操作正确的是"子问自洽（4 选项完整、answer=BC 化学自洽），图像为背景流程图、子问不读图；经 EF-531 事实 + MultiSelectChoiceValidator 判正 BC | 原"题干拼接/题型混杂/askDir 不可靠"结论过时；无标记不阻塞多路径 | 已解，无需拆分 |
 | pdf-540 | 大题碎片（缺上下文） | 题干为大题片段「(3)Ⅰ」，缺气体种类等关键上下文；无可靠唯一 stemMatch 锚点 | 碎片缺关键数据，文本轨道无法判；无唯一锚点则策展会跨题命中、破坏唯一性铁律 | 原页恢复大题上下文；暂保留 `null` |
 
 ## F 类：题面文本完整但 choice 引擎未触发——路由缺口 + 事实覆盖缺失，已按方案 C 策展自解（GAIN=2/LOSS=0/HARM=0）
@@ -148,7 +148,7 @@
 
 | 排除原因 | 题 id | 具体说明 |
 |----------|-------|----------|
-| ① 题干被截为单碎片，缺反应物/流程上下文（E 类） | pdf-133, pdf-160, pdf-161, pdf-164, pdf-165, pdf-171, pdf-413（~~pdf-278~~ 已补全题干 5 子问，移出碎片列，见 V 类） | `question` 仅存大题某一小问的半句或仅流程引入句，反应物（如 SO₃²⁻、Mg²⁺/CO₂、H₂Se 流程）与问法不在文本中，无法唯一确定方程；pdf-164/165 甚至 `question` 与 `answer` 分属不同大题（答非所问）。归 E 类。**【T4 核对】**pdf-171 的碎片本身含「离子方程式」锚点，真实 eval 路由到 `reaction_check` 且 `gatewayUsedEngine=True`，但反应物（pdf-171 的 Mg²⁺/CO₂）在未捕获的大题上下文中，KB 检索 0 命中，仍属碎片数据缺陷。**【P3 已解】**pdf-174 原同属此列，现已恢复大题上下文（习题册 `page_057` 前言 + `page_058` 工艺流程图 OCR 的 `H2SO4/Na2SO3` 标签，官方溯源）并加确定型模板 `ManganeseDioxideSulfiteIonic` → GAIN +1（precision=1 / harm=0 / LOSS=0，见方案 §10），已从本排除列表移除。 |
+| ① 题干被截为单碎片，缺反应物/流程上下文（E 类） | pdf-133, pdf-160, pdf-164, pdf-165, pdf-171（~~pdf-161~~、~~pdf-413~~ 已于 dr1 经原页 OCR 恢复题面，见 §AA；其中 pdf-413 引擎判正 GAIN +1）（~~pdf-278~~ 已补全题干 5 子问，移出碎片列，见 V 类） | `question` 仅存大题某一小问的半句或仅流程引入句，反应物（如 SO₃²⁻、Mg²⁺/CO₂、H₂Se 流程）与问法不在文本中，无法唯一确定方程；pdf-164/165 甚至 `question` 与 `answer` 分属不同大题（答非所问）。归 E 类。**【T4 核对】**pdf-171 的碎片本身含「离子方程式」锚点，真实 eval 路由到 `reaction_check` 且 `gatewayUsedEngine=True`，但反应物（pdf-171 的 Mg²⁺/CO₂）在未捕获的大题上下文中，KB 检索 0 命中，仍属碎片数据缺陷。**【P3 已解】**pdf-174 原同属此列，现已恢复大题上下文（习题册 `page_057` 前言 + `page_058` 工艺流程图 OCR 的 `H2SO4/Na2SO3` 标签，官方溯源）并加确定型模板 `ManganeseDioxideSulfiteIonic` → GAIN +1（precision=1 / harm=0 / LOSS=0，见方案 §10），已从本排除列表移除。 |
 | ② 【T4 纠正】记号连接符（`==`/`→`/`⇌`）**不是**真实阻塞——求解器不产出，无输出可归一化 | pdf-044 (`==`)、pdf-010 (`⇌`+胶体)、pdf-532 (`→`)、pdf-484 (`→`)、pdf-481 (`→`) | 原诊断「答案键记号与 `NormalizeChemicalNotation` 不匹配」**已作废**。T4 强制路由探针（`_evalscratch/norm_unlock_probe.tsv`）把这 5 题强制以 `reaction_check`/`equation` 调用 `ReactionKbWriterSolver`，**全部 `fired=False`（无产出）**：求解器在产出阶段即被守卫/KB 检索拒绝，根本没有可供 T2 归一化的输出，故答案键的记号不是当前阻塞。逐题真实阻塞：pdf-044 路由=`calculation` 未触达引擎 + 3 子问方程（KHSO₄+Ba(OH)₂ / FeBr₂+Cl₂ / 银氨+HCl）KB 无唯一命中；pdf-010 路由=`reaction_check` 但 KB 不覆盖 FeCl₃ 水解制胶体 + 一题 3 方程（多重子问使唯一命中守卫失败）；pdf-532 题干同时含「化学方程式」与「离子方程式」→ `askIonic && askMolecular` 歧义守卫直接 null（且路由=`concept` 未触达、KB 无 Cl₂+CaBr₂ / I⁻+MnO₄⁻ 条目）；pdf-484 路由=`calculation` 未触达 + (3) 问 2 个方程（Co²⁺+MnO₂ / Co³⁺+Cl⁻）KB 无命中；pdf-481 路由=`atomic_structure` 误分类 + 氧化剂 ClO₃⁻ 在未捕获上下文（碎片）+ 复杂氧还 KB 无覆盖。pdf-044/010/532/484 题干完整，是 T5 KB 补全 + 路由打通的候选（受全库唯一命中 + LOST=0 红线约束）；pdf-481 兼有碎片问题，优先等数据管道补全上下文。 |
 | ③ 题干缺反应物锚定（产物无法唯一确定） | pdf-097 | 题干仅说「沉锂生成磷酸锂的化学方程式」，未出现 H₃PO₄ 反应物；缺锚定则反应物集合不唯一，KB 检索不命中，诚实 null。 |
 | ④ 问法非"写方程式"，方程锚点守卫返回 null | pdf-274 | 题干问「用平衡原理解释该物质可以除去杂质的原因」，非「写出离子/化学方程式」；求解器方程锚点（含「方程式/方程」）不触发。答案虽含水解方程，但属解释文本，强行产出有误触风险。 |
@@ -186,16 +186,16 @@
 | pdf-338 | 备注/化学表明 C、D 均真（应为 CD），answer 仅 C；多选无标记；需官方答案册核键 | A.2（本批新增） |
 | pdf-376 | 合成路线图像；备注称 4 项全正确与 answer=B 矛盾，B/C/D 需看结构核真 | C 类（既有） |
 | pdf-406 | 问法「不能完成」未被 `WrongDir` 正则覆盖 → askDir 误判为 correct，能完成项 3 个候选不唯一；不动 .cs 则无解 | A.1（键已修复）+ H.3 残留说明 |
-| pdf-458 | 多选 BD 无标记；选项 B 含结构式图像，文本不全 | C 类（本批新增） |
+| pdf-458 | ✅ 已由引擎解出（见 C 类 pdf-458 / AB 类）：4 选项文本完整，引擎推导 A 假 B 真 C 假 D 真 → `BD`；原「选项 B 文本不全」系误判 | AB 类（本批已闭环） |
 | pdf-498 | 元素推断依赖「结构如图所示」；备注 [千问求解]，元素身份需核真 | C 类（本批新增） |
 | pdf-511 | 元素推断依赖「其结构如图所示」；备注 [千问求解] 含自我修正，需核真 | C 类（本批新增） |
-| pdf-531 | 多选 BC 无标记，但题干为两题拼接（滴定 + Te 量子点）且填空型，askDir/stemMatch 不可靠 | E 类（本批新增） |
+| pdf-531 | ✅ 已解（engine-ext-experiment-operation，EF-531 滴定操作，多选 BC 经 MultiSelectChoiceValidator）；原"拼接/askDir 不可靠"过时 | 已移出未解 |
 
 ### H.2 γ 类（20；其中 pdf-319/147/155/271 已修键移出，现行未修 16）——数据缺陷（answer 冲突 / 损坏 / 图像 / 碎片），无官方源不可自动修复
 
 | id | 真实理由（摘自 audit） | 登记位置 |
 |----|------------------------|----------|
-| pdf-075 | answer=B 与化学冲突（反应ⅱ生成 1 mol O₂ 转移 4 mol e 为真，B 非错误项）；备注矛盾；维持既往舍弃 | D 类（既有，官方源核为选项文本错配，非键错误） |
+| pdf-075 | ✅ 已闭环（D 类，spec: redox-statement-judge-pdf075）：原分诊误判为「answer=B 与化学冲突」，实为**选项文本错配**（非键错误）——存储选项是另一套变体（两假不自洽）；已从原书 page_022 恢复正确选项，并由引擎氧还求解器解出 →B，零回归 | D 类（已闭环） |
 | pdf-100 | answer 全选；答案册解析内容指向 B 但标签全污染，化学亦指向 B，需书原页确认（见 I.3） | A.2（既有）+ I.3 |
 | pdf-197 | 题干拼接；化学复核 A/B/C 假、D 真与单选矛盾，note 错位，需书原页（见 I.3） | A.2（既有）+ I.3 |
 | pdf-227 | answer=A 选错误项，但 A（超分子）为真；备注称 A 正确，冲突 | A.2（本批新增） |
@@ -212,12 +212,17 @@
 | pdf-432 | answer=B 选不正确项，但 B（CH₄ 球棍模型）为真；错误项应为 A（H₂O₂ 电子式），冲突 | A.2（本批新增） |
 | pdf-524 | answer=BC，但备注称 C 错（c/d 不互为同分异构体），与 answer 冲突；合成路线图 | A.2（本批新增） |
 | pdf-540 | 题干为大题片段「(3)Ⅰ」，缺气体种类上下文；stemMatch 无可靠唯一锚点 | E 类（本批新增） |
+| pdf-180 | type=fill 但 answer="A"：题面为电解精炼填空（原因是____），note 却是另一道结构选择题解析（X 射线衍射/第一电离能/过渡元素），answer 与题面/note 均不匹配——张冠李戴（跨题污染） | 数据缺陷（本批新增索引） |
+| pdf-198 | type=fill，options 为空；answer 为多子问复合串 "(1)离子晶体,分子晶体 (2)C"，(2) 的选择子问选项缺失；非 choice 引擎域填空 | 非引擎域填空（本批新增索引） |
+| pdf-333 | type=fill，题面截断（"其中L有2种化学环"戛然而止），options 为空、无图，answer="C" 无法对齐 | 数据缺陷·题面截断（本批新增索引） |
+| pdf-377 | type=other，题面仅"路线如下所示："，options 为空、合成路线图缺失，answer="B" 无法对齐 | 数据缺陷·图缺失/题面截断（本批新增索引） |
+| pdf-528 | type=fill，options 为空；answer 为开放文字描述（检验 BaCl2 过量的方法），带溶解度曲线图；非 choice 引擎域填空 | 非引擎域填空（本批新增索引） |
 
 ### H.3 A.1 已修键但仍未解的残留说明（pdf-405 / pdf-406）
 
 > pdf-405 与 pdf-406 的存储 `answer` 键已在 A.1 经官方答案册 OCR 核对修正（`A,B,C,D`→`C`），但两题在 choice-coverage-expansion 分诊中**仍为未解**，原因与键无关，补充留痕：
 > - **pdf-405**（γ）：选项 A/B/D 仅给出实验现象、缺结论性文本，无法构造可唯一匹配的事实锚点；需原页补全选项文本后再评估可否策展。
-> - **pdf-406**（β）：问法「不能完成」未被 `FactChoiceMatcher` / `MultiSelectChoiceValidator` 的 `WrongDir` 正则覆盖，askDir 被误判为 correct，导致能完成项出现 3 个候选、Concept 无法唯一返回；属引擎 askDir 词表的 capability gap。本 spec 红线「不动 .cs 化学逻辑」故不修复；后续可独立评估扩充 `WrongDir` 词表（需全库扫描确保零新增假阳性）。
+> - ~~**pdf-406**（β）~~ ✅ **已在 data-repair-engine-exp-batch1 解决（见 K.2）**：问法「不能完成」已加入 `FactChoiceMatcher.WrongDir` 与 `MultiSelectChoiceValidator.WrongDir`（全库仅本题题干命中，零暴露面），并加 `EF-406-A/B/C/D` 事实，引擎判正 C（GAIN +1）；eval 验证 LOST=0、harm=0、precision=1。
 
 ---
 
@@ -260,7 +265,7 @@
 
 | id | 已核验结论 | 为何仍需官方源 |
 |----|------------|----------------|
-| pdf-100 | 答案册 `page_037` num=2 解析**内容**指向 B（湿棉花移至下方无法提供足够温度，实验效果差），化学核算亦指向 B；但解析的「正确/错误」标签被 OCR 全部污染为「正确」 | 标签全污染，机器无法 100% 确认；需书原页（答案册页）核对确认 B |
+| ~~pdf-100~~ | ✅ **已修复（见 K）**：解析**正文**（非标签）已足够确认 B，本批据 p37n2 正文 + 化学一致性修键为 B 并策展自解（GAIN +1）。 | — |
 | pdf-197 | 化学复核：选项 A（键角 NH3>NO3⁻）、B、C 均假、D 真，与「错误的是」单选矛盾（疑多选或选项 OCR 错位）；note 完全错位（讲 IO3⁻/N2H4） | 题面/选项可能已损坏，需书原页恢复正确题干+选项+键 |
 | pdf-149 | 引擎当前解出 A 并判正（guard 亦预置 A），答案册解析确认 A 对、C/D 错；但 B 项需看装置图，若 B 亦正确则应为 AB | 若改真值为 AB 会导致引擎（返回 A）判负 → 引入 LOST；故保持单 A，待书原页装置图确认 B 是否成立 |
 
@@ -361,7 +366,7 @@
 **本批次诚实登记（未解/延后，不蒙数）**：
 - **pdf-262**：T2 已修数据缺陷（官方答案、去重、answerKeywords 重切），但子问(2)(3)(4) 仍不可解（复杂平衡图像/多问）→ 整题保持 `gatewayCorrect=False`，不强行蒙数（符合 Non-Goal）。
 - **pdf-010 / pdf-156（P2-1 反应方程生成器）→ NO-GO**：答案键疑似数据错位（pdf-010 `(1)2FeCl3+3H2O` 与子问不匹配；pdf-156 答案 `N2H4·H2O` 重复），且方程式生成属高假阳性域，需独立「已验证反应库 + 窄门控」，延后到专项 spec。
-- **pdf-416（P2-3 concept_fact 窄事实）→ NO-GO**：choice 题（答案 C），单条事实无法驱动选项字母选择，对 pdf-416 零判分收益，延后。
+- **pdf-416 ✅ 已解（engine-ext-experiment-operation 批次）**：choice 题（答案 C），粗盐精制"一系列操作"结晶方法选择。原"单条事实无法驱动/子问缺上下文 NO-GO"结论**过时**——当前 question 已含文本化流程图，子问 (5) 题面自洽。向 experiment-facts 追加 EF-416-A/B/C/D（stemMatch 锁「粗盐/精制/一系列操作」，全库仅命中本题），经 ExperimentChoiceValidator 单库单选判正。eval after_expop：GAINED，LOST=[]/harm=0/precision=1。
 
 ### K.0 增补（engine-gap-batch2 批次，eval `gap_batch2`）
 
@@ -526,9 +531,9 @@
 |----|-------------------|----------------------|----------|
 | pdf-478 | judgment | 子题 (2)(8) 图像依赖 + (6) 方程抽取失败 → 保持 null | T3 留痕（本类新增索引） |
 | pdf-196 | calculation | 氮循环选择题，**options 为空**（T1 探针核实）→ 无法策展 | T1 留痕（本类新增索引） |
-| pdf-416 | choice | 实验操作顺序，子问缺父大题上下文，无可靠唯一 stemMatch 锚点 | T1 留痕（本类新增索引） |
+| pdf-416 | choice | ✅ 已解（engine-ext-experiment-operation：EF-416 结晶操作事实，单选 C）；原"子问缺父大题上下文/无唯一锚点"过时，当前题面已含流程图文本且子问自洽 | 已移出未解 |
 | pdf-405 | choice | 选项 A/B/D 仅给实验现象、缺结论性文本，文本截断无法写匹配事实 | H.3（既有） |
-| pdf-531 | choice | 题干拼接两题（滴定 + Te 量子点）+ 多选 BC 无标记，askDir/stemMatch 不可靠 | E 类 / H.1（既有） |
+| pdf-531 | choice | ✅ 已解（engine-ext-experiment-operation：EF-531 滴定操作事实，多选 BC 经 MultiSelectChoiceValidator 全库遍历采纳）；原"题干拼接/askDir 不可靠"过时，题面滴定操作子问自洽且无标记不阻塞多路径 | 已移出未解 |
 
 ### K.7 T2 依赖图候选——待视觉核实（保持 `null`，AC-5 已达成不阻塞）
 
@@ -638,13 +643,13 @@ Port 口径（确定性分类器 old→new）：16 道 old≠new，全部 → `e
 |---|---|---|---|
 | 多部分大题（仅 mp） | 3 | pdf-176, 198, 541 | 范围外 → P1-2 多部分分发 |
 | 仅图像（img） | 3 | pdf-159, 160, 205 | 范围外 → P2-3 图像管道 |
-| 多部分 + 图像 | 4 | pdf-215, 391, 413, 528 | 范围外 → P1-2 / P2-3 |
+| 多部分 + 图像 | 4 | pdf-215, 391, ~~413~~（dr1 已恢复题面并判正 GAIN +1，见 §AA）, 528 | 范围外 → P1-2 / P2-3 |
 | 数据缺陷（答案错位/题面碎片/裸字母键） | 5 | pdf-165, 172, 180, 333, 377 | 范围外 → 数据管道键修复（§E） |
 | 有机官能团/命名（缺分子图+缺命名求解器） | 8 | pdf-322, 323, 324, 519, 520, 521, 522, 523 | 范围外 → 图像恢复 + 新命名求解器（未来 spec） |
 | 概念事实重叠/重复题录 | 1 | pdf-483 | 范围外（§L.2 已排除）→ 数据去重 |
 | 装置命名（缺图标号） | 1 | pdf-534 | 范围外 → 图像恢复 |
 | 自由文本分析（无对应求解器） | 1 | pdf-537 | 范围外 → 概念解释求解器（未来 spec） |
-| 题面碎片 | 1 | pdf-161 | 范围外 → 数据管道补全 |
+| 题面碎片 | 1 | ~~pdf-161~~（dr1 已恢复题面，见 §AA；键对齐，引擎仍 null） | — |
 
 > 核对：3+3+4+5+8+1+1+1+1 = **27** = B 集，与 `p15_closure_check.py` 输出一致。
 
@@ -920,6 +925,49 @@ P2-1 仅示范 4 个有明确 knowledge_id/rule_id 真值源的 solver（Concept
 
 `Api/data/pdf_questions.json.bak_alpha2` / `.bak_alpha2batch2_current` / `.bak_pre_alpha2batch2` / `.bak_pre_alpha2complete` / `.bak_pre_verifyfixbatch`：untracked、无任何 `.cs` 引用、不被加载。仓库自 P0 无 commit，可能是早期 pdf_questions 变体的唯一留存 → **仅登记，不删除/不移动**，保留用户选择权。
 
+---
+
+## K 类：data-repair-engine-exp-batch1（修键 + 引擎扩展并行）
+
+> 范围：53 道 bothWrong（基线 `snapshot_after_expop`：gwCorrect=704，bothWrong=53，harm=0，precision=1）。
+> 分流：Stream A = 修键清障（官方源确认的错误/污染/垃圾键）；Stream B = 引擎扩展（文本完整、无图、键正确的可解题补事实拿 gwCorr）。
+> 红线：precision=1、harm=0、LOST=[]、不蒙数、不改 `question`/`options`/`note`/`type`（Stream A 仅改 `answer`/`answerKeywords`）、不碰已判正题、不重跑 `build_final.py`、不处理图像依赖题。
+> 审计工件：[_evalscratch/datarepair_engine_audit.md](file:///D:/github/CogniThink-Chem/_evalscratch/datarepair_engine_audit.md)（53 题三分类全覆盖 + 证据）。
+
+### K.1 Stream A 修键（3 条，官方源唯一确认）
+
+| id | 原值 → 新值 | 官方源 | 化学佐证 | eval 影响 |
+|----|-------------|--------|----------|-----------|
+| pdf-100 | `A,B,C,D` → `B`（ak0 `A`→`B`） | 答案册 `page_37` num=2 | 解析**正文**（非被 OCR 污染的「正确/错误」标签）：B 项「酒精灯移至湿棉花下方实验效果更好」与正文「湿棉花移至下方则无法提供足够温度，实验效果差」直接矛盾 ⇒ B 为错误陈述；题干问「说法错误的是」，A/C/D 均正确 | 见 K.2（同时引擎解出，GAIN +1） |
+| pdf-107 | `D` → `2Al2O3(熔融) --(电解/冰晶石)→ 4Al+3O2↑` | 答案册 `page_40` num=5 第(1)子问 | 题干为 LAEM 提镓大题子问(1)「'电解'中反应的化学方程式」；原 `answer='D'` 及 note 为离子共存题污染（答非所问）；p40n5 答案(1)即上式 | 引擎仍 `null`（方程域 KB 缺口），**GAIN=0**，纯真值修正 |
+| pdf-162 | （Pb 大题 7 段复合串）→ `c`（ak0 → `c`） | 答案册 `page_57` num=5 第(3)子问 | 题干为「(3)'酸化'步骤应选用的酸」（选项 a 稀硫酸/b 浓硫酸/c 盐酸/d 磷酸）；原 answer/ak 是另一道 Pb 大题 7 子问串（跨题污染）；p57n5 第(3)子问解析「应选盐酸，**c 正确**」 | 引擎仍 `null`，**GAIN=0**，纯真值修正 |
+
+### K.2 Stream B 引擎扩展（2 条，GAIN +2）
+
+| id | 键状态 | 扩展内容 | 结果 |
+|----|--------|----------|------|
+| pdf-100 | Stream A 先修为 `B` | `experiment-facts.json` 加 `EF-100-A/B/C/D`（stemMatch `铁与水蒸气反应` 全库唯一，blast-radius 仅命中 pdf-100 各对应选项）：A 方程式真 / B「移至湿棉花下方效果更好」假 / C 点燃肥皂泡验 H2 真 / D 硬质玻璃试管盛铁粉真；题干「说法错误的是」⇒ 选错 ⇒ B | `错误选项为 B`，gwCorrect=True，**GAIN +1** |
+| pdf-406 | 键已正确（A.1 / 5b：`A,B,C,D`→`C`） | ① `FactChoiceMatcher.WrongDir` + `MultiSelectChoiceValidator.WrongDir` 同步加「不能完成」token（全库仅 pdf-406 题干命中，零暴露面）——否则 askDir 误判 correct，能完成项 A/B/D 凑 3 候选；② `experiment-facts.json` 加 `EF-406-A/B/C/D`（stemMatch `不能完成` 唯一）：A/B/D 能完成（真）、C 乙醇制乙烯需 170℃ 无温度计不能完成（假）⇒ 选错 ⇒ C | `错误选项为 C`，gwCorrect=True，**GAIN +1** |
+
+**关键回归拦截（实测发现并修复）**：仅给 `FactChoiceMatcher` 加「不能完成」会让 `MultiSelectChoiceValidator`（遍历全事实库 + 自带 WrongDir）把 pdf-406 误判为「正确选项为 ABD」→ harm。已给 `MultiSelectChoiceValidator.WrongDir` 同步加 token，使 pdf-406 选错方向仅 C 为假（候选 1 < 2 ⇒ 返回 null，不蒙数）。`MultiSelectChoiceValidatorTests.FullBank_AnyMultiSelectConclusion_GradedCorrect_NoHarm` 全库护栏由红转绿。
+
+### K.3 红线验证（eval diff `after_expop` → `after_datarepair_engine`）
+
+- gwCorrect **704 → 706**（+2）；bothWrong **53 → 51**
+- **LOST=[]**、harmCount=**0**、enginePrecision=**1**
+- 已判正题 `gatewayAnswer` 字节级变更 = **0**
+- GAINED 精确 = {pdf-100, pdf-406}，无额外漂移
+- 单元测试：443 个 choice/fact-matcher 护栏测试全绿（含 Batch2/3 真值表、MultiSelect 全库零 harm、Concept 无重叠、计数护栏）
+
+### K.4 本批排除（49/53），逐项理由见审计文档
+
+- 图像依赖（装置/曲线/结构/晶胞/流程图）21 道 → 图像轨道；
+- 键正确但属引擎能力缺口（氧还电子计数/多步推理/多子问）→ 需专用求解器，超「优先事实」范围（如 pdf-075，p26n4 确认键 B 正确，需 redox 求解器）；
+- 键已订正（[官方源订正]/[千问求解]）仍 bothWrong，因图像/引擎缺口 12 道；
+- 跳过：pdf-180/165（子问精确答案不在 OCR）、pdf-197/414/333（题干拼接/截断，需原页复原）、pdf-263（题型矛盾）、pdf-325（选项 OCR 损坏）、pdf-138（图像）、pdf-190（多子问+OCR 矛盾）——零蒙数纪律下需页图 VL 或题干复原，本批不做。
+
+> 注：`SolveStructuredEnricherTests.cs` 为并发 chemical-simulator 轨的未跟踪 WIP，与本批无关；其既有编译错误（`Assert.Equal` 参数类型不匹配）非本批引入，本批测试时临时移出编译路径、跑完已还原，未改动其内容。
+
 ### R.7 eval 零漂移（AC-3）
 
 - `after_p31`：757/757 全跑，correct=635，precision=1，harm=0。
@@ -1182,9 +1230,125 @@ pdf-278（5 子问）基线由 multi_part 分发解出。引语回填后，子�
 
 ---
 
+## AA 类：dr1 批次——OCR 题面恢复（本批，仅改 `question`，不动键）
+
+> 批次定位：57 道未解经逐题键核验（`dr1_keyverify.txt`），**43/57 键与答案册官方 EXACT 一致、14 道 `ans_page=-1` 未映射** → 主要矛盾不是键错，而是题面被截断/张冠李戴/缺子问缺图。本批用本地 OCR（`pypdfium2` + `tesseract chi_sim`）从源扫描页恢复良构题面，**零键改动**。候选与证据详见 `_evalscratch/dr1_candidates.md`。
+
+### AA.1 已恢复（Tier 1：题面碎片 + OCR 良构 + 子问与键对齐）
+
+| id | 恢复依据 | 落库 | eval 结果（`after_keyfix_b38`→`after_dr1`） |
+|----|----------|------|--------------------------------------------|
+| pdf-413 | 源页 137 OCR 给出子问 (1)~(7) 含选项；键 EXACT 且覆盖 (2)(3)(4)(5)(6) | 追加子问到 `question`，键不动 | **GAIN +1**：引擎产出 (6) 离子方程式命中键，700→701；precision=1 |
+| pdf-161 | 源页 54-55 OCR（旧 `page_055.png` 曾是 page_054 损坏副本，已重渲修复）给出流程 + 子问 (1)(2)(3) + (3) 选项 a~d；键 EXACT 且 3 段一一对应 | 追加流程/子问到 `question`，键不动 | 题面完整对齐；引擎仍 `null`（fill 需化学推理），**无回归** |
+
+> 验证门（`dr1_diff.py`）：**LOST=[]、harm=0、precision=1、pureLlm 无变动**；gatewayCorrect 700→**701**。范围核对（`_dr1_scope.py`）：dr1 净改动仅 `pdf_questions.json` 中 pdf-161 / pdf-413 两条 `question` 行，`answer`/`answerKeywords`/`type`/`note` 未碰，无 `.cs` 判分逻辑改动。
+
+### AA.2 暂缓（不蒙，登记理由）
+
+- **答案册分割歧义**：pdf-160 —— 答案册 num=4 把 Se(1-3) 与 BaTiO₃(4-5) 合并，题面仅 3 子问与 5 段键不对齐 → 不强修。
+- **B 类张冠李戴（`src_page` 映射不可靠）**：pdf-162/163/165/176/180/190/416 —— 存储题干属另一大题，与键错配；源页映射偏移不可溯，硬找真题风险高 → 需先建「题干片段→源大题」可靠映射（独立 spec）。
+- **缺结构图/装置图（Tier 3 图像轨道）**：pdf-519/520/524/528/534/540 等 —— 键存疑或 unmapped 的不做配图（避免迎合错键）→ 图像管道后续 spec。
+- **未映射键（`ans_page=-1`，13 道）**：pdf-463/464/478/498/519/520/524/528/531/534/537/540/541 —— 无官方源可核 → 不动，保持 `null`。（pdf-458 原在此列，已由引擎解出且化学推导与存储键一致，移出本列，见 AB 类；其 `ans_page=-1` 仍建议后续官方源核键。）
+- **选择题缺选项（潜在下批扩展）**：pdf-100/325/338/263 等 —— 题干完整、键与官方 EXACT 一致，从源页 OCR 抄回选项 A-D 后引擎可能解得（单字母命中门控，harm 风险低）→ 有 GAIN 潜力，列为下批候选，不在本批。
+
+> 注：上文 M 类表（B 集闭包）的计数为 **dr1 之前**的历史快照，已在对应单元格用 `~~删除线~~` 标注 pdf-413/161 的当前状态，历史算术不重算。
+
+## AB 类：engine-ext-structure-periodic 批次——结构/周期律/化学键比较引擎扩展（本批）
+
+> 批次定位：dr1 之后回到引擎能力扩展，经分诊锁定「结构·周期律·化学键比较」方向。逐题核实后，原 3 个候选中 **2 个是数据缺陷、1 个是开放填空无唯一解**，均非引擎可解；唯一干净的真引擎缺口为 `pdf-458`。用户批准范围：**仅解 pdf-458**，机制为混合（电子排布/键角走引擎规则判定器，晶体类型/配位键走领域通用真值数据）。红线：`precision=1`、`harm=0`、`LOST=[]`、不蒙数、不做单题策展、不改 `pdf_questions.json` 任何字段、不碰既有单选瀑布链。工件：`.trae/specs/engine-ext-structure-periodic/`。
+
+### AB.1 已解（GAIN +1，零回归）
+
+| id | 机制 | eval 结果（`after_dr1`→`after_structperiodic`） |
+|----|------|--------------------------------------------------|
+| pdf-458 | 新增 4 个 `IStatementJudge` 原语接入 `CompositeStatementJudge`：`ElectronConfigStatementJudge`（查 `PeriodicTable` 算真值排布，展开稀有气体简写后逐亚层比对）、`VseprBondAngleStatementJudge`（仅判显式数值键角，复用 `VseprSolver` 表）、`CrystalTypeStatementJudge`（查 `structure-property-facts.json` 晶体类型真值表，共价晶体≡原子晶体）、`CoordinateBondStatementJudge`（查含配位键物种真值表，否定断言反向判定）。任一选项 `Undecided` → 整题 `null`（不蒙数）；pdf-458 四选项 A=False / B=True / C=False / D=True → 无歧义 → `MultiSelectChoiceValidator` 产出 `BD` | **GAIN +1**：gatewayCorrect 701→**702**，pdf-458 `gatewayCorrect=true`、`gatewayAnswer="正确选项为 BD"`、`gatewayUsedEngine=true`；**LOST=[]、harm=0、enginePrecision=1**；701 道已判正题 `gatewayAnswer` 逐题零变更；无额外 GAIN |
+
+> 验证门：`_evalscratch/structperiodic_diff.py`（与 `dr1_diff.py` 同方法）；单元测试 `tests/CogniThink.TutorBrain.Tests/StructurePropertyStatementJudgesTests.cs`（26 条，覆盖各原语正/负例 + pdf-458 端到端判分）；全量测试 1758/0，含全库护栏 `FullBank_AnyMultiSelectConclusion_GradedCorrect_NoHarm`（新原语未引入任何假阳性结论）。
+
+### AB.2 不在本批引擎范围（数据缺陷，保持 `null`）
+
+分诊时初步列为引擎候选、逐题核实后判定为**数据缺陷**，剔除出引擎范围，维持既有登记：
+
+- **pdf-196**：`options` 为空（无选项可判）→ 数据缺陷，见 K 类「T1 留痕」。引擎无从判定，非引擎缺口。
+- **pdf-190**：answer/note 与题面张冠李戴（存储题干属另一大题，键 `(1)正四面体,(2)sp3` 属另一份 VSEPR 题）→ 数据缺陷，见 AA.2「B 类张冠李戴」及 K 类台账。采纳错键会致 harm，引擎不修复。
+- **pdf-207**：开放论述填空（熔/沸点原因），无唯一可输出结论 → 非引擎域，见 F 类「开放论述/无唯一解」及 Y 类「多子问 AND 门含不可约自由文本」。
+
+> 范围核对：本批净改动**不触碰** `pdf_questions.json` 任何字段（其工作区 diff 仅为上一批 dr1 对 pdf-161/413 的 `question` 回填，与本批无关）；`.cs` 改动仅为新增 4 原语 + `StatementNorm` 共享归一化 + `VseprSolver` 两个 internal 只读访问器 + `CompositeStatementJudge` 构造处追加 4 实例，既有校验器与瀑布链顺序无改动。新增真值数据 `data/highschool/structure-property-facts.json`（晶体类型 / 配位键）均为教材通用真值，可跨题复用，非为 pdf-458 单题策展。
+
+---
+
 ## 处理原则（固化，防止回退到硬编码路线）
 
 1. **引擎是唯一真值源**：化学判定走 `IStatementJudge` 聚合器（事实库/计数/氧化还原电子），不向 `general-choice-facts` 追加单题策展条目。
 2. **数据修复只信官方源**：答案键改前必须有答案册 OCR 或原页核对（5b）；化学推导仅作辅助，5a 类（存储键为明显垃圾值 `"A,B,C,D"` 且 note 结论明确）沿用 Task 35/46 已验证流程，但跨多选项/题型存疑时（如 075）不单独触发存储键变更，必须官方源裁定。
 3. **文本回填只写 `question`/`options`，不写 verdict、不改 `answer`**：回填后必须过 EvalRunner diff（LOST=0、harm=0）与字段 diff 审查。
 4. **不可靠恢复一律登记、保持 `null`**：宁可未解，不可假阳性。
+
+---
+
+## M 类：data-repair-engine-exp-batch2（Stream B 单题扩展，2026-11-27）
+
+> 批次目标：在 batch1（K 类）基础上继续处理剩余 bothWrong；沿用已审批的 spec-mode 方法论与全部红线（precision=1、harm=0、LOST=[]、零臆造、不碰已解题、不改 question/options/note/type）。基线 `_evalscratch/snapshot_after_datarepair_engine`：gwCorrect=706、bothWrong=51。
+
+### M.1 候选分诊（51 道 bothWrong 全量复核）
+choice 类中唯一干净的 Stream B 候选为 **pdf-405**（键 C 正确、4 选项文本完整、无图、题干完整）。其余排除：
+- 图像依赖（pdf-138/255/303/307/336/338/376/382/498/524/540）→ 文本不足，排除。
+- 题干拼接 / 选项与解析错位（pdf-197/414）→ 无 VL 无法安全还原（VL API key 失效 401），排除。
+- 选项 OCR 损坏 / 题型矛盾（pdf-325/263）→ 排除。
+- 氧化还原电子计数（pdf-075）→ 需专用 redox 求解器，强行加事实有臆造/harm 风险，排除。
+- 已修正键但引擎缺口 / 开放论述填空 → 维持既有登记，不重复处理。
+
+### M.2 Stream B 落库：pdf-405（+1 gwCorr）
+- **题**：(2024·河北卷)「下列实验操作及现象能得出相应结论的是」，选正确项 = C。
+- **结论列还原**：习题册抽取丢失了「结论」列；VL key 失效后改用网络检索官方真题（21cnjy / book118 / 学科网 / 豆丁多方印证）还原完整表格：
+  - A「铁粉+水蒸气气体爆鸣」→ 结论「H2O 具有还原性」（错：H2O 实为氧化剂/氧化性）
+  - B「滴 BaCl2 白色沉淀」→ 结论「待测液含 SO4^2-」（错：Ag+/CO3^2-/SO3^2- 干扰）
+  - C「Mg(OH)2 只溶盐酸、Al(OH)3 都溶」→ 结论「Mg(OH)2 比 Al(OH)3 碱性强」（对）
+  - D「K2Cr2O7 加 NaOH 橙变黄」→ 结论「增大生成物浓度，平衡逆向移动」（错：OH- 耗 H+，平衡正向移动）
+- **事实**：向 `data/highschool/experiment-facts.json` 追加 EF-405-A/B/C/D（116→120 条），stemMatch「实验操作及现象能得出」全库唯一；A/B/D verdict=false、C verdict=true，reason 均引自官方解析。
+- **blast-radius**：`_evalscratch/probe_batch2_verify.py` 复现 C# Norm/OptContains/WrongDir，确认 pdf-405→C，全库回归仅 pdf-405 决策变化（None→C），零 stray-hit。
+- **MultiSelect 安全**：pdf-405 经 Experiment 单选校验先返回 C，MultiSelect 末端 fallback 不触发；新事实 stemMatch 唯一锁死本题，对他题零影响。
+- **测试**：`Batch2ChoiceValidatorTests.ExperimentTruth` 追加 `["pdf-405"]="C"`；护栏 444 项全绿（0 失败）。并发 WIP 文件 `SolveStructuredEnricherTests.cs`（预存编译错误，与本批无关）测试时临时移出、跑完还原，内容未动。
+
+### M.3 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- gwCorrect **706 → 707（+1）**，bothWrong 51 → 50。
+- LOST=[]、harmCount=0、enginePrecision=1、已判正题 gatewayAnswer 字节级变更=0。
+- GAINED 精确 = {pdf-405}（「正确选项为 C」）；batch1 收益 pdf-100/pdf-406 无回归。
+- `_evalscratch/datarepair_engine_batch2_diff.py`：ALL RED LINES PASS。
+
+### M.4 未纳入（安全降级，留待后续）
+- Stream A 跳过项（pdf-190/197/414 等）需 VL 原页核对，当前 VL API key 失效，暂不强行修键。
+- pdf-075 等 redox 计数题需引擎侧 redox 求解器接入，非事实可解。
+
+## N 类：data-repair-engine-exp-batch3（VL 解锁 + 修键 + 引擎扩展，2026-11-27）
+
+> 批次目标：在 batch2（M 类）基础上继续处理剩余 bothWrong。先验证环境键 `QWEN_API_KEY` 可用（`_evalscratch/probe_test_qwen_key.py` HTTP 200，VL 解锁——此前 batch2 因硬编码死键 401 误判失效）。沿用全部红线（precision=1、harm=0、LOST=[]、零臆造、不碰已解题）。基线 `_evalscratch/snapshot_after_datarepair_engine_batch2`：gwCorrect=707、bothWrong=50。
+
+### N.1 候选分诊（50 道 bothWrong 全量复核）
+50 道 bothWrong 在 Production（LlmAvailable=False）下 `gatewayAnswer` 全为空、`usedEngine=False`——**修键本身不涨分**，必须让引擎能解。可被事实解锁的 choice 仅剩 **pdf-197**。其余排除：
+- 图像依赖（pdf-138/255/303/307/336/338/376/382/498/524/540）→ 文本不足，排除。
+- 氧化还原电子计数（pdf-075）→ 需专用 redox 求解器（路径 B），非事实可解。
+- 题型矛盾 / 选项带图（pdf-263/325）→ 排除。
+- 开放填空 / 纯计算 → 生产环境引擎不产出，修键不涨分，维持既有登记。
+
+### N.2 落库：pdf-197（+1 gwCorr）—— 题干拼接错位修复 + 事实扩展
+- **题**：(2024·安徽卷)羟胺 passage 子问「下列有关物质结构或性质的比较中，正确的是」，选正确项 = **D**。
+- **数据损坏还原**：习题册 `exercise/page_071.json` 上两道同标 `num=6` 的题被 `pdf_questions.json` 交叉接错——pdf-197 拿了羟胺题的选项（A 键角 NH3>NO3- / B 熔点 NH2OH>[NH3OH]Cl / C pH [NH3OH]Cl>NH4Cl / D 氢键 O—H···O>N—H···N），却粘了海洋资源(N2H4)题的题干+note、键为垃圾值 `A,B,C,D`；且粘入的「错误的是」会使 `FactChoiceMatcher.WrongDir` 把 `askwrong` 误判为 true，反转判定（即便加事实也解不出）。
+  - **真值三角验证**：① 答案册 `answer/page_073.json` num=5 `answer=D`，解析逐项证 A/B/C 错、D 对；② 习题册 `exercise/page_071.json` num=6 原文（干净选项文本）；③ 网络检索（高途/21cnjy）印证同题。VL 键已活但本题抽取层文本无损，无需 VL 即可还原，零臆造。
+  - **修复**（`src/.../data/pdf_questions.json` pdf-197）：题干清理为「下列有关物质结构或性质的比较中，正确的是（ ）」、answer `A,B,C,D`→`D`、answerKeywords→`["D"]`、note 回填答案册 num=5 官方解析。**不动 options**（本就正确）、**不动 type**。
+  - 同 passage 兄弟 **pdf-196**（calc，存了羟胺 passage 引子但 answer/note 错位为选择题的 D/解析）**暂不碰**——生产环境引擎不解 calc，强行修其真键需臆造，登记为残留。
+- **事实**：向 `data/highschool/experiment-facts.json` 追加 EF-197-A/B/C/D（120→124 条），stemMatch「物质结构或性质的比较」全库唯一；A/B/C verdict=false、D verdict=true，reason 均引自官方解析。
+- **blast-radius**：`_evalscratch/probe_batch3_verify.py` 复现 C# Norm/OptContains/WrongDir（**加载真实落库文件**），确认 pdf-197→D（每项恰好匹配 1 条事实，askwrong=False），全库回归仅 pdf-197 决策变化（None→D），零 stray-hit、零 LOST。
+- **MultiSelect 安全**：新事实 stemMatch 唯一锁死本题，对他题零影响；**未新增 WrongDir token**（规避 batch1 教训的 FactChoiceMatcher / MultiSelectChoiceValidator 双校验器漏同步）。
+- **测试**：`Batch2ChoiceValidatorTests.ExperimentTruth` 追加 `["pdf-197"]="D"`；护栏 **445 项全绿（0 失败）**，较 batch2 的 444 多 1 即本用例。并发 WIP 文件 `SolveStructuredEnricherTests.cs`（预存编译错误，与本批无关）测试时临时移出、跑完还原，内容未动，无 `.wipbak` 残留。
+
+### N.3 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- gwCorrect **707 → 708（+1）**，bothWrong 50 → 49。
+- LOST=[]、harmCount=0、enginePrecision=1、已判正题 gatewayAnswer 字节级变更=0。
+- GAINED 精确 = {pdf-197}（gwAns='正确选项为 D'，expected='D'，state=Confirmed，usedEngine=True）；batch1 收益 pdf-100/pdf-406、batch2 收益 pdf-405 无回归。
+- `_evalscratch/datarepair_engine_batch3_diff.py`：ALL RED LINES PASS。
+
+### N.4 未纳入（留待后续；VL 现已可用）
+- **路径 B**：pdf-075 等 redox 计数题 → 需按 `chem-engine-question-solving` 阶段 3C 接入 redox 求解器（更大 spec 级构建），非事实可解。
+- **路径 A 后续**：pdf-190（张冠李戴）、pdf-414（拼接）、pdf-162/325（OCR 损坏）→ VL 现已可用，下一批可逐题原页核对还原；pdf-196（calc 错位残留）同属此类。
+- 图像依赖 11 道 → 图像轨道。

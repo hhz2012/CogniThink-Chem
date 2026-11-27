@@ -27,8 +27,10 @@ public static class CountingChoiceValidator
     public static int FactCount => _facts.Value.Count; // 供测试护栏
 
     // Task 3/4：通用陈述子项判定用的聚合真值源（事实库 + 计数 + 氧化还原电子计数），与 MultiSelectChoiceValidator 同口径。
+    // FR-5：追加氧还反应计数（FR-2）/ 氧还角色比值（FR-3），保持三处判定口径一致。
     private static readonly CompositeStatementJudge SubItemJudge =
-        new(new FactBaseStatementJudge(), new CountingStatementJudge(), new RedoxElectronStatementJudge());
+        new(new FactBaseStatementJudge(), new CountingStatementJudge(), new RedoxElectronStatementJudge(),
+            new RedoxCountStatementJudge(), new RedoxRoleRatioStatementJudge());
 
     public static ChoiceVerifier.Outcome? TryDecide(EngineRequest req)
     {

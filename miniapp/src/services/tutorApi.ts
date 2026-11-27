@@ -104,10 +104,55 @@ export interface ReasoningNodeDto {
   evidence_level: 'KnowledgeFact' | 'EngineDerived' | 'Candidate' | 'Trend'
 }
 
+/* ===== 结构化辅助数据（镜像后端 StudentSolveStructured，加性，不参与判分）===== */
+export interface NumericSnapshotDto {
+  value?: number | null
+  unit?: string | null
+  species?: string | null
+  formula?: string | null
+}
+export interface AqueousSnapshotDto {
+  ordering: string[]
+  conservation_equations: string[]
+  ph?: number | null
+  acidity_verdict?: string | null
+  ion_concentrations?: Record<string, number>
+}
+export interface EquilibriumSnapshotDto {
+  ksp_residual_concentration?: number | null
+  ksp_residual_ion?: string | null
+  conversion_constant_k?: string | null
+  conversion_proceeds?: boolean | null
+}
+export interface TraceEventDto {
+  equation?: string | null
+  stage_index: number
+  extent: number
+  basis_knowledge_ids: string[]
+  priority_rank?: number | null
+}
+export interface SpeciesAmountDto {
+  substance?: string | null
+  moles?: number | null
+}
+export interface ReactionTraceSnapshotDto {
+  events: TraceEventDto[]
+  final_species: SpeciesAmountDto[]
+  converged: boolean
+}
+export interface StudentSolveStructuredDto {
+  numeric?: NumericSnapshotDto | null
+  aqueous?: AqueousSnapshotDto | null
+  equilibrium?: EquilibriumSnapshotDto | null
+  reaction_trace?: ReactionTraceSnapshotDto | null
+  warnings?: string[]
+}
+
 /**
  * 学生面求解视图（镜像后端 StudentSolveView）。
  * 服务端已按 conclusion_state 裁剪：Insufficient 不下发 final_result / reasoning_nodes / explanation_nodes，
  * 因此前端无需再做防泄露过滤；但展示文案仍需诚实标注。
+ * structured 为加性辅助数据（数值/守恒/pH/反应轨迹），与判分无关；非 Confirmed 时须标注“不作最终判定结论”。
  */
 export interface StudentSolveView {
   conclusion_state: 'Confirmed' | 'CandidateSet' | 'Insufficient'
@@ -121,6 +166,7 @@ export interface StudentSolveView {
   reply: string
   constraint_note?: string | null
   result_provenance?: string | null
+  structured?: StudentSolveStructuredDto | null
 }
 
 // ==================== 请求封装 ====================

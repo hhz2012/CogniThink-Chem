@@ -527,6 +527,11 @@ public sealed class EquationEngineProbeTests
             ("pdf-532b", "10I^- + 2MnO4^- + 16H^+ = 5I2 + 2Mn^2+ + 8H2O"),
             ("pdf-461a", "2Al2O3 = 4Al + 3O2"),
             ("pdf-461b", "Ga^3+ + 4Cl^- = [GaCl4]^-"),
+            // —— 分类漏分修正批次候选预检（equilibrium 兜底 cued 补录前）——
+            ("pdf-171", "5Mg^2+ + 4CO2 + 10OH^- = Mg5(CO3)4(OH)2·4H2O↓"),
+            ("pdf-418a", "FeS + S = FeS2"),
+            ("pdf-418b", "FeS + S =△= FeS2"),
+            ("pdf-258", "2SOCl2 + 4Li^+ + 4e^- = S + SO2↑ + 4LiCl"),
         };
 
         var outPath = Path.Combine(ChemistryFixture.RepoRoot, "_evalscratch", "eqp0_candidate_check.tsv");

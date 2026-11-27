@@ -65,6 +65,13 @@ builder.Services.AddSingleton<ReactionEquationParser>();
 builder.Services.AddSingleton<ChemicalSimulationEngine>();
 builder.Services.AddSingleton<ChemicalReverseInferenceEngine>();
 
+// 新三主体类（统一契约 / 多步推理 / 平衡数值）：加性注册，旧服务与旧端点保持不变
+builder.Services.AddSingleton<ChemicalSimulator>();
+builder.Services.AddSingleton<EquilibriumStateSimulator>();
+builder.Services.AddSingleton<ChemicalMultiStepReasoningSimulator>();
+// solve 投影富化器：仅 HTTP /solve 路径调用，不进判分路径（eval 进程内不触发）
+builder.Services.AddSingleton<SolveStructuredEnricher>();
+
 // ==================== 话术层（可切换模型） ====================
 builder.Services.AddSingleton<RuleBasedNarrativeAgent>();
 var llm = builder.Configuration.GetSection("Llm").Get<LlmOptions>() ?? new LlmOptions();

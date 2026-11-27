@@ -6,7 +6,7 @@
 <title>化学伴思 · 知识驱动解题演示 | CogniThink-Chem</title>
 <meta name="description" content="CogniThink-Chem 化学伴思：知识驱动的高中化学解题引擎。五类题的解题过程、讲解与引导均由推断引擎真实运行生成，全部结论可溯源。" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧪</text></svg>" />
-<link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="style.css?v=20261127" />
 <script src="https://3Dmol.org/build/3Dmol-min.js"></script>
 </head>
 <body>
@@ -95,6 +95,8 @@
       <button class="nav-btn" data-view="viz">✨ 可视化</button>
       <button class="nav-btn" data-view="knowledge">📚 知识库</button>
       <button class="nav-btn" data-view="qa">❓ 问答</button>
+      <button class="nav-btn" data-view="live">🧪 实时求解</button>
+      <button class="nav-btn" data-view="sim">⚗️ 反应模拟器</button>
     </div>
   </nav>
 
@@ -124,6 +126,10 @@
 
   <section id="qaView" hidden></section>
 
+  <section id="liveView" hidden></section>
+
+  <section id="simView" hidden></section>
+
   <p class="notice" id="loadingTip">正在加载题目数据…</p>
   <div class="notice error" id="errorTip" hidden></div>
 </main>
@@ -132,6 +138,6 @@
   <div class="container" id="footerInfo"></div>
 </footer>
 
-<script src="app.js"></script>
+<script src="app.js?v=20261127"></script>
 </body>
 </html>

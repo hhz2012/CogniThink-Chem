@@ -122,6 +122,31 @@
     {"id": "EF-546-A", "match": ["不宜加入沸石"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": true, "reason": "沸石微孔可能吸附NH3、HCl,影响热分解率测定,故不宜加入。"},
     {"id": "EF-546-B", "match": ["若无浑浊说明已沉淀完全"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": true, "reason": "上层清液滴加AgNO3无浑浊说明Cl-已沉淀完全。"},
     {"id": "EF-546-C", "match": ["是为了提升干燥效率"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": false, "reason": "选干燥器而非烘箱是防止高温下AgCl分解损失,并非提升干燥效率。"},
-    {"id": "EF-546-D", "match": ["1-m/(143.5×0.05×10.0×10-3)×100"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": true, "reason": "残留NH4Cl物质的量=m/143.5mol,热分解率=1-残留率,公式正确。"}
+    {"id": "EF-546-D", "match": ["1-m/(143.5×0.05×10.0×10-3)×100"], "stemMatch": ["沉淀法定量测定氯化铵", "热分解率"], "verdict": true, "reason": "残留NH4Cl物质的量=m/143.5mol,热分解率=1-残留率,公式正确。"},
+    {"id": "EF-416-A", "match": ["晶膜", "趁热过滤"], "stemMatch": ["粗盐", "精制", "一系列操作"], "verdict": false, "reason": "NaCl溶解度随温度变化小，应蒸发至大量晶体析出；仅至晶膜趁热过滤NaCl回收率过低，且非标准操作，错误。"},
+    {"id": "EF-416-B", "match": ["晶膜", "冷却结晶"], "stemMatch": ["粗盐", "精制", "一系列操作"], "verdict": false, "reason": "冷却结晶会使溶解度随温度变化大的杂质（钾盐）析出混入产品，错误。"},
+    {"id": "EF-416-C", "match": ["大量晶体", "趁热过滤"], "stemMatch": ["粗盐", "精制", "一系列操作"], "verdict": true, "reason": "NaCl溶解度随温度变化小，蒸发至大量晶体析出后趁热过滤，既充分回收NaCl又防止钾盐冷却结晶混入，正确。"},
+    {"id": "EF-416-D", "match": ["大量晶体", "冷却结晶"], "stemMatch": ["粗盐", "精制", "一系列操作"], "verdict": false, "reason": "冷却时可溶性杂质（钾盐）会结晶析出混入精盐，错误。"},
+    {"id": "EF-531-A", "match": ["KMnO4", "碱式滴定管"], "stemMatch": ["滴定分析操作", "Fe3O4"], "verdict": false, "reason": "KMnO4具强氧化性，会腐蚀碱式滴定管的橡胶管，应盛于酸式滴定管，错误。"},
+    {"id": "EF-531-B", "match": ["酸式滴定管", "待测液", "锥形瓶"], "stemMatch": ["滴定分析操作", "Fe3O4"], "verdict": true, "reason": "酸式滴定管可精确量取一定体积待测液移入锥形瓶，操作正确。"},
+    {"id": "EF-531-C", "match": ["接近终点", "冲洗锥形瓶内壁"], "stemMatch": ["滴定分析操作", "Fe3O4"], "verdict": true, "reason": "滴定接近终点时用洗瓶冲洗锥形瓶内壁，使附着的溶液反应完全，操作正确。"},
+    {"id": "EF-531-D", "match": ["变色后", "立即记录"], "stemMatch": ["滴定分析操作", "Fe3O4"], "verdict": false, "reason": "指示剂变色后应等半分钟不褪色再读数，立即记录可能未达终点，错误。"},
+
+    {"id": "EF-100-A", "match": ["3Fe+4H2O", "Fe3O4+4H2"], "stemMatch": ["铁与水蒸气反应"], "verdict": true, "reason": "3Fe+4H2O(g)高温生成Fe3O4和4H2，方程式正确。"},
+    {"id": "EF-100-B", "match": ["酒精灯", "湿棉花下方", "效果更好"], "stemMatch": ["铁与水蒸气反应"], "verdict": false, "reason": "酒精灯需加热铁粉提供反应高温；移至湿棉花下方，铁粉得不到足够高温，反应效果差，'效果更好'说法错误。"},
+    {"id": "EF-100-C", "match": ["火柴", "肥皂泡", "氢气"], "stemMatch": ["铁与水蒸气反应"], "verdict": true, "reason": "点燃肥皂泡产生爆鸣声可检验生成的H2，正确。"},
+    {"id": "EF-100-D", "match": ["硬质玻璃试管", "还原铁粉"], "stemMatch": ["铁与水蒸气反应"], "verdict": true, "reason": "硬质玻璃试管耐高温，可盛装还原铁粉进行高温反应，正确。"},
+    {"id": "EF-406-A", "match": ["二氧化锰", "浓盐酸"], "stemMatch": ["不能完成"], "verdict": true, "reason": "二氧化锰与浓盐酸加热制Cl2，固液加热型，可用图示装置完成。"},
+    {"id": "EF-406-B", "match": ["HCl", "浓硫酸"], "stemMatch": ["不能完成"], "verdict": true, "reason": "浓盐酸滴入浓硫酸，HCl挥发，向上排空气法收集，可用图示装置完成。"},
+    {"id": "EF-406-C", "match": ["乙醇", "浓硫酸"], "stemMatch": ["不能完成"], "verdict": false, "reason": "乙醇制乙烯需控温170℃，图示装置无温度计，不能完成。"},
+    {"id": "EF-406-D", "match": ["大理石"], "stemMatch": ["不能完成"], "verdict": true, "reason": "稀盐酸与大理石制CO2，固液不加热型，可用图示装置完成。"},
+    {"id": "EF-405-A", "match": ["铁粉与水蒸气", "爆鸣声"], "stemMatch": ["实验操作及现象能得出"], "verdict": false, "reason": "Fe与水蒸气反应生成H2，H由+1降至0被还原，H2O作氧化剂（具氧化性），故结论“H2O具有还原性”错误。"},
+    {"id": "EF-405-B", "match": ["BaCl2", "白色沉淀"], "stemMatch": ["实验操作及现象能得出"], "verdict": false, "reason": "Ag+、CO3^2-、SO3^2-也能与BaCl2生成白色沉淀，干扰SO4^2-检验，不能得出“待测液含SO4^2-”。"},
+    {"id": "EF-405-C", "match": ["Mg(OH)2", "只溶于盐酸"], "stemMatch": ["实验操作及现象能得出"], "verdict": true, "reason": "Mg(OH)2只溶于盐酸显碱性，Al(OH)3既溶于盐酸又溶于NaOH显两性，故碱性Mg(OH)2>Al(OH)3，结论成立。"},
+    {"id": "EF-405-D", "match": ["K2Cr2O7", "橙色"], "stemMatch": ["实验操作及现象能得出"], "verdict": false, "reason": "加NaOH消耗H+，使Cr2O7^2-+H2O⇌2CrO4^2-+2H+正向移动，并非“增大生成物浓度使平衡逆向移动”，结论错误。"},
+    {"id": "EF-197-A", "match": ["键角", "NH3", "NO3-"], "stemMatch": ["物质结构或性质的比较"], "verdict": false, "reason": "NH3键角约107°(sp3，1对孤电子对)，NO3-为平面三角形键角120°，故NH3键角<NO3-，该比较错误。"},
+    {"id": "EF-197-B", "match": ["熔点", "NH2OH", "NH3OH"], "stemMatch": ["物质结构或性质的比较"], "verdict": false, "reason": "NH2OH为分子晶体，盐酸羟胺[NH3OH]Cl为离子晶体，离子晶体熔点更高，故NH2OH<[NH3OH]Cl，该比较错误。"},
+    {"id": "EF-197-C", "match": ["pH", "NH3OH", "NH4Cl"], "stemMatch": ["物质结构或性质的比较"], "verdict": false, "reason": "Kb(NH2OH)=8.7e-9<Kb(NH3·H2O)=1.8e-5，[NH3OH]+水解程度大于NH4+，同浓度下[NH3OH]Cl酸性更强、pH更小，该比较错误。"},
+    {"id": "EF-197-D", "match": ["氢键", "O", "N"], "stemMatch": ["物质结构或性质的比较"], "verdict": true, "reason": "O电负性大于N，O—H极性强于N—H，故O—H···O氢键强于N—H···N，该比较正确。"}
   ]
 }

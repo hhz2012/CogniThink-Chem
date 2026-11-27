@@ -94,6 +94,28 @@ public static class EquationBalancer
 
         if (basis.Count > 1)
         {
+            // 铁律：零空间维数 > 1 时存在多种独立配平方式，默认拒绝以防编造系数。
+            // 例外（不编造）：若用户已写出的系数恰好原子/电荷全部守恒（典型为歧化与另一氧还过程
+            // 合并书写的组合方程，如 XeF6 与 NaOH 的反应：Xe 歧化 + OH⁻ 被氧化为 O2），
+            // 则直接采纳用户系数——不臆造、不补产物。维数 ≤ 1 的常规路径字节级不变；
+            // 仅在此前一律失败的分支上，对"已配平"输入放行（spec redox-statement-judge-pdf075 T2）。
+            var violations = ConservationViolations(equation);
+            if (violations.Count == 0)
+            {
+                var given = equation.AllTerms.Select(t => t.Coefficient).ToArray();
+                if (given.Length > 0 && given.All(c => c > 0))
+                {
+                    var givenVec = given.Select(c => new Rational(c)).ToArray();
+                    var givenIntegers = ToSmallestIntegers(givenVec);
+                    return new BalanceResult
+                    {
+                        Success = true,
+                        BalancedEquation = FormatEquation(equation, givenIntegers),
+                        Coefficients = givenIntegers
+                    };
+                }
+            }
+
             return new BalanceResult
             {
                 Success = false,

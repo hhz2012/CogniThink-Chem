@@ -50,7 +50,24 @@ public class Batch2ChoiceValidatorTests
         // 事实写入 experiment-facts（EF-545~EF-546）；探针 TOTAL PROBLEMS=0，
         // 4 选项各命中唯一事实，verdict 与官方 answer 一致，与 Organic/Structure 无路由二义。计数 23→25。
         ["pdf-147"] = "B",
-        ["pdf-155"] = "C"
+        ["pdf-155"] = "C",
+        // engine-ext-experiment-operation：粗盐精制"一系列操作"结晶方法选择（EF-416，单选 C）
+        ["pdf-416"] = "C",
+        // data-repair-engine-exp-batch1：铁与水蒸气实验"说法错误的是"（EF-100，WrongDir 选错=B）；
+        // 气体发生收集装置"不能完成的是"（EF-406，WrongDir 新增「不能完成」token，选错=C）。
+        // 探针 blast-radius 零 stray-hit，回归仅该两题从空结论翻正，与 Organic/Structure 无路由二义。
+        ["pdf-100"] = "B",
+        ["pdf-406"] = "C",
+        // data-repair-engine-exp-batch2：2024 河北卷"实验操作及现象能得出相应结论的是"（EF-405，选正确=C）。
+        // 官方真题结论列经还原：A"H2O具有还原性"错、B"含SO4^2-"错（Ag+/CO3^2-/SO3^2-干扰）、
+        // C"碱性Mg(OH)2>Al(OH)3"对、D"增大生成物浓度使平衡逆向移动"错（实为OH-耗H+正向移动）。
+        // stemMatch「实验操作及现象能得出」全库唯一，blast-radius 零 stray-hit，回归仅 pdf-405 从空结论翻正。
+        ["pdf-405"] = "C",
+        // data-repair-engine-exp-batch3：2024 安徽卷羟胺"物质结构或性质的比较，正确的是"（EF-197，选正确=D）。
+        // 原题在 pdf_questions.json 中被粘入另一道(海洋资源/N2H4)题干+note、键为垃圾值 A,B,C,D；
+        // 清理题干→避免 WrongDir 把 askwrong 误判为 true、修键为 D、回填官方解析(答案册 page_073 num=5)。
+        // stemMatch「物质结构或性质的比较」全库唯一，blast-radius 零 stray-hit，回归仅 pdf-197 从空结论翻正。
+        ["pdf-197"] = "D"
     };
 
     public static IEnumerable<object[]> ExperimentCases =>

@@ -4,5 +4,11 @@
     "halfReaction": "CO-2e^-+4OH^-=CO3^2-+2H2O",
     "triggerAll": ["CO", "燃料电池", "电极反应"],
     "note": "CO-空气燃料电池（碱性）阳极（负极）氧化：C +2→+4 失 2e⁻。官方溯源见 pdf_questions.json 中 pdf-304 的 note（page 解析）。"
+  },
+  {
+    "id": "hr-li-socl2-cathode-reduction",
+    "halfReaction": "2SOCl2 + 4Li^+ + 4e^- = S + SO2↑ + 4LiCl",
+    "triggerAll": ["SOCl2", "电极反应"],
+    "note": "Li/SOCl2 电池正极（放电）还原：2SOCl₂ + 4Li⁺ + 4e⁻ = S + SO₂↑ + 4LiCl。官方溯源见 pdf_questions.json 中 pdf-258 的 note（I₂ 在步骤1消耗、步骤3再生作催化剂，正极 SOCl₂ 得电子）。"
   }
 ]
