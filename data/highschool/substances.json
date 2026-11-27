@@ -22,6 +22,9 @@
     "H3PO4", "NaH2PO4", "Na2HPO4",
     "AlN", "Si3N4", "SiC",
     "Na2FeO4",
-    "HCN"
+    "HCN",
+    "LiOH", "Li3PO4",
+    "AlOOH",
+    "TiCl4", "(NH4)2C2O4", "BaTiO(C2O4)2"
   ]
 }

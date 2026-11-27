@@ -1,6 +1,8 @@
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using CogniThink.Chem.Core;
 using CogniThink.TutorBrain.Application.Evaluation;
 using CogniThink.TutorBrain.Application.Gateway;
 using Xunit;
@@ -47,6 +49,21 @@ public sealed class EquationEngineProbeTests
 
         File.WriteAllText(outPath, sb.ToString(), new UTF8Encoding(true));
         Console.WriteLine($"[EQ_PROBE] wrote {outPath}; cases={all.Count}; eqLikeCases={eqLikeCases}");
+    }
+
+    private static (string ids, string eqs) MatchInfo(object? en)
+    {
+        if (en is null) return ("", "");
+        var ids = new List<string>();
+        var eqs = new List<string>();
+        foreach (var e in (System.Collections.IEnumerable)en!)
+        {
+            var idProp = e?.GetType().GetProperty("Id")?.GetValue(e) as string;
+            var eqProp = e?.GetType().GetProperty("Equation")?.GetValue(e) as string;
+            if (idProp is not null) ids.Add(idProp);
+            if (eqProp is not null) eqs.Add(eqProp);
+        }
+        return (string.Join(",", ids), string.Join(" || ", eqs));
     }
 
     private static string Tsv(string? s) =>
@@ -343,5 +360,196 @@ public sealed class EquationEngineProbeTests
         File.WriteAllText(outPath, sb.ToString(), new UTF8Encoding(true));
         Console.WriteLine(
             $"[EQ_PROBE] half-fire-scan: total={all.Count} fires={fires} correct={correct} gainCandidates={gainCandidates} newlyFiredWrong={newlyFiredWrong}; fired=[{string.Join(",", firedIds)}]; wrote {outPath}");
+    }
+
+    /// <summary>
+    /// EqWriter P0 探针（spec Task 1）：对 9 道 equation_writer 未解目标，打印
+    /// KbLookupMolecular/KbLookupIonic 的【原始候选】条目（用 MultiHitJoinRelax=true 绕过唯一命中过滤，
+    /// 以区分"零候选"与"多命中被过滤"），并报告当前(relax=false)与放宽(relax=true)两种 fired/correct。
+    /// 另对全库 757 以 relax=false 扫描 fired/isCorrect，相对 snapshot_t2route 基线输出 newlyFiredWrong（必须 0）。
+    /// 仅 EQ_PROBE=1 运行；全库汇总落盘（-v q 抑制控制台）。不触碰生产逻辑。
+    /// </summary>
+    [Fact]
+    public void Probe_EqWriterP0_Targets()
+    {
+        if (Environment.GetEnvironmentVariable("EQ_PROBE") != "1")
+            return;
+
+        var all = GatewayVsLlmEvaluationService.BuildTestCases();
+        var byId = all.ToDictionary(c => c.Id);
+        var baseline = LoadSnapshotBaseline("snapshot_t2route.json");
+
+        var targets = new[] { "pdf-010","pdf-084","pdf-097","pdf-156","pdf-164","pdf-166","pdf-462","pdf-484","pdf-532" };
+        var molMi = typeof(ReactionKbWriterSolver).GetMethod("KbLookupMolecular", BindingFlags.NonPublic | BindingFlags.Static);
+        var ionMi = typeof(ReactionKbWriterSolver).GetMethod("KbLookupIonic", BindingFlags.NonPublic | BindingFlags.Static);
+
+        bool FiredCorrect(EngineResponse? r, QaTestCase c, out string head)
+        {
+            bool fired = r is not null && !string.IsNullOrWhiteSpace(r.FinalResult);
+            head = fired ? r!.FinalResult : string.Empty;
+            if (head.Length > 180) head = head.Substring(0, 180);
+            return fired && GatewayVsLlmEvaluationService.IsAnswerCorrect(r!.FinalResult, c);
+        }
+
+        var outPath = Path.Combine(ChemistryFixture.RepoRoot, "_evalscratch", "eqp0_targets_probe.tsv");
+        var sb = new StringBuilder();
+        sb.AppendLine("\"id\"\t\"det\"\t\"molCandIds\"\t\"molCandEqs\"\t\"ionCandIds\"\t\"ionCandEqs\"\t\"curFired\"\t\"curCorrect\"\t\"relFired\"\t\"relCorrect\"\t\"relOutput\"\t\"answerKeywords\"");
+
+        var oldRelax = ReactionKbWriterSolver.MultiHitJoinRelax;
+        foreach (var id in targets)
+        {
+            if (!byId.TryGetValue(id, out var c)) { sb.AppendLine($"\"{id}\"\tMISSING"); continue; }
+            var raw = c.Question ?? string.Empty;
+            var det = LlmGatewayService.ClassifyTaskDeterministic(raw);
+
+            // 原始候选：relax=true 让 KbLookup 返回全部候选（绕过唯一命中过滤）
+            ReactionKbWriterSolver.MultiHitJoinRelax = true;
+            var mol = molMi?.Invoke(null, new object[] { raw });
+            var ion = ionMi?.Invoke(null, new object[] { raw });
+            var (molIds, molEqs) = MatchInfo(mol);
+            var (ionIds, ionEqs) = MatchInfo(ion);
+
+            // 当前行为（默认关）
+            ReactionKbWriterSolver.MultiHitJoinRelax = false;
+            var curResp = ReactionKbWriterSolver.TrySolve(new EngineRequest { RawText = raw, TaskType = det });
+            bool curOk = FiredCorrect(curResp, c, out _);
+
+            // 放宽行为（看潜在产出与判分）
+            ReactionKbWriterSolver.MultiHitJoinRelax = true;
+            var relResp = ReactionKbWriterSolver.TrySolve(new EngineRequest { RawText = raw, TaskType = det });
+            bool relOk = FiredCorrect(relResp, c, out var relHead);
+
+            bool wasCorrect = baseline.TryGetValue(id, out var w) && w;
+            sb.AppendLine($"\"{id}\"\t\"{det}\"\t\"{molIds}\"\t\"{Tsv(molEqs)}\"\t\"{ionIds}\"\t\"{Tsv(ionEqs)}\"\t{curResp is not null}\t{curOk}\t{relResp is not null}\t{relOk}\t\"{Tsv(relHead)}\"\t\"{Tsv(string.Join(" | ", c.AnswerKeywords))}\"");
+        }
+        ReactionKbWriterSolver.MultiHitJoinRelax = oldRelax;
+
+        File.WriteAllText(outPath, sb.ToString(), new UTF8Encoding(true));
+
+        // 全库扫描（默认关）→ 汇总落盘
+        int totalFired = 0, totalCorrect = 0, newlyFiredWrong = 0, regressLoss = 0;
+        var wrongIds = new List<string>();
+        var lossIds = new List<string>();
+        ReactionKbWriterSolver.MultiHitJoinRelax = false;
+        foreach (var c in all)
+        {
+            var raw = c.Question ?? string.Empty;
+            var det = LlmGatewayService.ClassifyTaskDeterministic(raw);
+            var resp = ReactionKbWriterSolver.TrySolve(new EngineRequest { RawText = raw, TaskType = det });
+            bool fired = resp is not null && !string.IsNullOrWhiteSpace(resp.FinalResult);
+            if (!fired) continue;
+            totalFired++;
+            bool ok = GatewayVsLlmEvaluationService.IsAnswerCorrect(resp!.FinalResult, c);
+            if (ok) totalCorrect++;
+            bool wasCorrect = baseline.TryGetValue(c.Id, out var w) && w;
+            if (!ok && !wasCorrect) { newlyFiredWrong++; wrongIds.Add(c.Id); }
+            if (!ok && wasCorrect) { regressLoss++; lossIds.Add(c.Id); }
+        }
+        ReactionKbWriterSolver.MultiHitJoinRelax = oldRelax;
+
+        var sumPath = Path.Combine(ChemistryFixture.RepoRoot, "_evalscratch", "eqp0_fullbank_summary.txt");
+        File.WriteAllText(sumPath,
+            $"total={all.Count} fired={totalFired} correct={totalCorrect} newlyFiredWrong={newlyFiredWrong} regressLoss={regressLoss}\n" +
+            $"wrongIds=[{string.Join(",", wrongIds)}]\nlossIds=[{string.Join(",", lossIds)}]\n",
+            new UTF8Encoding(true));
+        Console.WriteLine($"[EQ_PROBE] eqwriter-p0: wrote {outPath} and {sumPath}");
+    }
+
+    /// <summary>
+    /// EqWriter P0 基线开火映射（Task 4 前哨）：全库 757 题以 relax=false 调用
+    /// KbLookupMolecular/KbLookupIonic（反射取私有），记录每题命中的条目 id；
+    /// 另调 TrySolve 记整体是否开火。落盘 eqp0_firemap.tsv，用于确认基线 8 次正确开火
+    /// 由哪些条目贡献——避免给既有条目加 cues 后把它移出回退路径、误伤现有正确开火。
+    /// 仅 EQ_PROBE=1 运行。
+    /// </summary>
+    [Fact]
+    public void Probe_EqWriterP0_FireMap()
+    {
+        if (Environment.GetEnvironmentVariable("EQ_PROBE") != "1")
+            return;
+
+        var all = GatewayVsLlmEvaluationService.BuildTestCases();
+        var baseline = LoadSnapshotBaseline("snapshot_t2route.json");
+        var molMi = typeof(ReactionKbWriterSolver).GetMethod("KbLookupMolecular", BindingFlags.NonPublic | BindingFlags.Static);
+        var ionMi = typeof(ReactionKbWriterSolver).GetMethod("KbLookupIonic", BindingFlags.NonPublic | BindingFlags.Static);
+
+        var outPath = Path.Combine(ChemistryFixture.RepoRoot, "_evalscratch", "eqp0_firemap.tsv");
+        var sb = new StringBuilder();
+        sb.AppendLine("\"id\"\t\"det\"\t\"wasCorrect\"\t\"molIds\"\t\"ionIds\"\t\"tryFired\"\t\"outHead\"");
+
+        ReactionKbWriterSolver.MultiHitJoinRelax = false;
+        foreach (var c in all)
+        {
+            var raw = c.Question ?? string.Empty;
+            var det = LlmGatewayService.ClassifyTaskDeterministic(raw);
+            var mol = molMi?.Invoke(null, new object[] { raw });
+            var ion = ionMi?.Invoke(null, new object[] { raw });
+            var (molIds, _) = MatchInfo(mol);
+            var (ionIds, _) = MatchInfo(ion);
+            var resp = ReactionKbWriterSolver.TrySolve(new EngineRequest { RawText = raw, TaskType = det });
+            bool fired = resp is not null && !string.IsNullOrWhiteSpace(resp.FinalResult);
+            var head = fired ? resp!.FinalResult : string.Empty;
+            if (head.Length > 90) head = head.Substring(0, 90);
+            bool wasCorrect = baseline.TryGetValue(c.Id, out var w) && w;
+            if (!fired && molIds == "" && ionIds == "") continue; // 只记有候选/开火的题
+            sb.AppendLine($"\"{c.Id}\"\t\"{det}\"\t{wasCorrect}\t\"{molIds}\"\t\"{ionIds}\"\t{fired}\t\"{Tsv(head)}\"");
+        }
+        File.WriteAllText(outPath, sb.ToString(), new UTF8Encoding(true));
+        Console.WriteLine($"[EQ_PROBE] eqwriter-p0 firemap: wrote {outPath}");
+    }
+
+    /// <summary>
+    /// EqWriter P0 候选方程预检（Task 4 前哨）：把拟补录到知识库的候选方程字符串直接喂给
+    /// ChemicalCheckerService.Check（Auto 模式），落盘 IsValid / RiskTag / 失败明细。
+    /// 目的：在改 data JSON 前预判 EveryEntry_PassesChemicalChecker 自洽测试是否会挂（白名单/守恒/配平/离子拆写/氧化还原/反应库一致性）。
+    /// 仅 EQ_PROBE=1 运行。不触碰生产代码与数据。
+    /// </summary>
+    [Fact]
+    public void Probe_EqWriterP0_CheckCandidates()
+    {
+        if (Environment.GetEnvironmentVariable("EQ_PROBE") != "1")
+            return;
+
+        var candidates = new (string label, string equation)[]
+        {
+            ("pdf-097", "H3PO4 + 3LiOH = Li3PO4↓ + 3H2O"),
+            ("pdf-156", "2NH4Cl + Ca(OH)2 = CaCl2 + 2NH3↑ + 2H2O"),
+            ("pdf-164", "BaCl2 + TiCl4 + 2(NH4)2C2O4 + H2O = BaTiO(C2O4)2↓ + 4NH4Cl + 2HCl"),
+            ("pdf-462", "Al^3+ + 2H2O ⇌ AlOOH↓ + 3H^+"),
+            ("pdf-484a", "2Co^2+ + MnO2 + 4H^+ = 2Co^3+ + Mn^2+ + 2H2O"),
+            ("pdf-484b", "2Co^3+ + 2Cl^- = 2Co^2+ + Cl2↑"),
+        };
+
+        var outPath = Path.Combine(ChemistryFixture.RepoRoot, "_evalscratch", "eqp0_candidate_check.tsv");
+        var sb = new StringBuilder();
+        sb.AppendLine("\"label\"\t\"isValid\"\t\"riskTag\"\t\"equation\"\t\"failure\"");
+        foreach (var (label, equation) in candidates)
+        {
+            var report = ChemicalCheckerService.Check(new CheckRequest { Equation = equation });
+            sb.AppendLine($"\"{label}\"\t{report.IsValid}\t\"{report.RiskTag}\"\t\"{Tsv(equation)}\"\t\"{Tsv(report.FailureSummary())}\"");
+        }
+        File.WriteAllText(outPath, sb.ToString(), new UTF8Encoding(true));
+        Console.WriteLine($"[EQ_PROBE] eqwriter-p0 candidate-check: wrote {outPath}");
+    }
+
+    private static Dictionary<string, bool> LoadSnapshotBaseline(string file)
+    {
+        var path = Path.Combine(ChemistryFixture.RepoRoot, "_evalscratch", file);
+        var map = new Dictionary<string, bool>(StringComparer.Ordinal);
+        if (!File.Exists(path)) return map;
+        using var doc = JsonDocument.Parse(File.ReadAllText(path));
+        foreach (var bucket in new[] { "bothCorrectCases","gatewayOnlyCorrectCases","pureLlmOnlyCorrectCases","bothWrongCases" })
+        {
+            if (!doc.RootElement.TryGetProperty(bucket, out var arr) || arr.ValueKind != JsonValueKind.Array) continue;
+            foreach (var el in arr.EnumerateArray())
+            {
+                if (el.TryGetProperty("id", out var idEl) && el.TryGetProperty("gatewayCorrect", out var g))
+                {
+                    var id = idEl.GetString();
+                    if (id is not null) map[id] = g.GetBoolean();
+                }
+            }
+        }
+        return map;
     }
 }

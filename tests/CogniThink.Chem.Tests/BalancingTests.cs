@@ -163,4 +163,41 @@ public class BalancingTests
         Assert.True(assignment.Success);
         Assert.Equal(2, assignment.States["N"].Count); // -3 与 +5
     }
+
+    [Fact]
+    public void Redox_OxalateGroup_BaTiO_C2O4_AssignsTiAndC()
+    {
+        // 高考工艺流程：BaTiO(C2O4)2 中 Ti 恒 +4、草酸根 C 恒 +3（非氧化还原）。
+        // 加 C2O4 离子团前：Ti、C 双未知 → 分析失败；加后应全部可分配。
+        var assignment = OxidationStateAnalyzer.Assign(
+            CogniThink.Chem.Core.Chemistry.Species.Parse("BaTiO(C2O4)2"));
+        Assert.True(assignment.Success, assignment.Note);
+        Assert.Equal(new CogniThink.Chem.Core.Math.Rational(4), assignment.States["Ti"][0].Value);
+        Assert.Equal(new CogniThink.Chem.Core.Math.Rational(3), assignment.States["C"][0].Value);
+        Assert.Equal(new CogniThink.Chem.Core.Math.Rational(-2), assignment.States["O"][0].Value);
+        Assert.Equal(new CogniThink.Chem.Core.Math.Rational(2), assignment.States["Ba"][0].Value);
+    }
+
+    [Fact]
+    public void Redox_OxalateSpecies_UnchangedAfterGroupAdded()
+    {
+        // 回归守卫：加 C2O4 离子团后，既有的 H2C2O4 / HC2O4^- / C2O4^2- 氧化数不变（C 恒 +3）。
+        foreach (var formula in new[] { "H2C2O4", "HC2O4^-", "C2O4^2-" })
+        {
+            var assignment = OxidationStateAnalyzer.Assign(
+                CogniThink.Chem.Core.Chemistry.Species.Parse(formula));
+            Assert.True(assignment.Success, $"{formula}: {assignment.Note}");
+            Assert.Equal(new CogniThink.Chem.Core.Math.Rational(3), assignment.States["C"][0].Value);
+        }
+    }
+
+    [Fact]
+    public void Redox_BaTiO_OxalateCoprecipitation_IsNonRedox()
+    {
+        // pdf-164 真值方程：共沉淀生成 BaTiO(C2O4)2，无元素变价 → 应判为非氧化还原（之前因 Ti/C 未知而 bail）。
+        var analysis = RedoxBalancer.SplitHalfReactions(
+            "BaCl2 + TiCl4 + 2(NH4)2C2O4 + H2O = BaTiO(C2O4)2↓ + 4NH4Cl + 2HCl");
+        Assert.True(analysis.Success, analysis.FailReason);
+        Assert.False(analysis.IsRedox);
+    }
 }

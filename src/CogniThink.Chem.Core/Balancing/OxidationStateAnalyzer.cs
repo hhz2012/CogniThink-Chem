@@ -102,7 +102,8 @@ public static class OxidationStateAnalyzer
             ["PO4"] = (-3, new[] { ("P", new Rational(5), 1), ("O", new Rational(-2), 4) }),
             ["SiO3"] = (-2, new[] { ("Si", new Rational(4), 1), ("O", new Rational(-2), 3) }),
             ["AlO2"] = (-1, new[] { ("Al", new Rational(3), 1), ("O", new Rational(-2), 2) }),
-            ["CN"] = (-1, new[] { ("C", new Rational(2), 1), ("N", new Rational(-3), 1) })
+            ["CN"] = (-1, new[] { ("C", new Rational(2), 1), ("N", new Rational(-3), 1) }),
+            ["C2O4"] = (-2, new[] { ("C", new Rational(3), 2), ("O", new Rational(-2), 4) })
         };
 
     private static readonly string[] IonGroupsByLength =

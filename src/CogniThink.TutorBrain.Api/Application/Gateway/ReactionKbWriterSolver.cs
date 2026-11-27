@@ -283,9 +283,27 @@ public static class ReactionKbWriterSolver
         var lib = ReactionLibrary.Default.Value;
         if (lib.Count == 0) return new List<ReactionEntry>();
 
+        // 1) 带 cues 条目优先：匹配以"全部 cues 出现在题干"为准（跳过反应物检查），
+        //    用于反应物未在题干显式给出、但产物/语境可唯一确定的方程书写题（P0 cue 机制）。
+        //    仅在带 cues 命中中取唯一；>1 → 歧义不蒙数。
+        var cued = new List<ReactionEntry>();
+        foreach (var entry in lib.All)
+        {
+            if (entry.QuestionCues is null || entry.QuestionCues.Count == 0) continue;
+            if (entry.ReactionType == ReactionType.IonEquilibrium) continue;   // 分子路径不取离子平衡
+            if (entry.Reactants.Any(r => r.Contains('^'))) continue;           // 分子路径不取离子反应
+            if (!entry.QuestionCues.All(c => !string.IsNullOrEmpty(c) && text.Contains(c))) continue;
+            if (!ReactionLibrary.ConditionsSatisfied(ParseConditions(text), entry.Conditions)) continue;
+            cued.Add(entry);
+        }
+        if (cued.Count > 0)
+            return cued.Count == 1 ? cued.Where(m => !string.IsNullOrWhiteSpace(m.Equation)).ToList() : new List<ReactionEntry>();
+
+        // 2) 回退：无 cues 条目，既有"反应物检索 + 唯一命中"逻辑（零回归）。
         var matches = new List<ReactionEntry>();
         foreach (var entry in lib.All)
         {
+            if (entry.QuestionCues is not null && entry.QuestionCues.Count > 0) continue; // 带 cues 不走回退
             // 单反应物（如 H2O）与电离/水解等离子平衡条目反应物在题干中太常见，会产生伪命中；
             // 分子书写只认 ≥2 反应物且非离子平衡的确定反应，不蒙数。
             if (entry.Reactants.Count < 2) continue;
@@ -317,9 +335,27 @@ public static class ReactionKbWriterSolver
         var lib = ReactionLibrary.Default.Value;
         if (lib.Count == 0) return new List<ReactionEntry>();
 
+        // 1) 带 cues 离子条目优先：匹配以"全部 cues 出现在题干"为准（跳过反应物检查），
+        //    仅在带 cues 命中中取唯一；>1 → 歧义不蒙数（P0 cue 机制）。
+        var cued = new List<ReactionEntry>();
+        foreach (var entry in lib.All)
+        {
+            if (entry.QuestionCues is null || entry.QuestionCues.Count == 0) continue;
+            bool ionic = entry.ReactionType == ReactionType.IonEquilibrium
+                         || entry.Reactants.Any(r => r.Contains('^'));
+            if (!ionic) continue;
+            if (!entry.QuestionCues.All(c => !string.IsNullOrEmpty(c) && text.Contains(c))) continue;
+            if (!ReactionLibrary.ConditionsSatisfied(ParseConditions(text), entry.Conditions)) continue;
+            cued.Add(entry);
+        }
+        if (cued.Count > 0)
+            return cued.Count == 1 ? cued.Where(m => !string.IsNullOrWhiteSpace(m.Equation)).ToList() : new List<ReactionEntry>();
+
+        // 2) 回退：无 cues 条目，既有"反应物检索 + 唯一命中"逻辑（零回归）。
         var matches = new List<ReactionEntry>();
         foreach (var entry in lib.All)
         {
+            if (entry.QuestionCues is not null && entry.QuestionCues.Count > 0) continue; // 带 cues 不走回退
             // 只认离子型条目：离子平衡（水解/电离/沉淀溶解）或反应物含电荷标记 ^ 的离子反应。
             bool ionic = entry.ReactionType == ReactionType.IonEquilibrium
                          || entry.Reactants.Any(r => r.Contains('^'));

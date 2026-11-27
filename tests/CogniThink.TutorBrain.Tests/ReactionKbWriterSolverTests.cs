@@ -40,7 +40,8 @@ public class ReactionKbWriterSolverTests
                 $"求解器在 {c.Id}（{det}）产出非 null 但判分未通过：{resp.FinalResult}");
         }
         // 至少应覆盖到已验证的方程增益题，防止护栏被意外短路。
-        Assert.True(fires >= 4, $"期望至少 4 个非 null 命中（pdf-038/417/174/477），实际 fires={fires}");
+        // 基线 8 次正确开火（d1-1/d1-2/pdf-038/044/174/354/417/477）不可丢失。
+        Assert.True(fires >= 8, $"期望至少 8 个非 null 命中（基线开火集），实际 fires={fires}");
     }
 
     // ============================================================
@@ -223,5 +224,51 @@ public class ReactionKbWriterSolverTests
         Assert.Null(Solve(
             "已知 FeSO4·7H2O(s)═FeSO4(s)+7H2O(g) ΔH=a kJ/mol，写出上述变化的化学方程式",
             "reaction_check"));
+    }
+
+    // ============================================================
+    // EqWriter P0 cue 机制（questionCues 窄化锚点）：恢复集正例 + 反例
+    // 可恢复集：pdf-010 / pdf-097 / pdf-156 / pdf-164 / pdf-462 / pdf-484
+    // 设计：带 cues 条目仅靠 cues 命中（跳过反应物检查），cues 不全则绝不产出；
+    // 多条带 cues 同时命中 → 歧义 → null。无 cues 条目行为完全不变（零回归）。
+    // ============================================================
+    [Theory]
+    [InlineData("pdf-010")]
+    [InlineData("pdf-097")]
+    [InlineData("pdf-156")]
+    [InlineData("pdf-164")]
+    [InlineData("pdf-462")]
+    [InlineData("pdf-484")]
+    public void CueRecovered_Targets_AreNonNullAndCorrect(string id)
+    {
+        var c = Case(id);
+        Assert.NotNull(c);
+        var det = LlmGatewayService.ClassifyTaskDeterministic(c!.Question ?? string.Empty);
+        var resp = Solve(c.Question ?? string.Empty, det);
+        Assert.NotNull(resp);
+        Assert.True(resp!.Ok);
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(resp.FinalResult, c),
+            $"{id} cue 命中但判分未通过：{resp.FinalResult}");
+    }
+
+    // cue-only 条目：题干含其反应物/产物但 cue 不全 → 不命中（不回退到反应物检索），不蒙数。
+    [Theory]
+    [InlineData("写出 H3PO4 与 LiOH 反应的化学方程式")]   // pdf-097 反应物，缺 沉锂/磷酸锂
+    [InlineData("写出 Co^2+ 与 MnO2 反应的离子方程式")]   // pdf-484 反应物，缺 氧化沉钴
+    [InlineData("写出 AlOOH 相关反应的离子方程式")]       // pdf-462 产物，缺 沉铝
+    [InlineData("写出生成磷酸锂的化学方程式")]             // pdf-097 产物，缺 沉锂
+    [InlineData("写出沉淀步骤的化学方程式")]               // pdf-164 含 沉淀 但缺 BaTiO(C2O4)2
+    public void CueOnly_CuesAbsent_ReturnsNull(string stem)
+    {
+        Assert.Null(Solve(stem, "reaction_check"));
+    }
+
+    // 两条 cue 条目同时命中同一文本 → 歧义 → null，不蒙数（cued 路径严格取唯一）。
+    [Fact]
+    public void CueOnly_MultipleCuedHits_ReturnsNull_NoGuess()
+    {
+        // 同时含 RX-IN-FE-010（Fe2O3 粉末）与 RX-IN-LI-001（沉锂 + 磷酸锂）的 cue
+        var stem = "取少量 Fe2O3 粉末，沉锂生成磷酸锂，写出反应的化学方程式";
+        Assert.Null(Solve(stem, "reaction_check"));
     }
 }

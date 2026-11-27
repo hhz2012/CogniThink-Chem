@@ -93,6 +93,17 @@ public sealed class ReactionEntry
     public List<string> Tags { get; set; } = new();
 
     /// <summary>
+    /// 【equation_writer P0 窄化锚点】题干文本锚点：非空时，<c>ReactionKbWriterSolver</c>
+    /// 对该条目的匹配以"全部 cues 出现在题干"为准（<b>跳过</b>"反应物全部出现"检查），
+    /// 用于反应物未在题干显式给出（由工艺流程图隐含）但产物/语境可唯一确定的方程书写题。
+    /// 带 cues 的条目在命中裁决中优先：只要存在带 cues 命中，就只在带 cues 命中中取唯一；
+    /// 无带 cues 命中时回退到既有"无 cues 条目 + 反应物检索 + 唯一命中"逻辑（零回归）。
+    /// 默认空：既有条目行为完全不变；空 cues 条目不参与优先裁决。
+    /// cues 是题干文本子串，不是化学事实（化学真值仍在 <see cref="Equation"/>）。
+    /// </summary>
+    public List<string> QuestionCues { get; set; } = new();
+
+    /// <summary>
     /// 电化学（ELC）条目的结构化电极半反应：半反应原先只写在 <see cref="Phenomenon"/> 文本里，
     /// 本字段将其结构化以便引擎步骤直接溯源。写法约定：原电池 Negative=负极、Positive=正极；
     /// 电解池 Negative=阴极（接电源负极）、Positive=阳极（接电源正极），语义一致。
