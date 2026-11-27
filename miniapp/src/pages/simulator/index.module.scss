@@ -72,11 +72,9 @@
 
 /* —— 操作按钮 —— */
 .actions { display: flex; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
-.btn { padding: 9px 20px; border-radius: 10px; background: #0ea5e9; }
+.btn { padding: 9px 14px; border-radius: 10px; background: #0ea5e9; color: #fff; }
 .btn:active { opacity: 0.75; }
-.btnGhost { background: #fff; border: 1px solid #0ea5e9; }
-.btnText { color: #fff; font-size: 26px; font-weight: 600; }
-.btnTextGhost { color: #0ea5e9; font-size: 26px; font-weight: 600; }
+.btnGhost { background: #fff; border: 1px solid #0ea5e9; color: #0ea5e9; }
 .status { font-size: 22px; color: #64748b; }
 
 /* —— 进度条 —— */
@@ -95,16 +93,16 @@
 .simRing { position: absolute; top: 8px; left: 0; width: 56px; height: 44px; border-radius: 50%; opacity: 0; background: radial-gradient(circle at 50% 50%, rgba(125,211,252,0.55) 0%, rgba(56,189,248,0.12) 70%, rgba(56,189,248,0) 100%); transform-origin: center; transition: opacity 0.5s ease; }
 .simIconRun .simRing { opacity: 0.85; animation: simRingPulse 2.6s ease-in-out infinite; }
 .simFlask { position: relative; width: 32px; height: 40px; display: flex; flex-direction: column; align-items: center; }
-/* 瓶口：外缘椭圆（玻璃唇）+ 内孔（深色，模拟看向瓶内） */
-.simRim { position: relative; width: 18px; height: 4px; background: #e0f2fe; border: 1.5px solid #38bdf8; border-radius: 50%; box-sizing: border-box; z-index: 2; margin-bottom: -1px; }
-.simMouth { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 2.2px; border-radius: 50%; background: rgba(100, 116, 139, 0.5); }
-.simNeck { width: 12px; height: 6px; background: linear-gradient(90deg, #b9e3f7 0%, #f0f9ff 50%, #b9e3f7 100%); border: 1.5px solid #38bdf8; border-top: none; border-radius: 0; box-sizing: border-box; z-index: 1; }
-/* 锥形瓶身：clip-path 裁出上窄下宽的锥台，玻璃渐变 + 投影描边（不支持 clip-path 时回退为矩形） */
-.simBody { position: relative; width: 30px; height: 28px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 55%, #b9e3f7 100%); box-sizing: border-box; overflow: hidden; clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); filter: drop-shadow(0 0 0.5px #38bdf8) drop-shadow(0 0 0.5px #38bdf8); }
-/* 玻璃左侧反光条 + 刻度线（浮在液面之上，模拟玻璃表面） */
-.simShine { position: absolute; left: 22%; top: 14%; width: 2px; height: 62%; background: #ffffff; opacity: 0.7; border-radius: 2px; transform: rotate(10deg); z-index: 3; }
+/* 瓶口：外缘椭圆（玻璃唇）+ 内孔（扁平深色） */
+.simRim { position: relative; width: 18px; height: 4px; background: #eaf6fd; border: 1.5px solid #8aa4bf; border-radius: 50%; box-sizing: border-box; z-index: 2; margin-bottom: -1px; }
+.simMouth { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 12px; height: 2.2px; border-radius: 50%; background: #64748b; }
+.simNeck { width: 12px; height: 6px; background: linear-gradient(90deg, #cfe6f5 0%, #f6fbff 50%, #cfe6f5 100%); border: 1.5px solid #8aa4bf; border-top: none; border-radius: 0; box-sizing: border-box; z-index: 1; }
+/* 锥形瓶身：clip-path 裁出上窄下宽的锥台；清爽浅蓝渐变 + 柔和描边（扁平） */
+.simBody { position: relative; width: 30px; height: 28px; background: linear-gradient(180deg, #f0f9ff 0%, #d3e9f7 100%); box-sizing: border-box; overflow: hidden; clip-path: polygon(30% 0, 70% 0, 100% 100%, 0 100%); filter: drop-shadow(0 0 0.5px #8aa4bf); }
+/* 一条简洁高光 + 刻度线（浮在液面之上） */
+.simShine { position: absolute; left: 22%; top: 14%; width: 2px; height: 60%; background: #ffffff; opacity: 0.7; border-radius: 2px; transform: rotate(10deg); z-index: 3; }
 .simScale { position: absolute; left: 16%; top: 28%; display: flex; flex-direction: column; gap: 4px; z-index: 3; }
-.simScale .simTick { width: 7px; height: 1px; background: rgba(56, 189, 248, 0.6); }
+.simScale .simTick { width: 7px; height: 1px; background: rgba(255, 255, 255, 0.85); }
 .simLiquid { position: absolute; left: 0; right: 0; bottom: 0; height: 14px; background: #38bdf8; opacity: 0.85; transform-origin: center bottom; }
 .simIconRun .simLiquid { animation: simLiquidPulse 2.2s ease-in-out infinite; }
 .simBubble { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #bae6fd; opacity: 0; }
@@ -181,12 +179,12 @@
 /* —— 专属「模拟」按钮（醒目 CTA，一键多步推理，加性）—— */
 .quickRow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 12px 0 4px; }
 .quickBtn {
-  padding: 10px 22px; border-radius: 10px;
+  padding: 9px 14px; border-radius: 10px;
   background: linear-gradient(135deg, #0ea5e9, #6366f1);
   box-shadow: 0 4px 12px rgba(14, 165, 233, 0.35);
+  color: #fff;
 }
 .quickBtn:active { opacity: 0.85; transform: scale(0.98); }
-.quickBtnText { color: #fff; font-size: 28px; font-weight: 700; }
 
 /* ===== 界面视觉升级（镜像 web，加性） ===== */
 
@@ -271,13 +269,13 @@
 .stage::before {
   content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px;
   border-radius: 14px 14px 0 0;
-  background: linear-gradient(90deg, #0ea5e9, #6366f1, #0d9488);
+  background: linear-gradient(90deg, #5eead4, #0d9488);
   opacity: 0.9; pointer-events: none; z-index: 1;
 }
 /* 大图标居中容器：顶部留白给运行态外发光（不被裁切） */
 .stageIcon {
   display: flex; align-items: center; justify-content: center;
-  width: 100%; min-height: 176px; padding: 20px 14px 0; overflow: visible;
+  width: 100%; min-height: 160px; padding: 16px 14px 0; overflow: visible;
 }
 /* 大图：直接放大布局尺寸（约 2.7× 基础 / 对齐 web 104→140 的 1.35×）。
    taro H5 全局 px→rem 缩放会等比跟随，比 transform: scale() 更可靠。 */
@@ -312,8 +310,22 @@
 .stageIcon .simIcon { opacity: 1; }
 /* 按钮行在舞台内居中 */
 .stageActions { justify-content: center; gap: 10px; margin-top: 4px; padding: 0 14px; }
+/* 图标按钮：图标常驻，hover 展开文字（省空间）；触屏/微信原生无 hover → 始终显示文字兜底 */
+.icoBtn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.ico { display: inline-flex; align-items: center; line-height: 1; color: inherit; }
+.icoLabel { white-space: nowrap; color: inherit; font-size: 26px; font-weight: 600; }
+.quickBtn .icoLabel { font-weight: 700; }
+@media (hover: hover) {
+  .icoBtn { gap: 0; transition: gap 0.2s ease; }
+  .icoBtn:not(.icoBtnRunning) .icoLabel {
+    display: inline-block; max-width: 0; opacity: 0; overflow: hidden;
+    transition: max-width 0.25s ease, opacity 0.2s ease;
+  }
+  .icoBtn:not(.icoBtnRunning):hover { gap: 6px; }
+  .icoBtn:not(.icoBtnRunning):hover .icoLabel { max-width: 140px; opacity: 1; }
+}
 /* 提示文案居中并占满宽度 */
-.stageHint { width: 100%; text-align: center; padding: 6px 14px 14px; }
+.stageHint { width: 100%; text-align: center; padding: 4px 14px 10px; }
 
 /* 结果区：打平内层卡片，去掉「卡中卡」的双重边框 / 底色 / 阴影 / 左侧色条；
    顶部细分隔线把控制区与结果区分开，但整体仍是同一张卡 */
@@ -324,4 +336,4 @@
   border-top: 1px solid #eef2f7;
 }
 /* 空状态：去掉过大留白，紧凑融入结果区（视觉锚点已是上方大烧瓶） */
-.stage .empty { padding: 8px 4px 2px; text-align: center; }
+.stage .empty { padding: 2px 4px 0; text-align: center; }

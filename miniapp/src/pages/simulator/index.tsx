@@ -594,14 +594,17 @@ export default function SimulatorPage() {
             <FlaskIcon running={running} state={iconState} large />
           </View>
           <View className={classnames(styles.actions, styles.stageActions)}>
-            <View className={classnames(styles.btn, running && { opacity: 0.6 })} onClick={running ? undefined : onRun}>
-              <Text className={styles.btnText}>{running ? '运行中…' : '▶ 开始模拟'}</Text>
+            <View className={classnames(styles.btn, styles.icoBtn, running && styles.icoBtnRunning)} onClick={running ? undefined : onRun}>
+              <Text className={styles.ico}>{running ? '⏳' : '▶'}</Text>
+              <Text className={styles.icoLabel}>{running ? '运行中…' : '开始模拟'}</Text>
             </View>
-            <View className={classnames(styles.btn, styles.btnGhost)} onClick={resetAnim}>
-              <Text className={styles.btnTextGhost}>■ 停止</Text>
+            <View className={classnames(styles.btn, styles.btnGhost, styles.icoBtn)} onClick={resetAnim}>
+              <Text className={styles.ico}>■</Text>
+              <Text className={styles.icoLabel}>停止</Text>
             </View>
-            <View className={classnames(styles.quickBtn, running && { opacity: 0.6 })} onClick={quickReason}>
-              <Text className={styles.quickBtnText}>模拟</Text>
+            <View className={classnames(styles.quickBtn, styles.icoBtn, running && { opacity: 0.6 })} onClick={quickReason}>
+              <Text className={styles.ico}>⚡</Text>
+              <Text className={styles.icoLabel}>模拟</Text>
             </View>
             <Text className={styles.status}>{status}</Text>
           </View>
@@ -613,8 +616,7 @@ export default function SimulatorPage() {
         {!trace && !eq && !reason ? (
           <View className={styles.panel}>
             <View className={styles.empty}>
-              <Text className={styles.emptyTitle}>开始模拟</Text>
-              <Text className={styles.emptyDesc}>选择模式并输入物质后点「开始模拟」，或直接点上方「模拟」一键执行多步推理。</Text>
+              <Text className={styles.emptyDesc}>输入物质后点「开始模拟」，烧瓶会随反应同步变色、沉淀与冒泡。</Text>
             </View>
           </View>
         ) : null}

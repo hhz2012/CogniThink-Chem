@@ -2394,27 +2394,30 @@ function simFlaskIcon(running, size) {
   return `<span class="sim-icon${running ? ' running' : ''}" title="反应模拟器">` +
     `<svg viewBox="0 0 64 64" width="${s}" height="${s}" aria-hidden="true" focusable="false">` +
       `<defs>` +
-        `<linearGradient id="simGlassGrad" x1="0" y1="0" x2="1" y2="1">` +
-          `<stop offset="0%" stop-color="#f0f9ff"/><stop offset="55%" stop-color="#e0f2fe"/><stop offset="100%" stop-color="#b9e3f7"/>` +
+        // 玻璃：清爽的浅蓝渐变（扁平克制，无写实光影堆叠）
+        `<linearGradient id="simGlassGrad" x1="0" y1="0" x2="0" y2="1">` +
+          `<stop offset="0%" stop-color="#f0f9ff"/><stop offset="100%" stop-color="#d3e9f7"/>` +
         `</linearGradient>` +
+        // 运行光晕
         `<radialGradient id="simGlowGrad" cx="50%" cy="50%" r="50%">` +
-          `<stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.55"/><stop offset="70%" stop-color="#38bdf8" stop-opacity="0.12"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>` +
+          `<stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.5"/><stop offset="70%" stop-color="#38bdf8" stop-opacity="0.12"/><stop offset="100%" stop-color="#38bdf8" stop-opacity="0"/>` +
         `</radialGradient>` +
       `</defs>` +
       // 运行光晕（瓶身后方，.running 时脉冲亮起）
       `<ellipse class="sim-ring" cx="32" cy="34" rx="24" ry="22" />` +
-      // 玻璃锥形瓶身：瓶颈 + 圆弧肩部 + 锥底（顶部不闭合，由瓶口椭圆封口）
+      // 玻璃锥形瓶身：瓶颈 + 圆弧肩部 + 锥底
       `<path class="sim-flask-body" d="M27 7 L27 15 Q24 17 18 30 L14.5 49 Q13.5 53.5 17.5 53.5 L46.5 53.5 Q50.5 53.5 49.5 49 L46 30 Q40 17 37 15 L37 7" />` +
-      // 瓶口内孔 + 外缘椭圆（真实容器开口）
-      `<ellipse class="sim-flask-mouth" cx="32" cy="7" rx="4" ry="1.1" />` +
+      // 瓶口外缘 + 内孔
       `<ellipse class="sim-flask-rim" cx="32" cy="7" rx="5.6" ry="1.7" />` +
-      // 玻璃左侧反光条 + 刻度线
-      `<path class="sim-flask-shine" d="M23 22 L19 47" />` +
+      `<ellipse class="sim-flask-mouth" cx="32" cy="7" rx="4" ry="1.1" />` +
+      // 一条简洁高光 + 刻度线
+      `<path class="sim-flask-shine" d="M23 18 L20 46" />` +
       `<g class="sim-flask-scale">` +
         `<line x1="16.5" y1="38" x2="20.5" y2="38" /><line x1="15.8" y1="43" x2="20" y2="43" /><line x1="15" y1="48" x2="20" y2="48" />` +
       `</g>` +
-      // 液态：溶液颜色由 --sol 驱动；带弯月液面，液面波纹（有色溶液时显现）
+      // 液态：溶液颜色由 --sol 驱动；带弯月液面
       `<path class="sim-liquid" d="M18 41 Q24 42.6 32 41 Q40 39.4 46 41 L45 49 Q44.4 52.2 41.3 52.2 L22.7 52.2 Q19.6 52.2 19 49 Z" />` +
+      // 液面波纹（有色溶液时显现）
       `<path class="sim-liquid-wave" d="M18 41 Q24 42.6 32 41 Q40 39.4 46 41" />` +
       // 固态颗粒（无溶液、纯固体体系时显现，替代液态）
       `<g class="sim-solids">` +
@@ -2682,9 +2685,9 @@ function renderSimPanel() {
           <div class="sim-icon-wrap" id="standSimIcon">${simFlaskIcon(false, 140)}</div>
         </div>
         <div class="live-actions sim-stage-actions">
-          <button class="hero-cta" id="simRunBtn" type="button">▶ 开始模拟</button>
-          <button class="hero-cta hero-cta-ghost" id="simStopBtn2" type="button">■ 停止</button>
-          <button class="sim-btn-quick" id="simQuickReasonBtn" type="button">模拟</button>
+          <button class="hero-cta sim-ico-btn" id="simRunBtn" type="button"><span class="sim-ico">▶</span><span class="sim-ico-label">开始模拟</span></button>
+          <button class="hero-cta hero-cta-ghost sim-ico-btn" id="simStopBtn2" type="button"><span class="sim-ico">■</span><span class="sim-ico-label">停止</span></button>
+          <button class="sim-btn-quick sim-ico-btn" id="simQuickReasonBtn" type="button"><span class="sim-ico">⚡</span><span class="sim-ico-label">模拟</span></button>
           <span id="simStatus" class="panel-note"></span>
         </div>
         <div class="sim-stage-hint">
@@ -2697,8 +2700,7 @@ function renderSimPanel() {
   const resultHost = host.querySelector('#simResult');
   if (resultHost) resultHost.innerHTML = `
     <div class="panel sim-panel sim-empty">
-      <div class="sim-empty-title">开始模拟</div>
-      <div class="sim-empty-desc">选择模式并输入物质后点「开始模拟」，或直接点上方「模拟」一键执行多步推理 —— 烧瓶随反应轨迹转动，颜色与沉淀实时同步。</div>
+      <div class="sim-empty-desc">输入物质后点「开始模拟」，烧瓶会随反应同步变色、沉淀与冒泡。</div>
     </div>`;
   const tabs = host.querySelectorAll('.sim-mode');
   tabs.forEach((b) => b.addEventListener('click', () => simSetMode(host, b.dataset.mode)));
