@@ -325,6 +325,24 @@
       "answer": "碳碳三键, 乙炔",
       "derivation": ["高分子 [CH=CH]n 为聚乙炔，其单体为乙炔（CH≡CH）", "乙炔含有的官能团名称为碳碳三键，单体的化学名称为乙炔"],
       "constraint": "【高中限定】聚乙炔单体"
+    },
+    {
+      "id": "fill-lab-filter-glassware-pdf541",
+      "kind": "lab_concept",
+      "required": ["玻璃仪器有烧杯"],
+      "requiredAny": [],
+      "answer": "玻璃棒、漏斗",
+      "derivation": ["该问要求补全过滤操作用到的玻璃仪器", "过滤操作用到的玻璃仪器为烧杯、玻璃棒、漏斗"],
+      "constraint": "【高中限定】过滤操作玻璃仪器"
+    },
+    {
+      "id": "fill-crystal-mp-nacl-sicl4-pdf198",
+      "kind": "crystal_compare",
+      "required": ["熔点", "nacl", "sicl4"],
+      "requiredAny": [],
+      "answer": "NaCl为离子晶体，SiCl4为分子晶体",
+      "derivation": ["NaCl 熔点 800.7℃ 很高，为离子晶体（离子键强）", "SiCl4 熔点 −68.8℃ 很低，为分子晶体（分子间作用力弱）"],
+      "constraint": "【高中限定】由熔点数据判断晶体类型"
     }
   ]
 }

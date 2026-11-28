@@ -61,6 +61,8 @@ public class ConceptFactSolverTests
     [InlineData("pdf-535")]
     [InlineData("pdf-542")]
     [InlineData("pdf-543")]
+    [InlineData("pdf-541")]
+    [InlineData("pdf-198")]
     public void 候选_触发且判正(string id)
     {
         var c = Case(id);
@@ -118,7 +120,8 @@ public class ConceptFactSolverTests
             "pdf-278", // 题干补全后 Concept 正确解出子问(3)“KHC2O4 溶液呈酸性”(Ka2>Kb)，凡触发必判正
             "pdf-465","pdf-389","pdf-536",
             "pdf-415","pdf-530","pdf-535","pdf-542","pdf-543", // P1-4：自由填空概念事实（唯一匹配 + 0 漂移 + 答案键命中，凡触发必判正）
-            "pdf-324","pdf-477","pdf-483" // B5-Cluster5：聚乙炔单体 / 熔盐电解助熔（降低熔点）；唯一匹配 + 答案键命中，凡触发必判正
+            "pdf-324","pdf-477","pdf-483", // B5-Cluster5：聚乙炔单体 / 熔盐电解助熔（降低熔点）；唯一匹配 + 答案键命中，凡触发必判正
+            "pdf-541","pdf-198" // d9：过滤玻璃仪器（玻璃棒、漏斗）/ 熔点表判晶体类型（离子晶体、分子晶体）；唯一匹配 + 0 漂移 + 答案键命中，凡触发必判正
         };
 
         var fired = new List<string>();
@@ -142,14 +145,14 @@ public class ConceptFactSolverTests
     // 数据驱动：事实全在 JSON，逻辑零硬编码
     // ============================================================
     [Fact]
-    public void 事实库_36条且分类分布符合预期()
+    public void 事实库_38条且分类分布符合预期()
     {
         var data = RuleStore.Load().Query<ConceptFactData>("concept-facts");
-        Assert.Equal(36, data.Entries.Count);
+        Assert.Equal(38, data.Entries.Count);
         Assert.Equal(5, data.Entries.Count(e => e.Kind == "ion_test"));
         Assert.Equal(2, data.Entries.Count(e => e.Kind == "ion_color"));
         Assert.Equal(3, data.Entries.Count(e => e.Kind == "concept_def"));
-        Assert.Equal(1, data.Entries.Count(e => e.Kind == "crystal_compare"));
+        Assert.Equal(2, data.Entries.Count(e => e.Kind == "crystal_compare"));
         Assert.Equal(3, data.Entries.Count(e => e.Kind == "redox_product"));
         Assert.Equal(2, data.Entries.Count(e => e.Kind == "isomer_count"));
         Assert.Equal(1, data.Entries.Count(e => e.Kind == "intermolecular_force"));
@@ -164,7 +167,7 @@ public class ConceptFactSolverTests
         Assert.Equal(1, data.Entries.Count(e => e.Kind == "oxidizing_gas_test"));
         Assert.Equal(1, data.Entries.Count(e => e.Kind == "acid_base_property"));
         Assert.Equal(4, data.Entries.Count(e => e.Kind == "flow_concept"));
-        Assert.Equal(1, data.Entries.Count(e => e.Kind == "lab_concept"));
+        Assert.Equal(2, data.Entries.Count(e => e.Kind == "lab_concept"));
         // 每条事实必须有触发条件与非空答案
         Assert.All(data.Entries, e =>
         {
