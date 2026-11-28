@@ -28,9 +28,13 @@ interface StateSnapshot {
   stepIndex?: number; stageName?: string
   state?: SystemState; events?: SimEvent[]; numerical?: EquilibriumResult | null
 }
+interface SkippedDetail {
+  reactionId?: string; equation?: string; reason?: string
+}
 interface TraceResult {
   initialSpecies?: SimSpecies[]; events?: SimEvent[]
   finalState?: SystemState; converged?: boolean; warnings?: string[]
+  skippedDetails?: SkippedDetail[]
 }
 interface ReasonResult {
   trajectory?: StateSnapshot[]; finalState?: SystemState
@@ -45,6 +49,87 @@ const BASE_KEY = 'sim_api_base'
 const NUM_QUANTITIES = ['Ph', 'IonConcentrations', 'ConcentrationOrdering', 'Conservations', 'AcidityQualitative']
 const KIND_VALUES: PlanStep['kind'][] = ['AddSpecies', 'SetConditions', 'Assert']
 const KIND_LABELS = ['加料', '切换条件', '断言']
+
+/* ===================== 环境条件开关（与后端 ChemicalConditions 对齐） ===================== */
+interface CondState {
+  aqueous: boolean; air: boolean; heating: boolean; highTemperature: boolean
+  ignition: boolean; catalyst: boolean; light: boolean; electricity: boolean
+  concentrated: boolean; dilute: boolean; acidic: boolean; alkaline: boolean
+  pressurized: boolean; alcoholic: boolean; includeSlow: boolean
+}
+const DEFAULT_CONDS: CondState = {
+  aqueous: true, air: true, heating: false, highTemperature: false, ignition: false,
+  catalyst: false, light: false, electricity: false, concentrated: false, dilute: false,
+  acidic: false, alkaline: false, pressurized: false, alcoholic: false, includeSlow: false,
+}
+const COND_CHIPS: { key: keyof CondState; label: string }[] = [
+  { key: 'heating', label: '加热' },
+  { key: 'highTemperature', label: '高温' },
+  { key: 'ignition', label: '点燃' },
+  { key: 'catalyst', label: '催化剂' },
+  { key: 'light', label: '光照' },
+  { key: 'electricity', label: '通电' },
+  { key: 'concentrated', label: '浓' },
+  { key: 'dilute', label: '稀' },
+  { key: 'acidic', label: '酸性' },
+  { key: 'alkaline', label: '碱性' },
+  { key: 'pressurized', label: '加压' },
+  { key: 'alcoholic', label: '醇溶液' },
+  { key: 'aqueous', label: '水溶液' },
+  { key: 'air', label: '空气' },
+  { key: 'includeSlow', label: '含缓慢' },
+]
+/** 解析 query 中的 cond（逗号分隔；前缀 ! 表示关闭，用于覆盖 aqueous/air 默认 true） */
+function parseCond(csv?: string): CondState {
+  const base = { ...DEFAULT_CONDS }
+  if (!csv) return base
+  csv.split(',').filter(Boolean).forEach((raw) => {
+    const off = raw.startsWith('!')
+    const k = (off ? raw.slice(1) : raw) as keyof CondState
+    if (k in base) base[k] = !off
+  })
+  return base
+}
+/** 解析 query 中的 plan（;; 分隔多步，每步 kind|name|species|numerical(1/0)） */
+function parsePlan(encoded?: string): PlanStep[] {
+  const fallback: PlanStep[] = [
+    { kind: 'AddSpecies', name: '加过量 NaOH', species: 'NaOH:0.5', numerical: true },
+  ]
+  if (!encoded) return fallback
+  const steps = encoded.split(';;').filter(Boolean).map((raw) => {
+    const [kind, name, species, num] = raw.split('|')
+    const k = (KIND_VALUES as string[]).includes(kind) ? (kind as PlanStep['kind']) : 'AddSpecies'
+    return { kind: k, name: name || '步骤', species: species || '', numerical: num === '1' }
+  })
+  return steps.length ? steps : fallback
+}
+/** 安全解码 URL 参数：H5 构建下 router.params 不会自动 decodeURIComponent，需自行解码；
+ *  已解码（不含 %）的原值原样返回，避免重复解码抛错。 */
+function safeDecode(v?: string): string {
+  if (v === undefined || v === null) return ''
+  const s = String(v)
+  if (s.indexOf('%') === -1) return s
+  try { return decodeURIComponent(s) } catch { return s }
+}
+function ConditionsPanel({ conds, setConds }: { conds: CondState; setConds: (c: CondState) => void }) {
+  const toggle = (k: keyof CondState) => setConds({ ...conds, [k]: !conds[k] })
+  return (
+    <View className={styles.condPanel}>
+      <Text className={styles.condLabel}>环境条件（勾选后才会参与模拟）</Text>
+      <View className={styles.condChips}>
+        {COND_CHIPS.map((c) => (
+          <View
+            key={c.key}
+            className={classnames(styles.condChip, conds[c.key] && styles.condChipOn)}
+            onClick={() => toggle(c.key)}
+          >
+            <Text>{c.label}</Text>
+          </View>
+        ))}
+      </View>
+    </View>
+  )
+}
 
 const COLORS: Record<string, string> = {
   '蓝色': '#3b82f6', '浅蓝色': '#60a5fa', '蓝绿色': '#2dd4bf', '深蓝色': '#1d4ed8',
@@ -335,15 +420,29 @@ function FinalState({ fin }: { fin: SystemState }) {
 
 /* ===================== 页面 ===================== */
 export default function SimulatorPage() {
-  const [mode, setMode] = useState<Mode>('trace')
+  // 支持从首页「推导场景」带预设进入：mode / species / cond / plan / scene
+  const rawParams = (() => {
+    try { return (Taro.getCurrentInstance().router?.params as Record<string, string>) || {} }
+    catch { return {} }
+  })()
+  const params: Record<string, string> = {
+    mode: safeDecode(rawParams.mode),
+    scene: safeDecode(rawParams.scene),
+    problem: safeDecode(rawParams.problem),
+    species: safeDecode(rawParams.species),
+    cond: safeDecode(rawParams.cond),
+    plan: safeDecode(rawParams.plan),
+  }
+  const presetMode: Mode = params.mode === 'equilibrium' || params.mode === 'reason' ? params.mode : 'trace'
+  const [mode, setMode] = useState<Mode>(presetMode)
   const [base, setBase] = useState<string>(() => (Taro.getStorageSync(BASE_KEY) as string) || DEFAULT_BASE)
-  const [traceInput, setTraceInput] = useState('Fe:1, CuSO4:1')
-  const [eqInput, setEqInput] = useState('CH3COONa:0.1')
-  const [reasonInitial, setReasonInitial] = useState('AlCl3:1')
-  const [aqueous, setAqueous] = useState(true)
-  const [plan, setPlan] = useState<PlanStep[]>([
-    { kind: 'AddSpecies', name: '加过量 NaOH', species: 'NaOH:0.5', numerical: true },
-  ])
+  const [sceneTitle, setSceneTitle] = useState<string>(params.scene || '')
+  const [sceneProblem, setSceneProblem] = useState<string>(params.problem || '')
+  const [traceInput, setTraceInput] = useState(params.mode === 'trace' && params.species ? params.species : 'Fe:1, CuSO4:1')
+  const [eqInput, setEqInput] = useState(params.mode === 'equilibrium' && params.species ? params.species : 'CH3COONa:0.1')
+  const [reasonInitial, setReasonInitial] = useState(params.mode === 'reason' && params.species ? params.species : 'AlCl3:1')
+  const [conds, setConds] = useState<CondState>(() => parseCond(params.cond))
+  const [plan, setPlan] = useState<PlanStep[]>(() => parsePlan(params.plan))
 
   const [running, setRunning] = useState(false)
   const [status, setStatus] = useState('')
@@ -390,7 +489,7 @@ export default function SimulatorPage() {
     resetAnim(); setTrace(null); setEq(null); setReason(null)
     setRunning(true); setStatus('正在模拟…')
     try {
-      const data = await postJson<TraceResult>(base, '/api/chemistry/trace', { species, conditions: { aqueous } })
+      const data = await postJson<TraceResult>(base, '/api/chemistry/trace', { species, conditions: conds })
       setTrace(data)
       const total = data.events?.length ?? 0
       if (total === 0) {
@@ -456,7 +555,7 @@ export default function SimulatorPage() {
     setRunning(true); setStatus('正在推理…')
     try {
       const data = await postJson<ReasonResult>(base, '/api/chemistry/reason', {
-        initial: { species: initial, conditions: { aqueous } }, plan: { steps },
+        initial: { species: initial, conditions: conds }, plan: { steps },
       })
       setReason(data)
       const total = data.trajectory?.length ?? 0
@@ -519,6 +618,17 @@ export default function SimulatorPage() {
     <View className={styles.page}>
       <ScrollView scrollY className={styles.body}>
         <View className={styles.panel}>
+          {sceneTitle ? (
+            <View className={styles.sceneBanner}>
+              <Text className={styles.sceneBannerText}>推导场景 · {sceneTitle}</Text>
+            </View>
+          ) : null}
+          {sceneProblem ? (
+            <View className={styles.problemCard}>
+              <Text className={styles.problemLabel}>题目</Text>
+              <Text className={styles.problemText}>{sceneProblem}</Text>
+            </View>
+          ) : null}
           <View className={styles.simHead}>
             <View className={styles.simTitle}>
               <Text className={styles.simTitleMain}>⚗️ 反应模拟器</Text>
@@ -547,7 +657,7 @@ export default function SimulatorPage() {
             <>
               <Textarea className={styles.textarea} value={traceInput} onInput={(e) => setTraceInput(e.detail.value)}
                 placeholder={'反应物，格式 物质:物质的量，如：Fe:1, CuSO4:1'} />
-              <Check checked={aqueous} onChange={setAqueous} label="水溶液条件" />
+              <ConditionsPanel conds={conds} setConds={setConds} />
             </>
           ) : null}
 
@@ -582,7 +692,7 @@ export default function SimulatorPage() {
                 ))}
                 <View className={styles.planAdd} onClick={addStep}><Text>＋ 添加步骤</Text></View>
               </View>
-              <Check checked={aqueous} onChange={setAqueous} label="水溶液条件" />
+              <ConditionsPanel conds={conds} setConds={setConds} />
             </>
           ) : null}
 
@@ -636,6 +746,20 @@ export default function SimulatorPage() {
                 <EventItem key={i} ev={ev} index={i} />
               ))}
             </View>
+            {traceEvents.length === 0 ? (
+              <Text className={styles.emptyHint}>当前条件下没有快速发生的反应，见下方未发生原因。试着调整条件开关。</Text>
+            ) : null}
+            {trace.skippedDetails && trace.skippedDetails.length > 0 ? (
+              <View className={styles.skipped}>
+                <Text className={styles.skippedTitle}>未发生的反应（{trace.skippedDetails.length}）</Text>
+                {trace.skippedDetails.map((d, i) => (
+                  <View key={i} className={styles.skippedItem}>
+                    <Text className={styles.skippedEq}>{d.equation ?? ''}</Text>
+                    <Text className={styles.skippedReason}>{d.reason ?? ''}</Text>
+                  </View>
+                ))}
+              </View>
+            ) : null}
             {showFinal && trace.finalState ? <FinalState fin={trace.finalState} /> : null}
             {trace.warnings && trace.warnings.length > 0 ? (
               <View style={{ marginTop: 8 }}>{trace.warnings.map((w, i) => <Text key={i} className={styles.note}>⚠ {w}</Text>)}</View>

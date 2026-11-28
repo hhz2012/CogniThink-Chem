@@ -337,3 +337,43 @@
 }
 /* 空状态：去掉过大留白，紧凑融入结果区（视觉锚点已是上方大烧瓶） */
 .stage .empty { padding: 2px 4px 0; text-align: center; }
+
+/* —— 推导场景横幅 —— */
+.sceneBanner {
+  margin-bottom: 10px; padding: 8px 14px; border-radius: 10px;
+  background: linear-gradient(135deg, #ecfeff, #f0fdfa);
+  border: 1px solid #99f6e4;
+}
+.sceneBannerText { font-size: 24px; font-weight: 600; color: #0f766e; }
+
+/* —— 题目卡片（从首页例子带预设进入时展示） —— */
+.problemCard {
+  margin-bottom: 10px; padding: 10px 14px; border-radius: 10px;
+  background: #fffbeb; border: 1px solid #fde68a;
+}
+.problemLabel { display: block; font-size: 22px; font-weight: 600; color: #b45309; margin-bottom: 4px; }
+.problemText { font-size: 24px; line-height: 1.6; color: #78350f; }
+
+/* —— 环境条件开关面板 —— */
+.condPanel { margin-top: 10px; }
+.condLabel { display: block; font-size: 22px; color: #64748b; margin-bottom: 6px; }
+.condChips { display: flex; flex-wrap: wrap; gap: 8px; }
+.condChip {
+  padding: 5px 14px; border-radius: 999px; border: 1px solid #cbd5e1;
+  background: #f8fafc; font-size: 22px; color: #475569;
+  transition: all 0.15s ease;
+}
+.condChip:active { transform: scale(0.95); }
+.condChipOn { background: #0ea5e9; color: #fff; border-color: #0ea5e9; }
+
+/* —— 未发生反应（跳过）灰卡区 —— */
+.emptyHint { display: block; margin-top: 8px; font-size: 22px; color: #94a3b8; }
+.skipped {
+  margin-top: 12px; padding: 10px 12px; border-radius: 10px;
+  background: #f8fafc; border: 1px dashed #cbd5e1;
+}
+.skippedTitle { display: block; font-size: 22px; font-weight: 600; color: #64748b; margin-bottom: 6px; }
+.skippedItem { padding: 6px 0; border-top: 1px dashed #e2e8f0; }
+.skippedItem:first-of-type { border-top: none; }
+.skippedEq { display: block; font-size: 23px; color: #475569; font-family: monospace; }
+.skippedReason { display: block; margin-top: 2px; font-size: 21px; color: #94a3b8; }

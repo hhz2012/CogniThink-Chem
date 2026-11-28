@@ -26,6 +26,18 @@ public sealed class ChemicalConditions
     public bool Acidic { get; set; }
     public bool Alkaline { get; set; }
 
+    /// <summary>高温（区别于普通加热）：如煅烧/灼烧/825℃以上。需高温的反应开 Heating 不满足</summary>
+    public bool HighTemperature { get; set; }
+
+    /// <summary>醇溶液体系（如卤代烃消去的 NaOH 乙醇溶液）；区别于 Aqueous 水溶液</summary>
+    public bool Alcoholic { get; set; }
+
+    /// <summary>加压/高压环境（如合成氨）</summary>
+    public bool Pressurized { get; set; }
+
+    /// <summary>是否包含长期缓慢过程（如铁生锈、常温缓慢氧化）。默认 false：trace 只展示快速过程</summary>
+    public bool IncludeSlow { get; set; }
+
     /// <summary>最大反应步数，防止病态数据导致死循环</summary>
     public int MaxSteps { get; set; } = 24;
 
@@ -117,6 +129,12 @@ public sealed record ConsideredCandidate(
     /// <summary>未发生原因：条件不满足 / 反应进度≈0 / 被更高优先级胜出</summary>
     string Reason);
 
+/// <summary>被跳过的反应详情（带方程式与原因），供前端灰显展示"为何没反应"</summary>
+public sealed record SkippedReactionDetail(
+    string ReactionId,
+    string Equation,
+    string Reason);
+
 /// <summary>某物质的状态快照</summary>
 public sealed record SpeciesState(
     string Id,
@@ -158,5 +176,7 @@ public sealed class SimulationTrace
     public List<string> SkippedReactions { get; set; } = new();
     /// <summary>被跳过反应的原因（反应 Id → 原因）；供适配器还原旧 SimulationSkippedReaction，新消费者可直接读 SkippedReactions</summary>
     public Dictionary<string, string> SkippedReasons { get; set; } = new(StringComparer.Ordinal);
+    /// <summary>被跳过反应的详情（带方程式与原因），供前端灰显展示；含条件不满足、缓慢过程等</summary>
+    public List<SkippedReactionDetail> SkippedDetails { get; set; } = new();
     public List<string> Warnings { get; set; } = new();
 }

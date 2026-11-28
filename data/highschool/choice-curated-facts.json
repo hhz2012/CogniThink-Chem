@@ -995,6 +995,26 @@
                                {"id": "GC-778-C", "match": ["c(NH4+)", "c(Na+)", "相同"], "stemMatch": ["pH 相同", "氨水", "氢氧化钠"], "verdict": true, "reason": "pH相同⇒c(OH-)相同；氨水中电荷守恒c(NH4+)≈c(OH-)，NaOH中c(Na+)=c(OH-)，故c(NH4+)=c(Na+)，C对。"},
                                {"id": "GC-778-D", "match": ["温度", "升高", "均不变"], "stemMatch": ["pH 相同", "氨水", "氢氧化钠"], "verdict": false, "reason": "升温促进NH3·H2O电离⇒氨水c(OH-)增大（非不变）；NaOH完全电离c(OH-)不变。「均不变」错，D错。"},
                                {"id": "GC-778-E", "match": ["足量", "氯化铁", "一样多"], "stemMatch": ["pH 相同", "氨水", "氢氧化钠"], "verdict": false, "reason": "与足量FeCl3反应，Fe(OH)3沉淀量取决于可提供的OH-总量；弱碱浓度大、随OH-消耗持续电离，总量更多⇒沉淀更多，非「一样多」，E错。"},
-                               {"id": "GC-778-F", "match": ["盐酸", "恰好中和", "体积相同"], "stemMatch": ["pH 相同", "氨水", "氢氧化钠"], "verdict": false, "reason": "恰好中和消耗H+等于OH-总物质的量；弱碱浓度大⇒耗盐酸体积更大，非「相同」，F错。"}
+                               {"id": "GC-778-F", "match": ["盐酸", "恰好中和", "体积相同"], "stemMatch": ["pH 相同", "氨水", "氢氧化钠"], "verdict": false, "reason": "恰好中和消耗H+等于OH-总物质的量；弱碱浓度大⇒耗盐酸体积更大，非「相同」，F错。"},
+                               {"id": "GC-779-A", "match": ["氧化性"], "stemMatch": ["2KMnO4+16HCl"], "verdict": true, "reason": "反应 2KMnO4+16HCl(浓)→2KCl+2MnCl2+5Cl2↑+8H2O 中 Mn 由+7降至+2，KMnO4 得电子作氧化剂，只显氧化性，A 对。"},
+                               {"id": "GC-779-B", "match": ["还原性"], "stemMatch": ["2KMnO4+16HCl"], "verdict": false, "reason": "KMnO4 中 Mn 为最高价+7，只能得电子降价，不作还原剂，不显还原性，B 错。"},
+                               {"id": "GC-779-C", "match": ["酸性"], "stemMatch": ["2KMnO4+16HCl"], "verdict": false, "reason": "反应的酸性由 HCl 提供，KMnO4 是盐不显酸性，C 错。"},
+                               {"id": "GC-779-D", "match": ["碱性"], "stemMatch": ["2KMnO4+16HCl"], "verdict": false, "reason": "KMnO4 溶液不显碱性，D 错。"},
+                               {"id": "GC-780-A", "match": ["键角", "NO3"], "stemMatch": ["盐酸羟胺"], "verdict": false, "reason": "NH3中N为sp3杂化键角约107°，NO3-中N为sp2杂化键角120°，故键角NH3<NO3-，A假。"},
+                               {"id": "GC-780-B", "match": ["熔点", "NH2OH"], "stemMatch": ["盐酸羟胺"], "verdict": false, "reason": "NH2OH为分子晶体，盐酸羟胺[NH3OH]Cl为离子晶体，离子晶体熔点更高，故熔点NH2OH<[NH3OH]Cl，B假。"},
+                               {"id": "GC-780-C", "match": ["pH", "NH4Cl"], "stemMatch": ["盐酸羟胺"], "verdict": false, "reason": "Kb(NH3·H2O)>Kb(NH2OH)，NH2OH碱性更弱，其共轭酸[NH3OH]+水解更强，[NH3OH]Cl溶液酸性更强、pH更小，故pH [NH3OH]Cl<NH4Cl，C假。"},
+                               {"id": "GC-780-D", "match": ["氢键", "O-H"], "stemMatch": ["盐酸羟胺"], "verdict": true, "reason": "O电负性大于N，O—H极性强于N—H，O—H···O氢键强于N—H···N，D真。"},
+                               {"id": "GC-781-A", "match": ["(S)-2-辛醇", "构型保持"], "stemMatch": ["(R)-2-溴辛烷"], "verdict": false, "reason": "(R)-2-溴辛烷水解时—OH从C—Br键背面进攻为构型翻转，(S)-2-辛醇为构型翻转产物而非保持，A假。"},
+                               {"id": "GC-781-B", "match": ["肩并肩"], "stemMatch": ["(R)-2-溴辛烷"], "verdict": false, "reason": "(R)-2-辛醇中C、O均为sp3杂化，只含σ键，无π键，不存在肩并肩（π键）的成键方式，B假。"},
+                               {"id": "GC-781-C", "match": ["手性碳原子", "只有两种"], "stemMatch": ["(R)-2-溴辛烷"], "verdict": false, "reason": "(R)-2-溴辛烷、(S)-2-辛醇、(R)-2-辛醇三种分子的C2均连4个不同基团，均含手性碳，共三种而非两种，C假。"},
+                               {"id": "GC-781-D", "match": ["C-O", "键能"], "stemMatch": ["(R)-2-溴辛烷"], "verdict": true, "reason": "原子半径O<Br，C—O键长小于C—Br键，键能C—O>C—Br，故(R)-2-辛醇中C—O键能大于(R)-2-溴辛烷中C—Br键能，D真。"},
+                               {"id": "GC-782-A", "match": ["J 的化学式"], "stemMatch": ["2-丁烯", "合成G"], "verdict": false, "reason": "2-丁烯(C4H8)在Cl2/光照下发生烯丙基一氯取代生成J(C4H7Cl)，J的化学式为C4H7Cl而非C4H4Cl2，A假。"},
+                               {"id": "GC-782-B", "match": ["消去反应"], "stemMatch": ["2-丁烯", "合成G"], "verdict": false, "reason": "J→K为NaOH水溶液/加热，是卤代烃水解（取代反应）；消去反应需NaOH醇溶液/加热，B假。"},
+                               {"id": "GC-782-C", "match": ["M 的结构简式"], "stemMatch": ["2-丁烯", "合成G"], "verdict": true, "reason": "由合成路线可推M为共轭二烯烃H2C=C(CH3)—CH=CH2，C真。"},
+                               {"id": "GC-782-D", "match": ["不饱和度", "减少"], "stemMatch": ["2-丁烯", "合成G"], "verdict": false, "reason": "本题为单选正确项，唯一正确为C，D项关于N→G不饱和度变化的说法不成立，D假。"},
+                               {"id": "GC-783-A", "match": ["双酚A", "同系物"], "stemMatch": ["聚硫酸酯"], "verdict": false, "reason": "双酚A含两个酚羟基，苯酚仅一个，结构不相似，不互为同系物，A假。"},
+                               {"id": "GC-783-B", "match": ["催化聚合", "生成W"], "stemMatch": ["聚硫酸酯"], "verdict": true, "reason": "催化聚合可生成聚硫酸酯W，B真。"},
+                               {"id": "GC-783-C", "match": ["缩聚反应", "反应③"], "stemMatch": ["聚硫酸酯"], "verdict": false, "reason": "反应③生成W的同时小分子产物结构与选项描述不符，C假。"},
+                               {"id": "GC-783-D", "match": ["碱性条件", "聚苯乙烯", "难降解"], "stemMatch": ["聚硫酸酯"], "verdict": false, "reason": "W含酯基与硫酸酯键，碱性下易水解，应比聚苯乙烯更易降解而非更难，D假。"}
                    ]
 }

@@ -9,4 +9,19 @@ page {
   line-height: $line-height-normal;
   color: $color-text-primary;
   background-color: $color-bg-page;
+
+  /* ===== 设计变量（对应设计稿变量表，供各页引用） ===== */
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --grad-orange: linear-gradient(135deg, #ff9a3c, #ff5a2d);
+  --grad-cyan: linear-gradient(135deg, #22c5e0, #2f6bff);
+  --bg-page: linear-gradient(180deg, #eef3ff 0%, #f7f9fc 220rpx);
+  --text-primary: #1f2937;
+  --text-secondary: #64748b;
+  --text-tertiary: #94a3b8;
+  --divider: #e5e7eb;
+  --radius-card: 32rpx;
+  --radius-card-sm: 24rpx;
+  --radius-thumb: 20rpx;
+  --shadow-card: 0 8rpx 32rpx rgba(15, 23, 42, 0.06);
 }

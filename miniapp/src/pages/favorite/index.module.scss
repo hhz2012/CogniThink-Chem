@@ -1,0 +1,177 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: $color-bg-page;
+}
+
+/* ===== 顶部标题 ===== */
+.header {
+  flex-shrink: 0;
+  padding-top: calc(env(safe-area-inset-top) + #{$spacing-lg});
+  padding-left: $page-padding;
+  padding-right: $page-padding;
+  padding-bottom: $spacing-md;
+  background: $color-bg-page;
+}
+
+.title {
+  display: block;
+  font-size: 40rpx;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  letter-spacing: 2rpx;
+  text-align: center;
+}
+
+.subtitle {
+  display: block;
+  text-align: center;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin-top: 6rpx;
+}
+
+/* ===== 列表滚动区 ===== */
+.body {
+  flex: 1;
+  min-height: 0;
+  padding-left: $page-padding;
+  padding-right: $page-padding;
+  box-sizing: border-box;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 120rpx 0 80rpx;
+}
+
+.goBtn {
+  margin-top: 32rpx;
+  background: $color-primary;
+  border-radius: $radius-round;
+  padding: 18rpx 56rpx;
+  box-shadow: 0 4rpx 12rpx rgba(46, 167, 196, 0.25);
+
+  &:active {
+    transform: scale(0.97);
+    opacity: 0.9;
+  }
+}
+
+.goBtnText {
+  color: #fff;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+}
+
+.listMeta {
+  display: block;
+  font-size: $font-size-xs;
+  color: $color-text-tertiary;
+  margin: 8rpx 0 16rpx;
+}
+
+.favList {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.favCard {
+  background: $color-bg-card;
+  border-radius: $radius-lg;
+  border: 1rpx solid $color-divider;
+  padding: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
+  transition: transform $transition-fast;
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.favTop {
+  display: flex;
+  align-items: flex-start;
+  gap: 16rpx;
+}
+
+.favIcon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.favMain {
+  flex: 1;
+  min-width: 0;
+}
+
+.favName {
+  display: block;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+}
+
+.favSummary {
+  display: block;
+  margin-top: 6rpx;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+  @include text-ellipsis-multi(2);
+}
+
+.favBtn {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  flex-shrink: 0;
+  align-self: center;
+  transition: transform $transition-fast;
+
+  &:active {
+    transform: scale(0.85);
+  }
+}
+
+.favBtnOn {
+  background: rgba(245, 158, 11, 0.1);
+}
+
+.favFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14rpx;
+}
+
+.layerTag {
+  font-size: 20rpx;
+  color: $color-primary;
+  background: $color-primary-soft;
+  padding: 4rpx 16rpx;
+  border-radius: $radius-round;
+}
+
+.favCat {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+}
+
+.bottomPad {
+  height: 150rpx;
+}

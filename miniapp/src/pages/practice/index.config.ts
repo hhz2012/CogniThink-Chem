@@ -1,4 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: 'A–F 精熟练习',
+  navigationBarTitleText: 'A–F 推导练习',
   disableScroll: true,
 })

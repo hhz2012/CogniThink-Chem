@@ -1,4 +1,4 @@
 export default definePageConfig({
-  navigationBarTitleText: '答题挑战',
+  navigationBarTitleText: '推导检测',
   disableScroll: true,
 })

@@ -55,8 +55,8 @@ export default function Atlas() {
     <View className={styles.page}>
       {/* ===== 顶部标题 + 搜索 ===== */}
       <View className={styles.header}>
-        <Text className={styles.title}>物质速查</Text>
-        <Text className={styles.subtitle}>6 大专项 · 知识点速查</Text>
+        <Text className={styles.title}>搜索</Text>
+        <Text className={styles.subtitle}>搜知识点 / 物质 / 反应规律</Text>
         <View className={styles.searchBox}>
           <ModelIcon name="search" size={16} color="#9ca3af" className={styles.searchIcon} />
           <Input

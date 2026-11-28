@@ -505,7 +505,28 @@ public class Batch3ChoiceValidatorTests
         // C 盐酸真、D 磷酸假，唯一真=C。策展 GC-772-A~D（A/B/D 假、C 真）由 askDir=correct 解出。
         // stemMatch["酸化","选用的酸"] 联合 match 后全库仅命中 pdf-162 各 1 项（pdf-161 父题虽同含 stem 关键词但无对应选项），
         // 零串扰；与 Experiment/Organic/Structure 无路由二义。
-        ["pdf-162"] = "C"
+        ["pdf-162"] = "C",
+        // hard-bone-data-repair-6：pdf-070（实验室制氯气 2KMnO4+16HCl·KMnO4 显示的性质·选 A 氧化性）。
+        // 原题 type=fill 且 options 缺失，致选项未渲染、不走 choice 路由；订正 type→choice 并补 options
+        // {A:氧化性,B:还原性,C:酸性,D:碱性} 后由 Concept 解出。独立 4 判：Mn +7→+2 得电子，KMnO4 只显氧化性
+        // →A 真、B/C/D 假，唯一真=A。策展 GC-779-A~D；stemMatch["2KMnO4+16HCl"] 全库唯一，4 选项各命中唯一事实，
+        // 与 Experiment/Organic/Structure 无路由二义。
+        ["pdf-070"] = "A",
+        // hard-bone-data-repair-7：pdf-196 / pdf-340 / pdf-333（题干被截断致 type/options 缺失的单选题，
+        // 从渲染页恢复选项原文后订正 type→choice + 补 options，再策展事实由 Concept 解出）。
+        // pdf-196（2024安徽卷·羟胺/盐酸羟胺·选 D）：stem 截断在已知条件处，options 据 page_071 恢复为
+        // A键角 B熔点 CpH D氢键；判 A/B/C 假、D 真，唯一真=D。策展 GC-780-A~D，stemMatch["盐酸羟胺"]全库唯一。
+        // pdf-340（(R)-2-溴辛烷水解·选 D）：options 据 page_117 恢复；判 A/B/C 假、D 真，唯一真=D。
+        // 策展 GC-781-A~D，stemMatch["(R)-2-溴辛烷"]全库唯一；与 Organic 无路由二义（Organic 对该题返回 null）。
+        // pdf-333（2025北京昌平二模·2-丁烯合成G·选 C）：options 据 page_115 恢复；判 A/B/D 假、C 真，唯一真=C。
+        // 策展 GC-782-A~D，stemMatch["2-丁烯","合成G"]联合唯一；与 Organic 无路由二义（Organic 对该题返回 null）。
+        ["pdf-196"] = "D",
+        ["pdf-340"] = "D",
+        // pdf-377（2024新课标卷·点击化学合成聚硫酸酯W·选 B）：原始渲染图 page_124/page_125 md5 重复致 options 丢失，
+        // 从源 PDF 直接重渲染 page_126 恢复选项 A~D；判 A/C/D 假、B 真，唯一真=B。
+        // 策展 GC-783-A~D，stemMatch["聚硫酸酯"]全库唯一；与 Experiment/Organic/Structure 无路由二义（均返回 null）。
+        ["pdf-333"] = "C",
+        ["pdf-377"] = "B"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

@@ -74,3 +74,38 @@ export function consumeInspiration(p: UserProgress): UserProgress | null {
   saveProgress(next)
   return next
 }
+
+// ============================================================
+// 收藏：知识点 id 列表，独立存储，不与闯关进度耦合
+// ============================================================
+const FAVORITES_KEY = 'chem-favorites-v1'
+
+export function loadFavorites(): string[] {
+  try {
+    const raw = Taro.getStorageSync(FAVORITES_KEY)
+    if (Array.isArray(raw)) return raw.filter((x) => typeof x === 'string')
+  } catch (_) {
+    // ignore
+  }
+  return []
+}
+
+export function saveFavorites(ids: string[]): void {
+  try {
+    Taro.setStorageSync(FAVORITES_KEY, ids)
+  } catch (_) {
+    // ignore
+  }
+}
+
+export function isFavorite(id: string): boolean {
+  return loadFavorites().includes(id)
+}
+
+/** 切换收藏状态，返回最新列表 */
+export function toggleFavorite(id: string): string[] {
+  const cur = loadFavorites()
+  const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id]
+  saveFavorites(next)
+  return next
+}

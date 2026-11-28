@@ -4,13 +4,15 @@ export default defineAppConfig({
     'pages/atlas/index',
     'pages/bank/index',
     'pages/mine/index',
+    'pages/favorite/index',
     'pages/challenge/index',
     'pages/reaction/index',
     'pages/simulator/index',
     'pages/practice/index',
     'pages/tutor/index',
     'pages/solve/index',
-    'pages/knowledge/index'
+    'pages/knowledge/index',
+    'pages/demo/index'
   ],
   window: {
     backgroundTextStyle: 'light',

@@ -44,6 +44,7 @@ export type ModelIconName =
   | 'puzzle'
   | 'wrench'
   | 'target'
+  | 'star'
 
 // 难度等级（与高考难度分布对齐）
 export type Difficulty = '基础' | '进阶' | '综合' | '难题' | '压轴'

@@ -1,12 +1,13 @@
 import { View, Text, ScrollView } from '@tarojs/components'
 import { useState, useEffect } from 'react'
-import Taro, { useRouter } from '@tarojs/taro'
+import Taro, { useRouter, useDidShow } from '@tarojs/taro'
 import { ChemCategory } from '../../types/chem'
 import { chapters } from '../../data/challenges'
 import { knowledgeOfCategory, getFullKnowledgePoint } from '../../data/knowledge'
 import { LAYER_META, KnowledgeLayer, KnowledgePoint } from '../../data/knowledge/redox'
 import Collapse from '../../components/Collapse'
 import ModelIcon from '../../components/SolvePanels/ModelIcon'
+import { loadFavorites, toggleFavorite } from '../../utils/storage'
 import styles from './index.module.scss'
 
 const LAYERS: KnowledgeLayer[] = ['Knowledge', 'Application', 'Ability']
@@ -20,6 +21,7 @@ export default function KnowledgePage() {
   const [mastered, setMastered] = useState<string[]>([])
   const [openId, setOpenId] = useState<string | null>(null)
   const [answers, setAnswers] = useState<Record<string, number>>({})
+  const [favIds, setFavIds] = useState<string[]>(loadFavorites())
 
   useEffect(() => {
     const saved = Taro.getStorageSync(storageKey)
@@ -29,10 +31,26 @@ export default function KnowledgePage() {
     setAnswers({})
   }, [storageKey])
 
+  // 切回本页时刷新收藏状态（在收藏页取消后返回同步）
+  useDidShow(() => {
+    setFavIds(loadFavorites())
+  })
+
   /** 当前分类的全部完整知识点 */
   const points: KnowledgePoint[] = knowledgeOfCategory(category)
     .map((ref) => getFullKnowledgePoint(ref.id))
     .filter((p): p is KnowledgePoint => Boolean(p))
+
+  /** 收藏 / 取消收藏（阻止冒泡，避免触发卡片展开） */
+  const handleFav = (e: any, id: string, name: string) => {
+    e.stopPropagation()
+    const next = toggleFavorite(id)
+    setFavIds(next)
+    Taro.showToast({
+      title: next.includes(id) ? `已收藏「${name}」` : '已取消收藏',
+      icon: 'none',
+    })
+  }
 
   /** 自测判定：答对记为已掌握，答错自动展开讲解 */
   const onPick = (kpId: string, idx: number, correct: number) => {
@@ -108,9 +126,21 @@ export default function KnowledgePage() {
                           <Text className={styles.cardSummary}>{kp.summary}</Text>
                         </View>
                       </View>
-                      <Text className={styles.cardToggle} style={isMastered ? { color: meta.color } : {}}>
-                        {isMastered ? '✓' : open ? '−' : '+'}
-                      </Text>
+                      <View className={styles.cardHeadRight}>
+                        <View
+                          className={styles.favBtn}
+                          onClick={(e) => handleFav(e, kp.id, kp.name)}
+                        >
+                          <ModelIcon
+                            name="star"
+                            size={18}
+                            color={favIds.includes(kp.id) ? '#f59e0b' : '#cbd5e1'}
+                          />
+                        </View>
+                        <Text className={styles.cardToggle} style={isMastered ? { color: meta.color } : {}}>
+                          {isMastered ? '✓' : open ? '−' : '+'}
+                        </Text>
+                      </View>
                     </View>
 
                     <Collapse open={open}>

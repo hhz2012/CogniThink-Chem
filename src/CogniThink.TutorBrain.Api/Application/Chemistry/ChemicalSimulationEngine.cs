@@ -45,6 +45,18 @@ public sealed class SimulationRequest
     public bool Acidic { get; set; }
     public bool Alkaline { get; set; }
 
+    /// <summary>高温（区别于普通加热）；需高温的反应开 Heating 不满足</summary>
+    public bool HighTemperature { get; set; }
+
+    /// <summary>醇溶液体系（如卤代烃消去的 NaOH 乙醇溶液）</summary>
+    public bool Alcoholic { get; set; }
+
+    /// <summary>加压/高压环境（如合成氨）</summary>
+    public bool Pressurized { get; set; }
+
+    /// <summary>是否包含长期缓慢过程（默认 false：只展示快速过程）</summary>
+    public bool IncludeSlow { get; set; }
+
     /// <summary>最大反应步数，防止病态数据导致死循环</summary>
     public int MaxSteps { get; set; } = 24;
 }
@@ -147,6 +159,10 @@ public sealed class ChemicalSimulationEngine
                 Air = request.Air,
                 Acidic = request.Acidic,
                 Alkaline = request.Alkaline,
+                HighTemperature = request.HighTemperature,
+                Alcoholic = request.Alcoholic,
+                Pressurized = request.Pressurized,
+                IncludeSlow = request.IncludeSlow,
                 MaxSteps = request.MaxSteps,
                 ReturnConsidered = false
             }

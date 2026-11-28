@@ -151,6 +151,27 @@
   line-height: 1.5;
 }
 
+.cardHeadRight {
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  flex-shrink: 0;
+}
+
+.favBtn {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: transform $transition-fast;
+
+  &:active {
+    transform: scale(0.8);
+  }
+}
+
 .cardToggle {
   font-size: $font-size-lg;
   font-weight: $font-weight-bold;

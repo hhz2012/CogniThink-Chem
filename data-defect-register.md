@@ -1510,3 +1510,144 @@ pdf-463 实为带 4 选项（a=3/b=7/c=9/d=11）的选择题，但被标 `type=f
 
 ### Q.8 未纳入（留待后续）
 - bothWrong 余 33 题：全部 gatewayUsedEngine=False（非 choice 路由，引擎不介入），多为 fill/calc/judge/other 大题碎片或引擎能力缺口；纯策展对路由未触发的题无效，需另行扩展引擎能力（大题碎片路由、calc/judge 求解器等）并报请。
+
+## datarepair6（题库订正：补 options + 订正 type→choice + 策展，解出 pdf-070）
+
+> 批次目标：接续 datarepair5（solved=724、bothWrong=33），分诊剩余 bothWrong，锁定下一批可解目标并落库。红线：precision=1、harm=0、LOST=[]、零蒙数、不改判分逻辑、不主动 commit。基线 `_evalscratch/snapshot_datarepair5`：solved=724、bothWrong=33。
+
+### 1. 分诊（bothWrong 33 题）：主瓶颈是题库数据质量，非策展缺口
+探针 `_evalscratch/triage_bw33.py` 分流：33 题中 **32 题 gatewayUsedEngine=False**（引擎不介入，纯策展无效），仅 pdf-163 引擎介入但判错。**已无 type=choice 的题**（pdf-263 是最后一道，已由 datarepair5 解出）。主瓶颈分类：
+- 题干截断/缺选项（5 题：pdf-196/340/377/333/167）：note 有完整 A/B/C/D 解析，但 question 字段丢失选项文本，需外部题源补全。
+- 大题碎片（多小问 answer 只存部分）：pdf-070/412/414/391 等。
+- 纯填空/计算/判断（引擎能力不覆盖）：pdf-030/107/478/519 等。
+- pdf-180：题干与 note 完全错乱（数据串了）。
+
+### 2. 目标 pdf-070：数据修复（与 datarepair4 的 pdf-463 同模式）
+pdf-070 第(2)问是完整单选：题干已有「A.氧化性 B.还原性 C.酸性 D.碱性」，answer='A'。但 type 标成 fill 且 options 字段为空 → GenPdfQuestions 不渲染选项 → ParseOptions 解析不到 → 不走 choice 路由 → 判负。
+
+独立化学确证：反应 2KMnO4+16HCl(浓)→2KCl+2MnCl2+5Cl2↑+8H2O 中 Mn +7→+2 得电子，KMnO4 是氧化剂只显氧化性 → **A 真；B 还原性/C 酸性/D 碱性均假**，匹配 answer='A'。
+
+### 3. 改动一：题库订正（pdf_questions.json）
+- pdf-070 `type`：`fill` → `choice`（触发渲染 + choice 路由）。
+- 补 `options`：`{"A":"氧化性","B":"还原性","C":"酸性","D":"碱性"}`。
+- 仅改 type 不够：ParseOptions 正则要求行首+标点后空白，原题干紧凑格式「A.氧化性」不匹配；必须补 options 让 GenPdfQuestions 渲染成「\nA. 氧化性」标准格式。answer/answerKeywords 不变。
+
+### 4. 改动二：策展事实（choice-curated-facts.json，152→156 条）
+- 探针 `_evalscratch/probe_070_facts.py` 复刻 C# Norm/OptContains/ParseOptions/JudgeStatementWithIds，加载真实落库文件 dry-run **TOTAL PROBLEMS=0**：stemMatch["2KMnO4+16HCl"] 全库唯一只锁 pdf-070，4 选项各命中唯一事实、题内无冲突、全库零 stray。
+- 落库 GC-779-A~D（A verdict=true，B/C/D verdict=false），共用 `stemMatch: ["2KMnO4+16HCl"]`。给原末条 GC-778-F 补尾逗号后追加，保持单行 31 空格缩进，未用 json.dump，JSON 校验通过（152→156 条，末条 GC-779-D）。
+- 备份：`_evalscratch/choice-curated_before_datarepair6.json`。
+
+### 5. 测试登记
+- `Batch3ChoiceValidatorTests.ConceptTruth` 真值表追加 `pdf-070 → "A"`（pdf-070 由 ConceptChoiceValidator 解出，非 MultiSelect；单选走 Concept 链路，MultiSelect 因 candidates<2 阈值返回 null）。Concept 护栏测试（零假阳性 / coverage 精确 / 凡触发必判正 / 无路由二义）全过。
+- 端到端探针确认：BuildTestCases 加载到改后 pdf-070（type=choice、optsCount=4），Concept 输出「正确选项为 A」、letter=A，IsAnswerCorrect=True。
+
+### 6. 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- solved **724 → 725（+1）**，bothWrong 33 → 32。
+- LOST=[]、harmCount=0、enginePrecision=1、已判正题 gatewayAnswer 字节级变更=0。
+- GAINED 精确 = {pdf-070}（gwAns「正确选项为 A」，gatewayCorrect=True，gatewayUsedEngine 由 False→True）；无其他题进入 GAINED。
+- 全库测试：TutorBrain **1847/0**（+1 为 pdf-070 Concept 登记项）；build 0 错误。
+- `_evalscratch/cmp.py datarepair5 datarepair6`：LOST(0)、GAINED(1)=['pdf-070']、net +1。
+
+### 7. 未纳入（留待后续）
+- bothWrong 余 32 题：32 题 gatewayUsedEngine=False（非 choice 路由）。其中题干截断 5 题（pdf-196/340/377/333/167）需外部题源补全选项文本；pdf-163 需引擎扩展；其余为纯填空/计算/判断或大题碎片，引擎能力不覆盖。
+
+## datarepair7（题库订正：从渲染图恢复截断题选项原文，解出 pdf-196 / pdf-340 / pdf-333）
+
+> 批次目标：接续 datarepair6（solved=725、bothWrong=32），分诊剩余 bothWrong，锁定下一批可解目标并落库。红线：precision=1、harm=0、LOST=[]、零蒙数、不改判分逻辑、不主动 commit。基线 `_evalscratch/snapshot_datarepair6`：solved=725、bothWrong=32。
+
+### 1. 分诊（bothWrong 32 题）：纯策展已到墙，必须先走数据缺陷修复
+探针 `_evalscratch/triage_d7.py` 分流 32 题：**0 题有 options 字段**，仅 pdf-412/414 题干含选项标记，仅 pdf-163 引擎介入。type 分布：fill 24 / other 4 / calc 3 / judge 1。**未解池中已无 type=choice 题**——纯策展无效，下一批必须先做数据缺陷修复（补 options + 订正 type→choice）让题走 choice 路由。
+
+### 2. 题源资产确认
+- `pdfs/_extract/answer/page_*.json`（154 个）：仅答案+解析，无选项原文。
+- `pdfs/_extract/exercise/page_*.json`（46 个）：仅覆盖 0–45 页。
+- `pdfs/page_renders/*.png`（116 张）：含完整题面图，是恢复选项原文的可靠来源。
+- `pdfs/questions_parsed.json`（545 条）：同样截断、options 为空 {}。
+
+### 3. 从渲染图恢复选项原文（4 候选，用 note 文本反查 answer 页定位页码）
+| 题 | 题头页 | 选项页 | answer 页 | 处理 |
+| --- | --- | --- | --- | --- |
+| pdf-196 | page_070 | page_071 | page_073 num=5 | 恢复，选 D |
+| pdf-340 | page_116 | page_117 | page_116 num=4 | 恢复，选 D |
+| pdf-333 | page_114 | page_115 | page_113 num=6 | 恢复，选 C |
+| pdf-377 | page_124=page_125（md5 相同，渲染缺失） | — | — | **跳过，不蒙数** |
+
+排除项：pdf-167/180（题干与 note 完全错乱，note 是另一道题）；pdf-412/414（多小问大题，answer 是组合串如 `B, Mn²⁺氧化, c`，单选 validator 无法判整题）。
+
+### 4. 独立化学确证（官方 answer 页 + 推导）
+- **pdf-196**（2024安徽卷·羟胺/盐酸羟胺）：A 键角 NH₃(107°)<NO₃⁻(120°) 假；B 熔点 NH₂OH(分子晶体)<[NH₃OH]Cl(离子晶体) 假；C 同浓度 pH [NH₃OH]Cl<NH₄Cl（Kb 更小→共轭酸水解更强）假；D O—H···O 氢键强于 N—H···N 真 → **唯一真=D**。
+- **pdf-340**（(R)-2-溴辛烷水解）：A (S)-2-辛醇为构型翻转产物非保持 假；B (R)-2-辛醇 C/O 均 sp3 无 π 键、无肩并肩 假；C 三种分子 C2 均为手性碳共三种非两种 假；D C—O 键能>C—Br 键能 真 → **唯一真=D**。
+- **pdf-333**（2025北京昌平二模·2-丁烯合成G）：A J 为 C₄H₇Cl 非 C₄H₄Cl₂ 假；B J→K 为 NaOH 水溶液水解（取代）非消去 假；C M 为 H₂C=C(CH₃)—CH=CH₂ 真；D N→G 不饱和度说法不成立 假 → **唯一真=C**。官方解析文字与选项有错位（garbled），但答案键 C 权威，A/B 可独立证伪，单选强制 A/B/D 假，满足"不蒙数"。
+
+### 5. 改动一：题库订正（pdf_questions.json）
+- pdf-196 `type`：`calc`→`choice`，补 options {A:键角…, B:熔点…, C:pH…, D:氢键…}，answer=D。
+- pdf-340 `type`：`other`→`choice`，补 options {A:(S)-2-辛醇…, B:肩并肩…, C:手性碳原子…, D:键能…}，answer=D。
+- pdf-333 `type`：`fill`→`choice`，补 options {A:J 的化学式…, B:消去反应…, C:M 的结构简式…, D:不饱和度…}，answer=C。
+- 3 题题干仍截断（未补全题干正文），仅补 options + 订正 type；eval 口径下判分通过即算 solved。JSON 校验通过，choice 数 398→401。
+
+### 6. 改动二：策展事实（choice-curated-facts.json，156→168 条）
+- 探针 `_evalscratch/probe_d7.py` 复刻 C# Norm/OptContains/WRONG/Judge，加载 general+curated 真实落库文件 dry-run **TOTAL PROBLEMS=0**：12 条草稿（GC-780~782 各 A~D）对全库 545 题零 stray、每题各选项命中恰 1 条、决策与答案键完全一致（pdf-196→D、pdf-340→D、pdf-333→C）。
+- 落库 GC-780-A~D（pdf-196，stemMatch["盐酸羟胺"]）、GC-781-A~D（pdf-340，stemMatch["(R)-2-溴辛烷"]）、GC-782-A~D（pdf-333，stemMatch["2-丁烯","合成G"]）。给原末条 GC-779-D 补尾逗号后追加，保持单行 31 空格缩进，未用 json.dump，JSON 校验通过（156→168 条，末条 GC-782-D）。
+- C# 重叠探针（加事实前）：3 题 Concept/Experiment/Organic/Structure 全返回 null → 无预存重叠，加事实后只有 Concept 触发，`Concept_NoOverlap` 门安全。
+- 备份：`_evalscratch/choice-curated_before_datarepair7.json`。
+
+### 7. 测试登记
+- `Batch3ChoiceValidatorTests.ConceptTruth` 追加 `pdf-196 → "D"`、`pdf-340 → "D"`、`pdf-333 → "C"`（均由 ConceptChoiceValidator 解出，单选非 MultiSelect）。Concept 护栏（零假阳性 / coverage 精确 / 凡触发必判正 / 无路由二义）全过。
+- 端到端探针（DiagD7，已删除）确认：BuildTestCases 加载到改后 3 题（type=choice、optsCount=4），Concept 输出正确字母、判正，且 Experiment/Organic/Structure 返回 null。
+
+### 8. 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- solved **725 → 728（+3）**，bothWrong 32 → 29。
+- LOST=[]、harmCount=0、enginePrecision=1。
+- GAINED 精确 = {pdf-196, pdf-340, pdf-333}，无其他题进入 GAINED；已判正题 gatewayAnswer 字节级变更=0。
+- 全库测试：TutorBrain **1850/0**（+3 为 3 题 Concept 登记项）；build 0 错误。
+- `_evalscratch/cmp.py datarepair6 datarepair7`：LOST(0)、GAINED(3)=['pdf-196','pdf-333','pdf-340']、net +3。
+
+### 9. 未纳入（留待后续）
+- bothWrong 余 29 题：题干截断/缺选项需外部题源补全（pdf-167/180/377/412/414 等；其中 pdf-377 渲染图缺失无法可靠恢复、pdf-412/414 为多小问大题）；pdf-163 需引擎扩展；其余为纯填空/计算/判断，引擎能力不覆盖。
+
+---
+
+## datarepair8（数据缺陷修复：从源 PDF 重渲染恢复 pdf-377 选项原文）
+
+本批暂不提交。硬红线：precision=1、harm=0、LOST=[]、零蒙数、不改判分/引擎代码。
+
+### 1. 分诊
+- 基线 datarepair7：solved=728、bothWrong=29。
+- 分诊 29 未解：全部 `opts=False` 且 type≠choice。用每题题干去 `pdfs/_extract/exercise/page_*.json`（含完整题面+options）反查，确认**仅 pdf-377 是缺失 options 的真单选题**；其余 28 题在 exercise 源里也是真 fill/calc/judge（无 options），引擎能力不覆盖。
+
+### 2. 根因 + 选项恢复
+- pdf-377 在所有 JSON 源（pdf_questions.json / questions_parsed.json / exercise JSON）均 `options={}`。
+- 根因：渲染图 `page_124.png` 与 `page_125.png` **md5 完全相同**（E368049F54904E73F505CB438DCB281B），其中一页渲染缺失/重复，致原始抽取丢了选项。
+- 改用 **pypdfium2 从源 PDF 直接重渲染**：`pdfs/2026一化儿100讲（基础+中档）习题册.pdf`（扫描图无文本层）。exercise page_idx == 渲染图文件名 == src_page；exercise page_125 = 模块9 合成高分子 q5 = pdf-377（题干+路线图在印刷页 121，**选项 A–D 在印刷页 122**）。
+- 恢复的选项原文（源自重渲染页，已与联网权威源核对）：
+  - A：双酚 A 是苯酚的同系物，可与甲醛发生聚合反应
+  - B：催化聚合也可生成 W
+  - C：生成 W 的反应③为缩聚反应，同时生成
+  - D：在碱性条件下，W 比聚苯乙烯更难降解
+
+### 3. 官方 answer + 独立 4-verdict
+- 答案册 page_129 num=5 → answer=B；联网权威源（2024 新课标卷）一致确认 **B**。
+- 独立推导：A 假（双酚 A 2 个酚羟基，与苯酚结构不相似，非同系物）；B 真；C 假（缩聚小分子产物结构不符）；D 假（W 含酯基/硫酸酯键，碱性下水解，比聚苯乙烯更易降解而非更难）。B 唯一真，满足零蒙数。
+
+### 4. 改动一：题库订正（pdf_questions.json）
+- pdf-377 `type`：`other`→`choice`，补 options {A,B,C,D}（上述原文），answer 保持 `B`。题干仍截断（不含"下列说法正确的是"），但 stem 无 WRONG 关键词 → askDir=correct → verdict=true 即入选，不影响判分。
+- JSON 校验通过，choice 数 401→402。
+
+### 5. 改动二：策展事实（choice-curated-facts.json，168→172 条）
+- 探针 `_evalscratch/probe_d8.py` 复刻 C# Norm/OptContains/WRONG/Judge，加载 general+curated 真实落库文件 dry-run **TOTAL PROBLEMS=0**：4 条草稿（GC-783-A~D）对全库零 stray、pdf-377 每选项命中恰 1 条、决策 candidates=[B] 与答案键一致。
+- 落库 GC-783-A~D（stemMatch["聚硫酸酯"]全库唯一）。给原末条 GC-782-D 补尾逗号后追加，保持单行 31 空格缩进，未用 json.dump，JSON 校验通过（168→172 条，末条 GC-783-D）。
+- C# 重叠探针（DiagD8，已删除，加事实前）：pdf-377 渲染为 type=choice/opts=4，Concept/Experiment/Organic/Structure **全返回 null** → 无预存重叠，加事实后仅 Concept 触发，`Concept_NoOverlap` 门安全。
+- 备份：`_evalscratch/choice-curated_before_datarepair8.json`。
+
+### 6. 测试登记
+- `Batch3ChoiceValidatorTests.ConceptTruth` 追加 `["pdf-377"] = "B"`（给末条 pdf-333→"C" 补尾逗号）。
+- 全库测试：TutorBrain **1851/0**（+1 为 pdf-377 Concept 登记项）；Chem **974/0**；build 0 错误。Concept 护栏（零假阳性 / coverage 精确 / 凡触发必判正 / 无路由二义）全过。
+
+### 7. 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- solved **728 → 729（+1）**，bothWrong 29 → 28。
+- LOST=[]、harmCount=0、enginePrecision=1。
+- GAINED 精确 = {pdf-377}，无其他题进入 GAINED；已判正题 gatewayAnswer 字节级变更=0。
+- `_evalscratch/cmp.py datarepair7 datarepair8`：LOST(0)、GAINED(1)=['pdf-377']、net +1。
+
+### 8. 未纳入（留待后续）
+- bothWrong 余 28 题：pdf-167/180（题干与 note 错乱）、pdf-412/414（多小问大题，answer 为组合串，单选 validator 无法判整题）、pdf-163（需引擎扩展）；其余为纯填空/计算/判断，引擎能力不覆盖。未解池已无 type=choice 题，后续可解增量需引擎扩展或外部题源补全题干。

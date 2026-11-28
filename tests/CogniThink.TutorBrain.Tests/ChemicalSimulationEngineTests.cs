@@ -189,7 +189,7 @@ public sealed class ChemicalSimulationEngineTests
         {
             r.Aqueous = false;
             r.Air = false;
-            r.Heating = true;
+            r.HighTemperature = true;
         });
 
         Assert.Contains(result.Events, e => e.ReactionId == "R-046");
@@ -258,7 +258,7 @@ public sealed class ChemicalSimulationEngineTests
         {
             r.Aqueous = false;
             r.Air = false;
-            r.Heating = true;
+            r.HighTemperature = true;
             r.Ignition = true;
         });
 
@@ -292,7 +292,7 @@ public sealed class ChemicalSimulationEngineTests
 
         Assert.DoesNotContain(without.Events, e => e.ReactionId == "R-140");
 
-        var with = Fixture.Simulate(new[] { ("H2O2", 2.0) }, r =>
+        var with = Fixture.Simulate(new[] { ("H2O2", 2.0), ("MnO2", 1.0) }, r =>
         {
             r.Aqueous = false;
             r.Air = false;
@@ -335,7 +335,7 @@ public sealed class ChemicalSimulationEngineTests
         {
             r.Aqueous = false;
             r.Air = false;
-            r.Heating = true;
+            r.HighTemperature = true;
         });
 
         Assert.Contains(result.Events, e => e.ReactionId == "R-NA2CO3-SIO2");
@@ -364,7 +364,7 @@ public sealed class ChemicalSimulationEngineTests
         {
             r.Aqueous = false;
             r.Air = false;
-            r.Heating = true;
+            r.HighTemperature = true;
         });
 
         Assert.Contains(result.Events, e => e.ReactionId == "R-CO2-C");
@@ -425,7 +425,7 @@ public sealed class ChemicalSimulationEngineTests
         {
             r.Aqueous = false;
             r.Air = false;
-            r.Heating = true;
+            r.HighTemperature = true;
         });
 
         Assert.Contains(result.Events, e => e.ReactionId == "R-FE-H2O-G");
@@ -483,7 +483,7 @@ public sealed class ChemicalSimulationEngineTests
         {
             r.Aqueous = false;
             r.Air = false;
-            r.Heating = true;
+            r.HighTemperature = true;
         });
 
         Assert.Contains(result.Events, e => e.ReactionId == "R-SIO2-CACO3");
@@ -542,7 +542,8 @@ public sealed class ChemicalSimulationEngineTests
     [Fact]
     public void 铁在潮湿空气中生锈生成红棕色铁锈()
     {
-        var result = Fixture.Simulate(new[] { ("Fe", 4.0) });
+        // 铁生锈为长期缓慢过程，默认不在快速模拟中展示，需显式开启 IncludeSlow
+        var result = Fixture.Simulate(new[] { ("Fe", 4.0) }, r => r.IncludeSlow = true);
 
         Assert.Contains(result.Events, e => e.ReactionId == "R-FE-RUST");
         Assert.Contains(result.FinalPrecipitates, p => p.Contains("铁锈"));

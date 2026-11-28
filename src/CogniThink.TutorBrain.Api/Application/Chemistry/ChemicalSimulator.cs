@@ -1,5 +1,6 @@
 namespace CogniThink.TutorBrain.Application.Chemistry;
 
+using System.Text.RegularExpressions;
 using CogniThink.TutorBrain.Domain.Chemistry;
 
 /// <summary>
@@ -54,6 +55,13 @@ public sealed class ChemicalSimulator
         trace.Steps = trace.Events.Count;
         trace.SkippedReactions = skipped.Keys.ToList();
         trace.SkippedReasons = new Dictionary<string, string>(skipped, StringComparer.Ordinal);
+        trace.SkippedDetails = skipped
+            .Select(pair =>
+            {
+                var equation = _kb.Reactions.FirstOrDefault(r => r.Id == pair.Key)?.Equation ?? string.Empty;
+                return new SkippedReactionDetail(pair.Key, equation, pair.Value);
+            })
+            .ToList();
 
         BuildOutput(trace, conditions, state, order);
         trace.Warnings.AddRange(_parser.Warnings.Take(8));
@@ -109,6 +117,16 @@ public sealed class ChemicalSimulator
                     if (skipped.Count < 16) skipped.TryAdd(reaction.Id, conditionFailure);
                     if (returnConsidered && stepConsidered!.Count < ConsideredCapPerStep)
                         stepConsidered.Add(new ConsideredCandidate(reaction.Id, reaction.Equation, Score(reaction, stoich), conditionFailure));
+                    continue;
+                }
+
+                // 速率约束：长期缓慢过程默认不进入快速 trace，除非显式开启 includeSlow
+                if (!conditions.IncludeSlow && IsSlowProcess(reaction))
+                {
+                    const string slowReason = "该反应为长期缓慢过程，默认不在快速模拟中展示（开启 includeSlow 可查看）";
+                    if (skipped.Count < 16) skipped.TryAdd(reaction.Id, slowReason);
+                    if (returnConsidered && stepConsidered!.Count < ConsideredCapPerStep)
+                        stepConsidered.Add(new ConsideredCandidate(reaction.Id, reaction.Equation, Score(reaction, stoich), slowReason));
                     continue;
                 }
 
@@ -294,17 +312,31 @@ public sealed class ChemicalSimulator
         if (Has(text, "点燃", "燃烧", "引燃"))
             return conditions.Ignition ? null : "需要点燃/引燃，当前未提供该条件";
 
-        if (Has(text, "高温", "煅烧", "灼烧", "加热", "△", "℃"))
+        // 高温（煅烧/灼烧）必须显式开启，普通加热不满足
+        if (Has(text, "高温", "煅烧", "灼烧"))
+            return conditions.HighTemperature ? null : $"需要高温（{text}），当前未提供高温条件";
+
+        // 普通加热 / 水浴 / 指定温度（如 170℃）
+        if (Has(text, "加热", "△", "水浴", "℃"))
             return conditions.Heating ? null : $"需要加热（{text}），当前未加热";
 
         if (Has(text, "水蒸气"))
             return conditions.Aqueous ? "需要高温水蒸气环境（非水溶液）" : null;
 
-        if (Has(text, "催化剂", "酶") || IsCatalystSubstance(text))
+        // 催化剂：先判具体物质（要求真实存在于体系），再判通用催化剂
+        if (TryResolveCatalystSubstance(text, out var catalystId))
+        {
+            if (!conditions.Catalyst)
+                return $"需要催化剂（{text}），当前未提供催化条件";
+            if (!state.TryGetValue(catalystId, out var cat) || cat.Remaining <= Epsilon)
+                return $"需要催化剂 {text}，但体系中未加入该物质";
+            return null;
+        }
+        if (Has(text, "催化剂", "酶"))
             return conditions.Catalyst ? null : $"需要催化剂（{text}）";
 
-        if (Has(text, "通电", "电解"))
-            return conditions.Electricity ? null : "需要通电";
+        if (Has(text, "通电", "电解", "放电"))
+            return conditions.Electricity ? null : "需要通电/放电";
 
         if (Has(text, "光照", "强光"))
             return conditions.Light ? null : "需要光照";
@@ -321,11 +353,27 @@ public sealed class ChemicalSimulator
         if (Has(text, "碱性"))
             return conditions.Alkaline ? null : "需要碱性条件";
 
+        // 溶剂：醇溶液 vs 水溶液（先具体后宽泛，避免“醇溶液”被“溶液”分支吞掉）
+        if (Has(text, "醇溶液"))
+            return conditions.Alcoholic ? null : "需要醇溶液体系（当前为水溶液）";
+        if (Has(text, "水溶液"))
+            return conditions.Aqueous ? null : "需要水溶液体系";
         if (Has(text, "溶液"))
             return conditions.Aqueous ? null : "需要水溶液体系";
 
         if (Has(text, "空气"))
             return conditions.Air ? null : "需要空气（氧气）";
+
+        if (Has(text, "加压", "高压"))
+            return conditions.Pressurized ? null : $"需要加压/高压（{text}）";
+
+        // 冰晶石（电解铝助熔剂）：要求体系中存在
+        if (Has(text, "冰晶石") && TryResolveSubstanceId("冰晶石", out var cryoliteId))
+        {
+            if (!state.TryGetValue(cryoliteId, out var c) || c.Remaining <= Epsilon)
+                return "需要冰晶石作助熔剂，体系中未加入";
+            return null;
+        }
 
         if (Has(text, "常温")) return null;
 
@@ -339,23 +387,65 @@ public sealed class ChemicalSimulator
         return null;
     }
 
-    /// <summary>把 MnO2、V2O5 等条件中出现的催化剂物质识别为催化条件</summary>
-    private static bool IsCatalystSubstance(string text) =>
-        text is "MnO2" or "V2O5" or "Ni" or "Pt";
+    /// <summary>已知可作催化剂的物质（条件中出现时要求真实存在于体系）</summary>
+    private static readonly HashSet<string> CatalystSubstances = new(StringComparer.Ordinal)
+    {
+        "MnO2", "V2O5", "Ni", "Pt", "Cu", "FeBr3", "H2SO4"
+    };
+
+    /// <summary>把条件中的催化剂物质 token（如 MnO2、浓H2SO4）解析为知识库物质 id；非催化剂返回 false</summary>
+    private bool TryResolveCatalystSubstance(string text, out string substanceId)
+    {
+        substanceId = string.Empty;
+        var core = text.Trim();
+        if (core.StartsWith("浓", StringComparison.Ordinal)) core = core[1..].Trim();
+        if (!CatalystSubstances.Contains(core)) return false;
+        var substance = _kb.FindSubstance(core);
+        if (substance is null) return false;
+        substanceId = substance.Id;
+        return true;
+    }
+
+    /// <summary>用知识库把名称解析为物质 id（冰晶石等助熔剂条件用）</summary>
+    private bool TryResolveSubstanceId(string name, out string substanceId)
+    {
+        substanceId = string.Empty;
+        var substance = _kb.FindSubstance(name);
+        if (substance is null) return false;
+        substanceId = substance.Id;
+        return true;
+    }
 
     private bool TryParseRelativeAmount(string text, out string mode, out string substanceId)
     {
         mode = string.Empty;
         substanceId = string.Empty;
+        var trimmed = text.Trim();
 
+        // 前缀：过量X / 足量X / 少量X
         foreach (var prefix in new[] { "过量", "足量", "少量" })
         {
-            if (!text.StartsWith(prefix, StringComparison.Ordinal)) continue;
-            var rest = text[prefix.Length..].Trim();
+            if (!trimmed.StartsWith(prefix, StringComparison.Ordinal)) continue;
+            var rest = trimmed[prefix.Length..].Trim();
+            if (rest.Length == 0) return false;
             var substance = _kb.FindSubstance(rest);
             if (substance is null) return false;
 
             mode = prefix;
+            substanceId = substance.Id;
+            return true;
+        }
+
+        // 后缀：X过量 / X足量 / X少量 / X不足（数据中 CO2过量、SO2过量、O2不足 均为此形式）
+        foreach (var suffix in new[] { "过量", "足量", "少量", "不足" })
+        {
+            if (!trimmed.EndsWith(suffix, StringComparison.Ordinal)) continue;
+            var rest = trimmed[..^suffix.Length].Trim();
+            if (rest.Length == 0) return false;
+            var substance = _kb.FindSubstance(rest);
+            if (substance is null) return false;
+
+            mode = suffix;
             substanceId = substance.Id;
             return true;
         }
@@ -390,8 +480,48 @@ public sealed class ChemicalSimulator
             "过量" => targetRatio >= otherMin - Epsilon,
             "足量" => targetRatio >= otherMin - Epsilon,
             "少量" => targetRatio <= otherMin + Epsilon,
+            "不足" => targetRatio <= otherMin + Epsilon,
             _ => true
         };
+    }
+
+    // ==================== 反应速率：长期缓慢过程过滤 ====================
+
+    /// <summary>金属单质（常温下与 O2 发生缓慢氧化）</summary>
+    private static readonly HashSet<string> MetalElements = new(StringComparer.Ordinal)
+    {
+        "K", "Ca", "Na", "Mg", "Al", "Zn", "Fe", "Sn", "Pb", "Cu", "Ag", "Hg", "Au", "Pt"
+    };
+
+    /// <summary>明确指示长期腐蚀/生锈/风化过程的关键词（不出现在快速反应现象中）</summary>
+    private static readonly Regex SlowCorrosionKeywords = new(
+        @"生锈|锈蚀|腐蚀|风化|吸氧腐蚀", RegexOptions.Compiled);
+
+    /// <summary>方程式中出现游离 O2 分子（O2 前不得为字母，避免误匹配 CO2/SO2；系数数字允许）</summary>
+    private static bool FreeOxygenInEquation(string? equation) =>
+        Regex.IsMatch(equation ?? string.Empty, @"(^|[^A-Za-z])O2\b");
+
+    /// <summary>
+    /// 判定是否为长期缓慢过程（默认不在快速 trace 中展示）：
+    /// 1) 现象/方程式明确为腐蚀/生锈/风化；或
+    /// 2) 常温（无条件或仅"常温"）下金属单质与 O2 的缓慢氧化（Na/Fe/Cu 等表面氧化）。
+    /// 带"点燃/加热"等条件的燃烧、快速氧化不命中，避免误杀（如 2NO+O2、Na2O2 与水）。
+    /// </summary>
+    private static bool IsSlowProcess(Reaction reaction)
+    {
+        var blob = string.Join(' ', reaction.Phenomena ?? Enumerable.Empty<string>()) + " " + reaction.Equation;
+        if (SlowCorrosionKeywords.IsMatch(blob)) return true;
+
+        var onlyRoom = reaction.Conditions is null || reaction.Conditions.Count == 0 ||
+                       (reaction.Conditions.Count == 1 && reaction.Conditions[0] == "常温");
+        if (onlyRoom &&
+            FreeOxygenInEquation(reaction.Equation) &&
+            reaction.Reactants.Any(id => MetalElements.Contains(id)))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     private static double ComputeExtent(

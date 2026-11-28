@@ -1,433 +1,221 @@
 @use '@/styles/variables.scss' as *;
 
 .page {
+  min-height: 100vh;
+  padding: 0 32rpx 0;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, #eef3ff 0%, #f7f9fc 220rpx);
+}
+
+/* ===== 顶部标题区 ===== */
+.header {
+  padding-top: 24rpx;
+}
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.avatar {
+  width: 72rpx;
+  height: 72rpx;
+  border-radius: 50%;
+  background: #e0eaff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addBtn {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4rpx 12rpx rgba(15, 23, 42, 0.06);
+}
+.brandTitle {
+  display: block;
+  margin-top: 24rpx;
+  font-size: 48rpx;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.2;
+}
+.brandSubtitle {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 28rpx;
+  color: #64748b;
+  line-height: 1.3;
+}
+
+/* ===== 两张主功能大卡 ===== */
+.entryGrid {
+  display: flex;
+  gap: 24rpx;
+  margin-top: 40rpx;
+}
+.entryCard {
+  position: relative;
+  width: 331rpx;
+  height: 330rpx;
+  border-radius: 40rpx;
+  padding: 28rpx;
+  box-sizing: border-box;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  background: $color-bg-page;
-}
-
-/* ===== 顶部标题（居中；右侧微信原生胶囊自动叠加） ===== */
-.header {
-  flex-shrink: 0;
-  padding-top: calc(env(safe-area-inset-top) + #{$spacing-lg});
-  padding-left: $page-padding;
-  padding-right: $page-padding;
-  padding-bottom: $spacing-md;
-  background: $color-bg-page;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.title {
-  font-size: 40rpx;
-  font-weight: $font-weight-bold;
-  color: $color-text-primary;
-  letter-spacing: 2rpx;
-  text-align: center;
-}
-
-/* ===== 内容滚动区 ===== */
-.body {
-  flex: 1;
-  min-height: 0;
-  padding-left: $page-padding;
-  padding-right: $page-padding;
-  box-sizing: border-box;
-}
-
-/* ===== 学段选择 ===== */
-.stageRow {
-  margin-top: $spacing-xs;
-}
-
-.stageLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 8rpx;
-}
-
-.stageLabelText {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-}
-
-.stageArrow {
-  font-size: 20rpx;
-  color: $color-text-tertiary;
-  line-height: 1;
-}
-
-/* 学段分段控件：分组容器 + 等分选中态，替代冗余 Picker */
-.stagePills {
-  display: flex;
-  gap: 6rpx;
-  margin-top: 8rpx;
-  margin-bottom: 12rpx;
-  background: $color-bg-card;
-  border-radius: $radius-round;
-  padding: 6rpx;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
-}
-
-.pill {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12rpx 0;
-  border-radius: $radius-round;
-  background: transparent;
-  transition: all $transition-fast;
-
+  box-shadow: 0 8rpx 32rpx rgba(15, 23, 42, 0.06);
   &:active {
-    transform: scale(0.96);
-    opacity: 0.85;
+    transform: scale(0.97);
   }
 }
-
-.pillActive {
-  background: $color-primary;
-  box-shadow: 0 2rpx 8rpx rgba(46, 167, 196, 0.3);
+.entryGlow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 60%);
+  pointer-events: none;
 }
-
-.pillText {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-}
-
-.pillTextActive {
-  color: #fff;
-  font-weight: $font-weight-semibold;
-}
-
-/* ===== 分区标题 ===== */
-.sectionHead {
+.entryIconCircle {
+  width: 88rpx;
+  height: 88rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.22);
   display: flex;
   align-items: center;
-  gap: 12rpx;
-  margin-top: 16rpx;
-  margin-bottom: 12rpx;
+  justify-content: center;
+}
+.entryTitle {
+  margin-top: 24rpx;
+  font-size: 40rpx;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.2;
+}
+.entryTitleSmall {
+  font-size: 36rpx;
+  white-space: nowrap;
+}
+.entryDesc {
+  margin-top: 8rpx;
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.3;
 }
 
-/* 分区标题图标：尺寸/颜色由 ModelIcon inline style 控制 */
-
-.sectionTitleWrap {
+/* ===== 示例区标题 ===== */
+.sectionHead {
+  margin-top: 56rpx;
   display: flex;
-  flex-direction: column;
+  align-items: center;
 }
-
+.sectionBar {
+  width: 8rpx;
+  height: 40rpx;
+  border-radius: 4rpx;
+  background: #2563eb;
+  flex-shrink: 0;
+}
 .sectionTitle {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  color: $color-text-primary;
+  margin-left: 12rpx;
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #1f2937;
+}
+.sectionLink {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+}
+.sectionLinkText {
+  font-size: 24rpx;
+  color: #94a3b8;
 }
 
-.sectionSub {
-  margin-top: 4rpx;
-  font-size: $font-size-xs;
-  color: $color-text-tertiary;
-}
-
-/* ===== 卡片网格：3 列，5 张 = 第一行 3 张 + 第二行 2 张 ===== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+/* ===== 示例网格 ===== */
+.exampleGrid {
+  margin-top: 24rpx;
+  display: flex;
+  flex-wrap: wrap;
   gap: 16rpx;
 }
-
-.card {
-  background: $color-bg-card;
-  border-radius: $radius-lg;
-  padding: 22rpx 14rpx 18rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: 1rpx solid $color-divider;
-  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
-  transition: transform $transition-fast, box-shadow $transition-fast;
-  will-change: transform;
+.exampleCard {
   position: relative;
-
+  height: 400rpx;
+  background: #ffffff;
+  border-radius: 24rpx;
+  padding: 20rpx;
+  box-sizing: border-box;
+  box-shadow: 0 8rpx 32rpx rgba(15, 23, 42, 0.06);
+  animation: fadeUp 320ms ease both;
   &:active {
     transform: scale(0.96);
-    box-shadow: 0 1rpx 4rpx rgba(0, 0, 0, 0.05);
   }
 }
-
-/* 暂未开放：置灰 + 去交互反馈 */
-.cardDisabled {
-  opacity: 0.5;
-  filter: grayscale(0.6);
-
-  &:active {
-    transform: none;
-  }
+.thumb {
+  position: relative;
+  width: 100%;
+  height: 180rpx;
+  border-radius: 20rpx;
+  background: #f1f5f9;
+  overflow: hidden;
 }
-
-/* 抽题加载态：禁交互 + 轻微降透明，不响应按压缩放 */
-.cardLoading {
-  pointer-events: none;
-  opacity: 0.82;
-
-  &:active {
-    transform: none;
-    box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.03);
-  }
-}
-
-.disabledTag {
+.thumbPlay {
   position: absolute;
   top: 12rpx;
   right: 12rpx;
-  font-size: 20rpx;
-  color: $color-text-tertiary;
-  background: $color-bg-hover;
-  border-radius: $radius-round;
-  padding: 4rpx 12rpx;
-  line-height: 1.4;
-}
-
-/* 卡片图标：青绿线性 SVG，尺寸/颜色由 ModelIcon inline style 控制，仅留间距 */
-.cardIcon {
-  margin-bottom: 14rpx;
-}
-
-/* 抽题加载旋转圈（纯 CSS，青绿顶边旋转） */
-.cardSpinner {
-  width: 36rpx;
-  height: 36rpx;
-  margin-bottom: 14rpx;
+  width: 56rpx;
+  height: 56rpx;
   border-radius: 50%;
-  border: 3rpx solid $color-divider;
-  border-top-color: $color-primary;
-  animation: home-card-spin 0.8s linear infinite;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-
-.cardLoadingText {
+.exampleTitle {
+  display: block;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1f2937;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.exampleDesc {
+  display: -webkit-box;
   margin-top: 8rpx;
-  font-size: $font-size-xs;
-  color: $color-primary;
-}
-
-@keyframes home-card-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.cardTitle {
-  font-size: $font-size-md;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
-  text-align: center;
-}
-
-.cardDesc {
-  margin-top: 8rpx;
-  font-size: $font-size-xs;
-  color: $color-text-tertiary;
-  text-align: center;
-  line-height: $line-height-tight;
-  @include text-ellipsis-multi(2);
-}
-
-/* ===== 更多专项（可折叠） ===== */
-.moreCard {
-  margin-top: $spacing-md;
-  background: $color-bg-card;
-  border-radius: $radius-lg;
-  border: 1rpx solid $color-divider;
+  font-size: 24rpx;
+  color: #64748b;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
-
-.moreHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18rpx 24rpx;
-  @include pressable;
+.exampleInfo {
+  position: absolute;
+  left: 20rpx;
+  bottom: 20rpx;
+  font-size: 20rpx;
+  color: #94a3b8;
 }
-
-.moreTitle {
-  font-size: $font-size-md;
-  font-weight: $font-weight-semibold;
-  color: $color-text-primary;
-}
-
-.moreChevron {
-  font-size: 40rpx;
-  line-height: 1;
-  color: $color-text-tertiary;
-  transition: transform $transition-fast;
-}
-
-.moreChevronOpen {
-  transform: rotate(90deg);
-}
-
-.moreList {
-  border-top: 1rpx solid $color-divider;
-}
-
-.moreItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18rpx 24rpx;
-
-  &:active {
-    background: $color-bg-hover;
-  }
-}
-
-.moreItemText {
-  font-size: $font-size-sm;
-  color: $color-text-secondary;
-}
-
-.moreItemArrow {
-  font-size: 32rpx;
-  line-height: 1;
-  color: $color-text-tertiary;
-}
-
-/* ===== 反应推理卡入口 ===== */
-.reactionEntry {
-  margin-top: $spacing-md;
-  display: flex;
-  align-items: center;
-  gap: 16rpx;
-  padding: 20rpx 24rpx;
-  background: linear-gradient(135deg, #f0fdfa, #fff);
-  border: 2rpx solid #99f6e4;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-card;
-  transition: all $transition-fast;
-
-  &:active {
-    transform: scale(0.98);
-    opacity: 0.92;
-  }
-}
-
-.reactionEntryIcon {
-  width: 64rpx;
-  height: 64rpx;
-  border-radius: $radius-round;
-  background: $color-primary-soft;
-  @include flex-center;
-  flex-shrink: 0;
-}
-
-.reactionEntryMain {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4rpx;
-}
-
-.reactionEntryTitle {
-  font-size: $font-size-md;
-  font-weight: $font-weight-bold;
-  color: $color-text-primary;
-}
-
-.reactionEntryDesc {
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
-  line-height: 1.5;
-}
-
-.reactionEntryArrow {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  color: $color-primary;
-  flex-shrink: 0;
-}
-
-/* ===== A–F 精熟练习入口（与反应推理卡并列，作答内容在独立页） ===== */
-.practiceEntry {
-  margin-top: $spacing-md;
-  display: flex;
-  align-items: center;
-  gap: 16rpx;
-  padding: 20rpx 24rpx;
-  background: linear-gradient(135deg, #fef9f3, #fff);
-  border: 2rpx solid #fde6c8;
-  border-radius: $radius-lg;
-  box-shadow: $shadow-card;
-  transition: all $transition-fast;
-
-  &:active {
-    transform: scale(0.98);
-    opacity: 0.92;
-  }
-}
-
-.practiceEntryIcon {
-  width: 64rpx;
-  height: 64rpx;
-  border-radius: $radius-round;
-  background: rgba(46, 167, 196, 0.12);
-  @include flex-center;
-  flex-shrink: 0;
-}
-
-.practiceEntryMain {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 4rpx;
-}
-
-.practiceEntryTitle {
-  font-size: $font-size-md;
-  font-weight: $font-weight-bold;
-  color: $color-text-primary;
-}
-
-.practiceEntryDesc {
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
-  line-height: 1.5;
-}
-
-.practiceEntryArrow {
-  font-size: $font-size-lg;
-  font-weight: $font-weight-bold;
-  color: $color-primary;
-  flex-shrink: 0;
-}
-
-/* ===== 通栏拍照识题按钮 ===== */
-.photoBtn {
-  margin-top: $spacing-lg;
-  width: 100%;
-  height: $button-height-lg;
-  background: $color-primary;
-  border-radius: $radius-button;
-  @include flex-center;
-  @include button-reset;
-  gap: 10rpx;
-  box-shadow: 0 6rpx 16rpx rgba(46, 167, 196, 0.28);
-
-  &:active {
-    background: $color-primary-dark;
-  }
-}
-
-.photoBtnText {
-  color: $color-text-white;
-  font-size: $font-size-lg;
-  font-weight: $font-weight-semibold;
-  letter-spacing: 1rpx;
-}
-
-/* 为底部 TabBar 留出空间（tabbar 高 110rpx + env safe-area + 缓冲；不可低于 150rpx，否则刘海屏会遮挡底部内容） */
 .bottomPad {
-  height: 150rpx;
+  height: 180rpx;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
