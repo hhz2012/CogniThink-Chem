@@ -477,7 +477,35 @@ public class Batch3ChoiceValidatorTests
         // 同侧的稳定异构体)、B 真(缩短时间得A)、C 真(NMR可区分立体异构)、D 真(K=[B]/[A]=35)，唯一错误项=A。
         // 策展 GC-768-A~D（A 假、B/C/D 真）由 askDir=错误 路径解出。无 pdf_questions.json 改动；
         // stemMatch 命中 pdf-251/pdf-336 但 match 关键词仅出现在 pdf-336 选项，零串扰；与 Organic/Structure/Experiment 无路由二义。
-        ["pdf-336"] = "A"
+        ["pdf-336"] = "A",
+        // hard-bone-data-repair-3：pdf-376（北京卷·CO2与X合成可降解高分子P·选不正确项=B）。
+        // 存储 answer=B 已正确。据渲染页 ex_idx125.png（page_125，num 4）读路线图：CO2+X（1,3-丁二烯）→Y（六元环内酯）→P（聚酯）；
+        // 独立核验 A 真（CO2:X=1:2）、B 假（P 水解得开链羟基酸 C9H14O3 ≠ Y 的 C9H12O2）、C 真（P 含 C=C 可交联）、D 真（Y 经 C=C 加聚得难降解聚烯烃），
+        // 唯一不正确项=B。策展 GC-769-A~D（A/C/D 真、B 假）由 askDir=不正确 路径解出。无 pdf_questions.json 改动；
+        // stemMatch 全库唯一，4 选项各命中唯一事实，零串扰；与 Organic/Structure/Experiment 无路由二义。
+        ["pdf-376"] = "B",
+        // hard-bone-data-repair-3：pdf-382（八省联考内蒙古卷·乙酸+乙炔→乙酸乙烯酯→PVA·选错误项=B）。
+        // 存储 answer=B 已正确，但 question 字段被 OCR 截断、缺失“下列说法错误的是”，致 askDir 误判 correct 而无解；
+        // 据渲染页 page_127.png（page_127，num 10）补全 stem 为“…可用如下方法制备。下列说法错误的是”（经用户批准）。
+        // 独立核验 A 真（①加成）、B 假（②为加聚非缩聚）、C 真（PVA 多羟基与水成氢键）、D 真（高吸水性），唯一错误项=B。
+        // 策展 GC-770-A~D（A/C/D 真、B 假）由 askDir=错误 路径解出。stemMatch 全库唯一，4 选项各命中唯一事实，无路由二义。
+        ["pdf-382"] = "B",
+        // hard-bone-data-repair-3：pdf-138（全国模拟预测·H2S 制备/干燥/检验/尾气处理装置·选不能达到目的项=B）。
+        // 存储 answer=B 已正确；stem 含“不能达到”故 askDir=错误。据渲染页 page_046.png 读 4 装置：A（FeS+稀硫酸制 H2S）可达、
+        // B（浓硫酸干燥 H2S）不可达（浓 H2SO4 氧化 H2S）、C（CuSO4 溶液检验）可达、D（NaOH 溶液尾气处理）可达，唯一不可达=B。
+        // 附：提取图 p046_n05_1.png 被错配为同页第 6 题价类图（不影响文本判题，记入缺陷登记表）。
+        // 策展 GC-771-A~D（A/C/D 真、B 假）由 askDir=不能达到 路径解出。无 pdf_questions.json 改动；
+        // stemMatch 全库唯一，4 选项各命中唯一事实，零串扰；与 Experiment/Organic/Structure 无路由二义。
+        ["pdf-138"] = "B",
+        // hard-bone-data-repair-4：pdf-162（钡盐制备流程·“酸化”步骤应选用的酸·选 c 盐酸）。
+        // 存储 options 键为小写 a-d、answer=小写 c，但 GenPdfQuestions 渲染时统一 ToUpperInvariant，
+        // 判分字母路径 ToLowerInvariant 大小写不敏感，故无需改 pdf_questions.json；当前 Concept 为 null
+        // 仅因无覆盖事实。据 exercise/page_055.json（num 3）与 answer/page_057.json 解析：滤液酸化须避免
+        // Ba2+ 与酸根沉淀——BaSO4/Ba3(PO4)2 不溶而 BaCl2 可溶，故选盐酸。独立 4 判：A 稀硫酸假、B 浓硫酸假、
+        // C 盐酸真、D 磷酸假，唯一真=C。策展 GC-772-A~D（A/B/D 假、C 真）由 askDir=correct 解出。
+        // stemMatch["酸化","选用的酸"] 联合 match 后全库仅命中 pdf-162 各 1 项（pdf-161 父题虽同含 stem 关键词但无对应选项），
+        // 零串扰；与 Experiment/Organic/Structure 无路由二义。
+        ["pdf-162"] = "C"
     };
 
     public static IEnumerable<object[]> ConceptCases =>

@@ -953,6 +953,26 @@
                                {"id": "GC-768-A", "match": ["产物 B 对应的结构是"], "stemMatch": ["1-苯基丙炔"], "verdict": false, "reason": "产物B为热力学稳定异构体(Cl与CH3处于双键同侧、排斥力更小)；选项A所示结构中苯基与CH3处于同侧(排斥力大，实为产物A)，并非产物B，A错。"},
                                {"id": "GC-768-B", "match": ["应适当缩短反应时间"], "stemMatch": ["1-苯基丙炔"], "verdict": true, "reason": "由含量-时间曲线，产物A先增后减(动力学产物)、产物B持续增加(热力学产物)；缩短反应时间可在A大量转化为B前获取A，B对。"},
                                {"id": "GC-768-C", "match": ["可用核磁共振氢谱加以区分"], "stemMatch": ["1-苯基丙炔"], "verdict": true, "reason": "产物A、B为烯烃立体异构体(E/Z)，双键氢及CH3的化学位移/耦合不同，核磁共振氢谱可区分，C对。"},
-                               {"id": "GC-768-D", "match": ["平衡常数 K = 35"], "stemMatch": ["1-苯基丙炔"], "verdict": true, "reason": "体系中存在A⇌B，平衡时产物A与产物B含量之比为1:35，故K=[B]/[A]=35，D对。"}
+                               {"id": "GC-768-D", "match": ["平衡常数 K = 35"], "stemMatch": ["1-苯基丙炔"], "verdict": true, "reason": "体系中存在A⇌B，平衡时产物A与产物B含量之比为1:35，故K=[B]/[A]=35，D对。"},
+                               {"id": "GC-769-A", "match": ["CO2与X的化学计量比为1:2"], "stemMatch": ["可降解高分子P", "反应①中无其他产物生成"], "verdict": true, "reason": "反应①为CO2与X(1,3-丁二烯)加成生成六元环内酯Y且无其他产物；Y含9个C，CO2提供1个C、X提供8个C，故CO2与X化学计量比为1:2，A对。"},
+                               {"id": "GC-769-B", "match": ["P完全水解得到的产物的分子式和Y的分子式相同"], "stemMatch": ["可降解高分子P", "反应①中无其他产物生成"], "verdict": false, "reason": "P是Y开环聚合所得聚酯，完全水解断裂酯键生成开链羟基酸(相当于Y+H2O)，分子式为C9H14O3，与Y的C9H12O2不同，B错。"},
+                               {"id": "GC-769-C", "match": ["碳碳双键进一步交联形成网状结构"], "stemMatch": ["可降解高分子P", "反应①中无其他产物生成"], "verdict": true, "reason": "P的主链保留碳碳双键，可发生加成反应进一步交联形成网状结构，C对。"},
+                               {"id": "GC-769-D", "match": ["Y通过碳碳双键的加聚反应生成的高分子难以降解"], "stemMatch": ["可降解高分子P", "反应①中无其他产物生成"], "verdict": true, "reason": "Y若经碳碳双键加聚则生成聚烯烃类主链(无酯键)，难以水解降解；实际P由开环聚合生成、含酯键故可降解，D对。"},
+                               {"id": "GC-770-A", "match": ["①为加成反应"], "stemMatch": ["聚乙烯醇"], "verdict": true, "reason": "反应①为乙酸与乙炔的加成反应：乙炔碳碳三键断开一条π键，乙酸O—H断裂，H与OAc分别加在乙炔两侧碳上生成乙酸乙烯酯，A对。"},
+                               {"id": "GC-770-B", "match": ["②③分别为缩聚反应、水解反应"], "stemMatch": ["聚乙烯醇"], "verdict": false, "reason": "反应②为乙酸乙烯酯的加聚反应生成聚乙酸乙烯酯(无双键小分子析出，非缩聚)，反应③为水解；故B称②为缩聚反应错误。"},
+                               {"id": "GC-770-C", "match": ["能与水形成氢键"], "stemMatch": ["聚乙烯醇"], "verdict": true, "reason": "PVA链节含多个羟基(—OH)，羟基中的O、H可与水分子形成氢键(O—H…O)，C对。"},
+                               {"id": "GC-770-D", "match": ["可用作高吸水性材料"], "stemMatch": ["聚乙烯醇"], "verdict": true, "reason": "PVA含大量亲水羟基，易与水分子形成氢键而具强亲水性，可用作高吸水性材料，D对。"},
+                               {"id": "GC-771-A", "match": ["制备 H2S 气体"], "stemMatch": ["利用以下装置进行相关实验", "不能达到预期目的"], "verdict": true, "reason": "FeS与稀硫酸反应(FeS+H2SO4→FeSO4+H2S↑)可制备H2S，发生装置(固液不加热)合理，A能达到目的。"},
+                               {"id": "GC-771-B", "match": ["干燥 H2S 气体"], "stemMatch": ["利用以下装置进行相关实验", "不能达到预期目的"], "verdict": false, "reason": "H2S具强还原性，浓硫酸具强氧化性，二者发生氧化还原反应(H2S被氧化为S等)，故不能用浓硫酸干燥H2S，B不能达到目的。"},
+                               {"id": "GC-771-C", "match": ["检验 H2S 气体"], "stemMatch": ["利用以下装置进行相关实验", "不能达到预期目的"], "verdict": true, "reason": "H2S与硫酸铜溶液反应生成黑色CuS沉淀(H2S+CuSO4→CuS↓+H2SO4)，可用于检验H2S，C能达到目的。"},
+                               {"id": "GC-771-D", "match": ["对 H2S 气体进行尾气处理"], "stemMatch": ["利用以下装置进行相关实验", "不能达到预期目的"], "verdict": true, "reason": "H2S为酸性有毒气体，可被NaOH溶液吸收(H2S+2NaOH→Na2S+H2O)，D能达到目的。"},
+                               {"id": "GC-772-A", "match": ["稀硫酸"], "stemMatch": ["酸化", "选用的酸"], "verdict": false, "reason": "滤液含Ba2+，稀硫酸提供SO4^2-，生成BaSO4沉淀损耗Ba2+，不能用于酸化。"},
+                               {"id": "GC-772-B", "match": ["浓硫酸"], "stemMatch": ["酸化", "选用的酸"], "verdict": false, "reason": "浓硫酸提供SO4^2-，与Ba2+生成BaSO4沉淀，不能用于酸化。"},
+                               {"id": "GC-772-C", "match": ["盐酸"], "stemMatch": ["酸化", "选用的酸"], "verdict": true, "reason": "盐酸提供Cl-，BaCl2可溶于水不沉淀Ba2+，可用于酸化。"},
+                               {"id": "GC-772-D", "match": ["磷酸"], "stemMatch": ["酸化", "选用的酸"], "verdict": false, "reason": "磷酸提供PO4^3-，与Ba2+生成Ba3(PO4)2沉淀，不能用于酸化。"},
+                               {"id": "GC-773-A", "match": ["水"], "stemMatch": ["吸收液可用", "GaN"], "verdict": true, "reason": "装置产生的气体为NH3(GaN与NaOH反应放出)，NH3极易溶于水，故水可用作吸收液，A对。"},
+                               {"id": "GC-773-B", "match": ["浓盐酸"], "stemMatch": ["吸收液可用", "GaN"], "verdict": false, "reason": "浓盐酸易挥发，会挥发出HCl气体混入体系，不利于纯净吸收NH3，不能用作吸收液，B错。"},
+                               {"id": "GC-773-C", "match": ["稀硫酸"], "stemMatch": ["吸收液可用", "GaN"], "verdict": true, "reason": "NH3为碱性气体，可与稀硫酸反应被吸收(2NH3+H2SO4→(NH4)2SO4)，稀硫酸可用作吸收液，C对。"},
+                               {"id": "GC-773-D", "match": ["四氯化碳"], "stemMatch": ["吸收液可用", "GaN"], "verdict": false, "reason": "NH3为极性分子，CCl4为非极性分子，根据相似相溶，NH3难溶于CCl4，不能用四氯化碳吸收，D错。"}
                    ]
 }

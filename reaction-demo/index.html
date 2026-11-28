@@ -140,7 +140,7 @@
     </div>
     <div class="row">
       <span class="lbl">反应物</span>
-      <input id="inputSpecies" value="CuSO4:1, NaOH:2, Fe:1" placeholder="如 CuSO4:1, NaOH:2" />
+      <input id="inputSpecies" value="CaCl2:1, Na2CO3:1, HCl:3" placeholder="如 CaCl2:1, Na2CO3:1" />
     </div>
     <div class="row api-row">
       <span class="lbl">接口</span>
@@ -234,7 +234,7 @@ function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&
 /* 化学式下标排版：CuSO4 → CuSO<sub>4</sub>（仅字母/括号后的数字） */
 function chem(s) { return esc(String(s)).replace(/([A-Za-z\)\]])(\d+)/g, '$1<sub>$2</sub>'); }
 
-/* 解析用户输入：CuSO4:1, NaOH:2 → [{substance, concentration, volume}] */
+/* 解析用户输入：CaCl2:1, Na2CO3:1 → [{substance, concentration, volume}] */
 function parseSpeciesInput(text) {
   const out = [];
   String(text).split(/[,，;；\n]+/).forEach(part => {
@@ -430,11 +430,20 @@ function setStage(i) {
   });
 }
 
+/* 过滤缓慢过程：含铁生锈等含 O2 的缓慢氧化/腐蚀，不宜作为等时长即时演示阶段 */
+function isSlowOxidation(ev) {
+  const eq = String(ev.equation || '');
+  if (!/(^|[^A-Za-z])O2\b/.test(eq)) return false; // O2 前不得为字母（避免误匹配 CO2/SO2），系数数字允许
+  const phen = (ev.phenomena || []).join(' ');
+  return ev.type === 'Combination' || /缓慢|锈|腐蚀|氧化|生锈/.test(phen);
+}
+function filterSlowProcesses(events) { return (events || []).filter(ev => !isSlowOxidation(ev)); }
+
 /* 调用引擎 trace，拿到真实阶段 */
 async function fetchTrace() {
   const api = document.getElementById('inputApi').value.trim().replace(/\/$/, '');
   const species = parseSpeciesInput(document.getElementById('inputSpecies').value);
-  if (!species.length) throw new Error('请输入反应物，格式如 CuSO4:1, NaOH:2');
+  if (!species.length) throw new Error('请输入反应物，格式如 CaCl2:1, Na2CO3:1');
   const res = await fetch(api + '/api/chemistry/trace', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -443,6 +452,8 @@ async function fetchTrace() {
   if (!res.ok) throw new Error('接口返回 ' + res.status);
   const data = await res.json();
   if (!data || !data.events || !data.events.length) throw new Error('模拟器未产生反应阶段');
+  data.events = filterSlowProcesses(data.events);
+  if (!data.events.length) throw new Error('过滤缓慢过程后无可展示的快速反应阶段');
   return data;
 }
 
