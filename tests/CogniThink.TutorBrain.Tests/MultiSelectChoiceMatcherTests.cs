@@ -439,4 +439,22 @@ public class MultiSelectChoiceMatcherTests
     {
         Assert.Equal(expected, GatewayVsLlmEvaluationService.TryAdoptMultiSelectConclusion(conclusion, answer));
     }
+
+    // ==================== count-of-correct 数字输出采纳门（BuildGatewayAnswerAsync choice 分支）====================
+    // pdf-263 类计数题引擎输出「正确的有 N 项」不含选项字母，落不到 ContainsOptionLetter / TryAdoptMultiSelectConclusion；
+    // 新增 IsCountOfCorrectConclusion 签名识别，采纳仍由 IsAnswerCorrect 答案键校验兜底（凡采纳必判正，零假阳性）。
+    [Theory]
+    [InlineData("正确的有 3 项", true)]
+    [InlineData("正确的有3项", true)]
+    [InlineData("错误的有 2 项", true)]
+    [InlineData("正确的有 0 项", true)]
+    [InlineData("正确的有 10 项", true)]
+    [InlineData("正确选项为 ABC", false)]   // 含字母 → 走 ContainsOptionLetter，不归计数签名
+    [InlineData("3", false)]
+    [InlineData("正确的有三项", false)]    // 中文数字不匹配（引擎输出阿拉伯数字）
+    [InlineData("", false)]
+    public void IsCountOfCorrectConclusion_Signature(string conclusion, bool expected)
+    {
+        Assert.Equal(expected, GatewayVsLlmEvaluationService.IsCountOfCorrectConclusion(conclusion));
+    }
 }

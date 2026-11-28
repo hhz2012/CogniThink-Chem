@@ -50,7 +50,7 @@
 | pdf-409 | `answer="D"`（问「错误的是」），但 D（Li+nNH₃ 反应式）为真；错误项应为 C（P₂O₅ 不能干燥 NH₃），与 answer 冲突。 | answer 与化学真值冲突，无官方源不能定键。 | 原页/答案册核对正确键；暂保留 `null`。 |
 | pdf-410 | `answer="C"`（问「不正确的是」），但 C（凯氏定氮步骤）为真；错误项应为 D，冲突。 | answer 与化学冲突，无官方源不能定键。 | 原页核对键；暂保留 `null`。 |
 | pdf-432 | `answer="B"`（问「不正确的是」），但 B（CH₄ 球棍模型）为真；错误项应为 A（H₂O₂ 电子式），冲突。 | answer 与化学冲突，无官方源不能定键。 | 原页核对键；暂保留 `null`。 |
-| pdf-524 | `answer="BC"`，但备注称 C 错（c/d 不互为同分异构体），与 answer 冲突；依赖合成路线图。 | answer 与备注/化学冲突，无官方源不能定键；且需读图核真。 | 原页核对键 + 图像轨道恢复路线图；暂保留 `null`。 |
+| ~~pdf-524~~ | ✅ **已策展自解（datarepair3）**：读原图确证路线 a=环戊二烯→b=二环戊二烯→c=四氢二环戊二烯→d=金刚烷；独立推导 A假(共轭双烯1,2+1,4加成→2种)、B真(双键可加成/氧化)、C真(c与d均C₁₀H₁₆结构不同→同分异构体)、D假(c等效氢3组→一氯代物3种≠6，RDKit确证，金刚烷sanity=2)。存储键 `BC` 本就正确（note 称 C 错系 note 不可信）。策展 GC-776-A~D，MultiSelect fallback 解出 BC，eval GAIN +1，LOSS=0、harm=0、precision=1。 | — | — |
 | ~~pdf-338~~ | ⏭️ **已跳过（命题缺陷，hard-bone-data-repair-2）**：官方答案 `answer/page_115.json` 标 C，但官方解析自相矛盾——其论证"CF₃ 吸电子降电子云、CH₃ 推电子升电子云 → 反应活性 CF₃-苯 < CH₃-苯"恰是选项 D 的表述，却误标"D 错"。独立核验：—CF₃ 强钝化、—CH₃ 活化，按题给前提 C、D 双真 → 4 选项不能唯一判真。按零蒙数/零误伤红线不策展假事实、不改键，仅登记。 | 命题缺陷（官方解析与自身推理矛盾），无唯一真项；待题源确认是否多选。 | — |
 
 ---
@@ -178,13 +178,13 @@
 | pdf-087 | 选项真伪依赖流程图；备注自相矛盾（称 A 正确却标 A 为答案），需官方源/流程推理 | C 类（本批新增） |
 | pdf-218 | 晶胞结构依赖图像；answer 键已订正为 D（原「多选 BCD」系污染误判，见 C 类 / I.1） | C 类（键已修复，见 I.1） |
 | pdf-220 | 晶胞结构依赖图像；answer 键已订正为 D（原「多选 ABC」系污染误判，见 C 类 / I.1） | C 类（键已修复，见 I.1） |
-| pdf-263 | 问法「正确的有几项」为计数型（非选项字母匹配），6 选项；需计数逻辑 | C 类（既有） |
+| pdf-263 | ✅ 键已修复（datarepair2）：计数型「正确的有几项」answer `B`→`3`，answerKeywords→`["3","正确的有3项"]`；引擎仍 null 属计数能力缺口，无数据缺陷残留 | 已移出未解（键修复） |
 | pdf-284 | C、D 均为错误项（≥2）无多选标记 → Concept 返回 null；需读滴定曲线图像 | C 类（本批新增） |
-| pdf-303 | 备注称 C、D 均真（应为 CD），answer 仅 C；多选无标记；电池装置图 | G 类⑤（既有） |
+| pdf-303 | ✅ 已策展自解（datarepair2）：键 C→CD（联网 book118/学科网/金课件三源确证）+ 策展 GC-774-A~D，MultiSelect fallback 解出 CD | 已移出未解 |
 | pdf-307 | ✅ 已策展自解（见 C 类 pdf-307）：GC-767，Concept 命中 D（选错误项），无数据改动 | 已移出未解 |
 | pdf-336 | ✅ 已策展自解（见 C 类 pdf-336）：GC-768，Concept 命中 A（选错误项），无数据改动 | 已移出未解 |
 | pdf-337 | ✅ 结构图像已挂载（见 C 类 pdf-337 / V 类），VL 可解；引擎文本不读图仍 null | C 类（图像已挂载） |
-| pdf-338 | ⏭️ 已跳过（命题缺陷，见 A 类 pdf-338）：官方解析自相矛盾，C、D 双真无唯一真项；不策展、不改键 | 命题缺陷（非数据缺陷） |
+| pdf-338 | ✅ 已策展自解（datarepair2）：重新核源确认 D 化学为真（answer 册 page_115 解析自相矛盾），按红线独立推导优先，键 C→CD + 策展 GC-775-A~D，MultiSelect fallback 解出 CD | 已移出未解 |
 | pdf-376 | ✅ 已策展自解（见 C 类 pdf-376）：GC-769，Concept 命中 B（选不正确项），无数据改动 | 已移出未解 |
 | pdf-406 | 问法「不能完成」未被 `WrongDir` 正则覆盖 → askDir 误判为 correct，能完成项 3 个候选不唯一；不动 .cs 则无解 | A.1（键已修复）+ H.3 残留说明 |
 | pdf-458 | ✅ 已由引擎解出（见 C 类 pdf-458 / AB 类）：4 选项文本完整，引擎推导 A 假 B 真 C 假 D 真 → `BD`；原「选项 B 文本不全」系误判 | AB 类（本批已闭环） |
@@ -1353,3 +1353,160 @@ choice 类中唯一干净的 Stream B 候选为 **pdf-405**（键 C 正确、4 �
 - **路径 B**：pdf-075 等 redox 计数题 → 需按 `chem-engine-question-solving` 阶段 3C 接入 redox 求解器（更大 spec 级构建），非事实可解。
 - **路径 A 后续**：pdf-190（张冠李戴）、~~pdf-414（拼接）~~（已修复，datarepair1）、pdf-162/325（OCR 损坏）→ VL 现已可用，下一批可逐题原页核对还原；pdf-196（calc 错位残留）同属此类。
 - 图像依赖 11 道 → 图像轨道。
+
+## O 类：datarepair2（修键 + 多选策展，解出 pdf-303 / pdf-338）
+
+> 批次目标：接续 datarepair1（pdf-412/414 修键），从 bothWrong 池中找出可解的下一批。先核源发现 3 题存储答案键缺陷，先修键再策展事实。红线：precision=1、harmCount=0、LOST=0、零蒙数、不主动 commit。基线 `_evalscratch/snapshot_datarepair1`：solved=719、bothWrong=38。
+
+### O.1 核源与分诊（bothWrong 38 题）
+带 options 的可选只剩 pdf-263/303/338/524（pdf-524 暂缓，D 项等效氢不可独立确证）；其余为 fill/calc/大题碎片，非事实可解单选。三题均经 HardBones 追踪确认所有选项 comp=Undecided，事实策展可让其产生判决。
+
+### O.2 修键（报请批准后定点文本替换，最小 diff）
+| id | 旧键 | 新键 | 依据 |
+|----|------|------|------|
+| pdf-303 | `C` | `CD` | 联网 book118 / 学科网 zxxk / 金课件 kimooc 三源确证官方=CD；存储 note 自写「D项正确…故选C」自相矛盾 |
+| pdf-338 | `C` | `CD` | answer 册 page_115 标 C，但其 D 项解析先推出「CF₃-苯电子云密度减小、CH₃-苯增大 → 活性 CF₃-苯 < CH₃-苯」（正是 D 陈述）却标「D错误」，自相矛盾；独立推导 D 为真，按红线独立推导优先 |
+| pdf-263 | `B` | `3` | 计数题「正确的有几项」（A/B/C 真 D/E/F 假 = 3 项），存成字母 B 是类型错配；note 末句「综上，①②③正确」 |
+
+answerKeywords 同步：303 追加 D 项文本、338 追加 D 项文本、263 改为 `["3","正确的有3项"]`。
+
+### O.3 策展事实（choice-curated-facts.json，130→138 条）
+- 探针 `_evalscratch/probe_multiselect.py` 复刻 C# Norm/OptContains，加载全库 1467 条既有事实（general/curated/experiment/organic/structure/judgment），dry-run **TOTAL PROBLEMS=0**：8 条候选事实各只命中唯一目标选项、与既有事实无冲突、MultiSelect 模拟对 303/338 均输出 CD。
+- 落库 GC-774-A~D（解 303：A假/B假/C真/D真）、GC-775-A~D（解 338：A假/B假/C真/D真），stemMatch 分别锁死「热再生氨电池」「Friedel-Crafts」全库唯一。
+- **机制**：303/338 题干无「双选/多选」标记（303 为「不定项」），`FactChoiceMatcher` 的 `isMultiSelect` 正则不认「不定项」，故 ConceptChoiceValidator 走单选取唯一解→2 候选→返回 null；得分靠瀑布末端 **MultiSelectChoiceValidator**（不依赖多选标记，逐选项经事实库判定，≥2 候选即返回多字母，同 pdf-540/115 先例）。
+- 测试：`MultiSelectChoiceValidatorTests.NoMarkerVariant` 追加 `pdf-303→CD`、`pdf-338→CD`；护栏全绿。
+
+### O.4 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- solved **719 → 721（+2）**，bothWrong 38 → 36。
+- LOST=[]、harmCount=0、enginePrecision=1。
+- GAINED 精确 = {pdf-303, pdf-338}（gwAns 均为「正确选项为 CD」，判对）；pdf-263 键已更正但引擎仍 null（计数能力缺口），无 GAIN 亦无 harm。
+- 既有未提交 sim 引擎 WIP（ChemicalSimulationEngine.cs / ChemicalSimulator.cs 等）与本批无关；7 个 ChemicalSimulationEngineTests 失败为该 WIP 所致（stash 验证：暂存本批改动后仍 7 失败），非本批引入。
+- 全库测试：Chem 974/0；TutorBrain 1826/7（7 失败均为上述既有 sim WIP）。
+
+### O.5 未纳入（留待后续）
+- pdf-524：D 项等效氢不可独立确证，暂缓。
+- 计数题（pdf-263 等）：需计数求解器接入，非事实可解。
+- 其余 bothWrong 多为 fill/calc/大题碎片：需原页 VL 还原或引擎能力扩展。
+
+## O 类：datarepair3（多选策展，解出 pdf-524）
+
+> 批次目标：接续 datarepair2（解出 pdf-303/338，bothWrong=36），从 bothWrong 未解池找出下一批可解题。红线：precision=1、harmCount=0、LOST=0、零蒙数、不主动 commit。基线 `_evalscratch/snapshot_datarepair2`：solved=721、bothWrong=36。
+
+### O.1 核源与分诊（bothWrong 36 题）
+探针 `_evalscratch/probe_nonempty.py` 确认 36 题 gatewayAnswer 全为空（引擎全 null），无"修键即得"题。带 options 的可选只剩 pdf-263（计数题，引擎无法解计数）与 **pdf-524**（choice，4 选项）；其余 34 题为 fill/calc/judge/other（大题碎片或引擎能力缺口，非事实可解单选）。锁定 pdf-524 为唯一干净候选。
+
+### O.2 独立确证 pdf-524 四项 verdict（键 BC 已正确，无需修键）
+读原图 [p114_n02_1.png](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/data/pdf_images/p114_n02_1.png) 确证合成路线：a=环戊二烯(C₅H₆) →(△) b=二环戊二烯(C₁₀H₁₂) →(H₂/Ni,加热加压) c=四氢二环戊二烯(C₁₀H₁₆) →(AlCl₃,△) d=金刚烷(C₁₀H₁₆)。
+- **A 假**：a 为共轭双烯，与 Br₂ 1:1 加成得 1,2-加成与 1,4-加成两种产物（非 1 种）。
+- **B 真**：b 含 C=C，能发生加成反应，也能被酸性 KMnO₄ 等氧化。
+- **C 真**：c（四氢二环戊二烯）与 d（金刚烷）分子式均为 C₁₀H₁₆、结构不同 → 互为同分异构体（菁优网同题确证 c=C₁₀H₁₆）。
+- **D 假**：c 结构对称，等效氢为 3 组 → 一氯代物有 3 种，不是 6 种。用 RDKit 对 b 加氢得到的真实 c（tricyclo[5.2.1.0²,⁶]decane，环数=3）计算 `CanonicalRankAtoms(breakTies=False)` 得 distinct_H=3；以金刚烷 d 做 sanity（distinct_H=2，与已知一致）。
+
+存储 note 称"c=降冰片烯，C 错，一氯代物 3 种"——note 对 c 的命名与 C 的判断错误（c 实为四氢二环戊二烯，C 为真），但对 D 的计数"3 种"恰好正确。再次印证：**键的真值必须独立推导 + 原图核对，存储 note 不可全信**（与 pdf-303/338 同一教训）。四选项 verdict = A假/B真/C真/D假 → 正确答案 **BC**，与存储键一致，**无需修键**。
+
+### O.3 策展事实（choice-curated-facts.json，138→142 条）
+- 探针 `_evalscratch/probe_multiselect_524.py` 复刻 C# Norm/OptContains/6 库 JudgeStatementWithIds，dry-run **TOTAL PROBLEMS=0**：4 条候选事实各只命中 pdf-524 的唯一目标选项、与既有事实无冲突、MultiSelect 模拟输出 BC；唯一性扫描确认 stemMatch 含「金刚烷」全库唯一（库内仅 pdf-524 出现金刚烷），零跨题 stray；伤害扫描除 pdf-524（None→BC）外无任何题决策变化。
+- 落库 GC-776-A~D（A假/B真/C真/D假），stemMatch 锁死「以物质a为原料」+「金刚烷」全库唯一。
+- 给原末条 GC-775-D 补尾逗号后追加；保持单行 31 空格缩进格式，未用 json.dump 重写（避免格式漂移），JSON 校验通过（138→142 条，末条 GC-776-D）。
+- 测试：`MultiSelectChoiceValidatorTests.NoMarkerVariant` 追加 `pdf-524→BC`；`FullBank_AnyMultiSelectConclusion_GradedCorrect_NoHarm` 全库护栏判 pdf-524 判分正确，零假阳性。
+
+### O.4 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- solved **721 → 722（+1）**，bothWrong 36 → 35。
+- LOST=[]、harmCount=0、enginePrecision=1。
+- GAINED 精确 = {pdf-524}（gwAns「正确选项为 BC」，判对；pdf-524 现归入 gatewayOnlyCorrectCases）。
+- 全库测试：Chem 974/0；TutorBrain 1834/0（MultiSelect+Batch3 292/0 全绿）。
+
+### O.5 未纳入（留待后续）
+- bothWrong 余 35 题：pdf-263（计数题，需计数求解器接入）；pdf-340/377（type=other，有机立体化学/点击化学大题碎片，需先查 HardBones 追踪确认选项 comp 状态）；其余 fill/calc/judge 多为引擎能力缺口或大题碎片，非事实可解单选。
+
+## P 类：datarepair4（修路由 type + 多选策展，解出 pdf-463）
+
+> 批次目标：接续 datarepair3（解出 pdf-524，bothWrong=35），从 bothWrong 未解池找出下一批可解题。红线：precision=1、harmCount=0、LOST=0、零蒙数、不主动 commit。基线 `_evalscratch/snapshot_datarepair3`：solved=722、bothWrong=35。
+
+### P.1 分诊（bothWrong 35 题）：纯策展 0 可解，需先修路由
+探针 `_evalscratch/pool_bothwrong4.py` 确认 bothWrong=35。带 ≥2 结构化 options 的只有 pdf-263（choice，6 选项，答案为数字「3」——计数能力缺口，MultiSelect 返字母无法匹配）与 **pdf-463**（被标 type=fill，实为 4 选项选择题）。`_evalscratch/scan_engine_used.py` 分流：35 题中 **34 题 gatewayUsedEngine=False**（引擎根本没介入；事实只服务选择瀑布，纯策展对路由没触发的题无效），仅 pdf-163 引擎介入但未产出可判分文本（填空生成题）。结论：本批必须先解决路由缺口才能让策展生效，锁定 pdf-463 为唯一候选。
+
+### P.2 根因：pdf-463 type 标错致路由断裂
+pdf-463 实为带 4 选项（a=3/b=7/c=9/d=11）的选择题，但被标 `type=fill`。链路断点：
+1. [GatewayVsLlmEvaluationService.GenPdfQuestions L1889](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs#L1889)：只有 `x.Type=="choice"` 才把 options 渲染进题干并转大写；pdf-463 type=fill → options 没进题干。
+2. [LlmGatewayService.ClassifyTaskDeterministic L458](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/LlmGatewayService.cs#L458)：选择题正则只认大写 `(^|\n)\s*[A-D][\.．、]\s`；选项未渲染即不匹配。
+3. → pdf-463 被分类为 calculation（题干含「pH」）→ 不走 CallChoice → 引擎不介入 → gatewayUsedEngine=False。
+确认 [MultiPartUtility.IsMultiPart](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/MultiPartUtility.cs#L20) 要求 ≥2 个 `(数字)` 标记，pdf-463 仅 `(5)` 一个 → 不会被上游强制改 multi_part，改 type 后保留 choice 路由。
+
+### P.3 独立确证 pdf-463 四项 verdict（键 AC 已正确，无需修键）
+题干：「(5)调 pH 分步沉淀可获得 Ni(OH)₂，两次调 pH 的数值依次为__、__(填字母)。」
+- **A(3) 真**：Fe(OH)₃ Ksp≈2.8×10⁻³⁹，Fe³⁺ 完全沉淀 pH≈2.8 → 第一次调 pH≈3 除 Fe³⁺。
+- **B(7) 假**：pH=7 时 Ni²⁺ 刚开始沉淀（≈7.1），未完全。
+- **C(9) 真**：Ni(OH)₂ Ksp≈2×10⁻¹⁵，Ni²⁺ 完全沉淀 pH≈9.1 → 第二次调 pH≈9 沉 Ni²⁺。
+- **D(11) 假**：pH=9 已沉完全，11 过高不必要。
+→ 正确答案 **AC**，匹配存储键「a c」（官方源 answer page_040 已订正）。**无需修键**，只需改 type 触发路由 + 策展事实。
+存储 note 称「选 11 确保完全」（暗示 D 真）——与官方源 a c 冲突，再次印证键的真值以官方源 + 独立化学推导为准，note 不可全信（与 pdf-303/338/524 同一教训）。
+
+### P.4 改动（报请用户批准后落库）
+两项改动经 AskUserQuestion 报请批准：①改 pdf_questions.json 中 pdf-463 的 type `fill`→`choice`（数据改动）；②策展 GC-777-A~D。answer/answerKeywords（键「a c」）不动。
+- 探针 `_evalscratch/probe_463.py` 模拟：改 type 后选项渲染为 `A. 3 / B. 7 / C. 9 / D. 11`、分类 choice；加 4 条草稿事实 → A真/B假/C真/D假 → MultiSelect 输出「正确选项为 AC」→ 判分大小写不敏感匹配「a c」；唯一性扫描 4 条事实各只命中 pdf-463 目标选项 → **TOTAL PROBLEMS=0**。
+- 事实库 `choice-curated-facts.json`：给原末条 GC-776-D 补尾逗号后追加 GC-777-A~D，保持单行 31 空格缩进，未用 json.dump 重写（避免格式漂移），JSON 校验通过（142→146 条，末条 GC-777-D）。stemMatch 锁死「调 pH」+「分步沉淀」+「Ni(OH)」全库唯一，match 用单数字（结合 stemMatch 三词锁死，探针验证零 stray）。
+- 测试：`MultiSelectChoiceValidatorTests.NoMarkerVariant` 追加 `pdf-463→AC`。
+- 备份：`_evalscratch/pdf_questions_before_datarepair4.json`。
+
+### P.5 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- solved **722 → 723（+1）**，bothWrong 35 → 34。
+- LOST=[]、harmCount=0、enginePrecision=1。
+- GAINED 精确 = {pdf-463}（gwAns「正确选项为 AC」，判对；gatewayUsedEngine 由 False→True）。
+- 全库测试：TutorBrain 1835/0（MultiSelect 14/14 全绿）；build 0 错误。
+
+### P.6 未纳入（留待后续）
+- bothWrong 余 34 题：34 题 gatewayUsedEngine=False（非 choice 路由，引擎不介入，事实无效）；pdf-263 计数缺口（答案为数字，MultiSelect 返字母无法匹配，需计数求解器接入）；pdf-163 填空生成题（引擎介入但无判分文本）；其余 fill/calc/judge/other 多为大题碎片或引擎能力缺口。
+- 解锁更多题需扩展引擎能力（计数求解器、小写选项分类器、大题碎片路由等），超出纯策展红线，须另行报请。
+
+## Q 类：datarepair5（引擎扩展 count-of-correct 数字输出 + 策展，解出 pdf-263）
+
+> 批次目标：接续 datarepair4（解出 pdf-463，bothWrong=34），按已批准方案扩展引擎能力解锁剩余 bothWrong 中的计数题。红线：precision=1、harmCount=0、LOST=[]、零蒙数、不改判分逻辑、不主动 commit。计划文档：[.trae/documents/counting-output-pdf263_plan.md](file:///D:/github/CogniThink-Chem/.trae/documents/counting-output-pdf263_plan.md)。基线 `_evalscratch/snapshot_datarepair4`：solved=723、bothWrong=34。
+
+### Q.1 分诊（bothWrong 34 题）：仅 pdf-263 为引擎可介入的计数缺口
+探针 `_evalscratch/triage_bothwrong34.py` 分流：34 题中 **33 题 gatewayUsedEngine=False**（非 choice 路由，引擎不介入，纯策展无效）；仅 **pdf-263** 有结构化选项（6 选项 A–F，`answer="3"`，问「正确的有几项」）。诊断确认 pdf-263 的 6 选项经现有 9 子 judge 全部 Undecided（缺弱电解质电离平衡定性比较域），且 `answer` 为数字「3」——MultiSelect 原输出字母串无法匹配数字答案。
+
+影响面扫描（`scan_countofcorrect.py` / `scan_letter_answers.py`）：全库仅 2 题命中 count-of-correct 问法——
+- **pdf-020**（已 SOLVED）：选项是「A.2个 / B.3个」形式，走 `CountingChoiceValidator` 路径一，在 MultiSelect 之前返回，**不会触新分支**（双保险：新分支另用 `NumericCountOption` 排除「N 项/N 个/全部」选项形式）。
+- **pdf-263**（目标）：6 选项均为具体陈述。
+
+### Q.2 独立确证 pdf-263 六项 verdict（键 3 已正确，无需修键）
+题干：「关于室温下 pH 相同、体积相同的氨水与氢氧化钠两种稀溶液，下列叙述正确的有几项」。独立化学推导：
+- **A 真**：加少量氯化铵，两溶液 pH 均减小（NH₄⁺ 抑制 NH₃·H₂O 电离；OH⁻ 与 NH₄⁺ 反应）。
+- **B 真**：分别稀释 100 倍，氨水中和所需盐酸更多（稀释促进 NH₃·H₂O 电离，OH⁻ 总量大于 NaOH）。
+- **C 真**：pH 相同时 c(NH₄⁺)=c(Na⁺)（电荷守恒，pH 同则 c(OH⁻) 同，阳离子浓度相同）。
+- **D 假**：升高温度，两溶液 pH 均改变（升温促进 NH₃·H₂O 电离、促进水的电离，pH 变化；NaOH 也因 Kw 变而 pH 变），非均不变。
+- **E 假**：加足量氯化铁溶液，生成沉淀的物质的量不一样多（氨水能提供更多 OH⁻）。
+- **F 假**：用盐酸恰好中和，消耗盐酸体积不相同（氨水 OH⁻ 总量更大）。
+→ 正确项 = A、B、C，共 **3 项**，匹配 `answer="3"` / `answerKeywords=["3","正确的有3项"]`。**无需修键**（键已由 datarepair2 O.2 订正为「3」）。
+
+### Q.3 改动一：引擎扩展——MultiSelect 计数数字输出分支
+[MultiSelectChoiceValidator.cs](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Gateway/MultiSelectChoiceValidator.cs)：在 `TryDecide` 全部选项判定完成后、多选阈值检查（`candidates.Count < 2`）之前，插入计数输出分支：
+- 新增 `LooksLikeCountOfCorrectQuestion(stem, opts)`：题干含「正确的有几项/几个/个数」**且**所有选项均非「N 项/N 个/全部」形式（防御性排除 pdf-020，双保险）。
+- 命中时统计满足问法方向的候选数 N，`FinalResult = "正确的有 N 项"`（选错则「错误的有 N 项」），`AnswerLetter = N.ToString()`，直接 return；**不经过** `candidates.Count < 2` 多选阈值（计数题 N 可为 0/1/全部）。
+- 未命中 → 原 MultiSelect 字母逻辑字节级不变。复用现有逐选项判定（任一 Undecided 即 return null，不蒙数）。
+
+### Q.4 改动二：采纳门修复——choice 分支接受计数结论
+根因（端到端 eval 暴露）：`BuildGatewayAnswerAsync` 的 choice 分支原只接受含选项字母的结论（`ContainsOptionLetter` / `TryAdoptMultiSelectConclusion`），pdf-263 的「正确的有 3 项」不含字母 → 被丢弃 → `gatewayAnswer=''` → 判负（单元测试因直接调 `TryDecide`+`IsAnswerCorrect` 绕过了采纳门，故未暴露）。
+[GatewayVsLlmEvaluationService.cs](file:///D:/github/CogniThink-Chem/src/CogniThink.TutorBrain.Api/Application/Evaluation/GatewayVsLlmEvaluationService.cs) choice 分支新增路径：结论经 `IsCountOfCorrectConclusion`（签名 `(正确|错误)的有\s*[0-9]+\s*项`）识别 **且** `IsAnswerCorrect` 答案键校验通过 → 采纳。与 calculation / atomic_structure 分支同构：**凡采纳必判正 → precision=1、零 harm**。判分链路本身未改。
+
+### Q.5 策展事实（choice-curated-facts.json，146→152 条）
+- 探针 `_evalscratch/probe_263_facts.py` 复刻 C# `Norm`/`OptContains`/`JudgeStatementWithIds`，加载真实落库文件 dry-run **TOTAL PROBLEMS=0**：6 条草稿事实 stemMatch 全库唯一只锁 pdf-263、每条只命中目标选项、题内无冲突。
+- 落库 GC-778-A~F（A/B/C verdict=true，D/E/F verdict=false），共用 `stemMatch: ["pH 相同","氨水","氢氧化钠"]`（全库唯一）。给原末条 GC-777-D 补尾逗号后追加，保持单行 31 空格缩进，未用 json.dump 重写（避免格式漂移），JSON 校验通过（146→152 条，末条 GC-778-F）。
+- 备份：`_evalscratch/choice-curated_before_datarepair5.json`。
+
+### Q.6 测试登记
+- `MultiSelectChoiceValidatorTests.NoMarkerVariant` 追加 `pdf-263→"3"`（AnswerLetter="3"、FinalResult 含"3"、判分通过）。
+- 新增 `Pdf263_CountOutput_SatisfiesAdoptionGate`：验证引擎输出同时满足采纳门「计数签名」+「答案键判分」两条件。
+- `MultiSelectChoiceMatcherTests` 新增 `IsCountOfCorrectConclusion_Signature`（9 例：正例含「正确的有 3 项」「错误的有 2 项」等，反例含「正确选项为 ABC」「3」「正确的有三项」等）。
+
+### Q.7 结果（eval：Production / LlmAvailable=False，757 例，0 失败）
+- solved **723 → 724（+1）**，bothWrong 34 → 33。
+- LOST=[]、harmCount=0、enginePrecision=1、已判正题 gatewayAnswer 字节级变更=0。
+- GAINED 精确 = {pdf-263}（gwAns「正确的有 3 项」，gatewayCorrect=True，gatewayUsedEngine 由 False→True）；无其他题进入 GAINED。
+- pdf-020 无回归（仍走 Counting 路径一判对，MultiSelect 返回 null）。
+- 全库测试：TutorBrain **1846/0**（含本批新增 10 例）；build 0 错误。
+- `_evalscratch/cmp.py datarepair4 datarepair5`：LOST(0)、GAINED(1)=['pdf-263']、net +1。
+
+### Q.8 未纳入（留待后续）
+- bothWrong 余 33 题：全部 gatewayUsedEngine=False（非 choice 路由，引擎不介入），多为 fill/calc/judge/other 大题碎片或引擎能力缺口；纯策展对路由未触发的题无效，需另行扩展引擎能力（大题碎片路由、calc/judge 求解器等）并报请。

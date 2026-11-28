@@ -47,6 +47,11 @@ public class MultiSelectChoiceValidatorTests
     [InlineData("pdf-475", "ACD")]
     [InlineData("pdf-531", "BC")]
     [InlineData("pdf-540", "AC")]   // hardbone5：策展 GC-773-A~D 经 MultiSelect fallback 解出（stem 无「双选/多选」标记）
+    [InlineData("pdf-303", "CD")]   // datarepair2：修键 C→CD + 策展 GC-774-A~D，经 MultiSelect fallback 解出（stem 含「不定项」无「双选/多选」）
+    [InlineData("pdf-338", "CD")]   // datarepair2：修键 C→CD + 策展 GC-775-A~D，经 MultiSelect fallback 解出（D 项化学为真，官方解析自相矛盾）
+    [InlineData("pdf-524", "BC")]   // datarepair3：策展 GC-776-A~D，经 MultiSelect fallback 解出（键BC已正确；D项c一氯代物实为3种，RDKit确证，存储note不可信）
+    [InlineData("pdf-463", "AC")]   // datarepair4：改 type fill→choice + 策展 GC-777-A~D，经 MultiSelect fallback 解出（键AC已正确；路由缺口由 type 订正解锁）
+    [InlineData("pdf-263", "3")]    // datarepair5：引擎扩展「count-of-correct 数字输出」分支 + 策展 GC-778-A~F，输出「正确的有 3 项」匹配数字答案 3（6 选项 A/B/C 真 D/E/F 假）
     public void NoMarkerVariant_SolvesMultiSelect_AndGradedCorrect(string id, string expected)
     {
         var c = GatewayVsLlmEvaluationService.BuildTestCases().First(x => x.Id == id);
@@ -57,6 +62,19 @@ public class MultiSelectChoiceValidatorTests
         Assert.NotNull(r);
         Assert.Equal(expected, r!.AnswerLetter);
         Assert.Contains(expected, r.FinalResult);
+        Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(r.FinalResult, c));
+    }
+
+    [Fact]
+    public void Pdf263_CountOutput_SatisfiesAdoptionGate()
+    {
+        // datarepair5：pdf-263 是 count-of-correct 计数题（answer="3"），引擎输出「正确的有 3 项」不含选项字母，
+        // 必须同时满足采纳门（BuildGatewayAnswerAsync choice 分支）的「计数签名」+「答案键判分」两条件才会被采纳。
+        var c = GatewayVsLlmEvaluationService.BuildTestCases().First(x => x.Id == "pdf-263");
+        var r = MultiSelectChoiceValidator.TryDecide(new EngineRequest { RawText = c.Question });
+        Assert.NotNull(r);
+        Assert.Equal("正确的有 3 项", r!.FinalResult);
+        Assert.True(GatewayVsLlmEvaluationService.IsCountOfCorrectConclusion(r.FinalResult));
         Assert.True(GatewayVsLlmEvaluationService.IsAnswerCorrect(r.FinalResult, c));
     }
 

@@ -694,6 +694,17 @@ public sealed class GatewayVsLlmEvaluationService
         return letters.All(l => present.Contains(l));
     }
 
+    /// <summary>
+    /// 计数题数字输出结论签名：形如「正确的有 N 项」/「错误的有 N 项」（N 为阿拉伯数字），
+    /// 由 MultiSelectChoiceValidator 的 count-of-correct 分支产出（如 pdf-263），不含选项字母。
+    /// 仅作签名识别，采纳仍由调用方 IsAnswerCorrect 答案键校验兜底（凡采纳必判正，零假阳性）。
+    /// </summary>
+    internal static bool IsCountOfCorrectConclusion(string? conclusion)
+    {
+        if (string.IsNullOrWhiteSpace(conclusion)) return false;
+        return Regex.IsMatch(conclusion, @"(正确|错误)的有\s*[0-9]+\s*项");
+    }
+
     /// <summary>把化学上下标字符、全角字符转为普通半角，便于字符串匹配</summary>
     private static string NormalizeChemicalNotation(string input)
     {
@@ -830,6 +841,11 @@ public sealed class GatewayVsLlmEvaluationService
         if (gw.TaskType == "choice")
         {
             if (ContainsOptionLetter(conclusion)) return conclusion;
+            // count-of-correct 数字输出（如 pdf-263）：结论形如「正确的有 N 项」，不含选项字母，
+            // 落不到上面两条；仅当经答案键校验通过时采纳（凡采纳必判正 → precision=1、零 harm），
+            // 与 calculation / atomic_structure 分支同构的严格剔除口径。
+            if (IsCountOfCorrectConclusion(conclusion) && IsAnswerCorrect(conclusion, c))
+                return conclusion;
             // 多选/双选：结论形如 "正确选项为 CD"，字母相邻使 ContainsOptionLetter 漏判；
             // 仅当结论覆盖多选答案全部字母 且 判分通过时采纳（凡采纳必判正，零假阳性）。
             if (TryAdoptMultiSelectConclusion(conclusion, c.Answer) && IsAnswerCorrect(conclusion, c))
