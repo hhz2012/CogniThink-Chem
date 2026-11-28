@@ -8,207 +8,120 @@
   /* ============================ 基础与变量 ============================ */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --bg: #F5F7FA;
-    --card: #FFFFFF;
-    --primary: #2563EB;
-    --primary-deep: #1D4ED8;
-    --blue-light: #DBEAFE;
-    --text: #1F2937;
-    --text-sub: #6B7280;
-    --text-faint: #9CA3AF;
-    --line: #E5E7EB;
-    --radius: 16px;
-    --shadow: 0 4px 16px rgba(15,23,42,.06);
+    --bg: #F5F7FA; --card: #FFFFFF; --primary: #2563EB; --primary-deep: #1D4ED8;
+    --blue-light: #DBEAFE; --text: #1F2937; --text-sub: #6B7280; --text-faint: #9CA3AF;
+    --line: #E5E7EB; --radius: 16px; --shadow: 0 4px 16px rgba(15,23,42,.06);
   }
   html, body { height: 100%; }
   body {
     background: var(--bg);
     font-family: "PingFang SC","Microsoft YaHei",system-ui,sans-serif;
-    color: var(--text);
-    -webkit-font-smoothing: antialiased;
-    display: flex; justify-content: center; align-items: stretch;
+    color: var(--text); -webkit-font-smoothing: antialiased;
+    display: flex; justify-content: center;
   }
-
-  /* 画布：逻辑宽 375，居中，最大 420，铺满一屏 */
   .phone {
-    width: 375px;
-    max-width: 420px;
-    min-height: 100vh;
-    min-height: 100dvh;
-    background: var(--bg);
-    display: flex; flex-direction: column;
-    padding: 20px 20px 0;
-    position: relative;
-    overflow: hidden;
+    width: 375px; max-width: 420px; min-height: 100vh; min-height: 100dvh;
+    background: var(--bg); display: flex; flex-direction: column;
+    padding: 16px 16px 0; position: relative; overflow: hidden;
   }
+  sub { font-size: .7em; }
+
+  /* ============================ 顶部控制区 ============================ */
+  .control { background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px 14px; flex: 0 0 auto; }
+  .control .row { display: flex; align-items: center; gap: 8px; }
+  .control .row + .row { margin-top: 8px; }
+  .control .title { font-size: 15px; font-weight: 700; }
+  .control .status { margin-left: auto; font-size: 11px; color: var(--primary); background: var(--blue-light); padding: 3px 10px; border-radius: 999px; font-weight: 600; }
+  .control .status.idle { color: var(--text-sub); background: #F3F4F6; }
+  .control .lbl { font-size: 11px; color: var(--text-faint); flex: 0 0 auto; }
+  .control input {
+    flex: 1; min-width: 0; border: 1px solid var(--line); border-radius: 8px;
+    padding: 6px 9px; font-size: 12px; color: var(--text); background: #FAFBFC;
+    font-family: inherit; outline: none; transition: border-color .2s;
+  }
+  .control input:focus { border-color: var(--primary); background: #fff; }
+  .control .api-row input { font-size: 10px; color: var(--text-sub); }
+  .control .err { font-size: 11px; color: #DC2626; margin-top: 6px; display: none; }
+  .control .err.show { display: block; }
 
   /* ============================ 区域一：多阶段烧杯演示区 ============================ */
-  .stage-demo {
-    flex: 0 0 auto;
-    min-height: 26vh;
-    background: var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 14px 14px 10px;
-    display: flex; flex-direction: column;
-    position: relative;
-  }
-  .demo-header {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 8px;
-  }
-  .demo-title { font-size: 12px; color: var(--text-sub); font-weight: 600; }
-  .demo-title sub { font-size: 9px; }
-  .demo-status {
-    font-size: 11px; color: var(--primary);
-    background: var(--blue-light);
-    padding: 3px 10px; border-radius: 999px; font-weight: 600;
-  }
-  .demo-status.idle { color: var(--text-sub); background: #F3F4F6; }
+  .stage-demo { flex: 0 0 auto; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); padding: 12px 10px 8px; margin-top: 12px; display: flex; flex-direction: column; }
+  .demo-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; padding: 0 4px; }
+  .demo-bar .cap { font-size: 12px; color: var(--text-sub); font-weight: 600; }
+  .reactants { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip { font-size: 10px; padding: 2px 7px; border-radius: 999px; background: #EFF6FF; color: var(--primary); font-weight: 600; display: inline-flex; align-items: center; gap: 3px; }
+  .chip .dot { width: 7px; height: 7px; border-radius: 50%; border: 1px solid rgba(0,0,0,.1); }
 
-  .beakers-row {
-    flex: 1; display: flex; align-items: center; justify-content: space-between;
-    padding: 0 4px;
-  }
-  .beaker-cell {
-    display: flex; flex-direction: column; align-items: center; gap: 6px;
-    flex: 0 0 auto;
-    transition: opacity .35s ease;
-  }
-  .beaker-cell.dim { opacity: 0.55; }
-  .beaker-cell .beaker-wrap {
-    width: 72px; height: 92px; display: flex; align-items: center; justify-content: center;
-    border-radius: 12px;
-    transition: box-shadow .35s ease;
-  }
-  .beaker-cell.active .beaker-wrap {
-    box-shadow: 0 0 0 2px var(--primary), 0 0 14px rgba(37,99,235,.35);
-  }
-  .beaker-cell .stage-tag {
-    font-size: 11px; color: var(--text-sub); font-weight: 600;
-    padding: 2px 8px; border-radius: 999px; background: transparent;
-    transition: all .3s ease;
-  }
+  .beakers-row { display: flex; align-items: flex-end; justify-content: space-between; padding: 4px 2px 0; gap: 2px; }
+  .beaker-cell { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1 1 0; min-width: 0; transition: opacity .35s ease; }
+  .beaker-cell.dim { opacity: 0.5; }
+  .beaker-cell .beaker-wrap { width: 100%; aspect-ratio: 100 / 120; max-width: 78px; display: flex; align-items: center; justify-content: center; border-radius: 10px; transition: box-shadow .35s ease; }
+  .beaker-cell.active .beaker-wrap { box-shadow: 0 0 0 2px var(--primary), 0 0 12px rgba(37,99,235,.35); }
+  .beaker-cell .stage-tag { font-size: 10px; color: var(--text-sub); font-weight: 600; padding: 1px 7px; border-radius: 999px; transition: all .3s ease; white-space: nowrap; }
   .beaker-cell.active .stage-tag { color: #fff; background: var(--primary); }
+  .arrow { color: var(--primary); font-size: 16px; line-height: 1; opacity: .75; flex: 0 0 auto; align-self: center; padding-bottom: 16px; }
+  .bench-line { height: 1px; background: #E5E7EB; margin-top: 6px; }
+  .empty-beakers { text-align: center; color: var(--text-faint); font-size: 12px; padding: 28px 0; }
 
-  .arrow { color: var(--primary); font-size: 18px; line-height: 1; opacity: .8; flex: 0 0 auto; }
-
-  /* 实验台面线 + 倒影 */
-  .bench-line {
-    height: 1px; background: #E5E7EB; margin-top: 4px;
-    box-shadow: 0 1px 0 #fff;
-  }
-
-  /* 烧杯 SVG 内部样式 */
+  /* 烧杯 SVG */
   .beaker-svg { display: block; width: 100%; height: 100%; overflow: visible; }
   .beaker-glass { fill: none; stroke: #93C5FD; stroke-width: 2; stroke-linejoin: round; }
   .beaker-rim { fill: none; stroke: #93C5FD; stroke-width: 2; stroke-linecap: round; }
-  .liquid { transition: fill 1.6s ease; }
-  .liquid-wave { transform-origin: center; }
-  .turbidity { opacity: 0; transition: opacity 1.6s ease; }
-  .precip { opacity: 0; transition: opacity 1.8s ease; }
   .bubble { fill: #fff; opacity: 0; }
-
-  /* 气泡上浮动画：y 上升 + 轻微横向摆动 */
-  @keyframes bubbleRise {
-    0%   { transform: translate(0, 0) scale(1); opacity: 0; }
-    15%  { opacity: .9; }
-    50%  { transform: translate(var(--sway, 3px), -26px) scale(.95); }
-    100% { transform: translate(calc(var(--sway, 3px) * -1), -56px) scale(.8); opacity: 0; }
-  }
-  /* 液面轻微晃动 */
-  @keyframes liquidSway {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-1.2px); }
-  }
-  .liquid-wave { animation: liquidSway 2.4s ease-in-out infinite; }
-
-  /* 阶段控制：气泡播放状态（停止时 .paused 全局暂停） */
-  .beaker-cell .bubble { animation-play-state: paused; }
-  .beaker-cell.stage-2 .bubble { animation: bubbleRise 2.4s ease-in infinite; }
-  .beaker-cell.stage-3 .bubble.b3,
-  .beaker-cell.stage-3 .bubble.b4,
-  .beaker-cell.stage-3 .bubble.b5,
-  .beaker-cell.stage-3 .bubble.b6,
-  .beaker-cell.stage-3 .bubble.b7 { animation: none; opacity: 0; }
-  .beaker-cell.stage-3 .bubble.b0,
-  .beaker-cell.stage-3 .bubble.b1,
-  .beaker-cell.stage-3 .bubble.b2 { animation: bubbleRise 3.4s ease-in infinite; }
-
-  /* 暂停态：所有动画真正停止 */
-  .paused .liquid-wave,
-  .paused .bubble { animation-play-state: paused !important; }
-
-  /* 阶段颜色：阶段三上层溶液由蓝过渡到接近无色 */
-  .beaker-cell.stage-3 .liquid { fill: #EFF6FF !important; }
-  .beaker-cell.stage-2 .turbidity { opacity: .45; }
-  .beaker-cell.stage-3 .precip { opacity: 1; }
+  @keyframes bubbleRise { 0%{transform:translate(0,0) scale(1);opacity:0} 15%{opacity:.9} 50%{transform:translate(var(--sway,3px),-26px) scale(.95)} 100%{transform:translate(calc(var(--sway,3px)*-1),-56px) scale(.8);opacity:0} }
+  @keyframes liquidSway { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-1.2px)} }
+  .liquid-wave { animation: liquidSway 2.4s ease-in-out infinite; transform-origin: center; }
+  .beaker-cell.gas .bubble { animation: bubbleRise 2.4s ease-in infinite; }
+  .paused .liquid-wave, .paused .bubble { animation-play-state: paused !important; }
 
   /* ============================ 区域二：阶段卡片列表 ============================ */
-  .cards {
-    flex: 1; min-height: 0;
-    display: flex; flex-direction: column; gap: 12px;
-    padding: 16px 0 8px;
-  }
-  .card {
-    display: flex; gap: 12px; align-items: center;
-    background: var(--card); border-radius: var(--radius);
-    padding: 10px 12px;
-    border: 1.5px solid var(--line);
-    box-shadow: var(--shadow);
-    transition: border-color .3s ease, transform .2s ease;
-  }
+  .cards { flex: 1; min-height: 0; display: flex; flex-direction: column; gap: 10px; padding: 12px 0 8px; overflow-y: auto; }
+  .cards::-webkit-scrollbar { width: 0; }
+  .empty-state { text-align: center; color: var(--text-faint); font-size: 12px; padding: 36px 16px; line-height: 1.7; }
+  .empty-state .big { font-size: 28px; margin-bottom: 8px; }
+
+  .card { background: var(--card); border-radius: var(--radius); padding: 10px 12px; border: 1.5px solid var(--line); box-shadow: var(--shadow); transition: border-color .3s ease; }
   .card.active { border-color: var(--primary); border-width: 2px; }
-  .card.done { border-color: var(--line); }
-  .card .thumb {
-    width: 72px; height: 72px; border-radius: 50%;
-    background: linear-gradient(180deg, #F8FAFC, #EFF6FF);
-    display: flex; align-items: center; justify-content: center;
-    flex: 0 0 auto; overflow: hidden;
-    transition: filter .3s ease;
-    border: 1px solid #E5E7EB;
-  }
-  .card.pending .thumb { filter: grayscale(1) opacity(.4); }
-  .card .thumb svg { width: 56px; height: 68px; }
-  .card .info { flex: 1; min-width: 0; }
-  .card .info-head { display: flex; align-items: center; gap: 6px; }
-  .card .title { font-size: 16px; font-weight: 600; color: #374151; }
-  .card.active .title { color: var(--text); }
-  .card.done .title { color: var(--text); }
-  .card .check { color: #10B981; font-size: 14px; font-weight: 700; }
-  .card .tag {
-    margin-left: auto; font-size: 10px; color: var(--primary);
-    background: var(--blue-light); padding: 2px 8px; border-radius: 999px; font-weight: 600;
-    flex: 0 0 auto;
-  }
-  .card .desc { font-size: 13px; color: var(--text-sub); margin-top: 3px; line-height: 1.4; }
-  .card .eq {
-    font-size: 12px; color: var(--text-faint); margin-top: 4px;
-    font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
-  }
-  .card .eq sub { font-size: 9px; }
+  .card.done { border-color: #A7F3D0; }
+  .card .chead { display: flex; align-items: center; gap: 7px; }
+  .card .idx { width: 20px; height: 20px; border-radius: 50%; background: #E5E7EB; color: #6B7280; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; }
+  .card.active .idx { background: var(--primary); color: #fff; }
+  .card.done .idx { background: #10B981; color: #fff; }
+  .card .ctitle { font-size: 14px; font-weight: 600; color: #374151; flex: 1; min-width: 0; }
+  .card .ttype { font-size: 10px; padding: 1px 7px; border-radius: 999px; font-weight: 600; flex: 0 0 auto; }
+  .card .tag-running { font-size: 10px; color: var(--primary); background: var(--blue-light); padding: 1px 7px; border-radius: 999px; font-weight: 600; }
+  .card .detail { display: none; margin-top: 9px; }
+  .card.active .detail, .card.done .detail { display: block; animation: fadeIn .35s ease; }
+  @keyframes fadeIn { from{opacity:0; transform: translateY(-4px)} to{opacity:1; transform:none} }
+  .card .eq { font-size: 12px; color: var(--text); font-family: ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace; background: #F8FAFC; border: 1px solid #E5E7EB; border-radius: 8px; padding: 6px 8px; }
+  .card .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+  .card .chips:first-of-type { margin-top: 8px; }
+  .card .chip-mini { font-size: 10px; padding: 1px 7px; border-radius: 999px; background: #F3F4F6; color: #4B5563; }
+  .card .chip-mini.gas { background: #FEF3C7; color: #B45309; }
+  .card .chip-mini.precip { background: #DBEAFE; color: #1D4ED8; }
+  .card .info-btn { width: 20px; height: 20px; border-radius: 50%; border: none; background: var(--blue-light); color: var(--primary); cursor: pointer; display: flex; align-items: center; justify-content: center; flex: 0 0 auto; padding: 0; transition: background .2s; }
+  .card .info-btn:hover { background: #BFDBFE; }
+  .card .info-btn svg { width: 12px; height: 12px; }
+
+  /* 推理依据浮窗 */
+  .modal-mask { position: fixed; inset: 0; background: rgba(15,23,42,.45); display: none; align-items: center; justify-content: center; z-index: 50; padding: 24px; }
+  .modal-mask.show { display: flex; }
+  .modal-box { background: #fff; border-radius: 16px; max-width: 320px; width: 100%; padding: 18px; box-shadow: 0 12px 40px rgba(0,0,0,.22); animation: popIn .2s ease; }
+  @keyframes popIn { from{transform:scale(.92);opacity:0} to{transform:scale(1);opacity:1} }
+  .modal-box h4 { font-size: 14px; color: var(--text); margin-bottom: 8px; }
+  .modal-box p { font-size: 12px; color: #4B5563; line-height: 1.7; }
+  .modal-close { margin-top: 14px; width: 100%; padding: 8px; border: none; border-radius: 8px; background: var(--primary); color: #fff; font-size: 13px; cursor: pointer; }
+  .modal-close:hover { background: var(--primary-deep); }
 
   /* ============================ 区域三：底部操作栏 ============================ */
-  .action-bar {
-    flex: 0 0 64px;
-    margin: 0 -20px;
-    display: flex; justify-content: center; align-items: center; gap: 24px;
-    background: var(--card);
-    border-top: 1px solid var(--line);
-    padding-bottom: env(safe-area-inset-bottom);
-  }
-  .btn-circle {
-    width: 48px; height: 48px; border-radius: 50%;
-    border: none; cursor: pointer; display: flex;
-    align-items: center; justify-content: center;
-    transition: background .2s ease, transform .1s ease, opacity .2s ease;
-    padding: 0;
-  }
+  .action-bar { flex: 0 0 64px; margin: 0 -16px; display: flex; justify-content: center; align-items: center; gap: 24px; background: var(--card); border-top: 1px solid var(--line); padding-bottom: env(safe-area-inset-bottom); }
+  .btn-circle { width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s, transform .1s, opacity .2s; padding: 0; }
   .btn-circle:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
   .btn-play { background: var(--primary); }
   .btn-play:hover { background: var(--primary-deep); }
   .btn-play:active { transform: scale(.96); }
   .btn-play svg { width: 18px; height: 18px; fill: #fff; margin-left: 2px; }
+  .btn-play:disabled { opacity: .45; cursor: not-allowed; }
   .btn-stop { background: transparent; border: 1px solid #D1D5DB; }
   .btn-stop svg { width: 14px; height: 14px; fill: #6B7280; }
   .btn-stop:hover:not(:disabled) { background: #F9FAFB; }
@@ -219,11 +132,28 @@
 <body>
 <div class="phone" id="scene">
 
+  <!-- 顶部控制区 -->
+  <section class="control">
+    <div class="row">
+      <span class="title">反应模拟器</span>
+      <span class="status idle" id="demoStatus">待开始</span>
+    </div>
+    <div class="row">
+      <span class="lbl">反应物</span>
+      <input id="inputSpecies" value="CuSO4:1, NaOH:2, Fe:1" placeholder="如 CuSO4:1, NaOH:2" />
+    </div>
+    <div class="row api-row">
+      <span class="lbl">接口</span>
+      <input id="inputApi" value="http://127.0.0.1:5099" />
+    </div>
+    <div class="err" id="errMsg"></div>
+  </section>
+
   <!-- 区域一：多阶段烧杯演示区 -->
   <section class="stage-demo">
-    <div class="demo-header">
-      <span class="demo-title">硫酸铜溶液 CuSO<sub>4</sub></span>
-      <span class="demo-status idle" id="demoStatus">待开始</span>
+    <div class="demo-bar">
+      <span class="cap">反应阶段</span>
+      <div class="reactants" id="reactantsBar"></div>
     </div>
     <div class="beakers-row" id="beakersRow"></div>
     <div class="bench-line"></div>
@@ -244,300 +174,350 @@
 
 </div>
 
+<!-- 推理依据浮窗 -->
+<div class="modal-mask" id="reasonModal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="reasonTitle">
+    <h4 id="reasonTitle">推理依据</h4>
+    <p id="reasonText"></p>
+    <button class="modal-close" id="reasonClose" type="button">知道了</button>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    1. 变量与数据
    ============================================================ */
-const REACTION = {
-  name: 'CuSO4 + NaOH',
-  stages: [
-    { id: 's1', title: '溶液初始', desc: 'CuSO₄溶液呈蓝色透明，无沉淀',
-      equation: 'CuSO₄', duration: 4000, state: 'clear', tag: '阶段一' },
-    { id: 's2', title: '加入试剂', desc: '滴加NaOH，溶液中出现大量气泡并放热',
-      equation: 'CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄', duration: 4000, state: 'bubbling', tag: '阶段二' },
-    { id: 's3', title: '沉淀生成', desc: 'Cu(OH)₂蓝色絮状沉淀下沉，溶液变浅',
-      equation: 'CuSO₄ + 2NaOH → Cu(OH)₂↓ + Na₂SO₄', duration: 4000, state: 'precipitate', tag: '阶段三' }
-  ]
-};
+const STEP_DURATION = 4000;   // 每阶段展示时长
+const state = { data: null, currentStage: -1, running: false, timers: [] };
 
-// 全局状态
-const state = {
-  stageIndex: -1,   // -1 = idle/finished-pending, 0/1/2 = 运行中阶段
-  running: false,
-  timers: []
+// 事件类型 → 标签颜色（与引擎一致）
+const EVENT_TYPES = {
+  Combination:      { label: '化合', color: '#6366F1', bg: '#EEF2FF' },
+  Decomposition:    { label: '分解', color: '#9333EA', bg: '#FAF5FF' },
+  Displacement:     { label: '置换', color: '#0EA5E9', bg: '#E0F2FE' },
+  DoubleDisplacement:{label: '复分解', color: '#14B8A6', bg: '#CCFBF1' },
+  Precipitation:    { label: '沉淀', color: '#2563EB', bg: '#DBEAFE' },
+  GasEvolution:     { label: '气体', color: '#F59E0B', bg: '#FEF3C7' },
+  AcidBase:         { label: '中和', color: '#10B981', bg: '#D1FAE5' },
+  Redox:            { label: '氧化还原', color: '#EF4444', bg: '#FEE2E2' },
+  IonReaction:      { label: '离子反应', color: '#0EA5E9', bg: '#E0F2FE' },
+  ComplexFormation: { label: '配位', color: '#EC4899', bg: '#FCE7F3' },
+  Dissolution:      { label: '溶解', color: '#64748B', bg: '#F1F5F9' }
 };
+const typeMeta = t => EVENT_TYPES[t] || { label: t || '反应', color: '#6B7280', bg: '#F3F4F6' };
 
-/* 把化学式字符串里的数字渲染为 <sub>（仅处理紧跟字母/括号后的数字） */
-function subHtml(str) {
-  return String(str).replace(/([A-Za-z\)\]])(\d+)/g, '$1<sub>$2</sub>');
+// 颜色词 → CSS（与引擎 web 端一致）
+const COLORS = {
+  '无色':'#ffffff','白色':'#ffffff','乳白色':'#f8fafc','黑色':'#1f2937','灰色':'#9ca3af','银色':'#e5e7eb',
+  '红色':'#ef4444','砖红':'#b91c1c','红棕':'#92400e','红棕色':'#92400e','棕色':'#78350f','褐色':'#78350f',
+  '紫红':'#be123c','血红':'#be123c','深红':'#991b1b','橙红':'#f97316','橙色':'#f97316','金黄':'#eab308',
+  '黄色':'#eab308','浅黄':'#fde68a','淡黄':'#fef08a','黄绿':'#a3e635','绿色':'#22c55e','深绿':'#15803d',
+  '墨绿':'#065f46','浅绿':'#86efac','嫩绿':'#86efac','草绿':'#4ade80','青色':'#2dd4bf','蓝绿':'#14b8a6',
+  '蓝色':'#3b82f6','浅蓝':'#93c5fd','淡蓝':'#bfdbfe','天蓝':'#7dd3fc','深蓝':'#1e40af','靛蓝':'#4338ca',
+  '紫':'#a855f7','紫色':'#a855f7','蓝紫':'#8b5cf6','粉红':'#f9a8d4'
+};
+function cssColor(name) {
+  if (!name) return null;
+  const s = String(name).trim();
+  if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(s)) return s;
+  if (/rgba?\(/i.test(s)) return s;
+  for (const k of Object.keys(COLORS)) if (s.includes(k)) return COLORS[k];
+  // “黄色、血红色”取第一个
+  const first = s.split(/[、,，\/\s]+/)[0];
+  if (first && COLORS[first]) return COLORS[first];
+  return null;
+}
+function isClearColor(name) { return !name || /^(无色|透明|清水|)$/.test(String(name).trim()); }
+
+/* HTML 转义 */
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+/* 化学式下标排版：CuSO4 → CuSO<sub>4</sub>（仅字母/括号后的数字） */
+function chem(s) { return esc(String(s)).replace(/([A-Za-z\)\]])(\d+)/g, '$1<sub>$2</sub>'); }
+
+/* 解析用户输入：CuSO4:1, NaOH:2 → [{substance, concentration, volume}] */
+function parseSpeciesInput(text) {
+  const out = [];
+  String(text).split(/[,，;；\n]+/).forEach(part => {
+    const m = part.trim().match(/^([A-Za-z0-9·\(\)\[\]]+)\s*[:：]\s*([0-9.]+)(?:\s*[:：]\s*([0-9.]+))?$/);
+    if (m) out.push({ substance: m[1], concentration: parseFloat(m[2]), volume: m[3] ? parseFloat(m[3]) : 1 });
+  });
+  return out;
 }
 
 /* ============================================================
-   2. 烧杯 SVG 渲染（上区大图与卡片缩略图共用）
-   state: 'clear' | 'bubbling' | 'precipitate'
+   2. 烧杯 SVG 渲染（动态阶段共用）
+   phase: { liquid(css), precip(css|null), gas(bool) }
    ============================================================ */
-function renderBeaker(stateKey, uid) {
-  // 气泡：8 个，不同位置/大小/摆动/延迟，模拟阶段二陆续生成、阶段三减少
+function renderBeaker(phase, uid) {
   const bubbles = [
-    { cx: 34, cy: 92, r: 1.8, sway: '2px',  delay: '0s'    },
-    { cx: 42, cy: 96, r: 1.4, sway: '-3px', delay: '0.25s' },
-    { cx: 50, cy: 90, r: 2.0, sway: '3px',  delay: '0.5s'  },
-    { cx: 58, cy: 95, r: 1.5, sway: '-2px', delay: '0.75s' },
-    { cx: 66, cy: 92, r: 1.7, sway: '2px',  delay: '1.0s'  },
-    { cx: 38, cy: 88, r: 1.2, sway: '-3px', delay: '1.2s'  },
-    { cx: 60, cy: 88, r: 1.3, sway: '3px',  delay: '1.4s'  },
-    { cx: 48, cy: 98, r: 2.2, sway: '-2px', delay: '1.6s'  }
+    {cx:34,cy:92,r:1.8,sway:'2px',delay:'0s'},{cx:42,cy:96,r:1.4,sway:'-3px',delay:'.25s'},
+    {cx:50,cy:90,r:2.0,sway:'3px',delay:'.5s'},{cx:58,cy:95,r:1.5,sway:'-2px',delay:'.75s'},
+    {cx:66,cy:92,r:1.7,sway:'2px',delay:'1s'},{cx:38,cy:88,r:1.2,sway:'-3px',delay:'1.2s'},
+    {cx:60,cy:88,r:1.3,sway:'3px',delay:'1.4s'},{cx:48,cy:98,r:2.2,sway:'-2px',delay:'1.6s'}
   ];
-  const bubbleSvg = bubbles.map((b, i) =>
-    `<circle class="bubble b${i}" cx="${b.cx}" cy="${b.cy}" r="${b.r}" ` +
-    `style="--sway:${b.sway}; animation-delay:${b.delay}"/>`
-  ).join('');
-
-  // 刻度：0/50/100/150/200 ml（y 从上到下增大，200 在液面附近）
+  const bubbleSvg = bubbles.map((b,i)=>`<circle class="bubble b${i}" cx="${b.cx}" cy="${b.cy}" r="${b.r}" style="--sway:${b.sway};animation-delay:${b.delay}"/>`).join('');
   const ticks = [
-    { y: 28, label: '200' }, { y: 49, label: '150' }, { y: 70, label: '100' },
-    { y: 91, label: '50' }, { y: 112, label: '0' }
+    {y:28,label:'200'},{y:49,label:'150'},{y:70,label:'100'},{y:91,label:'50'},{y:112,label:'0'}
   ];
-  const tickSvg = ticks.map(t =>
-    `<line x1="24" y1="${t.y}" x2="29" y2="${t.y}" stroke="#CBD5E1" stroke-width="1"/>` +
-    `<text x="31" y="${t.y + 3}" font-size="6" fill="#94A3B8">${t.label}</text>`
-  ).join('');
-
-  // 絮状沉淀：多个重叠蓝色椭圆 + 不规则多边形（杯底）
-  const precipSvg =
-    `<g class="precip" clip-path="url(#body-${uid})">` +
-      `<ellipse cx="38" cy="110" rx="10" ry="4" fill="#3B82F6" opacity="0.85"/>` +
-      `<ellipse cx="52" cy="112" rx="12" ry="4.5" fill="#2563EB" opacity="0.8"/>` +
-      `<ellipse cx="64" cy="110" rx="9" ry="3.5" fill="#3B82F6" opacity="0.85"/>` +
-      `<ellipse cx="45" cy="108" rx="7" ry="3" fill="#60A5FA" opacity="0.7"/>` +
-      `<ellipse cx="58" cy="107" rx="6" ry="2.5" fill="#60A5FA" opacity="0.7"/>` +
-      `<path d="M30 113 Q38 106 46 112 Q54 106 62 113 Q70 109 72 114 L72 116 L30 116 Z" fill="#1D4ED8" opacity="0.55"/>` +
-    `</g>`;
-
-  // 液体颜色随状态：澄清蓝 / 微浑蓝 / 阶段三会被 CSS 覆盖为近无色
-  let liquidFill = 'rgba(59,130,246,0.55)';
-  if (stateKey === 'bubbling') liquidFill = 'rgba(59,130,246,0.5)';
-  if (stateKey === 'precipitate') liquidFill = '#EFF6FF';
-
-  return `
-  <svg class="beaker-svg" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <clipPath id="body-${uid}">
-        <path d="M24 24 L24 100 Q24 116 50 116 Q76 116 76 100 L76 24 Z"/>
-      </clipPath>
-    </defs>
-
-    <!-- 液体（裁剪在杯身内） -->
+  const tickSvg = ticks.map(t=>`<line x1="24" y1="${t.y}" x2="29" y2="${t.y}" stroke="#CBD5E1" stroke-width="1"/><text x="31" y="${t.y+3}" font-size="6" fill="#94A3B8">${t.label}</text>`).join('');
+  const pc = phase.precip || '#3B82F6';
+  const precipSvg = phase.precip ?
+    `<g class="precip" clip-path="url(#body-${uid})">`+
+      `<ellipse cx="38" cy="110" rx="10" ry="4" fill="${pc}" opacity="0.85"/>`+
+      `<ellipse cx="52" cy="112" rx="12" ry="4.5" fill="${pc}" opacity="0.8"/>`+
+      `<ellipse cx="64" cy="110" rx="9" ry="3.5" fill="${pc}" opacity="0.85"/>`+
+      `<ellipse cx="45" cy="108" rx="7" ry="3" fill="${pc}" opacity="0.65"/>`+
+      `<ellipse cx="58" cy="107" rx="6" ry="2.5" fill="${pc}" opacity="0.65"/>`+
+    `</g>` : '';
+  const liq = phase.liquid || 'rgba(186,230,253,0.18)';
+  return `<svg class="beaker-svg" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+    <defs><clipPath id="body-${uid}"><path d="M24 24 L24 100 Q24 116 50 116 Q76 116 76 100 L76 24 Z"/></clipPath></defs>
     <g clip-path="url(#body-${uid})">
-      <rect class="liquid" x="24" y="48" width="52" height="68" fill="${liquidFill}"/>
-      <!-- 液面波动层 -->
-      <rect class="liquid-wave" x="24" y="46" width="52" height="6" fill="${liquidFill}" opacity="0.7"/>
-      <!-- 浑浊感（阶段二显现） -->
-      <rect class="turbidity" x="24" y="48" width="52" height="68" fill="#FFFFFF" opacity="0"/>
-      <!-- 气泡组 -->
+      <rect class="liquid" x="24" y="48" width="52" height="68" fill="${liq}"/>
+      <rect class="liquid-wave" x="24" y="46" width="52" height="6" fill="${liq}" opacity="0.7"/>
       <g>${bubbleSvg}</g>
     </g>
-
-    <!-- 沉淀（杯底） -->
     ${precipSvg}
-
-    <!-- 刻度线与数字 -->
     <g>${tickSvg}</g>
-
-    <!-- 玻璃高光 -->
     <rect x="30" y="30" width="4" height="72" rx="2" fill="#FFFFFF" opacity="0.35"/>
     <rect x="66" y="40" width="2" height="50" rx="1" fill="#FFFFFF" opacity="0.2"/>
-
-    <!-- 杯口 + 杯身描边 -->
     <path class="beaker-rim" d="M16 20 L84 20"/>
     <path class="beaker-glass" d="M22 20 L22 100 Q22 117 50 117 Q78 117 78 100 L78 20"/>
   </svg>`;
 }
 
-/* ============================================================
-   3. 阶段卡片渲染（数据驱动）
-   ============================================================ */
-function renderCards() {
-  const host = document.getElementById('cardsList');
-  host.innerHTML = REACTION.stages.map((st, i) => `
-    <div class="card pending" data-stage="${i}" data-st="${st.state}">
-      <div class="thumb">${renderBeaker(st.state, 'c' + i)}</div>
-      <div class="info">
-        <div class="info-head">
-          <span class="check" style="display:none">✓</span>
-          <span class="title">${st.tag} ${st.title}</span>
-          <span class="tag" style="display:none">进行中</span>
-        </div>
-        <div class="desc">${subHtml(st.desc)}</div>
-        <div class="eq">${subHtml(st.equation)}</div>
-      </div>
-    </div>
-  `).join('');
+/* 由引擎事件推断烧杯视觉阶段 */
+function inferPhase(ev) {
+  const raw = ev.solutionColorAfter;
+  const colorCss = cssColor(raw);
+  const liquid = (colorCss && !isClearColor(raw)) ? hexA(colorCss, 0.55) : 'rgba(186,230,253,0.18)';
+  let precip = null;
+  if (ev.precipitates && ev.precipitates.length) precip = cssColor(ev.precipitates.join(' ')) || '#3B82F6';
+  let gas = (ev.type === 'GasEvolution') || (ev.gases && ev.gases.length > 0);
+  if ((ev.phenomena || []).some(p => /气体|气泡|冒泡|逸出|放出|冒出/.test(p))) gas = true;
+  return { liquid, precip, gas };
+}
+/* 给 hex 加透明度 → rgba */
+function hexA(hex, a) {
+  if (/^rgba?\(/i.test(hex)) return hex;
+  const h = hex.replace('#','');
+  const r = parseInt(h.substring(0,2),16), g = parseInt(h.substring(2,4),16), b = parseInt(h.substring(4,6),16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+/* 初始态烧杯：从初始物种推断溶液颜色 */
+function initialPhase(initialSpecies) {
+  let sol = null;
+  (initialSpecies || []).forEach(sp => { if (!sol && sp.solutionColor) sol = sp.solutionColor; });
+  const c = cssColor(sol);
+  return { liquid: c ? hexA(c,0.5) : 'rgba(186,230,253,0.18)', precip: null, gas: false };
 }
 
-/* 渲染上区三个烧杯 */
-function renderBeakersRow() {
-  const host = document.getElementById('beakersRow');
-  host.innerHTML = REACTION.stages.map((st, i) => {
-    const cell = `
-      <div class="beaker-cell dim" data-stage="${i}">
-        <div class="beaker-wrap">${renderBeaker(st.state, 'b' + i)}</div>
-        <div class="stage-tag">${st.tag}</div>
-      </div>`;
-    return i === 0 ? cell : `<span class="arrow">→</span>` + cell;
+/* ============================================================
+   3. 渲染：反应物条 / 烧杯行 / 阶段卡片
+   ============================================================ */
+function renderReactantsBar(initialSpecies) {
+  const host = document.getElementById('reactantsBar');
+  if (!initialSpecies || !initialSpecies.length) { host.innerHTML = ''; return; }
+  host.innerHTML = initialSpecies.map(sp => {
+    const dot = cssColor(sp.solutionColor || sp.color) || '#CBD5E1';
+    return `<span class="chip"><span class="dot" style="background:${dot}"></span>${chem(sp.formula)}</span>`;
   }).join('');
 }
 
-/* ============================================================
-   4. 动画与状态机
-   ============================================================ */
-function clearTimers() {
-  state.timers.forEach(t => clearTimeout(t));
-  state.timers = [];
+/* 烧杯行：初始态 + 每个事件后状态 */
+function renderBeakersRow(data) {
+  const host = document.getElementById('beakersRow');
+  if (!data || !data.events || !data.events.length) {
+    host.innerHTML = `<div class="empty-beakers" style="flex:1">点击播放，由模拟器生成反应阶段</div>`;
+    return;
+  }
+  const cells = [];
+  cells.push(beakerCellHtml(initialPhase(data.initialSpecies), '初始', 'b-init'));
+  data.events.forEach((ev, i) => {
+    cells.push(`<span class="arrow">→</span>`);
+    cells.push(beakerCellHtml(inferPhase(ev), `阶段${i+1}`, 'b'+i, inferPhase(ev).gas));
+  });
+  host.innerHTML = cells.join('');
+}
+function beakerCellHtml(phase, tag, uid, gas) {
+  return `<div class="beaker-cell ${gas?'gas':''}" data-uid="${uid}">
+    <div class="beaker-wrap">${renderBeaker(phase, uid)}</div>
+    <div class="stage-tag">${esc(tag)}</div>
+  </div>`;
 }
 
-/* 归零：回到 idle 初始澄清状态，所有动画暂停 */
+/* 阶段卡片（由引擎 events 数据驱动） */
+function renderCards(data) {
+  const host = document.getElementById('cardsList');
+  if (!data || !data.events || !data.events.length) {
+    host.innerHTML = `<div class="empty-state"><div class="big">🧪</div>尚未开始模拟<br/>点击下方播放按钮，反应阶段将由模拟器逐步生成并显示</div>`;
+    return;
+  }
+  host.innerHTML = data.events.map((ev, i) => cardHtml(ev, i)).join('');
+}
+function cardHtml(ev, i) {
+  const meta = typeMeta(ev.type);
+  const phenomena = ev.phenomena || [];
+  const gases = ev.gases || [];
+  const precip = ev.precipitates || [];
+  const reason = (ev.basis && ev.basis.selectionReason) || '';
+  const chip = (txt, cls) => `<span class="chip-mini ${cls||''}">${esc(txt)}</span>`;
+  return `<div class="card pending" data-stage="${i}">
+    <div class="chead">
+      <span class="idx">${i+1}</span>
+      <span class="ctitle">阶段 ${i+1} · ${esc(meta.label)}</span>
+      <span class="ttype" style="background:${meta.bg};color:${meta.color}">${esc(meta.label)}</span>
+      ${reason ? `<button class="info-btn" data-reason="${esc(reason)}" aria-label="推理依据"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></button>`:''}
+      <span class="tag-running" style="display:none">进行中</span>
+    </div>
+    <div class="detail">
+      <div class="eq">${chem(ev.equation || '')}</div>
+      ${phenomena.length ? `<div class="chips">${phenomena.map(p=>chip(p)).join('')}</div>`:''}
+      ${gases.length ? `<div class="chips">${gases.map(g=>chip(g,'gas')).join('')}</div>`:''}
+      ${precip.length ? `<div class="chips">${precip.map(p=>chip(p,'precip')).join('')}</div>`:''}
+    </div>
+  </div>`;
+}
+function objEntries(o) { return o ? Object.entries(o) : []; }
+
+/* ============================================================
+   4. 动画与状态机（阶段来自真实 trace API）
+   ============================================================ */
+function clearTimers() { state.timers.forEach(t => clearTimeout(t)); state.timers = []; }
+
+function setStatus(text, idle) {
+  const s = document.getElementById('demoStatus');
+  s.textContent = text;
+  s.classList.toggle('idle', !!idle);
+}
+function showErr(msg) {
+  const e = document.getElementById('errMsg');
+  e.textContent = msg || '';
+  e.classList.toggle('show', !!msg);
+}
+
+/* 归零：回到 idle，阶段未生成 */
 function clearScene() {
   clearTimers();
-  state.stageIndex = -1;
-  state.running = false;
-
-  // 上区烧杯：全部 dim，移除阶段类，加 paused 暂停动画
-  document.querySelectorAll('.beaker-cell').forEach(c => {
-    c.classList.remove('active', 'stage-2', 'stage-3');
-    c.classList.add('dim');
-  });
-  // 卡片：全部 pending
-  document.querySelectorAll('.card').forEach(c => {
-    c.classList.remove('active', 'done');
-    c.classList.add('pending');
-    const tag = c.querySelector('.tag');
-    const check = c.querySelector('.check');
-    if (tag) tag.style.display = 'none';
-    if (check) check.style.display = 'none';
-  });
-  // 全局暂停动画
+  state.data = null; state.currentStage = -1; state.running = false;
   document.getElementById('scene').classList.add('paused');
-
-  // 状态文字
-  const status = document.getElementById('demoStatus');
-  status.textContent = '待开始';
-  status.classList.add('idle');
-
-  // 按钮
+  renderReactantsBar([]);
+  renderBeakersRow(null);
+  renderCards(null);
+  setStatus('待开始', true);
+  showErr('');
   document.getElementById('btnStop').disabled = true;
+  document.getElementById('btnPlay').disabled = false;
 }
 
-/* 设置当前阶段（0/1/2），-1 表示 finished */
-function setStage(index) {
-  state.stageIndex = index;
+/* 设置当前阶段 i（-1 表示未开始）：高亮烧杯 + 展开卡片 */
+function setStage(i) {
+  state.currentStage = i;
   const cells = document.querySelectorAll('.beaker-cell');
   const cards = document.querySelectorAll('.card');
-
-  cells.forEach((c, i) => {
-    c.classList.remove('active', 'stage-2', 'stage-3', 'dim');
-    if (i === index) {
-      c.classList.add('active');
-      if (i === 1) c.classList.add('stage-2');
-      if (i === 2) c.classList.add('stage-3');
-    } else {
-      c.classList.add('dim');
-    }
+  cells.forEach((c, idx) => {
+    c.classList.remove('active');
+    // 烧杯：初始(idx0) + 阶段1..N(idx1..N)。当前阶段 i 对应烧杯 idx = i+1
+    if (idx === i + 1) c.classList.add('active');
   });
-
-  cards.forEach((c, i) => {
-    c.classList.remove('active', 'done', 'pending');
-    const tag = c.querySelector('.tag');
-    const check = c.querySelector('.check');
-    if (tag) tag.style.display = 'none';
-    if (check) check.style.display = 'none';
-
-    if (i < index) {
-      c.classList.add('done');
-      if (check) check.style.display = 'inline';
-    } else if (i === index) {
-      c.classList.add('active');
-      if (tag) tag.style.display = 'inline-block';
-    } else {
-      c.classList.add('pending');
-    }
+  cards.forEach((c, idx) => {
+    c.classList.remove('active','done','pending');
+    const run = c.querySelector('.tag-running');
+    if (run) run.style.display = 'none';
+    if (idx < i) c.classList.add('done');
+    else if (idx === i) { c.classList.add('active'); if (run) run.style.display = 'inline-block'; }
+    else c.classList.add('pending');
   });
 }
 
-/* 标记全部完成 */
+/* 调用引擎 trace，拿到真实阶段 */
+async function fetchTrace() {
+  const api = document.getElementById('inputApi').value.trim().replace(/\/$/, '');
+  const species = parseSpeciesInput(document.getElementById('inputSpecies').value);
+  if (!species.length) throw new Error('请输入反应物，格式如 CuSO4:1, NaOH:2');
+  const res = await fetch(api + '/api/chemistry/trace', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ species, conditions: { aqueous: true } })
+  });
+  if (!res.ok) throw new Error('接口返回 ' + res.status);
+  const data = await res.json();
+  if (!data || !data.events || !data.events.length) throw new Error('模拟器未产生反应阶段');
+  return data;
+}
+
+/* 播放 */
+async function play() {
+  if (state.running) return;
+  showErr('');
+  document.getElementById('btnPlay').disabled = true;
+  setStatus('分析中…', false);
+  try {
+    const data = await fetchTrace();
+    state.data = data;
+    state.running = true;
+    document.getElementById('scene').classList.remove('paused');
+    document.getElementById('btnStop').disabled = false;
+    setStatus('反应进行中', false);
+    renderReactantsBar(data.initialSpecies);
+    renderBeakersRow(data);
+    renderCards(data);
+    // 逐步推进
+    const run = (i) => {
+      if (i >= data.events.length) { finishAll(); return; }
+      setStage(i);
+      state.timers.push(setTimeout(() => run(i + 1), STEP_DURATION));
+    };
+    run(0);
+  } catch (err) {
+    setStatus('待开始', true);
+    document.getElementById('btnPlay').disabled = false;
+    showErr('模拟失败：' + (err.message || err));
+  }
+}
+
 function finishAll() {
   state.running = false;
-  const cards = document.querySelectorAll('.card');
-  cards.forEach(c => {
-    c.classList.remove('active', 'pending');
-    c.classList.add('done');
-    const tag = c.querySelector('.tag');
-    const check = c.querySelector('.check');
-    if (tag) tag.style.display = 'none';
-    if (check) check.style.display = 'inline';
+  state.currentStage = state.data.events.length - 1;
+  // 全部卡片 done；最后一个烧杯高亮
+  document.querySelectorAll('.card').forEach(c => {
+    c.classList.remove('active','pending'); c.classList.add('done');
+    const run = c.querySelector('.tag-running'); if (run) run.style.display = 'none';
+    const idx = c.querySelector('.idx'); if (idx) { /* keep */ }
   });
-  const status = document.getElementById('demoStatus');
-  status.textContent = '已完成';
-  status.classList.remove('idle');
+  const cells = document.querySelectorAll('.beaker-cell');
+  cells.forEach((c, idx) => { c.classList.remove('active'); if (idx === cells.length - 1) c.classList.add('active'); });
+  setStatus('已完成', false);
   document.getElementById('btnStop').disabled = true;
-  // 完成后仍高亮第三阶段烧杯
-  document.querySelectorAll('.beaker-cell').forEach((c, i) => {
-    c.classList.remove('active', 'stage-2', 'stage-3', 'dim');
-    if (i === 2) { c.classList.add('active', 'stage-3'); }
-    else { c.classList.add('dim'); }
-  });
-}
-
-/* 播放：依次进入三个阶段 */
-function play() {
-  clearTimers();
-  state.running = true;
-  document.getElementById('scene').classList.remove('paused');
-  document.getElementById('btnStop').disabled = false;
-  const status = document.getElementById('demoStatus');
-  status.textContent = '反应进行中';
-  status.classList.remove('idle');
-
-  const runStage = (i) => {
-    if (i >= REACTION.stages.length) { finishAll(); return; }
-    setStage(i);
-    const t = setTimeout(() => runStage(i + 1), REACTION.stages[i].duration);
-    state.timers.push(t);
-  };
-  runStage(0);
+  document.getElementById('btnPlay').disabled = false;
 }
 
 /* ============================================================
    5. 事件绑定
    ============================================================ */
+function showReasonModal(text) {
+  document.getElementById('reasonText').textContent = text || '暂无';
+  document.getElementById('reasonModal').classList.add('show');
+}
+function hideReasonModal() {
+  document.getElementById('reasonModal').classList.remove('show');
+}
 function bindEvents() {
-  document.getElementById('btnPlay').addEventListener('click', () => {
-    if (state.running) return;     // 已运行中不重复触发
-    // 若已完成一轮，先归零再播
-    if (!state.running && state.stageIndex >= REACTION.stages.length) clearScene();
-    if (state.stageIndex === -1 || !state.running) {
-      clearScene();
-      document.getElementById('scene').classList.remove('paused');
-      play();
-    }
+  document.getElementById('btnPlay').addEventListener('click', () => { if (!state.running) play(); });
+  document.getElementById('btnStop').addEventListener('click', () => { if (state.running || state.data) clearScene(); });
+  // 推理依据浮窗：卡片动态渲染，用事件委托
+  document.getElementById('cardsList').addEventListener('click', e => {
+    const btn = e.target.closest('.info-btn');
+    if (btn) { showReasonModal(btn.dataset.reason); e.stopPropagation(); }
   });
-  document.getElementById('btnStop').addEventListener('click', () => {
-    clearScene();
-  });
+  document.getElementById('reasonClose').addEventListener('click', hideReasonModal);
+  document.getElementById('reasonModal').addEventListener('click', e => { if (e.target.id === 'reasonModal') hideReasonModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hideReasonModal(); });
 }
 
-/* 初始化 */
-function init() {
-  renderBeakersRow();
-  renderCards();
-  bindEvents();
-  clearScene();   // 初始归零态
-}
-
-// 导出出口函数，便于后续扩展更多反应体系
+function init() { bindEvents(); clearScene(); }
 window.clearScene = clearScene;
 window.setStage = setStage;
-
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
